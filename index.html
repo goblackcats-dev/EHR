@@ -2,7 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="NursingSim" />
+  <meta name="theme-color" content="#1c4f82" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <title>NursingSim EHR - Prototype v14</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -20,6 +28,7 @@
       <div class="patient-banner">
         <div class="patient-name" id="patientName">No patient loaded</div>
         <div class="patient-demographics" id="patientDemographics">Import simulated patient JSON to begin</div>
+        <div class="patient-alerts" id="patientAlerts"></div>
       </div>
 
       <div class="simulation-clock">
@@ -362,6 +371,7 @@
               </div>
             </div>
 
+            <div class="mar-scroll"><div class="mar-scroll-inner">
             <div class="mar-timeline-header-wrap">
               <div class="mar-time-label-col">Medication</div>
               <div id="marTimelineHeader" class="mar-timeline-header"></div>
@@ -375,6 +385,7 @@
             <div id="marCompletedRows" class="mar-completed-rows">
               <div class="empty-state" style="padding: 16px;">No completed medications loaded.</div>
             </div>
+            </div></div>
 
             <div class="mar-legend">
               <span class="mar-legend-item"><span class="mar-legend-box mar-before"></span> Before ordered</span>
@@ -412,7 +423,7 @@
               <aside class="orders-sidebar">
                 <div class="orders-sidebar-header">
                   <h2>Order Categories</h2>
-                  <span id="ordersCount">0 orders</span>
+                  <span id="ordersPageCount">0 orders</span>
                 </div>
                 <div id="orderCategoryFilters" class="orders-category-list"></div>
               </aside>

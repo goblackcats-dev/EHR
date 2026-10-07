@@ -1728,3 +1728,135 @@ pre { background: #0f172a; color: #e2e8f0; padding: 14px; border-radius: 10px; o
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==========================================================================
+   v15 - iPad / touch fixes and Epic-style chrome
+   (appended last so these rules take priority over the earlier ones)
+   ========================================================================== */
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+button, .nav-item, .nav-subitem, .record-card, .result-cell, .flowsheet-cell, .order-row, .mar-row {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(28, 79, 130, 0.15);
+}
+
+/* ---- Top bar: dark Epic-style application bar + white patient banner ---- */
+:root {
+  --shadow: 0 2px 8px rgba(20, 38, 63, 0.10);
+  --appbar: #14365c;
+}
+.topbar {
+  height: auto;
+  min-height: 76px;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  gap: 14px;
+  padding: 8px 18px;
+  padding-top: max(8px, env(safe-area-inset-top));
+  padding-left: max(18px, env(safe-area-inset-left));
+  padding-right: max(18px, env(safe-area-inset-right));
+  background: linear-gradient(180deg, #1c4f82 0%, var(--appbar) 100%);
+  border-bottom: 1px solid #0b2440;
+  color: #fff;
+}
+.topbar .app-name { color: #fff; }
+.topbar .app-subtitle { color: #b9cde4; }
+.topbar .logo { background: #fff; color: var(--appbar); }
+.top-actions { grid-column: auto; justify-content: flex-end; }
+.top-actions .primary-button { background: #fff; color: var(--appbar); border-color: #fff; min-height: 44px; white-space: nowrap; }
+
+.patient-banner { border-radius: 6px; padding: 7px 12px; color: var(--text); }
+.patient-banner .patient-name { color: var(--text); }
+.patient-demographics { margin-top: 2px; }
+.patient-alerts { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.patient-alerts:empty { display: none; }
+.alert-chip { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 700; line-height: 1.5; border: 1px solid transparent; }
+.alert-red    { background: #fde8e8; color: #9b1c1c; border-color: #f5b5b5; }
+.alert-green  { background: #e3f4e6; color: #166534; border-color: #a8d8b0; }
+.alert-yellow { background: #fff3c4; color: #7a5900; border-color: #e6cf73; }
+.alert-orange { background: #ffe6d1; color: #9a3412; border-color: #f2b88c; }
+.alert-gray   { background: #eef1f5; color: #4b5b6e; border-color: #d3dae3; }
+
+.simulation-clock { border-radius: 6px; min-width: 190px; color: var(--text); }
+.status-pill { white-space: normal; max-width: 100%; }
+.simulation-clock-controls { flex-wrap: wrap; }
+.clock-button { min-height: 34px; min-width: 38px; padding: 4px 10px; font-size: 12px; }
+
+/* ---- Layout: let the content column shrink instead of overflowing the screen ---- */
+.workspace { grid-template-columns: 220px minmax(0, 1fr); }
+.content { min-width: 0; padding: 18px; padding-right: max(18px, env(safe-area-inset-right)); padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+.sidebar { padding-left: max(12px, env(safe-area-inset-left)); }
+.section-header { flex-wrap: wrap; }
+.section-header > div { min-width: 0; flex: 1 1 280px; }
+.card, .chart-review-card, .results-review-card, .mar-card { border-radius: 6px; }
+
+/* ---- MAR: scroll sideways inside the card, keep the medication column pinned ---- */
+.mar-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.mar-scroll-inner { min-width: 1040px; }
+.mar-timeline-header-wrap, .mar-row { grid-template-columns: 260px 1fr; }
+.mar-time-label-col, .mar-row-left { position: sticky; left: 0; z-index: 2; background: #f8fbff; }
+.mar-row-left { background: #fbfdff; }
+.mar-toolbar-top { flex-wrap: wrap; }
+.mar-subtoolbar { flex-wrap: wrap; }
+.mar-event-pill { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- Navigation: left rail on iPad, tab strip only on phones ---- */
+@media (max-width: 1180px) {
+  .topbar { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+  .topbar .app-subtitle { display: none; }
+  .top-actions { grid-column: auto; }
+  .workspace { grid-template-columns: 190px minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .topbar { grid-template-columns: auto minmax(0, 1fr) auto; row-gap: 8px; }
+  .brand-block { grid-column: 1; grid-row: 1; }
+  .simulation-clock { grid-column: 2; grid-row: 1; max-width: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; min-width: 0; }
+  .simulation-clock-time { margin-top: 0; }
+  .top-actions { grid-column: 3; grid-row: 1; }
+  .patient-banner { grid-column: 1 / -1; grid-row: 2; }
+  .workspace { grid-template-columns: 170px minmax(0, 1fr); }
+  .sidebar { border-right: 1px solid var(--border); border-bottom: 0; }
+  .nav-item { font-size: 14px; }
+  .content { padding: 12px; }
+  .summary-grid, .snapshot-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .topbar { grid-template-columns: 1fr auto; }
+  .brand-block { grid-column: 1; grid-row: 1; }
+  .top-actions { grid-column: 2; grid-row: 1; }
+  .patient-banner { grid-row: 2; }
+  .simulation-clock { grid-column: 1 / -1; grid-row: 3; }
+  .workspace { grid-template-columns: 1fr; }
+  .sidebar { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding: 8px 12px; border-right: 0; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; }
+  .sidebar-section-title { display: none; }
+  .sidebar .nav-item { width: auto; flex: 0 0 auto; white-space: nowrap; }
+  .chart-review-dropdown { display: flex; flex: 0 0 auto; }
+  .chart-review-dropdown.hidden { display: none !important; }
+}
+
+/* ---- Touch: Apple's minimum comfortable tap size is 44 x 44 px ---- */
+@media (pointer: coarse), (max-width: 1180px) {
+  .nav-item { min-height: 44px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-subitem { min-height: 44px; }
+  .primary-button, .secondary-button, .file-button, .small-tool-button, .chart-tab, .lab-filter-btn,
+  .order-category-button, .flowsheet-section-button, .brain-task-actions button, .mar-action-buttons button {
+    min-height: 44px;
+  }
+  .clock-button { min-height: 44px; min-width: 48px; font-size: 13px; }
+  .flowsheet-cell, .result-cell { min-height: 44px; }
+  .mar-cell { min-height: 110px; }
+  .record-card, .order-row td, .lab-result-row td { min-height: 44px; }
+  input, select, textarea { font-size: 16px; } /* stops iPad Safari zooming in when a field is tapped */
+  input:not([type=checkbox]):not([type=radio]), select { min-height: 44px; }
+}
+
+/* ---- Hover-only highlights need a touch equivalent ---- */
+.flowsheet-cell:active, .result-cell:active, .record-card:active, .order-row:active td,
+.nav-item:active, .mar-row:active .mar-row-left { background: #dbeafe; }
+
+/* ---- Dialogs behave like iPad sheets ---- */
+dialog { max-width: calc(100vw - 24px); max-height: calc(100vh - 24px); overflow: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 700px) { dialog { width: calc(100vw - 16px); } }
+
+/* ---- Home-screen app (standalone) mode ---- */
+@media (display-mode: standalone) { body { overscroll-behavior-y: none; } }

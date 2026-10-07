@@ -670,6 +670,18 @@ function normalizeMedicationKey(name) {
     .trim();
 }
 
+function medicationLeadWord(name) {
+  // First real drug word, ignoring doses/units (e.g. "azithromycin 500 mg" -> "azithromycin").
+  return normalizeMedicationKey(name).split(' ')
+    .find(token => token && !/^(\d+|mg|g|mcg|ml|l|hr|meq|units?)$/.test(token)) || '';
+}
+
+function sameMedication(nameA, nameB) {
+  const a = medicationLeadWord(nameA);
+  const b = medicationLeadWord(nameB);
+  return a.length > 2 && a === b;
+}
+
 function isCanonicalCase(data) {
   return !!(
     data &&
@@ -877,14 +889,25 @@ function legacyToCanonical(data) {
 
   (data.medications || []).forEach((med, idx) => {
     const medKey = normalizeMedicationKey(med.name);
-    const firstToken = medKey.split(' ')[0] || medKey;
 
-    const exists = canonical.orders.some(order =>
+    const existing = canonical.orders.find(order =>
       safe(order.category).toLowerCase() === 'medication' &&
-      normalizeMedicationKey(order.name).includes(firstToken)
+      sameMedication(order.name, med.name)
     );
 
-    if (!exists) {
+    if (existing && !existing.medication) {
+      // The order exists but carries no dose/route: fill it in from the medication list.
+      existing.medication = {
+        medKey,
+        drugClass: '',
+        dose: safe(med.dose, ''),
+        route: safe(med.route, ''),
+        importantInfo: '',
+        monitoringRules: []
+      };
+    }
+
+    if (!existing) {
       canonical.orders.push({
         id: makeStableId('order', 'medication', med.name, idx),
         name: safe(med.name),
@@ -911,11 +934,10 @@ function legacyToCanonical(data) {
 
   (data.mar?.medications || []).forEach((med, medIdx) => {
     const medKey = normalizeMedicationKey(med.name);
-    const firstToken = medKey.split(' ')[0] || medKey;
 
     let order = canonical.orders.find(candidate =>
       safe(candidate.category).toLowerCase() === 'medication' &&
-      normalizeMedicationKey(candidate.name).includes(firstToken)
+      sameMedication(candidate.name, med.name)
     );
 
     if (!order) {
@@ -1704,7 +1726,7 @@ function initializeSimulationState(canonical) {
 
 function renderSimulationClock() {
   if (!elements.simulationClockDisplay) return;
-  elements.simulationClockDisplay.textContent = simulationTime || 'No simulation time';
+  elements.simulationClockDisplay.textContent = simulationTime ? epicDate(simulationTime) : 'No simulation time';
 }
 
 function refreshSimulationView(preserveSection = true) {
@@ -1723,6 +1745,25 @@ function refreshSimulationView(preserveSection = true) {
   if (preserveSection) {
     showCurrentSectionOnly();
   }
+
+  persistCase();
+}
+
+const SAVED_CASE_KEY = 'nursingsim.case.v1';
+
+function persistCase() {
+  // Autosave so a refresh (or iPad Safari reloading the tab) does not lose the patient.
+  try {
+    localStorage.setItem(SAVED_CASE_KEY, JSON.stringify({ canonical: currentCanonicalCase, simulationTime }));
+  } catch (error) { /* storage full or blocked (private browsing): carry on without saving */ }
+}
+
+function loadSavedCase() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(SAVED_CASE_KEY) || 'null');
+    if (saved && saved.canonical && saved.canonical.patient) return saved;
+  } catch (error) { /* ignore a corrupt save */ }
+  return null;
 }
 
 function advanceSimulation(minutes) {
@@ -1983,7 +2024,7 @@ function renderBrainTask(task) {
 
   wrapper.innerHTML = `
     <div class="brain-task-title">${escapeHtml(task.title)}</div>
-    <div class="brain-task-meta">${task.dueAt ? `Due: ${escapeHtml(task.dueAt)}` : 'No specific due time'}</div>
+    <div class="brain-task-meta">${task.dueAt ? `Due: ${escapeHtml(epicDate(task.dueAt))}` : 'No specific due time'}</div>
     <div class="brain-task-detail">${escapeHtml(safe(task.detail, ''))}</div>
     <div class="brain-task-actions">
       ${task.target ? `<button class="brain-task-button" data-action="open">Open</button>` : ''}
@@ -2112,8 +2153,9 @@ function renderViewData(data) {
 
   elements.patientName.textContent = safe(patient.name, 'Unnamed simulated patient');
   elements.patientDemographics.textContent = formatDemographics(patient, encounter);
+  renderPatientAlerts(patient, encounter);
   elements.patientStatus.textContent = encounter.diagnosis ? `Active encounter: ${encounter.diagnosis}` : 'Active encounter';
-  elements.lastUpdated.textContent = `Simulation ${simulationTime || safe(encounter.lastUpdated, '—')}`;
+  elements.lastUpdated.textContent = `Simulation ${epicDate(simulationTime || encounter.lastUpdated)}`;
   elements.chiefComplaint.textContent = safe(encounter.chiefComplaint);
   elements.codeStatus.textContent = safe(encounter.codeStatus);
   elements.isolation.textContent = safe(encounter.isolation);
@@ -2167,7 +2209,7 @@ const elements = {
   marDetailBody: document.getElementById('marDetailBody'),
   ordersStatus: document.getElementById('ordersStatus'),
   ordersTableTitle: document.getElementById('ordersTableTitle'),
-  ordersCount: document.getElementById('ordersCount'),
+  ordersPageCount: document.getElementById('ordersPageCount'),
   orderCategoryFilters: document.getElementById('orderCategoryFilters'),
   ordersListHeading: document.getElementById('ordersListHeading'),
   ordersListCount: document.getElementById('ordersListCount'),
@@ -2256,7 +2298,33 @@ const markerCoordinates = { leftForearm: { x: 254, y: 206, labelX: 212, labelY: 
 
 function safe(value, fallback = '—') { if (value === null || value === undefined || value === '') return fallback; return String(value); }
 function escapeHtml(str) { return String(str).replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
-function formatDemographics(patient, encounter) { return [`MRN ${safe(patient.mrn, '—')}`, `${safe(patient.age, '—')} y/o`, safe(patient.sex, '—'), `DOB ${safe(patient.dob, '—')}`, encounter.location ? `${encounter.location} ${safe(encounter.room, '')}`.trim() : ''].filter(Boolean).join('  |  '); }
+function epicDate(value) {
+  // "2026-06-17 08:30" -> "06/17/26 0830"; "1972-04-18" -> "04/18/1972"
+  const text = safe(value, '');
+  let m = text.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+  if (m) return `${m[2]}/${m[3]}/${m[1].slice(2)} ${m[4]}${m[5]}`;
+  m = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) return `${m[2]}/${m[3]}/${m[1]}`;
+  return text || '—';
+}
+
+function renderPatientAlerts(patient, encounter) {
+  const box = document.getElementById('patientAlerts');
+  if (!box) return;
+  const chips = [];
+  const allergies = (patient.allergies || []).filter(a => a && a.substance && !/^(nkda|nka|none)/i.test(a.substance));
+  if (allergies.length) chips.push(['alert-red', `Allergies: ${allergies.map(a => a.substance).join(', ')}`]);
+  else chips.push(['alert-gray', 'No known allergies']);
+  const code = safe(encounter.codeStatus, '');
+  if (code) chips.push([/full/i.test(code) ? 'alert-green' : 'alert-red', code]);
+  const iso = safe(encounter.isolation, '');
+  if (iso && !/^none$/i.test(iso)) chips.push(['alert-yellow', iso]);
+  const fall = safe(encounter.fallRisk, '');
+  if (/high/i.test(fall)) chips.push(['alert-orange', 'Fall risk: High']);
+  box.innerHTML = chips.map(([cls, text]) => `<span class="alert-chip ${cls}">${escapeHtml(text)}</span>`).join('');
+}
+
+function formatDemographics(patient, encounter) { return [`MRN ${safe(patient.mrn, '—')}`, `${safe(patient.age, '—')} y.o.`, safe(patient.sex, '—'), `DOB ${epicDate(patient.dob)}`, encounter.location ? `${encounter.location} ${safe(encounter.room, '')}`.trim() : ''].filter(Boolean).join('  |  '); }
 function clearChildren(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 function flagClass(flag) { const f = safe(flag, '').toLowerCase(); return f.includes('critical') ? 'flag-critical' : (f.includes('high') || f.includes('low')) ? 'flag-high' : ''; }
 
@@ -2279,10 +2347,18 @@ function drawIOChart(records) { const width = 720, height = 260, margin = { top:
 
 function getTooltipHtml(device) { return `<div class="tooltip-title">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</div><div class="tooltip-row"><strong>Category:</strong> ${escapeHtml(safe(device.category))}</div><div class="tooltip-row"><strong>Status:</strong> ${escapeHtml(safe(device.status))}</div><div class="tooltip-row"><strong>Placed:</strong> ${escapeHtml(safe(device.placementDate))}</div><div class="tooltip-row"><strong>Last assessment:</strong> ${escapeHtml(safe(device.lastAssessment))}</div>${device.gauge ? `<div class="tooltip-row"><strong>Gauge:</strong> ${escapeHtml(safe(device.gauge))}</div>` : ''}${device.infusing ? `<div class="tooltip-row"><strong>Infusing:</strong> ${escapeHtml(safe(device.infusing))}</div>` : ''}${device.drainage ? `<div class="tooltip-row"><strong>Drainage / output:</strong> ${escapeHtml(safe(device.drainage))}</div>` : ''}`; }
 function positionTooltip(event, tooltip) { const wrapper = tooltip.parentElement.getBoundingClientRect(); let left = event.clientX - wrapper.left + 12, top = event.clientY - wrapper.top + 12; const maxLeft = wrapper.width - 290, maxTop = wrapper.height - 170; if (left > maxLeft) left = Math.max(8, maxLeft); if (top > maxTop) top = Math.max(8, maxTop); tooltip.style.left = `${left}px`; tooltip.style.top = `${top}px`; }
-function attachTooltipEvents(group, device) { group.addEventListener('mouseenter', event => { elements.combinedTooltip.innerHTML = getTooltipHtml(device); elements.combinedTooltip.classList.remove('hidden'); positionTooltip(event, elements.combinedTooltip); }); group.addEventListener('mousemove', event => positionTooltip(event, elements.combinedTooltip)); group.addEventListener('mouseleave', () => elements.combinedTooltip.classList.add('hidden')); }
+function attachTooltipEvents(group, device) {
+  const show = event => { elements.combinedTooltip.innerHTML = getTooltipHtml(device); elements.combinedTooltip.classList.remove('hidden'); positionTooltip(event, elements.combinedTooltip); };
+  // Mouse: hover. Touch (iPad): tap to show, tap anywhere else to dismiss.
+  group.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') show(event); });
+  group.addEventListener('pointermove', event => { if (event.pointerType === 'mouse') positionTooltip(event, elements.combinedTooltip); });
+  group.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') elements.combinedTooltip.classList.add('hidden'); });
+  group.addEventListener('click', event => { event.stopPropagation(); show(event); });
+}
+document.addEventListener('click', () => { if (elements.combinedTooltip) elements.combinedTooltip.classList.add('hidden'); });
 function getTypeClass(category) { if (category === 'IV') return 'hotspot-iv'; if (category === 'Drain') return 'hotspot-drain'; return 'hotspot-tube'; }
 function getBadgeClass(category) { if (category === 'IV') return 'type-iv'; if (category === 'Drain') return 'type-drain'; return 'type-tube'; }
-function createMarker(device) { const marker = markerCoordinates[device.siteMarker]; if (!marker) return null; const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); const shortLabel = safe(device.type, 'Item').slice(0, 16), labelWidth = Math.max(60, shortLabel.length * 6.6); g.innerHTML = `<line x1="${marker.x}" y1="${marker.y}" x2="${marker.labelX}" y2="${marker.labelY}" class="hotspot-label-line"></line><rect x="${marker.labelX - 4}" y="${marker.labelY - 14}" width="${labelWidth}" height="20" rx="4" class="hotspot-label-bg"></rect><text x="${marker.labelX + 2}" y="${marker.labelY}" class="hotspot-label-text">${escapeHtml(shortLabel)}</text><circle cx="${marker.x}" cy="${marker.y}" r="8" class="hotspot-circle ${getTypeClass(device.category)}"></circle>`; attachTooltipEvents(g, device); return g; }
+function createMarker(device) { const marker = markerCoordinates[device.siteMarker]; if (!marker) return null; const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); const shortLabel = safe(device.type, 'Item').slice(0, 16), labelWidth = Math.max(60, shortLabel.length * 6.6); g.innerHTML = `<line x1="${marker.x}" y1="${marker.y}" x2="${marker.labelX}" y2="${marker.labelY}" class="hotspot-label-line"></line><rect x="${marker.labelX - 4}" y="${marker.labelY - 14}" width="${labelWidth}" height="20" rx="4" class="hotspot-label-bg"></rect><text x="${marker.labelX + 2}" y="${marker.labelY}" class="hotspot-label-text">${escapeHtml(shortLabel)}</text><circle cx="${marker.x}" cy="${marker.y}" r="22" fill="transparent"></circle><circle cx="${marker.x}" cy="${marker.y}" r="8" class="hotspot-circle ${getTypeClass(device.category)}"></circle>`; attachTooltipEvents(g, device); return g; }
 function normalizeDevices(data) { return [...(data.ivs || []).map(item => ({ ...item, category: 'IV' })), ...(data.drains || []).map(item => ({ ...item, category: 'Drain' })), ...(data.tubes || []).map(item => ({ ...item, category: 'Tube' }))]; }
 function renderCombinedDevices(data) { clearChildren(elements.allMarkers); clearChildren(elements.deviceList); const devices = normalizeDevices(data); elements.deviceSummary.textContent = `${devices.length} active devices`; if (!devices.length) { elements.deviceList.className = 'device-list empty'; elements.deviceList.textContent = 'No devices loaded.'; return; } elements.deviceList.className = 'device-list'; devices.forEach(device => { const marker = createMarker(device); if (marker) elements.allMarkers.appendChild(marker); const item = document.createElement('div'); item.className = 'device-item'; item.innerHTML = `<div class="device-name-line"><span class="type-badge ${getBadgeClass(device.category)}">${escapeHtml(device.category)}</span><span class="device-name">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</span></div><div class="device-meta">Status: ${escapeHtml(safe(device.status))}<br>Placed: ${escapeHtml(safe(device.placementDate))}<br>Last assessment: ${escapeHtml(safe(device.lastAssessment))}${device.gauge ? `<br>Gauge: ${escapeHtml(safe(device.gauge))}` : ''}${device.infusing ? `<br>Infusing: ${escapeHtml(safe(device.infusing))}` : ''}${device.drainage ? `<br>Drainage / output: ${escapeHtml(safe(device.drainage))}` : ''}</div>`; elements.deviceList.appendChild(item); }); }
 
@@ -2435,7 +2511,7 @@ function renderLabGridHeader(times) {
 }
 
 function formatLabTimeHeader(time) {
-  const parts = safe(time, '').split(' ');
+  const parts = epicDate(time).split(' ');
   if (parts.length >= 2) {
     return `${escapeHtml(parts[0])}<br>${escapeHtml(parts.slice(1).join(' '))}`;
   }
@@ -3189,7 +3265,7 @@ function renderOrdersPage(data) {
   const pendingCount = allOrders.filter(order => normalizeOrderStatus(order.status).includes('pending')).length;
 
   elements.ordersStatus.textContent = `${allOrders.length} total orders | ${activeCount} active | ${pendingCount} pending`;
-  elements.ordersCount.textContent = `${allOrders.length} orders`;
+  elements.ordersPageCount.textContent = `${allOrders.length} orders`;
   elements.ordersTableTitle.textContent = currentOrderCategory;
   elements.ordersListHeading.textContent = currentOrderCategory;
   elements.ordersListCount.textContent = `${filteredOrders.length} displayed`;
@@ -3230,13 +3306,27 @@ function buildFlowsheetRecords(canonical) {
     if (io.intake !== undefined) records.push({ id: io.id ? `${io.id}_intake` : `io_intake_${idx}`, section: 'Intake / Output', field: 'Intake', value: `${Number(io.intake)||0} mL`, collected: safe(io.time), source: 'I&O record', abnormal: false });
     if (io.output !== undefined) records.push({ id: io.id ? `${io.id}_output` : `io_output_${idx}`, section: 'Intake / Output', field: 'Output', value: `${Number(io.output)||0} mL`, collected: safe(io.time), source: 'I&O record', abnormal: false });
   });
+  // Place every value in an hourly column so the grid reads like an Epic flowsheet
+  // instead of one sparse column per exact timestamp.
+  const simDate = safe(canonical.timeline?.simulationStart || canonical.encounter?.admitDate, '').slice(0, 10);
+  records.forEach(r => { r.col = flowsheetColumnKey(r.collected, simDate); });
   return records;
+}
+
+function flowsheetColumnKey(collected, simDate) {
+  const text = safe(collected, '');
+  let m = text.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}):\d{2}/);
+  if (m) return `${m[1]} ${m[2]}:00`;
+  // I&O period such as "0700-1100": show it in the column where the period ends.
+  m = text.match(/^(\d{2})(\d{2})\s*-\s*(\d{2})(\d{2})$/);
+  if (m && simDate) return `${simDate} ${m[3]}:00`;
+  return text;
 }
 function getFlowsheetSections(records) {
   const present = Array.from(new Set(records.map(r => r.section)));
   return [...flowsheetSectionOrder.filter(s => present.includes(s)), ...present.filter(s => !flowsheetSectionOrder.includes(s))];
 }
-function getFlowsheetTimes(records) { return Array.from(new Set(records.map(r => safe(r.collected)).filter(Boolean))).sort((a,b)=>String(a).localeCompare(String(b))); }
+function getFlowsheetTimes(records) { return Array.from(new Set(records.map(r => safe(r.col || r.collected)).filter(Boolean))).sort((a,b)=>String(a).localeCompare(String(b))); }
 function renderFlowsheetSectionNav(sections, records) {
   clearChildren(elements.flowsheetSectionNav);
   sections.forEach(section => {
@@ -3251,7 +3341,7 @@ function renderFlowsheetHeader(times) {
   clearChildren(elements.flowsheetGridHead);
   const row = document.createElement('tr');
   const label = document.createElement('th'); label.className='flowsheet-label-col'; label.textContent='Assessment'; row.appendChild(label);
-  times.forEach(time => { const th=document.createElement('th'); th.className='flowsheet-time-col'; const parts=safe(time).split(' '); th.innerHTML=parts.length>1 ? `${escapeHtml(parts[0])}<br><span class="flowsheet-muted">${escapeHtml(parts.slice(1).join(' '))}</span>` : escapeHtml(time); row.appendChild(th); });
+  times.forEach(time => { const th=document.createElement('th'); th.className='flowsheet-time-col'; const stamp=epicDate(time).split(' '); th.innerHTML=stamp.length>1 ? `${escapeHtml(stamp[0])}<br><span class="flowsheet-muted">${escapeHtml(stamp[1])}</span>` : escapeHtml(time); row.appendChild(th); });
   elements.flowsheetGridHead.appendChild(row);
 }
 function renderFlowsheetCellDetail(record) {
@@ -3270,14 +3360,14 @@ function renderFlowsheetGrid(records, sections, times) {
     if (flowsheetCollapsedSections.has(section)) return;
     Array.from(new Set(sectionRecords.map(r=>r.field))).forEach(field => {
       const fr=sectionRecords.filter(r=>r.field===field); const row=document.createElement('tr'); const fc=document.createElement('td'); fc.className='flowsheet-label-col flowsheet-field-name'; fc.textContent=field; row.appendChild(fc);
-      times.forEach(time=>{ const record=fr.filter(r=>safe(r.collected)===time).slice(-1)[0]; const td=document.createElement('td'); td.className='flowsheet-cell'; if(!record){td.classList.add('empty-cell-value'); td.title='Click to chart this assessment'; td.addEventListener('click',()=>openFlowsheetChartDialog(section, field, time));} else { if(record.abnormal) td.classList.add('flowsheet-abnormal'); if(currentFlowsheetSelection===record.id) td.classList.add('selected'); td.textContent=safe(record.value); td.addEventListener('click',()=>{ currentFlowsheetSelection=record.id; renderFlowsheetsPage(currentPatientData); }); } row.appendChild(td); });
+      times.forEach(time=>{ const inCell=fr.filter(r=>safe(r.col||r.collected)===time); const record=inCell.slice(-1)[0]; const td=document.createElement('td'); td.className='flowsheet-cell'; if(!record){td.classList.add('empty-cell-value'); td.title='Click to chart this assessment'; td.addEventListener('click',()=>openFlowsheetChartDialog(section, field, time));} else { if(record.abnormal) td.classList.add('flowsheet-abnormal'); if(currentFlowsheetSelection===record.id) td.classList.add('selected'); td.textContent=safe(record.value); if(inCell.length>1) td.title=inCell.map(r=>`${epicDate(r.collected)}  ${r.value}`).join('\n'); td.addEventListener('click',()=>{ currentFlowsheetSelection=record.id; renderFlowsheetsPage(currentPatientData); }); } row.appendChild(td); });
       elements.flowsheetGridBody.appendChild(row);
     });
   });
 }
 function renderFlowsheetsPage(data) {
   const canonical=data?.__canonical || currentCanonicalCase || normalizeCaseData(data).canonical; const records=buildFlowsheetRecords(canonical); const sections=getFlowsheetSections(records); let times=getFlowsheetTimes(records); if(flowsheetLatestOnlyMode && times.length) times=[times[times.length-1]];
-  elements.flowsheetStatus.textContent=`${records.length} documented values | ${sections.length} sections`; elements.flowsheetSectionCount.textContent=`${sections.length} sections`; elements.flowsheetDateLabel.textContent=safe(canonical.encounter?.admitDate,'Current encounter'); elements.flowsheetFooterMeta.textContent=times.length?`${times.length} documentation time(s)`:'No documentation times'; elements.flowsheetLatestOnly.classList.toggle('active',flowsheetLatestOnlyMode);
+  elements.flowsheetStatus.textContent=`${records.length} documented values | ${sections.length} sections`; elements.flowsheetSectionCount.textContent=`${sections.length} sections`; elements.flowsheetDateLabel.textContent=canonical.encounter?.admitDate ? epicDate(canonical.encounter.admitDate) : 'Current encounter'; elements.flowsheetFooterMeta.textContent=times.length?`${times.length} documentation time(s)`:'No documentation times'; elements.flowsheetLatestOnly.classList.toggle('active',flowsheetLatestOnlyMode);
   renderFlowsheetSectionNav(sections,records); renderFlowsheetHeader(times); renderFlowsheetGrid(records,sections,times);
   const selected=records.find(r=>r.id===currentFlowsheetSelection)||records[0]||null; if(selected) currentFlowsheetSelection=selected.id; renderFlowsheetCellDetail(selected);
 }
@@ -3378,4 +3468,14 @@ if (elements.timebarForward) elements.timebarForward.addEventListener('click', (
 
 elements.schemaBlock.textContent = JSON.stringify(canonicalSchemaExample, null, 2);
 renderBaseBody();
-renderPatient(samplePatient);
+const savedCase = loadSavedCase();
+try {
+  if (savedCase) {
+    renderPatient(savedCase.canonical);
+    if (savedCase.simulationTime) { simulationTime = savedCase.simulationTime; refreshSimulationView(); }
+  } else {
+    renderPatient(samplePatient);
+  }
+} catch (error) {
+  renderPatient(samplePatient);
+}

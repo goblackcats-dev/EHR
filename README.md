@@ -1,6 +1,38 @@
-# NursingSim EHR - Prototype v14
+# NursingSim EHR - Prototype v15
 
 This version adds an Epic-style **MAR** page and makes the Chart Review sidebar tabs appear as a dropdown.
+
+## New in v15 - iPad and bug-fix release
+
+**Fixed**
+- MAR no longer runs off the right edge of the screen; the timeline now scrolls sideways inside its card while the medication column stays pinned.
+- The Import Patient button no longer covers the page-header chips.
+- Orders page showed "0 orders" in the category list (a duplicated element id).
+- MAR rows could be merged into the wrong medication (for example the saline infusion taking over the azithromycin row). Medications are now matched on the drug name, not on any text that happens to appear inside it.
+- Medications that had no dose or route (such as ceftriaxone in the sample) are now filled in from the medication list.
+- Flowsheet columns are now hourly instead of one column per exact timestamp, and I&O periods are placed in the column where the period ends.
+- Device tooltips on the avatar now work by tapping (tap a device to open it, tap anywhere else to close it).
+
+**New**
+- Persistent patient banner showing allergies, code status, isolation and fall risk.
+- Epic-style dates and times (`06/17/26 0830`, `DOB 04/18/1972`).
+- Dark application bar with a white patient banner.
+- All buttons and rows are at least 44 px tall for fingers; fields are 16 px so iPad Safari does not zoom in when you tap one.
+- Left navigation rail on iPad in both orientations; tab strip on phones.
+- Autosave: the loaded patient and simulation time are kept in the browser, so refreshing the page no longer loses them.
+- Home-screen app support (icon, manifest, full-screen mode, safe-area padding).
+
+## Putting it on an iPad
+
+An iPad cannot open `index.html` straight from a download, so the app has to be hosted on a web address. GitHub can do this for free (GitHub Pages):
+
+1. On GitHub, open this repository, then **Settings** > **Pages**.
+2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+3. Pick the branch that holds this version of the EHR (for example `claude/ehr-epic-parity-review-2dk6ze`, or `EHR` once it has been merged), leave the folder as **/ (root)**, and press **Save**.
+4. After about a minute GitHub shows your address, which looks like `https://YOUR-NAME.github.io/EHR/`.
+5. Open that address in **Safari** on the iPad, tap the **Share** button, then **Add to Home Screen**. It will now open full screen like an app.
+
+Only fictional patients should ever be loaded. GitHub Pages sites are public.
 
 ## New in v8
 - Redesigned **Lab Results** as an Epic-style **Results Review** screen
