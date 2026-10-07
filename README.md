@@ -1,6 +1,13 @@
-# NursingSim EHR - Prototype v16
+# NursingSim EHR - Prototype v17
 
 This version adds an Epic-style **MAR** page and makes the Chart Review sidebar tabs appear as a dropdown.
+
+## New in v17 - Saved patients
+
+- **EHR:** the **Saved Patients** button (top bar) saves the patient you are looking at, including the simulation time and anything charted, and loads it again later. Use it to prepare a medication pass: advance to the time you want, press Save, and load it for the class.
+- **Case Builder:** **Save to library** stores a built patient; **Library** lets you edit it again in the builder, open it in the EHR, rename, duplicate, export or delete it. The builder and EHR share one list on the same device.
+- **Export / Import** a patient as a `.json` file to share it with a colleague or move it to another device.
+- Patients are stored in the browser's own database (IndexedDB), so they stay until you delete them, but only on that device and browser. Clearing the browser's website data removes them, so export anything important.
 
 ## New in v16 - Case Builder v2 (`case-builder/`)
 

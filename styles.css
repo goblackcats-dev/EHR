@@ -1866,3 +1866,19 @@ dialog { max-width: calc(100vw - 24px); max-height: calc(100vh - 24px); overflow
 .top-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; border: 1px solid rgba(255,255,255,.55); border-radius: 8px; min-height: 44px; padding: 0 14px; display: inline-flex; align-items: center; white-space: nowrap; }
 .top-link:active { background: rgba(255,255,255,.18); }
 @media (max-width: 900px) { .topbar .top-actions { flex-wrap: wrap; justify-content: flex-end; } }
+
+/* Saved patients dialog */
+.top-button { background: transparent; cursor: pointer; font-family: inherit; }
+.library-dialog .dialog-body { padding: 14px 18px 18px; }
+.lib-save { display: flex; gap: 8px; flex-wrap: wrap; }
+.lib-save input { flex: 1 1 260px; min-height: 44px; border: 1px solid var(--border-dark); border-radius: 8px; padding: 8px 10px; font-size: 16px; }
+.lib-message { min-height: 22px; margin: 8px 0; font-size: 13px; color: var(--muted); }
+.lib-message.error { color: var(--danger); font-weight: 700; } .lib-message.success { color: var(--success); font-weight: 700; }
+.lib-list { display: grid; gap: 8px; max-height: 52vh; overflow-y: auto; }
+.lib-row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #fff; }
+.lib-row.current { border-color: #79a8df; background: #f2f8ff; }
+.lib-info { min-width: 0; flex: 1 1 320px; } .lib-name { font-weight: 700; color: #14365c; } .lib-meta { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.lib-badge { font-size: 11px; background: #dbeafe; color: #153e75; border-radius: 999px; padding: 2px 8px; margin-left: 6px; }
+.lib-actions { display: flex; flex-wrap: wrap; gap: 6px; } .lib-actions button { min-height: 44px; }
+.secondary-button.danger { color: var(--danger); border-color: #e3a3a3; }
+.lib-foot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 12px; } .lib-hint { font-size: 12px; color: var(--muted); }

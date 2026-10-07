@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icon-180.png" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <title>NursingSim EHR - Prototype v16</title>
+  <title>NursingSim EHR - Prototype v17</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -44,6 +44,7 @@
 
       <div class="top-actions">
         <a class="top-link" href="case-builder/index.html">Case Builder</a>
+        <button id="openLibraryBtn" class="top-link top-button">Saved Patients</button>
         <button id="openImportBtn" class="primary-button">Import Patient</button>
       </div>
     </header>
@@ -530,6 +531,29 @@
     </main>
   </div>
 
+  <dialog id="libraryDialog" class="import-dialog library-dialog">
+    <div class="dialog-header">
+      <div>
+        <h2>Saved Patients</h2>
+        <p>Save the patient you are looking at (with the simulation time), and load it again later, for example to prepare a medication pass. Fictional patients only.</p>
+      </div>
+      <button id="closeLibraryBtn" class="icon-button" aria-label="Close saved patients">×</button>
+    </div>
+    <div class="dialog-body">
+      <div class="lib-save">
+        <input id="libSaveName" placeholder="Name for this saved patient (for example: Med pass practice, 0800)" autocomplete="off" />
+        <button id="libSaveBtn" class="primary-button">Save</button>
+        <button id="libSaveNewBtn" class="secondary-button">Save as new</button>
+      </div>
+      <div id="libMessage" class="lib-message"></div>
+      <div id="libList" class="lib-list"></div>
+      <div class="lib-foot">
+        <label class="file-button">Import a patient file<input type="file" id="libImportFile" accept="application/json,.json" /></label>
+        <span class="lib-hint">Files exported from the Case Builder or from this list can be imported here and shared with colleagues.</span>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="importDialog" class="import-dialog">
     <div class="dialog-header">
       <div>
@@ -644,6 +668,7 @@
     </div>
   </dialog>
 
+  <script src="library.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

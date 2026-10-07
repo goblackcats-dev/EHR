@@ -23,6 +23,7 @@
     </div>
     <div class="top-actions">
       <a class="top-link" href="../index.html">EHR</a>
+      <button id="openLibraryBtn" class="ghost-button">Library</button>
       <button id="resetBtn" class="ghost-button">Reset</button>
       <button id="buildBtn" class="primary-button">Build Patient</button>
     </div>
@@ -117,6 +118,7 @@
         <div id="countStrip" class="count-strip"></div>
         <div class="result-actions">
           <button id="openEhrBtn" class="primary-button">Open in EHR</button>
+          <button id="saveLibBtn" class="secondary-button">Save to library</button>
           <button id="downloadBtn" class="secondary-button">Download JSON</button>
           <button id="copyBtn" class="secondary-button">Copy JSON</button>
         </div>
@@ -172,6 +174,15 @@
     </section>
   </main>
 
+  <dialog id="libraryDialog" class="lib-dialog">
+    <div class="lib-head"><div><h2>Saved patients</h2><div class="hint">Patients saved here also appear in the EHR's <b>Saved Patients</b> list (same device).</div></div><button id="closeLibraryBtn" class="link-btn" aria-label="Close">Close</button></div>
+    <div class="lib-save"><input id="libSaveName" placeholder="Name (for example: Med pass practice)" autocomplete="off" /><button id="libSaveBtn" class="primary-button">Save current patient</button></div>
+    <div id="libMessage" class="lib-message"></div>
+    <div id="libList" class="lib-list"></div>
+    <div class="lib-foot"><label class="secondary-button file-label">Import a patient file<input type="file" id="libImportFile" accept="application/json,.json" hidden /></label></div>
+  </dialog>
+
+  <script src="../library.js"></script>
   <script src="util.js"></script>
   <script src="labs.js"></script>
   <script src="engine.js"></script>

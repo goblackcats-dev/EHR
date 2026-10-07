@@ -1377,6 +1377,8 @@ function canonicalToViewModel(canonical) {
 }
 
 function normalizeCaseData(data) {
+  // A file saved from the patient library wraps the case; unwrap it.
+  if (data && data.format === 'nursingsim-case' && data.canonical) data = data.canonical;
   const canonical = isCanonicalCase(data)
     ? structuredClone(data)
     : legacyToCanonical(data);
@@ -3476,6 +3478,81 @@ if (elements.timebarForward) elements.timebarForward.addEventListener('click', (
   const idx = Math.min(times.length - 1, times.indexOf(selectedLabTime) + 1);
   selectedLabTime = times[idx] || selectedLabTime;
   renderLabResultsPage(currentPatientData);
+});
+
+
+// ---------------------------------------------------------------------------------------------
+// Saved patients (library.js)
+let currentLibraryId = null, currentLibraryName = '';
+function libEl(id) { return document.getElementById(id); }
+function libMessage(text, kind = '') { const box = libEl('libMessage'); box.textContent = text || ''; box.className = `lib-message ${kind}`; }
+function libWhen(iso) { try { const d = new Date(iso); return `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${String(d.getFullYear()).slice(2)} ${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; } catch (e) { return ''; } }
+
+async function refreshLibrary() {
+  const list = libEl('libList');
+  try {
+    const rows = await NSLib.list();
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">Nothing saved yet. Open a patient, then press Save.</div>'; return; }
+    list.innerHTML = rows.map(r => `
+      <div class="lib-row ${r.id === currentLibraryId ? 'current' : ''}" data-id="${escapeHtml(r.id)}">
+        <div class="lib-info">
+          <div class="lib-name">${escapeHtml(r.name)} ${r.id === currentLibraryId ? '<span class="lib-badge">open now</span>' : ''}</div>
+          <div class="lib-meta">${escapeHtml(safe(r.meta && r.meta.patientName, ''))}${r.meta && r.meta.age ? ', ' + escapeHtml(String(r.meta.age)) + ' y.o.' : ''} | ${escapeHtml(safe(r.meta && r.meta.diagnosis, '—'))}${r.meta && r.meta.hospitalDay ? ' | hospital day ' + escapeHtml(String(r.meta.hospitalDay)) : ''} | sim ${escapeHtml(epicDate(r.simulationTime))} | saved ${libWhen(r.updatedAt)} | ${r.source === 'ehr' ? 'saved from EHR' : 'from Case Builder'}</div>
+        </div>
+        <div class="lib-actions">
+          <button data-act="load" class="primary-button">Load</button>
+          <button data-act="rename" class="secondary-button">Rename</button>
+          <button data-act="copy" class="secondary-button">Duplicate</button>
+          <button data-act="export" class="secondary-button">Export</button>
+          <button data-act="delete" class="secondary-button danger">Delete</button>
+        </div>
+      </div>`).join('');
+  } catch (error) { list.innerHTML = ''; libMessage(error.message, 'error'); }
+}
+
+async function saveToLibrary(asNew) {
+  if (!currentCanonicalCase) { libMessage('There is no patient open to save.', 'error'); return; }
+  try {
+    const name = libEl('libSaveName').value.trim();
+    const row = await NSLib.save({ id: asNew ? null : currentLibraryId, name, canonical: currentCanonicalCase, simulationTime, source: 'ehr' });
+    currentLibraryId = row.id; currentLibraryName = row.name; libEl('libSaveName').value = row.name;
+    libMessage(`Saved "${row.name}" at simulation time ${epicDate(simulationTime)}.`, 'success');
+    await refreshLibrary();
+  } catch (error) { libMessage(error.message, 'error'); }
+}
+
+async function loadFromLibrary(id) {
+  try {
+    const row = await NSLib.get(id);
+    if (!row) { libMessage('That saved patient was not found.', 'error'); return; }
+    renderPatient(row.canonical);
+    if (row.simulationTime) { simulationTime = row.simulationTime; refreshSimulationView(); }
+    currentLibraryId = row.id; currentLibraryName = row.name;
+    libEl('libSaveName').value = row.name;
+    libEl('libraryDialog').close();
+  } catch (error) { libMessage(error.message, 'error'); }
+}
+
+libEl('openLibraryBtn').addEventListener('click', () => { libMessage(''); libEl('libSaveName').value = currentLibraryName || ''; libEl('libraryDialog').showModal(); refreshLibrary(); });
+libEl('closeLibraryBtn').addEventListener('click', () => libEl('libraryDialog').close());
+libEl('libSaveBtn').addEventListener('click', () => saveToLibrary(false));
+libEl('libSaveNewBtn').addEventListener('click', () => saveToLibrary(true));
+libEl('libImportFile').addEventListener('change', async event => {
+  const file = event.target.files[0]; if (!file) return;
+  try { const row = await NSLib.importFile(file); libMessage(`Imported "${row.name}".`, 'success'); await refreshLibrary(); }
+  catch (error) { libMessage(error.message, 'error'); }
+  event.target.value = '';
+});
+libEl('libList').addEventListener('click', async event => {
+  const button = event.target.closest('button[data-act]'); if (!button) return;
+  const id = button.closest('.lib-row').dataset.id, act = button.dataset.act;
+  try {
+    if (act === 'load') await loadFromLibrary(id);
+    else if (act === 'rename') { const row = await NSLib.get(id); const name = window.prompt('New name for this saved patient:', row.name); if (name) { await NSLib.rename(id, name); if (id === currentLibraryId) currentLibraryName = name; await refreshLibrary(); } }
+    else if (act === 'copy') { await NSLib.duplicate(id); await refreshLibrary(); }
+    else if (act === 'export') { NSLib.download(await NSLib.get(id)); }
+    else if (act === 'delete') { if (window.confirm('Delete this saved patient? This cannot be undone.')) { await NSLib.remove(id); if (id === currentLibraryId) currentLibraryId = null; await refreshLibrary(); } }
+  } catch (error) { libMessage(error.message, 'error'); }
 });
 
 elements.schemaBlock.textContent = JSON.stringify(canonicalSchemaExample, null, 2);

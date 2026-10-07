@@ -285,6 +285,52 @@
     $('aiStatus').innerHTML = '<span class="ok">Original text restored.</span>';
   }
 
+
+  // ------------------------------------------------------------------ saved patient library (../library.js)
+  let libraryId = null, libraryName = '';
+  const lmsg = (t, k = '') => { $('libMessage').textContent = t || ''; $('libMessage').className = 'lib-message ' + k; };
+  const lwhen = iso => { try { const d = new Date(iso); return `${U.pad(d.getMonth() + 1)}/${U.pad(d.getDate())}/${String(d.getFullYear()).slice(2)} ${U.pad(d.getHours())}${U.pad(d.getMinutes())}`; } catch (e) { return ''; } };
+
+  async function refreshLibrary() {
+    try {
+      const rows = await NSLib.list();
+      $('libList').innerHTML = rows.length ? rows.map(r => `<div class="lib-row ${r.id === libraryId ? 'current' : ''}" data-id="${esc(r.id)}">
+        <div class="lib-info"><div class="lib-name">${esc(r.name)}${r.id === libraryId ? ' <span class="lib-badge">open now</span>' : ''}</div>
+        <div class="lib-meta">${esc((r.meta && r.meta.patientName) || '')}${r.meta && r.meta.age ? ', ' + r.meta.age + ' y.o.' : ''} · ${esc((r.meta && r.meta.diagnosis) || '')}${r.meta && r.meta.hospitalDay ? ' · hospital day ' + r.meta.hospitalDay : ''} · saved ${lwhen(r.updatedAt)} · ${r.source === 'ehr' ? 'saved from the EHR' : 'from the builder'}</div></div>
+        <div class="lib-actions">${r.source === 'builder' ? '<button data-act="load" class="primary-button">Edit in builder</button>' : ''}<button data-act="ehr" class="secondary-button">Open in EHR</button><button data-act="rename" class="secondary-button">Rename</button><button data-act="copy" class="secondary-button">Duplicate</button><button data-act="export" class="secondary-button">Export</button><button data-act="delete" class="secondary-button danger">Delete</button></div></div>`).join('')
+        : '<div class="hint">Nothing saved yet. Build a patient, then press Save to library.</div>';
+    } catch (e) { $('libList').innerHTML = ''; lmsg(e.message, 'error'); }
+  }
+
+  async function saveCurrent() {
+    if (!result) { lmsg('Build a patient first.', 'error'); return; }
+    try {
+      const name = $('libSaveName').value.trim() || `${result.canonical.patient.name}: ${result.canonical.encounter.diagnosis}, hospital day ${result.ctx.L}`;
+      const row = await NSLib.save({ id: libraryId, name, canonical: result.canonical, simulationTime: result.canonical.timeline.simulationStart, source: 'builder' });
+      libraryId = row.id; libraryName = row.name; $('libSaveName').value = row.name;
+      lmsg(`Saved "${row.name}".`, 'success'); await refreshLibrary();
+    } catch (e) { lmsg(e.message, 'error'); }
+  }
+
+  // Rebuild from the saved inputs (the same inputs always give the same patient), then put back any edited or enhanced notes.
+  async function editInBuilder(id) {
+    const row = await NSLib.get(id);
+    const saved = row.canonical.facultyBuilder && row.canonical.facultyBuilder.inputs;
+    if (!saved || !NS.PRIMARY[saved.primary]) { lmsg('This patient was not made by the builder, so it cannot be edited here. Use Open in EHR.', 'error'); return; }
+    input = Object.assign(DEFAULTS(), saved, { social: Object.assign(DEFAULTS().social, saved.social || {}) });
+    writeForm(); renderChips(); build();
+    const byId = new Map(row.canonical.notes.map(n => [n.id, n]));
+    result.canonical.notes.forEach(n => { const s = byId.get(n.id); if (s) { n.body = s.body; if (s.enhanced) n.enhanced = true; } });
+    renderNotes();
+    libraryId = row.id; libraryName = row.name; $('libSaveName').value = row.name;
+    $('libraryDialog').close();
+  }
+  async function openInEhrFrom(id) {
+    const row = await NSLib.get(id);
+    if (safeSet(STORE_CASE, JSON.stringify({ canonical: row.canonical, simulationTime: row.simulationTime || row.canonical.timeline.simulationStart }))) window.location.href = '../index.html';
+    else lmsg('This browser would not let the builder pass the patient to the EHR.', 'error');
+  }
+
   // ------------------------------------------------------------------ boot
   function init() {
     // primary diagnosis list
@@ -312,6 +358,25 @@
     $('noteEditBtn').addEventListener('click', () => { editing = !editing; showNote(); });
     $('noteEdit').addEventListener('input', () => { const n = result.canonical.notes[noteIdx]; n.body = $('noteEdit').value; $('jsonOut').value = ''; });
     $('jsonOut').addEventListener('change', () => { try { const parsed = JSON.parse($('jsonOut').value); result.canonical = parsed; renderNotes(); } catch (e) { alert('That JSON could not be read: ' + e.message); } });
+
+
+    $('saveLibBtn').addEventListener('click', () => { $('libSaveName').value = libraryName || ''; $('libraryDialog').showModal(); lmsg(''); refreshLibrary(); saveCurrent(); });
+    $('openLibraryBtn').addEventListener('click', () => { $('libSaveName').value = libraryName || ''; lmsg(''); $('libraryDialog').showModal(); refreshLibrary(); });
+    $('closeLibraryBtn').addEventListener('click', () => $('libraryDialog').close());
+    $('libSaveBtn').addEventListener('click', saveCurrent);
+    $('libImportFile').addEventListener('change', async ev => { const f = ev.target.files[0]; if (!f) return; try { const row = await NSLib.importFile(f); lmsg(`Imported "${row.name}".`, 'success'); await refreshLibrary(); } catch (e) { lmsg(e.message, 'error'); } ev.target.value = ''; });
+    $('libList').addEventListener('click', async ev => {
+      const b = ev.target.closest('button[data-act]'); if (!b) return;
+      const id = b.closest('.lib-row').dataset.id, act = b.dataset.act;
+      try {
+        if (act === 'load') await editInBuilder(id);
+        else if (act === 'ehr') await openInEhrFrom(id);
+        else if (act === 'rename') { const row = await NSLib.get(id); const n = window.prompt('New name:', row.name); if (n) { await NSLib.rename(id, n); if (id === libraryId) libraryName = n; await refreshLibrary(); } }
+        else if (act === 'copy') { await NSLib.duplicate(id); await refreshLibrary(); }
+        else if (act === 'export') NSLib.download(await NSLib.get(id));
+        else if (act === 'delete') { if (window.confirm('Delete this saved patient? This cannot be undone.')) { await NSLib.remove(id); if (id === libraryId) libraryId = null; await refreshLibrary(); } }
+      } catch (e) { lmsg(e.message, 'error'); }
+    });
 
     // AI controls
     try { const ai = JSON.parse(safeGet(STORE_AI) || 'null'); if (ai) { $('aiModel').value = ai.model || 'claude-opus-5-5'; aiScope = Object.assign(aiScope, ai.scope || {}); $('rememberKey').checked = !!ai.remember; } } catch (e) { /* ignore */ }
