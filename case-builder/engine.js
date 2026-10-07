@@ -119,7 +119,7 @@ NS.engine = (() => {
       }
       out[k] = val;
     });
-    out.temp = U.round(U.clamp(out.temp, 95.5, 106), 1);
+    out.temp = U.round(U.clamp(out.temp, 90, 106), 1);
     out.hr = Math.round(U.clamp(out.hr, 38, 190));
     out.sbp = Math.round(U.clamp(out.sbp, 70, 230));
     out.dbp = Math.round(U.clamp(out.dbp, 38, 130));
