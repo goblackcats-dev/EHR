@@ -205,7 +205,7 @@ NS.build = (() => {
         linkedData: med.linked || [], nursingConsiderations: [...(med.nursing || []), ...(med.hold ? [med.hold] : [])],
         medication: {
           medKey: U.slug(med.key || med.name), drugClass: med.cls || '', dose: med.dose, route: med.route,
-          importantInfo: med.info || '', monitoringRules: monitoringRules(med)
+          importantInfo: med.info || '', monitoringRules: monitoringRules(med), highAlert: !!med.highAlert
         },
         mar
       });

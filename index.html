@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icon-180.png" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <title>NursingSim EHR - Prototype v17</title>
+  <title>NursingSim EHR - Prototype v18</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -89,7 +89,6 @@
           <div class="section-header">
             <div>
               <h1>Patient Summary</h1>
-              <p>Simulated inpatient overview with one combined anatomical avatar, nursing orders, intake/output, and sticky notes.</p>
             </div>
             <div class="status-pill" id="patientStatus">No active encounter</div>
           </div>
@@ -609,7 +608,7 @@
     <div class="dialog-body">
       <div id="marActionMonitoring" class="mar-action-monitoring"></div>
       <label class="input-label" for="marActionReason">Comment / Reason</label>
-      <textarea id="marActionReason" class="small-textarea" placeholder="Optional for Give. Recommended for Hold, Refused, or Not Given."></textarea>
+      <textarea id="marActionReason" class="small-textarea" placeholder="Comment if patient refuses, or med is held/not given"></textarea>
       <div class="mar-action-buttons">
         <button class="mar-action-choice mar-action-give" data-mar-action="given">Give</button>
         <button class="mar-action-choice mar-action-hold" data-mar-action="held">Hold</button>
@@ -670,5 +669,6 @@
 
   <script src="library.js"></script>
   <script src="app.js"></script>
+  <script src="medpass.js"></script>
 </body>
 </html>

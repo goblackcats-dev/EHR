@@ -451,5 +451,13 @@ The new entry is stored as a canonical `observation` with:
 
 This means student documentation immediately becomes part of the same patient record used by the rest of the simulation.
 
+## New in v18: wristband scanner and med-pass prep
+
+- **Barcode medication administration.** Opening a due dose on the MAR now shows two steps: scan the patient wristband, then scan the medication. Give stays locked until the right wristband, two patient identifiers, and the right package are confirmed. On an iPad, tap the wristband or package tile in the scanner window; a hardware scanner or typing a code into the box also works (Enter submits).
+- **Safety checks the student must handle:** wrong patient, wrong drug (look-alike/sound-alike), wrong strength, allergy conflicts (blocks Give), hold parameters such as "hold if SBP below 100", a dose given too recently, and a dose more than 60 minutes early or late. Warnings need a written reason to override. Hold, Refused and Not Given always work.
+- **Med-pass setup** (MAR toolbar): turn scanning on or off, turn decoys on or off, and plant "traps" on a medication (hold parameter met, new allergy, dose given 20 minutes ago). Use **Saved Patients** to keep the prepared patient for class.
+- **Print** wristband and medication labels as props (barcodes need an internet connection).
+- Every scan and override is recorded on the administration for debriefing.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
