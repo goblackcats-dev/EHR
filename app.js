@@ -1321,7 +1321,7 @@ function canonicalToViewModel(canonical) {
   medicationOrders.forEach(order => {
     const administrations = (canonical.administrations || [])
       .filter(admin => admin.orderId === order.id)
-      .sort((a, b) => safe(a.time).localeCompare(safe(b.time)));
+      .sort((a, b) => safe(a.administeredAt || a.time).localeCompare(safe(b.administeredAt || b.time)));
 
     const monitoring = (order.medication?.monitoringRules || [])
       .map(rule => resolveMonitoringRule(rule, canonical))
@@ -1490,8 +1490,8 @@ function validateCanonicalCase(canonical) {
 
   const hospitalistNotes = (canonical.notes || [])
     .filter(note =>
-      note.type === 'progressNotes' &&
-      /hospitalist|physician|md|np|pa/i.test(`${safe(note.title)} ${safe(note.author)}`)
+      (note.type === 'progressNotes' || note.type === 'hp') &&
+      /hospitalist|physician|md|np|pa|surgery/i.test(`${safe(note.title)} ${safe(note.author)}`)
     );
 
   let uncoveredProblems = 0;
@@ -1526,8 +1526,19 @@ function validateCanonicalCase(canonical) {
     add('pass', 'All active problems are addressed in hospitalist progress documentation.');
   }
 
+  // Only orders that are in effect at the start of the simulation count as possible duplicates
+  // (an IV drug that hands over to its oral form later in the stay is not a duplicate).
+  const simStart = parseSimDate(safe(canonical.timeline?.simulationStart, ''));
+  const inEffectNow = order => {
+    if (!simStart) return true;
+    const start = parseSimDate(safe(order.start, ''));
+    const end = parseSimDate(safe(order.end, ''));
+    return (!start || start <= simStart) && (!end || end > simStart);
+  };
+
   const activeMedicationNames = medicationOrders
     .filter(order => !/discontinued|completed/i.test(safe(order.status)))
+    .filter(inEffectNow)
     .map(order => normalizeMedicationKey(order.name));
 
   const duplicateMedicationKeys = activeMedicationNames
@@ -2183,7 +2194,7 @@ const chartTabLabels = { notes: "Notes", hp: "H&P", imaging: "Imaging", cardiolo
 const noteGroups = [
   { key: 'progressNotes', label: 'Progress Notes' },
   { key: 'erVisitSummary', label: 'ER Visit Summary' },
-  { key: 'therapyNotes', label: 'PT / OT / SLP' },
+  { key: 'therapyNotes', label: 'Therapy / RT / Nutrition' },
   { key: 'caseManagement', label: 'Case Management' }
 ];
 
@@ -2342,8 +2353,9 @@ function renderMedications(medications = []) { clearChildren(elements.medication
 function getSummaryLabs(data) { if (Array.isArray(data.recentLabs) && data.recentLabs.length) return data.recentLabs; const all = getAllLabResults(data); return all.slice(0, 6).map(lab => ({ category: lab.category, test: lab.test, result: `${lab.result}${lab.units ? ' ' + lab.units : ''}`.trim(), flag: lab.flag, reference: lab.reference, collected: lab.collected })); }
 function renderLabs(labs = []) { clearChildren(elements.labsTable); if (!labs.length) { elements.labsTable.innerHTML = '<tr><td colspan="5" class="empty-cell">No labs loaded</td></tr>'; return; } labs.forEach(lab => { const row = document.createElement('tr'); [lab.test, lab.result, lab.flag, lab.reference, lab.collected].forEach((value, index) => { const cell = document.createElement('td'); cell.textContent = safe(value, index === 2 ? '' : '—'); if (index === 2 && value) cell.className = flagClass(value); row.appendChild(cell); }); elements.labsTable.appendChild(row); }); }
 
-function renderIntakeOutput(records = []) { clearChildren(elements.ioTable); clearChildren(elements.ioChart); if (!records.length) { elements.ioTable.innerHTML = '<tr><td colspan="4" class="empty-cell">No I/O loaded</td></tr>'; elements.ioTotals.textContent = 'No I/O data'; elements.ioChart.innerHTML = '<div class="empty">No I/O chart available.</div>'; return; } let totalIntake = 0, totalOutput = 0; records.forEach(record => { const intake = Number(record.intake) || 0; const output = Number(record.output) || 0; const net = intake - output; totalIntake += intake; totalOutput += output; const row = document.createElement('tr'); [record.time, `${intake} mL`, `${output} mL`, `${net >= 0 ? '+' : ''}${net} mL`].forEach(value => { const cell = document.createElement('td'); cell.textContent = safe(value); row.appendChild(cell); }); elements.ioTable.appendChild(row); }); const netTotal = totalIntake - totalOutput; elements.ioTotals.textContent = `Intake ${totalIntake} mL | Output ${totalOutput} mL | Net ${netTotal >= 0 ? '+' : ''}${netTotal} mL`; drawIOChart(records); }
-function drawIOChart(records) { const width = 720, height = 260, margin = { top: 22, right: 20, bottom: 42, left: 50 }, chartWidth = width - margin.left - margin.right, chartHeight = height - margin.top - margin.bottom; const maxValue = Math.max(...records.flatMap(r => [Number(r.intake) || 0, Number(r.output) || 0]), 100), yMax = Math.ceil(maxValue / 100) * 100, barGroupWidth = chartWidth / records.length, barWidth = Math.min(34, barGroupWidth / 4); const yScale = value => margin.top + chartHeight - ((value / yMax) * chartHeight), xCenter = index => margin.left + (barGroupWidth * index) + barGroupWidth / 2; let svg = `<div class="avatar-legend" style="margin-bottom:8px;"><span class="legend-item"><span class="legend-dot iv-dot"></span> Intake</span><span class="legend-item"><span class="legend-dot" style="background:#64748b;"></span> Output</span></div><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">`; [0, 0.25, 0.5, 0.75, 1].forEach(step => { const value = Math.round(yMax * step), y = yScale(value); svg += `<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" class="io-grid"></line><text x="${margin.left - 8}" y="${y + 4}" text-anchor="end" class="io-label">${value}</text>`; }); svg += `<line x1="${margin.left}" y1="${margin.top + chartHeight}" x2="${width - margin.right}" y2="${margin.top + chartHeight}" class="io-axis"></line><line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + chartHeight}" class="io-axis"></line>`; records.forEach((record, index) => { const intake = Number(record.intake) || 0, output = Number(record.output) || 0, center = xCenter(index), intakeHeight = (intake / yMax) * chartHeight, outputHeight = (output / yMax) * chartHeight; svg += `<rect x="${center - barWidth - 3}" y="${margin.top + chartHeight - intakeHeight}" width="${barWidth}" height="${intakeHeight}" rx="4" class="io-bar-intake"></rect><rect x="${center + 3}" y="${margin.top + chartHeight - outputHeight}" width="${barWidth}" height="${outputHeight}" rx="4" class="io-bar-output"></rect><text x="${center}" y="${height - 14}" text-anchor="middle" class="io-label">${escapeHtml(safe(record.time))}</text>`; }); svg += `<text x="16" y="${margin.top + 18}" transform="rotate(-90,16,${margin.top + 18})" class="io-label">mL</text></svg>`; elements.ioChart.innerHTML = svg; }
+function ioLabel(record) { return record.date ? `${epicDate(record.date).slice(0, 5)} ${safe(record.time)}` : safe(record.time); }
+function renderIntakeOutput(records = []) { clearChildren(elements.ioTable); clearChildren(elements.ioChart); if (!records.length) { elements.ioTable.innerHTML = '<tr><td colspan="4" class="empty-cell">No I/O loaded</td></tr>'; elements.ioTotals.textContent = 'No I/O data'; elements.ioChart.innerHTML = '<div class="empty">No I/O chart available.</div>'; return; } let totalIntake = 0, totalOutput = 0; records.forEach(record => { const intake = Number(record.intake) || 0; const output = Number(record.output) || 0; const net = intake - output; totalIntake += intake; totalOutput += output; const row = document.createElement('tr'); [ioLabel(record), `${intake} mL`, `${output} mL`, `${net >= 0 ? '+' : ''}${net} mL`].forEach(value => { const cell = document.createElement('td'); cell.textContent = safe(value); row.appendChild(cell); }); elements.ioTable.appendChild(row); }); const netTotal = totalIntake - totalOutput; elements.ioTotals.textContent = `Intake ${totalIntake} mL | Output ${totalOutput} mL | Net ${netTotal >= 0 ? '+' : ''}${netTotal} mL`; drawIOChart(records); }
+function drawIOChart(records) { const width = 720, height = 260, margin = { top: 22, right: 20, bottom: 42, left: 50 }, chartWidth = width - margin.left - margin.right, chartHeight = height - margin.top - margin.bottom; const maxValue = Math.max(...records.flatMap(r => [Number(r.intake) || 0, Number(r.output) || 0]), 100), yMax = Math.ceil(maxValue / 100) * 100, barGroupWidth = chartWidth / records.length, barWidth = Math.min(34, barGroupWidth / 4); const yScale = value => margin.top + chartHeight - ((value / yMax) * chartHeight), xCenter = index => margin.left + (barGroupWidth * index) + barGroupWidth / 2; let svg = `<div class="avatar-legend" style="margin-bottom:8px;"><span class="legend-item"><span class="legend-dot iv-dot"></span> Intake</span><span class="legend-item"><span class="legend-dot" style="background:#64748b;"></span> Output</span></div><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">`; [0, 0.25, 0.5, 0.75, 1].forEach(step => { const value = Math.round(yMax * step), y = yScale(value); svg += `<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" class="io-grid"></line><text x="${margin.left - 8}" y="${y + 4}" text-anchor="end" class="io-label">${value}</text>`; }); svg += `<line x1="${margin.left}" y1="${margin.top + chartHeight}" x2="${width - margin.right}" y2="${margin.top + chartHeight}" class="io-axis"></line><line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + chartHeight}" class="io-axis"></line>`; records.forEach((record, index) => { const intake = Number(record.intake) || 0, output = Number(record.output) || 0, center = xCenter(index), intakeHeight = (intake / yMax) * chartHeight, outputHeight = (output / yMax) * chartHeight; svg += `<rect x="${center - barWidth - 3}" y="${margin.top + chartHeight - intakeHeight}" width="${barWidth}" height="${intakeHeight}" rx="4" class="io-bar-intake"></rect><rect x="${center + 3}" y="${margin.top + chartHeight - outputHeight}" width="${barWidth}" height="${outputHeight}" rx="4" class="io-bar-output"></rect><text x="${center}" y="${height - 14}" text-anchor="middle" class="io-label">${escapeHtml(ioLabel(record))}</text>`; }); svg += `<text x="16" y="${margin.top + 18}" transform="rotate(-90,16,${margin.top + 18})" class="io-label">mL</text></svg>`; elements.ioChart.innerHTML = svg; }
 
 function getTooltipHtml(device) { return `<div class="tooltip-title">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</div><div class="tooltip-row"><strong>Category:</strong> ${escapeHtml(safe(device.category))}</div><div class="tooltip-row"><strong>Status:</strong> ${escapeHtml(safe(device.status))}</div><div class="tooltip-row"><strong>Placed:</strong> ${escapeHtml(safe(device.placementDate))}</div><div class="tooltip-row"><strong>Last assessment:</strong> ${escapeHtml(safe(device.lastAssessment))}</div>${device.gauge ? `<div class="tooltip-row"><strong>Gauge:</strong> ${escapeHtml(safe(device.gauge))}</div>` : ''}${device.infusing ? `<div class="tooltip-row"><strong>Infusing:</strong> ${escapeHtml(safe(device.infusing))}</div>` : ''}${device.drainage ? `<div class="tooltip-row"><strong>Drainage / output:</strong> ${escapeHtml(safe(device.drainage))}</div>` : ''}`; }
 function positionTooltip(event, tooltip) { const wrapper = tooltip.parentElement.getBoundingClientRect(); let left = event.clientX - wrapper.left + 12, top = event.clientY - wrapper.top + 12; const maxLeft = wrapper.width - 290, maxTop = wrapper.height - 170; if (left > maxLeft) left = Math.max(8, maxLeft); if (top > maxTop) top = Math.max(8, maxTop); tooltip.style.left = `${left}px`; tooltip.style.top = `${top}px`; }
@@ -3303,8 +3315,8 @@ function buildFlowsheetRecords(canonical) {
     if (device.drainage) records.push({ id: `${device.id}_output`, section: 'Lines / Drains / Airways', field: `${safe(device.type)} Output`, value: safe(device.drainage), collected, source: 'Device record', details: safe(device.lastAssessment), abnormal: false });
   });
   (canonical.ioEvents || []).forEach((io, idx) => {
-    if (io.intake !== undefined) records.push({ id: io.id ? `${io.id}_intake` : `io_intake_${idx}`, section: 'Intake / Output', field: 'Intake', value: `${Number(io.intake)||0} mL`, collected: safe(io.time), source: 'I&O record', abnormal: false });
-    if (io.output !== undefined) records.push({ id: io.id ? `${io.id}_output` : `io_output_${idx}`, section: 'Intake / Output', field: 'Output', value: `${Number(io.output)||0} mL`, collected: safe(io.time), source: 'I&O record', abnormal: false });
+    if (io.intake !== undefined) records.push({ id: io.id ? `${io.id}_intake` : `io_intake_${idx}`, section: 'Intake / Output', field: 'Intake', value: `${Number(io.intake)||0} mL`, collected: io.date ? `${io.date} ${safe(io.time)}` : safe(io.time), source: 'I&O record', abnormal: false });
+    if (io.output !== undefined) records.push({ id: io.id ? `${io.id}_output` : `io_output_${idx}`, section: 'Intake / Output', field: 'Output', value: `${Number(io.output)||0} mL`, collected: io.date ? `${io.date} ${safe(io.time)}` : safe(io.time), source: 'I&O record', abnormal: false });
   });
   // Place every value in an hourly column so the grid reads like an Epic flowsheet
   // instead of one sparse column per exact timestamp.
@@ -3318,8 +3330,8 @@ function flowsheetColumnKey(collected, simDate) {
   let m = text.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}):\d{2}/);
   if (m) return `${m[1]} ${m[2]}:00`;
   // I&O period such as "0700-1100": show it in the column where the period ends.
-  m = text.match(/^(\d{2})(\d{2})\s*-\s*(\d{2})(\d{2})$/);
-  if (m && simDate) return `${simDate} ${m[3]}:00`;
+  m = text.match(/^(?:(\d{4}-\d{2}-\d{2}) )?(\d{2})(\d{2})\s*-\s*(\d{2})(\d{2})$/);
+  if (m && (m[1] || simDate)) return `${m[1] || simDate} ${m[4]}:00`;
   return text;
 }
 function getFlowsheetSections(records) {

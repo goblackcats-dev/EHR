@@ -1860,3 +1860,9 @@ dialog { max-width: calc(100vw - 24px); max-height: calc(100vh - 24px); overflow
 
 /* ---- Home-screen app (standalone) mode ---- */
 @media (display-mode: standalone) { body { overscroll-behavior-y: none; } }
+
+/* Link from the EHR to the Case Builder */
+.top-actions { gap: 10px; align-items: center; }
+.top-link { color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; border: 1px solid rgba(255,255,255,.55); border-radius: 8px; min-height: 44px; padding: 0 14px; display: inline-flex; align-items: center; white-space: nowrap; }
+.top-link:active { background: rgba(255,255,255,.18); }
+@media (max-width: 900px) { .topbar .top-actions { flex-wrap: wrap; justify-content: flex-end; } }

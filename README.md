@@ -1,6 +1,17 @@
-# NursingSim EHR - Prototype v15
+# NursingSim EHR - Prototype v16
 
 This version adds an Epic-style **MAR** page and makes the Chart Review sidebar tabs appear as a dropdown.
+
+## New in v16 - Case Builder v2 (`case-builder/`)
+
+The Case Builder now lives in the `case-builder/` folder, next to the EHR, and can send a patient straight into the EHR with one tap (**Open in EHR**). Give it a primary diagnosis, medical / surgical / social history, allergies and a **hospital day**, and it builds the whole patient: the history of the stay (vitals, labs, MAR doses, devices, I&O), what is happening now, and what appears during the shift. See `case-builder/README.md`.
+
+EHR changes in this version:
+- I&O records can carry a date, so a full day of I&O shows correctly and sorts into the flowsheet.
+- The Notes tab group now holds PT / OT / SLP / RT / nutrition notes.
+- A physician H&P counts toward the "every active problem is addressed" check.
+- The duplicate-medication check only looks at orders that are in effect at the start of the simulation.
+- **Case Builder** link in the top bar.
 
 ## New in v15 - iPad and bug-fix release
 

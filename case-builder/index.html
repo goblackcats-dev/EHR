@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Case Builder" />
+  <meta name="theme-color" content="#1c4f82" />
+  <link rel="apple-touch-icon" href="../icon-180.png" />
+  <link rel="icon" href="../icon.svg" type="image/svg+xml" />
+  <title>NursingSim Case Builder v2</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-logo" href="../index.html" title="Back to the EHR">NS</a>
+      <div>
+        <div class="brand-name">NursingSim Case Builder</div>
+        <div class="brand-sub">Give it a diagnosis and a hospital day; it builds the patient</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="top-link" href="../index.html">EHR</a>
+      <button id="resetBtn" class="ghost-button">Reset</button>
+      <button id="buildBtn" class="primary-button">Build Patient</button>
+    </div>
+  </header>
+
+  <div class="mobile-switch" id="mobileSwitch">
+    <button class="switch-btn active" data-pane="setup">1. Setup</button>
+    <button class="switch-btn" data-pane="result">2. Patient</button>
+  </div>
+
+  <main class="layout">
+    <!-- ===================================================== SETUP ===================================================== -->
+    <section class="pane setup-pane" id="setupPane">
+      <div class="card">
+        <div class="card-head"><h2>1. Patient</h2></div>
+        <div class="grid g3">
+          <label>Name<input id="name" autocomplete="off" /></label>
+          <label>Age<input id="age" type="number" inputmode="numeric" min="18" max="110" /></label>
+          <div class="field"><span class="lbl">Sex</span>
+            <div class="segmented" id="sexSeg"><button data-v="Male">Male</button><button data-v="Female">Female</button></div></div>
+          <label>MRN<input id="mrn" autocomplete="off" /></label>
+          <label>Unit<input id="unit" autocomplete="off" /></label>
+          <label>Room<input id="room" autocomplete="off" /></label>
+          <label>Height (cm)<input id="heightCm" type="number" inputmode="numeric" placeholder="auto" /></label>
+          <label>Weight (kg)<input id="weightKg" type="number" inputmode="numeric" placeholder="auto" /></label>
+          <label>Code status
+            <select id="codeStatus"><option>Full Code</option><option>DNR</option><option>DNR / DNI</option><option>Comfort care</option></select></label>
+          <label>Student level
+            <select id="studentLevel"><option>LPN</option><option>ADN first year</option><option>ADN second year</option><option>BSN</option><option>Advanced</option></select></label>
+          <label>Complexity
+            <select id="complexity"><option>simple</option><option>moderate</option><option>complex</option></select></label>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>2. Why they are here, and how long</h2></div>
+        <label>Primary diagnosis<select id="primary"></select></label>
+        <div id="primaryDesc" class="hint"></div>
+        <div class="grid g3 stay-row">
+          <div class="field"><span class="lbl">Hospital day</span>
+            <div class="stepper"><button id="dayMinus" aria-label="Previous day">−</button><input id="hospitalDay" type="number" inputmode="numeric" min="1" max="21" /><button id="dayPlus" aria-label="Next day">+</button></div></div>
+          <label>Simulation date<input id="simDate" type="date" /></label>
+          <label>Shift start<input id="startTime" type="time" /></label>
+        </div>
+        <div id="stagePreview" class="stage-preview"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>3. Medical history</h2><button class="link-btn" id="clearHx">Clear</button></div>
+        <div class="chips" id="hxChips"></div>
+        <div id="hxEffects" class="effects"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>4. Surgical history</h2></div>
+        <div class="chips" id="surgChips"></div>
+        <label>Other surgeries (optional)<input id="surgText" placeholder="e.g. right knee arthroscopy 2016" autocomplete="off" /></label>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>5. Social history</h2></div>
+        <div class="grid g2">
+          <label>Tobacco<select id="tobacco"><option>Never</option><option>Former</option><option>Current &lt;1 ppd</option><option>Current ≥1 ppd</option></select></label>
+          <label>Alcohol<select id="alcohol"><option>None</option><option>Social</option><option>Moderate daily</option><option>Heavy daily</option></select></label>
+          <label>Other substances<select id="drugs"><option>None</option><option>Cannabis</option><option>Past substance use</option></select></label>
+          <label>Lives<select id="living"><option>Lives with spouse/partner</option><option>Lives with family</option><option>Lives alone</option><option>Assisted living</option><option>Skilled nursing facility</option></select></label>
+          <label>Baseline mobility<select id="fn"><option>Independent</option><option>Cane</option><option>Walker</option><option>Wheelchair</option></select></label>
+          <label>Anything else (job, caregiver, barriers)<input id="socialOther" autocomplete="off" /></label>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>6. Allergies</h2></div>
+        <div class="chips" id="allergyChips"></div>
+        <div class="grid g2">
+          <label>Other allergy<input id="allergyOther" placeholder="substance" autocomplete="off" /></label>
+          <label>Reaction<input id="allergyReaction" placeholder="e.g. rash" autocomplete="off" /></label>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>7. Extra faculty direction</h2></div>
+        <textarea id="facultyNotes" placeholder="Optional. Examples: must have a Foley; new confusion on day 2; DNR; sacral pressure injury; avoid insulin; contact isolation; high fall risk."></textarea>
+        <div class="hint">Recognized: <b>Foley</b>, <b>confusion / delirium</b>, <b>DNR</b>, <b>pressure injury</b>, <b>avoid insulin</b>, <b>C. diff / MRSA / contact isolation</b>, <b>high fall risk</b>. Anything else is kept in the case and passed to Claude when you enhance notes.</div>
+      </div>
+    </section>
+
+    <!-- ==================================================== RESULT ==================================================== -->
+    <section class="pane result-pane hidden-pane" id="resultPane">
+      <div class="card result-head">
+        <div id="summaryLine" class="summary-line"></div>
+        <div id="countStrip" class="count-strip"></div>
+        <div class="result-actions">
+          <button id="openEhrBtn" class="primary-button">Open in EHR</button>
+          <button id="downloadBtn" class="secondary-button">Download JSON</button>
+          <button id="copyBtn" class="secondary-button">Copy JSON</button>
+        </div>
+        <div id="alerts" class="alerts"></div>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="course">Hospital course</button>
+        <button class="tab" data-tab="notes">Notes</button>
+        <button class="tab" data-tab="meds">Medications</button>
+        <button class="tab" data-tab="orders">Orders</button>
+        <button class="tab" data-tab="labs">Labs</button>
+        <button class="tab" data-tab="vitals">Vitals</button>
+        <button class="tab" data-tab="json">JSON</button>
+      </div>
+      <div class="card tab-body">
+        <div id="tab-course" class="tab-panel"></div>
+        <div id="tab-notes" class="tab-panel hidden">
+          <details class="ai-box" id="aiBox">
+            <summary>Enhance notes with Claude (optional)</summary>
+            <div class="ai-inner">
+              <p class="hint">The notes are already complete without AI. This step rewrites them in a more natural clinical voice while keeping every number, time, drug and dose. It uses <b>your own Anthropic API key</b> (from console.anthropic.com). A claude.ai subscription does not include one. The key stays in this browser and is sent only to Anthropic.</p>
+              <div class="grid g3">
+                <label>API key<input id="apiKey" type="password" autocomplete="off" placeholder="sk-ant-..." /></label>
+                <label>Model<select id="aiModel"><option value="claude-opus-5-5">Claude Opus 5.5 (best writing)</option><option value="claude-sonnet-5-5">Claude Sonnet 5.5 (faster, cheaper)</option><option value="claude-haiku-5-5">Claude Haiku 5.5 (cheapest)</option></select></label>
+                <label class="check"><input type="checkbox" id="rememberKey" /> Remember key on this device</label>
+              </div>
+              <div class="chips" id="aiScope"></div>
+              <div class="ai-actions">
+                <button id="aiRunBtn" class="primary-button">Enhance selected notes</button>
+                <button id="aiStopBtn" class="secondary-button" disabled>Stop</button>
+                <button id="aiRestoreBtn" class="secondary-button">Restore original text</button>
+              </div>
+              <div id="aiCost" class="hint"></div>
+              <div id="aiStatus" class="ai-status"></div>
+            </div>
+          </details>
+          <div class="notes-layout">
+            <div id="noteList" class="note-list"></div>
+            <div class="note-view">
+              <div class="note-view-head"><div id="noteMeta"></div><button id="noteEditBtn" class="secondary-button small">Edit text</button></div>
+              <div id="noteBody" class="note-body"></div>
+              <textarea id="noteEdit" class="hidden"></textarea>
+            </div>
+          </div>
+        </div>
+        <div id="tab-meds" class="tab-panel hidden"></div>
+        <div id="tab-orders" class="tab-panel hidden"></div>
+        <div id="tab-labs" class="tab-panel hidden"></div>
+        <div id="tab-vitals" class="tab-panel hidden"></div>
+        <div id="tab-json" class="tab-panel hidden"><textarea id="jsonOut" spellcheck="false"></textarea></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="util.js"></script>
+  <script src="labs.js"></script>
+  <script src="engine.js"></script>
+  <script src="build.js"></script>
+  <script src="common.js"></script>
+  <script src="history.js"></script>
+  <script src="rules.js"></script>
+  <script src="notes.js"></script>
+  <script src="generate.js"></script>
+  <script src="primary_surgical.js"></script>
+  <script src="primary_medical.js"></script>
+  <script src="primary_medical2.js"></script>
+  <script type="module" src="ai.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
