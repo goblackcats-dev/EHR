@@ -6,7 +6,7 @@
 
   // ============================================================================ COPD EXACERBATION
   NS.PRIMARY.copd_exac = {
-    key: 'copd_exac', label: 'COPD Exacerbation', group: 'Medical', typicalLOS: [3, 5],
+    key: 'copd_exac', label: 'COPD Exacerbation', group: 'Medical', cat: 'Pulmonary', typicalLOS: [3, 5],
     desc: 'Dyspnea, wheeze, hypercapnia. Day 1: BiPAP trial, steroids, nebs. Day 2-3: weaning O2. Day 4-5: oral prednisone, discharge. Day 7+: home oxygen evaluation.',
     build(ctx) {
       const comp = ctx.L >= 7;
@@ -114,7 +114,7 @@
 
   // ============================================================================ SEPSIS (urinary source)
   NS.PRIMARY.sepsis = {
-    key: 'sepsis', label: 'Sepsis (urinary source)', group: 'Medical', typicalLOS: [3, 5],
+    key: 'sepsis', label: 'Sepsis (urinary source)', group: 'Medical', cat: 'Infectious Disease', typicalLOS: [3, 5],
     desc: 'Fever, hypotension, high lactate from pyelonephritis/E. coli bacteremia. Day 1: bundle (cultures, fluids, antibiotics). Day 2-3: improving, de-escalate. Day 4-5: oral antibiotics, discharge.',
     build(ctx) {
       const bolusMl = Math.min(3000, Math.max(1000, Math.round(ctx.weightKg * 30 / 250) * 250));
@@ -233,7 +233,7 @@
 
   // ============================================================================ ISCHEMIC STROKE
   NS.PRIMARY.stroke = {
-    key: 'stroke', label: 'Acute Ischemic Stroke', group: 'Medical', typicalLOS: [3, 5],
+    key: 'stroke', label: 'Acute Ischemic Stroke', group: 'Medical', cat: 'Neurologic', typicalLOS: [3, 5],
     desc: 'Left MCA stroke: right arm weakness, aphasia. Day 1: neuro checks, NPO until swallow screen. Day 2: MRI, echo, SLP/PT/OT. Day 3-5: dysphagia diet, rehab planning.',
     build(ctx) {
       const swallowH = 22;

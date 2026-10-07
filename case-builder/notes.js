@@ -30,7 +30,8 @@ NS.notes = (() => {
     };
     const SURG_NAMES = Object.fromEntries(NS.HX.SURGERIES);
     const pshLine = () => {
-      const items = [...ctx.surg].map(k => SURG_NAMES[k] || k);
+      const items = [...ctx.surg].map(k => `${SURG_NAMES[k] || k}${ctx.surgYear(k) ? ' (' + ctx.surgYear(k) + ')' : ''}`);
+      (ctx.input.surgCustom || []).forEach(s => { const nm = String((s && s.name) || '').trim(); if (nm) items.push(`${nm}${s.year ? ' (' + s.year + ')' : ''}`); });
       const extra = (ctx.input.surgText || '').trim();
       if (extra) items.push(extra);
       return items.length ? items.join('; ') : 'No prior surgeries.';

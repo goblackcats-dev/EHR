@@ -3,7 +3,11 @@
 NS.rules = (() => {
   const U = NS.util, HX = NS.HX;
 
-  const MODULE_ORDER = ['esrd', 'ckd3', 'obesity', 'dm2', 'htn', 'cad', 'hf', 'afib', 'copd', 'asthma', 'hld', 'dementia', 'anemia', 'gerd', 'hypothyroid', 'depression', 'osa', 'bph'];
+  // Modules apply in their `order` (lower first), then in the order they were registered.
+  const moduleOrder = () => Object.keys(HX.M).map((k, i) => [k, HX.M[k].order === undefined ? 50 : HX.M[k].order, i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map(x => x[0]);
+  // Kidney disease stages replace one another: only the most advanced one selected is used.
+  const CKD_CHAIN = ['ckd1', 'ckd2', 'ckd3', 'ckd4', 'ckd5', 'esrd'];
+  const slug = t => String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
 
   function applyAll(ctx, spec) {
     spec.primaryKey = ctx.input.primary;
@@ -11,12 +15,21 @@ NS.rules = (() => {
 
     // Surgical history can imply medical history
     if ((ctx.surg.has('cabg') || ctx.surg.has('pci')) && !ctx.hx.has('cad')) { ctx.hx.add('cad'); spec.applied.push('Added coronary artery disease because of prior CABG/stent.'); }
-    if (ctx.hx.has('esrd')) ctx.hx.delete('ckd3');
+    const topCkd = CKD_CHAIN.filter(k => ctx.hx.has(k)).pop();
+    CKD_CHAIN.forEach(k => { if (k !== topCkd) ctx.hx.delete(k); });
     if (spec.primaryKey === 'chf' && !ctx.hx.has('hf')) { ctx.hx.add('hf'); spec.applied.push('Heart failure added to medical history (primary diagnosis).'); }
     if (spec.primaryKey === 'copd_exac' && !ctx.hx.has('copd')) { ctx.hx.add('copd'); spec.applied.push('COPD added to medical history (primary diagnosis).'); }
-    ctx.renal = ctx.hx.has('esrd') ? 'esrd' : ctx.hx.has('ckd3') ? 'ckd3' : 'none';
+    // dosing category used by medication renal rules: stage 5 and dialysis dose like ESRD, stages 3-4 like CKD 3, stages 1-2 need no adjustment
+    ctx.renal = (ctx.hx.has('esrd') || ctx.hx.has('ckd5')) ? 'esrd' : (ctx.hx.has('ckd4') || ctx.hx.has('ckd3')) ? 'ckd3' : 'none';
 
-    MODULE_ORDER.forEach(key => { if (ctx.hx.has(key) && HX.M[key]) HX.M[key].apply(ctx, spec); });
+    moduleOrder().forEach(key => { if (ctx.hx.has(key) && HX.M[key] && HX.M[key].apply) HX.M[key].apply(ctx, spec); });
+    // surgical history that changes the chart (anticoagulation after a mechanical valve, thyroid replacement after thyroidectomy, ...)
+    [...ctx.surg].forEach(key => { const sx = HX.SX[key]; if (sx && sx.apply) sx.apply(ctx, spec); });
+    // anything the instructor typed that matches no module is listed as history only
+    (ctx.input.hxCustom || []).forEach(c => {
+      const text = String((c && c.text) || c || '').trim(); if (!text) return;
+      spec.comorb.push({ key: `custom_${slug(text)}`, problem: text.charAt(0).toUpperCase() + text.slice(1), details: 'Reported by the patient; no inpatient treatment effects were added by the builder.', pmh: text.charAt(0).toUpperCase() + text.slice(1), plan: () => ['History noted; no active treatment this admission unless symptomatic. Continue home regimen if applicable.'], custom: true });
+    });
     applySocial(ctx, spec);
     applyBaseline(ctx, spec);
     applyContrast(ctx, spec);
@@ -203,7 +216,10 @@ NS.rules = (() => {
     if (ctx.surg.has('hysterectomy') && ctx.male) add('error', 'Hysterectomy selected for a male patient.');
     if (ctx.surg.has('csection') && ctx.male) add('error', 'Cesarean section selected for a male patient.');
     if (ctx.hx.has('bph') && ctx.female) add('warning', 'BPH selected for a female patient.');
-    if (ctx.hx.has('esrd') && ctx.hx.has('ckd3')) add('warning', 'Both ESRD and CKD 3 selected; ESRD was used.');
+    const ckdPicked = CKD_CHAIN.filter(k => (ctx.input.hx || []).includes(k));
+    if (ckdPicked.length > 1) add('info', `Several kidney disease stages were selected (${ckdPicked.map(k => HX.M[k] ? HX.M[k].label : k).join(', ')}); only the most advanced was used.`);
+    if ((ctx.input.hx || []).includes('dm1') && (ctx.input.hx || []).includes('dm2')) add('warning', 'Both type 1 and type 2 diabetes are selected.');
+    if ((ctx.input.hx || []).includes('afib') && (ctx.input.hx || []).includes('flutter')) add('info', 'Atrial fibrillation and atrial flutter are both selected; the chart treats them together.');
     if (ctx.L > (spec.typicalLOS ? spec.typicalLOS[1] : 99)) add('info', `Hospital day ${ctx.L} is longer than typical (${spec.typicalLOS[0]}-${spec.typicalLOS[1]} days). The case is written as a prolonged stay with a complication or discharge barrier.`);
     if (ctx.L < 1) add('error', 'Hospital day must be at least 1.');
     if (ctx.renal !== 'none' && S.prepared.some(m => /morphine|ketorolac|ibuprofen|enoxaparin/i.test(m.name) && m.startH <= ctx.nowH && (m.stopH === undefined || m.stopH > ctx.nowH))) add('warning', 'A renally-avoided drug (morphine, NSAID, enoxaparin) is active in a kidney-disease patient.');
@@ -233,5 +249,5 @@ NS.rules = (() => {
     return w;
   }
 
-  return { applyAll, sanityChecks, firstSurgery };
+  return { applyAll, sanityChecks, firstSurgery, CKD_CHAIN };
 })();

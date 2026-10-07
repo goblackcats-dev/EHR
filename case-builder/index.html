@@ -73,14 +73,15 @@
 
       <div class="card">
         <div class="card-head"><h2>3. Medical history</h2><button class="link-btn" id="clearHx">Clear</button></div>
-        <div class="chips" id="hxChips"></div>
+        <div id="hxPicker"></div>
         <div id="hxEffects" class="effects"></div>
       </div>
 
       <div class="card">
         <div class="card-head"><h2>4. Surgical history</h2></div>
-        <div class="chips" id="surgChips"></div>
-        <label>Other surgeries (optional)<input id="surgText" placeholder="e.g. right knee arthroscopy 2016" autocomplete="off" /></label>
+        <div id="surgPicker"></div>
+        <div class="hint">Tick a surgery and enter the year it was done. Type a surgery that is not listed and press Enter to add it with a year.</div>
+        <input id="surgText" type="hidden" />
       </div>
 
       <div class="card">
@@ -185,11 +186,19 @@
 
   <script src="../library.js"></script>
   <script src="util.js"></script>
+  <script src="picker.js"></script>
   <script src="labs.js"></script>
+  <script src="labs_extra.js"></script>
   <script src="engine.js"></script>
   <script src="build.js"></script>
   <script src="common.js"></script>
   <script src="history.js"></script>
+  <script src="history_cardio_resp.js"></script>
+  <script src="history_endo_renal.js"></script>
+  <script src="history_gi_neuro.js"></script>
+  <script src="history_psych_heme_msk.js"></script>
+  <script src="history_msk_other.js"></script>
+  <script src="history_surgical.js"></script>
   <script src="rules.js"></script>
   <script src="notes.js"></script>
   <script src="mededit.js"></script>
@@ -197,6 +206,10 @@
   <script src="primary_surgical.js"></script>
   <script src="primary_medical.js"></script>
   <script src="primary_medical2.js"></script>
+  <script src="primary_endocrine.js"></script>
+  <script src="primary_cardiopulm.js"></script>
+  <script src="primary_ortho_gi.js"></script>
+  <script src="primary_misc.js"></script>
   <script type="module" src="ai.js"></script>
   <script src="../qrcode.js"></script>
   <script src="../wristband.js"></script>

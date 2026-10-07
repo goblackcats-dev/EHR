@@ -8,7 +8,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ============================================================================ PNEUMONIA
   NS.PRIMARY.pneumonia = {
-    key: 'pneumonia', label: 'Community-Acquired Pneumonia', group: 'Medical', typicalLOS: [3, 5],
+    key: 'pneumonia', label: 'Community-Acquired Pneumonia', group: 'Medical', cat: 'Pulmonary', typicalLOS: [3, 5],
     desc: 'Fever, productive cough, hypoxia, lobar infiltrate. Day 1: O2 + IV antibiotics. Day 2-3: improving, weaning O2. Day 4: oral antibiotics, discharge. Day 7+: parapneumonic effusion.',
     build(ctx) {
       const comp = ctx.L >= 7;
@@ -147,7 +147,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ============================================================================ ACUTE DECOMPENSATED HEART FAILURE
   NS.PRIMARY.chf = {
-    key: 'chf', label: 'Acute Decompensated Heart Failure', group: 'Medical', typicalLOS: [3, 5],
+    key: 'chf', label: 'Acute Decompensated Heart Failure', group: 'Medical', cat: 'Cardiovascular', typicalLOS: [3, 5],
     desc: 'Volume overload: dyspnea, edema, elevated BNP. Day 1-2: IV diuresis + O2. Day 3: oral diuretic transition. Day 4-5: discharge teaching. Day 7+: diuretic resistance, kidney injury.',
     build(ctx) {
       const poH = 78, raH = 54;

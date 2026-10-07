@@ -14,7 +14,8 @@
     studentLevel: 'ADN second year', complexity: 'moderate', primary: 'appendicitis', hospitalDay: 2, simDate: today(), startTime: '07:00',
     hx: ['htn', 'dm2'], surg: [], surgText: '', allergies: [], facultyNotes: '',
     social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' },
-    medEdits: { removed: [], changed: {}, added: [] }
+    medEdits: { removed: [], changed: {}, added: [] },
+    hxCustom: [], surgYears: {}, surgCustom: []
   });
 
   let input = DEFAULTS();
@@ -32,7 +33,8 @@
       hx: input.hx.slice(), surg: input.surg.slice(), surgText: v('surgText'), allergies: input.allergies.slice(), facultyNotes: v('facultyNotes'),
       social: { tobacco: v('tobacco'), alcohol: v('alcohol'), drugs: v('drugs'), living: v('living'), function: v('fn'), other: v('socialOther') },
       // medication edits belong to one diagnosis; picking a different diagnosis starts the medication list fresh
-      medEdits: (input.primary === v('primary') && input.medEdits) ? input.medEdits : { removed: [], changed: {}, added: [] }
+      medEdits: (input.primary === v('primary') && input.medEdits) ? input.medEdits : { removed: [], changed: {}, added: [] },
+      hxCustom: (input.hxCustom || []).slice(), surgYears: Object.assign({}, input.surgYears), surgCustom: (input.surgCustom || []).slice()
     };
     const other = v('allergyOther').trim();
     if (other) input.allergies = input.allergies.filter(a => !a.custom).concat([{ substance: other, reaction: v('allergyReaction').trim() || 'Reaction not documented', severity: 'Moderate', custom: true }]);
@@ -55,19 +57,45 @@
     b.addEventListener('click', onClick);
     return b;
   }
-  function renderChips() {
-    const hx = $('hxChips'); hx.innerHTML = '';
-    Object.keys(NS.HX.M).forEach(k => hx.appendChild(chip(NS.HX.M[k].label, input.hx.includes(k), () => {
-      toggle(input.hx, k);
-      if (k === 'esrd' && input.hx.includes('esrd')) input.hx = input.hx.filter(x => x !== 'ckd3');
-      if (k === 'ckd3' && input.hx.includes('ckd3')) input.hx = input.hx.filter(x => x !== 'esrd');
-      renderChips(); changed();
-    }, NS.HX.M[k].desc)));
-    const effects = input.hx.map(k => `<div><b>${esc(NS.HX.M[k].label)}:</b> ${esc(NS.HX.M[k].desc)}</div>`).join('');
+  const CKD_CHAIN = ['ckd1', 'ckd2', 'ckd3', 'ckd4', 'ckd5', 'esrd'];
+  const simYear = () => { const m = String(input.simDate || today()).match(/^(\d{4})/); return m ? parseInt(m[1], 10) : new Date().getFullYear(); };
+  let hxPicker = null, surgPicker = null;
+  function makePickers() {
+    const HX = NS.HX;
+    hxPicker = NS.Picker.create({
+      root: $('hxPicker'), title: 'Choose medical history', years: false,
+      groups: () => {
+        const order = HX.GROUPS.concat(Object.values(HX.M).map(m => m.group).filter(g => g && !HX.GROUPS.includes(g)));
+        return U.uniq(order).map(name => ({ name, items: Object.keys(HX.M).filter(k => HX.M[k].group === name).map(k => ({ key: k, label: HX.M[k].label, desc: HX.M[k].desc, aliases: HX.M[k].aliases })).sort((x, y) => x.label.localeCompare(y.label)) })).filter(g => g.items.length);
+      },
+      isOn: k => input.hx.includes(k),
+      toggle: k => {
+        toggle(input.hx, k);
+        if (input.hx.includes(k) && CKD_CHAIN.includes(k)) input.hx = input.hx.filter(x => x === k || !CKD_CHAIN.includes(x));
+      },
+      custom: { noun: 'condition', list: () => input.hxCustom, add: text => { if (!input.hxCustom.some(c => c.text.toLowerCase() === text.toLowerCase())) input.hxCustom.push({ text }); }, remove: i => input.hxCustom.splice(i, 1) },
+      onChange: () => { renderEffects(); changed(); }
+    });
+    surgPicker = NS.Picker.create({
+      root: $('surgPicker'), title: 'Choose surgical history', years: true,
+      groups: () => {
+        const names = HX.SURGERY_GROUPS.concat(Object.values(HX.SX).map(s => s.group).filter(g => g && !HX.SURGERY_GROUPS.includes(g)));
+        return U.uniq(names).map(name => ({ name, items: HX.SURGERIES.filter(([k]) => (HX.SX[k] || {}).group === name).map(([k, label]) => ({ key: k, label, desc: (HX.SURGERY_HINTS || {})[k] || '', aliases: [] })).sort((x, y) => x.label.localeCompare(y.label)) })).filter(g => g.items.length);
+      },
+      isOn: k => input.surg.includes(k),
+      toggle: k => { if (input.surg.includes(k)) { input.surg = input.surg.filter(x => x !== k); delete input.surgYears[k]; } else { input.surg.push(k); if (!input.surgYears[k]) input.surgYears[k] = String(simYear() - 8); } },
+      getYear: k => input.surgYears[k] || '', setYear: (k, y) => { input.surgYears[k] = y; },
+      custom: { noun: 'surgery', list: () => input.surgCustom, add: (text, year) => input.surgCustom.push({ name: text, year: year || String(simYear() - 8) }), remove: i => input.surgCustom.splice(i, 1) },
+      onChange: () => changed()
+    });
+  }
+  function renderEffects() {
+    const effects = input.hx.filter(k => NS.HX.M[k]).map(k => `<div><b>${esc(NS.HX.M[k].label)}:</b> ${esc(NS.HX.M[k].desc)}</div>`).concat(input.hxCustom.map(c => `<div><b>${esc(c.text)}:</b> custom entry. Listed in the history and problem list; no treatment effects are added.</div>`)).join('');
     $('hxEffects').innerHTML = effects || '<div>No medical history selected.</div>';
-
-    const sg = $('surgChips'); sg.innerHTML = '';
-    NS.HX.SURGERIES.forEach(([k, label]) => sg.appendChild(chip(label, input.surg.includes(k), () => { toggle(input.surg, k); renderChips(); changed(); })));
+  }
+  function renderChips() {
+    renderEffects();
+    if (hxPicker) { hxPicker.refresh(); surgPicker.refresh(); }
 
     const al = $('allergyChips'); al.innerHTML = '';
     al.appendChild(chip('No known allergies', !input.allergies.some(a => !a.custom), () => { input.allergies = input.allergies.filter(a => a.custom); renderChips(); changed(); }));
@@ -460,9 +488,12 @@
   function init() {
     // primary diagnosis list
     const sel = $('primary');
-    ['Surgical', 'Medical'].forEach(group => {
-      const og = document.createElement('optgroup'); og.label = group;
-      Object.values(NS.PRIMARY).filter(p => p.group === group).forEach(p => { const o = document.createElement('option'); o.value = p.key; o.textContent = p.label; og.appendChild(o); });
+    const CATS = ['Cardiovascular', 'Pulmonary', 'Endocrine', 'Gastrointestinal / Abdominal Surgery', 'Renal / Fluid & Electrolytes', 'Neurologic', 'Infectious Disease', 'Orthopedic / Trauma', 'Toxicology / Substance Use'];
+    const profiles = Object.values(NS.PRIMARY), catOf = p => p.cat || p.group || 'Other';
+    U.uniq(CATS.concat(profiles.map(catOf))).forEach(cat => {
+      const inCat = profiles.filter(p => catOf(p) === cat).sort((x, y) => x.label.localeCompare(y.label)); if (!inCat.length) return;
+      const og = document.createElement('optgroup'); og.label = cat;
+      inCat.forEach(p => { const o = document.createElement('option'); o.value = p.key; o.textContent = p.label; og.appendChild(o); });
       sel.appendChild(og);
     });
     try { const saved = JSON.parse(safeGet(STORE_INPUT) || 'null'); if (saved && saved.primary && NS.PRIMARY[saved.primary]) input = Object.assign(DEFAULTS(), saved, { social: Object.assign(DEFAULTS().social, saved.social || {}) }); } catch (e) { /* use defaults */ }
@@ -472,7 +503,8 @@
     document.querySelectorAll('.card input:not(#apiKey):not(#rememberKey), .card select:not(#aiModel), .card textarea:not(#noteEdit):not(#jsonOut)').forEach(el => { el.addEventListener('input', changed); el.addEventListener('change', changed); });
     $('dayMinus').addEventListener('click', () => { $('hospitalDay').value = Math.max(1, (parseInt($('hospitalDay').value, 10) || 1) - 1); changed(); });
     $('dayPlus').addEventListener('click', () => { $('hospitalDay').value = Math.min(21, (parseInt($('hospitalDay').value, 10) || 1) + 1); changed(); });
-    $('clearHx').addEventListener('click', () => { input.hx = []; renderChips(); changed(); });
+    $('clearHx').addEventListener('click', () => { input.hx = []; input.hxCustom = []; renderChips(); changed(); });
+    makePickers(); renderChips();
     $('buildBtn').addEventListener('click', build);
     $('resetBtn').addEventListener('click', () => { if (confirm('Reset every field to the starting example?')) { input = DEFAULTS(); writeForm(); renderChips(); changed(); build(); } });
     $('openEhrBtn').addEventListener('click', openInEhr);

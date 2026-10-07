@@ -13,6 +13,10 @@ NS.HX = (() => {
   const heldNote = (spec, text) => { spec.heldHome = spec.heldHome || []; spec.heldHome.push(text); };
 
   const M = {};
+  const GROUPS = ['Cardiovascular', 'Respiratory', 'Endocrine / Metabolic', 'Renal / Genitourinary', 'Gastrointestinal / Hepatic', 'Neurologic', 'Psychiatric / Substance Use', 'Hematology / Oncology', 'Musculoskeletal / Rheumatologic', 'Infectious Disease / Immunologic', 'Skin / Wounds', 'Eye / Ear / Other'];
+  // Add a medical-history module from another file:  NS.HX.add('key', { label, group, desc, aliases:[...], order, apply(ctx, spec) {...} })
+  // order: lower runs first (default 50). aliases are extra words the search box matches.
+  const add = (key, def) => { M[key] = Object.assign({ order: 50, aliases: [] }, def, { key }); return M[key]; };
 
   M.htn = {
     label: 'Hypertension', desc: 'Raises baseline BP; adds an ACE inhibitor (amlodipine if ESRD).',
@@ -258,13 +262,44 @@ NS.HX = (() => {
     }
   };
 
+  // groups and application order for the original modules
+  const GROUP_OF = { cardiovascular: ['htn', 'cad', 'hf', 'afib', 'hld'], respiratory: ['copd', 'asthma', 'osa'], endocrine: ['dm2', 'hypothyroid', 'obesity'], renal: ['ckd3', 'esrd', 'bph'], gi: ['gerd'], neuro: ['dementia'], psych: ['depression'], heme: ['anemia'] };
+  const GNAME = { cardiovascular: GROUPS[0], respiratory: GROUPS[1], endocrine: GROUPS[2], renal: GROUPS[3], gi: GROUPS[4], neuro: GROUPS[5], psych: GROUPS[6], heme: GROUPS[7] };
+  Object.entries(GROUP_OF).forEach(([g, keys]) => keys.forEach(k => { M[k].group = GNAME[g]; }));
+  ['esrd', 'ckd3', 'obesity', 'dm2', 'htn', 'cad', 'hf', 'afib', 'copd', 'asthma', 'hld', 'dementia', 'anemia', 'gerd', 'hypothyroid', 'depression', 'osa', 'bph'].forEach((k, i) => { M[k].order = i; M[k].key = k; M[k].aliases = M[k].aliases || []; });
+  Object.assign(M.htn, { aliases: ['high blood pressure', 'hypertension'] });
+  Object.assign(M.dm2, { aliases: ['diabetes', 'type 2 diabetes', 'dm', 'niddm'] });
+  Object.assign(M.cad, { aliases: ['coronary disease', 'heart disease', 'ischemic heart disease'] });
+  Object.assign(M.hf, { aliases: ['chf', 'congestive heart failure', 'hfref', 'cardiomyopathy'] });
+  Object.assign(M.afib, { aliases: ['afib', 'a fib', 'atrial fib'] });
+  Object.assign(M.copd, { aliases: ['emphysema', 'chronic bronchitis'] });
+  Object.assign(M.esrd, { aliases: ['dialysis', 'hemodialysis', 'renal failure', 'kidney failure'] });
+  Object.assign(M.ckd3, { aliases: ['ckd', 'chronic kidney disease', 'kidney disease'] });
+  Object.assign(M.gerd, { aliases: ['reflux', 'heartburn'] });
+  Object.assign(M.hypothyroid, { aliases: ['thyroid', 'low thyroid'] });
+  Object.assign(M.depression, { aliases: ['anxiety', 'mood'] });
+
   // ---------- Options shown in the UI ----------
+  // Surgical history: [key, label] pairs. Add more from another file with NS.HX.addSurgery(key, label, group, apply?)
+  // apply(ctx, spec) is optional and may add medications, orders, problems and so on; ctx.surgYear(key) is the year it was done.
   const SURGERIES = [
     ['appendectomy', 'Appendectomy'], ['cholecystectomy', 'Cholecystectomy'], ['hysterectomy', 'Hysterectomy'], ['csection', 'Cesarean section'],
     ['hernia', 'Hernia repair'], ['colectomy', 'Bowel resection / colectomy'], ['abd_other', 'Other abdominal surgery (adhesions)'],
     ['cabg', 'CABG'], ['pci', 'Coronary stent / PCI'], ['tka', 'Total knee replacement'], ['tha', 'Total hip replacement'],
     ['spine', 'Spinal fusion'], ['tonsil', 'Tonsillectomy'], ['pacemaker', 'Pacemaker / ICD'], ['tubal', 'Tubal ligation']
   ];
+  const SX = {};
+  ['appendectomy', 'cholecystectomy', 'hernia', 'colectomy', 'abd_other'].forEach(k => { SX[k] = { group: 'Abdominal / Gastrointestinal' }; });
+  ['hysterectomy', 'csection', 'tubal'].forEach(k => { SX[k] = { group: 'Gynecologic / Obstetric' }; });
+  ['cabg', 'pci', 'pacemaker'].forEach(k => { SX[k] = { group: 'Cardiovascular' }; });
+  ['tka', 'tha', 'spine'].forEach(k => { SX[k] = { group: 'Orthopedic' }; });
+  SX.tonsil = { group: 'Head / Neck / ENT' };
+  const SURGERY_GROUPS = ['Abdominal / Gastrointestinal', 'Cardiovascular', 'Thoracic / Pulmonary', 'Orthopedic', 'Neurosurgical', 'Gynecologic / Obstetric', 'Urologic / Renal', 'Endocrine / Breast', 'Head / Neck / ENT', 'Vascular', 'Other'];
+  const addSurgery = (key, label, group, apply) => {
+    const i = SURGERIES.findIndex(s => s[0] === key);
+    if (i >= 0) SURGERIES[i] = [key, label]; else SURGERIES.push([key, label]);
+    SX[key] = { group: group || 'Other', apply: apply || null };
+  };
   const ALLERGIES = [
     { id: 'penicillin', substance: 'Penicillin', reaction: 'Hives', severity: 'High' },
     { id: 'sulfa', substance: 'Sulfa drugs', reaction: 'Rash', severity: 'Moderate' },
@@ -274,5 +309,5 @@ NS.HX = (() => {
     { id: 'contrast', substance: 'Iodinated contrast', reaction: 'Hives', severity: 'Moderate' }
   ];
 
-  return { M, SURGERIES, ALLERGIES, helpers: { home, order, comorb, assess, addLabs, sticky, heldNote } };
+  return { M, add, GROUPS, SURGERIES, SX, SURGERY_GROUPS, addSurgery, ALLERGIES, helpers: { home, order, comorb, assess, addLabs, sticky, heldNote } };
 })();

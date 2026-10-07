@@ -65,7 +65,7 @@ NS.engine = (() => {
     const admit = U.addH(start, -nowH);
     const hx = new Set(input.hx || []);
     const surg = new Set(input.surg || []);
-    const renal = hx.has('esrd') ? 'esrd' : hx.has('ckd3') ? 'ckd3' : 'none';
+    const renal = (hx.has('esrd') || hx.has('ckd5')) ? 'esrd' : (hx.has('ckd4') || hx.has('ckd3')) ? 'ckd3' : 'none';
     const sex = input.sex || 'Male';
     const age = parseInt(input.age, 10) || 60;
     const heightCm = Number(input.heightCm) || (sex === 'Female' ? 163 : 177);
@@ -82,6 +82,8 @@ NS.engine = (() => {
       ts: h => U.addH(admit, h),
       hOf: text => (U.parse(text) - U.parse(admit)) / 3600000,
       has: key => hx.has(key),
+      surgYears: input.surgYears || {},
+      surgYear: key => (input.surgYears || {})[key] || '',
       allergic: word => allergies.some(a => new RegExp(word, 'i').test(a.substance)),
       noise: (amp) => (rng() - 0.5) * 2 * amp
     };

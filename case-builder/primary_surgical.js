@@ -11,7 +11,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ============================================================================ APPENDICITIS
   NS.PRIMARY.appendicitis = {
-    key: 'appendicitis', label: 'Acute Appendicitis', group: 'Surgical', typicalLOS: [1, 3],
+    key: 'appendicitis', label: 'Acute Appendicitis', group: 'Surgical', cat: 'Gastrointestinal / Abdominal Surgery', typicalLOS: [1, 3],
     desc: 'RLQ pain, CT-confirmed appendicitis. Day 1: pre-op/OR. Day 2: post-op day 1 (diet, discharge teaching). Day 4+: perforated with abscess and drain.',
     build(ctx) {
       const comp = ctx.L >= 4;                       // complicated (perforated) pathway for prolonged stays
@@ -264,7 +264,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ============================================================================ SBO
   NS.PRIMARY.sbo = {
-    key: 'sbo', label: 'Small Bowel Obstruction', group: 'Surgical', typicalLOS: [3, 5],
+    key: 'sbo', label: 'Small Bowel Obstruction', group: 'Surgical', cat: 'Gastrointestinal / Abdominal Surgery', typicalLOS: [3, 5],
     desc: 'Adhesive SBO. Day 1-2: NPO, NG tube to suction, IV fluids. Day 2-3: Gastrografin challenge. Day 3+: diet advances. Day 6+: failed non-operative care -> surgery.',
     build(ctx) {
       const failed = ctx.L >= 6;
@@ -467,7 +467,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ============================================================================ CHOLECYSTITIS
   NS.PRIMARY.cholecystitis = {
-    key: 'cholecystitis', label: 'Acute Cholecystitis', group: 'Surgical', typicalLOS: [2, 4],
+    key: 'cholecystitis', label: 'Acute Cholecystitis', group: 'Surgical', cat: 'Gastrointestinal / Abdominal Surgery', typicalLOS: [2, 4],
     desc: 'RUQ pain, gallstones on ultrasound. Day 1: NPO, antibiotics, pre-op. Day 2: lap chole. Day 3-4: post-op/discharge. Day 6+: gangrenous, JP drain.',
     build(ctx) {
       const comp = ctx.L >= 6;
