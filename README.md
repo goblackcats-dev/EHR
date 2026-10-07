@@ -459,5 +459,13 @@ This means student documentation immediately becomes part of the same patient re
 - **Print** wristband and medication labels as props (barcodes need an internet connection).
 - Every scan and override is recorded on the administration for debriefing.
 
+## New in v19: flowsheet charting practice
+
+- **Practice mode** (Flowsheets toolbar): hides the patient's current nursing findings (breath sounds, bowel sounds, edema, and so on) so the student must assess and chart them. Earlier columns stay visible as history, as in real life. Faculty can switch it on, then use **Saved Patients** to keep the patient that way.
+- **Easier charting.** Chart Assessment now suggests the fields for each system and offers tap-to-fill common findings (good for iPad). Choosing an abnormal finding ticks "abnormal" automatically.
+- **Instant feedback** after each entry: correct, partly right, missed an abnormal finding, or does not match, with a reason. It also reminds the student to mark abnormal findings and think about who to notify.
+- **Review my charting** gives a score, a by-system table of what was charted versus the patient's real findings, and a "Show what I missed" button.
+- Feedback is saved with the patient, so it survives a refresh and Saved Patients.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

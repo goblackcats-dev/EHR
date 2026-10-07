@@ -3340,7 +3340,7 @@ function getFlowsheetSections(records) {
   const present = Array.from(new Set(records.map(r => r.section)));
   return [...flowsheetSectionOrder.filter(s => present.includes(s)), ...present.filter(s => !flowsheetSectionOrder.includes(s))];
 }
-function getFlowsheetTimes(records) { return Array.from(new Set(records.map(r => safe(r.col || r.collected)).filter(Boolean))).sort((a,b)=>String(a).localeCompare(String(b))); }
+function getFlowsheetTimes(records) { return Array.from(new Set(records.filter(r => !r.practiceHidden).map(r => safe(r.col || r.collected)).filter(Boolean))).sort((a,b)=>String(a).localeCompare(String(b))); }
 function renderFlowsheetSectionNav(sections, records) {
   clearChildren(elements.flowsheetSectionNav);
   sections.forEach(section => {
@@ -3374,7 +3374,7 @@ function renderFlowsheetGrid(records, sections, times) {
     if (flowsheetCollapsedSections.has(section)) return;
     Array.from(new Set(sectionRecords.map(r=>r.field))).forEach(field => {
       const fr=sectionRecords.filter(r=>r.field===field); const row=document.createElement('tr'); const fc=document.createElement('td'); fc.className='flowsheet-label-col flowsheet-field-name'; fc.textContent=field; row.appendChild(fc);
-      times.forEach(time=>{ const inCell=fr.filter(r=>safe(r.col||r.collected)===time); const record=inCell.slice(-1)[0]; const td=document.createElement('td'); td.className='flowsheet-cell'; if(!record){td.classList.add('empty-cell-value'); td.title='Click to chart this assessment'; td.addEventListener('click',()=>openFlowsheetChartDialog(section, field, time));} else { if(record.abnormal) td.classList.add('flowsheet-abnormal'); if(currentFlowsheetSelection===record.id) td.classList.add('selected'); td.textContent=safe(record.value); if(inCell.length>1) td.title=inCell.map(r=>`${epicDate(r.collected)}  ${r.value}`).join('\n'); td.addEventListener('click',()=>{ currentFlowsheetSelection=record.id; renderFlowsheetsPage(currentPatientData); }); } row.appendChild(td); });
+      times.forEach(time=>{ const inCell=fr.filter(r=>!r.practiceHidden && safe(r.col||r.collected)===time); const record=inCell.slice(-1)[0]; const td=document.createElement('td'); td.className='flowsheet-cell'; if(!record){td.classList.add('empty-cell-value'); td.title='Click to chart this assessment'; td.addEventListener('click',()=>openFlowsheetChartDialog(section, field, time));} else { if(record.abnormal) td.classList.add('flowsheet-abnormal'); if(currentFlowsheetSelection===record.id) td.classList.add('selected'); td.textContent=safe(record.value); if(inCell.length>1) td.title=inCell.map(r=>`${epicDate(r.collected)}  ${r.value}`).join('\n'); td.addEventListener('click',()=>{ currentFlowsheetSelection=record.id; renderFlowsheetsPage(currentPatientData); }); } row.appendChild(td); });
       elements.flowsheetGridBody.appendChild(row);
     });
   });
@@ -3383,7 +3383,7 @@ function renderFlowsheetsPage(data) {
   const canonical=data?.__canonical || currentCanonicalCase || normalizeCaseData(data).canonical; const records=buildFlowsheetRecords(canonical); const sections=getFlowsheetSections(records); let times=getFlowsheetTimes(records); if(flowsheetLatestOnlyMode && times.length) times=[times[times.length-1]];
   elements.flowsheetStatus.textContent=`${records.length} documented values | ${sections.length} sections`; elements.flowsheetSectionCount.textContent=`${sections.length} sections`; elements.flowsheetDateLabel.textContent=canonical.encounter?.admitDate ? epicDate(canonical.encounter.admitDate) : 'Current encounter'; elements.flowsheetFooterMeta.textContent=times.length?`${times.length} documentation time(s)`:'No documentation times'; elements.flowsheetLatestOnly.classList.toggle('active',flowsheetLatestOnlyMode);
   renderFlowsheetSectionNav(sections,records); renderFlowsheetHeader(times); renderFlowsheetGrid(records,sections,times);
-  const selected=records.find(r=>r.id===currentFlowsheetSelection)||records[0]||null; if(selected) currentFlowsheetSelection=selected.id; renderFlowsheetCellDetail(selected);
+  const selected=records.find(r=>!r.practiceHidden && r.id===currentFlowsheetSelection)||records.find(r=>!r.practiceHidden)||null; if(selected) currentFlowsheetSelection=selected.id; renderFlowsheetCellDetail(selected);
 }
 
 function setMainSection(section, tabKey = null) { currentMainSection = section; acknowledgeSection(section); showCurrentSectionOnly(); if (section === 'brain') renderBrainPage(); if (section === 'chartReview') renderChartReviewTab(tabKey || currentChartTab, currentRecordIndex); if (section === 'labResults') renderLabResultsPage(currentPatientData); if (section === 'mar') renderMARPage(currentPatientData); if (section === 'orders') renderOrdersPage(currentPatientData); if (section === 'flowsheets') renderFlowsheetsPage(currentPatientData); }
@@ -3454,7 +3454,7 @@ document.getElementById('closeMarActionBtn').addEventListener('click', () => ele
 elements.marActionChoices.forEach(btn => btn.addEventListener('click', () => applyMARAction(btn.dataset.marAction)));
 
 document.getElementById('closeFlowsheetChartBtn').addEventListener('click', () => elements.flowsheetChartDialog.close());
-document.getElementById('saveChartAssessmentBtn').addEventListener('click', saveFlowsheetAssessment);
+document.getElementById('saveChartAssessmentBtn').addEventListener('click', () => saveFlowsheetAssessment());
 
 
 if (elements.showAllLabsBtn) elements.showAllLabsBtn.addEventListener('click', () => {

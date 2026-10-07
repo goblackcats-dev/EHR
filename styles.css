@@ -1921,3 +1921,30 @@ dialog { max-width: calc(100vw - 24px); max-height: calc(100vh - 24px); overflow
 .pb-name { font-size: 20px; font-weight: 700; } .bc-wrap { margin-top: 6px; } .bc { max-width: 100%; height: 56px; } .bc-text { font-size: 11px; font-family: ui-monospace, Menlo, monospace; }
 .print-labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; } .print-label { border: 1px dashed #5f6f83; border-radius: 6px; padding: 8px 10px; font-size: 13px; }
 @media print { body.printing .app-shell, body.printing dialog:not(#mpPrintDialog), body.printing .no-print { display: none !important; } body.printing #mpPrintDialog { position: static; border: 0; box-shadow: none; width: 100%; } }
+
+/* ---- v19 flowsheet charting practice ---- */
+.small-tool-button.active { background: var(--epic-blue, #1f5fa8); color: #fff; border-color: transparent; }
+.fs-feedback { margin: 0 0 10px; padding: 10px 14px; border-radius: 8px; border: 1px solid #cdd6e2; background: #f3f7fc; font-size: 14px; line-height: 1.4; }
+.fs-feedback.hidden { display: none; }
+.fs-feedback.ok { background: #e9f6ee; border-color: #8cc9a0; }
+.fs-feedback.warn { background: #fff6dd; border-color: #e4c76b; }
+.fs-feedback.bad { background: #fdeaea; border-color: #e19a9a; }
+.fs-fb-head { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }
+.fs-fb-head span { flex: 1; color: #44546a; }
+.fs-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; align-items: center; }
+.fs-chips-label { width: 100%; font-size: 12px; color: #5b6b80; }
+.fs-chip { border: 1px solid #b9c7da; background: #f3f7fc; color: #1f3b5e; border-radius: 16px; padding: 8px 12px; font-size: 14px; min-height: 40px; cursor: pointer; }
+.fs-chip:active { background: #dbe8f8; }
+.fs-review { width: min(920px, 96vw); }
+.fs-score { display: flex; gap: 16px; align-items: center; margin-bottom: 12px; }
+.fs-score-num { font-size: 40px; font-weight: 700; color: #1f4f8f; }
+.fs-muted { color: #7b8aa0; }
+.fs-sec { margin: 16px 0 6px; font-size: 15px; color: #1f3b5e; }
+.fs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.fs-table th, .fs-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e3e9f1; vertical-align: top; }
+.fs-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; background: #eef2f7; }
+.fs-tag.ok { background: #d9f0e1; color: #1d6b3a; }
+.fs-tag.warn { background: #fff0c2; color: #8a5a00; }
+.fs-tag.bad { background: #fbdcdc; color: #9a2020; }
+.fs-why { font-size: 12px; color: #55657a; margin-top: 3px; }
+.fs-extra { margin: 4px 0 0 18px; font-size: 13px; }
