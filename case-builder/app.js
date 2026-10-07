@@ -13,7 +13,8 @@
     name: 'Taylor Morgan', age: 54, sex: 'Male', mrn: 'SIM-001001', unit: '4 Medical-Surgical', room: '414A', heightCm: '', weightKg: '', codeStatus: 'Full Code',
     studentLevel: 'ADN second year', complexity: 'moderate', primary: 'appendicitis', hospitalDay: 2, simDate: today(), startTime: '07:00',
     hx: ['htn', 'dm2'], surg: [], surgText: '', allergies: [], facultyNotes: '',
-    social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' }
+    social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' },
+    medEdits: { removed: [], changed: {}, added: [] }
   });
 
   let input = DEFAULTS();
@@ -29,7 +30,9 @@
       heightCm: v('heightCm').trim(), weightKg: v('weightKg').trim(), codeStatus: v('codeStatus'), studentLevel: v('studentLevel'), complexity: v('complexity'),
       primary: v('primary'), hospitalDay: U.clamp(parseInt(v('hospitalDay'), 10) || 1, 1, 21), simDate: v('simDate') || today(), startTime: v('startTime') || '07:00',
       hx: input.hx.slice(), surg: input.surg.slice(), surgText: v('surgText'), allergies: input.allergies.slice(), facultyNotes: v('facultyNotes'),
-      social: { tobacco: v('tobacco'), alcohol: v('alcohol'), drugs: v('drugs'), living: v('living'), function: v('fn'), other: v('socialOther') }
+      social: { tobacco: v('tobacco'), alcohol: v('alcohol'), drugs: v('drugs'), living: v('living'), function: v('fn'), other: v('socialOther') },
+      // medication edits belong to one diagnosis; picking a different diagnosis starts the medication list fresh
+      medEdits: (input.primary === v('primary') && input.medEdits) ? input.medEdits : { removed: [], changed: {}, added: [] }
     };
     const other = v('allergyOther').trim();
     if (other) input.allergies = input.allergies.filter(a => !a.custom).concat([{ substance: other, reaction: v('allergyReaction').trim() || 'Reaction not documented', severity: 'Moderate', custom: true }]);
@@ -179,12 +182,134 @@
     $('noteEditBtn').textContent = editing ? 'Done' : 'Edit text';
   }
 
+  // ------------------------------------------------------------------ medications tab: edit, add, remove, print labels
+  const ROUTES = ['Oral', 'IV', 'IM', 'Subcutaneous', 'Sublingual', 'Nebulized', 'Inhaled', 'Topical', 'Rectal', 'Ophthalmic', 'Transdermal'];
+  const simDay = () => result.canonical.timeline.simulationStart.slice(0, 10);
+  const medOrders = () => result.canonical.orders.filter(o => o.category === 'Medication');
+  const edits = () => (input.medEdits = input.medEdits || { removed: [], changed: {}, added: [] });
+
   function renderMeds() {
-    const c = result.canonical;
-    const meds = c.orders.filter(o => o.category === 'Medication');
+    const c = result.canonical, meds = medOrders(), ed = edits();
     const due = id => c.administrations.filter(a => a.orderId === id && a.state === 'due').map(a => a.time).sort()[0] || '';
-    $('tab-meds').innerHTML = `<table class="data"><thead><tr><th>Medication</th><th>Dose / route</th><th>Frequency</th><th>Status</th><th>Next due</th><th>Class</th><th>Started</th></tr></thead><tbody>${meds.map(o => `<tr><td><b>${esc(o.name)}</b><div class="hint">${esc(o.rationale)}</div></td><td>${esc(o.medication.dose)} ${esc(o.medication.route)}</td><td>${esc(o.frequency)}</td><td><span class="badge ${o.status}">${o.status}</span></td><td>${due(o.id)}</td><td>${esc(o.medication.drugClass)}</td><td>${U.epic(o.start)}${o.end ? '<br>→ ' + U.epic(o.end) : ''}</td></tr>`).join('')}</tbody></table>`;
+    const flags = o => {
+      const m = o.medication, f = [];
+      if (m.highAlert) f.push('<span class="badge hi">HIGH-ALERT</span>');
+      if (m.barcode) f.push('<span class="badge Active">LINKED BARCODE</span>');
+      if (m.expires) f.push(`<span class="badge ${NSMedLabel.isExpired(m.expires, simDay()) ? 'Discontinued' : 'Completed'}">EXP ${esc(NSMedLabel.us(m.expires))}</span>`);
+      if (m.expiredDecoy) f.push('<span class="badge Discontinued">EXPIRED DECOY</span>');
+      if (m.custom) f.push('<span class="badge Active">ADDED</span>'); else if (m.edited) f.push('<span class="badge Completed">EDITED</span>');
+      return f.join(' ');
+    };
+    const removed = ed.removed || [];
+    $('tab-meds').innerHTML = `<div class="med-toolbar">
+        <button class="primary-button small" data-med="add">+ Add medication</button>
+        <button class="secondary-button small" data-med="labels">Print all labels</button>
+        <button class="secondary-button small" data-med="decoys">Print labels with decoys</button>
+        ${ed.removed.length || Object.keys(ed.changed).length || ed.added.some(a => !a.deleted) ? '<button class="link-btn" data-med="reset">Undo all medication edits</button>' : ''}
+      </div>
+      <div class="hint">Edit what this patient is receiving. The MAR, orders, notes and fall-risk update to match. Print a small QR label for each vial, bag or syringe; the EHR scanner reads it.</div>
+      ${removed.length ? `<div class="hint">Removed: ${removed.map(r => `${esc(r.name)} <button class="link-btn" data-med="restore" data-id="${esc(r.id)}">Restore</button>`).join(' · ')}</div>` : ''}
+      <table class="data"><thead><tr><th>Medication</th><th>Dose / route</th><th>Frequency</th><th>Status</th><th>Next due</th><th>Flags</th><th></th></tr></thead><tbody>${meds.map(o => `<tr><td><b>${esc(o.name)}</b><div class="hint">${esc(o.rationale)}</div></td><td>${esc(o.medication.dose)} ${esc(o.medication.route)}</td><td>${esc(o.frequency)}</td><td><span class="badge ${o.status}">${o.status}</span></td><td>${due(o.id)}</td><td>${flags(o)}</td><td class="med-actions"><button class="secondary-button small" data-med="edit" data-id="${esc(o.id)}">Edit</button> <button class="secondary-button small" data-med="label" data-id="${esc(o.id)}">Label</button> <button class="link-btn danger" data-med="remove" data-id="${esc(o.id)}">Remove</button></td></tr>`).join('')}</tbody></table>`;
   }
+
+  // Rebuild with the current medication edits and stay on the Medications tab.
+  function applyMedEdits() {
+    if (result.canonical.notes.some(n => n.enhanced || n.edited) && !confirm('Changing medications rewrites the notes so they match. Your note edits and any Claude-enhanced text will be replaced. Continue?')) return false;
+    safeSet(STORE_INPUT, JSON.stringify(input));
+    const keep = noteIdx;
+    result = NS.buildCase(JSON.parse(JSON.stringify(input)));
+    originalBodies = null; editing = false; noteIdx = keep;
+    renderResult(); activateTab('meds');
+    return true;
+  }
+
+  function medAction(e) {
+    const b = e.target.closest('[data-med]'); if (!b || !result) return;
+    const k = b.dataset.med, id = b.dataset.id, ed = edits();
+    const order = id && medOrders().find(o => o.id === id);
+    if (k === 'add') openMedEdit(null);
+    else if (k === 'edit') openMedEdit(order);
+    else if (k === 'label') NSMedLabel.openSheet(result.canonical, [order], { simDate: simDay() });
+    else if (k === 'labels') NSMedLabel.openSheet(result.canonical, medOrders().filter(o => o.status === 'Active'), { simDate: simDay() });
+    else if (k === 'decoys') NSMedLabel.openSheet(result.canonical, medOrders().filter(o => o.status === 'Active'), { simDate: simDay(), decoys: true });
+    else if (k === 'remove' && order) {
+      if (!confirm(`Remove ${order.name} from this patient?`)) return;
+      if (order.medication.custom) { const n = parseInt(order.id.match(/custom(\d+)_/)[1], 10); if (ed.added[n]) ed.added[n].deleted = true; }
+      else { ed.removed.push({ id: order.id, name: order.name }); delete ed.changed[order.id]; }
+      applyMedEdits();
+    } else if (k === 'restore') { ed.removed = ed.removed.filter(r => r.id !== id); applyMedEdits(); }
+    else if (k === 'reset') { if (confirm('Undo every medication edit for this patient?')) { input.medEdits = { removed: [], changed: {}, added: [] }; applyMedEdits(); } }
+  }
+
+  let editing_med = null;   // { order|null }
+  function ensureMedDialog() {
+    let dlg = $('medEditDialog'); if (dlg) return dlg;
+    dlg = document.createElement('dialog'); dlg.id = 'medEditDialog'; dlg.className = 'lib-dialog';
+    dlg.innerHTML = `<div class="lib-head"><div><h2 id="meTitle">Medication</h2><div class="hint">These settings change the order, the MAR and the label.</div></div><button id="meClose" class="link-btn" aria-label="Close">Close</button></div>
+      <div id="meFormulary" class="me-row"><label>Pick a medication<select id="meFormSel"></select></label></div>
+      <div class="grid g3">
+        <label style="grid-column: span 2">Medication name<input id="meName" autocomplete="off" /></label>
+        <label>Dose<input id="meDose" autocomplete="off" /></label>
+        <label>Route<select id="meRoute">${ROUTES.map(r => `<option>${r}</option>`).join('')}</select></label>
+        <label>Frequency<select id="meFreq">${Object.entries(NS.engine.FREQ).filter(([k]) => k !== 'continuous').map(([k, v]) => `<option value="${k}">${esc(v.text)}</option>`).join('')}</select></label>
+        <label>Scheduled times (optional, like 0900,2100)<input id="meAt" autocomplete="off" placeholder="uses the usual times" /></label>
+        <label class="check"><input type="checkbox" id="mePrn" /> As needed (PRN)</label>
+        <label style="grid-column: span 2">PRN for<input id="mePrnFor" autocomplete="off" placeholder="for example: severe pain" /></label>
+        <label>Due at (one-time doses, like 0830)<input id="meDue" autocomplete="off" placeholder="30 minutes in" /></label>
+        <label class="check"><input type="checkbox" id="meNew" /> New order (no earlier doses given)</label>
+        <label style="grid-column: span 3">Hold parameter (the EHR checks this against vital signs)<input id="meHold" autocomplete="off" placeholder="for example: Hold if SBP below 100 or HR below 60." /></label>
+        <label class="check"><input type="checkbox" id="meHigh" /> High-alert (needs a second-nurse double check)</label>
+        <label>Expiration date<input id="meExp" type="date" /></label>
+        <label class="check"><input type="checkbox" id="meDecoy" /> Include an expired package (decoy)</label>
+        <label style="grid-column: span 3">Link to an existing barcode (optional)<input id="meBar" autocomplete="off" placeholder="Click here, then scan the real vial's barcode with your scanner, or type it" /></label>
+      </div>
+      <div class="hint">Leave the expiration blank for the usual date (end of the month, one year out). To practice catching an expired drug, enter a date before the simulation date. A linked barcode is accepted by the EHR scanner in addition to the printed QR code.</div>
+      <div id="meMsg" class="lib-message error"></div>
+      <div class="lib-foot"><button id="meCancel" class="secondary-button">Cancel</button> <button id="meSave" class="primary-button">Save medication</button></div>`;
+    document.body.appendChild(dlg);
+    $('meClose').addEventListener('click', () => dlg.close()); $('meCancel').addEventListener('click', () => dlg.close());
+    $('meSave').addEventListener('click', saveMedEdit);
+    $('meFormSel').addEventListener('change', () => {
+      const f = NS.medEdit.FORMULARY[parseInt($('meFormSel').value, 10)]; if (!f) return;
+      $('meName').value = f.name; $('meDose').value = f.dose; $('meRoute').value = f.route; $('meFreq').value = f.freq; $('mePrn').checked = !!f.prn; $('mePrnFor').value = f.prnFor || ''; $('meHold').value = f.hold || ''; $('meHigh').checked = !!f.highAlert;
+      dlg.dataset.cls = f.cls || ''; dlg.dataset.info = f.info || '';
+    });
+    return dlg;
+  }
+  const orig = o => { const m = o.medication; return { name: o.name, dose: m.dose, route: m.route, freq: m.freqKey, prn: !!m.prn, at: (m.at || []).join(','), hold: m.hold || '', highAlert: !!m.highAlert, expires: m.expires || '', barcode: m.barcode || '', expiredDecoy: !!m.expiredDecoy, prnFor: '' }; };
+
+  function openMedEdit(order) {
+    const dlg = ensureMedDialog(); editing_med = { order };
+    $('meMsg').textContent = ''; dlg.dataset.cls = ''; dlg.dataset.info = '';
+    $('meTitle').textContent = order ? `Edit: ${order.name}` : 'Add a medication';
+    $('meFormulary').classList.toggle('hidden', !!order);
+    $('meFormSel').innerHTML = '<option value="">Custom (type below)...</option>' + NS.medEdit.FORMULARY.map((f, i) => `<option value="${i}">${esc(f.name)} ${esc(f.dose)} ${esc(f.route)}</option>`).join('');
+    const v = order ? orig(order) : { name: '', dose: '', route: 'Oral', freq: 'daily', prn: false, at: '', hold: '', highAlert: false, expires: '', barcode: '', expiredDecoy: false, prnFor: '' };
+    $('meName').value = v.name; $('meDose').value = v.dose; $('meRoute').value = ROUTES.includes(v.route) ? v.route : 'Oral'; $('meFreq').value = v.freq || 'daily'; $('meAt').value = v.at; $('mePrn').checked = v.prn; $('mePrnFor').value = v.prnFor;
+    $('meDue').value = ''; $('meNew').checked = false; $('meHold').value = v.hold; $('meHigh').checked = v.highAlert; $('meExp').value = v.expires; $('meDecoy').checked = v.expiredDecoy; $('meBar').value = v.barcode;
+    dlg.showModal();
+  }
+
+  function saveMedEdit() {
+    const g = id => $(id).value.trim(), ed = edits(), order = editing_med.order, dlg = $('medEditDialog');
+    if (!g('meName') || !g('meDose')) { $('meMsg').textContent = 'A medication name and a dose are required.'; return; }
+    const at = g('meAt').split(/[\s,]+/).filter(Boolean);
+    if (at.some(t => !/^([01]\d|2[0-3])[0-5]\d$/.test(t))) { $('meMsg').textContent = 'Scheduled times must be four digits like 0900 (24-hour clock).'; return; }
+    if (g('meDue') && !/^([01]\d|2[0-3])[0-5]\d$/.test(g('meDue'))) { $('meMsg').textContent = '"Due at" must be four digits like 0830.'; return; }
+    const f = { name: g('meName'), dose: g('meDose'), route: $('meRoute').value, freq: $('meFreq').value, prn: $('mePrn').checked, prnFor: g('mePrnFor'), at, hold: g('meHold'), highAlert: $('meHigh').checked, expires: $('meExp').value, barcode: g('meBar'), expiredDecoy: $('meDecoy').checked };
+    if (!order) {
+      ed.added.push(Object.assign({}, f, { dueClock: g('meDue'), newOrder: $('meNew').checked, cls: dlg.dataset.cls || '', info: dlg.dataset.info || '' }));
+    } else if (order.medication.custom) {
+      const n = parseInt(order.id.match(/custom(\d+)_/)[1], 10);
+      ed.added[n] = Object.assign({}, ed.added[n], f, { dueClock: g('meDue') || ed.added[n].dueClock, newOrder: $('meNew').checked || ed.added[n].newOrder });
+    } else {
+      const o0 = orig(order), diff = {};
+      Object.keys(f).forEach(k => { if (k === 'at') { if (f.at.join(',') !== o0.at) diff.at = f.at; } else if (k === 'prnFor') { if (f.prn && f.prnFor) diff.prnFor = f.prnFor; } else if (f[k] !== o0[k]) diff[k] = f[k]; });
+      if (Object.keys(diff).length) ed.changed[order.id] = Object.assign(ed.changed[order.id] || {}, diff);
+    }
+    dlg.close(); applyMedEdits();
+  }
+
   function renderOrders() {
     const orders = result.canonical.orders.filter(o => o.category !== 'Medication').sort((a, b) => a.start.localeCompare(b.start));
     $('tab-orders').innerHTML = `<table class="data"><thead><tr><th>Order</th><th>Category</th><th>Frequency</th><th>Status</th><th>Start → end</th><th>Provider</th></tr></thead><tbody>${orders.map(o => `<tr><td><b>${esc(o.name)}</b><div class="hint">${esc(o.instructions)}</div></td><td>${esc(o.category)}</td><td>${esc(o.frequency)}</td><td><span class="badge ${o.status}">${o.status}</span></td><td>${U.epic(o.start)}${o.end ? '<br>→ ' + U.epic(o.end) : ''}</td><td>${esc(o.provider)}</td></tr>`).join('')}</tbody></table>`;
@@ -351,13 +476,14 @@
     $('buildBtn').addEventListener('click', build);
     $('resetBtn').addEventListener('click', () => { if (confirm('Reset every field to the starting example?')) { input = DEFAULTS(); writeForm(); renderChips(); changed(); build(); } });
     $('openEhrBtn').addEventListener('click', openInEhr);
+    $('tab-meds').addEventListener('click', medAction);
     $('wristbandBtn').addEventListener('click', () => { if (result) NSWristband.open(result.canonical); });
     $('downloadBtn').addEventListener('click', download);
     $('copyBtn').addEventListener('click', copyJson);
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));
     document.querySelectorAll('.switch-btn').forEach(b => b.addEventListener('click', () => showPane(b.dataset.pane)));
     $('noteEditBtn').addEventListener('click', () => { editing = !editing; showNote(); });
-    $('noteEdit').addEventListener('input', () => { const n = result.canonical.notes[noteIdx]; n.body = $('noteEdit').value; $('jsonOut').value = ''; });
+    $('noteEdit').addEventListener('input', () => { const n = result.canonical.notes[noteIdx]; n.body = $('noteEdit').value; n.edited = true; $('jsonOut').value = ''; });
     $('jsonOut').addEventListener('change', () => { try { const parsed = JSON.parse($('jsonOut').value); result.canonical = parsed; renderNotes(); } catch (e) { alert('That JSON could not be read: ' + e.message); } });
 
 

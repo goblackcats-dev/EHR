@@ -65,6 +65,8 @@
   .wb-labels { display: grid; grid-template-columns: repeat(auto-fill, minmax(2.4in, 1fr)); gap: .12in; }
   .wb-label { border: 1px dashed #555; border-radius: 6px; padding: 6px 8px; font-size: 11pt; display: flex; gap: 8px; align-items: center; page-break-inside: avoid; }
   .wb-label .wb-qr { width: .8in; height: .8in; flex: none; } .wb-label b { display: block; } .wb-label small { color: #444; font-size: 8pt; word-break: break-all; }
+  .wb-controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; padding: 6px 20px 10px; font-size: 14px; border-bottom: 1px solid #e3e9f1; }
+  .wb-controls label { display: flex; gap: 6px; align-items: center; font-size: 14px; } .wb-controls input[type=checkbox] { width: 18px; height: 18px; min-height: 0; margin: 0; } .wb-controls input[type=number], .wb-controls select { min-height: 0; margin: 0; width: auto; } .wb-controls select, .wb-controls input[type=number] { padding: 6px; font-size: 14px; }
   .wb-h3 { margin: 18px 0 6px; font-size: 15px; }
   @media print {
     @page { size: letter portrait; margin: .5in; }
@@ -80,10 +82,9 @@
     const s = document.createElement('style'); s.id = 'wbStyle'; s.textContent = CSS; document.head.appendChild(s);
   }
 
-  // opts.labels: [{ title, line, code }] extra QR labels (medication packages) to print under the wristband.
-  function open(canon, opts) {
-    if (!canon || !canon.patient) return;
-    opts = opts || {}; ensureStyle();
+  // Shared print dialog. bodyHtml goes in the printable area; controlsHtml (optional) is shown above it but not printed.
+  function showDialog(title, intro, bodyHtml, controlsHtml) {
+    ensureStyle();
     let dlg = document.getElementById('wbDialog');
     if (!dlg) {
       dlg = document.createElement('dialog'); dlg.id = 'wbDialog'; dlg.className = 'wb-dialog';
@@ -91,13 +92,21 @@
       dlg.addEventListener('close', () => document.body.classList.remove('wb-printing'));
       window.addEventListener('afterprint', () => document.body.classList.remove('wb-printing'));
     }
-    const labels = (opts.labels || []).map(l => `<div class="wb-label">${qrSvg(l.code)}<div><b>${esc(l.title)}</b>${esc(l.line || '')}<br><small>${esc(l.code)}</small></div></div>`).join('');
-    dlg.innerHTML = `<div class="wb-head wb-noprint"><div><h2>Print wristband${opts.labels ? ' and medication labels' : ''}</h2><p>Print on plain letter paper (portrait, 100% scale). Cut out each band, wrap it around the wrist and tape it. Scanning the QR code in the EHR confirms the patient.</p></div><div><button class="wb-btn" id="wbPrintNow">Print</button> <button class="wb-x" id="wbClose" aria-label="Close">×</button></div></div>
-      <div class="wb-body">${bandHtml(canon)}${opts.labels ? `<div class="wb-h3">Medication labels</div><div class="wb-labels">${labels || '<div>No medications are due at the current simulation time.</div>'}</div>` : ''}</div>`;
+    dlg.innerHTML = `<div class="wb-head wb-noprint"><div><h2>${esc(title)}</h2><p>${intro}</p></div><div><button class="wb-btn" id="wbPrintNow">Print</button> <button class="wb-x" id="wbClose" aria-label="Close">×</button></div></div>${controlsHtml ? `<div class="wb-controls wb-noprint">${controlsHtml}</div>` : ''}<div class="wb-body">${bodyHtml}</div>`;
     dlg.querySelector('#wbClose').addEventListener('click', () => { dlg.close(); document.body.classList.remove('wb-printing'); });
     dlg.querySelector('#wbPrintNow').addEventListener('click', () => { document.body.classList.add('wb-printing'); window.print(); });
-    dlg.showModal();
+    if (!dlg.open) dlg.showModal();
+    return dlg;
   }
 
-  window.NSWristband = { patientCode, qrSvg, bandHtml, open, dobText };
+  // opts.labels: [{ title, line, code }] extra QR labels (medication packages) to print under the wristband.
+  function open(canon, opts) {
+    if (!canon || !canon.patient) return;
+    opts = opts || {};
+    const labels = (opts.labels || []).map(l => `<div class="wb-label">${qrSvg(l.code)}<div><b>${esc(l.title)}</b>${esc(l.line || '')}<br><small>${esc(l.code)}</small></div></div>`).join('');
+    showDialog(`Print wristband${opts.labels ? ' and medication labels' : ''}`, 'Print on plain letter paper (portrait, 100% scale). Cut out each band, wrap it around the wrist and tape it. Scanning the QR code in the EHR confirms the patient.',
+      `${bandHtml(canon)}${opts.labels ? `<div class="wb-h3">Medication labels</div><div class="wb-labels">${labels || '<div>No medications are due at the current simulation time.</div>'}</div>` : ''}`);
+  }
+
+  window.NSWristband = { patientCode, qrSvg, bandHtml, open, dobText, showDialog, hash };
 })();

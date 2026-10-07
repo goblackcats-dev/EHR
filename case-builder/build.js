@@ -145,7 +145,7 @@ NS.build = (() => {
     const orders = [], admins = [];
     const slotHours = 8;
     prepared.forEach((med, idx) => {
-      const orderId = `order_med_${U.slug(med.key || med.name)}_${idx}`;
+      const orderId = `order_med_${U.slug(med.key || med.name)}_${med._idx !== undefined ? med._idx : idx}`;
       const oneTime = med.freq === 'once' || med.freq === 'stat';
       const ended = (med.stopH !== undefined && med.stopH <= ctx.nowH) || (oneTime && med.startH <= ctx.nowH);
       const future = med.startH > ctx.nowH;
@@ -205,7 +205,8 @@ NS.build = (() => {
         linkedData: med.linked || [], nursingConsiderations: [...(med.nursing || []), ...(med.hold ? [med.hold] : [])],
         medication: {
           medKey: U.slug(med.key || med.name), drugClass: med.cls || '', dose: med.dose, route: med.route,
-          importantInfo: med.info || '', monitoringRules: monitoringRules(med), highAlert: !!med.highAlert
+          importantInfo: med.info || '', monitoringRules: monitoringRules(med), highAlert: !!med.highAlert,
+          freqKey: med.freq || '', prn: !!med.prn, at: med.at || [], hold: med.hold || '', expires: med.expires || '', barcode: med.barcode || '', expiredDecoy: !!med.expiredDecoy, edited: !!(med.edited || med.custom), custom: !!med.custom
         },
         mar
       });

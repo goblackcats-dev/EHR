@@ -474,5 +474,14 @@ This means student documentation immediately becomes part of the same patient re
 - **Hooking up a scanner.** A handheld USB or Bluetooth scanner that acts like a keyboard works with no setup: just scan while the EHR is open (it types the code and presses Enter). The EHR checks a patient code against the patient it has open and a medication code against the dose that is open. You can also call `MedPass.scan("PT-...")` from code, or send `window.dispatchEvent(new CustomEvent("nursingsim:scan", { detail: "PT-..." }))` from a bridge.
 - **Overrides.** Wristband scan, medication scan, and safety warnings can each be overridden, but the student must pick a reason from a list (damaged barcode, scanner down, emergency, provider or pharmacist verified, and so on). "Other" and allergy overrides also need a comment. Everything is saved on the dose record for debriefing.
 
+## New in v21: medication editor, vial labels, med-pass tools
+
+- **Edit the medications (Case Builder > Medications tab).** Add a medication from a built-in list or type your own, change a dose, route, frequency or times, set a hold parameter ("Hold if SBP below 100" is checked against the patient's vital signs), mark a drug high-alert, or remove it. The MAR, orders, notes and fall-risk update to match. Edits are saved with the patient, and **Undo all medication edits** puts it back. Changing the diagnosis starts the medication list fresh.
+- **Print vial labels.** Each medication has a **Label** button: a small label (vial/syringe 2 x 0.9 in, mini 1.5 x 0.7 in, or bottle/bag 3.2 x 1.5 in) with name, dose, route, form, expiration date, lot, and a QR code. You can print several copies, add the patient's name (for IV bags), or print everything at once with **Print all labels**.
+- **Use a barcode you already have.** In the edit window, scan or type the real vial's barcode into "Link to an existing barcode". The EHR scanner then accepts that barcode (and the printed QR) for that medication.
+- **Decoy packages.** **Print labels with decoys** adds wrong-strength, look-alike/sound-alike and (if you tick it) expired packages, each with its own QR code, so students must read the label and pick the right one.
+- **Expiration dates.** The default is the end of the month, one year out. Enter an earlier date to build an expired-drug trap; the EHR refuses to accept an expired package and tells the student to return it to pharmacy.
+- **Med-pass debrief report** (EHR: Med-pass setup). Lists every dose documented with whether the patient and medication were scanned or overridden and why, plus every wrong patient, wrong drug, expired package and override that occurred. Clear it to run the next student.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

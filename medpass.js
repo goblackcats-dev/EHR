@@ -29,27 +29,8 @@
     const dob = `19${60 + (h % 35)}-0${1 + (h % 9)}-1${h % 9}`, name = names[h % names.length];
     return { name, mrn, code: NSWristband.patientCode({ mrn, name, dob }), dob, room: `${safe(currentCanonicalCase.encounter.room, '')}` };
   };
-  const LASA = {
-    hydralazine: 'hydrOXYzine', hydroxyzine: 'hydrALAZINE', lorazepam: 'ALPRAZolam', alprazolam: 'LORazepam', morphine: 'HYDROmorphone', hydromorphone: 'MORphine',
-    carvedilol: 'captopril', metoprolol: 'metoprolol succinate ER (extended-release)', ceftriaxone: 'cefazolin', cefepime: 'cefoxitin', celecoxib: 'CeleXA (citalopram)',
-    lisinopril: 'lisinopril/hydrochlorothiazide combination', sertraline: 'sertraline 100 mg (double strength)', heparin: 'heparin 10,000 units/mL (high concentration)',
-    insulin: 'insulin glargine (long-acting; wrong insulin)'
-  };
-  const unitOf = dose => { const m = String(dose).match(/^([\d,.]+)\s*(mg|mcg|g|units|unit|mEq|mL)\b/i); return m ? { v: parseFloat(m[1].replace(/,/g, '')), u: m[2] } : null; };
-  const fmtNum = n => (Number.isInteger(n) ? n.toLocaleString('en-US') : String(n));
-
-  function packagesFor(order) {
-    const med = order.medication || {}, dose = safe(med.dose, ''), route = safe(med.route, '');
-    const correct = { code: `MED-${hex(hash(order.id))}`, label: safe(order.name), strength: dose, route, correct: true, kind: 'correct' };
-    const pkgs = [correct];
-    if (cfg().decoys) {
-      const u = unitOf(dose);
-      if (u) pkgs.push({ code: `MED-${hex(hash(order.id + ':strength'))}`, label: safe(order.name), strength: `${fmtNum(u.v * 2)} ${u.u}`, route, correct: false, kind: 'strength' });
-      const first = safe(order.name).toLowerCase().split(/[\s(]/)[0];
-      if (LASA[first]) pkgs.push({ code: `MED-${hex(hash(order.id + ':lasa'))}`, label: LASA[first], strength: dose, route, correct: false, kind: 'lasa' });
-    }
-    return pkgs.sort((a, b) => hash(order.id + a.code) - hash(order.id + b.code));
-  }
+  const simDay = () => String(simulationTime).slice(0, 10);
+  const packagesFor = order => NSMedLabel.packages(order, { decoys: cfg().decoys, simDate: simDay() });
 
   // ------------------------------------------------------------------ safety checks
   const ALLERGY_RULES = [
@@ -372,8 +353,9 @@
       scanFeedback(known ? `WRONG PATIENT: wristband reads ${d.name}, MRN ${d.mrn}. This is not ${currentCanonicalCase.patient.name}.` : `WRONG PATIENT: this wristband does not belong to ${currentCanonicalCase.patient.name}.`, false); return false;
     }
     if (!state) { scanFeedback('Open a due dose on the MAR before scanning a medication.', false); return false; }
-    const pkg = state.packages.find(k => k.code.toUpperCase() === up);
+    const pkg = state.packages.find(k => NSMedLabel.matches(k, up));
     if (!pkg) { state.medScan = { ok: false, msg: 'Unrecognized medication barcode' }; log('scan_med_unknown', code, state.orderId); }
+    else if (pkg.kind === 'expired' || NSMedLabel.isExpired(pkg.expires, simDay())) { state.medScan = { ok: false, msg: `EXPIRED: this package expired ${NSMedLabel.us(pkg.expires)}. Do not use it; return it to pharmacy and get a new one.` }; log('scan_med_expired', `${pkg.label} exp ${pkg.expires}`, state.orderId); }
     else if (pkg.correct) { state.medScan = { ok: true, msg: `Matches order: ${pkg.label} ${pkg.strength} ${pkg.route}` }; log('scan_med', 'Correct medication', state.orderId); }
     else {
       const why = pkg.kind === 'strength' ? `WRONG STRENGTH: package is ${pkg.strength}, order is ${safe(state.order.medication.dose)}` : `WRONG DRUG: package reads ${pkg.label}, order is ${safe(state.order.name)}`;
@@ -390,7 +372,7 @@
       const t = e.target, typing = t && (t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || (t.tagName === 'INPUT' && t.id !== 'scanInput' && !/^(checkbox|radio|button)$/.test(t.type)));
       if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
       const now = Date.now();
-      if (e.key === 'Enter') { if (buf.length >= 6 && /^(PT|MED)-/i.test(buf) && t.id !== 'scanInput') { e.preventDefault(); handleScan(buf); } buf = ''; return; }
+      if (e.key === 'Enter') { if (buf.length >= 6 && t.id !== 'scanInput') { e.preventDefault(); handleScan(buf); } buf = ''; return; }
       if (e.key.length !== 1) return;
       if (now - last > 80) buf = '';
       buf += e.key; last = now;
@@ -457,14 +439,16 @@
         <div id="mpTrapMsg" class="lib-message"></div>
         <div id="mpTrapList"></div>
         <h3>Props</h3>
-        <button id="mpPrintBtn" class="secondary-button">Print wristband and medication labels</button>
+        <button id="mpPrintBtn" class="secondary-button">Print wristband</button> <button id="mpLabelBtn" class="secondary-button">Print labels for the medications due now</button> <button id="mpDebriefBtn" class="secondary-button">Med-pass debrief report</button>
       </div>`;
     document.body.appendChild(dlg);
     $('mpSetupClose').addEventListener('click', () => dlg.close());
     $('mpOptScan').addEventListener('change', e => { cfg().scanRequired = e.target.checked; updateToolbar(); });
     $('mpOptDecoys').addEventListener('change', e => { cfg().decoys = e.target.checked; });
     $('mpTrapAdd').addEventListener('click', addTrap);
-    $('mpPrintBtn').addEventListener('click', openPrint);
+    $('mpPrintBtn').addEventListener('click', () => NSWristband.open(currentCanonicalCase));
+    $('mpLabelBtn').addEventListener('click', openPrint);
+    $('mpDebriefBtn').addEventListener('click', openDebrief);
     $('mpTrapList').addEventListener('click', e => { const b = e.target.closest('[data-undo]'); if (b) { undoTrap(parseInt(b.dataset.undo, 10)); } });
     return dlg;
   }
@@ -515,8 +499,40 @@
 
   // ------------------------------------------------------------------ printable wristband and labels (QR)
   function openPrint() {
-    const labels = dueMeds().map(m => packagesFor(m.order).filter(k => k.correct).map(k => ({ title: k.label, line: `${k.strength} · ${k.route} · due ${m.time}`, code: k.code }))).flat();
-    NSWristband.open(currentCanonicalCase, { labels });
+    const orders = dueMeds().map(m => m.order);
+    NSMedLabel.openSheet(currentCanonicalCase, orders, { simDate: simDay(), decoys: cfg().decoys });
+  }
+
+  // ------------------------------------------------------------------ med-pass debrief report
+  function openDebrief() {
+    const c = cfg(), cc = currentCanonicalCase;
+    const orders = new Map((cc.orders || []).map(o => [o.id, o]));
+    const admins = (cc.administrations || []).filter(a => a.scan);
+    const row = a => {
+      const o = orders.get(a.orderId) || {}, s = a.scan || {};
+      const how = x => x ? (x.reason + (x.detail ? ': ' + x.detail : '')) : '';
+      const flags = [];
+      if (s.skipped) flags.push('Scanning was off');
+      if (s.patientMode === 'override') flags.push('Patient scan overridden (' + how(s.patientOverride) + ')');
+      if (s.medicationMode === 'override') flags.push('Medication scan overridden (' + how(s.medicationOverride) + ')');
+      if (s.warningOverride) flags.push('Warnings overridden (' + (s.warnings || []).join(', ') + '; ' + how(s.warningOverride) + ')');
+      return `<tr><td>${esc(a.administeredTime || a.time)}</td><td>${esc(safe(o.name))}</td><td>${esc(safe(a.state))}</td><td>${s.skipped ? '-' : s.patientMode === 'scanned' ? 'Scanned' : s.patientMode === 'override' ? 'Override' : 'No'}</td><td>${s.skipped ? '-' : s.medicationMode === 'scanned' ? 'Scanned' : s.medicationMode === 'override' ? 'Override' : 'No'}</td><td>${s.identifiers ? 'Yes' : 'No'}</td><td>${flags.length ? esc(flags.join('; ')) : '<span class="fs-muted">none</span>'}</td></tr>`;
+    };
+    const errs = (c.log || []).filter(l => /^(scan_patient_wrong|scan_med_wrong|scan_med_unknown|scan_med_expired|override_)/.test(l.type));
+    const LABELS = { scan_patient_wrong: 'Wrong patient wristband', scan_med_wrong: 'Wrong medication package', scan_med_unknown: 'Unrecognized medication barcode', scan_med_expired: 'Expired package scanned', override_patient: 'Patient scan override', override_med: 'Medication scan override', override_warning: 'Warning override', override_allergy: 'ALLERGY alert override' };
+    const counts = {}; errs.forEach(l => { counts[l.type] = (counts[l.type] || 0) + 1; });
+    let dlg = $('mpDebriefDialog');
+    if (!dlg) { dlg = document.createElement('dialog'); dlg.id = 'mpDebriefDialog'; dlg.className = 'import-dialog mp-debrief'; document.body.appendChild(dlg); }
+    dlg.innerHTML = `<div class="dialog-header"><div><h2>Med-pass debrief</h2><p>${esc(cc.patient.name)} · everything the student scanned, overrode or got wrong.</p></div><div><button id="mpDbClear" class="secondary-button">Clear record</button> <button id="mpDbClose" class="icon-button" aria-label="Close">×</button></div></div>
+      <div class="dialog-body">
+        <h3>Doses documented (${admins.length})</h3>
+        ${admins.length ? `<table class="data-table"><thead><tr><th>Time</th><th>Medication</th><th>Result</th><th>Patient</th><th>Medication</th><th>2 identifiers</th><th>Overrides</th></tr></thead><tbody>${admins.map(row).join('')}</tbody></table>` : '<div class="empty-state">No doses have been documented yet.</div>'}
+        <h3>Errors caught and overrides (${errs.length})</h3>
+        ${errs.length ? `<ul>${Object.entries(counts).map(([k, n]) => `<li><b>${esc(LABELS[k])}</b>: ${n}</li>`).join('')}</ul><table class="data-table"><thead><tr><th>Sim time</th><th>Event</th><th>Detail</th></tr></thead><tbody>${errs.map(l => `<tr><td>${esc(epicDate(l.at))}</td><td>${esc(LABELS[l.type] || l.type)}</td><td>${esc(l.detail)}</td></tr>`).join('')}</tbody></table>` : '<div class="empty-state">No scanning errors or overrides recorded.</div>'}
+      </div>`;
+    $('mpDbClose').addEventListener('click', () => dlg.close());
+    $('mpDbClear').addEventListener('click', () => { if (confirm('Clear the scan log and scan records for this patient?')) { c.log = []; (cc.administrations || []).forEach(a => { delete a.scan; }); openDebrief(); } });
+    if (!dlg.open) dlg.showModal();
   }
 
   // ------------------------------------------------------------------ boot

@@ -13,7 +13,7 @@ NS.buildCase = function buildCase(input) {
   eventsToOrders(ctx, spec);
 
   // 2. Medications and orders
-  const prepared = B.prepareMeds(ctx, spec);
+  const prepared = NS.medEdit.apply(ctx, spec, B.prepareMeds(ctx, spec), input.medEdits);
   const med = B.buildMedicationOrders(ctx, spec, prepared);
   med.orders.forEach((o, i) => { o._src = prepared[i]; });
   const rank = o => (o.status !== 'Active' ? 4 : o.mar.category === 'continuous' ? 1 : o.mar.category === 'prn' ? 3 : 0);
