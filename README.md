@@ -1,93 +1,405 @@
-# NursingSim Case Builder v1
+# NursingSim EHR - Prototype v14
 
-A separate faculty-facing static browser application for generating canonical v2 JSON compatible with NursingSim EHR.
+This version adds an Epic-style **MAR** page and makes the Chart Review sidebar tabs appear as a dropdown.
 
-## Purpose
+## New in v8
+- Redesigned **Lab Results** as an Epic-style **Results Review** screen
+- Collection dates/times now run horizontally across the top
+- Lab components/tests run vertically down the left
+- Results are grouped by lab category
+- Abnormal results display in red with high/low indicators
+- The selected collection time is highlighted in blue
+- Added a right-side laboratory category tree
+- Added a selected-result detail card on the right
+- Added a bottom timeline scrubber with back/forward controls
+- Added **Show All** and **Flagged Only** controls
+- Kept the summary page's **Recent Labs** section, still compatible with full `labResults` data
 
-The faculty user supplies only a patient skeleton:
+## Existing features retained
+- Patient Summary
+- Chart Review
+- Combined Notes tab
+- H&P
+- Imaging
+- Cardiology
+- Sticky Notes
+- Combined device avatar
+- Allergies
+- Problems
+- Vitals
+- Nursing Orders
+- Current Medications
+- Intake and Output
+- JSON import
 
-- name / age / sex
-- primary acute problem
-- several medical history diagnoses
-- student level and complexity
-- optional faculty direction
+## How to use
+1. Unzip the folder.
+2. Open `index.html` in a web browser.
+3. Click **Import Patient** to paste or upload simulated JSON.
+4. Use the left navigation to open **Lab Results**.
+5. Click **All Results** or a category filter such as **CBC**, **CMP**, or **Coagulation**.
+6. Click an individual result row to see more detail and history on the right.
 
-The builder uses diagnosis profiles to make the case deeper and internally consistent.
+## Important
+Use made-up patient data only. Do not import real patient information or protected health information.
 
-Examples:
+## JSON structure for lab results
+The preferred structure is:
 
-- **Hypertension**
-  - raises the BP tendency
-  - adds a typical antihypertensive such as lisinopril
-  - links BP, potassium, and creatinine monitoring
+```json
+"labResults": [
+  {
+    "category": "CBC",
+    "test": "WBC",
+    "result": "8.0",
+    "units": "K/uL",
+    "flag": "",
+    "reference": "4.0-10.5",
+    "collected": "YYYY-MM-DD HH:mm",
+    "specimen": "Blood",
+    "status": "Final",
+    "history": [
+      {
+        "collected": "YYYY-MM-DD HH:mm",
+        "result": "7.8",
+        "units": "K/uL",
+        "flag": ""
+      }
+    ]
+  }
+]
+```
 
-- **Type 2 diabetes**
-  - adds hyperglycemia
-  - adds ACHS point-of-care glucose checks
-  - adds correction insulin
-  - changes diet toward consistent carbohydrate
+If `labResults` is not supplied, the app will fall back to `recentLabs`.
 
-- **CKD stage 3**
-  - raises creatinine/BUN and lowers eGFR
-  - changes diet to a renal pattern
-  - adds renal dosing/nephrotoxin avoidance logic
-  - changes medication nursing considerations
-  - reduces typical urine output in the generated sample I&O
+## Planned next section
+- MAR timeline view
 
-- **Atrial fibrillation**
-  - adds rate-control/anticoagulation logic
-  - adds metoprolol and warfarin
-  - adds PT/INR data
-  - links MAR monitoring to HR/BP and PT/INR
 
-## Included acute primary problems
+## New in v9
+- Added a working **MAR** page in the left navigation
+- Added an Epic-style medication timeline with hourly columns
+- Added color states for MAR cells and pills:
+  - Gray striped = before medication was ordered
+  - Orange striped = discontinued
+  - Green pill = administered / given
+  - Blue pill = due
+- Added filter buttons for **ALL**, **Scheduled**, **PRN**, and **Continuous** medications
+- Added **Completed / Historical Medications** section
+- Changed **Chart Review** sidebar sub-tabs into a dropdown that only appears while Chart Review is selected
 
-- Community-acquired pneumonia
-- Acute decompensated heart failure
-- COPD exacerbation
-- Sepsis
-- Acute ischemic stroke
-- Complicated UTI
-- Postoperative abdominal surgery
+## MAR JSON structure
+```json
+"mar": {
+  "date": "Friday September 13, 2026",
+  "timeSlots": ["0800", "0900", "1000", "1100"],
+  "medications": [
+    {
+      "name": "Medication name",
+      "dose": "10 mg",
+      "route": "Oral",
+      "frequency": "Daily",
+      "adminDose": "1 tablet",
+      "category": "scheduled",
+      "orderStartIndex": 0,
+      "discontinuedIndex": 3,
+      "events": [
+        { "slotIndex": 2, "time": "1030", "state": "given", "label": "1030 Given 10 mg" },
+        { "slotIndex": 3, "time": "1100", "state": "due", "label": "1100 Due" }
+      ],
+      "lastAdmin": "Today ...",
+      "dispenseLocation": "Pharmacy",
+      "completed": false
+    }
+  ]
+}
+```
 
-## Included medical history profiles
 
-- Hypertension
-- Type 2 diabetes
-- CKD stage 3
-- Coronary artery disease
-- Atrial fibrillation
-- COPD
-- Hyperlipidemia
-- Obesity
-- Dementia
-- Chronic anemia
+## New in v10
+- MAR medication rows are now clickable
+- Clicking a medication opens a linked **Medication Detail** panel
+- Detail panel displays:
+  - Drug class
+  - Last 3 doses
+  - Brief important nursing information
+  - Key monitoring values linked from JSON
+- Added built-in sample medications with JSON-linked monitoring examples:
+  - **Metoprolol tartrate** with BP/HR monitoring
+  - **Warfarin** with PT/INR monitoring
+  - **Digoxin** with apical pulse/potassium monitoring
 
-## Output
+## MAR detail JSON fields
+Inside each `mar.medications[]` item, optionally add:
+```json
+"detail": {
+  "drugClass": "Beta blocker",
+  "importantInfo": "Check BP and HR before administration.",
+  "keyMonitoring": [
+    { "label": "Blood Pressure", "value": "118/72", "note": "Current reading", "flagged": true },
+    { "label": "Heart Rate", "value": "68 bpm", "note": "Current reading", "flagged": true }
+  ],
+  "lastThreeDoses": [
+    { "time": "09/13/26 1130", "dose": "25 mg PO", "status": "Given" }
+  ]
+}
+```
 
-The generated patient uses NursingSim canonical:
 
-`schemaVersion: "2.0"`
+## New in v11
+- Added a working **Orders** tab in the left navigation
+- Orders can be filtered by:
+  - All
+  - Active
+  - Pending
+  - Completed
+  - Discontinued
+- Orders are grouped and filterable by category:
+  - Nursing
+  - Diet
+  - Activity
+  - Respiratory
+  - Medication
+  - Laboratory
+  - Lab / Bedside Testing
+  - Imaging
+  - Consult / Therapy
+  - Precautions
+- Clicking an order opens an **Order Detail** panel
+- Detail panel displays:
+  - Status
+  - Frequency
+  - Start and end times
+  - Provider
+  - Instructions
+  - Clinical rationale
+  - Linked chart data
+  - Nursing considerations
 
-It includes:
+## Orders JSON structure
+Add an `orders` array at the top level of the simulated patient JSON:
 
-- patient/encounter
-- problem list
-- time-stamped vitals/labs/assessments
-- medication and non-medication orders
-- MAR administrations
-- drug-specific monitoring rules
+```json
+"orders": [
+  {
+    "name": "Vital signs",
+    "category": "Nursing",
+    "status": "Active",
+    "frequency": "Every 4 hours",
+    "start": "YYYY-MM-DD HH:mm",
+    "end": "optional",
+    "provider": "Provider name",
+    "instructions": "Order instructions",
+    "rationale": "Why this order exists",
+    "linkedData": ["Related lab, MAR item, note, problem, or device"],
+    "nursingConsiderations": ["What the nurse should assess, monitor, or document"]
+  }
+]
+```
+
+If `orders` is not supplied, the app will generate a basic order list from `nursingOrders`, diet order, and ambulation order.
+
+
+## New in v12: canonical patient model and import validation
+
+v12 changes the internal architecture while preserving the current EHR screens.
+
+### Canonical source of truth
+The preferred import format is now `schemaVersion: "2.0"`.
+
+The canonical model stores:
+- patient and encounter
+- problems
+- observations for vitals and labs
+- orders
+- medication administrations
 - devices
-- I&O
+- intake/output events
+- notes
 - sticky notes
-- problem-oriented hospitalist progress note
-- baseline nursing note
-- simulation timeline
+- MAR timeline metadata
 
-## Running
+Patient Summary, Chart Review, Results Review, MAR, and Orders are generated from this shared model.
 
-Open `index.html` in a modern browser. No server is required.
+### Legacy compatibility
+Older NursingSim EHR JSON files are automatically converted into the canonical model before display.
 
-## Educational note
+### Import validation
+The Import Patient dialog now includes **Validate Case**.
 
-Diagnosis profiles intentionally produce common, plausible defaults for simulation. They are not intended to imply that every real patient with a diagnosis should receive the same medication, diet, laboratory testing, or treatment.
+Current checks include:
+- required patient information
+- unique clinical object IDs
+- MAR administrations linked to valid medication orders
+- valid avatar site markers
+- medication monitoring rules linked to chart vitals/labs
+- disagreement between old copied medication-monitoring values and current chart data
+- coverage of active problems in hospitalist progress notes
+- potential duplicate active medication orders
+
+Blocking errors prevent import. Warnings allow import.
+
+### Linked MAR monitoring
+Medication monitoring should reference chart observations rather than duplicate values.
+
+```json
+"medication": {
+  "medKey": "warfarin",
+  "drugClass": "Anticoagulant",
+  "dose": "5 mg",
+  "route": "Oral",
+  "importantInfo": "Review PT/INR and bleeding risk before administration.",
+  "monitoringRules": [
+    { "label": "PT", "sourceType": "lab", "code": "PT" },
+    { "label": "INR", "sourceType": "lab", "code": "INR" }
+  ]
+}
+```
+
+The MAR resolves the most recent matching lab automatically.
+
+### Structured hospitalist progress notes
+Canonical notes may use `problemSections`:
+
+```json
+"problemSections": [
+  {
+    "problemId": "problem_pneumonia",
+    "problem": "Community-acquired pneumonia",
+    "evidence": [
+      "WBC 15.2 K/uL",
+      "Left lower lobe infiltrate on chest x-ray"
+    ],
+    "treatments": [
+      "Continue ceftriaxone",
+      "Wean oxygen as tolerated"
+    ]
+  }
+]
+```
+
+The renderer automatically produces bold problem headings and separate bullets.
+
+## Recommended next build
+The next major nursing workflow screen should be **Flowsheets**, using the canonical observations and devices rather than creating another independent data source.
+
+
+## New in v13: Flowsheets
+
+- Added a dedicated **Flowsheets** tab with assessment fields vertically and documentation times horizontally.
+- Added collapsible nursing sections including Vital Signs, Respiratory, GI, GU, Mobility, Pain, Safety, Lines/Drains/Airways, and Intake/Output.
+- Device records and I&O events are automatically represented in the flowsheet.
+- Clicking a documented value opens a detail panel showing its source record and documentation time.
+- Added **Expand All**, **Collapse All**, and **Latest Column** controls.
+- Legacy patient JSON is automatically given a small set of derived flowsheet observations from current vitals, diet, activity, isolation, oxygen devices, and Foley information.
+
+### Canonical flowsheet observations
+
+Flowsheet documentation is stored in the existing canonical `observations` array rather than a separate duplicate data store:
+
+```json
+{
+  "id": "assessment_resp_0800",
+  "type": "assessment",
+  "section": "Respiratory",
+  "code": "BREATH_SOUNDS",
+  "label": "Breath Sounds",
+  "value": "Crackles, left base",
+  "collected": "2026-06-17 08:00",
+  "source": "Nursing assessment"
+}
+```
+
+The import validator now checks flowsheet assessment observations for a section, field label/code, and documentation time.
+
+
+## New in v14: interactive nursing simulation workflow
+
+v14 implements the five workflow features planned after the canonical-data refactor.
+
+### 1. Simulation clock and staged chart release
+- Added a persistent **Simulation Time** control in the patient header.
+- Faculty/students can:
+  - advance 30 minutes
+  - advance 1 hour
+  - jump to the next staged chart event
+  - reset the scenario
+- Labs, notes, orders, assessments, and devices can be staged by timestamp.
+- Items with future timestamps stay hidden until the simulation clock reaches them.
+- The built-in sample has staged future findings so the feature can be tested.
+
+### 2. Brain / Worklist
+Added a **Brain / Worklist** tab that derives tasks from:
+- medication administration times
+- nursing orders
+- new orders
+- abnormal/critical lab releases
+- incentive spirometry
+- glucose checks
+- ambulation
+- vital signs
+- intake/output
+- PRN medication reassessment tasks
+
+Tasks are categorized as:
+- Urgent / Overdue
+- Due Soon
+- Upcoming
+- Completed / Addressed
+
+### 3. New / abnormal indicators
+Sidebar badges now show:
+- NEW chart review items
+- NEW or CRITICAL laboratory results
+- DUE medications
+- NEW orders
+- NEW flowsheet documentation
+- open Brain tasks
+
+Opening the relevant section acknowledges its NEW indicator.
+
+### 4. Interactive medication administration
+Blue due MAR boxes are now clickable.
+
+Available actions:
+- Give
+- Hold
+- Refused
+- Not Given
+
+The action updates the canonical medication administration record.
+
+Medication monitoring is displayed before the action using linked chart data such as:
+- BP / HR
+- PT / INR
+- potassium
+- creatinine
+- glucose
+
+Giving a PRN medication creates a future reassessment task in the Brain.
+
+### 5. Student flowsheet documentation
+Flowsheets now support documentation.
+
+Students can:
+- click **Chart Assessment**
+- click an empty flowsheet cell
+- choose a section
+- enter an assessment field
+- document a value
+- mark it abnormal
+- set the documentation time
+
+The new entry is stored as a canonical `observation` with:
+- `type: "assessment"`
+- a stable ID
+- section
+- field/code
+- value
+- timestamp
+- source `"Student charting"`
+
+This means student documentation immediately becomes part of the same patient record used by the rest of the simulation.
+
+## Suggested next project
+The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
