@@ -49,7 +49,8 @@ NS.rules = (() => {
       helper.home(spec, { key: 'nicotine_patch', name: 'nicotine (NICODERM CQ) 24 hour patch', dose: heavy ? '21 mg' : '14 mg', route: 'Transdermal', freq: 'daily', at: ['0900'], cls: 'Nicotine replacement', info: 'Rotate sites; remove old patch. Do not smoke while wearing patch.', indication: 'Tobacco use disorder', home: false, startH: 3 });
       helper.order(spec, { name: 'Tobacco cessation counseling', category: 'Nursing', frequency: 'Once', instructions: 'Offer cessation counseling and quitline information before discharge.', startH: 6 });
     }
-    if (/Heavy/i.test(s.alcohol || '')) {
+    if (spec.primaryKey === 'etoh_withdrawal') { /* the alcohol-withdrawal diagnosis writes its own CIWA, thiamine and benzodiazepine orders */ }
+    else if (/Heavy/i.test(s.alcohol || '')) {
       helper.order(spec, { name: 'CIWA-Ar alcohol withdrawal assessment', category: 'Nursing', frequency: 'Every 4 hours (every 1 hour after PRN dose)', instructions: 'Score CIWA-Ar; give lorazepam per protocol for score of 10 or greater. Notify provider for score above 20, seizure, or hallucinations.', startH: 3, stopH: 96, nursing: ['Seizure and fall precautions; keep room quiet and well lit.'] });
       helper.home(spec, { key: 'thiamine', name: 'thiamine tablet', dose: '100 mg', route: 'Oral', freq: 'daily', cls: 'Vitamin B1', info: 'Give before any dextrose-containing fluids.', variants: { npo: { name: 'thiamine injection', route: 'IV' } }, indication: 'Alcohol use disorder', home: false });
       helper.home(spec, { key: 'folic_acid', name: 'folic acid tablet', dose: '1 mg', route: 'Oral', freq: 'daily', cls: 'Vitamin B9', holdIf: ['npo'], indication: 'Alcohol use disorder', home: false });
