@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NursingSim Case Builder v1</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>NursingSim Case Builder</h1>
+      <p>Faculty tool for generating internally consistent simulated patients for NursingSim EHR.</p>
+    </div>
+    <div class="top-actions">
+      <button id="resetBtn" class="secondary-button">Reset</button>
+      <button id="buildBtn" class="primary-button">Build Patient</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="builder-panel">
+      <div class="panel-header">
+        <div>
+          <h2>1. Patient Skeleton</h2>
+          <p>Provide the small amount of information you want to control. Diagnosis profiles will fill in typical defaults.</p>
+        </div>
+      </div>
+
+      <div class="form-grid three">
+        <label>
+          <span>Patient Name</span>
+          <input id="patientName" value="Taylor Morgan" />
+        </label>
+        <label>
+          <span>Age</span>
+          <input id="patientAge" type="number" value="68" min="18" max="110" />
+        </label>
+        <label>
+          <span>Sex</span>
+          <select id="patientSex">
+            <option>Female</option>
+            <option selected>Male</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>
+          <span>MRN</span>
+          <input id="patientMrn" value="SIM-001001" />
+        </label>
+        <label>
+          <span>Unit</span>
+          <input id="patientUnit" value="4 Medical" />
+        </label>
+        <label>
+          <span>Room</span>
+          <input id="patientRoom" value="414A" />
+        </label>
+        <label>
+          <span>Student Level</span>
+          <select id="studentLevel">
+            <option>LPN</option>
+            <option>ADN first year</option>
+            <option selected>ADN second year</option>
+            <option>Advanced</option>
+          </select>
+        </label>
+        <label>
+          <span>Complexity</span>
+          <select id="complexity">
+            <option>simple</option>
+            <option selected>moderate</option>
+            <option>complex</option>
+          </select>
+        </label>
+        <label>
+          <span>Simulation Start</span>
+          <input id="simulationStart" value="2026-09-02 07:00" />
+        </label>
+      </div>
+
+      <div class="field-block">
+        <label>
+          <span>Primary Problem</span>
+          <select id="primaryDiagnosis"></select>
+        </label>
+        <div id="primaryDescription" class="profile-description"></div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-heading">
+          <div>
+            <span class="main-label">Medical History</span>
+            <small>Select all diagnoses that should shape the patient.</small>
+          </div>
+          <button id="clearHistoryBtn" class="link-button">Clear</button>
+        </div>
+        <div id="historyGrid" class="diagnosis-grid"></div>
+      </div>
+
+      <div class="field-block">
+        <label>
+          <span>Extra Faculty Direction</span>
+          <textarea id="facultyNotes" placeholder="Optional: must have Foley, make patient mildly confused, include a discharge barrier, avoid insulin, etc."></textarea>
+        </label>
+      </div>
+
+      <div class="rule-note">
+        Diagnosis profiles are <strong>educational defaults, not hard clinical rules</strong>. For example, hypertension may contribute lisinopril or metoprolol and a higher BP trend, but you can edit any generated item before export.
+      </div>
+    </section>
+
+    <section class="builder-panel">
+      <div class="panel-header">
+        <div>
+          <h2>2. Diagnosis Effects</h2>
+          <p>See exactly what each selected diagnosis is contributing before the case is built.</p>
+        </div>
+      </div>
+
+      <div id="effectsEmpty" class="empty-state">Choose a primary problem and/or medical history diagnoses.</div>
+      <div id="effectsList" class="effects-list"></div>
+    </section>
+
+    <section class="builder-panel">
+      <div class="panel-header">
+        <div>
+          <h2>3. Generated Case</h2>
+          <p>Review the generated clinical content, make edits, then export canonical v2 JSON.</p>
+        </div>
+        <div class="panel-actions">
+          <button id="rebuildBtn" class="secondary-button">Rebuild</button>
+          <button id="validateBtn" class="secondary-button">Validate</button>
+          <button id="downloadBtn" class="primary-button">Download JSON</button>
+        </div>
+      </div>
+
+      <div class="summary-strip" id="summaryStrip">
+        <div><span>Problems</span><strong id="summaryProblems">0</strong></div>
+        <div><span>Orders</span><strong id="summaryOrders">0</strong></div>
+        <div><span>Medications</span><strong id="summaryMeds">0</strong></div>
+        <div><span>Labs</span><strong id="summaryLabs">0</strong></div>
+        <div><span>Warnings</span><strong id="summaryWarnings">0</strong></div>
+      </div>
+
+      <div class="generated-layout">
+        <aside class="generated-nav">
+          <button class="generated-tab active" data-tab="overview">Overview</button>
+          <button class="generated-tab" data-tab="problems">Problems</button>
+          <button class="generated-tab" data-tab="vitals">Vitals</button>
+          <button class="generated-tab" data-tab="medications">Medications</button>
+          <button class="generated-tab" data-tab="orders">Orders</button>
+          <button class="generated-tab" data-tab="labs">Labs</button>
+          <button class="generated-tab" data-tab="diet">Diet / Safety</button>
+          <button class="generated-tab" data-tab="json">JSON</button>
+          <button class="generated-tab" data-tab="validation">Validation</button>
+        </aside>
+
+        <div class="generated-content">
+          <div id="generatedOverview" class="generated-view"></div>
+          <div id="generatedProblems" class="generated-view hidden"></div>
+          <div id="generatedVitals" class="generated-view hidden"></div>
+          <div id="generatedMedications" class="generated-view hidden"></div>
+          <div id="generatedOrders" class="generated-view hidden"></div>
+          <div id="generatedLabs" class="generated-view hidden"></div>
+          <div id="generatedDiet" class="generated-view hidden"></div>
+          <div id="generatedJson" class="generated-view hidden">
+            <div class="json-toolbar">
+              <button id="copyJsonBtn" class="secondary-button">Copy JSON</button>
+              <button id="formatJsonBtn" class="secondary-button">Format</button>
+            </div>
+            <textarea id="jsonOutput" spellcheck="false"></textarea>
+          </div>
+          <div id="generatedValidation" class="generated-view hidden"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="profiles.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
