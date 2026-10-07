@@ -111,7 +111,9 @@ NS.rules = (() => {
     const swEnd = sw && sw.length ? Math.max(...sw.map(w => w[1])) : undefined;
     const ppxStop = afib ? swEnd : undefined; // apixaban resumes when the surgery window closes
     const team = spec.primaryTeam || 'hospitalist';
-    if (!(afib && swEnd === undefined)) {
+    // patients already on full-dose anticoagulation for a mechanical valve do not also get prophylaxis-dose enoxaparin/heparin
+    const onTherapeutic = !!spec.therapeuticAnticoagulation || spec.meds.some(m => /warfarin/i.test(m.name));
+    if (!onTherapeutic && !(afib && swEnd === undefined)) {
       const heparin = ctx.renal !== 'none' && (ctx.renal === 'esrd' || (spec.labBase.Creatinine || 1) > 2.2);
       const mk = (start, stop) => heparin
         ? Object.assign({}, base, { key: 'heparin_ppx', name: 'heparin injection', dose: '5,000 units', route: 'Subcutaneous', freq: 'q8h', startH: start, stopH: stop, by: team, highAlert: true })
@@ -228,7 +230,7 @@ NS.rules = (() => {
     const poWhileNpo = S.activeMeds().filter(m => (npoNow || S.flag('npoStrict')) && m.route === 'Oral' && !m.prn && !m.sips && m.freq !== 'once' && !/metoprolol|carvedilol/i.test(m.name));
     if (poWhileNpo.length) add('warning', `Patient is NPO now but has scheduled oral medication(s): ${poWhileNpo.map(m => m.name.split(' ')[0]).join(', ')}.`);
     // anticoagulants
-    if (S.hasMed('apixaban') && S.hasMed('enoxaparin|heparin')) add('warning', 'Therapeutic anticoagulant and DVT prophylaxis are both active.');
+    if (S.hasMed('apixaban|warfarin') && S.hasMed('enoxaparin|heparin')) add('warning', 'Therapeutic anticoagulant and DVT prophylaxis are both active.');
     const opioid = S.activeMeds().some(m => /^opioid/i.test(m.cls || ''));
     const benzo = S.activeMeds().some(m => /^benzodiazepine/i.test(m.cls || ''));
     if (opioid && benzo) add('info', 'Opioid and benzodiazepine are both active (sedation / respiratory depression risk); good teaching point.');
