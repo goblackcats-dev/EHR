@@ -21,12 +21,13 @@
   }
 
   // ------------------------------------------------------------------ barcodes and decoys
-  const patientCode = () => `PT-${safe(currentCanonicalCase.patient.mrn, 'UNKNOWN')}`;
+  const patientCode = () => NSWristband.patientCode(currentCanonicalCase.patient);
   const decoyPatient = () => {
     const names = ['Sam Rivera', 'Jordan Blake', 'Morgan Reyes', 'Casey Nguyen'];
     const h = hash(currentCanonicalCase.patient.mrn || 'x');
     const mrn = `SIM-9${String(h % 100000).padStart(5, '0')}`;
-    return { name: names[h % names.length], mrn, code: `PT-${mrn}`, dob: `19${60 + (h % 35)}-0${1 + (h % 9)}-1${h % 9}`, room: `${safe(currentCanonicalCase.encounter.room, '')}` };
+    const dob = `19${60 + (h % 35)}-0${1 + (h % 9)}-1${h % 9}`, name = names[h % names.length];
+    return { name, mrn, code: NSWristband.patientCode({ mrn, name, dob }), dob, room: `${safe(currentCanonicalCase.encounter.room, '')}` };
   };
   const LASA = {
     hydralazine: 'hydrOXYzine', hydroxyzine: 'hydrALAZINE', lorazepam: 'ALPRAZolam', alprazolam: 'LORazepam', morphine: 'HYDROmorphone', hydromorphone: 'MORphine',
@@ -134,13 +135,60 @@
     return [];
   }
 
+  // ------------------------------------------------------------------ patient scan status (stays for every medication)
+  let pstat = null;   // { caseRef, mode: 'scanned' | 'override', code, at, reason, detail }
+  const patientStatus = () => (pstat && currentCanonicalCase && pstat.caseRef === currentCanonicalCase) ? pstat : null;
+
+  const OVERRIDE_REASONS = {
+    patient: ['Wristband missing, damaged, or unreadable', 'Wristband scanner not working or not available', 'Wristband cannot be scanned (limb restriction, isolation, skin integrity)', 'Emergency: patient unstable, immediate treatment needed', 'System or network downtime', 'Other (explain below)'],
+    med: ['Barcode damaged, missing, or unreadable on the package', 'Medication has no barcode (compounded, pharmacy-prepared, or bulk stock)', 'Scanner not working or not available', 'Barcode not recognized by the system; drug verified with pharmacy', 'Emergency: patient unstable, immediate treatment needed', 'System or network downtime', 'Other (explain below)'],
+    warning: ['Provider notified and gave an order to proceed', 'Pharmacist consulted and verified the dose is safe', 'Hold parameter reviewed; provider approved giving the dose', 'Dose timing change approved by provider or pharmacy', 'Allergy reviewed: documented reaction is an intolerance or was tolerated before (verified with provider)', 'Clinical judgment (explain below)', 'Other (explain below)'],
+    allergy: ['Provider notified and gave an order to proceed', 'Pharmacist consulted and verified the drug is safe for this patient', 'Allergy reviewed: documented reaction is an intolerance or was tolerated before (verified with provider)', 'Other (explain below)']
+  };
+
+  function toast(text, cls) {
+    let t = $('mpToast');
+    if (!t) { t = document.createElement('div'); t.id = 'mpToast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+    const open = [...document.querySelectorAll('dialog[open]')].pop();   // a modal sits above the page, so show the message inside it
+    (open || document.body).appendChild(t);
+    t.textContent = text; t.className = `mp-toast ${cls || ''} show`;
+    clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  function updatePill() {
+    const banner = document.querySelector('.patient-banner'); if (!banner) return;
+    let pill = $('mpPatientPill');
+    if (!pill) {
+      pill = document.createElement('button'); pill.id = 'mpPatientPill'; pill.type = 'button'; banner.appendChild(pill);
+      pill.addEventListener('click', () => {
+        if (!currentCanonicalCase) return;
+        const s = patientStatus();
+        if (s) { if (confirm(`Clear the wristband scan for ${currentCanonicalCase.patient.name}? (Do this when you leave the room; you will need to scan again.)`)) clearPatientScan(); }
+        else openScanner('patient');
+      });
+    }
+    if (!currentCanonicalCase) { pill.className = 'mp-pt-pill hidden'; return; }
+    const s = patientStatus(), on = cfg().scanRequired;
+    let cls, text;
+    if (!on) { cls = 'off'; text = 'Wristband scanning: OFF'; }
+    else if (!s) { cls = 'not'; text = 'PATIENT NOT SCANNED'; }
+    else if (s.mode === 'override') { cls = 'ovr'; text = 'NOT SCANNED (override)'; }
+    else { cls = 'ok'; text = 'PATIENT SCANNED'; }
+    if (pill.dataset.k !== cls + text) { pill.dataset.k = cls + text; pill.className = `mp-pt-pill ${cls}`; pill.innerHTML = `<span class="mp-dot"></span>${esc(text)}`; }
+  }
+  function setPatientScanned(code) {
+    pstat = { caseRef: currentCanonicalCase, mode: 'scanned', code, at: simulationTime };
+    log('scan_patient', 'Correct patient'); updatePill(); if (state) refresh();
+  }
+  function clearPatientScan() { pstat = null; log('scan_cleared', 'Patient scan cleared'); updatePill(); if (state) refresh(); }
+
   // ------------------------------------------------------------------ dialog state and UI
-  let state = null;        // { orderId, order, packages, patientScan, medScan, ids, override, double, warnings }
+  let state = null;        // { orderId, order, packages, medScan, ids, warnOverride, double, warnings }
 
   function startState(med, event) {
     const order = getVisibleMedicationOrder(med.orderId);
     if (!order) { state = null; return; }
-    state = { orderId: med.orderId, order, packages: packagesFor(order), patientScan: null, medScan: null, ids: false, override: '', double: '', sched: safe(event.time), scanNotes: [] };
+    state = { orderId: med.orderId, order, packages: packagesFor(order), medScan: null, ids: false, warnOverride: null, double: '', sched: safe(event.time) };
     state.warnings = [...allergyChecks(order), ...holdChecks(order), ...recentDoseCheck(order), ...timeCheck(safe(event.time))];
     log('open', `Opened ${order.name} (scheduled ${state.sched})`, med.orderId);
   }
@@ -152,11 +200,19 @@
       $('marActionMonitoring').parentNode.insertBefore(block, $('marActionMonitoring'));
       block.addEventListener('click', e => {
         const b = e.target.closest('button[data-mp]'); if (!b) return;
-        if (b.dataset.mp === 'patient') openScanner('patient'); else if (b.dataset.mp === 'med') openScanner('med');
+        const k = b.dataset.mp;
+        if (k === 'patient') openScanner('patient');
+        else if (k === 'med') openScanner('med');
+        else if (k === 'clear') clearPatientScan();
+        else if (k === 'ovr-patient') openOverride('patient');
+        else if (k === 'ovr-med') openOverride('med');
+        else if (k === 'ovr-warn') openOverride(state.warnings.some(w => w.level === 'hard') ? 'allergy' : 'warning');
+        else if (k === 'ovr-undo-warn') { state.warnOverride = null; refresh(); }
+        else if (k === 'ovr-undo-med') { state.medScan = null; refresh(); }
+        else if (k === 'ovr-undo-patient') { pstat = null; updatePill(); refresh(); }
       });
       block.addEventListener('input', e => {
         if (e.target.id === 'mpIds') state.ids = e.target.checked;
-        if (e.target.id === 'mpOverride') state.override = e.target.value;
         if (e.target.id === 'mpDouble') state.double = e.target.value;
         refresh(false);
       });
@@ -164,29 +220,28 @@
     return block;
   }
 
+  const medOk = s => !!(s.medScan && s.medScan.ok);
   const rightsList = () => {
-    const s = state, med = s.medScan, pt = s.patientScan;
-    const timeBad = s.warnings.some(w => w.code === 'time');
-    return [
-      ['Right patient', pt && pt.ok && s.ids], ['Right drug', med && med.ok], ['Right dose', med && med.ok], ['Right route', med && med.ok], ['Right time', !timeBad || (s.override.trim().length > 2)]
-    ];
+    const s = state, pt = patientStatus(), timeBad = s.warnings.some(w => w.code === 'time');
+    return [['Right patient', !!pt && s.ids], ['Right drug', medOk(s)], ['Right dose', medOk(s)], ['Right route', medOk(s)], ['Right time', !timeBad || !!s.warnOverride]];
   };
 
   function gate() {
     const s = state, c = cfg();
     if (!c.scanRequired) return { ok: true, why: '' };
     const hard = s.warnings.filter(w => w.level === 'hard'), soft = s.warnings.filter(w => w.level === 'soft');
-    if (hard.length) return { ok: false, why: 'A safety stop applies (see above). Hold the medication and notify the provider.' };
-    if (!(s.patientScan && s.patientScan.ok)) return { ok: false, why: 'Scan the patient wristband first.' };
+    if (!patientStatus()) return { ok: false, why: 'Scan the patient wristband first (or use Override and give a reason).' };
     if (!s.ids) return { ok: false, why: 'Confirm two patient identifiers (name and date of birth).' };
-    if (!(s.medScan && s.medScan.ok)) return { ok: false, why: 'Scan the medication package; it must match the order.' };
-    if (soft.length && s.override.trim().length < 3) return { ok: false, why: 'There are warnings. Hold the medication, or type your reason for giving it anyway.' };
+    if (!medOk(s)) return { ok: false, why: 'Scan the medication package; it must match the order (or use Override and give a reason).' };
+    if (hard.length && !s.warnOverride) return { ok: false, why: 'A safety stop applies (see above). Hold the medication and notify the provider, or override with a documented reason.' };
+    if (soft.length && !s.warnOverride) return { ok: false, why: 'There are warnings. Hold the medication, or override and document why you are giving it.' };
     if (s.order.medication && s.order.medication.highAlert && s.double.trim().length < 2) return { ok: false, why: 'High-alert medication: an independent double check by a second nurse is required (enter their initials).' };
     return { ok: true, why: '' };
   }
 
   function refresh(rebuild = true) {
     const c = cfg(); const block = ensureBlock();
+    updatePill();
     if (!state) { block.classList.add('hidden'); return; }
     block.classList.remove('hidden');
     const s = state, give = document.querySelector('.mar-action-give');
@@ -197,104 +252,175 @@
       return;
     }
     if (rebuild) {
-      const pt = s.patientScan, md = s.medScan, showOverride = s.warnings.some(w => w.level === 'soft');
-      const needsDouble = !!(s.order.medication && s.order.medication.highAlert);
+      const pt = patientStatus(), md = s.medScan, needsDouble = !!(s.order.medication && s.order.medication.highAlert);
+      const ptBar = !pt
+        ? `<div class="mp-ptbar not"><div class="mp-ptbar-text"><b>PATIENT NOT SCANNED</b><span>Scan the wristband once. It stays scanned for all of this patient's medications.</span></div><div class="mp-ptbar-btns"><button class="primary-button" data-mp="patient">Scan wristband</button><button class="secondary-button" data-mp="ovr-patient">Override</button></div></div>`
+        : pt.mode === 'override'
+          ? `<div class="mp-ptbar ovr"><div class="mp-ptbar-text"><b>NOT SCANNED - OVERRIDE</b><span>${esc(pt.reason)}${pt.detail ? ': ' + esc(pt.detail) : ''}</span></div><div class="mp-ptbar-btns"><button class="secondary-button" data-mp="patient">Scan wristband</button><button class="secondary-button" data-mp="ovr-undo-patient">Remove override</button></div></div>`
+          : `<div class="mp-ptbar ok"><div class="mp-ptbar-text"><b>PATIENT SCANNED</b><span>${esc(currentCanonicalCase.patient.name)}, MRN ${esc(currentCanonicalCase.patient.mrn)}, scanned ${esc(epicDate(pt.at))}. Applies to all medications.</span></div><div class="mp-ptbar-btns"><button class="secondary-button" data-mp="clear">Clear scan</button></div></div>`;
+      const medStep = md && md.override
+        ? `<div class="mp-step ovr"><b>Medication NOT scanned - override</b><span>${esc(md.reason)}${md.detail ? ': ' + esc(md.detail) : ''}</span><button class="secondary-button" data-mp="ovr-undo-med">Remove override</button></div>`
+        : `<div class="mp-step ${md ? (md.ok ? 'ok' : 'bad') : ''}"><b>Scan medication</b><span>${md ? esc(md.msg) : 'Not scanned'}</span><div class="mp-step-btns"><button class="primary-button" data-mp="med">${md && md.ok ? 'Scan again' : 'Scan medication'}</button>${md && md.ok ? '' : '<button class="secondary-button" data-mp="ovr-med">Override</button>'}</div></div>`;
+      const wo = s.warnOverride;
       block.innerHTML = `
         <div class="mp-head">Barcode medication administration ${needsDouble ? '<span class="mp-pill alert">HIGH-ALERT</span>' : ''}</div>
-        <div class="mp-steps">
-          <button class="mp-step ${pt ? (pt.ok ? 'ok' : 'bad') : ''}" data-mp="patient"><b>1. Scan patient wristband</b><span>${pt ? esc(pt.msg) : 'Not scanned'}</span></button>
-          <button class="mp-step ${md ? (md.ok ? 'ok' : 'bad') : ''}" data-mp="med"><b>2. Scan medication</b><span>${md ? esc(md.msg) : 'Not scanned'}</span></button>
-        </div>
+        ${ptBar}
+        <div class="mp-steps">${medStep}</div>
         <label class="mp-check"><input type="checkbox" id="mpIds" ${s.ids ? 'checked' : ''}/> I asked the patient to state their name and date of birth and they match the wristband and MAR.</label>
-        ${s.warnings.length ? `<div class="mp-warn-list">${s.warnings.map(w => `<div class="mp-warn ${w.level}">${esc(w.text)}</div>`).join('')}</div>` : ''}
-        ${showOverride ? `<label class="input-label" for="mpOverride">Reason for giving despite warnings (otherwise choose Hold)</label><textarea id="mpOverride" class="small-textarea">${esc(s.override)}</textarea>` : ''}
+        ${s.warnings.length ? `<div class="mp-warn-list">${s.warnings.map(w => `<div class="mp-warn ${w.level}">${esc(w.text)}</div>`).join('')}${wo ? `<div class="mp-warn ovr"><b>Override recorded:</b> ${esc(wo.reason)}${wo.detail ? ' - ' + esc(wo.detail) : ''} <button class="secondary-button" data-mp="ovr-undo-warn">Remove</button></div>` : '<button class="secondary-button" data-mp="ovr-warn">Override warnings and give anyway...</button>'}</div>` : ''}
         ${needsDouble ? `<label class="input-label" for="mpDouble">Independent double check: second nurse initials</label><input id="mpDouble" class="mp-initials" value="${esc(s.double)}" maxlength="6" />` : ''}
         <div class="mp-rights" id="mpRights"></div>
         <div class="mp-why" id="mpWhy"></div>`;
     }
     const rights = $('mpRights');
     if (rights) rights.innerHTML = rightsList().map(([l, ok]) => `<span class="mp-right ${ok ? 'ok' : ''}">${ok ? '✓' : '○'} ${l}</span>`).join('');
-    const g = gate(); if ($('mpWhy')) $('mpWhy').textContent = g.ok ? 'All checks complete. You may give the medication.' : g.why;
-    if ($('mpWhy')) $('mpWhy').className = `mp-why ${g.ok ? 'ok' : ''}`;
+    const g = gate(); if ($('mpWhy')) { $('mpWhy').textContent = g.ok ? 'All checks complete. You may give the medication.' : g.why; $('mpWhy').className = `mp-why ${g.ok ? 'ok' : ''}`; }
     if (give) give.disabled = !g.ok;
   }
 
-  // ------------------------------------------------------------------ scanner dialog
+  // ------------------------------------------------------------------ override dialog (a reason from the list is required)
+  let ovKind = null;
+  function ensureOverride() {
+    let dlg = $('mpOverrideDialog'); if (dlg) return dlg;
+    dlg = document.createElement('dialog'); dlg.id = 'mpOverrideDialog'; dlg.className = 'action-dialog mp-override';
+    dlg.innerHTML = `<div class="dialog-header"><div><h2 id="ovTitle">Override</h2><p id="ovSub"></p></div><button id="ovClose" class="icon-button" aria-label="Close">×</button></div>
+      <div class="dialog-body"><label class="input-label" for="ovReason">Reason for override (required)</label><select id="ovReason" class="mp-select"></select>
+      <label class="input-label" for="ovDetail" id="ovDetailLabel">Comment</label><textarea id="ovDetail" class="small-textarea"></textarea>
+      <div id="ovMsg" class="lib-message error"></div>
+      <div class="dialog-actions"><button id="ovCancel" class="secondary-button">Cancel</button><button id="ovConfirm" class="primary-button">Record override</button></div></div>`;
+    document.body.appendChild(dlg);
+    $('ovClose').addEventListener('click', () => dlg.close()); $('ovCancel').addEventListener('click', () => dlg.close());
+    $('ovConfirm').addEventListener('click', confirmOverride);
+    return dlg;
+  }
+  function openOverride(kind) {
+    ovKind = kind; const dlg = ensureOverride();
+    const t = { patient: ['Override wristband scan', 'Use only when the wristband cannot be scanned. This is recorded for your instructor.'], med: ['Override medication scan', 'Use only when the medication barcode cannot be scanned. This is recorded for your instructor.'], warning: ['Override safety warnings', 'You are choosing to give a dose despite the warnings. This is recorded for your instructor.'], allergy: ['Override ALLERGY alert', 'The patient has a documented allergy that matches this drug. This is recorded for your instructor.'] }[kind];
+    $('ovTitle').textContent = t[0]; $('ovSub').textContent = t[1];
+    $('ovReason').innerHTML = '<option value="">Select a reason...</option>' + OVERRIDE_REASONS[kind].map(r => `<option>${esc(r)}</option>`).join('');
+    $('ovDetail').value = ''; $('ovMsg').textContent = '';
+    $('ovDetailLabel').textContent = 'Comment (required for "Other" and for allergy overrides)';
+    if ($('scannerDialog') && $('scannerDialog').open) $('scannerDialog').close();
+    dlg.showModal();
+  }
+  function confirmOverride() {
+    const reason = $('ovReason').value, detail = $('ovDetail').value.trim();
+    if (!reason) { $('ovMsg').textContent = 'Choose a reason from the list.'; return; }
+    if ((/^Other|^Clinical judgment/.test(reason) || ovKind === 'allergy') && detail.length < 3) { $('ovMsg').textContent = 'Add a short comment explaining the override.'; return; }
+    if (ovKind === 'patient') { pstat = { caseRef: currentCanonicalCase, mode: 'override', code: '', at: simulationTime, reason, detail }; log('override_patient', `${reason}${detail ? ': ' + detail : ''}`); }
+    else if (ovKind === 'med') { if (state) { state.medScan = { ok: true, override: true, reason, detail, msg: '' }; log('override_med', `${reason}${detail ? ': ' + detail : ''}`, state.orderId); } }
+    else { if (state) { state.warnOverride = { reason, detail, kind: ovKind }; log(ovKind === 'allergy' ? 'override_allergy' : 'override_warning', `${reason}${detail ? ': ' + detail : ''}`, state.orderId); } }
+    $('mpOverrideDialog').close(); updatePill(); if (state) refresh();
+  }
+
+  // ------------------------------------------------------------------ scanning: one entry point for tiles, typing, handheld scanners
   function ensureScanner() {
     let dlg = $('scannerDialog');
     if (dlg) return dlg;
     dlg = document.createElement('dialog'); dlg.id = 'scannerDialog'; dlg.className = 'action-dialog scanner-dialog';
     dlg.innerHTML = `<div class="dialog-header"><div><h2 id="scanTitle">Scan</h2><p id="scanSub"></p></div><button id="scanClose" class="icon-button" aria-label="Close scanner">×</button></div>
       <div class="dialog-body"><div id="scanMsg" class="scan-msg"></div><div id="scanTiles" class="scan-tiles"></div>
-      <div class="scan-manual"><input id="scanInput" placeholder="Or type / scan a barcode with a handheld scanner, then press Enter" autocomplete="off" autocapitalize="off" /><button id="scanGo" class="primary-button">Enter</button></div></div>`;
+      <div class="scan-manual"><input id="scanInput" placeholder="Or scan with a handheld scanner / type a code, then press Enter" autocomplete="off" autocapitalize="off" /><button id="scanGo" class="primary-button">Enter</button></div>
+      <div class="scan-foot"><button id="scanOvr" class="secondary-button">Can't scan? Override...</button></div></div>`;
     document.body.appendChild(dlg);
     $('scanClose').addEventListener('click', () => dlg.close());
-    $('scanGo').addEventListener('click', () => submitCode($('scanInput').value));
-    $('scanInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); submitCode($('scanInput').value); } });
-    $('scanTiles').addEventListener('click', e => { const t = e.target.closest('[data-code]'); if (t) submitCode(t.dataset.code); });
+    $('scanGo').addEventListener('click', () => { handleScan($('scanInput').value); $('scanInput').value = ''; });
+    $('scanInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); handleScan($('scanInput').value); $('scanInput').value = ''; } });
+    $('scanTiles').addEventListener('click', e => { const t = e.target.closest('[data-code]'); if (t) handleScan(t.dataset.code); });
+    $('scanOvr').addEventListener('click', () => openOverride(scanMode === 'patient' ? 'patient' : 'med'));
     return dlg;
   }
   let scanMode = null;
   function openScanner(mode) {
-    if (!state) return; scanMode = mode;
+    if (!currentCanonicalCase) return;
+    if (mode === 'med' && !state) { toast('Open a due dose on the MAR first, then scan the medication.', 'bad'); return; }
+    scanMode = mode;
     const dlg = ensureScanner(), p = currentCanonicalCase.patient;
     $('scanMsg').textContent = ''; $('scanMsg').className = 'scan-msg'; $('scanInput').value = '';
     if (mode === 'patient') {
-      $('scanTitle').textContent = 'Scan patient wristband'; $('scanSub').textContent = 'Tap the wristband on the patient to scan it. Check the name and date of birth first.';
-      const bands = [{ name: p.name, mrn: p.mrn, dob: p.dob, code: patientCode(), allergies: (p.allergies || []).filter(a => a.substance && !/^nkda/i.test(a.substance)).map(a => a.substance), me: true }];
-      if (cfg().decoys) { const d = decoyPatient(); bands.push({ name: d.name, mrn: d.mrn, dob: d.dob, code: d.code, allergies: [], me: false }); }
+      $('scanTitle').textContent = 'Scan patient wristband'; $('scanSub').textContent = 'Check the name and date of birth on the wristband, then scan it. Tap a wristband below, or use a handheld scanner.';
+      const bands = [{ name: p.name, mrn: p.mrn, dob: p.dob, code: patientCode(), allergies: (p.allergies || []).filter(a => a.substance && !/^nkda/i.test(a.substance)).map(a => a.substance) }];
+      if (cfg().decoys) { const d = decoyPatient(); bands.push({ name: d.name, mrn: d.mrn, dob: d.dob, code: d.code, allergies: [] }); }
       bands.sort((a, b) => hash(a.code + 'order') - hash(b.code + 'order'));
-      $('scanTiles').innerHTML = bands.map(b => `<button class="band-tile" data-code="${esc(b.code)}"><div class="band-top">${esc(b.name)}</div><div>MRN ${esc(b.mrn)}</div><div>DOB ${esc(epicDate(b.dob))}</div>${b.allergies.length ? `<div class="band-allergy">ALLERGY: ${esc(b.allergies.join(', '))}</div>` : ''}<div class="band-code">▌▌▐▌▐▌▌▐ ${esc(b.code)}</div></button>`).join('');
+      $('scanTiles').innerHTML = bands.map(b => `<button class="band-tile" data-code="${esc(b.code)}"><div class="band-top">${esc(b.name)}</div><div>MRN ${esc(b.mrn)}</div><div>DOB ${esc(epicDate(b.dob))}</div>${b.allergies.length ? `<div class="band-allergy">ALLERGY: ${esc(b.allergies.join(', '))}</div>` : ''}<div class="band-code">${NSWristband.qrSvg(b.code, 'band-qr')} ${esc(b.code)}</div></button>`).join('');
     } else {
       $('scanTitle').textContent = 'Scan medication'; $('scanSub').textContent = 'Read the label, then scan the package you are about to give.';
-      $('scanTiles').innerHTML = state.packages.map(k => `<button class="med-tile" data-code="${esc(k.code)}"><div class="med-name">${esc(k.label)}</div><div>${esc(k.strength)} · ${esc(k.route)}</div><div class="band-code">▌▐▌▌▐▐▌ ${esc(k.code)}</div></button>`).join('');
+      $('scanTiles').innerHTML = state.packages.map(k => `<button class="med-tile" data-code="${esc(k.code)}"><div class="med-name">${esc(k.label)}</div><div>${esc(k.strength)} · ${esc(k.route)}</div><div class="band-code">${NSWristband.qrSvg(k.code, 'band-qr')} ${esc(k.code)}</div></button>`).join('');
     }
     if (!dlg.open) dlg.showModal();
     setTimeout(() => $('scanInput').focus(), 50);
   }
 
-  function submitCode(raw) {
-    const code = String(raw || '').trim(); if (!code || !state) return;
-    const msg = $('scanMsg');
-    if (scanMode === 'patient') {
-      const ok = code.toUpperCase() === patientCode().toUpperCase();
-      if (ok) { state.patientScan = { ok: true, code, msg: `Scanned: ${currentCanonicalCase.patient.name}, MRN ${currentCanonicalCase.patient.mrn}` }; log('scan_patient', 'Correct patient', state.orderId); }
-      else {
-        const d = decoyPatient(); const known = code.toUpperCase() === d.code.toUpperCase();
-        state.patientScan = { ok: false, code, msg: known ? `WRONG PATIENT: wristband reads ${d.name}, MRN ${d.mrn}` : 'Unrecognized wristband code' };
-        log('scan_patient_wrong', known ? `Scanned another patient (${d.name})` : `Unrecognized code ${code}`, state.orderId);
+  function scanFeedback(text, ok) {
+    const dlg = $('scannerDialog');
+    if (dlg && dlg.open) { $('scanMsg').textContent = text; $('scanMsg').className = `scan-msg ${ok ? 'ok' : 'bad'}`; }
+    else toast(text, ok ? 'ok' : 'bad');
+  }
+  function closeScannerSoon() { setTimeout(() => { const d = $('scannerDialog'); if (d && d.open) d.close(); }, 650); }
+
+  // Any scan, from anywhere: handleScan('PT-...') or handleScan('MED-...'). A handheld scanner, the on-screen tiles
+  // and MedPass.scan(code) all end up here.
+  function handleScan(raw) {
+    const code = String(raw || '').trim(); if (!code || !currentCanonicalCase) return false;
+    const up = code.toUpperCase();
+    if (up.startsWith('PT-')) {
+      if (up === patientCode().toUpperCase()) {
+        setPatientScanned(code); scanFeedback(`Scanned: ${currentCanonicalCase.patient.name}, MRN ${currentCanonicalCase.patient.mrn}`, true); closeScannerSoon(); return true;
       }
-      msg.textContent = state.patientScan.msg; msg.className = `scan-msg ${state.patientScan.ok ? 'ok' : 'bad'}`;
-    } else {
-      const pkg = state.packages.find(k => k.code.toUpperCase() === code.toUpperCase());
-      if (!pkg) { state.medScan = { ok: false, code, msg: 'Unrecognized medication barcode' }; log('scan_med_unknown', code, state.orderId); }
-      else if (pkg.correct) { state.medScan = { ok: true, code, msg: `Matches order: ${pkg.label} ${pkg.strength} ${pkg.route}` }; log('scan_med', 'Correct medication', state.orderId); }
-      else {
-        const why = pkg.kind === 'strength' ? `WRONG STRENGTH: package is ${pkg.strength}, order is ${safe(state.order.medication.dose)}` : `WRONG DRUG: package reads ${pkg.label}, order is ${safe(state.order.name)}`;
-        state.medScan = { ok: false, code, msg: why }; log('scan_med_wrong', `${pkg.kind}: ${pkg.label} ${pkg.strength}`, state.orderId);
-      }
-      msg.textContent = state.medScan.msg; msg.className = `scan-msg ${state.medScan.ok ? 'ok' : 'bad'}`;
+      const d = decoyPatient(), known = up === d.code.toUpperCase();
+      log('scan_patient_wrong', known ? `Scanned another patient (${d.name})` : `Unrecognized wristband ${code}`);
+      scanFeedback(known ? `WRONG PATIENT: wristband reads ${d.name}, MRN ${d.mrn}. This is not ${currentCanonicalCase.patient.name}.` : `WRONG PATIENT: this wristband does not belong to ${currentCanonicalCase.patient.name}.`, false); return false;
     }
-    $('scanInput').value = '';
-    if ((scanMode === 'patient' && state.patientScan.ok) || (scanMode === 'med' && state.medScan.ok)) setTimeout(() => { $('scannerDialog').close(); refresh(); }, 650);
-    else refresh();
+    if (!state) { scanFeedback('Open a due dose on the MAR before scanning a medication.', false); return false; }
+    const pkg = state.packages.find(k => k.code.toUpperCase() === up);
+    if (!pkg) { state.medScan = { ok: false, msg: 'Unrecognized medication barcode' }; log('scan_med_unknown', code, state.orderId); }
+    else if (pkg.correct) { state.medScan = { ok: true, msg: `Matches order: ${pkg.label} ${pkg.strength} ${pkg.route}` }; log('scan_med', 'Correct medication', state.orderId); }
+    else {
+      const why = pkg.kind === 'strength' ? `WRONG STRENGTH: package is ${pkg.strength}, order is ${safe(state.order.medication.dose)}` : `WRONG DRUG: package reads ${pkg.label}, order is ${safe(state.order.name)}`;
+      state.medScan = { ok: false, msg: why }; log('scan_med_wrong', `${pkg.kind}: ${pkg.label} ${pkg.strength}`, state.orderId);
+    }
+    scanFeedback(state.medScan.msg, state.medScan.ok); if (state.medScan.ok) closeScannerSoon();
+    refresh(); return state.medScan.ok;
   }
 
+  // Handheld scanners act like a very fast keyboard that ends with Enter. Catch that anywhere in the EHR (outside text boxes).
+  (function wedge() {
+    let buf = '', last = 0;
+    document.addEventListener('keydown', e => {
+      const t = e.target, typing = t && (t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || (t.tagName === 'INPUT' && t.id !== 'scanInput' && !/^(checkbox|radio|button)$/.test(t.type)));
+      if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
+      const now = Date.now();
+      if (e.key === 'Enter') { if (buf.length >= 6 && /^(PT|MED)-/i.test(buf) && t.id !== 'scanInput') { e.preventDefault(); handleScan(buf); } buf = ''; return; }
+      if (e.key.length !== 1) return;
+      if (now - last > 80) buf = '';
+      buf += e.key; last = now;
+    }, true);
+  })();
+  // For a bridge or browser extension: window.dispatchEvent(new CustomEvent('nursingsim:scan', { detail: 'PT-...' }))
+  window.addEventListener('nursingsim:scan', e => handleScan(typeof e.detail === 'string' ? e.detail : e.detail && e.detail.code));
+
   // ------------------------------------------------------------------ wrap the existing MAR dialog functions
-  const originalOpen = openMARActionDialog, originalApply = applyMARAction;
+  const originalOpen = openMARActionDialog, originalApply = applyMARAction, originalRefresh = refreshSimulationView;
   openMARActionDialog = function (med, event) { originalOpen(med, event); startState(med, event); refresh(); };
+  refreshSimulationView = function () { const r = originalRefresh.apply(null, arguments); updatePill(); return r; };
   applyMARAction = function (action) {
     if (state && action === 'given') {
       const g = gate(); if (!g.ok) { refresh(); return; }
     }
-    const act = typeof activeMARAction !== 'undefined' ? activeMARAction : null, snap = state;
+    const act = typeof activeMARAction !== 'undefined' ? activeMARAction : null, snap = state, pt = patientStatus();
     originalApply(action);
     if (!act || !snap) return;
     const admin = (currentCanonicalCase.administrations || []).find(a => a.orderId === act.orderId && Number(a.slotIndex) === Number(act.slotIndex) && safe(a.time) === safe(act.time));
     if (admin) {
-      admin.scan = cfg().scanRequired ? { patient: !!(snap.patientScan && snap.patientScan.ok), medication: !!(snap.medScan && snap.medScan.ok), identifiers: !!snap.ids, warnings: snap.warnings.map(w => w.code), overrideReason: snap.override.trim(), doubleCheck: snap.double.trim() } : { skipped: true };
+      const md = snap.medScan;
+      admin.scan = cfg().scanRequired ? {
+        patient: !!pt, patientMode: pt ? pt.mode : 'none', patientOverride: pt && pt.mode === 'override' ? { reason: pt.reason, detail: pt.detail } : null,
+        medication: !!(md && md.ok), medicationMode: md ? (md.override ? 'override' : md.ok ? 'scanned' : 'failed') : 'none', medicationOverride: md && md.override ? { reason: md.reason, detail: md.detail } : null,
+        identifiers: !!snap.ids, warnings: snap.warnings.map(w => w.code), warningOverride: snap.warnOverride || null, doubleCheck: snap.double.trim()
+      } : { skipped: true };
     }
-    log(`action_${action}`, `${safe(snap.order.name)}: ${action}${snap.override.trim() ? ' (override: ' + snap.override.trim() + ')' : ''}`, act.orderId);
+    const ov = [pt && pt.mode === 'override' ? 'patient scan overridden' : '', snap.medScan && snap.medScan.override ? 'medication scan overridden' : '', snap.warnOverride ? 'warnings overridden' : ''].filter(Boolean);
+    log(`action_${action}`, `${safe(snap.order.name)}: ${action}${ov.length ? ' (' + ov.join(', ') + ')' : ''}`, act.orderId);
     state = null;
   };
 
@@ -387,38 +513,15 @@
     c.traps.splice(i, 1); refreshSimulationView(); renderSetup();
   }
 
-  // ------------------------------------------------------------------ printable wristband and labels
-  function loadBarcodeLib() {
-    if (window.JsBarcode) return Promise.resolve(true);
-    return new Promise(resolve => { const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js'; s.onload = () => resolve(true); s.onerror = () => resolve(false); document.head.appendChild(s); });
-  }
-  async function openPrint() {
-    let dlg = $('mpPrintDialog');
-    if (!dlg) {
-      dlg = document.createElement('dialog'); dlg.id = 'mpPrintDialog'; dlg.className = 'import-dialog mp-print';
-      dlg.innerHTML = `<div class="dialog-header no-print"><div><h2>Wristband and medication labels</h2><p>Print these as props. A handheld barcode scanner will read them into the scanner box.</p></div><div><button id="mpPrintNow" class="primary-button">Print</button> <button id="mpPrintClose" class="icon-button" aria-label="Close">×</button></div></div><div class="dialog-body" id="mpPrintBody"></div>`;
-      document.body.appendChild(dlg);
-      $('mpPrintClose').addEventListener('click', () => { dlg.close(); document.body.classList.remove('printing'); });
-      $('mpPrintNow').addEventListener('click', () => { document.body.classList.add('printing'); window.print(); });
-      window.addEventListener('afterprint', () => document.body.classList.remove('printing'));
-    }
-    const p = currentCanonicalCase.patient, e = currentCanonicalCase.encounter;
-    const allergies = (p.allergies || []).filter(a => a.substance && !/^nkda/i.test(a.substance));
-    const meds = dueMeds();
-    const code = (v, label) => `<div class="bc-wrap"><svg class="bc" data-bc="${esc(v)}"></svg><div class="bc-text">${esc(label || v)}</div></div>`;
-    $('mpPrintBody').innerHTML = `
-      <div class="print-band"><div class="pb-name">${esc(p.name)}</div><div>MRN ${esc(p.mrn)} &nbsp; DOB ${esc(epicDate(p.dob))} &nbsp; ${esc(safe(p.age))} y.o. ${esc(safe(p.sex))}</div><div>${esc(safe(e.location))} ${esc(safe(e.room))} &nbsp; Attending: ${esc(safe(e.attending))}</div>${code(patientCode(), patientCode())}</div>
-      ${allergies.length ? `<div class="print-band allergy"><b>ALLERGY</b> ${esc(allergies.map(a => a.substance + ' (' + safe(a.reaction, '') + ')').join('; '))}</div>` : ''}
-      <h3>Medication labels (currently due)</h3>
-      <div class="print-labels">${meds.map(m => packagesFor(m.order).filter(k => k.correct).map(k => `<div class="print-label"><b>${esc(k.label)}</b><div>${esc(k.strength)} · ${esc(k.route)} · due ${esc(m.time)}</div>${code(k.code, k.code)}</div>`).join('')).join('') || '<div class="empty-state">No medications are due at the current simulation time.</div>'}</div>`;
-    dlg.showModal();
-    const ok = await loadBarcodeLib();
-    document.querySelectorAll('#mpPrintBody svg.bc').forEach(svg => { if (ok && window.JsBarcode) { try { JsBarcode(svg, svg.dataset.bc, { format: 'CODE128', height: 46, displayValue: false, margin: 2 }); } catch (err) { /* leave blank */ } } });
-    if (!ok) $('mpPrintBody').insertAdjacentHTML('afterbegin', '<div class="lib-message error">The barcode picture could not load (offline?). The code text under each label can still be typed into the scanner box.</div>');
+  // ------------------------------------------------------------------ printable wristband and labels (QR)
+  function openPrint() {
+    const labels = dueMeds().map(m => packagesFor(m.order).filter(k => k.correct).map(k => ({ title: k.label, line: `${k.strength} · ${k.route} · due ${m.time}`, code: k.code }))).flat();
+    NSWristband.open(currentCanonicalCase, { labels });
   }
 
   // ------------------------------------------------------------------ boot
-  window.MedPass = { cfg, packagesFor, allergyChecks, holdChecks, holdParams, patientCode, decoyPatient };
+  window.MedPass = { cfg, packagesFor, allergyChecks, holdChecks, holdParams, patientCode, decoyPatient, scan: handleScan, patientStatus, clearPatientScan };
+  updatePill();
   addToolbar();
   // the MAR re-renders its toolbar rarely, but make sure our buttons exist after any render
   const marSection = $('marSection');

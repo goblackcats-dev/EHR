@@ -467,5 +467,12 @@ This means student documentation immediately becomes part of the same patient re
 - **Review my charting** gives a score, a by-system table of what was charted versus the patient's real findings, and a "Show what I missed" button.
 - Feedback is saved with the patient, so it survives a refresh and Saved Patients.
 
+## New in v20: scan status, QR wristbands, overrides
+
+- **Patient scan status.** A red **PATIENT NOT SCANNED** / green **PATIENT SCANNED** badge sits under the patient name at the top of the EHR, and a matching bar sits at the top of every medication dialog. Scan the wristband once and it stays scanned for all of that patient's medications. Tap the badge (or **Clear scan**) when leaving the room. Loading a different patient resets it.
+- **QR wristband.** In the Case Builder, click **Print wristband** (after building a patient). In the EHR use **Med-pass setup > Print wristband and medication labels**. The band is 7.5 x 1.15 inches with name, DOB, MRN and a QR code, plus a red allergy band when needed. Print on plain letter paper (portrait, 100%), cut it out, wrap and tape. Medication labels with QR codes print under it. The QR code works without internet.
+- **Hooking up a scanner.** A handheld USB or Bluetooth scanner that acts like a keyboard works with no setup: just scan while the EHR is open (it types the code and presses Enter). The EHR checks a patient code against the patient it has open and a medication code against the dose that is open. You can also call `MedPass.scan("PT-...")` from code, or send `window.dispatchEvent(new CustomEvent("nursingsim:scan", { detail: "PT-..." }))` from a bridge.
+- **Overrides.** Wristband scan, medication scan, and safety warnings can each be overridden, but the student must pick a reason from a list (damaged barcode, scanner down, emergency, provider or pharmacist verified, and so on). "Other" and allergy overrides also need a comment. Everything is saved on the dose record for debriefing.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

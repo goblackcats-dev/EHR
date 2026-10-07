@@ -351,6 +351,7 @@
     $('buildBtn').addEventListener('click', build);
     $('resetBtn').addEventListener('click', () => { if (confirm('Reset every field to the starting example?')) { input = DEFAULTS(); writeForm(); renderChips(); changed(); build(); } });
     $('openEhrBtn').addEventListener('click', openInEhr);
+    $('wristbandBtn').addEventListener('click', () => { if (result) NSWristband.open(result.canonical); });
     $('downloadBtn').addEventListener('click', download);
     $('copyBtn').addEventListener('click', copyJson);
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));

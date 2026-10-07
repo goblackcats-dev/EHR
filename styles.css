@@ -1948,3 +1948,24 @@ dialog { max-width: calc(100vw - 24px); max-height: calc(100vh - 24px); overflow
 .fs-tag.bad { background: #fbdcdc; color: #9a2020; }
 .fs-why { font-size: 12px; color: #55657a; margin-top: 3px; }
 .fs-extra { margin: 4px 0 0 18px; font-size: 13px; }
+
+/* ---- v20 patient scan status, overrides, QR ---- */
+.patient-banner { position: relative; }
+.mp-pt-pill { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 5px 12px; border-radius: 14px; border: 0; font-size: 12px; font-weight: 700; letter-spacing: .03em; cursor: pointer; color: #fff; }
+.mp-pt-pill.hidden { display: none; }
+.mp-pt-pill .mp-dot { width: 9px; height: 9px; border-radius: 50%; background: #fff; display: inline-block; }
+.mp-pt-pill.not { background: #c62828; } .mp-pt-pill.ok { background: #1e8e3e; } .mp-pt-pill.ovr { background: #b26a00; } .mp-pt-pill.off { background: #6b7a8f; }
+.mp-ptbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 8px; margin: 8px 0; color: #fff; }
+.mp-ptbar.not { background: #c62828; } .mp-ptbar.ok { background: #1e8e3e; } .mp-ptbar.ovr { background: #b26a00; }
+.mp-ptbar-text { display: flex; flex-direction: column; gap: 2px; } .mp-ptbar-text b { font-size: 17px; letter-spacing: .03em; } .mp-ptbar-text span { font-size: 13px; opacity: .95; }
+.mp-ptbar-btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.mp-ptbar .secondary-button { background: rgba(255,255,255,.95); color: #1f2d3d; }
+.mp-step { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid #cdd6e2; border-radius: 8px; background: #fff; text-align: left; }
+.mp-step.ok { border-color: #1e8e3e; background: #e9f6ee; } .mp-step.bad { border-color: #c62828; background: #fdeaea; } .mp-step.ovr { border-color: #b26a00; background: #fff3dc; }
+.mp-step-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.mp-warn.ovr { background: #fff3dc; border-color: #b26a00; }
+.mp-select { width: 100%; padding: 10px; font-size: 15px; border: 1px solid #b9c7da; border-radius: 6px; margin-bottom: 10px; }
+.scan-foot { margin-top: 12px; text-align: right; }
+.band-qr { width: 54px; height: 54px; vertical-align: middle; }
+.mp-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); background: #1f2d3d; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 15px; opacity: 0; pointer-events: none; transition: all .2s; z-index: 10000; max-width: 90vw; }
+.mp-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); } .mp-toast.ok { background: #1e8e3e; } .mp-toast.bad { background: #c62828; }
