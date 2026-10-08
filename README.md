@@ -540,5 +540,13 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Teaching button** (top bar). The student teaches the simulated patient one topic taken from the chart (a medication on the MAR, the diagnosis, falls, or pain). The patient has an attitude (anxious, skeptical, overwhelmed, or low health literacy) and talks by script. Steps: show empathy, explain in plain language, pick the right teaching points (wrong or unsafe ones cost points), answer a misunderstanding, use teach-back, then write the education note. Feedback shows the best choice at each step and why. Attempts are saved with the patient.
 - Both are rule-based: questions and scoring come from the chart and a built-in library, so there is nothing to pay for. The chat is scripted, not a live conversation; keyword scoring of the written note is approximate.
 
+## New in v29: SBAR provider call and prioritization practice (no AI, no cost)
+
+- **SBAR button** (top bar) has two tabs.
+- **SBAR call to the provider**: the program picks the patient's most important problem from the chart (an active scenario event, then a critical lab, abnormal vital sign, abnormal lab or finding, then pain) and the student writes or dictates the call in four boxes (Situation, Background, Assessment, Recommendation). It is scored against the chart: patient name and room, the problem and the actual numbers, diagnosis, code status, allergies, an impression, timing, what you already did, a clear request, urgency and read-back. Wrong code status or "no allergies" when the patient has allergies costs 2 points. **Faculty: view rubric** prints the rubric.
+- **Prioritize your tasks**: six tasks are built from the chart (sudden change, abnormal vital signs, critical and abnormal labs, high-alert medications due, plus routine tasks). The student orders them with up and down arrows. Scored by whether urgent items come before less urgent ones (airway, breathing, circulation and critical results first); feedback explains each item.
+- Attempts are saved with the patient. Scoring is keyword and rule based.
+- **Not built:** a class-wide shared score board or shared patient library. That needs an online database, which usually costs money. Instead use the existing **Export / Import** of patients to share cases by file, and have students export their attempts.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
