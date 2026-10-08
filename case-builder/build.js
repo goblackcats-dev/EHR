@@ -144,7 +144,7 @@ NS.build = (() => {
 
   function buildMedicationOrders(ctx, spec, prepared) {
     const orders = [], admins = [];
-    const slotHours = 8;
+    const slotHours = Math.max(8, Math.ceil(ctx.windowEnd - ctx.nowH - 1e-6));   // 8 hours, longer when a late scenario trigger extends the shift
     prepared.forEach((med, idx) => {
       const orderId = `order_med_${U.slug(med.key || med.name)}_${med._idx !== undefined ? med._idx : idx}`;
       const oneTime = med.freq === 'once' || med.freq === 'stat';

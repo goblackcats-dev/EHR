@@ -500,5 +500,16 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - The **Hospital course** tab shows a **faculty key** for the trigger: the scenario, what students will see and when, the expected nursing actions with the reasons, when to escalate, common pitfalls and debrief questions. The key is saved in the case as `triggers` (not shown to students in the EHR). It is the starting point for the rubric (#10).
 - Routine notes that would contradict the change (stable progress notes, therapy evaluations) are removed after the trigger starts, so students write their own documentation. Provider orders are timed as if the nurse called promptly.
 
+## New in v24: interface and lab upgrades
+
+- **Brain / Worklist is now a timeline**: one large row per hour of the shift (like a calendar), tasks sit in the hour they are due, a red line marks "now", and overdue tasks collect at the top. **List** brings back the old columns.
+- **Patient status trigger** moved to the bottom of the Case Builder (item 8), shows a check mark on the selected choice, and can start up to 12 hours (720 minutes) into the shift; the shift lengthens automatically so the event has time to play out.
+- **Wristband scanned / not scanned badge** now shows only on the MAR page and in the dose window.
+- **Blood gases are complete.** Every arterial gas now reports pH, PaCO2, PaO2, bicarbonate, base excess and oxygen saturation; every venous gas reports pH, pCO2, pO2, bicarbonate, base excess and saturation (numbers calculated so they agree).
+- **Lab Results**: a **Newest: right / left** button flips the order of the columns (remembered on the device).
+- **Chart Review**: drag the divider between the list of notes and the open note to resize them (double-tap the divider to reset); remembered on the device.
+- **MAR**: clicking a medication opens its detail card as a pop-up instead of at the top of the page.
+- Added to the to-do list: a short drug guide link on every medication.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

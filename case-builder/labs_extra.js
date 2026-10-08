@@ -49,4 +49,12 @@
   add('Phenytoin level', { cat: 'Drug level', units: 'mcg/mL', ref: [10, 20], dec: 1, base: 12, crit: [null, 30] });
   add('Lithium level', { cat: 'Drug level', units: 'mmol/L', ref: [0.6, 1.2], dec: 2, base: 0.8, crit: [null, 2.0] });
   add('Tacrolimus level', { cat: 'Drug level', units: 'ng/mL', ref: [5, 15], dec: 1, base: 8 });
+
+  // Blood gas extras, filled in automatically beside every arterial or venous gas (see completeGases in engine.js)
+  add('Base excess', { cat: 'ABG', units: 'mmol/L', ref: [-2, 2], dec: 1, base: 0, crit: [-10, 10], specimen: 'Arterial blood' });
+  add('O2 saturation (arterial)', { cat: 'ABG', units: '%', ref: [95, 100], dec: 0, base: 97, crit: [88, null], specimen: 'Arterial blood' });
+  add('Venous HCO3', { cat: 'Blood gas', units: 'mmol/L', ref: [22, 28], dec: 0, base: 25, specimen: 'Venous blood' });
+  add('Venous pO2', { cat: 'Blood gas', units: 'mmHg', ref: [30, 50], dec: 0, base: 40, specimen: 'Venous blood' });
+  add('Venous base excess', { cat: 'Blood gas', units: 'mmol/L', ref: [-2, 2], dec: 1, base: 0, specimen: 'Venous blood' });
+  add('Venous O2 saturation', { cat: 'Blood gas', units: '%', ref: [60, 80], dec: 0, base: 70, specimen: 'Venous blood' });
 })();

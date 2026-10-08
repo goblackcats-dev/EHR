@@ -148,7 +148,9 @@
         else openScanner('patient');
       });
     }
-    if (!currentCanonicalCase) { pill.className = 'mp-pt-pill hidden'; return; }
+    // the wristband status only matters while giving medications, so it shows on the MAR page (and in the dose window) only
+    const ms = $('marSection'), onMar = (ms && !ms.classList.contains('hidden')) || !!state;
+    if (!currentCanonicalCase || !onMar) { pill.className = 'mp-pt-pill hidden'; pill.dataset.k = ''; return; }
     const s = patientStatus(), on = cfg().scanRequired;
     let cls, text;
     if (!on) { cls = 'off'; text = 'Wristband scanning: OFF'; }
@@ -382,6 +384,8 @@
   window.addEventListener('nursingsim:scan', e => handleScan(typeof e.detail === 'string' ? e.detail : e.detail && e.detail.code));
 
   // ------------------------------------------------------------------ wrap the existing MAR dialog functions
+  const originalSetMain = setMainSection;
+  setMainSection = function () { const r = originalSetMain.apply(null, arguments); updatePill(); return r; };
   const originalOpen = openMARActionDialog, originalApply = applyMARAction, originalRefresh = refreshSimulationView;
   openMARActionDialog = function (med, event) { originalOpen(med, event); startState(med, event); refresh(); };
   refreshSimulationView = function () { const r = originalRefresh.apply(null, arguments); updatePill(); return r; };

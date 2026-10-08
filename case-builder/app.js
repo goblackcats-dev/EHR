@@ -53,11 +53,12 @@
     if (!list.some(x => x.key === key)) key = list[0] ? list[0].key : '';
     if (mode === 'manual' && !list.length) mode = 'off';
     const min = $('trigMin') && $('trigMin').value !== '' ? parseInt($('trigMin').value, 10) : cur.atMin;
-    return { mode, key, atMin: U.clamp(isNaN(min) ? 90 : min, 10, 360), severity: $('trigSev') ? $('trigSev').value : cur.severity };
+    return { mode, key, atMin: U.clamp(isNaN(min) ? 90 : min, 10, 720), severity: $('trigSev') ? $('trigSev').value : cur.severity };
   }
   function renderTrigger() {
     const t = input.trigger, list = NS.triggers.forDx($('primary').value);
-    document.querySelectorAll('#trigMode button').forEach(b => b.classList.toggle('on', b.dataset.v === t.mode));
+    const NAMES = { off: 'None', auto: 'Automatic', manual: 'I choose' };
+    document.querySelectorAll('#trigMode button').forEach(b => { const on = b.dataset.v === t.mode; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); b.textContent = (on ? '✓ ' : '') + NAMES[b.dataset.v]; });
     $('trigManual').classList.toggle('hidden', t.mode !== 'manual');
     const prev = $('trigKey').value;
     $('trigKey').innerHTML = list.map(x => `<option value="${esc(x.key)}">${esc(x.label)}</option>`).join('');

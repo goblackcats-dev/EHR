@@ -72,7 +72,7 @@ NS.buildCase = function buildCase(input) {
   const timeline = buildTimeline(ctx, spec, S, prepared, notes);
 
   const slotStartHour = parseInt(U.hhmm(ctx.start).slice(0, 2), 10);
-  const marSlots = Array.from({ length: 8 }, (_, i) => String((slotStartHour + i) % 24).padStart(2, '0') + '00');
+  const marSlots = Array.from({ length: Math.max(8, Math.ceil(ctx.windowEnd - ctx.nowH - 1e-6)) }, (_, i) => String((slotStartHour + i) % 24).padStart(2, '0') + '00');
 
   const canonical = {
     schemaVersion: '2.0',
@@ -86,7 +86,7 @@ NS.buildCase = function buildCase(input) {
     orders, administrations: med.admins, devices, ioEvents, stickyNotes,
     notes: notes.sort((a, b) => b.datetime.localeCompare(a.datetime)),
     timeline: {
-      marDate: U.longDate(ctx.start), marTimeSlots: marSlots, simulationStart: ctx.start, simulationEnd: U.addH(ctx.start, 8)
+      marDate: U.longDate(ctx.start), marTimeSlots: marSlots, simulationStart: ctx.start, simulationEnd: U.addH(ctx.start, Math.max(8, Math.ceil(ctx.windowEnd - ctx.nowH - 1e-6)))
     },
     simulationTasks: buildSimTasks(ctx, spec, S),
     triggers: spec.triggerMeta ? [spec.triggerMeta] : [],

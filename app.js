@@ -2417,10 +2417,13 @@ function renderChartReviewTab(tabKey, recordIndex = 0) { currentChartTab = tabKe
 function getAllLabResults(data) { if (Array.isArray(data.labResults) && data.labResults.length) return data.labResults; return (data.recentLabs || []).map(lab => ({ ...lab, units: '', specimen: '', status: 'Final' })); }
 function getLabCategories(labs) { return ['All Results', ...Array.from(new Set(labs.map(l => safe(l.category, 'Other'))))]; }
 function filterLabsByCategory(labs, category) { if (category === 'All Results') return labs; return labs.filter(lab => safe(lab.category, 'Other') === category); }
+let labNewestLeft = false;   // false: oldest on the left, newest on the right (default); true: newest on the left
 function getLabDateColumns(labs) {
-  return Array.from(new Set(labs.map(lab => safe(lab.collected, 'Unknown'))))
+  const cols = Array.from(new Set(labs.map(lab => safe(lab.collected, 'Unknown'))))
     .sort((a, b) => String(a).localeCompare(String(b)));
+  return labNewestLeft ? cols.reverse() : cols;
 }
+const newestLabTime = times => (labNewestLeft ? times[0] : times[times.length - 1]);
 
 function getLabGroups(labs) {
   const groups = {};
@@ -2547,8 +2550,8 @@ function renderLabResultsPage(data) {
   const filtered = getFilteredLabsForGrid(allLabs);
   const times = getLabDateColumns(filtered);
 
-  if (!selectedLabTime && times.length) selectedLabTime = times[times.length - 1];
-  if (selectedLabTime && !times.includes(selectedLabTime)) selectedLabTime = times[times.length - 1] || null;
+  if (!selectedLabTime && times.length) selectedLabTime = newestLabTime(times);
+  if (selectedLabTime && !times.includes(selectedLabTime)) selectedLabTime = newestLabTime(times) || null;
 
   renderLabCategoryFilters(allLabs);
 

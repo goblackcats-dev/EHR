@@ -71,20 +71,6 @@
         <div id="stagePreview" class="stage-preview"></div>
       </div>
 
-      <div class="card" id="triggerCard">
-        <div class="card-head"><h2>Patient status trigger (optional)</h2></div>
-        <div class="hint" style="margin-top:0">A sudden change in the patient's condition during the shift (for example a post-operative complication). Vital signs, findings, labs and provider orders appear in the EHR as the simulation clock reaches them.</div>
-        <div class="segmented" id="trigMode"><button type="button" data-v="off">None</button><button type="button" data-v="auto">Automatic</button><button type="button" data-v="manual">I choose</button></div>
-        <div id="trigManual" class="hidden">
-          <label>Event<select id="trigKey"></select></label>
-          <div class="grid g2">
-            <label>Starts (minutes after shift start)<input id="trigMin" type="number" inputmode="numeric" min="10" max="360" step="5" /></label>
-            <label>Severity<select id="trigSev"><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
-          </div>
-        </div>
-        <div id="trigInfo" class="hint"></div>
-      </div>
-
       <div class="card">
         <div class="card-head"><h2>3. Medical history</h2><button class="link-btn" id="clearHx">Clear</button></div>
         <div id="hxPicker"></div>
@@ -123,6 +109,20 @@
         <div class="card-head"><h2>7. Extra faculty direction</h2></div>
         <textarea id="facultyNotes" placeholder="Optional. Examples: must have a Foley; new confusion on day 2; DNR; sacral pressure injury; avoid insulin; contact isolation; high fall risk."></textarea>
         <div class="hint">Recognized: <b>Foley</b>, <b>confusion / delirium</b>, <b>DNR</b>, <b>pressure injury</b>, <b>avoid insulin</b>, <b>C. diff / MRSA / contact isolation</b>, <b>high fall risk</b>. Anything else is kept in the case and passed to Claude when you enhance notes.</div>
+      </div>
+
+      <div class="card" id="triggerCard">
+        <div class="card-head"><h2>8. Patient status trigger (optional)</h2></div>
+        <div class="hint" style="margin-top:0">A sudden change in the patient's condition during the shift (for example a post-operative complication). Vital signs, findings, labs and provider orders appear in the EHR as the simulation clock reaches them.</div>
+        <div class="segmented" id="trigMode"><button type="button" data-v="off">None</button><button type="button" data-v="auto">Automatic</button><button type="button" data-v="manual">I choose</button></div>
+        <div id="trigManual" class="hidden">
+          <label>Event<select id="trigKey"></select></label>
+          <div class="grid g2">
+            <label>Starts (minutes after shift start, up to 720 = 12 hours)<input id="trigMin" type="number" inputmode="numeric" min="10" max="720" step="5" /></label>
+            <label>Severity<select id="trigSev"><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
+          </div>
+        </div>
+        <div id="trigInfo" class="hint"></div>
       </div>
     </section>
 

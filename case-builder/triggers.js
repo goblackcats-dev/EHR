@@ -42,7 +42,7 @@ NS.triggers = (() => {
       const roll = rng(); severity = roll < 0.25 ? 'mild' : roll < 0.8 ? 'moderate' : 'severe';
     }
     if (!(atMin >= 10)) atMin = def.defaults.atMin;
-    atMin = U.clamp(atMin, 10, 360);
+    atMin = U.clamp(atMin, 10, 720);                                              // up to 12 hours into the shift
     return { def, atMin, severity, auto };
   }
 
@@ -50,6 +50,8 @@ NS.triggers = (() => {
     const pick = resolve(ctx, spec);
     if (!pick) return;
     const O = ctx.nowH + pick.atMin / 60;
+    // a trigger that starts late in the shift gets about 4 more hours to play out, so the shift is lengthened (up to 16 hours)
+    if (O + 4 > ctx.windowEnd) ctx.windowEnd = Math.min(ctx.nowH + 16, O + 4);
     const t = {
       O, atMin: pick.atMin, sev: pick.severity, sevN: SEV.indexOf(pick.severity), at: min => O + min / 60,
       base: h => E.vitalsAt(ctx, spec, h, false)
@@ -94,7 +96,7 @@ NS.triggers = (() => {
 
       // ---- vital signs: sudden change, then (for mild/moderate) partial improvement once oxygen and heparin are running
       const d = { hr: [22, 36, 52][sevN], rr: [6, 10, 14][sevN], spo2: [4, 8, 14][sevN], sbp: [6, 16, 44][sevN], dbp: [3, 8, 22][sevN], temp: [0.3, 0.5, 0.7][sevN], pain: [5, 7, 8][sevN] };
-      const minutes = [0, 15, 30, 45, 60, 90, 120, 150, 180, 240, 300, 360];
+      const minutes = [0, 15, 30, 45, 60, 90, 120, 150, 180, 240, 300, 360, 420, 480];
       minutes.forEach(m => {
         const h = at(m); if (h > ctx.windowEnd) return;
         const b = t.base(h);

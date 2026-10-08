@@ -1969,3 +1969,32 @@ dialog { max-width: calc(100vw - 24px); max-height: calc(100vh - 24px); overflow
 .band-qr { width: 54px; height: 54px; vertical-align: middle; }
 .mp-toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); background: #1f2d3d; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 15px; opacity: 0; pointer-events: none; transition: all .2s; z-index: 10000; max-width: 90vw; }
 .mp-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); } .mp-toast.ok { background: #1e8e3e; } .mp-toast.bad { background: #c62828; }
+
+/* v24 brain timeline (calendar style) */
+.brain-timeline { margin: 12px 0; border: 1px solid #cfd9e5; border-radius: 10px; overflow: hidden; background: #fff; }
+.brain-timeline.hidden { display: none; }
+.bt-row { position: relative; display: flex; min-height: 96px; border-bottom: 1px solid #dfe7f0; }
+.bt-row:last-child { border-bottom: 0; }
+.bt-time { flex: 0 0 74px; padding: 8px 8px 0; font-weight: 700; font-size: 15px; color: #35506b; background: #f6f9fd; border-right: 1px solid #dfe7f0; }
+.bt-time span { display: block; font-weight: 600; font-size: 11px; color: #b3261e; margin-top: 2px; }
+.bt-slot { flex: 1; display: flex; flex-wrap: wrap; gap: 8px; padding: 8px; align-content: flex-start; min-width: 0; }
+.bt-slot .brain-task { flex: 1 1 250px; max-width: 360px; margin: 0; }
+.bt-now { background: #fffdf3; } .bt-now .bt-time { background: #fff1c7; }
+.bt-past { background: #f8f9fb; } .bt-past .bt-time { color: #8996a6; }
+.bt-nowline { position: absolute; left: 74px; right: 0; height: 0; border-top: 2px solid #d93025; pointer-events: none; }
+.bt-nowline::before { content: ''; position: absolute; left: -5px; top: -6px; width: 10px; height: 10px; border-radius: 50%; background: #d93025; }
+.bt-extra { min-height: 70px; } .bt-overdue .bt-time { background: #fde7e5; } .bt-later .bt-time { background: #eef2f7; }
+.brain-view-btn.active { background: var(--epic-blue, #1f5fa8); color: #fff; }
+
+/* v24 resizable notes, med detail pop-up */
+.chart-review-layout { grid-template-columns: var(--rl-left, minmax(320px, 0.9fr)) 10px minmax(320px, 1fr); }
+.layout-grip { cursor: col-resize; background: #e3eaf3; border-left: 1px solid #cfd9e5; border-right: 1px solid #cfd9e5; touch-action: none; position: relative; }
+.layout-grip::after { content: ''; position: absolute; top: 50%; left: 2px; width: 4px; height: 44px; margin-top: -22px; border-radius: 2px; background: #8da2b8; }
+body.resizing { user-select: none; cursor: col-resize; }
+.record-list-panel, .record-detail-panel { min-width: 0; }
+@media (max-width: 900px) { .chart-review-layout { grid-template-columns: 1fr; } .layout-grip { display: none; } }
+.mar-detail-dialog { width: min(760px, 96vw); max-height: 88vh; border: 0; border-radius: 12px; padding: 0; box-shadow: 0 12px 40px rgba(0,0,0,.35); overflow: auto; }
+.mar-detail-dialog::backdrop { background: rgba(10,20,40,.45); }
+.mar-detail-dialog .mar-detail-card { margin: 0; border: 0; }
+.mar-detail-close { position: absolute; right: 10px; top: 8px; z-index: 2; font-size: 26px; }
+.mar-detail-dialog .mar-detail-header { padding-right: 48px; }

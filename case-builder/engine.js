@@ -187,6 +187,38 @@ NS.engine = (() => {
     return Math.max(value, 0);
   }
 
+  // Every arterial gas gets bicarbonate, base excess and oxygen saturation; every venous gas gets pH, pCO2, bicarbonate, pO2, base excess and saturation,
+  // calculated so the numbers agree with each other (Henderson-Hasselbalch, Van Slyke, Severinghaus).
+  function completeGases(ctx, obs) {
+    const byTime = {};
+    obs.filter(o => o.type === 'lab').forEach(o => { (byTime[o.collected] = byTime[o.collected] || {})[o.code] = o; });
+    const add = (stamp, code, value, like) => {
+      const def = NS.LABS.C[code]; if (!def || (byTime[stamp] && byTime[stamp][code])) return;
+      obs.push({ id: `lab_${U.slug(code)}_${U.slug(stamp)}`, type: 'lab', category: def.cat, code, label: code, value: NS.LABS.fmtValue(code, value), units: def.units,
+        flag: NS.LABS.flagFor(code, value, ctx.sex), reference: NS.LABS.refText(code, ctx.sex), specimen: def.specimen || 'Blood', status: 'Final', collected: stamp });
+    };
+    const hco3 = (pH, pco2) => 0.0307 * pco2 * Math.pow(10, pH - 6.1);
+    const be = (pH, hc) => 0.93 * (hc - 24.4 + 14.8 * (pH - 7.4));
+    const sat = po2 => 100 * Math.pow(Math.pow(po2, 3) + 150 * po2, -1) * (Math.pow(po2, 3) + 150 * po2) / (1 + 23400 / (Math.pow(po2, 3) + 150 * po2));
+    Object.entries(byTime).forEach(([stamp, g]) => {
+      if (g.pH && g.PaCO2) {
+        const pH = parseFloat(g.pH.value), pc = parseFloat(g.PaCO2.value);
+        const hc = g.HCO3 ? parseFloat(g.HCO3.value) : hco3(pH, pc);
+        if (!g.HCO3) add(stamp, 'HCO3', Math.round(hc));
+        add(stamp, 'Base excess', U.round(be(pH, hc), 1));
+        if (g.PaO2) add(stamp, 'O2 saturation (arterial)', Math.min(100, Math.round(sat(parseFloat(g.PaO2.value)))));
+      }
+      if (g['Venous pH'] && g['Venous pCO2']) {
+        const pH = parseFloat(g['Venous pH'].value), pc = parseFloat(g['Venous pCO2'].value), hc = hco3(pH, pc);
+        const po2 = Math.round(U.clamp(38 + ctx.noise(3), 30, 50));
+        add(stamp, 'Venous HCO3', Math.round(hc));
+        add(stamp, 'Venous pO2', po2);
+        add(stamp, 'Venous base excess', U.round(be(pH, hc), 1));
+        add(stamp, 'Venous O2 saturation', Math.round(U.clamp(sat(po2) - 6, 55, 85)));
+      }
+    });
+  }
+
   function buildLabs(ctx, spec, obs) {
     const draws = [];
     spec.labSchedule.forEach(item => {
@@ -233,6 +265,7 @@ NS.engine = (() => {
         });
       });
     });
+    completeGases(ctx, obs);
     // Qualitative / microbiology results written by the diagnosis profile
     spec.quals.forEach((q, i) => {
       if (q.h > ctx.windowEnd) return;
