@@ -15,6 +15,8 @@ NS.notes = (() => {
       if (n.h === undefined || n.h > ctx.windowEnd) return;
       const datetime = ctx.ts(n.h);
       const note = { id: `note_${U.slug(n.title)}_${U.slug(datetime)}`, type: n.type, title: n.title, author: n.author, datetime, category: n.category || 'Progress Note', summary: n.summary || '', body: n.body };
+      // two notes with the same title at the same minute (for example two dialysis runs) still need distinct ids
+      if (notes.some(x => x.id === note.id)) { let k = 2; while (notes.some(x => x.id === `${note.id}_${k}`)) k++; note.id = `${note.id}_${k}`; }
       if (n.study) note.study = n.study;
       if (n.impression) note.impression = n.impression;
       if (n.dayTag) note.dayTag = n.dayTag;

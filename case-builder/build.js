@@ -12,6 +12,7 @@ NS.build = (() => {
 
       // Allergy substitution
       (med.avoid || []).forEach(word => {
+        if (!med) return;
         if (ctx.allergic(word)) {
           if (med.alt) {
             spec.applied.push(`${med.name} replaced with ${med.alt.name} because of ${word} allergy.`);
