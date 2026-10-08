@@ -2060,3 +2060,17 @@ a.drug-link:hover { text-decoration-style: solid; }
 .pri-n { flex: none; width: 30px; height: 30px; border-radius: 50%; background: #1f5fa8; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 .pri-text { flex: 1; font-size: 15px; } .pri-btns { display: flex; gap: 6px; flex: none; } .pri-btns .small-tool-button { min-width: 44px; min-height: 40px; font-size: 16px; }
 .pri-row.t1 { border-left: 6px solid #c62828; } .pri-row.t2 { border-left: 6px solid #e0a000; } .pri-row.t3 { border-left: 6px solid #2e7d32; }
+
+/* v29: the top bar has more buttons now; let them wrap into two rows on iPad widths */
+@media (max-width: 1380px) {
+  .top-actions { flex-wrap: wrap; justify-content: flex-end; max-width: 460px; row-gap: 6px; gap: 6px; }
+  .top-link, .top-actions .primary-button { padding: 0 10px; font-size: 13px; min-height: 40px; }
+}
+@media (max-width: 900px) { .top-actions { max-width: 330px; } }
+@media (min-width: 901px) and (max-width: 1100px) {
+  .topbar { grid-template-columns: auto auto minmax(0, 1fr); row-gap: 8px; }
+  .brand-block { grid-column: 1; grid-row: 1; }
+  .simulation-clock { grid-column: 2; grid-row: 1; }
+  .top-actions { grid-column: 3; grid-row: 1; }
+  .patient-banner { grid-column: 1 / -1; grid-row: 2; }
+}
