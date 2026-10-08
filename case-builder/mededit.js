@@ -62,6 +62,7 @@ NS.medEdit = (() => {
     };
     if (a.prn) { med.prn = true; med.prnInterval = (E.FREQ[f] || {}).text || 'As needed'; med.prnFor = a.prnFor || ''; med.prnGiven = []; }
     if (a.at && a.at.length) med.at = a.at;
+    if (f === 'weekly') med.weekday = a.weekday !== undefined && a.weekday !== '' ? +a.weekday : 1;   // Monday unless set
     if (once) {
       // due at a clock time within the next 24 hours of the shift (default: 30 minutes from the start of the simulation)
       let delta = 0.5;

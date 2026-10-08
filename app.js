@@ -1662,6 +1662,10 @@ function getVisibleCanonicalCase(canonical) {
   visible.observations = (canonical.observations || []).filter(item => availableAtSimulationTime(item));
   visible.notes = (canonical.notes || []).filter(item => availableAtSimulationTime(item));
   visible.orders = (canonical.orders || []).filter(item => availableAtSimulationTime(item, canonical.encounter?.admitDate));
+  // an order that has been placed but does not start yet is "Pending" until its start time, not "Active"
+  visible.orders.forEach(order => {
+    if (/^active$/i.test(safe(order.status)) && order.start && String(order.start) > String(simulationTime)) order.status = 'Pending';
+  });
   visible.devices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
   visible.ioEvents = (canonical.ioEvents || []).filter(item => {
     const stamp = safe(item.availableAt || item.collected, '');

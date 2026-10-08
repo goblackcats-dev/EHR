@@ -511,5 +511,14 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **MAR**: clicking a medication opens its detail card as a pop-up instead of at the top of the page.
 - Added to the to-do list: a short drug guide link on every medication.
 
+## New in v25: fixes from the review
+
+- Orders that are placed but start later in the shift now show **Pending** (not Active) until their start time.
+- **Real once-a-week medications** (methotrexate, alendronate, etanercept): they are due only on their day of the week, and earlier doses show as given.
+- Home aspirin is held during an active bleed; gastroenterology and endocrinology providers added to the team list.
+- **Brain / Worklist** now also creates tasks from abnormal vital signs and critical lab results as they appear.
+- **Camera scanning**: the scanner window has **Scan with camera** (reads the QR code on wristbands and packages; works on an iPad over the https Pages site). Tapping and typing still work.
+- The Case Builder **Notes tab** has the same draggable divider as the EHR.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

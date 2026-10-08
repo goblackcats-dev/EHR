@@ -68,6 +68,20 @@
     section('Later<br><span>after this shift</span>', later, 'bt-later');
   }
 
+  // Tasks that come from what has just happened in the chart (abnormal vital signs, critical results), not only from the order schedule.
+  const originalTasks = getBrainTasks;
+  getBrainTasks = function (includeCompleted) {
+    const tasks = originalTasks.apply(null, arguments);
+    if (!currentCanonicalCase) return tasks;
+    const tl = currentCanonicalCase.timeline || {}, since = String(tl.simulationStart || ''), vis = getVisibleCanonicalCase(currentCanonicalCase);
+    const add = t => { t.completed = completedBrainTaskIds.has(t.id); if (includeCompleted || !t.completed) tasks.push(t); };
+    const abn = {};
+    (vis.observations || []).filter(o => o.type === 'vital' && o.collected > since && safe(o.flag)).forEach(o => { (abn[o.collected] = abn[o.collected] || []).push(`${safe(o.label)} ${safe(o.value)}${o.units ? ' ' + o.units : ''}`); });
+    Object.keys(abn).forEach(stamp => add({ id: `vitals_abnormal_${stamp}`, type: 'care', title: 'Abnormal vital signs: reassess and notify if needed', detail: abn[stamp].join(', '), dueAt: stamp, target: 'flowsheets', priority: 'overdue' }));
+    (vis.observations || []).filter(o => o.type === 'lab' && o.collected > since && /critical/i.test(safe(o.flag))).forEach(o => add({ id: `lab_critical_${o.id}`, type: 'care', title: `Critical result: ${safe(o.label)} ${safe(o.value)}`, detail: 'Read back, notify the provider, document the time and who was told.', dueAt: o.collected, target: 'labResults', priority: 'overdue' }));
+    return Array.from(new Map(tasks.map(t => [t.id, t])).values());
+  };
+
   const orig = renderBrainPage;
   renderBrainPage = function () { orig.apply(null, arguments); draw(); };
 })();

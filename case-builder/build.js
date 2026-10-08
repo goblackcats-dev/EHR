@@ -121,6 +121,7 @@ NS.build = (() => {
     for (let d = -1; d <= Math.ceil(endH / 24) + 1; d++) {
       clock.forEach(c => {
         const ms = midnight.getTime() + d * 86400000 + (+c.slice(0, 2)) * 3600000 + (+c.slice(2)) * 60000;
+        if (med.weekday !== undefined && new Date(ms).getUTCDay() !== med.weekday) return;   // once-weekly drugs are due only on their day
         const h = (ms - admitMs) / 3600000;
         if (h < startH - 1e-6 || h > endH + 1e-6) return;
         if (out.length && Math.abs(h - out[out.length - 1]) < (f.gap || 2)) return;

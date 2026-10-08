@@ -40,7 +40,8 @@
   // Weekly / q14-day home drug: a one-time future-dated order with the real interval in the frequency text.
   const periodic = (ctx, spec, m, dow, every) => {
     const h = nextDoseH(ctx, dow), when = U.mdy(ctx.ts(h));
-    homeOnce(spec, Object.assign({ freq: 'once', startH: h, freqText: `${every} (${DOW[dow]}s) - next dose ${when}`, highAlert: true }, m));
+    if (/weekly/i.test(every)) homeOnce(spec, Object.assign({ freq: 'weekly', weekday: dow, at: ['0900'], startH: 3, highAlert: true }, m));   // a real once-a-week schedule
+    else homeOnce(spec, Object.assign({ freq: 'once', startH: h, freqText: `${every} (${DOW[dow]}s) - next dose ${when}`, highAlert: true }, m));
     return { h, when, day: DOW[dow] };
   };
   const ACUTE_HOLD = ['sepsis', 'pneumonia', 'cellulitis', 'aki', 'ugib', 'appendicitis', 'sbo', 'cholecystitis', 'diverticulitis', 'pancreatitis', 'hip_fracture'];

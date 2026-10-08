@@ -12,7 +12,7 @@ NS.engine = (() => {
     nephrology: 'O. Lindqvist, MD', neurology: 'F. Okafor, MD', pulm: 'G. Mehta, MD',
     rnDay: 'T. Nguyen, RN', rnNight: 'L. Bennett, RN', rt: 'D. Moore, RRT', pt: 'A. Kim, PT, DPT',
     ot: 'C. Rivera, OTR/L', slp: 'E. Hart, CCC-SLP', rd: 'N. Foster, RD, LDN', cm: 'P. Lawson, RN, CCM',
-    radiology: 'W. Chen, MD (Radiology)', pharm: 'Inpatient Pharmacy'
+    gi: 'K. Brandt, MD (Gastroenterology)', endocrine: 'R. Castellanos, MD (Endocrinology)', radiology: 'W. Chen, MD (Radiology)', pharm: 'Inpatient Pharmacy'
   };
 
   // ---------- Medication schedules ----------
@@ -31,6 +31,7 @@ NS.engine = (() => {
     qHS:   { text: 'Nightly at bedtime', clock: ['2100'], gap: 12 },
     ACHS:  { text: 'ACHS (before meals and at bedtime)', clock: ['0730', '1130', '1630', '2100'], gap: 3 },
     AC:    { text: 'Before meals', clock: ['0730', '1130', '1630'], gap: 3 },
+    weekly: { text: 'Once weekly', clock: ['0900'], gap: 96 },
     continuous: { text: 'Continuous infusion' }
   };
 

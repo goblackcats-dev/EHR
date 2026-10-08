@@ -554,6 +554,18 @@
     $('dayMinus').addEventListener('click', () => { $('hospitalDay').value = Math.max(1, (parseInt($('hospitalDay').value, 10) || 1) - 1); changed(); });
     $('dayPlus').addEventListener('click', () => { $('hospitalDay').value = Math.min(21, (parseInt($('hospitalDay').value, 10) || 1) + 1); changed(); });
     $('clearHx').addEventListener('click', () => { input.hx = []; input.hxCustom = []; renderChips(); changed(); });
+    // drag the divider to make the note list narrower or wider (remembered on this device)
+    (() => {
+      const lay = document.querySelector('.notes-layout'); if (!lay) return;
+      const grip = document.createElement('div'); grip.className = 'layout-grip'; grip.title = 'Drag to resize; double-click to reset'; lay.insertBefore(grip, lay.querySelector('.note-view'));
+      const saved = parseInt(safeGet('ns_builder_notes_w') || '', 10); if (saved >= 160) lay.style.setProperty('--nl-left', saved + 'px');
+      let drag = false;
+      grip.addEventListener('pointerdown', e => { drag = true; grip.setPointerCapture(e.pointerId); e.preventDefault(); });
+      grip.addEventListener('pointermove', e => { if (!drag) return; const r = lay.getBoundingClientRect(); lay.style.setProperty('--nl-left', Math.round(Math.max(160, Math.min(r.width - 300, e.clientX - r.left))) + 'px'); });
+      const stop = () => { if (!drag) return; drag = false; safeSet('ns_builder_notes_w', String(parseInt(lay.style.getPropertyValue('--nl-left'), 10) || '')); };
+      grip.addEventListener('pointerup', stop); grip.addEventListener('pointercancel', stop);
+      grip.addEventListener('dblclick', () => { lay.style.removeProperty('--nl-left'); safeSet('ns_builder_notes_w', ''); });
+    })();
     makePickers(); renderChips();
     document.querySelectorAll('#trigMode button').forEach(b => b.addEventListener('click', () => { input.trigger = readTrigger($('primary').value); input.trigger.mode = b.dataset.v; renderTrigger(); changed(); }));
     $('primary').addEventListener('change', () => { input.trigger = readTrigger($('primary').value); renderTrigger(); });

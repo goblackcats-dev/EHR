@@ -304,9 +304,13 @@
     dlg.innerHTML = `<div class="dialog-header"><div><h2 id="scanTitle">Scan</h2><p id="scanSub"></p></div><button id="scanClose" class="icon-button" aria-label="Close scanner">×</button></div>
       <div class="dialog-body"><div id="scanMsg" class="scan-msg"></div><div id="scanTiles" class="scan-tiles"></div>
       <div class="scan-manual"><input id="scanInput" placeholder="Or scan with a handheld scanner / type a code, then press Enter" autocomplete="off" autocapitalize="off" /><button id="scanGo" class="primary-button">Enter</button></div>
-      <div class="scan-foot"><button id="scanOvr" class="secondary-button">Can't scan? Override...</button></div></div>`;
+      <div id="scanCamBox" class="scan-cam hidden"><video id="scanVideo" playsinline muted></video><div class="scan-cam-hint">Point the camera at the QR code on the wristband or package.</div><button id="scanCamStop" class="secondary-button">Stop camera</button></div>
+      <div class="scan-foot"><button id="scanCam" class="secondary-button">Scan with camera</button> <button id="scanOvr" class="secondary-button">Can't scan? Override...</button></div></div>`;
     document.body.appendChild(dlg);
     $('scanClose').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('close', stopCamera);
+    $('scanCam').addEventListener('click', startCamera);
+    $('scanCamStop').addEventListener('click', stopCamera);
     $('scanGo').addEventListener('click', () => { handleScan($('scanInput').value); $('scanInput').value = ''; });
     $('scanInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); handleScan($('scanInput').value); $('scanInput').value = ''; } });
     $('scanTiles').addEventListener('click', e => { const t = e.target.closest('[data-code]'); if (t) handleScan(t.dataset.code); });
@@ -366,6 +370,42 @@
     scanFeedback(state.medScan.msg, state.medScan.ok); if (state.medScan.ok) closeScannerSoon();
     refresh(); return state.medScan.ok;
   }
+
+  // ------------------------------------------------------------------ camera scanning (QR codes), for an iPad with no handheld scanner
+  let camStream = null, camTimer = null;
+  function loadJsQR() {
+    if (window.jsQR) return Promise.resolve(true);
+    return new Promise(res => { const sc = document.createElement('script'); sc.src = 'jsqr.js'; sc.onload = () => res(true); sc.onerror = () => res(false); document.head.appendChild(sc); });
+  }
+  function stopCamera() {
+    clearInterval(camTimer); camTimer = null;
+    if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
+    const box = $('scanCamBox'); if (box) box.classList.add('hidden');
+    const v = $('scanVideo'); if (v) v.srcObject = null;
+  }
+  async function startCamera() {
+    const msg = $('scanMsg');
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = 'This browser cannot use the camera here (it needs the secure https page). Tap a wristband or type the code instead.'; msg.className = 'scan-msg bad'; return; }
+    try {
+      camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+    } catch (e) { msg.textContent = 'The camera could not be opened. Allow camera access for this site, or tap a wristband instead.'; msg.className = 'scan-msg bad'; return; }
+    const v = $('scanVideo'); v.srcObject = camStream; $('scanCamBox').classList.remove('hidden'); try { await v.play(); } catch (e) { /* autoplay rules */ }
+    const detector = window.BarcodeDetector ? new BarcodeDetector({ formats: ['qr_code'] }) : null;
+    const ok = detector || await loadJsQR();
+    if (!ok) { msg.textContent = 'The QR reader could not load. Tap a wristband or type the code.'; msg.className = 'scan-msg bad'; stopCamera(); return; }
+    const canvas = document.createElement('canvas'), g = canvas.getContext('2d', { willReadFrequently: true });
+    let busy = false;
+    camTimer = setInterval(async () => {
+      if (busy || !v.videoWidth) return; busy = true;
+      try {
+        let text = '';
+        if (detector) { const r = await detector.detect(v); if (r.length) text = r[0].rawValue; }
+        else { canvas.width = v.videoWidth; canvas.height = v.videoHeight; g.drawImage(v, 0, 0); const img = g.getImageData(0, 0, canvas.width, canvas.height), r = window.jsQR(img.data, img.width, img.height); if (r) text = r.data; }
+        if (text) { stopCamera(); handleScan(text); }
+      } catch (e) { /* keep trying */ } finally { busy = false; }
+    }, 200);
+  }
+  window.MedPassCameraDecode = canvasEl => { const g = canvasEl.getContext('2d'), d = g.getImageData(0, 0, canvasEl.width, canvasEl.height), r = window.jsQR && window.jsQR(d.data, d.width, d.height); return r ? r.data : ''; };
 
   // Handheld scanners act like a very fast keyboard that ends with Enter. Catch that anywhere in the EHR (outside text boxes).
   (function wedge() {
