@@ -2126,3 +2126,8 @@ body.student #mrToggleBtn { display: none !important; }
 .tm-chip.tm-late { background: #fde7e5; color: #b3261e; } .tm-chip.tm-late2 { background: #b3261e; color: #fff; } .tm-chip.tm-soon { background: #fff1c7; color: #7a5200; } .tm-chip.tm-later { background: #e6f0fc; color: #1f4f8f; }
 .brain-task.tm-late { border-left: 5px solid #d93025; } .brain-task.tm-late2 { border-left: 5px solid #8e1b1b; background: #fff5f4; } .brain-task.tm-soon { border-left: 5px solid #e0a000; } .brain-task.tm-later { border-left: 5px solid #7aa7e0; }
 .brain-summary-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 14px; border-bottom: 1px solid #e3e9f1; background: #f8fafc; font-size: 13px; } .brain-summary-bar .tm-chip { margin: 0; font-size: 12.5px; padding: 3px 10px; }
+
+/* ---- v37 discharge teaching and AVS ---- */
+.dc-l { display: block; margin: 10px 0; } .dc-l select { width: auto; min-height: 0; padding: 6px; font-size: 15px; margin-left: 6px; }
+.dc-checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 2px 10px; }
+.avs h2.avs-h { margin: 0 0 6px; } .avs h3 { margin: 14px 0 4px; font-size: 15px; border-bottom: 1px solid #d6dee9; padding-bottom: 2px; } .avs ul { margin: 4px 0 4px 20px; padding: 0; } .avs-small { font-size: 12px; color: #55657a; }

@@ -587,5 +587,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - Every open task shows how late or how soon it is: **Overdue 45 min** (red, dark red after an hour), **Due in 12 min** (amber, within 30 minutes), **In 2 h** (blue). The timers move when the simulation clock moves.
 - A summary bar at the top of the Brain page counts overdue tasks and tasks due in the next 30 minutes, and names the longest-overdue task.
 
+## New in v37: discharge teaching and After-Visit Summary
+
+- **Discharge** (left menu) has two tabs. **Teaching documentation**: choose the topic, who was taught, the methods (verbal, handout, demonstration, teach-back, interpreter), tick the key points covered (they come from the same teaching topics as the Teaching practice), the learner's response and any barriers; **File education note** adds a Patient Education Note to Chart Review > Notes and keeps an education log with the patient (tips appear if teach-back is missing).
+- **After-Visit Summary**: a printable plain-language summary built from the chart: reason for the stay, what was done, a medicines table (dose, how often in everyday words, what it is for, keep taking vs new or changed), allergies, diet, activity, warning signs, follow-up, and the teaching documented. IV-only hospital medicines are left off. **Print / save as PDF** makes the paper copy.
+- Student results files now count the education entries.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

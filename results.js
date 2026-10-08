@@ -18,7 +18,7 @@
     const log = (cc.medPass && cc.medPass.log) || [];
     const count = re => log.filter(l => re.test(String(l.type))).length;
     return { format: FORMAT, version: 1, student: student || '', patient: p.name || '', diagnosis: e.diagnosis || '', exportedAt: new Date().toISOString(),
-      handoff: att('handoff'), sbar: att('sbar'), priority: att('priority'), teaching: att('teaching'), quiz: att('quiz'),
+      education: (cc.educationLog || []).map(x => ({ at: x.at, topic: x.topic, who: x.who, methods: x.methods, response: x.response })), handoff: att('handoff'), sbar: att('sbar'), priority: att('priority'), teaching: att('teaching'), quiz: att('quiz'),
       medPass: { events: log.length, overrides: count(/override/i), wrongPatient: count(/wrong.?patient|mismatch/i), scans: count(/scan/i), log: log.map(l => ({ at: l.at, type: l.type, detail: l.detail })) } };
   }
 
@@ -28,7 +28,7 @@
     return `<p><b>Patient:</b> ${esc(r.patient)} (${esc(r.diagnosis)})</p>
       <table class="data-table"><thead><tr><th>Practice</th><th>Attempts</th><th>Best</th><th>Latest</th></tr></thead><tbody>
       ${row('Handoff report', r.handoff)}${row('SBAR call to provider', r.sbar)}${row('Prioritizing tasks', r.priority)}${row('Teaching the patient', r.teaching)}</tbody></table>
-      <p>Medication pass: <b>${r.medPass.events}</b> logged actions, <b>${r.medPass.overrides}</b> scan overrides.</p>`;
+      <p>Patient teaching documented: <b>${(r.education || []).length}</b> entries.</p><p>Medication pass: <b>${r.medPass.events}</b> logged actions, <b>${r.medPass.overrides}</b> scan overrides.</p>`;
   }
 
   function openStudentDialog() {
