@@ -528,5 +528,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Faculty: view rubric** shows and prints the full rubric with points. Advance the clock to the end of the shift to get the end-of-shift rubric. Every attempt (score and what was missed) is saved with the patient.
 - Scoring is keyword and number matching, not clinical judgment; an optional Claude review of the spoken or typed report is a possible later addition.
 
+## New in v27: quick drug guide
+
+- **Every medication name is a blue link** on the MAR rows, in the dose window, and in the medication detail pop-up. Tapping it opens a one-page guide: what the drug is for, the usual dose, how to give it, what to assess and monitor, when to hold it and call the provider, adverse effects (serious ones in bold red), a look-alike/sound-alike warning where one exists, high-alert marking, and what to teach the patient.
+- 207 guides cover all 245 medication names the builder currently produces, including IV fluids and combination products. If a medication has no guide (for example one you typed in), the window shows the basic information from the order instead.
+- The guides are a learning reference, written by Claude. Doses and hold limits should be reviewed by a pharmacist or your faculty before students rely on them; entries are marked "Always follow the order."
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
