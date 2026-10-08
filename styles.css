@@ -2013,3 +2013,18 @@ body.resizing { user-select: none; cursor: col-resize; }
 .ho-sec { margin: 14px 0 4px; font-size: 15px; color: #1f3b5e; }
 .ho-table td { vertical-align: top; } .ho-m { font-weight: 800; } .ho-m.ok { color: #1e8e3e; } .ho-m.bad { color: #c62828; } .ho-m.part { color: #b26a00; }
 .ho-crit { font-size: 10px; background: #fbdcdc; color: #9a2020; border-radius: 8px; padding: 1px 6px; text-transform: uppercase; } .ho-pts { text-align: right; white-space: nowrap; color: #55657a; }
+
+/* v27 quick drug guide */
+a.drug-link { color: #1a5fb4; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; cursor: pointer; font-weight: inherit; }
+a.drug-link:hover { text-decoration-style: solid; }
+.drug-guide { width: min(820px, 96vw); max-height: 92vh; overflow: auto; border: 0; border-radius: 12px; padding: 18px 22px 16px; box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+.drug-guide::backdrop { background: rgba(10,20,40,.5); }
+.dg-close { position: absolute; right: 10px; top: 8px; font-size: 26px; }
+.dg-head h2 { margin: 0 34px 4px 0; font-size: 22px; } .dg-brand { font-weight: 400; color: #55657a; font-size: 16px; }
+.dg-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; } .dg-chip { background: #e8eefc; color: #274b8e; border-radius: 12px; padding: 3px 10px; font-size: 12px; font-weight: 700; } .dg-chip.alert { background: #fde2e2; color: #9b1c1c; }
+.dg-note { background: #fff6dd; border: 1px solid #e4c76b; border-radius: 8px; padding: 6px 10px; font-size: 13px; margin: 6px 0; }
+.dg-lasa { background: #fdeaea; border: 1px solid #e19a9a; border-radius: 8px; padding: 6px 10px; font-size: 13px; margin: 6px 0; }
+.dg-sec h4 { margin: 10px 0 3px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #4b6482; } .dg-sec p { margin: 0; font-size: 14px; line-height: 1.4; }
+.dg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; } @media (max-width: 700px) { .dg-grid { grid-template-columns: 1fr; } }
+.dg-list { margin: 0 0 0 18px; padding: 0; font-size: 14px; line-height: 1.4; } .dg-list li { margin: 2px 0; } .dg-list.hold li { color: #8a2b1d; } .dg-list.fx li.serious { color: #9b1c1c; font-weight: 600; }
+.dg-foot { margin-top: 12px; font-size: 11px; color: #7b8aa0; }
