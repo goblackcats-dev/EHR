@@ -339,7 +339,7 @@ NS.HX.phm = (() => {
       Object.assign(spec.labBase, { Hemoglobin: ctx.female ? 16.4 : 17.6, Hematocrit: ctx.female ? 49 : 53, WBC: 12.8, Platelets: 520, 'Uric acid': 7.8 });
       spec.vitalAdjust.push({ sbp: 6, dbp: 3 });
       home(spec, { key: 'hydroxyurea', name: 'hydroxyurea (HYDREA) capsule', dose: '500 mg', route: 'Oral', freq: 'BID', cls: 'Antimetabolite', holdIf: ['npo'], info: 'Cytotoxic: wear gloves, do not open capsules. Monitor CBC; hold for ANC below 1.5 or platelets below 100 and call the provider.', monitor: ['WBC', 'Plt', 'Hgb'], hold: 'Hold and notify provider for ANC below 1.5 K/uL, platelets below 100 K/uL or fever.', renal: { ckd3: { dose: '250 mg', note: 'Dose reduced for CKD.' }, esrd: { dose: '250 mg', note: 'Dose reduced for ESRD.' } }, indication: 'Polycythemia vera (cytoreduction)' });
-      home(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Reduces thrombosis risk in polycythemia vera. Monitor for bleeding.', monitor: ['Hgb', 'Plt'], indication: 'Polycythemia vera (thrombosis prevention)' });
+      home(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', sips: true, info: 'Reduces thrombosis risk in polycythemia vera. Monitor for bleeding.', monitor: ['Hgb', 'Plt'], indication: 'Polycythemia vera (thrombosis prevention)' });
       order(spec, { name: 'Hydration and thrombosis prevention', category: 'Nursing', frequency: 'Continuous', instructions: 'Maintain hydration (dehydration raises blood viscosity), early ambulation, SCDs while in bed; report headache, vision change, chest pain, calf swelling or abdominal pain (splenic/mesenteric thrombosis). Therapeutic phlebotomy per hematology if Hct above 45-48%; avoid iron supplements.', startH: 3, nursing: ['Hematocrit above 55% or new neurologic symptoms: notify provider urgently.', 'Pruritus after warm water is common; use lukewarm showers.'] });
       scd(spec);
       assess(spec, [['Skin', 'Skin', 'Ruddy face and plethoric appearance; warm; excoriations from itching'], ['GI', 'Abdomen', 'Soft; mild left upper quadrant fullness (splenomegaly)']]);
@@ -362,16 +362,258 @@ NS.HX.phm = (() => {
     label: 'Multiple Myeloma (on treatment)', group: G, aliases: ['myeloma', 'plasma cell', 'revlimid', 'lenalidomide'], order: 20,
     desc: 'Anemia, high total protein, mild renal impairment and hypercalcemia tendency; lenalidomide with aspirin, acyclovir; bone-pain and fracture precautions, infection and AKI risk (no NSAIDs, hydrate).',
     apply(ctx, spec) {
-      Object.assign(spec.labBase, { Hemoglobin: ctx.female ? 9.6 : 10.2, 'Total protein': 9.2, Albumin: 3.2, Creatinine: ctx.female ? 1.3 : 1.5, Calcium: 10.4, WBC: 4.4, Platelets: 160, 'Absolute neutrophil count': 2.4 });
+      Object.assign(spec.labBase, { Hemoglobin: ctx.female ? 9.6 : 10.2, 'Total protein': 9.2, Albumin: 3.2, Creatinine: ctx.female ? 1.3 : 1.5, Calcium: 10.4, WBC: 4.4, Platelets: 160 });
       spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
       home(spec, { key: 'lenalidomide', name: 'lenalidomide (REVLIMID) capsule', dose: ctx.renal === 'none' ? '25 mg' : '10 mg', route: 'Oral', freq: 'daily', cls: 'Immunomodulatory antineoplastic', holdIf: ['npo'], highAlert: true, info: 'REMS drug: cytotoxic and teratogenic (gloves; pregnant staff avoid handling; use patient supply per pharmacy). Days 1-21 of 28-day cycle. Renally dosed. Causes neutropenia, thrombocytopenia and VTE.', monitor: ['WBC', 'Plt', 'Cr'], hold: 'Hold and notify provider for ANC below 1.0 K/uL, platelets below 50 K/uL, fever or new leg swelling.', renal: { ckd3: { dose: '10 mg', note: 'Renally dosed.' }, esrd: { dose: '5 mg', note: 'Dosed after dialysis on dialysis days.' } }, indication: 'Multiple myeloma' });
       home(spec, { key: 'acyclovir', name: 'acyclovir (ZOVIRAX) tablet', dose: '400 mg', route: 'Oral', freq: 'BID', cls: 'Antiviral prophylaxis', holdIf: ['npo'], info: 'Shingles prophylaxis while on myeloma therapy. Keep hydrated.', monitor: ['Cr'], renal: { ckd3: { dose: '400 mg', note: 'Continue; monitor renal function.' }, esrd: { dose: '200 mg', note: 'Dose reduced for ESRD.' } }, indication: 'Herpes zoster prophylaxis' });
-      home(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'VTE prophylaxis with lenalidomide. Hold if platelets below 50.', monitor: ['Plt'], hold: 'Hold if platelets below 50 K/uL or bleeding.', indication: 'Myeloma therapy thromboprophylaxis' });
+      home(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', sips: true, info: 'VTE prophylaxis with lenalidomide. Hold if platelets below 50.', monitor: ['Plt'], hold: 'Hold if platelets below 50 K/uL or bleeding.', indication: 'Myeloma therapy thromboprophylaxis' });
       order(spec, { name: 'Myeloma precautions: hydration, fracture and infection', category: 'Precautions', frequency: 'Continuous', instructions: 'Maintain hydration (2-3 L/day unless restricted); NO NSAIDs or IV contrast without provider review; move patient gently and avoid twisting/pulling (lytic bone lesions, pathologic fracture); report new back pain or leg weakness (cord compression), confusion, constipation, polyuria or thirst (hypercalcemia). Hypogammaglobulinemia: monitor closely for infection.', startH: 3 });
       order(spec, { name: 'Neutropenic fever instructions', category: 'Nursing', frequency: 'Continuous', instructions: 'Temperature 100.4 F (38.0 C) or higher with ANC below 1.0 K/uL is an emergency: blood cultures x2 and broad-spectrum IV antibiotics within 60 minutes; notify provider.', startH: 3 });
-      addLabs(spec, 0.5, ['Absolute neutrophil count', 'Total protein', 'Albumin']);
+      addLabs(spec, 0.5, ['Total protein', 'Albumin']);
       assess(spec, [['Pain', 'Pain Location', 'Chronic mid-back and rib pain, 3/10, worse with movement'], ['Skin', 'Skin', 'Pale, dry; no rash']]);
       comorb(spec, { key: 'multiple_myeloma', problem: 'Multiple myeloma', details: 'IgG myeloma with anemia and mild renal impairment on lenalidomide-based therapy; weekly dexamethasone per oncology.', pmh: 'Multiple myeloma on lenalidomide', plan: () => ['Continue lenalidomide only if ANC and platelets acceptable; weekly dexamethasone per oncology (check glucose).', 'Hydration, no NSAIDs, fracture and infection precautions; trend Cr and calcium.'] });
+    }
+  });
+})();
+
+(() => {
+  const { home, order, comorb, assess, addLabs, sticky, heldNote } = NS.HX.helpers;
+  const P = NS.HX.phm;
+  const add = NS.HX.add;
+  const G = 'Hematology / Oncology';
+  P.addLab('CEA', { cat: 'Other', units: 'ng/mL', ref: [0, 3], dec: 1, base: 1.8 });
+  const scd = spec => order(spec, { name: 'Sequential compression devices', category: 'Nursing', frequency: 'Continuous when in bed', instructions: 'Mechanical VTE prophylaxis; add to pharmacologic prophylaxis for high VTE risk.', startH: 3 });
+  const neutroOrders = (spec, level) => {
+    order(spec, { name: 'Neutropenic precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'Hand hygiene before every contact, no fresh flowers or raw foods when ANC is below 1.0 K/uL, mask for visitors with symptoms, private room if ANC below 0.5, no rectal temperatures, suppositories or enemas, no IM injections, oral care with a soft brush.', startH: 3 });
+    order(spec, { name: 'Fever in a patient on chemotherapy: neutropenic fever pathway', category: 'Nursing', frequency: 'PRN fever', instructions: 'Temperature 100.4 F (38.0 C) or higher is an EMERGENCY in a patient on chemotherapy: notify provider immediately, blood cultures x2 (one from the port if present), CBC with differential, lactate, and start broad-spectrum IV antibiotics within 60 minutes. Do not give acetaminophen before the provider is notified.', startH: 3, nursing: [level || 'Take temperature orally or temporally only.'] });
+  };
+
+  // ---------- Breast cancer in remission ----------
+  add('breast_cancer', {
+    label: 'Breast Cancer (in remission, on hormonal therapy)', group: G, aliases: ['breast ca', 'tamoxifen', 'anastrozole', 'breast carcinoma'], order: 50,
+    desc: 'Adds anastrozole (or tamoxifen if premenopausal) with VTE/bone-health considerations; hot flashes; no active chemotherapy.',
+    apply(ctx, spec) {
+      const tam = ctx.age < 50 || ctx.male;
+      if (tam) {
+        home(spec, { key: 'tamoxifen', name: 'tamoxifen (NOLVADEX) tablet', dose: '20 mg', route: 'Oral', freq: 'daily', cls: 'Selective estrogen receptor modulator', holdIf: ['npo'], info: 'Raises risk of DVT/PE and endometrial cancer. Report calf pain or swelling, dyspnea, vaginal bleeding. Interacts with paroxetine/fluoxetine (CYP2D6). Continue unless bedbound with a clot; call provider.', monitor: ['Hgb'], hold: 'Notify provider before continuing if immobilized, DVT/PE suspected or after major surgery.', indication: 'Breast cancer: adjuvant endocrine therapy' });
+        order(spec, { name: 'High VTE risk: tamoxifen', category: 'Nursing', frequency: 'Continuous', instructions: 'Early ambulation, SCDs in bed, confirm pharmacologic prophylaxis is not omitted. Report unilateral leg swelling/pain or dyspnea.', startH: 3 });
+        scd(spec);
+      } else {
+        home(spec, { key: 'anastrozole', name: 'anastrozole (ARIMIDEX) tablet', dose: '1 mg', route: 'Oral', freq: 'daily', cls: 'Aromatase inhibitor', holdIf: ['npo'], info: 'Causes joint pain, hot flashes and bone loss (osteoporosis, fracture risk). No special lab monitoring. Not time-critical; may be held for a few days if NPO.', indication: 'Breast cancer: adjuvant endocrine therapy' });
+        spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      }
+      assess(spec, [['Skin', 'Skin', 'Healed lumpectomy scar left breast; no lymphedema, redness or mass'], ['Musculoskeletal / Mobility', 'Joint Exam', 'Mild generalized joint stiffness (hormonal therapy)']].slice(0, tam ? 1 : 2));
+      comorb(spec, { key: 'breast_cancer', problem: 'Breast cancer in remission', details: `Stage I hormone-receptor-positive breast cancer treated ${ctx.surgYear && ctx.surgYear('mastectomy') ? 'in ' + ctx.surgYear('mastectomy') : '4 years ago'}; on ${tam ? 'tamoxifen' : 'anastrozole'}; no evidence of disease.`, pmh: 'Breast cancer, in remission on ' + (tam ? 'tamoxifen' : 'anastrozole'), plan: () => [tam ? 'Continue tamoxifen unless immobilized or clotting; mechanical VTE prophylaxis; call provider about holding.' : 'Continue anastrozole (may hold briefly while NPO); fall precautions for bone loss.', 'No active cancer treatment this admission.'] });
+    }
+  });
+
+  // ---------- Prostate cancer on ADT ----------
+  add('prostate_cancer', {
+    label: 'Prostate Cancer (on androgen deprivation)', group: G, aliases: ['prostate ca', 'adt', 'lupron', 'leuprolide', 'abiraterone'], order: 50,
+    desc: 'Adds androgen deprivation (bicalutamide, or abiraterone plus prednisone with BP/K monitoring), low PSA, mild anemia, bone-loss fall risk and hot flashes.',
+    apply(ctx, spec) {
+      const abi = ctx.age % 2 === 0;
+      spec.labBase.PSA = abi ? 0.4 : 0.1; spec.labBase.Hemoglobin = ctx.female ? 11.4 : 12.4;
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      if (abi) {
+        spec.vitalAdjust.push({ sbp: 8, dbp: 4 });
+        spec.labBase.Potassium = 3.8;
+        home(spec, { key: 'abiraterone', name: 'abiraterone (ZYTIGA) tablet', dose: '1,000 mg', route: 'Oral', freq: 'daily', at: ['0800'], cls: 'CYP17 inhibitor (antiandrogen)', holdIf: ['npo'], info: 'Give on an EMPTY stomach (1 hour before or 2 hours after food). Hazardous drug: gloves. Causes hypertension, hypokalemia and fluid retention; monitor BP, K and LFTs.', monitor: ['BP', 'K', 'LFT'], hold: 'Hold and notify provider for SBP above 180, K below 3.5 or ALT above 5 times normal.', indication: 'Metastatic prostate cancer' });
+        home(spec, { key: 'prednisone', name: 'prednisone tablet', dose: '5 mg', route: 'Oral', freq: 'BID', cls: 'Corticosteroid', sips: true, info: 'Replaces cortisol suppressed by abiraterone. DO NOT stop abruptly (adrenal insufficiency); needs stress-dose steroids during severe illness or surgery. Give with food.', monitor: ['Glucose', 'K'], hold: 'Do not hold; call provider if unable to take (give IV equivalent).', indication: 'With abiraterone (adrenal replacement)' });
+      } else {
+        home(spec, { key: 'bicalutamide', name: 'bicalutamide (CASODEX) tablet', dose: '50 mg', route: 'Oral', freq: 'daily', cls: 'Antiandrogen', holdIf: ['npo'], info: 'Taken with leuprolide depot injection every 3-6 months at the clinic. Monitor liver tests; hot flashes, gynecomastia, fatigue.', monitor: ['LFT'], indication: 'Prostate cancer (androgen deprivation)' });
+      }
+      assess(spec, [['Skin', 'Skin', 'Mild bilateral breast tenderness/gynecomastia; warm, intermittent hot flashes reported'], ['GU', 'Urinary Elimination', 'Voiding with mild urgency; no hematuria']]);
+      comorb(spec, { key: 'prostate_cancer', problem: 'Prostate cancer', details: abi ? 'Metastatic prostate cancer on leuprolide, abiraterone and prednisone; PSA 0.4 ng/mL.' : 'Prostate cancer on androgen deprivation therapy (leuprolide depot plus bicalutamide); PSA undetectable.', pmh: 'Prostate cancer on androgen deprivation therapy', plan: () => [abi ? 'Continue abiraterone (empty stomach) AND prednisone daily; stress-dose steroids if critically ill; BP and K daily.' : 'Continue bicalutamide; leuprolide injection is due at the clinic, not inpatient.', 'Bone loss: fall precautions; avoid urinary catheter trauma if retention occurs.'] });
+    }
+  });
+
+  // ---------- Colon cancer in remission ----------
+  add('colon_cancer', {
+    label: 'Colon Cancer (in remission)', group: G, aliases: ['colorectal cancer', 'colon ca', 'rectal cancer'], order: 50,
+    desc: 'Cancer-free after resection and chemotherapy 3-5 years ago: no medications; mild chronic anemia, CEA surveillance, adhesion/stool-pattern considerations.',
+    apply(ctx, spec) {
+      spec.labBase.Hemoglobin = ctx.female ? 11.8 : 12.8; spec.labBase.CEA = 1.6;
+      assess(spec, [['GI', 'Stool', 'Soft stool 1-2 times daily at baseline; no blood or melena']]);
+      comorb(spec, { key: 'colon_cancer', problem: 'Colon cancer in remission', details: 'Stage II colon adenocarcinoma resected and treated; no evidence of recurrence on surveillance colonoscopy and CEA.', pmh: 'Colon cancer, in remission (resection with adjuvant therapy)', plan: () => ['No active cancer treatment; baseline mild anemia.', 'New melena, weight loss or obstructive symptoms should be reported (recurrence or adhesions).'] });
+    }
+  });
+
+  // ---------- Active lung cancer on chemotherapy ----------
+  add('lung_cancer', {
+    label: 'Lung Cancer on Chemotherapy', group: G, aliases: ['lung ca', 'nsclc', 'small cell', 'chemo', 'chemotherapy', 'port'], order: 20,
+    desc: 'Active lung cancer on carboplatin/pemetrexed: low WBC/Hgb/platelets, implanted port, neutropenic precautions and neutropenic-fever pathway, antiemetics, pemetrexed folate/B12, mild baseline dyspnea.',
+    apply(ctx, spec) {
+      Object.assign(spec.labBase, { WBC: 3.2, Hemoglobin: ctx.female ? 9.8 : 10.4, Hematocrit: ctx.female ? 30 : 32, Platelets: 118, Albumin: 3.3, Sodium: 135 });
+      spec.vitalAdjust.push({ hr: 6 });
+      home(spec, { key: 'folic_acid', name: 'folic acid tablet', dose: '1 mg', route: 'Oral', freq: 'daily', cls: 'Vitamin B9', holdIf: ['npo'], info: 'Required daily with pemetrexed to reduce toxicity (start 7 days before and continue 3 weeks after the last dose).', indication: 'Pemetrexed premedication' });
+      home(spec, { key: 'ondansetron', name: 'ondansetron (ZOFRAN) tablet', dose: '8 mg', route: 'Oral', freq: 'q8h', prn: true, prnInterval: 'Every 8 hours', prnFor: 'nausea or vomiting', cls: 'Antiemetic (5-HT3 antagonist)', info: 'Prolongs QTc; check K and Mg. Constipation common.', monitor: ['K', 'Mg'], hold: 'Hold and notify provider if QTc above 500 ms.', indication: 'Chemotherapy-induced nausea (home PRN)', prnGiven: [], variants: { npo: { name: 'ondansetron (ZOFRAN) injection', dose: '4 mg', route: 'IV' } } });
+      home(spec, { key: 'prochlorperazine', name: 'prochlorperazine (COMPAZINE) tablet', dose: '10 mg', route: 'Oral', freq: 'q6h', prn: true, prnInterval: 'Every 6 hours', prnFor: 'breakthrough nausea', cls: 'Antiemetic (phenothiazine)', info: 'Sedating; QTc and orthostasis; avoid with other QT drugs when possible.', indication: 'Chemotherapy-induced nausea (home PRN)', prnGiven: [] });
+      P.port(spec);
+      neutroOrders(spec);
+      order(spec, { name: 'Chemotherapy precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'Last chemotherapy cycle about 10-12 days ago (expected WBC/platelet nadir). Handle body fluids for 48 hours after chemotherapy with gloves; hazardous drug precautions. Hold all chemotherapy and notify oncology of admission; do not give any chemotherapy without a specific order. Bleeding precautions if platelets below 50.', startH: 3 });
+      order(spec, { name: 'Oncology consult', category: 'Consult / Therapy', frequency: 'Once', instructions: 'Notify the outpatient oncologist of admission; treatment plan and G-CSF decisions per oncology.', startH: 3 });
+      assess(spec, [['Respiratory', 'Respiratory Effort', 'Mild exertional dyspnea at baseline; speaks in full sentences'], ['Respiratory', 'Breath Sounds', 'Diminished at right base (known effusion)'], ['Skin', 'Port Site', 'Right chest port pocket clean, dry, intact; not accessed']].filter(a => a[1] !== 'Breath Sounds' || ctx.age % 2 === 0));
+      sticky(spec, 'Immunocompromised', 'Active chemotherapy. Fever of 100.4 F or higher = neutropenic fever emergency: cultures and antibiotics within 60 minutes. No rectal temperatures.');
+      comorb(spec, { key: 'lung_cancer', problem: 'Lung cancer on chemotherapy', details: 'Stage IV non-small-cell lung cancer on carboplatin/pemetrexed every 21 days; implanted right chest port; chronic cytopenias.', pmh: 'Lung cancer on chemotherapy (implanted port)', plan: () => ['Chemotherapy on hold this admission; oncology aware.', 'Neutropenic precautions; port care; fever = cultures and antibiotics within 60 minutes.', 'Daily CBC; antiemetics PRN; goals-of-care conversation if clinically declining.'] });
+    }
+  });
+
+  // ---------- Lymphoma / leukemia ----------
+  add('lymphoma_leukemia', {
+    label: 'Lymphoma / Leukemia (on treatment)', group: G, aliases: ['cll', 'chronic lymphocytic leukemia', 'non-hodgkin', 'nhl', 'hodgkin', 'aml', 'all', 'ibrutinib', 'rituximab'], order: 20,
+    desc: 'CLL on ibrutinib (high lymphocyte WBC, bleeding/AF risk) or lymphoma on treatment (low WBC, port); antiviral/PJP prophylaxis and neutropenic-fever precautions.',
+    apply(ctx, spec) {
+      const cll = ctx.age % 2 === 0;
+      home(spec, { key: 'acyclovir', name: 'acyclovir (ZOVIRAX) tablet', dose: '400 mg', route: 'Oral', freq: 'BID', cls: 'Antiviral prophylaxis', holdIf: ['npo'], info: 'Herpes prophylaxis during immunosuppressive therapy.', renal: { esrd: { dose: '200 mg', note: 'Dose reduced for ESRD.' } }, monitor: ['Cr'], indication: 'Herpes prophylaxis' });
+      if (cll) {
+        Object.assign(spec.labBase, { WBC: 36, Hemoglobin: ctx.female ? 11.0 : 11.8, Platelets: 118, LDH: 270 });
+        home(spec, { key: 'ibrutinib', name: 'ibrutinib (IMBRUVICA) capsule', dose: '420 mg', route: 'Oral', freq: 'daily', at: ['0900'], cls: 'BTK inhibitor (antineoplastic)', sips: true, highAlert: true, info: 'Swallow whole. Increases bleeding risk (hold 3-7 days around surgery per oncology), atrial fibrillation and hypertension; many CYP3A4 interactions (azoles, macrolides, diltiazem, grapefruit). Monitor CBC, rhythm and BP.', monitor: ['Hgb', 'Plt', 'HR', 'BP'], hold: 'Hold and call oncology before surgery/procedures, for active bleeding, platelets below 50 or new irregular rhythm.', indication: 'Chronic lymphocytic leukemia' });
+        order(spec, { name: 'Bleeding precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'On ibrutinib: soft toothbrush, electric razor, firm pressure after venipuncture, avoid IM injections; report bleeding or black stools.', startH: 3 });
+        order(spec, { name: 'Infection precautions (hypogammaglobulinemia)', category: 'Precautions', frequency: 'Continuous', instructions: 'Immunocompromised despite high WBC (lymphocytes are not functional). Hand hygiene, assess for infection every shift; fever 100.4 F or higher: cultures and prompt antibiotics.', startH: 3 });
+        assess(spec, [['Skin', 'Skin', 'Scattered ecchymoses forearms; no petechiae'], ['GI', 'Abdomen', 'Soft; palpable spleen tip; non-tender'], ['Cardiac', 'Rhythm', 'Sinus rhythm']]);
+      } else {
+        Object.assign(spec.labBase, { WBC: 3.6, Hemoglobin: ctx.female ? 10.2 : 10.8, Platelets: 128, LDH: 330 });
+        home(spec, { key: 'atovaquone', name: 'atovaquone (MEPRON) suspension', dose: '1,500 mg', route: 'Oral', freq: 'daily', cls: 'PJP prophylaxis', holdIf: ['npo'], info: 'Give with fatty food for absorption. Pneumocystis prophylaxis while receiving rituximab/chemotherapy.', indication: 'Pneumocystis prophylaxis' });
+        P.port(spec);
+        neutroOrders(spec);
+        assess(spec, [['Skin', 'Port Site', 'Right chest port pocket clean, dry, intact; not accessed'], ['Skin', 'Skin', 'Pale; alopecia (post-chemotherapy)']]);
+        sticky(spec, 'Immunocompromised', 'Lymphoma on chemotherapy. Fever 100.4 F or higher = neutropenic fever emergency (cultures and antibiotics within 60 minutes).');
+      }
+      comorb(spec, { key: 'lymphoma_leukemia', problem: cll ? 'Chronic lymphocytic leukemia' : 'Lymphoma on treatment', details: cll ? 'CLL on ibrutinib with lymphocytosis, mild anemia and thrombocytopenia.' : 'Diffuse large B-cell lymphoma completing chemoimmunotherapy; implanted port; mild pancytopenia.', pmh: cll ? 'Chronic lymphocytic leukemia on ibrutinib' : 'Diffuse large B-cell lymphoma on chemoimmunotherapy', plan: () => [cll ? 'Continue ibrutinib unless bleeding, procedure planned or new AF; avoid CYP3A4 interacting drugs (clarithromycin, azoles).' : 'Chemotherapy held; oncology aware; prophylaxis continues.', 'Immunocompromised: fever = urgent cultures and antibiotics.'] });
+    }
+  });
+
+  // ---------- Thrombophilia (factor V Leiden) ----------
+  add('thrombophilia', {
+    label: 'Thrombophilia (Factor V Leiden)', group: G, aliases: ['factor v leiden', 'hypercoagulable', 'clotting disorder', 'protein c deficiency'], order: 50,
+    desc: 'Inherited clotting risk: VTE prophylaxis must not be omitted (pharmacologic plus SCDs), early mobility, estrogen caution; no home medications.',
+    apply(ctx, spec) {
+      scd(spec);
+      order(spec, { name: 'High VTE risk: inherited thrombophilia', category: 'Nursing', frequency: 'Every shift', instructions: 'Heterozygous factor V Leiden: confirm VTE prophylaxis is given daily, SCDs on in bed, ambulate at least 3 times daily, avoid dehydration and prolonged sitting. Report unilateral leg pain/swelling, chest pain or dyspnea. Avoid estrogen-containing products.', startH: 3, nursing: ['Calf pain, edema or unexplained tachycardia/SpO2 drop: notify provider and consider duplex/CT angiogram.'] });
+      assess(spec, [['Cardiac', 'Distal Pulses', 'Pulses 2+ bilaterally; calves soft, symmetric, non-tender, no edema']]);
+      comorb(spec, { key: 'thrombophilia', problem: 'Factor V Leiden thrombophilia', details: 'Heterozygous factor V Leiden; no prior thrombosis, not on anticoagulation.', pmh: 'Factor V Leiden (heterozygous)', plan: () => ['Pharmacologic VTE prophylaxis plus SCDs; early mobility.', 'Calf assessment every shift.'] });
+    }
+  });
+})();
+
+(() => {
+  const { home, order, comorb, assess, addLabs, sticky, heldNote } = NS.HX.helpers;
+  const P = NS.HX.phm;
+  const add = NS.HX.add;
+  const G = 'Infectious Disease / Immunologic';
+
+  // ---------- HIV ----------
+  add('hiv', {
+    label: 'HIV (on antiretroviral therapy)', group: G, aliases: ['aids', 'human immunodeficiency virus', 'art', 'antiretroviral', 'biktarvy'], order: 30,
+    desc: 'Virally suppressed on single-tablet or two-pill ART (never miss or hold doses), CD4 baseline about 500, antacid/cation spacing, interaction review, standard precautions with confidentiality.',
+    apply(ctx, spec) {
+      spec.labBase['CD4 count'] = 380 + (ctx.age % 5) * 60; spec.labBase['HIV-1 RNA viral load'] = 0;
+      addLabs(spec, 0.5, ['CD4 count', 'HIV-1 RNA viral load']);
+      if (ctx.age % 2 === 0) {
+        home(spec, { key: 'bictegravir', name: 'bictegravir-emtricitabine-tenofovir alafenamide (BIKTARVY) tablet', dose: '1 tablet (50/200/25 mg)', route: 'Oral', freq: 'daily', at: ['0900'], cls: 'Antiretroviral (integrase inhibitor combination)', sips: true, highAlert: true, info: 'TIME-CRITICAL: never miss or hold doses (resistance). Give 2 hours BEFORE or with food at the same time as calcium/iron; separate from antacids, magnesium/aluminum products and sucralfate by 2 hours. Interacts with rifampin and metformin. Check renal function.', monitor: ['Cr'], hold: 'Do not hold without calling the provider; if NPO give with sips, or ask pharmacy for alternatives.', renal: { esrd: { dose: '1 tablet (post-dialysis)', note: 'Give after dialysis on dialysis days.' } }, indication: 'HIV infection' });
+      } else {
+        home(spec, { key: 'dolutegravir', name: 'dolutegravir (TIVICAY) tablet', dose: '50 mg', route: 'Oral', freq: 'daily', at: ['0900'], cls: 'Antiretroviral (integrase inhibitor)', sips: true, highAlert: true, info: 'TIME-CRITICAL: never miss or hold doses. Separate from antacids, calcium and iron by 2 hours before or 6 hours after. Raises metformin levels; may slightly raise creatinine (blocks secretion).', monitor: ['Cr'], hold: 'Do not hold without calling the provider.', indication: 'HIV infection' });
+        home(spec, { key: 'emtricitabine_taf', name: 'emtricitabine-tenofovir alafenamide (DESCOVY) tablet', dose: '200/25 mg', route: 'Oral', freq: 'daily', at: ['0900'], cls: 'Antiretroviral (NRTI combination)', sips: true, highAlert: true, info: 'TIME-CRITICAL: never miss or hold doses. Renal function monitoring; hepatitis B flare if stopped abruptly.', monitor: ['Cr'], hold: 'Do not hold without calling the provider.', renal: { esrd: { dose: '200/25 mg (post-dialysis)', note: 'Give after dialysis on dialysis days.' } }, indication: 'HIV infection' });
+      }
+      order(spec, { name: 'Antiretroviral continuity and interaction review', category: 'Nursing', frequency: 'Continuous', instructions: 'ART must be given at the same time every day, including while NPO (sips) or in the ICU. Pharmacy to review every new drug for interactions (rifampin, antacids, PPIs, metformin, carbamazepine, St John wort). If doses were missed before admission, notify the provider. Standard precautions for all patients; protect confidentiality of HIV status.', startH: 3, nursing: ['If the patient cannot swallow, call pharmacy for crushing guidance or an alternative; never just skip doses.'] });
+      assess(spec, [['Skin', 'Skin', 'Warm, dry, no rash or lesions; oral mucosa pink without thrush'], ['Safety', 'Infection Screen', 'Afebrile at baseline; no lymphadenopathy or night sweats']]);
+      comorb(spec, { key: 'hiv', problem: 'HIV infection, virally suppressed', details: `HIV on antiretrovirals; CD4 about ${spec.labBase['CD4 count']}, viral load undetectable.`, pmh: 'HIV infection (on antiretroviral therapy, undetectable viral load)', plan: () => ['Continue ART daily at the same time (sips if NPO); never skip doses.', 'Separate cations from integrase inhibitors; pharmacy interaction review; opportunistic infection prophylaxis not needed at CD4 above 200.'] });
+    }
+  });
+
+  // ---------- MRSA colonization ----------
+  add('mrsa', {
+    label: 'Prior MRSA Infection / Colonization', group: G, aliases: ['mrsa', 'methicillin resistant staph aureus', 'staph colonization'], order: 50,
+    desc: 'Contact precautions, MRSA decolonization (mupirocin nasal, chlorhexidine bathing), and a prompt to cover MRSA in empiric therapy for new infections.',
+    apply(ctx, spec) {
+      if ((spec.isolation || 'None') === 'None') spec.isolation = 'Contact precautions';
+      order(spec, { name: 'Contact precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'Gown and gloves for all contact; dedicated stethoscope/equipment; private room; hand hygiene with soap and water or alcohol rub.', startH: 3 });
+      home(spec, { key: 'mupirocin_nasal', name: 'mupirocin (BACTROBAN) 2% nasal ointment', dose: 'Apply to each nostril', route: 'Nasal', freq: 'BID', cls: 'Topical antibiotic (decolonization)', stopH: 123, home: false, info: 'Use for 5 days; press nostrils together after application.', indication: 'MRSA decolonization' });
+      order(spec, { name: 'Chlorhexidine bathing', category: 'Nursing', frequency: 'Daily', instructions: 'Daily bath with 2% chlorhexidine cloths from neck down (avoid face, eyes, mucous membranes) to reduce MRSA burden.', startH: 4 });
+      assess(spec, [['Skin', 'Skin', 'Warm, dry; healed scar right thigh (prior MRSA abscess); no new pustules or boils']]);
+      sticky(spec, 'MRSA history', 'Prior MRSA. Contact precautions. For new skin, bone, line, pneumonia or sepsis concerns the empiric regimen should include MRSA coverage (vancomycin or linezolid) until cultures result.');
+      comorb(spec, { key: 'mrsa', problem: 'History of MRSA infection / colonization', details: 'Prior MRSA skin abscess; nares colonized on screening.', pmh: 'MRSA infection (prior abscess), colonized', plan: () => ['Contact precautions; decolonization protocol (mupirocin x5 days, chlorhexidine baths).', 'Include MRSA coverage in empiric antibiotics for new infection; trough/AUC monitoring if vancomycin is used.'] });
+    }
+  });
+
+  // ---------- Recurrent cellulitis ----------
+  add('recurrent_cellulitis', {
+    label: 'Recurrent Cellulitis', group: G, aliases: ['cellulitis', 'chronic leg swelling', 'lymphedema', 'venous stasis'], order: 50,
+    desc: 'Chronic lower-leg edema and stasis skin changes with antibiotic prophylaxis (penicillin VK or erythromycin), skin protection and leg elevation.',
+    apply(ctx, spec) {
+      home(spec, { key: 'penicillin_vk', name: 'penicillin V potassium tablet', dose: '250 mg', route: 'Oral', freq: 'BID', cls: 'Penicillin (prophylaxis)', holdIf: ['npo'], avoid: ['penicillin'], alt: { key: 'erythromycin_ppx', name: 'erythromycin tablet', dose: '250 mg', cls: 'Macrolide (prophylaxis)', info: 'Penicillin allergy alternative; QT prolongation and CYP3A4 interactions.' }, info: 'Long-term prophylaxis to prevent recurrent cellulitis. Give with a full glass of water.', indication: 'Recurrent cellulitis prophylaxis' });
+      order(spec, { name: 'Leg elevation and skin protection', category: 'Nursing', frequency: 'Every shift', instructions: 'Elevate legs above heart level when resting; moisturize dry skin; inspect both legs each shift for warmth, redness, weeping or cracks between toes (tinea). Compression stockings per provider once infection resolves. Mark cellulitis borders if present.', startH: 3 });
+      assess(spec, [['Skin', 'Skin', 'Chronic bilateral lower leg brawny discoloration (stasis); scaling, dry skin; no warmth or erythema'], ['Cardiac', 'Edema', '1+ nonpitting bilateral lower leg edema']]);
+      comorb(spec, { key: 'recurrent_cellulitis', problem: 'Recurrent cellulitis', details: 'Three episodes of right lower leg cellulitis in 2 years; chronic venous stasis; on penicillin prophylaxis.', pmh: 'Recurrent cellulitis (right leg)', plan: () => ['Continue penicillin prophylaxis (erythromycin if allergic).', 'Skin inspection each shift; leg elevation; treat tinea pedis.'] });
+    }
+  });
+
+  // ---------- Chronic osteomyelitis ----------
+  add('osteomyelitis', {
+    label: 'Chronic Osteomyelitis', group: G, aliases: ['bone infection', 'chronic bone infection'], order: 50,
+    desc: 'Chronic left tibia/foot osteomyelitis on suppressive oral doxycycline, elevated ESR/CRP, draining sinus tract dressing care and offloading.',
+    apply(ctx, spec) {
+      Object.assign(spec.labBase, { ESR: 54, CRP: 24, WBC: 9.6 });
+      addLabs(spec, 0.5, ['ESR', 'CRP']);
+      home(spec, { key: 'doxycycline', name: 'doxycycline hyclate tablet', dose: '100 mg', route: 'Oral', freq: 'BID', cls: 'Tetracycline antibiotic (suppression)', holdIf: ['npo'], info: 'Give with a full glass of water and stay upright 30 minutes (esophagitis). Separate from calcium, iron, antacids and dairy by 2 hours. Photosensitivity.', indication: 'Chronic osteomyelitis suppression' });
+      order(spec, { name: 'Chronic wound care: draining sinus tract', category: 'Nursing', frequency: 'Daily and PRN', instructions: 'Cleanse with normal saline, apply dressing per wound care for the left lower leg sinus tract; document drainage color/amount/odor. Contact precautions only if MRSA is isolated.', startH: 3 });
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      assess(spec, [['Skin', 'Wound', 'Left lower leg 1 cm draining sinus tract, scant serous drainage, mild surrounding induration, no spreading erythema'], ['Musculoskeletal / Mobility', 'Mobility', 'Ambulates with cane; avoids weight bearing through left leg']]);
+      comorb(spec, { key: 'osteomyelitis', problem: 'Chronic osteomyelitis (left tibia)', details: 'Chronic left tibial osteomyelitis after open fracture; suppressive doxycycline; ESR and CRP elevated at baseline.', pmh: 'Chronic osteomyelitis (left tibia)', plan: () => ['Continue suppressive antibiotic; baseline ESR 54 and CRP 24 (do not mistake for new infection).', 'Daily sinus tract dressing; orthopedic or ID follow-up.'] });
+    }
+  });
+
+  // ---------- Latent TB ----------
+  add('latent_tb', {
+    label: 'Latent Tuberculosis (on treatment)', group: G, aliases: ['ltbi', 'tb', 'positive ppd', 'isoniazid', 'rifampin', 'positive quantiferon'], order: 50,
+    desc: 'Positive TB test with normal chest x-ray, on isoniazid plus pyridoxine or rifampin; not contagious (standard precautions); hepatotoxicity monitoring; rifampin drug interactions.',
+    apply(ctx, spec) {
+      if (ctx.age % 2 === 0) {
+        home(spec, { key: 'isoniazid', name: 'isoniazid tablet', dose: '300 mg', route: 'Oral', freq: 'daily', cls: 'Antitubercular', holdIf: ['npo'], info: 'Hepatotoxic (risk higher with alcohol and age): monitor ALT/AST, report nausea, dark urine, jaundice. Causes peripheral neuropathy: give with pyridoxine.', monitor: ['LFT'], hold: 'Hold and notify provider for ALT above 3 times normal with symptoms, jaundice, or vomiting.', indication: 'Latent tuberculosis infection' });
+        home(spec, { key: 'pyridoxine', name: 'pyridoxine (vitamin B6) tablet', dose: '25 mg', route: 'Oral', freq: 'daily', cls: 'Vitamin B6', holdIf: ['npo'], info: 'Prevents isoniazid neuropathy.', indication: 'Isoniazid neuropathy prevention' });
+        addLabs(spec, 0.5, ['ALT', 'AST']);
+      } else {
+        home(spec, { key: 'rifampin', name: 'rifampin (RIFADIN) capsule', dose: '600 mg', route: 'Oral', freq: 'daily', at: ['0600'], cls: 'Antitubercular', holdIf: ['npo'], info: 'Give on an empty stomach. Turns urine, sweat and tears orange (harmless; stains contacts). Strong enzyme inducer: lowers levels of warfarin, apixaban, methadone, opioids, steroids, many antiretrovirals and oral contraceptives. Hepatotoxic.', monitor: ['LFT'], hold: 'Hold and notify provider for jaundice, dark urine or ALT above 3 times normal with symptoms.', indication: 'Latent tuberculosis infection (4-month regimen)' });
+        addLabs(spec, 0.5, ['ALT', 'AST']);
+        sticky(spec, 'Rifampin interactions', 'Rifampin reduces effect of many drugs (anticoagulants, opioids, steroids, ART). Review every new order with pharmacy.');
+      }
+      order(spec, { name: 'Latent TB: standard precautions only', category: 'Precautions', frequency: 'Continuous', instructions: 'Latent TB is NOT contagious: no airborne isolation. Escalate (airborne isolation, N95) only for cough >2 weeks, hemoptysis, night sweats, weight loss or an abnormal chest x-ray.', startH: 3 });
+      assess(spec, [['Respiratory', 'Cough', 'No cough, hemoptysis or night sweats']]);
+      comorb(spec, { key: 'latent_tb', problem: 'Latent tuberculosis infection', details: 'Positive IGRA with normal chest x-ray; on preventive therapy (month 3).', pmh: 'Latent tuberculosis infection on treatment', plan: () => ['Continue TB preventive therapy daily; monitor LFTs and symptoms of hepatitis.', 'Not contagious; reassess for active TB symptoms.'] });
+    }
+  });
+
+  // ---------- Long-term corticosteroids / immunosuppression ----------
+  add('chronic_steroids', {
+    label: 'Long-term Corticosteroids / Immunosuppression', group: G, aliases: ['prednisone', 'steroids', 'immunosuppressed', 'immunosuppression', 'adrenal suppression'], order: 50,
+    desc: 'Chronic prednisone with adrenal suppression: never stop or delay (IV if NPO), stress-dose steroid awareness, hyperglycemia, leukocytosis, blunted fever, bone and skin fragility, infection precautions.',
+    apply(ctx, spec) {
+      const mg = [5, 7.5, 10, 20][ctx.age % 4];
+      spec.labAdd.Glucose = (spec.labAdd.Glucose || 0) + (mg >= 10 ? 14 : 8);
+      spec.labAdd.WBC = (spec.labAdd.WBC || 0) + (mg >= 10 ? 2.4 : 1.2);
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      home(spec, { key: 'prednisone', name: 'prednisone tablet', dose: `${mg} mg`, route: 'Oral', freq: 'daily', at: ['0800'], cls: 'Corticosteroid', sips: true, info: 'Long-term use suppresses the adrenal glands: DO NOT stop abruptly, skip or delay doses. If NPO or vomiting give IV equivalent (methylprednisolone). Needs stress-dose steroids (hydrocortisone) for hypotension, sepsis, surgery or trauma. Give with food; monitor glucose, BP, mood.', monitor: ['Glucose', 'BP'], hold: 'Never hold: notify provider if the dose cannot be given.', variants: { npoStrict: { name: 'methylprednisolone (SOLU-MEDROL) injection', dose: `${Math.round(mg * 0.8 * 10) / 10} mg`, route: 'IV' } }, indication: 'Chronic corticosteroid therapy (adrenal suppression)' });
+      home(spec, { key: 'calcium_vitd', name: 'calcium carbonate-vitamin D tablet', dose: '600 mg-800 units', route: 'Oral', freq: 'BID', cls: 'Mineral / vitamin supplement', holdIf: ['npo'], info: 'Bone protection during steroid therapy; give with meals. Separate from levothyroxine/quinolones by 4 hours.', indication: 'Steroid-induced osteoporosis prevention' });
+      if (mg >= 20) home(spec, { key: 'tmp_smx_ppx', name: 'sulfamethoxazole-trimethoprim (BACTRIM SS) tablet', dose: '1 tablet (400/80 mg)', route: 'Oral', freq: 'daily', cls: 'PJP prophylaxis', avoid: ['sulfa'], holdIf: ['npo'], info: 'Pneumocystis prophylaxis for prednisone 20 mg or more for over 4 weeks. Monitor potassium and creatinine.', monitor: ['K', 'Cr'], renal: { ckd3: { dose: '1 tablet (400/80 mg) three times weekly', note: 'Reduced for CKD.' }, esrd: { avoid: true } }, indication: 'Pneumocystis prophylaxis' });
+      order(spec, { name: 'Steroid-dependent patient: adrenal crisis awareness', category: 'Nursing', frequency: 'Continuous', instructions: 'Give daily steroid on time (IV if NPO). For unexplained hypotension, vomiting, hypoglycemia or sepsis, notify provider: stress-dose hydrocortisone (e.g. 50-100 mg IV) may be needed. Fever and signs of infection may be blunted; infection precautions and meticulous skin care (fragile skin, delayed wound healing).', startH: 3, nursing: ['Check glucose with morning labs; steroid hyperglycemia peaks in the afternoon/evening.'] });
+      assess(spec, [['Skin', 'Skin', 'Thin, fragile skin with scattered forearm ecchymoses; mild facial fullness'], ['Safety', 'Infection Screen', 'Immunosuppressed: fever response may be blunted']]);
+      sticky(spec, 'Adrenal suppression', `Chronic prednisone ${mg} mg daily. Never miss doses; stress-dose steroids for shock or surgery. Blunted fever and wound healing.`);
+      comorb(spec, { key: 'chronic_steroids', problem: 'Long-term corticosteroid therapy (adrenal suppression)', details: `Chronic prednisone ${mg} mg daily; immunosuppressed with expected mild hyperglycemia and leukocytosis.`, pmh: `Long-term prednisone ${mg} mg daily (immunosuppression)`, plan: () => ['Continue daily steroid (IV equivalent if NPO); stress-dose steroids if hemodynamically unstable.', 'Glucose checks; infection vigilance with blunted signs; bone protection.'] });
+    }
+  });
+
+  // ---------- Common variable immunodeficiency ----------
+  add('cvid', {
+    label: 'Common Variable Immunodeficiency', group: G, aliases: ['cvid', 'hypogammaglobulinemia', 'ivig', 'immunodeficiency', 'low immunoglobulins'], order: 50,
+    desc: 'Low IgG on monthly immunoglobulin replacement, recurrent sinopulmonary infections, strict infection precautions, no live vaccines, IVIG infusion reaction precautions if due.',
+    apply(ctx, spec) {
+      spec.labBase['Immunoglobulin G'] = 520; spec.labBase.WBC = 6.0;
+      addLabs(spec, 0.5, ['Immunoglobulin G']);
+      order(spec, { name: 'Immunodeficiency precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'Strict hand hygiene, mask for symptomatic staff/visitors, no live vaccines, early cultures for any fever or new cough/sinus symptoms (may present with subtle signs), culture before antibiotics when possible. Notify provider when IVIG is due (monthly): infuse slowly, premedicate per order, monitor vitals every 15 minutes initially for headache, chills, back pain, hypotension or anaphylaxis.', startH: 3 });
+      assess(spec, [['Respiratory', 'Cough', 'Chronic mild productive cough, clear to white sputum'], ['Safety', 'Infection Screen', 'Immunodeficient: fever may be mild or absent']]);
+      sticky(spec, 'Immunodeficiency', 'CVID with IgG about 520 on IVIG every 4 weeks. Infections may present subtly; culture early. Coordinate IVIG dosing if due during this admission.');
+      comorb(spec, { key: 'cvid', problem: 'Common variable immunodeficiency', details: 'CVID with low IgG on monthly IVIG; history of recurrent pneumonia and sinusitis.', pmh: 'Common variable immunodeficiency (monthly IVIG)', plan: () => ['Immunoglobulin replacement per immunology (IVIG every 4 weeks); coordinate dosing if due.', 'Low threshold for cultures and treatment of infection; avoid live vaccines.'] });
     }
   });
 })();

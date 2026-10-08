@@ -274,5 +274,256 @@
     }
   });
 
+  // Strict NPO (e.g. before a stroke swallow screen) stops oral time-critical drugs: ask for an alternate route.
+  const strictNpoNote = (spec, drugs) => {
+    if (spec.flags && spec.flags.npoStrict && spec.flags.npoStrict.length) order(spec, { name: `Strict NPO: request alternate route for ${drugs}`, category: 'Nursing', frequency: 'Before each due dose', instructions: `Nothing by mouth including medications. ${drugs} is time-critical: notify the provider NOW for an order for an alternate route (NG tube after placement is confirmed, IV, or other) instead of skipping doses.`, startH: 3 });
+  };
+
+  // ============================ NEUROLOGIC ============================
+
+  // Drop drugs the profile may have ordered that are unsafe for this history.
+  const omitDrugs = (spec, re, why) => spec.meds.forEach(m => {
+    if (m.when !== false && !m.home && re.test(m.name || '')) { m.when = false; spec.applied.push(`${m.name} omitted: ${why}.`); }
+  });
+
+  add('epilepsy', {
+    label: 'Epilepsy / Seizure Disorder', group: NEU, aliases: ['seizure', 'seizures', 'seizure disorder', 'convulsions'], order: 48,
+    desc: 'Adds an antiepileptic (never missed: IV equivalent when NPO), seizure precautions, fall risk, lowered-seizure-threshold drug cautions.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      const drug = pick(ctx, 9, ['levetiracetam', 'levetiracetam', 'lacosamide', 'lamotrigine']);
+      const swallowTime = 'TIME-CRITICAL: never omit or delay a dose; if NPO give the IV equivalent and call the provider.';
+      if (primary(ctx) !== 'seizure') {
+        if (drug === 'levetiracetam') {
+          const mg = pick(ctx, 10, ['500 mg', '750 mg', '1,000 mg']);
+          const iv = { name: 'levetiracetam (KEPPRA) IVPB', route: 'IV', volume: 100 };
+          home(spec, { key: 'levetiracetam', name: 'levetiracetam (KEPPRA) tablet', dose: mg, route: 'Oral', freq: 'BID', cls: 'Anticonvulsant', sips: true, info: `${swallowTime} Watch for sleepiness, irritability, mood change. Dose adjusted for kidney function.`, variants: { npo: iv, npoStrict: iv }, renal: { ckd3: { dose: '500 mg', note: 'Dose reduced for reduced kidney function.' }, esrd: { dose: '500 mg', freq: 'q24h', note: 'ESRD: 500-1,000 mg daily plus a supplemental dose after dialysis.' } }, indication: 'Epilepsy (home antiepileptic)' });
+        } else if (drug === 'lacosamide') {
+          const iv = { name: 'lacosamide (VIMPAT) IVPB', route: 'IV', volume: 100 };
+          home(spec, { key: 'lacosamide', name: 'lacosamide (VIMPAT) tablet', dose: '100 mg', route: 'Oral', freq: 'BID', cls: 'Anticonvulsant', sips: true, info: `${swallowTime} Can prolong the PR interval: check HR and ECG if bradycardic or on other AV-node drugs. Dizziness common.`, monitor: ['HR'], variants: { npo: iv, npoStrict: iv }, renal: { esrd: { dose: '75 mg', note: 'Maximum 75% of dose in severe renal impairment; supplement after dialysis.' } }, indication: 'Epilepsy (home antiepileptic)' });
+        } else {
+          home(spec, { key: 'lamotrigine', name: 'lamotrigine (LAMICTAL) tablet', dose: '100 mg', route: 'Oral', freq: 'BID', cls: 'Anticonvulsant', sips: true, info: 'TIME-CRITICAL: never omit. NO IV form exists: if the patient cannot swallow, call the provider immediately for a bridging antiepileptic. Report any new rash (Stevens-Johnson risk). Missed doses for 5 or more days require retitration.', indication: 'Epilepsy (home antiepileptic)' });
+        }
+      }
+      order(spec, { name: 'Seizure precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'Bed low, padded rails per policy, suction and oxygen at bedside, call light in reach. During a seizure: time it, protect the head, turn on side, nothing in the mouth, do not restrain; call for help and notify provider if over 5 minutes or recurrent.', startH: 3 });
+      order(spec, { name: 'Antiepileptic medications: time-critical, no missed doses', category: 'Nursing', frequency: 'Every dose', instructions: 'Give antiepileptics on time even if NPO (IV equivalent). Verify the home regimen with pharmacy. Avoid tramadol, bupropion and meperidine (lower seizure threshold). Document missed or late doses and notify the provider.', startH: 3 });
+      if (drug === 'lamotrigine') strictNpoNote(spec, 'lamotrigine');
+      omitDrugs(spec, /tramadol|bupropion|meperidine|imipenem/i, 'lowers seizure threshold');
+      assess(spec, [['Neurologic', 'Neuro Baseline', 'No focal deficit; speech clear; no seizure activity this admission']]);
+      sticky(spec, 'Antiepileptic timing', 'Epilepsy: antiepileptic doses are time-critical. Do not hold for NPO; give IV equivalent and notify provider. Seizure precautions in place.');
+      comorb(spec, { key: 'epilepsy', problem: 'Epilepsy', details: 'Seizure disorder controlled on an antiepileptic; last seizure over a year ago.', pmh: 'Epilepsy (controlled)', plan: (c, S, h) => [primary(c) === 'seizure' ? 'Antiepileptic regimen managed by the neurology plan for breakthrough seizure.' : S.flag('npo', h) ? 'Continue antiepileptic by IV route while NPO; do not miss doses.' : 'Continue home antiepileptic on time.', 'Seizure precautions; avoid seizure-threshold-lowering drugs; sleep and electrolytes (Na, Mg, glucose) matter.'] });
+    }
+  });
+
+  add('hx_stroke', {
+    label: 'Prior Stroke / TIA', group: NEU, aliases: ['cva', 'stroke history', 'tia', 'transient ischemic attack', 'cerebrovascular accident'], order: 46,
+    desc: 'Adds antiplatelet (held for surgery/bleeding) and high-intensity statin, mild residual deficit, swallowing and fall cautions.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      spec.vitalAdjust.push({ sbp: 6, dbp: 2 });
+      const clop = ctx.age % 2 === 0 && !ctx.has('cad') && !['stroke', 'nstemi'].includes(primary(ctx));
+      if (!ctx.has('afib')) home(spec, clop
+        ? { key: 'clopidogrel', name: 'clopidogrel (PLAVIX) tablet', dose: '75 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding and bruising. Hold before surgery per surgeon (usually 5-7 days). Do not stop without provider approval.', monitor: ['Hgb', 'Plt'], holdIf: ['surgeryWindow', 'bleeding'], holdReason: 'bleeding-risk window (surgery or active bleeding)', indication: 'Secondary stroke prevention' }
+        : { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding. Give with food if GI upset.', monitor: ['Hgb'], holdIf: ['surgeryWindow', 'bleeding'], holdReason: 'bleeding-risk window (surgery or active bleeding)', indication: 'Secondary stroke prevention' });
+      home(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: pick(ctx, 11, ['40 mg', '80 mg']), route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'High-intensity statin after stroke. Report unexplained muscle pain or weakness.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Secondary stroke prevention' });
+      const side = ctx.age % 2 === 0 ? 'right' : 'left';
+      order(spec, { name: 'Aspiration precautions; swallow screen before oral intake after any new neurologic change', category: 'Precautions', frequency: 'With oral intake', instructions: 'Upright for meals, small bites, check mouth for pocketing. Repeat the bedside swallow screen with any new weakness, facial droop or speech change and call a stroke alert.', startH: 3 });
+      assess(spec, [['Neurologic', 'Neuro Baseline', `Mild residual ${side} hand weakness (4/5) and slight ${side}-sided facial asymmetry from prior stroke; speech clear`], ['Musculoskeletal / Mobility', 'Mobility', 'Independent; mild gait unsteadiness, uses cane for distances']]);
+      comorb(spec, { key: 'hx_stroke', problem: 'History of ischemic stroke', details: `Remote ischemic stroke with mild residual ${side} hand weakness; on antiplatelet and high-intensity statin.`, pmh: 'Ischemic stroke (mild residual deficit)', plan: (c, S, h) => [S.flag('surgeryWindow', h) || S.flag('bleeding', h) ? 'Antiplatelet held for the bleeding-risk window; resume when the provider clears it.' : 'Continue antiplatelet and statin.', 'Baseline residual deficit documented: new or worse weakness, speech or vision change is a stroke alert.'] });
+    }
+  });
+
+  add('parkinsons', {
+    label: "Parkinson's Disease", group: NEU, aliases: ['parkinson', 'parkinsons', 'pd', 'tremor', 'carbidopa'], order: 47,
+    desc: 'Adds carbidopa-levodopa given at exact home times (never held for NPO), a dopamine agonist, dysphagia and fall risk, orthostasis; removes haloperidol, metoclopramide and prochlorperazine.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 2;
+      spec.vitalAdjust.push({ sbp: -4 });
+      const tab = pick(ctx, 12, ['25/100 mg, 1 tablet', '25/100 mg, 1.5 tablets', '25/100 mg, 2 tablets']);
+      home(spec, { key: 'carbidopa_levodopa', name: 'carbidopa-levodopa (SINEMET) tablet', dose: tab, route: 'Oral', freq: 'QID', at: ['0600', '1000', '1400', '1800'], cls: 'Dopamine precursor', sips: true, info: 'TIME-CRITICAL: give within 30 minutes of the scheduled time, even if NPO (sips of water; crush if needed, or per NG tube). Late doses cause rigidity and swallowing failure. Protein meals can reduce absorption. Watch for orthostatic hypotension, nausea, dyskinesia and hallucinations.', monitor: ['BP'], hold: 'Do not hold for NPO. Notify provider if unable to swallow or if a dose will be more than 30 minutes late.', indication: "Parkinson's disease (time-critical)" });
+      home(spec, { key: 'pramipexole', name: 'pramipexole (MIRAPEX) tablet', dose: '0.5 mg', route: 'Oral', freq: 'TID', at: ['0800', '1400', '2000'], cls: 'Dopamine agonist', sips: true, info: 'Do not stop abruptly. Causes drowsiness, orthostatic hypotension, hallucinations, impulse control problems. Dose reduced for reduced kidney function.', monitor: ['BP'], renal: { ckd3: { dose: '0.25 mg', note: 'Dose reduced for reduced kidney function.' }, esrd: { avoid: true } }, indication: "Parkinson's disease" });
+      strictNpoNote(spec, 'carbidopa-levodopa');
+      omitDrugs(spec, /haloperidol|metoclopramide|prochlorperazine|promethazine|droperidol|chlorpromazine/i, "dopamine antagonist worsens Parkinson's disease");
+      order(spec, { name: "Time-critical Parkinson's medication: give at home schedule times", category: 'Nursing', frequency: 'Every dose', instructions: 'Carbidopa-levodopa must be given within 30 minutes of the scheduled time and never held for NPO status. AVOID haloperidol, metoclopramide, prochlorperazine, promethazine (use ondansetron for nausea; quetiapine or pimavanserin if an antipsychotic is unavoidable).', startH: 3 });
+      order(spec, { name: 'Dysphagia and aspiration precautions; orthostatic BP checks', category: 'Precautions', frequency: 'Every shift and with meals', instructions: 'Upright for meals, small bites, chin tuck, soft moist foods; SLP evaluation if coughing with meals. Check lying/standing BP daily; assist for all transfers.', startH: 3 });
+      assess(spec, [['Neurologic', 'Movement', 'Resting tremor of the right hand, mild cogwheel rigidity, bradykinesia'], ['Neurologic', 'Speech', 'Soft (hypophonic) speech, understandable'], ['Musculoskeletal / Mobility', 'Mobility', 'Shuffling gait with reduced arm swing; walks with a walker, stand-by assist']]);
+      sticky(spec, "Parkinson's alert", 'Levodopa is time-critical (within 30 min). Never give haloperidol, metoclopramide or prochlorperazine. Dopamine antagonists can cause severe rigidity.');
+      comorb(spec, { key: 'parkinsons', problem: "Parkinson's disease", details: 'Idiopathic Parkinson disease with mild dysphagia; levodopa four times daily.', pmh: "Parkinson's disease", plan: (c, S, h) => [S.flag('npo', h) ? 'NPO but levodopa still given on time with sips (call provider about NG route if strictly NPO).' : 'Levodopa at exact home times; protein spacing.', 'Avoid dopamine-blocking antiemetics and antipsychotics; fall and aspiration precautions; PT/OT/SLP.'] });
+    }
+  });
+
+  add('ms', {
+    label: 'Multiple Sclerosis', group: NEU, aliases: ['multiple sclerosis', 'demyelinating'], order: 50,
+    desc: 'Adds baclofen and vitamin D, bladder management, mild gait ataxia, heat/fever sensitivity (pseudo-relapse), fall risk.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 2;
+      home(spec, { key: 'baclofen', name: 'baclofen (LIORESAL) tablet', dose: pick(ctx, 13, ['10 mg', '5 mg', '10 mg']), route: 'Oral', freq: 'TID', cls: 'Muscle relaxant (antispastic)', sips: true, info: 'Do NOT stop abruptly (withdrawal: seizures, hallucinations, high fever). May cause drowsiness and weakness. Dose reduced for reduced kidney function.', renal: { ckd3: { dose: '5 mg', note: 'Reduced dose: baclofen accumulates in kidney disease.' }, esrd: { avoid: true } }, indication: 'Multiple sclerosis spasticity' });
+      home(spec, { key: 'cholecalciferol', name: 'cholecalciferol (vitamin D3) tablet', dose: '2,000 units', route: 'Oral', freq: 'daily', cls: 'Vitamin', info: 'Bone health.', holdIf: ['npo'], indication: 'Multiple sclerosis (vitamin D)' });
+      heldNote(spec, 'Disease-modifying therapy (e.g., ocrelizumab infusion every 6 months) is given as an outpatient and is not due this admission; immunosuppressed, so hold if infected.');
+      order(spec, { name: 'Bladder scan if no void in 6 hours; avoid overheating', category: 'Nursing', frequency: 'PRN', instructions: 'Neurogenic bladder: scan for retention (notify provider if over 300 mL). Fever or heat worsens symptoms (Uhthoff phenomenon): treat fever early, cool room.', startH: 3 });
+      assess(spec, [['Neurologic', 'Neuro Baseline', 'Mild gait ataxia; left leg strength 4/5 with mild spasticity; vision and speech intact'], ['Musculoskeletal / Mobility', 'Mobility', 'Ambulates with a cane, steady with stand-by assist']]);
+      comorb(spec, { key: 'ms', problem: 'Multiple sclerosis', details: 'Relapsing-remitting MS, stable, on outpatient disease-modifying therapy; spastic left leg.', pmh: 'Multiple sclerosis (relapsing-remitting)', plan: () => ['Continue baclofen (do not stop abruptly); infection or fever can cause a pseudo-relapse.', 'Steroids only for a confirmed relapse per neurology; monitor bladder and falls.'] });
+    }
+  });
+
+  add('migraine', {
+    label: 'Migraine', group: NEU, aliases: ['migraines', 'headache', 'chronic headache'], order: 50,
+    desc: 'Adds migraine prevention (topiramate, or amitriptyline in younger adults), triptan if no vascular disease, dark quiet room order.',
+    apply(ctx, spec) {
+      const ami = ctx.age < 60 && !ctx.has('dementia') && !['epilepsy'].some(k => ctx.has(k)) && ctx.age % 2 === 0;
+      if (ami) home(spec, { key: 'amitriptyline', name: 'amitriptyline (ELAVIL) tablet', dose: '25 mg', route: 'Oral', freq: 'qHS', cls: 'Tricyclic antidepressant', info: 'Anticholinergic and sedating: dry mouth, constipation, urinary retention, QT prolongation. Avoid with MAOIs; caution with tramadol or ondansetron.', holdIf: ['npo'], indication: 'Migraine prevention' });
+      else home(spec, { key: 'topiramate', name: 'topiramate (TOPAMAX) tablet', dose: '50 mg', route: 'Oral', freq: 'BID', cls: 'Anticonvulsant (migraine prevention)', info: 'May cause tingling, word-finding trouble and metabolic acidosis (check bicarbonate); kidney stones. Dose reduced for reduced kidney function.', monitor: ['K'], holdIf: ['npo'], renal: { ckd3: { dose: '25 mg', note: 'Dose halved for reduced kidney function.' }, esrd: { dose: '25 mg', freq: 'daily', note: 'Give after dialysis on dialysis days.' } }, indication: 'Migraine prevention' });
+      if (!['cad', 'hx_stroke', 'htn'].some(k => ctx.has(k))) home(spec, { key: 'sumatriptan', name: 'sumatriptan (IMITREX) tablet', dose: '50 mg', route: 'Oral', freq: 'q12h', prn: true, prnInterval: 'May repeat once after 2 hours (max 200 mg/day)', prnFor: 'migraine headache', cls: 'Triptan (5-HT1 agonist)', info: 'Contraindicated with coronary disease, prior stroke or uncontrolled hypertension. Can cause chest tightness; do not combine with other triptans. Check BP first.', monitor: ['BP'], indication: 'Acute migraine', prnGiven: [] });
+      order(spec, { name: 'Migraine comfort: dark, quiet room; trigger avoidance', category: 'Nursing', frequency: 'PRN', instructions: 'Dim lights, reduce noise, cool cloth. Assess any NEW or worst headache, fever with stiff neck, or focal deficit as an emergency, not as migraine.', startH: 3 });
+      assess(spec, [['Neurologic', 'Headache Baseline', 'Denies current headache; migraine about 2 per month with photophobia and nausea']]);
+      comorb(spec, { key: 'migraine', problem: 'Migraine', details: 'Episodic migraine without aura on prophylaxis.', pmh: 'Migraine headaches', plan: (c, S, h) => [S.flag('npo', h) ? 'Preventive held while NPO.' : 'Continue migraine preventive.', 'Triptans avoided with vascular disease; new severe headache needs work-up.'] });
+    }
+  });
+
+  add('neuropathy', {
+    label: 'Peripheral Neuropathy', group: NEU, aliases: ['neuropathy', 'diabetic neuropathy', 'nerve pain', 'numb feet'], order: 50,
+    desc: 'Adds gabapentin (renally dosed) or duloxetine, reduced foot sensation, fall risk, foot and skin protection.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      if (ctx.age % 2 === 1 || ctx.renal !== 'none') home(spec, { key: 'gabapentin', name: 'gabapentin (NEURONTIN) capsule', dose: pick(ctx, 14, ['300 mg', '300 mg', '600 mg']), route: 'Oral', freq: 'TID', cls: 'Anticonvulsant / neuropathic pain', sips: true, info: 'Monitor sedation and dizziness, especially with opioids. Do not stop abruptly. Dose is adjusted for kidney function.', monitor: ['RR'], renal: { ckd3: { dose: '300 mg', freq: 'daily', note: 'Dose reduced for reduced kidney function.' }, esrd: { dose: '100 mg', freq: 'daily', note: 'Give after dialysis on dialysis days; accumulates in ESRD.' } }, indication: 'Painful peripheral neuropathy' });
+      else home(spec, { key: 'duloxetine', name: 'duloxetine (CYMBALTA) capsule', dose: '60 mg', route: 'Oral', freq: 'daily', cls: 'SNRI antidepressant / neuropathic pain', sips: true, info: 'Swallow whole. Do not stop abruptly. May raise BP and bleeding risk; avoid in severe liver disease.', monitor: ['BP'], renal: { esrd: { avoid: true } }, indication: 'Painful peripheral neuropathy' });
+      order(spec, { name: 'Foot and skin inspection; protect numb feet', category: 'Nursing', frequency: 'Every shift', instructions: 'Check both feet for pressure areas, blisters, wounds. Test water temperature with the elbow; no heating pads on feet; shoes or non-skid socks for all walking.', startH: 3 });
+      assess(spec, [['Neurologic', 'Sensation', 'Decreased light touch and pinprick in both feet (stocking distribution); burning pain 3/10 at baseline'], ['Skin', 'Foot Skin', 'Dry, intact; no ulcers or calluses']]);
+      comorb(spec, { key: 'neuropathy', problem: 'Peripheral neuropathy', details: ctx.has('dm2') ? 'Diabetic peripheral neuropathy of both feet.' : 'Chronic painful peripheral neuropathy of both feet.', pmh: 'Peripheral neuropathy', plan: () => ['Continue neuropathic agent (renally dose); sedation risk if combined with opioids.', 'Foot checks every shift; falls precautions.'] });
+    }
+  });
+
+  add('myasthenia', {
+    label: 'Myasthenia Gravis', group: NEU, aliases: ['myasthenia', 'mg', 'pyridostigmine'], order: 47,
+    desc: 'Adds time-critical pyridostigmine and prednisone, crisis/respiratory watch; swaps macrolides/fluoroquinolones, removes aminoglycosides and IV magnesium.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      spec.rt = true;
+      if (spec.labBase.Glucose === undefined) spec.labBase.Glucose = 112;
+      home(spec, { key: 'pyridostigmine', name: 'pyridostigmine (MESTINON) tablet', dose: pick(ctx, 15, ['60 mg', '60 mg', '90 mg']), route: 'Oral', freq: 'QID', at: ['0630', '1030', '1430', '1830'], cls: 'Cholinesterase inhibitor', sips: true, info: 'TIME-CRITICAL: give on time, ideally 30-45 minutes before meals. Late doses cause weakness and swallowing/breathing trouble. Too much causes cholinergic crisis (cramps, diarrhea, drooling, bradycardia, small pupils). Check HR first.', monitor: ['HR', 'RR'], hold: 'Hold and notify provider if HR below 50 or excessive secretions and cramping.', indication: 'Myasthenia gravis (time-critical)' });
+      home(spec, { key: 'prednisone', name: 'prednisone tablet', dose: pick(ctx, 16, ['10 mg', '20 mg']), route: 'Oral', freq: 'daily', cls: 'Corticosteroid', sips: true, info: 'Give with food in the morning. Do not stop abruptly (adrenal suppression: needs stress-dose coverage with major illness). Monitor glucose, BP, mood.', monitor: ['Glucose'], indication: 'Myasthenia gravis (immunosuppression)' });
+      // antibiotics that can worsen weakness: swap macrolides/fluoroquinolones for doxycycline; remove aminoglycosides
+      spec.meds.forEach(m => {
+        if (m.when === false || m.home) return;
+        if (/azithromycin|clarithromycin|erythromycin|levofloxacin|ciprofloxacin|moxifloxacin/i.test(m.name || '')) {
+          const iv = m.route === 'IV';
+          spec.applied.push(`${m.name} replaced with doxycycline (myasthenia gravis: macrolides/fluoroquinolones can cause crisis).`);
+          Object.assign(m, { key: 'doxycycline' + (iv ? '_iv' : ''), name: iv ? 'doxycycline (DOXY 100) IVPB' : 'doxycycline (VIBRA-TABS) tablet', dose: '100 mg', freq: iv ? 'q12h' : 'BID', cls: 'Tetracycline antibiotic', volume: iv ? 250 : undefined, info: 'Chosen because macrolides and fluoroquinolones can worsen myasthenia. Give with a full glass of water, upright 30 minutes; separate from calcium, iron, antacids.', monitor: ['Temp', 'WBC'], indication: (m.indication || 'Infection') + ' (myasthenia-safe choice)' });
+          delete m.avoid; delete m.alt; delete m.renal; delete m.anchorStart;
+        }
+      });
+      strictNpoNote(spec, 'pyridostigmine');
+      omitDrugs(spec, /gentamicin|tobramycin|amikacin|neomycin|magnesium sulfate|succinylcholine|rocuronium|vecuronium/i, 'can worsen myasthenic weakness');
+      order(spec, { name: 'Myasthenic crisis watch: respiratory and swallowing checks', category: 'Nursing', frequency: 'Every 4 hours', instructions: 'Assess RR, SpO2, speech, swallowing, ptosis and neck/arm strength. Report shortness of breath, weak cough, voice change or choking; bedside NIF/FVC per RT. Keep suction and bag-valve mask at bedside.', startH: 3 });
+      order(spec, { name: 'Medications to avoid in myasthenia gravis', category: 'Precautions', frequency: 'Continuous', instructions: 'Avoid fluoroquinolones, macrolides, aminoglycosides, IV magnesium, beta blockers and neuromuscular blockers unless approved by neurology. Question any such order and notify the provider.', startH: 3 });
+      assess(spec, [['Neurologic', 'Muscle Strength', 'Mild fatigable ptosis of the left eyelid; proximal arm strength 4+/5, worse late in the day'], ['Respiratory', 'Cough Strength', 'Strong, effective cough; speaks full sentences']]);
+      sticky(spec, 'Myasthenia gravis', 'Pyridostigmine is time-critical. Avoid macrolides, fluoroquinolones, aminoglycosides, IV magnesium. Watch breathing and swallowing every 4 hours.');
+      comorb(spec, { key: 'myasthenia', problem: 'Myasthenia gravis', details: 'Generalized myasthenia gravis, stable on pyridostigmine and low-dose prednisone.', pmh: 'Myasthenia gravis', plan: (c, S, h) => ['Pyridostigmine on time (sips if NPO; call provider for IV route if strictly NPO); continue prednisone.', S.flag('npo', h) ? 'NPO: call neurology about IV neostigmine / methylprednisolone equivalents.' : 'Respiratory and swallow checks; avoid drugs that worsen weakness.'] });
+    }
+  });
+
+  add('hx_tbi', {
+    label: 'Prior Traumatic Brain Injury', group: NEU, aliases: ['tbi', 'head injury', 'concussion', 'brain injury', 'post-concussive'], order: 50,
+    desc: 'Adds mild cognitive baseline, sleep aid, sedative sparing, delirium and fall precautions.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      home(spec, { key: 'melatonin', name: 'melatonin tablet', dose: '3 mg', route: 'Oral', freq: 'qHS', cls: 'Sleep aid', info: 'Give 1-2 hours before desired sleep. Preferred over benzodiazepines or diphenhydramine.', holdIf: ['npo'], indication: 'Post-concussive sleep disturbance' });
+      order(spec, { name: 'Cognitive and delirium precautions; limit sedatives', category: 'Precautions', frequency: 'Continuous', instructions: 'Brain-injured patients are sensitive to sedatives and anticholinergics. Keep lights/noise low, one instruction at a time, written reminders. Report new confusion, headache, vomiting or seizure.', startH: 3 });
+      assess(spec, [['Neurologic', 'Neuro Baseline', 'Oriented x4; mild short-term memory deficit and slowed processing at baseline (prior TBI); no focal weakness']]);
+      comorb(spec, { key: 'hx_tbi', problem: 'History of traumatic brain injury', details: 'Moderate TBI 8 years ago with mild residual memory and attention deficits; no post-traumatic epilepsy.', pmh: 'Traumatic brain injury (remote, mild residual cognitive deficit)', plan: () => ['Document baseline cognition; avoid benzodiazepines and anticholinergics.', 'Higher delirium and seizure risk; use written cues and family input.'] });
+    }
+  });
+
+  add('rls', {
+    label: 'Restless Legs Syndrome', group: NEU, aliases: ['restless legs', 'willis-ekbom', 'rls'], order: 50,
+    desc: 'Adds ropinirole and iron, avoids dopamine-blocking antiemetics and sedating antihistamines (worsen symptoms).',
+    apply(ctx, spec) {
+      home(spec, { key: 'ropinirole', name: 'ropinirole (REQUIP) tablet', dose: pick(ctx, 17, ['0.5 mg', '1 mg', '0.25 mg']), route: 'Oral', freq: 'qHS', at: ['2000'], cls: 'Dopamine agonist', info: 'Give 1-3 hours before bedtime. May cause drowsiness, nausea, orthostatic hypotension; augmentation of symptoms with high doses.', monitor: ['BP'], holdIf: ['npo'], indication: 'Restless legs syndrome' });
+      home(spec, { key: 'ferrous_sulfate', name: 'ferrous sulfate tablet', dose: '325 mg', route: 'Oral', freq: 'daily', cls: 'Iron supplement', info: 'Low iron stores worsen restless legs. Give apart from antacids; may cause dark stools and constipation.', holdIf: ['npo'], indication: 'Iron deficiency / restless legs' });
+      omitDrugs(spec, /metoclopramide|prochlorperazine|promethazine|haloperidol|diphenhydramine/i, 'worsens restless legs (dopamine blocker or sedating antihistamine)');
+      order(spec, { name: 'Restless legs: avoid dopamine blockers and sedating antihistamines', category: 'Nursing', frequency: 'Continuous', instructions: 'Question metoclopramide, prochlorperazine, promethazine, haloperidol and diphenhydramine. Offer evening walking, leg massage, warm compress; limit caffeine.', startH: 3 });
+      assess(spec, [['Neurologic', 'Sensation', 'Creeping discomfort in both legs in the evening, relieved by movement; strength and reflexes normal']]);
+      comorb(spec, { key: 'rls', problem: 'Restless legs syndrome', details: 'Evening restlessness of both legs, on a dopamine agonist and iron.', pmh: 'Restless legs syndrome', plan: () => ['Continue ropinirole in the evening; avoid dopamine antagonists and sedating antihistamines.', 'Expect poor sleep if untreated; check iron studies.'] });
+    }
+  });
+
+  add('cerebral_palsy', {
+    label: 'Cerebral Palsy', group: NEU, aliases: ['cp', 'spastic diplegia', 'spasticity'], order: 50,
+    desc: 'Adds baclofen and a bowel regimen, spastic baseline, wheelchair transfers, contracture/skin and aspiration care.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 2;
+      home(spec, { key: 'baclofen', name: 'baclofen (LIORESAL) tablet', dose: pick(ctx, 18, ['10 mg', '5 mg', '20 mg']), route: 'Oral', freq: 'TID', cls: 'Muscle relaxant (antispastic)', sips: true, info: 'Do NOT stop abruptly (withdrawal: seizures, hallucinations, fever). May cause drowsiness and weakness. Dose reduced for reduced kidney function.', renal: { ckd3: { dose: '5 mg', note: 'Reduced dose: baclofen accumulates in kidney disease.' }, esrd: { avoid: true } }, indication: 'Cerebral palsy spasticity' });
+      home(spec, { key: 'polyethylene_glycol', name: 'polyethylene glycol (MIRALAX) powder', dose: '17 g in 8 oz fluid', route: 'Oral', freq: 'daily', cls: 'Osmotic laxative', info: 'Hold for loose stools. Goal: soft BM every 1-2 days.', holdIf: ['npo'], indication: 'Constipation (cerebral palsy)' });
+      order(spec, { name: 'Positioning, contracture and skin care; assist transfers', category: 'Nursing', frequency: 'Every 2 hours', instructions: 'Reposition every 2 hours; pillows for neutral alignment; gentle range of motion. Use a lift or 2-person transfer with the wheelchair. Check heels, sacrum and hips for pressure. Ask the patient or caregiver how they communicate and transfer at home.', startH: 3 });
+      order(spec, { name: 'Aspiration precautions: upright for meals, supervised eating', category: 'Precautions', frequency: 'With oral intake', instructions: 'Upright 90 degrees, small bites, observe for coughing; SLP evaluation if swallowing has changed.', startH: 3 });
+      assess(spec, [['Neurologic', 'Neuro Baseline', 'Spastic diplegia: increased tone and mild contractures of both legs, upper extremities 4/5; speech slow but clear; cognition at baseline'], ['Musculoskeletal / Mobility', 'Mobility', 'Uses a manual wheelchair; transfers with 1-2 assist'], ['Skin', 'Braden Score', '17']]);
+      comorb(spec, { key: 'cerebral_palsy', problem: 'Cerebral palsy', details: 'Spastic diplegic cerebral palsy; wheelchair user, lives with family support.', pmh: 'Cerebral palsy (spastic diplegia)', plan: () => ['Continue baclofen (do not stop abruptly) and bowel regimen.', 'Skin, positioning and aspiration care; involve caregiver for communication and transfers.'] });
+    }
+  });
+
+  add('als', {
+    label: 'ALS (Amyotrophic Lateral Sclerosis)', group: NEU, aliases: ['amyotrophic lateral sclerosis', 'motor neuron disease', 'lou gehrig'], order: 47,
+    desc: 'Adds riluzole, glycopyrrolate, nocturnal BiPAP, bulbar/respiratory weakness, dysphagia diet, sedative and opioid caution, goals-of-care prompt.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 2;
+      spec.osa = true; spec.rt = true;
+      spec.vitalAdjust.push({ spo2: -1, rr: 1 });
+      addLabs(spec, 0.5, ['ALT']);
+      home(spec, { key: 'riluzole', name: 'riluzole (RILUTEK) tablet', dose: '50 mg', route: 'Oral', freq: 'BID', cls: 'Glutamate inhibitor', sips: true, info: 'Give on an empty stomach (1 hour before or 2 hours after a meal). Monitor liver tests and for fever with neutropenia. May cause nausea, fatigue.', monitor: ['LFT', 'WBC'], indication: 'Amyotrophic lateral sclerosis' });
+      home(spec, { key: 'glycopyrrolate', name: 'glycopyrrolate (ROBINUL) tablet', dose: '1 mg', route: 'Oral', freq: 'TID', cls: 'Anticholinergic (secretion control)', info: 'For drooling. Causes dry mouth, constipation, urinary retention; thickens secretions: watch for mucus plugging.', holdIf: ['npo'], indication: 'Sialorrhea (ALS)' });
+      order(spec, { name: 'BiPAP at night and with naps (home settings)', category: 'Respiratory', frequency: 'Nightly and PRN', instructions: 'Apply home BiPAP when sleeping and when dyspneic lying flat. RT to assist. Do not give sedatives or opioids without a respiratory plan.', startH: 3 });
+      order(spec, { name: 'Dysphagia, secretion and communication plan', category: 'Precautions', frequency: 'Every shift', instructions: 'Upright for meals; soft moist or pureed foods; suction at bedside; cough assist per RT. Provide communication board; allow extra time. Weak cough = aspiration risk. Monitor weight.', startH: 3 });
+      order(spec, { name: 'Confirm advance directive, code status and goals of care', category: 'Nursing', frequency: 'Once', instructions: 'ALS is progressive: verify code status, BiPAP/ventilation and feeding-tube wishes and notify the provider if undocumented.', startH: 6 });
+      spec.orders.forEach(o => { if (o.category === 'Diet' && /^(regular|general)\b/i.test(o.name || '')) { o.name = 'Soft diet (mechanical soft, moist)'; o.instructions = ((o.instructions || '') + ' Dysphagia precautions; high calorie.').trim(); } });
+      assess(spec, [['Neurologic', 'Neuro Baseline', 'Bulbar and limb weakness: slightly slurred speech, tongue fasciculations, hand grip 3/5, legs 4/5; sensation intact; cognition intact'], ['Respiratory', 'Respiratory Effort', 'Unlabored at rest; speaks in shortened phrases; weak cough'], ['Musculoskeletal / Mobility', 'Mobility', 'Walker or wheelchair; needs help with transfers']]);
+      sticky(spec, 'ALS respiratory risk', 'Respiratory muscles are weak: avoid sedatives/opioids without a plan, check RR and SpO2 often, and call RT early for hypercapnia (morning headache, drowsiness). Confirm code status.');
+      comorb(spec, { key: 'als', problem: 'Amyotrophic lateral sclerosis', details: 'Bulbar-onset ALS with mild respiratory muscle weakness; uses nocturnal BiPAP.', pmh: 'Amyotrophic lateral sclerosis (nocturnal BiPAP)', plan: () => ['Continue riluzole and secretion control; BiPAP at night.', 'Minimize sedatives/opioids; aspiration precautions; goals-of-care discussion if not documented.'] });
+    }
+  });
+
+  add('essential_tremor', {
+    label: 'Essential Tremor', group: NEU, aliases: ['tremor', 'hand tremor', 'benign tremor'], order: 50,
+    desc: 'Adds propranolol (primidone if asthma/COPD), postural hand tremor, feeding assistance; tremor may mimic withdrawal or hyperthyroidism.',
+    apply(ctx, spec) {
+      const bbOk = !ctx.has('asthma') && !ctx.has('copd') && !ctx.has('myasthenia');
+      if (bbOk) home(spec, { key: 'propranolol', name: 'propranolol (INDERAL) tablet', dose: pick(ctx, 19, ['40 mg', '20 mg', '40 mg']), route: 'Oral', freq: 'BID', cls: 'Non-selective beta blocker', sips: true, info: 'Check BP and apical HR first. Can mask hypoglycemia symptoms. Do not stop abruptly.', monitor: ['BP', 'HR'], hold: 'Hold and notify provider if HR below 55 or SBP below 100.', holdIf: ['hypotension'], holdReason: 'low blood pressure', indication: 'Essential tremor' });
+      else home(spec, { key: 'primidone', name: 'primidone (MYSOLINE) tablet', dose: '50 mg', route: 'Oral', freq: 'qHS', cls: 'Anticonvulsant (tremor)', info: 'Sedation and dizziness at first. Used instead of a beta blocker because of lung disease or myasthenia.', holdIf: ['npo'], indication: 'Essential tremor' });
+      order(spec, { name: 'Tremor: assist with meals; adaptive cups and utensils', category: 'Nursing', frequency: 'With meals', instructions: 'Weighted utensils and lidded cups reduce spills; allow extra time. Document baseline tremor so a new or resting tremor can be recognized (withdrawal, thyroid, drug effect).', startH: 3 });
+      assess(spec, [['Neurologic', 'Movement', 'Bilateral postural and action hand tremor, no rest tremor, no rigidity; handwriting wavy']]);
+      comorb(spec, { key: 'essential_tremor', problem: 'Essential tremor', details: 'Benign familial postural tremor of both hands, controlled with medication.', pmh: 'Essential tremor', plan: () => ['Continue tremor medication; baseline tremor documented.', 'Report a new resting tremor, rigidity or worsening tremor.'] });
+    }
+  });
+
+  add('vertigo', {
+    label: 'Chronic Vertigo / Vestibular Disorder', group: NEU, aliases: ['dizziness', 'bppv', 'menieres', 'vestibular', 'dizzy'], order: 50,
+    desc: 'Adds PRN meclizine (caution in older adults), positional vertigo baseline, strong fall precautions.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 2;
+      home(spec, { key: 'meclizine', name: 'meclizine (ANTIVERT) tablet', dose: ctx.age >= 70 ? '12.5 mg' : '25 mg', route: 'Oral', freq: 'q8h', prn: true, prnInterval: 'Every 8 hours', prnFor: 'vertigo or dizziness', cls: 'Antihistamine (vestibular suppressant)', info: 'Anticholinergic and sedating: confusion, urinary retention, falls in older adults. Use sparingly; avoid with dementia. Give only after checking that vertigo is the usual type.', indication: 'Chronic vertigo', prnGiven: [] });
+      order(spec, { name: 'Vertigo fall precautions: assist for all standing and walking', category: 'Precautions', frequency: 'Continuous', instructions: 'Change positions slowly; sit at the edge of the bed 1-2 minutes before standing; assist for every transfer; avoid sudden head turns. New vertigo with weakness, speech change, double vision or severe headache is a STROKE alert.', startH: 3 });
+      assess(spec, [['Neurologic', 'Vestibular', 'Positional vertigo with head turning; no spontaneous nystagmus at rest; gait mildly unsteady, Romberg negative']]);
+      comorb(spec, { key: 'vertigo', problem: 'Chronic vertigo', details: 'Recurrent benign positional vertigo (BPPV) / vestibular dysfunction; central causes excluded.', pmh: 'Chronic vertigo (vestibular)', plan: () => ['Meclizine only as needed (anticholinergic: caution in older adults).', 'Assist with all mobility; a different or sudden-onset dizziness needs neuro assessment.'] });
+    }
+  });
+
+  add('sci', {
+    label: 'Spinal Cord Injury / Paraplegia', group: NEU, aliases: ['paraplegia', 'quadriplegia', 'tetraplegia', 'spinal cord injury', 'paralysis', 'wheelchair'], order: 50,
+    desc: 'Adds baclofen, bowel program, intermittent catheterization, pressure-injury prevention, low baseline BP, autonomic dysreflexia precautions.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 2;
+      spec.vitalAdjust.push({ sbp: -16, dbp: -10, hr: -4 });
+      home(spec, { key: 'baclofen', name: 'baclofen (LIORESAL) tablet', dose: pick(ctx, 20, ['10 mg', '20 mg', '10 mg']), route: 'Oral', freq: 'TID', cls: 'Muscle relaxant (antispastic)', sips: true, info: 'Do NOT stop abruptly (withdrawal: seizures, hallucinations, fever). Dose reduced for reduced kidney function.', renal: { ckd3: { dose: '5 mg', note: 'Reduced dose: baclofen accumulates in kidney disease.' }, esrd: { avoid: true } }, indication: 'Spasticity after spinal cord injury' });
+      home(spec, { key: 'senna_docusate', name: 'senna-docusate (SENOKOT-S) tablet', dose: '2 tablets', route: 'Oral', freq: 'BID', cls: 'Stimulant laxative / stool softener', info: 'Neurogenic bowel program. Hold for loose stools.', holdIf: ['npo'], holdReason: 'NPO', indication: 'Neurogenic bowel' });
+      home(spec, { key: 'bisacodyl_supp_daily', name: 'bisacodyl (DULCOLAX) suppository', dose: '10 mg', route: 'Rectal', freq: 'daily', at: ['1700'], cls: 'Stimulant laxative', info: 'Scheduled bowel program: give 30 minutes after a meal, then digital stimulation / evacuation per program. Use lidocaine jelly for disimpaction if injury is T6 or above (autonomic dysreflexia).', holdIf: ['npo'], holdReason: 'NPO', indication: 'Neurogenic bowel program' });
+      order(spec, { name: 'Autonomic dysreflexia precautions (injury at T6 or above)', category: 'Precautions', frequency: 'Continuous', instructions: 'If SBP is 20-40 mmHg above baseline with pounding headache, flushing/sweating above the injury, or bradycardia: sit patient upright, loosen clothing/binder, check BP every 2-5 minutes, check bladder (catheter kinks, flush/drain) and bowel (disimpact with lidocaine jelly) and skin; call provider if not resolved promptly (nifedipine or nitroglycerin paste per order).', startH: 3 });
+      order(spec, { name: 'Pressure injury prevention: turn every 2 hours, skin check every shift', category: 'Nursing', frequency: 'Every 2 hours', instructions: 'Reposition at least every 2 hours (30-degree side-lying); pressure-redistribution mattress and wheelchair cushion; off-load heels; inspect sacrum, ischia, heels, trochanters. No sensation below the injury: check water temperature and skin for burns or pressure.', startH: 3 });
+      order(spec, { name: 'Neurogenic bladder: intermittent catheterization every 6 hours', category: 'Nursing', frequency: 'Every 6 hours', instructions: 'Sterile technique per policy; keep volumes below 500 mL; record volume and urine clarity. Report cloudy/foul urine, fever, new incontinence or a sudden rise in BP (dysreflexia).', startH: 3 });
+      order(spec, { name: 'Transfer with sliding board or lift; temperature and DVT watch', category: 'Nursing', frequency: 'PRN', instructions: 'Two staff or a lift for transfers. Impaired temperature regulation: avoid overheating/chilling. Check calves; immobility raises DVT risk. Sensation is absent: abdominal and leg pathology may present without pain.', startH: 3 });
+      assess(spec, [['Neurologic', 'Neuro Baseline', 'T4 complete paraplegia: no voluntary movement or sensation below the nipple line; upper extremities 5/5; reflex spasticity of legs'], ['Musculoskeletal / Mobility', 'Mobility', 'Wheelchair user; transfers with sliding board and 1-2 assist'], ['GU', 'Urinary Elimination', 'Neurogenic bladder: intermittent self-catheterization every 6 hours'], ['GI', 'Bowel Habit', 'Neurogenic bowel: suppository program daily, no spontaneous continence'], ['Skin', 'Braden Score', '13'], ['Skin', 'Skin', 'Warm, dry, intact; sacrum and heels without redness']]);
+      sticky(spec, 'Spinal cord injury', 'Pressure injury risk (turn every 2 h), neurogenic bowel/bladder, and autonomic dysreflexia (sudden high BP with headache): sit up, remove triggers, check bladder/bowel. Pain may be absent with abdominal illness.');
+      comorb(spec, { key: 'sci', problem: 'Spinal cord injury with paraplegia', details: 'Chronic T4 paraplegia with neurogenic bowel and bladder; wheelchair user.', pmh: 'Spinal cord injury (T4 paraplegia)', plan: () => ['Continue baclofen, bowel program and catheterization schedule.', 'Turn every 2 hours, skin checks, dysreflexia precautions, DVT prevention.'] });
+    }
+  });
+
   // @@APPEND@@
 })();

@@ -53,6 +53,9 @@
   // standard prophylaxis when spec.therapeuticAnticoagulation is set, so the gap is covered here).
   const anticoagulate = (ctx, spec, o) => {
     spec.therapeuticAnticoagulation = true;
+    // a diagnosis profile may add its own prophylaxis; full-dose anticoagulation makes that redundant (bridging prophylaxis is added below)
+    const ppxOut = spec.meds.filter(m => /^(dvt_ppx|heparin_ppx|heparin_ppx_preop|enoxaparin)$/.test(m.key || '') && /prophylaxis/i.test(m.cls || ''));
+    if (ppxOut.length && spec.primaryKey !== 'pe') { spec.meds = spec.meds.filter(m => !ppxOut.includes(m)); spec.applied.push('Standard VTE prophylaxis omitted: patient is on full-dose home anticoagulation (prophylaxis only while it is held).'); }
     const sw = spec.flags.surgeryWindow;
     const swEnd = sw && sw.length ? Math.max(...sw.map(w => w[1])) : undefined;
     if (spec.primaryKey === 'pe') {
@@ -62,13 +65,13 @@
         spec.labBase.INR = 2.4; spec.labBase.PT = 26;
         addLabs(spec, 0.5, ['PT', 'INR']);
         spec.labSchedule.push({ daily: true, codes: ['PT', 'INR'] });
-        home(spec, { key: 'warfarin', name: 'warfarin (COUMADIN) tablet', dose: ctx.age >= 75 ? '3 mg' : ctx.weightKg > 90 ? '7.5 mg' : '5 mg', route: 'Oral', freq: 'qHS', cls: 'Anticoagulant (vitamin K antagonist)', highAlert: true,
+        home(spec, { key: 'warfarin', name: 'warfarin (COUMADIN) tablet', dose: ctx.age >= 75 ? '3 mg' : ctx.weightKg > 90 ? '7.5 mg' : '5 mg', route: 'Oral', freq: 'qHS', cls: 'Anticoagulant (vitamin K antagonist)', highAlert: true, sips: true,
           info: `INR goal ${o.goal || '2.0-3.0'}. Check the INR BEFORE every dose. Antibiotics, steroids and amiodarone raise the INR; dietary vitamin K lowers it. Dose is set by daily INR per pharmacy.`, monitor: ['INR', 'Hgb'],
           hold: 'Hold and call provider for INR above 3.5, any bleeding, or a procedure planned within 5 days.', holdIf: ['npoStrict', 'surgeryWindow'], holdReason: 'procedure / bleeding-risk window', indication: o.indication });
       } else {
         const reduce = [ctx.age >= 80, ctx.weightKg <= 60, (spec.labBase.Creatinine || 1) >= 1.5].filter(Boolean).length >= 2;
         const full = o.fullDose !== false;
-        home(spec, { key: 'apixaban', name: 'apixaban (ELIQUIS) tablet', dose: o.dose || (full ? '5 mg' : reduce ? '2.5 mg' : '5 mg'), route: 'Oral', freq: 'BID', cls: 'Anticoagulant (factor Xa inhibitor)', highAlert: true,
+        home(spec, { key: 'apixaban', name: 'apixaban (ELIQUIS) tablet', dose: o.dose || (full ? '5 mg' : reduce ? '2.5 mg' : '5 mg'), route: 'Oral', freq: 'BID', cls: 'Anticoagulant (factor Xa inhibitor)', highAlert: true, sips: true,
           info: 'Monitor for bleeding. HIGH-ALERT: do not give if the patient is scheduled for or just had surgery, a procedure or an acute bleed until the provider clears it. Missed doses raise clot risk.', monitor: ['Hgb', 'Plt', 'Cr'],
           holdIf: ['surgeryWindow'], holdReason: 'bleeding-risk window (surgery, acute stroke or possible procedure)', renal: { esrd: { note: 'ESRD: limited data on DOAC dosing; pharmacy and nephrology to confirm the dose.' } }, indication: o.indication });
       }
@@ -77,7 +80,7 @@
     orderOnce(spec, { name: 'Bleeding precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'On an anticoagulant: soft toothbrush, electric razor, hold pressure 5 minutes after sticks, no IM injections. Report melena, hematuria, epistaxis, new headache or large bruises.', startH: 3 });
     if (swEnd && swEnd > 4) {
       if (spec.flags.bleeding) {
-        orderOnce(spec, { name: 'Sequential compression devices (anticoagulant held for bleeding)', category: 'Nursing', frequency: 'Continuous when in bed', instructions: 'Active bleeding: mechanical prophylaxis only until the provider restarts anticoagulation. Do not give SQ heparin or enoxaparin.', startH: 3 });
+        if (!spec.orders.some(o => /sequential compression/i.test(o.name))) order(spec, { name: 'Sequential compression devices (anticoagulant held for bleeding)', category: 'Nursing', frequency: 'Continuous when in bed', instructions: 'Active bleeding: mechanical prophylaxis only until the provider restarts anticoagulation. Do not give SQ heparin or enoxaparin.', startH: 3 });
       } else {
         homeOnce(spec, { key: 'heparin_ppx', name: 'heparin injection', dose: '5,000 units', route: 'Subcutaneous', freq: 'q8h', cls: 'Anticoagulant (prophylaxis)', highAlert: true, home: false, startH: spec.primaryKey === 'stroke' ? 26 : 4, stopH: swEnd,
           info: `Prophylaxis dose only while the home ${hasMed(spec, 'warfarin') ? 'warfarin' : 'anticoagulant'} is held. Monitor for bleeding, bruising and platelets (HIT). Stops when the home anticoagulant resumes.`, monitor: ['Hgb', 'Plt'],
@@ -126,7 +129,7 @@
     desc: 'Adds secondary prevention: aspirin, high-intensity statin, beta blocker, ACE inhibitor and PRN sublingual nitroglycerin.',
     apply(ctx, spec) {
       baseLab(spec, 'LDL cholesterol', 68, 'min');
-      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.', monitor: ['Hgb'], indication: 'Prior myocardial infarction' });
+      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', sips: true, info: 'Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.', monitor: ['Hgb'], indication: 'Prior myocardial infarction' });
       homeOnce(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '80 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'High-intensity statin. Report unexplained muscle pain or weakness, dark urine.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Secondary prevention after MI' });
       if (!betaBlockerOn(spec)) home(spec, { key: 'metoprolol', name: 'metoprolol tartrate (LOPRESSOR) tablet', dose: ageDose(ctx, '25 mg', '50 mg'), route: 'Oral', freq: 'BID', cls: 'Beta blocker', sips: true, info: 'Check BP and apical HR before giving. May give with a sip of water while NPO unless told otherwise.', monitor: ['BP', 'HR'], hold: 'Hold and notify provider if HR below 55 or SBP below 100.', holdIf: ['hypotension'], indication: 'Prior MI' });
       if (!hasMed(spec, 'lisinopril') && ctx.renal !== 'esrd') home(spec, { key: 'lisinopril', name: 'lisinopril (PRINIVIL,ZESTRIL) tablet', dose: '10 mg', route: 'Oral', freq: 'daily', cls: 'ACE inhibitor', info: 'Check BP before giving. Monitor potassium and creatinine. Watch for cough and angioedema.', monitor: ['BP', 'K', 'Cr'], hold: 'Hold and notify provider if SBP is below 100.', holdIf: ['npo', 'hypotension', 'permHTN'], holdReason: 'NPO, low blood pressure or permissive hypertension', indication: 'Prior MI / reduced EF prevention' });
@@ -147,11 +150,12 @@
       spec.vitalAdjust.push({ sbp: 8, dbp: 1 });
       const clop = ctx.age % 2 === 0;
       if (clop && !hasMed(spec, 'aspirin')) home(spec, { key: 'clopidogrel', name: 'clopidogrel (PLAVIX) tablet', dose: '75 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet (P2Y12 inhibitor)', info: 'Monitor for bleeding. HIGH-ALERT before procedures: usually stopped 5-7 days before elective surgery.', monitor: ['Hgb', 'Plt'], holdIf: ['surgeryWindow'], holdReason: 'bleeding-risk window (surgery or acute bleed)', indication: 'Peripheral arterial disease' });
-      else homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.', monitor: ['Hgb'], indication: 'Peripheral arterial disease' });
+      else homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', sips: true, info: 'Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.', monitor: ['Hgb'], indication: 'Peripheral arterial disease' });
       homeOnce(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '80 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'High-intensity statin. Report unexplained muscle pain or weakness.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Peripheral arterial disease / hyperlipidemia' });
       if (!ctx.has('hf') && !ctx.has('hfpef') && !ctx.has('icd_cm')) home(spec, { key: 'cilostazol', name: 'cilostazol (PLETAL) tablet', dose: '100 mg', route: 'Oral', freq: 'BID', at: ['0800', '2000'], cls: 'Phosphodiesterase-3 inhibitor', info: 'Give 30 minutes before or 2 hours after meals. For claudication. CONTRAINDICATED in heart failure; may cause headache, diarrhea and palpitations.', monitor: ['HR', 'BP'], hold: 'Hold and notify provider for HR above 110, palpitations or new dyspnea/edema.', holdIf: ['npo', 'surgeryWindow'], holdReason: 'NPO / bleeding-risk window', indication: 'Intermittent claudication' });
       orderOnce(spec, { name: 'Lower extremity circulation checks (pulses, color, temperature, capillary refill)', category: 'Nursing', frequency: 'Every shift', instructions: 'Compare both legs: dorsalis pedis and posterior tibial pulses (Doppler if not palpable), color, temperature, cap refill, sensation. Report a new cool, pale or painful limb immediately (acute limb ischemia).', startH: 3 });
       orderOnce(spec, { name: 'Foot and heel protection', category: 'Nursing', frequency: 'Every shift', instructions: 'Inspect feet and heels for wounds or color change; float heels, loose heel-offloading boots; no heating pads or tight stockings.', startH: 3 });
+      spec.orders = spec.orders.filter(o => !/^sequential compression devices/i.test(o.name));
       orderOnce(spec, { name: 'Avoid sequential compression devices and compression stockings (ABI 0.45)', category: 'Nursing', frequency: 'Continuous', instructions: 'Moderate-severe PAD: compression can cause limb ischemia. Use pharmacologic VTE prophylaxis; SCDs only if vascular surgery clears them.', startH: 3 });
       assess(spec, [['Cardiac', 'Peripheral Pulses', 'Femoral pulses 2+; dorsalis pedis and posterior tibial faint (1+) bilaterally, Doppler signals present'], ['Skin', 'Skin', 'Feet cool, shiny skin with hair loss; capillary refill 3-4 seconds, no ulcers']]);
       comorb(spec, { key: 'pad', problem: 'Peripheral arterial disease', details: 'Atherosclerotic PAD with claudication at about one block; ABI 0.45 bilaterally; no tissue loss.', pmh: 'Peripheral arterial disease (claudication, ABI 0.45)',
@@ -309,7 +313,7 @@
     desc: 'Adds antiplatelet and high-intensity statin, a carotid bruit and neuro-check/BP-avoid-hypotension cautions.',
     apply(ctx, spec) {
       baseLab(spec, 'LDL cholesterol', 72, 'min');
-      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.', monitor: ['Hgb'], indication: 'Carotid artery stenosis' });
+      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', sips: true, info: 'Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.', monitor: ['Hgb'], indication: 'Carotid artery stenosis' });
       homeOnce(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '80 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'High-intensity statin. Report unexplained muscle pain or weakness.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Carotid artery stenosis' });
       orderOnce(spec, { name: 'Neurologic checks and avoid hypotension (carotid stenosis)', category: 'Nursing', frequency: 'Every 4 hours', instructions: 'Hypotension can cause cerebral hypoperfusion distal to a tight carotid stenosis. Notify provider for SBP below 100, and immediately for new facial droop, arm weakness, speech change or monocular vision loss (stroke/TIA: note time last known well).', startH: 3 });
       assess(spec, [['Neurologic', 'Neuro Check', 'Strength and sensation equal bilaterally, speech clear, no facial droop'], ['Cardiac', 'Peripheral Pulses', 'Right carotid bruit audible; radial and femoral pulses 2+']]);
@@ -326,7 +330,7 @@
       spec.vitalAdjust.push({ sbp: 4 });
       if (!betaBlockerOn(spec)) home(spec, { key: 'metoprolol', name: 'metoprolol tartrate (LOPRESSOR) tablet', dose: ageDose(ctx, '25 mg', '50 mg'), route: 'Oral', freq: 'BID', cls: 'Beta blocker', sips: true, info: 'Reduces aortic wall stress. Check BP and apical HR before giving. May give with a sip of water while NPO unless told otherwise.', monitor: ['BP', 'HR'], hold: 'Hold and notify provider if HR below 55 or SBP below 100.', holdIf: ['hypotension'], indication: 'Abdominal aortic aneurysm: blood pressure and heart-rate control' });
       homeOnce(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '40 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'Report unexplained muscle pain or weakness.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Abdominal aortic aneurysm / atherosclerosis' });
-      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding.', monitor: ['Hgb'], indication: 'Atherosclerotic disease' });
+      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', sips: true, info: 'Monitor for bleeding.', monitor: ['Hgb'], indication: 'Atherosclerotic disease' });
       orderOnce(spec, { name: 'AAA precautions: report severe back/abdominal pain, pulsatile mass or hypotension', category: 'Nursing', frequency: 'Continuous', instructions: 'Known 4.6 cm AAA. Sudden severe abdominal, back or flank pain, syncope, a new pulsatile mass or SBP below 90 may be rupture: keep NPO, large-bore IV access, call rapid response and the surgeon immediately. Keep SBP below 140; avoid straining (stool softener, bowel regimen).', startH: 3 });
       assess(spec, [['GI', 'Abdomen', 'Soft; mild pulsatile fullness above the umbilicus, non-tender']]);
       comorb(spec, { key: 'aaa', problem: 'Abdominal aortic aneurysm (4.6 cm)', details: 'Infrarenal AAA 4.6 cm on ultrasound, asymptomatic; surveillance imaging every 6-12 months; repair threshold 5.5 cm.', pmh: 'Abdominal aortic aneurysm, 4.6 cm (surveillance)',
@@ -399,6 +403,153 @@
       sticky(spec, 'Triglyceride level', 'Baseline triglycerides about 480 mg/dL. A level above 1,000 raises the risk of acute pancreatitis: report severe epigastric pain radiating to the back. Propofol and IV lipid emulsions raise triglycerides further.');
       comorb(spec, { key: 'hypertg', problem: 'Hypertriglyceridemia', details: 'Triglycerides about 480 mg/dL on fibrate, omega-3 and statin; risk of pancreatitis if above 1,000.', pmh: 'Hypertriglyceridemia (about 480 mg/dL)',
         plan: () => ['Continue lipid-lowering therapy when taking PO; low-fat, low-simple-sugar diet.', 'Avoid IV lipid emulsions and propofol when possible; check lipase for abdominal pain.'] });
+    }
+  });
+
+  // ---------- Respiratory helpers ----------
+  const albuterolPRN = (spec, why) => homeOnce(spec, { key: 'albuterol_prn', name: 'albuterol (PROVENTIL) nebulizer solution', dose: '2.5 mg', route: 'Nebulized', freq: 'q4h', prn: true, prnInterval: 'Every 4 hours', prnFor: 'wheezing or shortness of breath', cls: 'Short-acting bronchodilator', info: 'Check HR before and after; may cause tremor and tachycardia.', monitor: ['HR', 'SPO2'], indication: why });
+  // Patients on home oxygen never go back to room air: replace "Room air" in the diagnosis profile's oxygen course with the home flow rate.
+  const applyHomeO2 = (spec, flow) => {
+    spec.baseO2 = flow;
+    const lpm = s => { const m = /(\d+(?:\.\d+)?)\s*L/i.exec(s || ''); return m ? parseFloat(m[1]) : null; };
+    const base = lpm(flow);
+    spec.vitals.forEach(v => {
+      if (!v.o2) return;
+      if (/^room air/i.test(v.o2)) v.o2 = flow;
+      else if (/nasal cannula/i.test(v.o2) && lpm(v.o2) !== null && base !== null && lpm(v.o2) < base) v.o2 = flow;
+    });
+    if (!spec.vitals.some(v => v.o2 && v.h <= 0)) { spec.vitals.push({ h: -1, o2: flow }); spec.vitals.sort((a, b) => a.h - b.h); }
+    spec.devices.filter(d => /nasal cannula/i.test(d.type || '')).forEach(d => {
+      delete d.removeH;
+      if (d.infusing && lpm(d.infusing) !== null && base !== null && lpm(d.infusing) < base) d.infusing = `Oxygen ${flow}`;
+    });
+  };
+
+  // ---------- Interstitial lung disease ----------
+  HX.add('ild', {
+    label: 'Interstitial Lung Disease / Pulmonary Fibrosis', group: RS, aliases: ['ipf', 'idiopathic pulmonary fibrosis', 'pulmonary fibrosis', 'interstitial lung disease', 'fibrosis'], order: 50,
+    desc: 'Adds an antifibrotic (pirfenidone or nintedanib), Velcro crackles, lower baseline SpO2 and RR, oxygen titration and a low reserve for hypoxia.',
+    apply(ctx, spec) {
+      spec.rt = true;
+      spec.vitalAdjust.push({ spo2: -4, rr: 3 });
+      const pirf = ctx.age % 2 === 0;
+      if (pirf) home(spec, { key: 'pirfenidone', name: 'pirfenidone (ESBRIET) tablet', dose: '801 mg', route: 'Oral', freq: 'TID', at: ['0800', '1300', '1800'], cls: 'Antifibrotic', info: 'Give WITH food to reduce nausea. Causes photosensitivity (cover skin), nausea, and elevated liver enzymes. Hold if the patient is not eating.', monitor: ['LFT'], hold: 'Hold and notify provider for ALT more than 3 times normal or if NPO.', holdIf: ['npo'], holdReason: 'NPO (give with meals)', indication: 'Idiopathic pulmonary fibrosis' });
+      else home(spec, { key: 'nintedanib', name: 'nintedanib (OFEV) capsule', dose: '150 mg', route: 'Oral', freq: 'BID', at: ['0900', '2100'], cls: 'Antifibrotic (tyrosine kinase inhibitor)', info: 'Give WITH food; swallow whole. Causes diarrhea, nausea and elevated liver enzymes; small increase in bleeding risk with anticoagulants. Handle with gloves if the capsule is open.', monitor: ['LFT', 'Hgb'], hold: 'Hold and notify provider for ALT more than 3 times normal, severe diarrhea or bleeding, or if NPO.', holdIf: ['npo'], holdReason: 'NPO (give with meals)', indication: 'Idiopathic pulmonary fibrosis' });
+      homeOnce(spec, { key: 'pantoprazole', name: 'pantoprazole (PROTONIX) tablet', dose: '40 mg', route: 'Oral', freq: 'daily', cls: 'Proton pump inhibitor', info: 'Give 30-60 minutes before breakfast. Treats reflux (micro-aspiration worsens fibrosis).', variants: { npo: { name: 'pantoprazole (PROTONIX) injection', route: 'IV' } }, indication: 'GERD with pulmonary fibrosis' });
+      albuterolPRN(spec, 'Dyspnea');
+      orderOnce(spec, { name: 'Oxygen titration for pulmonary fibrosis (SpO2 goal 90% or higher)', category: 'Respiratory', frequency: 'Continuous, titrate', instructions: 'Little respiratory reserve: desaturates quickly with activity or lying flat. Titrate nasal cannula to SpO2 90-94%; check SpO2 during ambulation and with repositioning. Notify provider for SpO2 below 88% on 6 L, RR above 28 or acute worsening (possible acute exacerbation, infection or PE).', startH: 3 });
+      orderOnce(spec, { name: 'Respiratory therapy evaluate and treat', category: 'Respiratory', frequency: 'Daily and PRN', instructions: 'RT to assess, titrate oxygen, review pulmonary rehabilitation breathing techniques.', startH: 3 });
+      assess(spec, [['Respiratory', 'Breath Sounds', 'Bibasilar fine end-inspiratory "Velcro" crackles, no wheeze'], ['Respiratory', 'Respiratory Effort', 'Mild dyspnea with exertion, speaks in full sentences at rest'], ['Respiratory', 'Cough', 'Dry, non-productive'], ['Skin', 'Skin', 'Warm, dry; mild digital clubbing']]);
+      comorb(spec, { key: 'ild', problem: 'Interstitial lung disease (idiopathic pulmonary fibrosis)', details: 'Usual interstitial pneumonia pattern on CT; FVC about 65% predicted, DLCO 45%; on an antifibrotic; resting SpO2 about 92-94%, desaturates to 86-88% with exertion.', pmh: 'Idiopathic pulmonary fibrosis (FVC 65% predicted)',
+        plan: (c, S, h) => [S.flag('npo', h) ? 'Antifibrotic held while NPO (give with food); resume with meals.' : 'Continue antifibrotic with meals; reflux precautions (HOB 30 degrees).', 'Titrate oxygen to SpO2 90% or higher; check saturation with activity.', 'Avoid fluid overload and excess sedatives; escalate early for worsening hypoxia.'] });
+    }
+  });
+
+  // ---------- Chronic respiratory failure on home oxygen ----------
+  HX.add('home_o2', {
+    label: 'Chronic Respiratory Failure on Home Oxygen', group: RS, aliases: ['home oxygen', 'home o2', 'oxygen dependent', 'chronic hypoxemia', 'oxygen therapy', 'chronic respiratory failure'], order: 49,
+    desc: 'Adds baseline home oxygen (2-3 L nasal cannula, never room air), an SpO2 goal (88-92% with COPD, otherwise 90-94%), oxygen safety orders and a lower baseline SpO2.',
+    apply(ctx, spec) {
+      const flow = spec.baseO2 || (ctx.age % 3 === 0 ? '3 L nasal cannula' : '2 L nasal cannula');
+      const copdLike = ctx.has('copd') || spec.primaryKey === 'copd_exac';
+      const goal = copdLike ? '88-92%' : '90-94%';
+      spec.rt = true;
+      spec.vitalAdjust.push({ spo2: copdLike ? -2 : -6, rr: 1, hr: 2 });
+      baseLab(spec, 'Hemoglobin', ctx.female ? 13.8 : 15.0, 'max');
+      applyHomeO2(spec, flow);
+      device(spec, { deviceType: 'Tube', type: 'Nasal cannula (oxygen)', location: 'Nares', siteMarker: 'nares', status: 'In place', infusing: `Oxygen ${flow.replace(' nasal cannula', '')} (home flow)`, assess: 'nares intact, humidified, skin behind ears intact' });
+      orderOnce(spec, { name: `Home oxygen: continue ${flow.replace(' nasal cannula', ' by nasal cannula')} continuously, SpO2 goal ${goal}`, category: 'Respiratory', frequency: 'Continuous, titrate', instructions: `Never leave the patient on room air: baseline resting SpO2 is ${copdLike ? '88-92' : '90-94'}% on ${flow.replace(' nasal cannula', '')}. Titrate to the goal; do not exceed it${copdLike ? ' (CO2 retention risk: drowsiness, headache, confusion)' : ''}. Notify provider for SpO2 below ${copdLike ? '88' : '90'}% on 6 L, new need for more than 2 L above baseline, or increased work of breathing.`, startH: 0.3, nursing: [`Goal SpO2 ${goal}; ${copdLike ? 'avoid over-oxygenation' : 'check with ambulation and sleep'}.`] });
+      orderOnce(spec, { name: 'Oxygen safety: no smoking, open flames or petroleum products', category: 'Precautions', frequency: 'Continuous', instructions: 'Oxygen supports combustion. No smoking or open flame in the room, no petroleum-based lotions on lips or nares (use water-based), check tubing for kinks and the portable tank for pressure before transport.', startH: 3 });
+      orderOnce(spec, { name: 'Continuous pulse oximetry', category: 'Nursing', frequency: 'Continuous', instructions: `Alarm limits SpO2 below ${copdLike ? '88' : '90'}%. Check nares and ears for pressure injury from the cannula every shift.`, startH: 3 });
+      orderOnce(spec, { name: 'Respiratory therapy evaluate and treat', category: 'Respiratory', frequency: 'Daily and PRN', instructions: 'RT to assess, titrate oxygen and check home oxygen equipment and portable concentrator needs before discharge.', startH: 3 });
+      assess(spec, [['Respiratory', 'Respiratory Effort', 'Mild increased work of breathing with exertion; speaks in full sentences'], ['Skin', 'Skin', 'Warm, dry; skin behind ears and nares intact under cannula']]);
+      comorb(spec, { key: 'home_o2', problem: 'Chronic respiratory failure on home oxygen', details: `Chronic hypoxemic respiratory failure on ${flow.replace(' nasal cannula', '')} continuous home oxygen; resting SpO2 ${copdLike ? '88-92' : '90-94'}%; mild secondary erythrocytosis.`, pmh: `Chronic respiratory failure on home oxygen (${flow.replace(' nasal cannula', '')})`,
+        plan: () => [`Continue oxygen at baseline flow; SpO2 goal ${goal}; never room air.`, 'Oxygen safety counseling; confirm portable oxygen for discharge/transport.', copdLike ? 'Watch for CO2 retention if oxygen is increased.' : 'Reassess qualifying saturation (walk test) before discharge.'] });
+    }
+  });
+
+  // ---------- Bronchiectasis ----------
+  HX.add('bronchiectasis', {
+    label: 'Bronchiectasis', group: RS, aliases: ['bronchiectasis', 'chronic productive cough', 'airway clearance'], order: 50,
+    desc: 'Adds hypertonic saline nebulizer with airway clearance, PRN albuterol, daily sputum, Pseudomonas history and a lower SpO2.',
+    apply(ctx, spec) {
+      spec.rt = true;
+      spec.vitalAdjust.push({ spo2: -2, rr: 1 });
+      albuterolPRN(spec, 'Bronchiectasis (also given before hypertonic saline)');
+      home(spec, { key: 'hypertonic_saline', name: 'sodium chloride 7% nebulizer solution', dose: '4 mL', route: 'Nebulized', freq: 'BID', cls: 'Mucolytic / osmotic airway clearance', info: 'Give after albuterol (can trigger bronchospasm), then do airway clearance (oscillating PEP device or chest physiotherapy). Watch for cough, chest tightness and wheeze.', monitor: ['SPO2', 'RR'], hold: 'Hold and notify provider for new wheeze, SpO2 below 90% or severe bronchospasm.', indication: 'Bronchiectasis airway clearance' });
+      orderOnce(spec, { name: 'Airway clearance (oscillating PEP device / chest physiotherapy) twice daily', category: 'Respiratory', frequency: 'BID and PRN', instructions: 'After the nebulizer: 10-15 minutes of PEP device breathing, huff coughing, and postural drainage as tolerated. Record sputum amount, color and consistency.', startH: 3 });
+      orderOnce(spec, { name: 'Sputum culture (history of Pseudomonas)', category: 'Laboratory', frequency: 'Once', instructions: 'Collect an expectorated sputum sample before the first antibiotic dose if possible. Prior cultures grew Pseudomonas aeruginosa: antibiotic coverage per provider.', startH: 3 });
+      heldNote(spec, 'Home azithromycin 500 mg three times a week (macrolide prophylaxis) is not ordered separately while inpatient antibiotics are active; pharmacy to review QT and duplication.');
+      assess(spec, [['Respiratory', 'Breath Sounds', 'Coarse crackles and scattered rhonchi in both lower lobes'], ['Respiratory', 'Cough', 'Productive, about 30 mL/day thick yellow-green sputum']]);
+      sticky(spec, 'Bronchiectasis', 'Chronic productive cough. Prior sputum grew Pseudomonas aeruginosa: if antibiotics are needed, discuss antipseudomonal coverage. Airway clearance twice daily is part of treatment, not optional.');
+      comorb(spec, { key: 'bronchiectasis', problem: 'Bronchiectasis', details: 'Non-CF bronchiectasis (lower lobes), chronic Pseudomonas colonization, 1-2 exacerbations per year.', pmh: 'Bronchiectasis (chronic Pseudomonas colonization)',
+        plan: () => ['Continue hypertonic saline with airway clearance twice daily; albuterol PRN and before saline.', 'Sputum culture; antibiotics per provider (cover Pseudomonas if exacerbation).', 'Hydration and early mobilization help mobilize secretions.'] });
+    }
+  });
+
+  // ---------- Sarcoidosis ----------
+  HX.add('sarcoid', {
+    label: 'Pulmonary Sarcoidosis', group: RS, aliases: ['sarcoidosis', 'sarcoid'], order: 50,
+    desc: 'Adds maintenance prednisone (no abrupt stop; IV conversion if NPO), upper-normal calcium, mild hyperglycemia and a mild dry cough.',
+    apply(ctx, spec) {
+      spec.vitalAdjust.push({ spo2: -1 });
+      baseLab(spec, 'Calcium', 10.1, 'max');
+      baseLab(spec, 'Glucose', 112, 'max');
+      home(spec, { key: 'prednisone', name: 'prednisone tablet', dose: '10 mg', route: 'Oral', freq: 'daily', cls: 'Corticosteroid', sips: true, info: 'Give with food in the morning. Do NOT stop abruptly (adrenal suppression): if strictly NPO convert to IV methylprednisolone 8 mg. Monitor glucose, BP and mood; infection risk.', monitor: ['Glucose', 'BP'], hold: 'Never skip without a provider order. Notify provider for glucose above 250 or signs of infection.', variants: { npo: { name: 'methylprednisolone (SOLU-MEDROL) injection', dose: '8 mg', route: 'IV' } }, indication: 'Pulmonary sarcoidosis (maintenance)' });
+      heldNote(spec, 'Home methotrexate (weekly) not ordered this admission unless the provider confirms the dose day; calcium and vitamin D supplements held (hypercalcemia risk in sarcoidosis).');
+      sticky(spec, 'Steroid-dependent', 'Long-term prednisone: suppressed adrenal response. Hypotension or sepsis may need stress-dose steroids; never stop prednisone abruptly. Sarcoid can raise calcium: do not give calcium or vitamin D without checking the level.');
+      assess(spec, [['Respiratory', 'Breath Sounds', 'Clear to scattered fine crackles at the bases'], ['Respiratory', 'Cough', 'Mild dry cough']]);
+      comorb(spec, { key: 'sarcoid', problem: 'Pulmonary sarcoidosis', details: 'Stage II pulmonary sarcoidosis (hilar adenopathy with parenchymal opacities) on maintenance prednisone 10 mg.', pmh: 'Pulmonary sarcoidosis (stage II) on prednisone',
+        plan: (c, S, h) => ['Continue prednisone daily (IV methylprednisolone equivalent if strictly NPO); do not stop abruptly.', 'Check calcium; monitor glucose on steroids; consider stress-dose steroids for hypotension or sepsis.'] });
+    }
+  });
+
+  // ---------- Cystic fibrosis (adult) ----------
+  HX.add('cf_adult', {
+    label: 'Cystic Fibrosis (adult)', group: RS, aliases: ['cystic fibrosis', 'cf'], order: 50,
+    desc: 'Adds CFTR modulator, pancrelipase with meals, dornase alfa and hypertonic saline nebulizers, ADEK vitamins, contact precautions, and a lower SpO2.',
+    apply(ctx, spec) {
+      spec.rt = true;
+      spec.vitalAdjust.push({ spo2: -3, rr: 1 });
+      if (!spec.isolation || spec.isolation === 'None') spec.isolation = 'Contact precautions';
+      home(spec, { key: 'trikafta', name: 'elexacaftor-tezacaftor-ivacaftor (TRIKAFTA) tablets', dose: '2 tablets (100/50/75 mg) in the morning; 1 ivacaftor 150 mg tablet in the evening', route: 'Oral', freq: 'BID', at: ['0900', '2100'], cls: 'CFTR modulator', highAlert: true, sips: true,
+        info: 'Give with fat-containing food. Avoid grapefruit and CYP3A inducers/inhibitors (check new antibiotics and antifungals with pharmacy). Monitor liver enzymes; cataract and mood changes reported.', monitor: ['LFT'], hold: 'Hold and notify provider for ALT more than 5 times normal.', indication: 'Cystic fibrosis (F508del)' });
+      home(spec, { key: 'pancrelipase', name: 'pancrelipase (CREON) 36,000 unit capsule', dose: '3 capsules with meals (1-2 with snacks)', route: 'Oral', freq: 'AC', cls: 'Pancreatic enzyme', info: 'Give at the START of each meal or snack; swallow whole or open onto applesauce, never crush or chew. Missed enzymes cause steatorrhea and weight loss. Do not give if not eating.', holdIf: ['npo'], holdReason: 'NPO (give only with meals)', indication: 'Pancreatic insufficiency (CF)' });
+      home(spec, { key: 'dornase', name: 'dornase alfa (PULMOZYME) nebulizer solution', dose: '2.5 mg', route: 'Nebulized', freq: 'daily', cls: 'Mucolytic (DNase)', info: 'Use the jet nebulizer ordered by RT; do not mix with other solutions. May cause voice change or sore throat.', monitor: ['SPO2'], indication: 'Cystic fibrosis airway clearance' });
+      home(spec, { key: 'hypertonic_saline', name: 'sodium chloride 7% nebulizer solution', dose: '4 mL', route: 'Nebulized', freq: 'BID', cls: 'Mucolytic / osmotic airway clearance', info: 'Give after albuterol (can trigger bronchospasm), then airway clearance. Watch for cough and wheeze.', monitor: ['SPO2', 'RR'], indication: 'Cystic fibrosis airway clearance' });
+      albuterolPRN(spec, 'Cystic fibrosis (also given before hypertonic saline)');
+      home(spec, { key: 'adek_vitamin', name: 'multivitamin with vitamins A, D, E and K (ADEK) softgel', dose: '1 capsule', route: 'Oral', freq: 'daily', cls: 'Fat-soluble vitamins', info: 'Give with a fat-containing meal and pancreatic enzymes.', holdIf: ['npo'], indication: 'Cystic fibrosis (fat-soluble vitamin deficiency)' });
+      orderOnce(spec, { name: 'Airway clearance (vest / oscillating PEP device) twice daily', category: 'Respiratory', frequency: 'BID and PRN', instructions: 'After the nebulizers: 20-30 minutes of airway clearance and huff coughing. Record sputum.', startH: 3 });
+      orderOnce(spec, { name: 'High-calorie, high-salt nutrition with enzymes; dietitian consult', category: 'Nursing', frequency: 'Every meal', instructions: 'Needs 120-150% of usual calories and extra salt in heat or with fever. Give pancrelipase with every meal and snack. Weigh twice weekly.', startH: 3 });
+      orderOnce(spec, { name: 'Sputum culture (CF)', category: 'Laboratory', frequency: 'Once', instructions: 'Send an expectorated sputum for culture and sensitivity. Chronic organisms may include Pseudomonas or MRSA; antibiotic choice per provider and prior cultures.', startH: 3 });
+      heldNote(spec, 'Avoid contact with other patients who have cystic fibrosis (cross-infection); private room, contact precautions per policy.');
+      assess(spec, [['Respiratory', 'Breath Sounds', 'Coarse crackles and rhonchi bilaterally, upper lobes greater than bases'], ['Respiratory', 'Cough', 'Productive, thick yellow-green sputum'], ['GI', 'Abdomen', 'Soft, non-tender; mild bloating, bulky stools at baseline']]);
+      comorb(spec, { key: 'cf_adult', problem: 'Cystic fibrosis (adult)', details: 'F508del cystic fibrosis with pancreatic insufficiency on a CFTR modulator; FEV1 about 55% predicted; chronic airway colonization.', pmh: 'Cystic fibrosis (pancreatic insufficient, FEV1 about 55%)',
+        plan: (c, S, h) => ['Continue CFTR modulator with fat-containing food; enzymes with every meal or snack.', 'Airway clearance twice daily; separate from other CF patients; sputum culture to guide antibiotics.', S.flag('npo', h) ? 'NPO: enzymes held while not eating; dietitian for nutrition support if NPO is prolonged.' : 'High-calorie diet; monitor glucose (CF-related diabetes risk).'] });
+    }
+  });
+
+  // ---------- Prior tuberculosis ----------
+  HX.add('prior_tb', {
+    label: 'Prior Tuberculosis (treated)', group: RS, aliases: ['tuberculosis', 'tb', 'old tb', 'treated tb'], order: 50,
+    desc: 'History only: completed treatment years ago with upper-lobe scarring; adds a note to consider TB again for new fever, night sweats or hemoptysis.',
+    apply(ctx, spec) {
+      spec.vitalAdjust.push({ spo2: -1 });
+      sticky(spec, 'Prior treated TB', 'Pulmonary TB treated to completion years ago. If this admission includes cough over 3 weeks, night sweats, weight loss or hemoptysis, ask the provider about airborne isolation and TB testing. Baseline chest film shows right upper lobe scarring.');
+      assess(spec, [['Respiratory', 'Breath Sounds', 'Diminished at the right apex, otherwise clear']]);
+      comorb(spec, { key: 'prior_tb', problem: 'History of pulmonary tuberculosis (treated)', details: 'Completed 6 months of four-drug therapy; residual right upper lobe fibrosis; no active disease; QuantiFERON positive at baseline.', pmh: 'Pulmonary tuberculosis, treated to completion (right upper lobe scarring)',
+        plan: () => ['No current treatment; baseline apical scarring on chest imaging.', 'Consider airborne isolation and TB work-up only if new cough over 3 weeks, night sweats, weight loss or hemoptysis.', 'Interferon-gamma release assay will remain positive; do not use a skin test to screen.'] });
+    }
+  });
+
+  // ---------- Lung nodule ----------
+  HX.add('lung_nodule', {
+    label: 'Pulmonary Nodule (under surveillance)', group: RS, aliases: ['lung nodule', 'pulmonary nodule', 'lung spot', 'nodule'], order: 50,
+    desc: 'History only: 8 mm right upper lobe nodule followed with CT; adds a surveillance problem and discharge follow-up reminder.',
+    apply(ctx, spec) {
+      sticky(spec, 'Lung nodule follow-up', 'Incidental 8 mm right upper lobe nodule, stable at last CT. Needs scheduled follow-up CT chest; make sure the discharge summary lists it.');
+      comorb(spec, { key: 'lung_nodule', problem: 'Pulmonary nodule under surveillance', details: '8 mm solid right upper lobe nodule found incidentally; follow-up low-dose CT due in 6-12 months; no biopsy yet.', pmh: 'Pulmonary nodule, 8 mm right upper lobe (surveillance)',
+        plan: () => ['No inpatient treatment; include the nodule in the discharge follow-up plan (CT chest in 6-12 months).', 'Smoking cessation counseling if applicable.'] });
     }
   });
 })();
