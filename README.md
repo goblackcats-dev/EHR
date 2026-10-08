@@ -604,5 +604,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Acknowledge** opens a short review (order, instructions, reason, nursing considerations, a high-alert warning, and a checkbox that you read and understood it). **Needs clarification (call provider)** records the problem and adds a worklist task. Acknowledgements are saved with the patient.
 - Orders written together by the same provider at the same time show an **Order set (n)** tag.
 
+## New in v40: Secure Chat and phone calls
+
+- **Secure Chat** (left menu, with an unread badge). Messages arrive as the simulation clock passes their time, and a pop-up announces each new one (a red phone pop-up for critical-value calls).
+- Generated from the chart: **laboratory critical-value calls** (the student types the read-back of patient name, test and exact value, chooses who was notified and the time; scored out of 6 with feedback), **pharmacy** notes about high-alert medications, a **charge-nurse** check-in with quick replies, and a charge-nurse message when the scenario event happens (with feedback on asking for help early).
+- **Faculty: add a message** (instructor page only): sender, time, text, and optional reply choices. Custom messages are saved with the patient and travel in the student file. Student replies and call scores are saved with the patient, and critical-value call scores appear in student results.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

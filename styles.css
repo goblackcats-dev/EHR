@@ -2135,3 +2135,13 @@ body.student #mrToggleBtn { display: none !important; }
 /* ---- v39 order acknowledgement ---- */
 .oa-chip { display: inline-block; border-radius: 10px; padding: 1px 8px; font-size: 11px; font-weight: 700; vertical-align: 1px; } .oa-new { background: #fff1c7; color: #7a5200; } .oa-set { background: #e6f0fc; color: #1f4f8f; } .oa-done { background: #e3f4e8; color: #1e6b36; } .oa-clar { background: #fdeaea; color: #b3261e; }
 .oa-btn { margin-left: 4px; min-height: 32px; padding: 2px 10px; }
+
+/* ---- v40 secure chat ---- */
+.chat-layout { display: grid; grid-template-columns: 260px 1fr; gap: 12px; min-height: 300px; } @media (max-width: 700px) { .chat-layout { grid-template-columns: 1fr; } }
+.chat-list { border: 1px solid #d6dee9; border-radius: 10px; max-height: 55vh; overflow-y: auto; background: #fff; }
+.chat-row { display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid #eef2f6; background: #fff; padding: 8px 10px; cursor: pointer; min-height: 44px; } .chat-row.active { background: #e6f0fc; } .chat-row.unread b::after { content: ' ●'; color: #1f6fe0; }
+.chat-snip { font-size: 12.5px; color: #55657a; margin-top: 2px; }
+.chat-main { border: 1px solid #d6dee9; border-radius: 10px; padding: 10px 12px; background: #f8fafc; }
+.chat-b { background: #fff; border: 1px solid #d6dee9; border-radius: 14px; padding: 8px 12px; margin: 0 0 8px; max-width: 90%; } .chat-b.me { background: #dbeafe; margin-left: auto; }
+.chat-replies { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.chat-toast { position: fixed; top: 14px; right: 14px; z-index: 50; background: #1c4f82; color: #fff; border: 0; border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 700; box-shadow: 0 6px 24px rgba(0,0,0,.3); cursor: pointer; max-width: 340px; text-align: left; } .chat-toast.critical { background: #b3261e; } .chat-toast.hidden { display: none; }
