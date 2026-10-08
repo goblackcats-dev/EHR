@@ -593,5 +593,10 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **After-Visit Summary**: a printable plain-language summary built from the chart: reason for the stay, what was done, a medicines table (dose, how often in everyday words, what it is for, keep taking vs new or changed), allergies, diet, activity, warning signs, follow-up, and the teaching documented. IV-only hospital medicines are left off. **Print / save as PDF** makes the paper copy.
 - Student results files now count the education entries.
 
+## New in v38: I-PASS shift report and care plan
+
+- **Handoff > I-PASS**: the Handoff window now has a **Five-part report / I-PASS** switch. I-PASS has Illness severity, Patient summary, Action list, Situation awareness and contingency plans, and Synthesis by receiver (read-back and questions). It uses the same chart-built rubric, so a fact in the Patient summary box counts for both background and assessment items.
+- **Care Plan** (left menu): the program finds the nursing problems that fit the chart (gas exchange, cardiac output, bleeding risk, infection, glucose, pain, confusion, falls, fluid balance, skin, mobility, knowledge deficit). The student puts them in priority order, then for the top three picks interventions (some are wrong or unsafe), writes a measurable goal and how they will evaluate it. Scored on priority order (airway, breathing, circulation first), interventions, and goal and evaluation wording. Attempts are saved with the patient and show in student results (best care plan %).
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

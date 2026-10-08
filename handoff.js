@@ -20,6 +20,19 @@
     { id: 'co', title: '5. If-then plans and questions', hint: 'What to watch for and what to do if it happens (who to call), and ask the receiving nurse for questions.' }
   ];
 
+  // I-PASS format: Illness severity, Patient summary, Action list, Situation awareness and contingency, Synthesis by receiver.
+  // It reuses the same rubric: the Patient summary box covers both the background and the assessment items.
+  const IPASS = [
+    { id: 'id', title: 'I: Illness severity', hint: 'Name, age, room, code status, allergies, isolation, and how sick the patient is (stable, watcher, unstable).' },
+    { id: 'sb', title: 'P: Patient summary', hint: 'Why they are here, hospital day, history, events so far, vital signs, findings by system, labs, lines, intake and output, diet, activity.' },
+    { id: 'ac', title: 'A: Action list', hint: 'Medications given, due soon and high-alert drugs, tests and consults pending, what the next nurse needs to do.' },
+    { id: 'co', title: 'S: Situation awareness and contingency plans', hint: 'What to watch for and what to do if it happens (who to call, with numbers).' },
+    { id: 'sy', title: 'S: Synthesis by receiver', hint: 'The receiving nurse repeats back the plan and asks questions. Write what you would say to invite that (for example: "Can you read that back to me? What questions do you have?").' }
+  ];
+  let fmt = 'five';
+  const boxes = () => (fmt === 'ipass' ? IPASS : BOXES);
+  const toRubricTexts = t => (fmt === 'ipass' ? { id: t.id, sb: t.sb, as: t.sb, ac: t.ac, co: `${t.co || ''} . ${t.sy || ''}` } : t);
+
   // ------------------------------------------------------------------ small matching tools
   const STOP = new Set('with without that this have from were been will after before patient noted right left sound sounds normal status level present chart given each every per and the for are not when then also into over under about than only some more most very daily'.split(' '));
   const sigWords = (text, max = 8) => {
@@ -225,18 +238,26 @@
     let dlg = $('handoffDialog'); if (dlg) return dlg;
     dlg = document.createElement('dialog'); dlg.id = 'handoffDialog'; dlg.className = 'handoff-dialog';
     dlg.innerHTML = `<div class="dialog-header"><div><h2>Give handoff report</h2><p>Give report to the next nurse about this patient <b>as the chart stands now</b>. Type it, or tap the microphone and speak. Your report is scored against a rubric built from this patient's chart.</p></div><button id="hoClose" class="icon-button" aria-label="Close">×</button></div>
-      <div class="dialog-body"><div id="hoForm"></div>
+      <div class="dialog-body"><div class="ho-actions"><button id="hoFmtFive" class="primary-button">Five-part report</button> <button id="hoFmtIpass" class="secondary-button">I-PASS</button></div><div id="hoForm"></div>
         <div class="ho-actions"><button id="hoScore" class="primary-button">Score my report</button> <button id="hoClear" class="secondary-button">Clear</button> <button id="hoRubric" class="secondary-button">Faculty: view rubric</button></div>
         <div id="hoResult"></div><div id="hoHistory"></div></div>`;
     document.body.appendChild(dlg);
-    $('hoForm').innerHTML = BOXES.map(b => `<div class="ho-box"><div class="ho-box-head"><b>${esc(b.title)}</b><button type="button" class="small-tool-button ho-mic" data-mic="${b.id}" title="Dictate">🎤 Speak</button></div><div class="ho-hint">${esc(b.hint)}</div><textarea id="ho_${b.id}" rows="4" placeholder="Say or type your report for this section..."></textarea></div>`).join('');
+    buildForm();
     $('hoClose').addEventListener('click', () => { stopMic(); dlg.close(); });
     $('hoScore').addEventListener('click', doScore);
-    $('hoClear').addEventListener('click', () => { BOXES.forEach(b => { $('ho_' + b.id).value = ''; }); $('hoResult').innerHTML = ''; });
+    $('hoClear').addEventListener('click', () => { boxes().forEach(b => { $('ho_' + b.id).value = ''; }); $('hoResult').innerHTML = ''; });
     $('hoRubric').addEventListener('click', showRubric);
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    dlg.querySelectorAll('.ho-mic').forEach(btn => { if (!SR) btn.classList.add('hidden'); btn.addEventListener('click', () => toggleMic(btn, SR)); });
+    $('hoFmtFive').addEventListener('click', () => { fmt = 'five'; buildForm(); });
+    $('hoFmtIpass').addEventListener('click', () => { fmt = 'ipass'; buildForm(); });
     return dlg;
+  }
+  function buildForm() {
+    stopMic();
+    $('hoFmtFive').className = fmt === 'five' ? 'primary-button' : 'secondary-button'; $('hoFmtIpass').className = fmt === 'ipass' ? 'primary-button' : 'secondary-button';
+    $('hoForm').innerHTML = boxes().map(b => `<div class="ho-box"><div class="ho-box-head"><b>${esc(b.title)}</b><button type="button" class="small-tool-button ho-mic" data-mic="${b.id}" title="Dictate">🎤 Speak</button></div><div class="ho-hint">${esc(b.hint)}</div><textarea id="ho_${b.id}" rows="4" placeholder="Say or type your report for this section..."></textarea></div>`).join('');
+    $('hoResult').innerHTML = '';
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    $('handoffDialog').querySelectorAll('.ho-mic').forEach(btn => { if (!SR) btn.classList.add('hidden'); btn.addEventListener('click', () => toggleMic(btn, SR)); });
   }
   function stopMic() { if (recog) { try { recog.stop(); } catch (e) { /* ignore */ } recog = null; } document.querySelectorAll('.ho-mic').forEach(b => { b.classList.remove('rec'); b.textContent = '🎤 Speak'; }); }
   function toggleMic(btn, SR) {
@@ -250,9 +271,9 @@
 
   const sectionOf = id => BOXES.find(b => b.id === id);
   function doScore() {
-    const texts = {}; BOXES.forEach(b => { texts[b.id] = $('ho_' + b.id).value; });
+    const texts = {}; boxes().forEach(b => { texts[b.id] = $('ho_' + b.id).value; });
     if (!Object.values(texts).join('').trim()) { $('hoResult').innerHTML = '<div class="lib-message error">Type or speak your report first.</div>'; return; }
-    const s = score(texts); if (!s) return;
+    const s = score(toRubricTexts(texts)); if (!s) return;
     const mark = r => r.status === 'full' ? '<span class="ho-m ok">✔</span>' : r.status === 'miss' ? '<span class="ho-m bad">✖</span>' : r.status === 'wrong' ? '<span class="ho-m bad">✖</span>' : '<span class="ho-m part">◐</span>';
     let html = `<div class="ho-score"><div class="ho-pct ${s.pct >= 80 ? 'ok' : s.pct >= 60 ? 'part' : 'bad'}">${s.pct}%</div><div><b>${s.earned} of ${s.total} points</b><br><span class="fs-muted">Rubric built from the chart at ${esc(epicDate(s.rubric.at))}. Patient status: <b>${esc(s.rubric.severity)}</b>.</span></div></div>`;
     if (s.errors.length) html += `<div class="ho-errors"><b>Safety errors (−2 points each):</b><ul>${s.errors.map(e => `<li>${esc(e)}</li>`).join('')}</ul></div>`;
@@ -265,7 +286,7 @@
     });
     $('hoResult').innerHTML = html;
     const hist = (currentCanonicalCase.handoff = currentCanonicalCase.handoff || { attempts: [] });
-    hist.attempts.push({ at: simulationTime, pct: s.pct, earned: s.earned, total: s.total, errors: s.errors.length, texts, missed: s.results.filter(r => r.status === 'miss' || r.status === 'wrong').map(r => r.item.label) });
+    hist.attempts.push({ at: simulationTime, format: fmt, pct: s.pct, earned: s.earned, total: s.total, errors: s.errors.length, texts, missed: s.results.filter(r => r.status === 'miss' || r.status === 'wrong').map(r => r.item.label) });
     try { persistCase(); } catch (e) { /* best effort */ }
     renderHistory();
     $('hoResult').scrollIntoView({ block: 'start', behavior: 'smooth' });

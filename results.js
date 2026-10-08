@@ -18,7 +18,7 @@
     const log = (cc.medPass && cc.medPass.log) || [];
     const count = re => log.filter(l => re.test(String(l.type))).length;
     return { format: FORMAT, version: 1, student: student || '', patient: p.name || '', diagnosis: e.diagnosis || '', exportedAt: new Date().toISOString(),
-      education: (cc.educationLog || []).map(x => ({ at: x.at, topic: x.topic, who: x.who, methods: x.methods, response: x.response })), handoff: att('handoff'), sbar: att('sbar'), priority: att('priority'), teaching: att('teaching'), quiz: att('quiz'),
+      education: (cc.educationLog || []).map(x => ({ at: x.at, topic: x.topic, who: x.who, methods: x.methods, response: x.response })), carePlan: att('carePlan'), handoff: att('handoff'), sbar: att('sbar'), priority: att('priority'), teaching: att('teaching'), quiz: att('quiz'),
       medPass: { events: log.length, overrides: count(/override/i), wrongPatient: count(/wrong.?patient|mismatch/i), scans: count(/scan/i), log: log.map(l => ({ at: l.at, type: l.type, detail: l.detail })) } };
   }
 
@@ -27,7 +27,7 @@
   function studentHtml(r) {
     return `<p><b>Patient:</b> ${esc(r.patient)} (${esc(r.diagnosis)})</p>
       <table class="data-table"><thead><tr><th>Practice</th><th>Attempts</th><th>Best</th><th>Latest</th></tr></thead><tbody>
-      ${row('Handoff report', r.handoff)}${row('SBAR call to provider', r.sbar)}${row('Prioritizing tasks', r.priority)}${row('Teaching the patient', r.teaching)}</tbody></table>
+      ${row('Handoff report', r.handoff)}${row('SBAR call to provider', r.sbar)}${row('Prioritizing tasks', r.priority)}${row('Teaching the patient', r.teaching)}${row('Care plan', r.carePlan || [])}</tbody></table>
       <p>Patient teaching documented: <b>${(r.education || []).length}</b> entries.</p><p>Medication pass: <b>${r.medPass.events}</b> logged actions, <b>${r.medPass.overrides}</b> scan overrides.</p>`;
   }
 
@@ -62,7 +62,7 @@
   function openInstructorDialog() {
     let d = $('resInstDialog'); if (!d) { d = document.createElement('dialog'); d.id = 'resInstDialog'; d.className = 'quiz-dialog'; document.body.appendChild(d); }
     let rows = [];
-    const header = ['Student', 'Patient', 'Handoff best %', 'SBAR best %', 'Prioritizing best %', 'Teaching best %', 'Med pass actions', 'Scan overrides', 'Saved'];
+    const header = ['Student', 'Patient', 'Handoff best %', 'SBAR best %', 'Prioritizing best %', 'Teaching best %', 'Care plan best %', 'Med pass actions', 'Scan overrides', 'Saved'];
     const draw = msg => {
       d.innerHTML = `<div class="dialog-header"><div><h2>Student results</h2><p>Choose the results files your students sent you (you can select many at once).</p></div><button id="riClose" class="icon-button" aria-label="Close">×</button></div>
         <div class="dialog-body"><label class="file-button">Choose results files<input type="file" id="riFiles" accept="application/json,.json" multiple></label> <span class="fs-muted">${esc(msg || '')}</span>
@@ -72,7 +72,7 @@
         let bad = 0;
         for (const f of Array.from(ev.target.files)) {
           try { const r = JSON.parse(await f.text()); if (r.format !== FORMAT) throw new Error('x');
-            rows.push([r.student, r.patient, r.handoff.length ? best(r.handoff) : '', r.sbar.length ? best(r.sbar) : '', r.priority.length ? best(r.priority) : '', r.teaching.length ? best(r.teaching) : '', r.medPass.events, r.medPass.overrides, (r.exportedAt || '').slice(0, 16).replace('T', ' ')]); } catch (e) { bad++; }
+            rows.push([r.student, r.patient, r.handoff.length ? best(r.handoff) : '', r.sbar.length ? best(r.sbar) : '', r.priority.length ? best(r.priority) : '', r.teaching.length ? best(r.teaching) : '', (r.carePlan || []).length ? best(r.carePlan) : '', r.medPass.events, r.medPass.overrides, (r.exportedAt || '').slice(0, 16).replace('T', ' ')]); } catch (e) { bad++; }
         }
         rows.sort((a, b) => String(a[0]).localeCompare(String(b[0]))); draw(bad ? `${bad} file(s) were not results files and were skipped.` : '');
       });
