@@ -2120,3 +2120,9 @@ body.student #mrToggleBtn { display: none !important; }
 /* ---- v35 results review ---- */
 .lab-newdot { color: #1f6fe0; margin-left: 4px; font-size: 11px; vertical-align: 1px; }
 .lab-coming { margin: 0 0 8px; padding: 8px 12px; background: #f2f6fc; border: 1px dashed #9fbfe8; border-radius: 8px; font-size: 13px; color: #34495f; }
+
+/* ---- v36 brain timers ---- */
+.tm-chip { display: inline-block; border-radius: 10px; padding: 1px 8px; font-size: 11.5px; font-weight: 700; margin-left: 4px; }
+.tm-chip.tm-late { background: #fde7e5; color: #b3261e; } .tm-chip.tm-late2 { background: #b3261e; color: #fff; } .tm-chip.tm-soon { background: #fff1c7; color: #7a5200; } .tm-chip.tm-later { background: #e6f0fc; color: #1f4f8f; }
+.brain-task.tm-late { border-left: 5px solid #d93025; } .brain-task.tm-late2 { border-left: 5px solid #8e1b1b; background: #fff5f4; } .brain-task.tm-soon { border-left: 5px solid #e0a000; } .brain-task.tm-later { border-left: 5px solid #7aa7e0; }
+.brain-summary-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 14px; border-bottom: 1px solid #e3e9f1; background: #f8fafc; font-size: 13px; } .brain-summary-bar .tm-chip { margin: 0; font-size: 12.5px; padding: 3px 10px; }

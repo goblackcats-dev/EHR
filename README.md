@@ -582,5 +582,10 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **New results** collected during the shift show a blue dot until you tap them or press **Mark all reviewed**; the status line counts them (for example "16 new"). Reviewed results are saved with the patient.
 - **Coming up** lists lab draws that are ordered but not yet collected (within the next 4 hours).
 
+## New in v36: Brain / Worklist timers
+
+- Every open task shows how late or how soon it is: **Overdue 45 min** (red, dark red after an hour), **Due in 12 min** (amber, within 30 minutes), **In 2 h** (blue). The timers move when the simulation clock moves.
+- A summary bar at the top of the Brain page counts overdue tasks and tasks due in the next 30 minutes, and names the longest-overdue task.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
