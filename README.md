@@ -534,5 +534,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - 207 guides cover all 245 medication names the builder currently produces, including IV fluids and combination products. If a medication has no guide (for example one you typed in), the window shows the basic information from the order instead.
 - The guides are a learning reference, written by Claude. Doses and hold limits should be reviewed by a pharmacist or your faculty before students rely on them; entries are marked "Always follow the order."
 
+## New in v28: chart quiz and patient teaching practice (no AI, no internet, no cost)
+
+- **Quiz button** (top bar). Writes 5 to 20 questions from the chart as it stands at the current simulation time: what a medication is for, its class, when to hold it, high-alert drugs, what to check before giving it, tablet and mL dose math, allergies, isolation, code status, fall risk, diet, diagnosis, history (select all that apply), lines, abnormal vital signs, abnormal and critical labs, what is due next, and what to do first when the patient changes. Every quiz is different (questions and answer order are shuffled). Feedback explains each answer; scores and attempts are saved with the patient; **Print quiz and answer key** makes a paper copy.
+- **Teaching button** (top bar). The student teaches the simulated patient one topic taken from the chart (a medication on the MAR, the diagnosis, falls, or pain). The patient has an attitude (anxious, skeptical, overwhelmed, or low health literacy) and talks by script. Steps: show empathy, explain in plain language, pick the right teaching points (wrong or unsafe ones cost points), answer a misunderstanding, use teach-back, then write the education note. Feedback shows the best choice at each step and why. Attempts are saved with the patient.
+- Both are rule-based: questions and scoring come from the chart and a built-in library, so there is nothing to pay for. The chat is scripted, not a live conversation; keyword scoring of the written note is approximate.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

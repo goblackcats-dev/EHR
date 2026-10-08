@@ -2043,3 +2043,13 @@ a.drug-link:hover { text-decoration-style: solid; }
 .qz-fb { margin-top: 8px; padding: 8px 10px; border-radius: 8px; font-size: 14px; } .qz-fb.ok { background: #e7f5ec; } .qz-fb.part { background: #fff4e0; } .qz-fb.bad { background: #fdeaea; }
 .qz-chip { display: inline-block; background: #eef3fa; border-radius: 12px; padding: 2px 9px; font-size: 12px; margin: 2px 2px 0 0; }
 .qz-print-q { margin: 0 0 14px; page-break-inside: avoid; } .qz-print-q ol { margin: 4px 0 0 20px; }
+
+/* ---- v28 patient teaching practice ---- */
+.tc-card { background: #eef3fa; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+.tc-meta { font-size: 13px; color: #55657a; margin-bottom: 6px; }
+.tc-chat { max-height: 38vh; overflow-y: auto; border: 1px solid #d6dee9; border-radius: 10px; padding: 10px; background: #f8fafc; display: flex; flex-direction: column; gap: 8px; }
+.tc-b { max-width: 82%; padding: 8px 12px; border-radius: 14px; font-size: 15px; line-height: 1.35; }
+.tc-b.pt { background: #fff; border: 1px solid #d6dee9; align-self: flex-start; } .tc-b.rn { background: #dbeafe; align-self: flex-end; }
+.tc-who { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .03em; color: #5a6b80; margin-bottom: 2px; }
+.tc-topics { max-height: 36vh; overflow-y: auto; border: 1px solid #d6dee9; border-radius: 10px; padding: 4px; }
+#tcNote { width: 100%; box-sizing: border-box; font-size: 15px; }
