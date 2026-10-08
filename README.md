@@ -598,5 +598,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Handoff > I-PASS**: the Handoff window now has a **Five-part report / I-PASS** switch. I-PASS has Illness severity, Patient summary, Action list, Situation awareness and contingency plans, and Synthesis by receiver (read-back and questions). It uses the same chart-built rubric, so a fact in the Patient summary box counts for both background and assessment items.
 - **Care Plan** (left menu): the program finds the nursing problems that fit the chart (gas exchange, cardiac output, bleeding risk, infection, glucose, pain, confusion, falls, fluid balance, skin, mobility, knowledge deficit). The student puts them in priority order, then for the top three picks interventions (some are wrong or unsafe), writes a measurable goal and how they will evaluate it. Scored on priority order (airway, breathing, circulation first), interventions, and goal and evaluation wording. Attempts are saved with the patient and show in student results (best care plan %).
 
+## New in v39: new orders must be acknowledged
+
+- Orders that arrive during the shift show a **NEW** tag and an **Acknowledge** button on the Orders page. Opening the Orders page no longer clears them; the left-menu badge counts orders still to acknowledge.
+- **Acknowledge** opens a short review (order, instructions, reason, nursing considerations, a high-alert warning, and a checkbox that you read and understood it). **Needs clarification (call provider)** records the problem and adds a worklist task. Acknowledgements are saved with the patient.
+- Orders written together by the same provider at the same time show an **Order set (n)** tag.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

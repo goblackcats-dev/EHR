@@ -81,7 +81,7 @@ window.NSLib = (() => {
   function toStudentFile(row) {
     const c = JSON.parse(JSON.stringify(row.canonical));
     delete c.facultyBuilder;
-    ['handoff', 'sbar', 'priority', 'teaching', 'quiz', 'educationLog', 'labsSeen', 'carePlan'].forEach(k => { delete c[k]; });
+    ['handoff', 'sbar', 'priority', 'teaching', 'quiz', 'educationLog', 'labsSeen', 'carePlan', 'orderAck'].forEach(k => { delete c[k]; });
     if (c.medPass) c.medPass.log = [];
     return { format: STUDENT_FORMAT, version: 1, name: row.name, simulationTime: (c.timeline && c.timeline.simulationStart) || row.simulationTime || '', canonical: c };
   }
