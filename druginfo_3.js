@@ -440,7 +440,7 @@ DrugGuide.add('sodium bicarbonate', { aliases: ['bicarb', 'nahco3', 'sodium bica
   effects: ['Gas and bloating (PO)', 'Metabolic alkalosis', 'Hypokalemia', 'SERIOUS: fluid overload, hypernatremia', 'SERIOUS: tissue necrosis if infiltrated'],
   teach: 'Report belching, swelling or muscle cramps. Do not take antacid long term without advice.', alert: true, lasa: 'Bicarbonate 8.4% vs 4.2% syringes; sodium bicarbonate vs sodium chloride' });
 
-DrugGuide.add('sodium chloride', { aliases: ['normal saline', 'ns', '0.9% sodium chloride', 'nacl', 'saline', 'half normal saline', '0.45% sodium chloride', 'salt tablets'], brand: 'Normal saline', cls: 'IV fluid (isotonic or hypotonic) / electrolyte',
+DrugGuide.add('sodium chloride', { aliases: ['normal saline', '0.9% sodium chloride', 'nacl', 'saline', 'half normal saline', '0.45% sodium chloride', 'salt tablets'], brand: 'Normal saline', cls: 'IV fluid (isotonic or hypotonic) / electrolyte',
   use: 'Replaces fluid and sodium, maintains IV lines and dilutes medicines.',
   dose: '0.9% or 0.45% IV 75-125 mL/h or bolus 250-1000 mL per order; flush 3-10 mL. Always follow the order.',
   give: ['Verify strength (0.9% isotonic, 0.45% hypotonic) and use a pump.', 'Compatible with blood products (0.9% only).', 'Label the bag and tubing; check the rate each shift.'],
@@ -502,3 +502,147 @@ DrugGuide.add('sumatriptan', { aliases: ['imitrex'], brand: 'Imitrex', cls: 'Tri
   hold: ['Hold for uncontrolled hypertension (e.g., SBP > 180), known coronary disease or hemiplegic migraine and call.', 'Hold if an ergot or another triptan was used in the last 24 h.'],
   effects: ['Tingling', 'Flushing', 'Dizziness', 'Chest tightness', 'SERIOUS: coronary vasospasm, stroke, serotonin syndrome'],
   teach: 'Use at migraine onset. Seek care for chest pain. Limit use to avoid medication-overuse headache.', alert: false, lasa: 'Sumatriptan vs zolmitriptan; Imitrex vs Imuran' });
+
+DrugGuide.add('tacrolimus', { aliases: ['prograf', 'envarsus', 'astagraf', 'fk506'], brand: 'Prograf', cls: 'Calcineurin inhibitor immunosuppressant',
+  use: 'Prevents rejection after organ transplant.',
+  dose: 'PO 0.05-0.2 mg/kg/day in 2 divided doses (IR); dose is adjusted by trough level. Always follow the order.',
+  give: ['Time-critical: give every 12 h at the same times, consistently with or without food.', 'Do not crush ER forms; avoid grapefruit.', 'Do not substitute IR and ER forms without the provider.'],
+  watch: ['Trough level (often 5-15 ng/mL, per transplant team).', 'Creatinine, K+, glucose, Mg and BP.', 'Tremor, headache and infection signs.'],
+  hold: ['Hold and call before giving if the trough is high or toxicity signs appear.', 'Hold for K+ > 5.0 or rising creatinine and notify the team.'],
+  effects: ['Tremor', 'Headache', 'High blood pressure', 'High potassium', 'SERIOUS: kidney toxicity, infection, new diabetes'],
+  teach: 'Never miss doses, avoid grapefruit, and keep trough lab timing before the morning dose.', alert: false, lasa: 'Tacrolimus vs sirolimus; Prograf vs Envarsus not interchangeable' });
+
+DrugGuide.add('tamoxifen', { aliases: ['nolvadex', 'soltamox'], brand: 'Nolvadex', cls: 'Selective estrogen receptor modulator',
+  use: 'Treats and prevents hormone-receptor-positive breast cancer.',
+  dose: '20 mg PO daily (or 10 mg twice daily). Always follow the order.',
+  give: ['Give with or without food.', 'Hazardous drug; gloves.', 'Check pregnancy status.'],
+  watch: ['Signs of blood clots (leg swelling, chest pain, dyspnea).', 'Vaginal bleeding and vision changes.', 'Liver tests, calcium (bone mets).'],
+  hold: ['Hold and call for calf pain, chest pain, sudden dyspnea or vision change.', 'Hold and call for unexplained vaginal bleeding.'],
+  effects: ['Hot flashes', 'Vaginal discharge', 'Nausea', 'SERIOUS: DVT/PE and stroke', 'SERIOUS: uterine cancer'],
+  teach: 'Report leg pain, chest pain or abnormal bleeding. Use nonhormonal birth control.', alert: false, lasa: 'Tamoxifen vs tamsulosin; Nolvadex vs Novolin' });
+
+DrugGuide.add('tamsulosin', { aliases: ['flomax'], brand: 'Flomax', cls: 'Alpha-1 blocker',
+  use: 'Relieves urinary symptoms from an enlarged prostate (BPH) and helps stone passage.',
+  dose: '0.4 mg PO daily, may increase to 0.8 mg. Always follow the order.',
+  give: ['Give about 30 min after the same meal each day.', 'Swallow capsule whole; do not crush, chew or open.', 'Patient should rise slowly.'],
+  watch: ['Orthostatic BP and falls.', 'Urine flow and retention.', 'Eye surgery plans (floppy iris).'],
+  hold: ['Hold for SBP < 100 or dizziness and call.', 'Hold and call for fainting.'],
+  effects: ['Dizziness', 'Nasal congestion', 'Retrograde ejaculation', 'SERIOUS: orthostatic hypotension and syncope', 'SERIOUS: priapism (rare)'],
+  teach: 'Rise slowly. Tell eye surgeons you take it before cataract surgery.', alert: false, lasa: 'Flomax vs Fosamax; tamsulosin vs tamoxifen/terazosin' });
+
+DrugGuide.add('tenofovir alafenamide', { aliases: ['vemlidy', 'tenofovir', 'tdf', 'viread'], brand: 'Vemlidy', cls: 'Nucleotide reverse transcriptase inhibitor (antiviral)',
+  use: 'Treats chronic hepatitis B (and HIV in combination products).',
+  dose: '25 mg PO once daily with food. Always follow the order.',
+  give: ['Give with food.', 'Do not stop suddenly in hepatitis B.', 'Same time each day.'],
+  watch: ['Liver tests, HBV DNA and creatinine.', 'Signs of hepatitis flare (jaundice, dark urine).', 'Bone health.'],
+  hold: ['Hold and call for creatinine rise or CrCl < 15 not on dialysis.', 'Call before any dose is missed or stopped.'],
+  effects: ['Headache', 'Nausea', 'Fatigue', 'SERIOUS: severe hepatitis B flare if stopped', 'SERIOUS: lactic acidosis, kidney injury'],
+  teach: 'Never stop it without your provider. Report yellow skin or dark urine.', alert: false, lasa: 'TAF vs TDF are not interchangeable; Vemlidy vs Viread' });
+
+DrugGuide.add('testosterone', { aliases: ['androgel', 'depo-testosterone', 'testosterone cypionate', 'testosterone enanthate', 'testim', 'xyosted'], brand: 'AndroGel, Depo-Testosterone', cls: 'Androgen hormone',
+  use: 'Replaces testosterone in hypogonadism.',
+  dose: 'IM 50-400 mg every 2-4 weeks (cypionate/enanthate); gel 40.5-81 mg daily. Always follow the order.',
+  give: ['IM: deep gluteal, oil-based, use a large needle, rotate sites.', 'Gel: apply to clean dry shoulders or upper arms; wash hands and cover with clothing.', 'Controlled substance (C-III); document.'],
+  watch: ['Hematocrit/Hgb, PSA and testosterone level.', 'BP, edema and leg swelling.', 'Mood, acne, sleep apnea.'],
+  hold: ['Hold and call for Hct > 54% or signs of DVT.', 'Hold and call for severe urinary retention symptoms.'],
+  effects: ['Acne', 'Mood changes', 'Fluid retention', 'SERIOUS: polycythemia and blood clots', 'SERIOUS: cardiovascular events'],
+  teach: 'Keep gel away from women and children, and report leg swelling or chest pain.', alert: false, lasa: 'Testosterone cypionate vs enanthate (different durations)' });
+
+DrugGuide.add('thiamine', { aliases: ['vitamin b1', 'b1'], brand: 'Vitamin B1', cls: 'Vitamin (B1)',
+  use: 'Prevents or treats thiamine deficiency, Wernicke encephalopathy and refeeding problems.',
+  dose: 'PO 100 mg daily; IV/IM 100-500 mg for Wernicke, per order. Always follow the order.',
+  give: ['Give before glucose in alcohol-use disorder or malnutrition.', 'IV: dilute and infuse over 30 min; slow push risk of anaphylaxis.', 'Test dose for IM if allergy history.'],
+  watch: ['Mental status, eye movements and gait.', 'Signs of allergic reaction with IV.', 'Nutritional status.'],
+  hold: ['Hold and call for allergy or anaphylaxis signs.', 'Do not delay in suspected Wernicke; call the provider first.'],
+  effects: ['Mild injection site pain', 'Warmth', 'Rare rash', 'SERIOUS: anaphylaxis (IV)'],
+  teach: 'Eat a balanced diet and avoid alcohol; report itching or swelling.', alert: false, lasa: 'Thiamine vs thiothixene' });
+
+DrugGuide.add('ticagrelor', { aliases: ['brilinta'], brand: 'Brilinta', cls: 'Antiplatelet (P2Y12 inhibitor)',
+  use: 'Reduces heart attack and stent clots after ACS or stent placement.',
+  dose: 'Load 180 mg PO, then 90 mg PO twice daily (60 mg twice daily after one year). Always follow the order.',
+  give: ['Give with low-dose aspirin only (81 mg or less).', 'May crush and give by NG tube if needed.', 'Time-critical; never skip or stop without the cardiologist.'],
+  watch: ['Bleeding signs, Hgb and platelets.', 'Dyspnea (common) and bradycardia.', 'Neuro checks and falls.'],
+  hold: ['Hold and call for active bleeding, or before surgery (stop 5 days earlier per provider).', 'Hold and call for severe dyspnea or intracranial bleed signs.'],
+  effects: ['Bleeding', 'Shortness of breath', 'Bruising', 'SERIOUS: major or intracranial bleeding', 'SERIOUS: bradycardia'],
+  teach: 'Do not stop without your cardiologist. Report black stools, bleeding or severe dyspnea.', alert: true, lasa: 'Brilinta vs Brintellix (Trintellix); ticagrelor vs ticlopidine' });
+
+DrugGuide.add('timolol', { aliases: ['timoptic', 'timolol ophthalmic'], brand: 'Timoptic', cls: 'Beta blocker eye drop',
+  use: 'Lowers eye pressure in glaucoma.',
+  dose: '1 drop in the affected eye(s) once or twice daily (0.25% or 0.5%). Always follow the order.',
+  give: ['Wash hands; tilt head back, pull lower lid, avoid touching the tip.', 'Press on the inner corner of the eye for 1-2 min.', 'Wait 5 min before other eye drops.'],
+  watch: ['HR and respiratory status (systemic absorption).', 'Eye irritation.', 'Intraocular pressure per provider.'],
+  hold: ['Hold for HR < 50-60 or wheezing and call.', 'Hold and call for signs of heart block or severe asthma.'],
+  effects: ['Eye stinging', 'Blurred vision', 'Dry eyes', 'SERIOUS: bradycardia', 'SERIOUS: bronchospasm in asthma/COPD'],
+  teach: 'Close the eye and press the corner after the drop. Report wheezing or slow pulse.', alert: false, lasa: 'Timolol vs atenolol; Timoptic vs Viroptic; 0.25% vs 0.5%' });
+
+DrugGuide.add('topiramate', { aliases: ['topamax'], brand: 'Topamax', cls: 'Anticonvulsant',
+  use: 'Treats seizures and prevents migraine.',
+  dose: '25-200 mg PO twice daily; titrate slowly. Always follow the order.',
+  give: ['May give with or without food.', 'Swallow tablets whole (bitter taste); sprinkle capsules on soft food.', 'Increase fluids; do not stop suddenly.'],
+  watch: ['Bicarbonate (metabolic acidosis) and kidney stones.', 'Cognition, mood and vision/eye pain.', 'Weight and appetite.'],
+  hold: ['Hold and call for acute eye pain or vision change.', 'Hold and call for severe confusion or low bicarbonate.'],
+  effects: ['Tingling', 'Weight loss', 'Word-finding trouble', 'Drowsiness', 'SERIOUS: acute angle-closure glaucoma, metabolic acidosis'],
+  teach: 'Drink plenty of fluids. Report eye pain, mood change or confusion. Do not stop suddenly.', alert: false, lasa: 'Topamax vs Toprol-XL; topiramate vs tapentadol' });
+
+DrugGuide.add('triamcinolone', { aliases: ['kenalog', 'aristocort', 'triamcinolone cream', 'triamcinolone ointment'], brand: 'Kenalog, Aristocort', cls: 'Topical corticosteroid (medium potency)',
+  use: 'Reduces inflammation and itching in skin conditions such as eczema.',
+  dose: 'Apply a thin layer to affected skin two to three times daily (0.1% cream or ointment). Always follow the order.',
+  give: ['Wear gloves; apply a thin film and rub in gently.', 'Do not cover with occlusive dressings unless ordered.', 'Avoid face, groin and axilla unless ordered.'],
+  watch: ['Skin improvement and signs of infection.', 'Thinning, striae or irritation.', 'Duration of use.'],
+  hold: ['Hold and call for infection signs (pus, spreading redness).', 'Stop and call for worsening rash or burning.'],
+  effects: ['Burning or itching', 'Dryness', 'Skin thinning', 'SERIOUS: skin atrophy and adrenal suppression with prolonged use'],
+  teach: 'Use only on the affected area for the time prescribed, and wash hands afterward.', alert: false, lasa: 'Triamcinolone 0.1% vs 0.025%; Kenalog-10 vs -40 (injection)' });
+
+DrugGuide.add('urea', { aliases: ['urea powder', 'ure-na', 'carmol'], brand: 'Ure-Na', cls: 'Osmotic agent / oral urea',
+  use: 'Raises sodium in SIADH and hyponatremia by increasing free water loss.',
+  dose: '15-60 g PO daily mixed in liquid. Always follow the order.',
+  give: ['Mix powder in about 60-120 mL of juice, soda or water to mask the taste.', 'Give with food if upset stomach.', 'Do not give if the patient cannot swallow.'],
+  watch: ['Serum Na (do not correct > 8-10 mEq/L in 24 h), BUN and creatinine.', 'Urine output.', 'Fluid balance and mental status.'],
+  hold: ['Hold and call for Na rising too quickly or BUN rising.', 'Hold for dehydration or kidney injury.'],
+  effects: ['Bad taste', 'Nausea', 'Diarrhea', 'Thirst', 'SERIOUS: dehydration, rapid sodium rise, high BUN'],
+  teach: 'Mix with juice or soda. Follow the fluid and sodium plan the team gave you.', alert: false, lasa: 'Urea vs urea-containing creams' });
+
+DrugGuide.add('vancomycin', { aliases: ['vancocin', 'vancomycin iv', 'vancomycin oral'], brand: 'Vancocin', cls: 'Glycopeptide antibiotic',
+  use: 'Treats serious MRSA and other gram-positive infections; oral form treats C. difficile.',
+  dose: 'IV 15-20 mg/kg every 8-12 h, dosed by pharmacy; PO 125 mg four times daily for C. difficile. Always follow the order.',
+  give: ['Infuse IV over at least 60 min (max 1 g/h); fast infusion causes red man syndrome.', 'Draw trough or AUC level as ordered before the dose.', 'Use a pump and watch for infiltration.'],
+  watch: ['Creatinine, BUN and urine output.', 'Trough (goal about 10-20 mcg/mL) or AUC per pharmacy.', 'Flushing, rash, hearing changes.'],
+  hold: ['Hold and call for rising creatinine or high trough before the dose.', 'Stop infusion and call for flushing, rash or hypotension (slow the rate).'],
+  effects: ['Red man syndrome (flushing)', 'Phlebitis', 'Rash', 'SERIOUS: kidney injury', 'SERIOUS: hearing loss, low WBC'],
+  teach: 'Report itching, flushing, ringing in the ears or less urine.', alert: false, lasa: 'Vancomycin vs vecuronium/Vasotec; IV vs oral not interchangeable' });
+
+DrugGuide.add('venlafaxine', { aliases: ['effexor', 'effexor xr', 'venlafaxine er'], brand: 'Effexor XR', cls: 'SNRI antidepressant',
+  use: 'Treats depression, generalized anxiety and panic disorder.',
+  dose: 'ER 37.5-225 mg PO once daily. Always follow the order.',
+  give: ['Give with food, same time daily.', 'ER capsules whole; may open and sprinkle on applesauce, never crush or chew.', 'Do not stop suddenly.'],
+  watch: ['BP (can increase), HR and mood.', 'Suicidal thoughts, serotonin syndrome signs.', 'Sodium and discontinuation symptoms.'],
+  hold: ['Hold and call for sustained hypertension (e.g., SBP > 180) or suicidal thoughts.', 'Hold and call for fever, tremor and agitation.'],
+  effects: ['Nausea', 'Sweating', 'Dizziness', 'High blood pressure', 'SERIOUS: serotonin syndrome, hyponatremia'],
+  teach: 'It takes weeks to work. Do not stop suddenly. Report mood changes.', alert: false, lasa: 'Effexor vs Effexor XR; venlafaxine vs desvenlafaxine' });
+
+DrugGuide.add('warfarin', { aliases: ['coumadin', 'jantoven'], brand: 'Coumadin, Jantoven', cls: 'Anticoagulant (vitamin K antagonist)',
+  use: 'Prevents blood clots in atrial fibrillation, DVT/PE and mechanical valves.',
+  dose: '2-10 mg PO daily in the evening, adjusted to INR (goal usually 2-3). Always follow the order.',
+  give: ['Check the latest INR before each dose.', 'Give at the same time each day, usually evening.', 'Keep vitamin K intake consistent; many drug interactions.'],
+  watch: ['INR daily in hospital; bleeding signs, bruising, black stools.', 'Hgb and platelets.', 'Falls and head injury.'],
+  hold: ['Hold and call for INR above goal (e.g., > 3.0-4.0, per order) or any bleeding.', 'Hold before procedures per provider.'],
+  effects: ['Bruising', 'Nosebleeds', 'Bleeding gums', 'SERIOUS: major or intracranial bleeding', 'SERIOUS: skin necrosis'],
+  teach: 'Keep consistent amounts of leafy greens, keep INR visits, and report any bleeding or falls.', alert: true, lasa: 'Warfarin vs Coumadin vs Cardura; vitamin K is the antidote' });
+
+DrugGuide.add('zinc oxide', { aliases: ['zinc oxide barrier', 'desitin', 'calmoseptine', 'barrier cream', 'diaper rash cream', 'zinc oxide 20%'], brand: 'Desitin, Calmoseptine', cls: 'Topical skin protectant / barrier',
+  use: 'Protects skin from moisture, urine and stool (incontinence-associated dermatitis, diaper rash).',
+  dose: 'Apply a thick layer to clean dry skin with each brief change or at least twice daily. Always follow the order.',
+  give: ['Clean and pat dry the skin first; wear gloves.', 'Do not scrub off with each change; remove only soiled top layer.', 'Do not apply on infected or weeping open wounds unless ordered.'],
+  watch: ['Skin redness, breakdown or yeast signs (satellite rash).', 'Pressure injury risk.', 'Continence status.'],
+  hold: ['Hold and call for infected-looking, weeping or worsening skin.', 'Call if rash is not improving in 7 days.'],
+  effects: ['Mild skin irritation', 'Rare allergic reaction', 'Messy', 'SERIOUS: allergic rash (uncommon)'],
+  teach: 'Keep skin clean and dry and reapply after cleaning. Report open skin or worsening redness.', alert: false, lasa: '' });
+
+DrugGuide.add('zolpidem', { aliases: ['ambien', 'ambien cr', 'edluar'], brand: 'Ambien', cls: 'Sedative-hypnotic',
+  use: 'Short-term treatment of insomnia.',
+  dose: '5 mg PO at bedtime for women and older adults, 5-10 mg for men; ER 6.25-12.5 mg. Always follow the order.',
+  give: ['Give right at bedtime when ready for 7-8 h of sleep; do not give with or right after a meal.', 'Swallow ER whole.', 'Use bed alarm and fall precautions.'],
+  watch: ['Sedation, RR and confusion.', 'Falls and next-day drowsiness.', 'Complex sleep behaviors (sleep-walking or eating).'],
+  hold: ['Hold and call for oversedation or RR < 12.', 'Hold if the patient cannot stay in bed for a full night.'],
+  effects: ['Drowsiness', 'Dizziness', 'Headache', 'SERIOUS: complex sleep behaviors', 'SERIOUS: respiratory depression with opioids/alcohol'],
+  teach: 'Take only when ready to sleep a full night. Do not drive after. Avoid alcohol.', alert: false, lasa: 'Ambien vs Amen/Ativan; zolpidem vs zolmitriptan' });
