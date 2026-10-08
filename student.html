@@ -6,15 +6,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="NursingSim" />
+  <meta name="apple-mobile-web-app-title" content="NursingSim Student" />
   <meta name="theme-color" content="#1c4f82" />
-  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="manifest" href="manifest-student.webmanifest" />
   <link rel="apple-touch-icon" href="icon-180.png" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <title>NursingSim EHR - Prototype v30</title>
+  <title>NursingSim EHR (Student)</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="student">
   <div class="app-shell">
     <header class="topbar">
       <div class="brand-block">
@@ -27,7 +27,7 @@
 
       <div class="patient-banner">
         <div class="patient-name" id="patientName">No patient loaded</div>
-        <div class="patient-demographics" id="patientDemographics">Import simulated patient JSON to begin</div>
+        <div class="patient-demographics" id="patientDemographics">Tap Open Patient and choose the file your instructor gave you</div>
         <div class="patient-alerts" id="patientAlerts"></div>
       </div>
 
@@ -43,7 +43,6 @@
       </div>
 
       <div class="top-actions">
-        <a class="top-link" href="case-builder/index.html">Case Builder</a>
         <button id="openLibraryBtn" class="top-link top-button">Saved Patients</button>
         <button id="openImportBtn" class="primary-button">Import Patient</button>
       </div>
@@ -668,6 +667,7 @@
     </div>
   </dialog>
 
+  <script>window.NS_STUDENT = true;</script>
   <script src="library.js"></script>
   <script src="app.js"></script>
   <script src="qrcode.js"></script>
@@ -677,8 +677,7 @@
   <script src="brain-timeline.js"></script>
   <script src="ui-extras.js"></script>
   <script src="handoff.js"></script>
-  <script src="quiz.js"></script>
-  <script src="teaching.js"></script>
+    <script src="teaching.js"></script>
   <script src="sbar.js"></script>
   <script src="results.js"></script>
   <script src="druginfo.js"></script>
@@ -687,5 +686,6 @@
   <script src="druginfo_3.js"></script>
   <script src="druginfo-ui.js"></script>
   <script src="flowsheet-practice.js"></script>
+  <script src="student.js"></script>
 </body>
 </html>

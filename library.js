@@ -76,5 +76,22 @@ window.NSLib = (() => {
     throw new Error('That file does not look like a NursingSim patient.');
   }
 
-  return { save, get, list, remove, rename, duplicate, download, importFile, toFile, FORMAT };
+  // ---- student copy: no faculty answer key, no earlier attempts, no med-pass log ----
+  const STUDENT_FORMAT = 'nursingsim-student';
+  function toStudentFile(row) {
+    const c = JSON.parse(JSON.stringify(row.canonical));
+    delete c.facultyBuilder;
+    ['handoff', 'sbar', 'priority', 'teaching', 'quiz'].forEach(k => { delete c[k]; });
+    if (c.medPass) c.medPass.log = [];
+    return { format: STUDENT_FORMAT, version: 1, name: row.name, simulationTime: (c.timeline && c.timeline.simulationStart) || row.simulationTime || '', canonical: c };
+  }
+  function downloadStudent(row) {
+    const blob = new Blob([JSON.stringify(toStudentFile(row))], { type: 'application/json' });
+    const url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = `${(row.name || 'patient').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 50) || 'patient'}_STUDENT.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
+  return { save, get, list, remove, rename, duplicate, download, importFile, toFile, FORMAT, STUDENT_FORMAT, toStudentFile, downloadStudent };
 })();

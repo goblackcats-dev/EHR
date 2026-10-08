@@ -3513,6 +3513,7 @@ async function refreshLibrary() {
           <button data-act="rename" class="secondary-button">Rename</button>
           <button data-act="copy" class="secondary-button">Duplicate</button>
           <button data-act="export" class="secondary-button">Export</button>
+          <button data-act="student" class="secondary-button">For students</button>
           <button data-act="delete" class="secondary-button danger">Delete</button>
         </div>
       </div>`).join('');
@@ -3557,6 +3558,7 @@ libEl('libList').addEventListener('click', async event => {
   const id = button.closest('.lib-row').dataset.id, act = button.dataset.act;
   try {
     if (act === 'load') await loadFromLibrary(id);
+    else if (act === 'student') { NSLib.downloadStudent(await NSLib.get(id)); libMessage('Student file downloaded. It has no answer key.', 'success'); }
     else if (act === 'rename') { const row = await NSLib.get(id); const name = window.prompt('New name for this saved patient:', row.name); if (name) { await NSLib.rename(id, name); if (id === currentLibraryId) currentLibraryName = name; await refreshLibrary(); } }
     else if (act === 'copy') { await NSLib.duplicate(id); await refreshLibrary(); }
     else if (act === 'export') { NSLib.download(await NSLib.get(id)); }

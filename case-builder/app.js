@@ -500,7 +500,7 @@
       $('libList').innerHTML = rows.length ? rows.map(r => `<div class="lib-row ${r.id === libraryId ? 'current' : ''}" data-id="${esc(r.id)}">
         <div class="lib-info"><div class="lib-name">${esc(r.name)}${r.id === libraryId ? ' <span class="lib-badge">open now</span>' : ''}</div>
         <div class="lib-meta">${esc((r.meta && r.meta.patientName) || '')}${r.meta && r.meta.age ? ', ' + r.meta.age + ' y.o.' : ''} · ${esc((r.meta && r.meta.diagnosis) || '')}${r.meta && r.meta.hospitalDay ? ' · hospital day ' + r.meta.hospitalDay : ''} · saved ${lwhen(r.updatedAt)} · ${r.source === 'ehr' ? 'saved from the EHR' : 'from the builder'}</div></div>
-        <div class="lib-actions">${r.source === 'builder' ? '<button data-act="load" class="primary-button">Edit in builder</button>' : ''}<button data-act="ehr" class="secondary-button">Open in EHR</button><button data-act="rename" class="secondary-button">Rename</button><button data-act="copy" class="secondary-button">Duplicate</button><button data-act="export" class="secondary-button">Export</button><button data-act="delete" class="secondary-button danger">Delete</button></div></div>`).join('')
+        <div class="lib-actions">${r.source === 'builder' ? '<button data-act="load" class="primary-button">Edit in builder</button>' : ''}<button data-act="ehr" class="secondary-button">Open in EHR</button><button data-act="rename" class="secondary-button">Rename</button><button data-act="copy" class="secondary-button">Duplicate</button><button data-act="export" class="secondary-button">Export</button><button data-act="student" class="secondary-button">Export for students</button><button data-act="delete" class="secondary-button danger">Delete</button></div></div>`).join('')
         : '<div class="hint">Nothing saved yet. Build a patient, then press Save to library.</div>';
     } catch (e) { $('libList').innerHTML = ''; lmsg(e.message, 'error'); }
   }
@@ -598,6 +598,7 @@
         else if (act === 'rename') { const row = await NSLib.get(id); const n = window.prompt('New name:', row.name); if (n) { await NSLib.rename(id, n); if (id === libraryId) libraryName = n; await refreshLibrary(); } }
         else if (act === 'copy') { await NSLib.duplicate(id); await refreshLibrary(); }
         else if (act === 'export') NSLib.download(await NSLib.get(id));
+        else if (act === 'student') { NSLib.downloadStudent(await NSLib.get(id)); lmsg('Student file downloaded. Share it with your students (AirDrop, email, or your course site). It has no answer key.', 'success'); }
         else if (act === 'delete') { if (window.confirm('Delete this saved patient? This cannot be undone.')) { await NSLib.remove(id); if (id === libraryId) libraryId = null; await refreshLibrary(); } }
       } catch (e) { lmsg(e.message, 'error'); }
     });

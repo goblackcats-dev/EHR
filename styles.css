@@ -2074,3 +2074,7 @@ a.drug-link:hover { text-decoration-style: solid; }
   .top-actions { grid-column: 3; grid-row: 1; }
   .patient-banner { grid-column: 1 / -1; grid-row: 2; }
 }
+
+/* ---- v30 student page: instructor-only tools are hidden ---- */
+body.student #openImportBtn, body.student #openLibraryBtn, body.student #hoRubric, body.student #sbRubric,
+body.student #mpSetupBtn, body.student #mpToggleBtn, body.student #libraryDialog, body.student #importDialog { display: none !important; }

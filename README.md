@@ -548,5 +548,13 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - Attempts are saved with the patient. Scoring is keyword and rule based.
 - **Not built:** a class-wide shared score board or shared patient library. That needs an online database, which usually costs money. Instead use the existing **Export / Import** of patients to share cases by file, and have students export their attempts.
 
+## New in v30: student version
+
+- **Two pages, one app.** You use `index.html` (everything). Students use **`student.html`** (same address as yours, but with `student.html` at the end). The student page has no Quiz, Case Builder, Saved Patients, Import Patient, Med-pass setup, or faculty rubric buttons. Students can add it to the iPad Home Screen like the instructor page.
+- **Sending a patient to students.** In the Case Builder's saved list (or the EHR's Saved Patients list) press **Export for students** (**For students** in the EHR). You get a file named `..._STUDENT.json` with no faculty answer key and no earlier attempts. Share it by AirDrop, email, or your course site. Students tap **Open Patient** and choose the file.
+- **Getting scores back.** Students tap **My Results**, type their name, and **Save results file** (or print it) and send it to you. In your EHR, open **Saved Patients** then **Student results**, pick many results files at once, and you get one table (handoff, SBAR, prioritizing and teaching best scores, med-pass actions and scan overrides) plus **Download CSV** for your gradebook.
+- **Developer note:** `student.html` is generated. After changing `index.html`, run `node make-student.js` and commit the new `student.html`.
+- The student page is not a security lock (a determined student could still open the instructor page address); it simply keeps the instructor tools out of their way.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
