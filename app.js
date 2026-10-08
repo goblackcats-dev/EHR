@@ -1541,10 +1541,12 @@ function validateCanonicalCase(canonical) {
   const activeMedicationNames = medicationOrders
     .filter(order => !/discontinued|completed/i.test(safe(order.status)))
     .filter(inEffectNow)
-    .map(order => normalizeMedicationKey(order.name));
+    // same drug, route AND dose: split-dose regimens (such as hydrocortisone 20 mg AM / 10 mg PM) are not duplicates
+    .map(order => `${normalizeMedicationKey(order.name)}${order.medication ? '|' + safe(order.medication.route) + '|' + safe(order.medication.dose) : ''}`);
 
   const duplicateMedicationKeys = activeMedicationNames
-    .filter((key, idx) => key && activeMedicationNames.indexOf(key) !== idx);
+    .filter((key, idx) => key && activeMedicationNames.indexOf(key) !== idx)
+    .map(key => key.split('|')[0]);
 
   if (duplicateMedicationKeys.length) {
     add(

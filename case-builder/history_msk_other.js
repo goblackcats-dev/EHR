@@ -62,6 +62,8 @@
     spec.devices.forEach(d => { if (d.deviceType === 'IV' && re.test(d.location || '')) { d.location = d.location.replace(re, keep); if (d.siteMarker) d.siteMarker = d.siteMarker.replace(mk, keep.toLowerCase()); } });
   };
 
+  HX._mo = { hasMed, homeOnce, orderOnce, stickyOnce, baseLab, pain, boost, anyHx, onAnticoag, nsaidSafe, noNsaids, periodic, acute, steroid, immuno, moveIVs, DOW, MSK, SKIN, EYE };
+
   // ============================== MUSCULOSKELETAL / RHEUMATOLOGIC ==============================
   HX.add('rheumatoid_arthritis', {
     label: 'Rheumatoid Arthritis', group: MSK, aliases: ['ra', 'rheumatoid', 'methotrexate', 'dmard'], order: 60,
@@ -156,6 +158,98 @@
       assess(spec, [['Musculoskeletal / Mobility', 'Joint Assessment', 'First MTP joints without erythema or warmth today; small tophus left olecranon; no acute flare'], ['Pain', 'Pain Location', 'None at rest (history of great toe flares)']]);
       comorb(spec, { key: 'gout', problem: 'Gout', details: 'Chronic gout on allopurinol with colchicine prophylaxis; uric acid elevated at baseline.', pmh: 'Gout (allopurinol, colchicine)',
         plan: () => ['Continue allopurinol; colchicine renally dosed (held if esrd).', 'If flare: low-dose colchicine or short prednisone, NOT NSAIDs when CKD/anticoagulated.', 'Hydrate; avoid diuretic-induced hyperuricemia.'] });
+    }
+  });
+})();
+
+/* ---------- Musculoskeletal / Rheumatologic, part 2 ---------- */
+(() => {
+  const HX = NS.HX, U = NS.util;
+  const { home, order, comorb, assess, addLabs, sticky, heldNote } = HX.helpers;
+  const { hasMed, homeOnce, orderOnce, stickyOnce, baseLab, pain, boost, nsaidSafe, noNsaids, periodic, acute, steroid, immuno, moveIVs, MSK } = HX._mo;
+  const scaleDose = (d, f) => String(d).replace(/(\d+(?:\.\d+)?)(\s*mg)/, (m, n, u) => `${Math.round(n * f * 100) / 100}${u}`);
+
+  HX.add('fibromyalgia', {
+    label: 'Fibromyalgia', group: MSK, aliases: ['fibro', 'chronic widespread pain'], order: 60,
+    desc: 'Duloxetine and pregabalin (renally dosed), chronic widespread pain, sleep disturbance, added sedation and fall considerations.',
+    apply(ctx, spec) {
+      homeOnce(spec, { key: 'duloxetine', name: 'duloxetine (CYMBALTA) capsule', dose: ['30 mg', '60 mg', '60 mg'][ctx.age % 3], route: 'Oral', freq: 'daily', cls: 'SNRI', info: 'Do not crush; do not stop abruptly (discontinuation syndrome). Serotonin syndrome risk with tramadol, linezolid, ondansetron. Monitor BP and bleeding risk with anticoagulants.', monitor: ['BP'], renal: { esrd: { avoid: true } }, indication: 'Fibromyalgia' });
+      homeOnce(spec, { key: 'pregabalin', name: 'pregabalin (LYRICA) capsule', dose: '75 mg', route: 'Oral', freq: 'BID', cls: 'Gabapentinoid', info: 'Sedation, dizziness, edema. Additive respiratory depression with opioids: monitor sedation and RR. Fall precautions.', monitor: ['RR'], holdIf: ['npo'], renal: { ckd3: { dose: '50 mg', freq: 'BID', note: 'Pregabalin reduced for reduced kidney function.' }, esrd: { dose: '25 mg', freq: 'daily', note: 'Pregabalin 25 mg daily, supplemental dose after dialysis.' } }, indication: 'Fibromyalgia' });
+      if (ctx.age < 65) homeOnce(spec, { key: 'cyclobenzaprine', name: 'cyclobenzaprine (FLEXERIL) tablet', dose: '5 mg', route: 'Oral', freq: 'qHS', cls: 'Muscle relaxant', info: 'Sedating and anticholinergic. Avoid in older adults; hold if drowsy.', hold: 'Hold if sedated or RR below 12.', holdIf: ['npo'], indication: 'Fibromyalgia (sleep / muscle pain)' });
+      boost(spec, 1); pain(spec, 2);
+      orderOnce(spec, { name: 'Sleep promotion and graded activity', category: 'Nursing', frequency: 'Continuous', instructions: 'Cluster care at night, keep room quiet and dark, warm packs for muscle pain, encourage short walks. Pain is real and widespread: assess and treat, do not dismiss.', startH: 3 });
+      assess(spec, [['Pain', 'Pain Location', 'Diffuse aching of shoulders, neck, back and hips (chronic, 4/10 baseline)'], ['Musculoskeletal / Mobility', 'Joint Assessment', 'Multiple tender points; no joint swelling or warmth'], ['Neurologic', 'Level of Consciousness', 'Alert; reports unrefreshing sleep']]);
+      comorb(spec, { key: 'fibromyalgia', problem: 'Fibromyalgia', details: 'Chronic widespread pain on duloxetine and pregabalin; baseline pain about 4/10.', pmh: 'Fibromyalgia (duloxetine, pregabalin)', plan: () => ['Continue duloxetine and pregabalin (renally dosed); do not stop abruptly.', 'Baseline pain 3-5/10 is expected; treat new or different pain as new.', 'Sedation and fall precautions with added opioids.'] });
+    }
+  });
+
+  HX.add('psoriatic_arthritis', {
+    label: 'Psoriatic Arthritis', group: MSK, aliases: ['psa', 'psoriatic', 'adalimumab', 'humira', 'biologic'], order: 60,
+    desc: 'Weekly methotrexate or q14-day adalimumab (dose-day safety), immunosuppression precautions, plaques and joint findings.',
+    apply(ctx, spec) {
+      if (ctx.age % 2 === 0) {
+        const mtx = [12.5, 15, 20][ctx.age % 3], p = periodic(ctx, spec, { key: 'methotrexate', name: 'methotrexate (TREXALL) tablet', dose: `${mtx} mg`, route: 'Oral', cls: 'DMARD / antimetabolite (immunosuppressant)',
+          info: 'WEEKLY drug: ONE dose on ONE day each week. Daily dosing has caused fatal toxicity. Verify the dose day and last dose with pharmacy and the patient. Check CBC, creatinine, ALT.', monitor: ['WBC', 'Plt', 'Cr', 'LFT'],
+          hold: 'HOLD and notify provider for fever or infection, WBC below 3.0, platelets below 100, rising creatinine, mouth sores. Never give daily.', renal: { ckd3: { avoid: true }, esrd: { avoid: true } }, indication: 'Psoriatic arthritis (home medication, ONCE WEEKLY)' }, [1, 2, 4, 5][ctx.age % 4], 'ONCE WEEKLY');
+        heldNote(spec, `Methotrexate ${mtx} mg is taken ONCE WEEKLY (${p.day}); next dose ${p.when}. Hold during acute infection, AKI or cytopenias until reviewed.`);
+        homeOnce(spec, { key: 'folic_acid', name: 'folic acid tablet', dose: '1 mg', route: 'Oral', freq: 'daily', cls: 'Vitamin B9', holdIf: ['npo'], indication: 'Psoriatic arthritis (methotrexate support)' });
+      } else {
+        const p = periodic(ctx, spec, { key: 'adalimumab', name: 'adalimumab (HUMIRA) pen injection', dose: '40 mg', route: 'Subcutaneous', cls: 'TNF inhibitor (biologic)',
+          info: 'Every 14 days. Refrigerate; let reach room temperature. Rotate sites (abdomen/thigh). TB and hepatitis B screened before start. Do not give during active infection.', monitor: ['WBC', 'Temp'], hold: 'HOLD and notify provider for fever, active infection, sepsis or planned surgery within 1-2 weeks.', indication: 'Psoriatic arthritis (home biologic, EVERY 14 DAYS)' }, 3, 'EVERY 14 DAYS');
+        heldNote(spec, `Adalimumab 40 mg SC is given EVERY 14 DAYS (last doses on ${p.day}s); next due ${p.when}. Hold during active infection.`);
+      }
+      immuno(spec, 'Immunosuppressed (DMARD / biologic)');
+      baseLab(spec, 'ESR', 30, 'max'); baseLab(spec, 'CRP', 12, 'max');
+      pain(spec, 1);
+      if (!nsaidSafe(ctx, spec)) HX._mo.noNsaids(ctx, spec, 'CKD, anticoagulant or cardiac/renal/bleeding condition');
+      assess(spec, [['Musculoskeletal / Mobility', 'Joint Assessment', 'Asymmetric swelling of right 2nd DIP and left knee, dactylitis of one toe, no hot effusion'], ['Skin', 'Skin', 'Silvery scaling plaques on elbows and scalp; nail pitting; no pustules'], ['Pain', 'Pain Location', 'Hands and left knee, morning stiffness']]);
+      comorb(spec, { key: 'psa', problem: 'Psoriatic arthritis', details: 'Psoriatic arthritis with skin plaques on a DMARD or biologic (weekly / every-14-day dosing).', pmh: 'Psoriatic arthritis', plan: () => [acute(spec) ? 'Immunosuppressant (weekly methotrexate / q14-day adalimumab) held during acute illness; resume per provider.' : 'Weekly / q14-day drug is not due today; verify dose day before giving.', 'Immunosuppression precautions; monitor CBC and creatinine.'] });
+    }
+  });
+
+  HX.add('ankylosing_spondylitis', {
+    label: 'Ankylosing Spondylitis', group: MSK, aliases: ['spondylitis', 'axial spondyloarthritis', 'as'], order: 70,
+    desc: 'Axial inflammatory back pain/stiffness; NSAID (omitted when CKD, anticoagulants, GI bleed or cardiac disease), q14-day or weekly biologic option; spinal and fall precautions.',
+    apply(ctx, spec) {
+      if (nsaidSafe(ctx, spec)) homeOnce(spec, { key: 'naproxen', name: 'naproxen (NAPROSYN) tablet', dose: '500 mg', route: 'Oral', freq: 'BID', cls: 'NSAID', info: 'Give with food. Monitor for GI bleeding, creatinine, BP and edema.', monitor: ['Cr', 'Hgb'], avoid: ['NSAID', 'ibuprofen'], holdIf: ['npo'], indication: 'Ankylosing spondylitis (home NSAID)' });
+      else { noNsaids(ctx, spec, 'CKD, anticoagulant, GI bleed or cardiac/renal risk'); heldNote(spec, 'Home NSAID (naproxen) not continued: CKD, anticoagulant, bleeding or cardiac risk.'); }
+      if (ctx.age % 2) { const p = periodic(ctx, spec, { key: 'etanercept', name: 'etanercept (ENBREL) injection', dose: '50 mg', route: 'Subcutaneous', cls: 'TNF inhibitor (biologic)', info: 'ONCE WEEKLY. Rotate sites. Do not give during active infection. TB and hepatitis B screened before start.', hold: 'HOLD and notify provider for fever, active infection or planned surgery.', monitor: ['WBC', 'Temp'], indication: 'Ankylosing spondylitis (home biologic, ONCE WEEKLY)' }, 4, 'ONCE WEEKLY'); heldNote(spec, `Etanercept 50 mg SC is ONCE WEEKLY (${p.day}); next dose ${p.when}. Hold during active infection.`); immuno(spec, 'Immunosuppressed (TNF inhibitor)'); }
+      baseLab(spec, 'CRP', 16, 'max'); baseLab(spec, 'ESR', 34, 'max'); baseLab(spec, 'Hemoglobin', ctx.female ? 11.8 : 12.8, 'min');
+      boost(spec, 1); pain(spec, 1);
+      orderOnce(spec, { name: 'Spinal alignment and log-roll precautions', category: 'Activity', frequency: 'Continuous', instructions: 'Rigid, fused spine: maintain neutral alignment, use extra pillows to support natural kyphosis, log-roll, avoid forced neck flexion/extension. Minor trauma can cause spinal fracture: report new back/neck pain. Encourage deep breathing (reduced chest expansion).', startH: 3 });
+      assess(spec, [['Musculoskeletal / Mobility', 'Mobility', 'Independent with stooped posture and limited spinal flexion; ambulates slowly'], ['Pain', 'Pain Location', 'Lower back and buttocks, morning stiffness over 1 hour, improves with movement'], ['Respiratory', 'Respiratory Effort', 'Reduced chest expansion, unlabored']]);
+      comorb(spec, { key: 'ankylosing_spondylitis', problem: 'Ankylosing spondylitis', details: 'Axial spondyloarthritis with chronic inflammatory back pain and reduced spinal mobility.', pmh: 'Ankylosing spondylitis', plan: () => [nsaidSafe(ctx, spec) ? 'NSAID continued with food; stop and call for GI bleeding or rising creatinine.' : 'NO NSAIDs this admission; acetaminophen, heat and gentle mobilization.', 'Neutral spinal alignment; log-roll; fall precautions.'] });
+    }
+  });
+
+  HX.add('chronic_pain_opioid', {
+    label: 'Chronic Low Back Pain on Long-Term Opioids', group: MSK, aliases: ['opioid tolerance', 'chronic opioid therapy', 'oxycodone', 'chronic pain', 'back pain opioid', 'long-term opioid'], order: 75,
+    desc: 'Home long-acting opioid continued (never skipped), opioid tolerance so PRN needs are higher, bowel regimen, naloxone available, sedation/RR monitoring.',
+    apply(ctx, spec) {
+      const er = [10, 15, 20, 30, 40][ctx.age % 5];
+      homeOnce(spec, { key: 'oxycodone_er', name: 'oxycodone ER (OXYCONTIN) tablet', dose: `${er} mg`, route: 'Oral', freq: 'q12h', cls: 'Opioid analgesic (extended-release)', highAlert: true, sips: true,
+        info: 'HIGH-ALERT. Swallow whole: never crush, chew or cut (fatal overdose). Continue the home dose on time to prevent withdrawal; do not use for breakthrough pain. Assess sedation (POSS) and RR before giving.', monitor: ['Pain', 'RR', 'SPO2'],
+        hold: 'Hold and call provider for sedation (POSS 3-4) or RR below 10 - do not just skip; the provider will adjust.', avoid: ['codeine'], alt: { key: 'oxycodone_er', name: 'morphine ER (MS CONTIN) tablet', dose: `${er * 2} mg`, cls: 'Opioid analgesic (extended-release)' }, indication: 'Chronic low back pain (home long-acting opioid, continued)' });
+      if (!hasMed(spec, 'opioid_po')) spec.meds.push(Object.assign(NS.C.opioidPO(ctx, { start: 3 }), { home: true, by: 'hospitalist', dose: `${Math.round(er / 4)} mg`.replace(/^(\d)\s/, '5 '), prnFor: 'breakthrough pain (4-10)' }));
+      // opioid tolerance: PRN opioids that the diagnosis profile ordered are scaled up (about 2x)
+      spec.meds.forEach(m => {
+        if (!m.prn || !/opioid/i.test(m.cls || '') || m.__tol || m.key === 'oxycodone_er') return;
+        m.__tol = true; const f = /injection/.test(m.name) ? 1.5 : 2;
+        m.dose = scaleDose(m.dose, f); if (m.adminDose) m.adminDose = scaleDose(m.adminDose, f);
+        if (m.alt) m.alt = Object.assign({}, m.alt, { dose: scaleDose(m.alt.dose, f) });
+        m.info = (m.info || '') + ' Opioid-tolerant: higher PRN dose ordered; still assess sedation first.';
+      });
+      homeOnce(spec, { key: 'senna_docusate', name: 'senna-docusate (SENOKOT-S) tablet', dose: '2 tablets', route: 'Oral', freq: 'BID', cls: 'Stimulant laxative / stool softener', info: 'Opioid-induced constipation: hold for loose stools. Document last BM.', indication: 'Opioid-induced constipation prevention' });
+      homeOnce(spec, { key: 'polyethylene_glycol', name: 'polyethylene glycol (MIRALAX) powder', dose: '17 g in 8 oz fluid', route: 'Oral', freq: 'daily', cls: 'Osmotic laxative', info: 'Hold for loose stools. Needs adequate fluid.', holdIf: ['npo'], indication: 'Opioid-induced constipation' });
+      homeOnce(spec, { key: 'naloxone', name: 'naloxone (NARCAN) injection', dose: '0.04 mg (dilute 0.4 mg in 9 mL saline)', route: 'IV', freq: 'q2min', prn: true, prnInterval: 'Every 2 minutes', prnFor: 'RR below 8 or unarousable (opioid overdose)', cls: 'Opioid antagonist', highAlert: true, info: 'Titrate to respiratory effort, not full reversal (full reversal precipitates severe pain and withdrawal in opioid-tolerant patients). Call rapid response; effect shorter than opioid so monitor at least 2 hours.', monitor: ['RR', 'SPO2'], indication: 'Opioid reversal' });
+      pain(spec, 1);
+      orderOnce(spec, { name: 'Sedation (POSS) and respiratory rate monitoring', category: 'Nursing', frequency: 'Every 4 hours and 30-60 minutes after PRN opioid', instructions: 'Opioid-tolerant, but still assess POSS and RR before every opioid dose. Continuous pulse oximetry when combined with gabapentinoids, benzodiazepines or sleep apnea. Hold and notify for POSS 3-4 or RR below 10.', startH: 3, nursing: ['Never hold the long-acting home opioid without calling the provider (withdrawal and uncontrolled pain).'] });
+      orderOnce(spec, { name: 'Bowel regimen and last BM assessment', category: 'Nursing', frequency: 'Every shift', instructions: 'Document last BM; notify provider if no BM in 48 hours or abdominal distension.', startH: 3 });
+      orderOnce(spec, { name: 'Opioid withdrawal watch / multimodal pain plan', category: 'Nursing', frequency: 'Every shift', instructions: 'Watch for yawning, sweating, restlessness, piloerection, diarrhea (withdrawal). Use acetaminophen, heat, lidocaine patch and positioning with opioids. No mixed agonist-antagonists (nalbuphine, butorphanol): they precipitate withdrawal.', startH: 3 });
+      stickyOnce(spec, 'Opioid-tolerant patient', `Home oxycodone ER ${er} mg every 12 hours is continued. Expect PRN opioid doses to be higher than for an opioid-naive patient; undertreated pain is a safety and satisfaction issue, but sedation/RR assessment before every dose still applies. Naloxone available.`);
+      assess(spec, [['Pain', 'Pain Location', 'Chronic low back pain radiating to the left buttock (baseline 4-5/10 on home regimen)'], ['Musculoskeletal / Mobility', 'Mobility', 'Independent with stiff, guarded gait'], ['GI', 'Bowel Sounds', 'Active; last BM within 2 days on bowel regimen']]);
+      comorb(spec, { key: 'chronic_pain_opioid', problem: 'Chronic low back pain on long-term opioid therapy', details: `Home oxycodone ER ${er} mg every 12 hours with breakthrough opioid; opioid tolerant; bowel regimen at home.`, pmh: `Chronic low back pain on long-term opioid therapy (oxycodone ER ${er} mg q12h)`,
+        plan: () => ['Home long-acting opioid continued on schedule (never skip); PRN opioid doses higher due to tolerance.', 'Scheduled bowel regimen; naloxone available; POSS/RR before every opioid dose.', 'Multimodal analgesia (acetaminophen, lidocaine patch, heat); avoid mixed agonist-antagonists.'] });
     }
   });
 })();

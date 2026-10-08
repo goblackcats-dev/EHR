@@ -273,7 +273,7 @@
     desc: 'Adds a rate-control beta blocker, an SVT response order and PRN adenosine; baseline sinus rhythm with history of episodes.',
     apply(ctx, spec) {
       if (!betaBlockerOn(spec)) home(spec, { key: 'metoprolol', name: 'metoprolol tartrate (LOPRESSOR) tablet', dose: '25 mg', route: 'Oral', freq: 'BID', cls: 'Beta blocker', sips: true, info: 'Check BP and apical HR before giving. May give with a sip of water while NPO unless told otherwise.', monitor: ['BP', 'HR'], hold: 'Hold and notify provider if HR below 55 or SBP below 100.', holdIf: ['hypotension'], indication: 'Supraventricular tachycardia prevention' });
-      home(spec, { key: 'adenosine_prn', name: 'adenosine (ADENOCARD) injection', dose: '6 mg rapid IV push (12 mg if no response in 1-2 minutes)', route: 'IV', freq: 'once', prn: true, prnInterval: 'May repeat once at 12 mg', prnFor: 'sustained narrow-complex tachycardia (HR above 150) after vagal maneuvers', cls: 'Antiarrhythmic', highAlert: true, home: false,
+      home(spec, { key: 'adenosine_prn', name: 'adenosine (ADENOCARD) injection', dose: '6 mg rapid IV push (12 mg if no response in 1-2 minutes)', route: 'IV', freq: 'q5min', prn: true, prnInterval: 'May repeat once at 12 mg after 1-2 minutes', prnFor: 'sustained narrow-complex tachycardia (HR above 150) after vagal maneuvers', cls: 'Antiarrhythmic', highAlert: true, home: false,
         info: 'HIGH-ALERT. Provider at the bedside with defibrillator and 12-lead ECG running. Give through the most proximal IV (antecubital) as a rapid push followed by a 20 mL saline flush. Warn the patient of brief chest pressure and flushing. Avoid in asthma/severe bronchospasm.', monitor: ['HR', 'BP'], hold: 'Do not give for unstable or irregular wide-complex tachycardia, second/third-degree block or active bronchospasm.', indication: 'Acute SVT (inpatient PRN)' });
       orderOnce(spec, { name: 'SVT response: vagal maneuver, 12-lead ECG and call provider', category: 'Nursing', frequency: 'PRN', instructions: 'Sudden regular HR above 150: obtain vitals and 12-lead ECG, ask the patient to bear down (modified Valsalva) while supine, call provider. Unstable (hypotension, chest pain, altered mentation): rapid response, synchronized cardioversion per ACLS.', startH: 3 });
       orderOnce(spec, { name: 'Telemetry monitoring', category: 'Nursing', frequency: 'Continuous', instructions: 'Continuous cardiac monitoring while acutely ill. Document rhythm each shift.', startH: 3 });
@@ -300,6 +300,105 @@
       }
       comorb(spec, { key: 'pacemaker_hx', problem: tachy ? 'Sick sinus (tachy-brady) syndrome with pacemaker' : 'Sick sinus syndrome with pacemaker', details: tachy ? 'Tachy-brady syndrome with dual-chamber pacemaker (lower rate 60); paroxysmal atrial fibrillation on rate control and apixaban.' : 'Symptomatic sinus node dysfunction treated with a dual-chamber pacemaker (lower rate 60).', pmh: tachy ? 'Sick sinus syndrome with pacemaker; paroxysmal atrial fibrillation' : 'Sick sinus syndrome with permanent pacemaker',
         plan: (c, S, h) => ['Paced at lower rate 60; notify provider for pulse below 60, syncope or dizziness (possible loss of capture).', tachy ? (S.flag('surgeryWindow', h) ? 'Apixaban held for the procedure window; SQ heparin prophylaxis meanwhile.' : 'Continue rate control and apixaban.') : 'AV-nodal blockers are acceptable because of pacemaker backup.', 'Interrogation check before MRI or surgery with electrocautery.'] });
+    }
+  });
+
+  // ---------- Carotid stenosis ----------
+  HX.add('carotid_stenosis', {
+    label: 'Carotid Artery Stenosis', group: CV, aliases: ['carotid disease', 'carotid artery disease', 'carotid stenosis'], order: 50,
+    desc: 'Adds antiplatelet and high-intensity statin, a carotid bruit and neuro-check/BP-avoid-hypotension cautions.',
+    apply(ctx, spec) {
+      baseLab(spec, 'LDL cholesterol', 72, 'min');
+      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.', monitor: ['Hgb'], indication: 'Carotid artery stenosis' });
+      homeOnce(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '80 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'High-intensity statin. Report unexplained muscle pain or weakness.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Carotid artery stenosis' });
+      orderOnce(spec, { name: 'Neurologic checks and avoid hypotension (carotid stenosis)', category: 'Nursing', frequency: 'Every 4 hours', instructions: 'Hypotension can cause cerebral hypoperfusion distal to a tight carotid stenosis. Notify provider for SBP below 100, and immediately for new facial droop, arm weakness, speech change or monocular vision loss (stroke/TIA: note time last known well).', startH: 3 });
+      assess(spec, [['Neurologic', 'Neuro Check', 'Strength and sensation equal bilaterally, speech clear, no facial droop'], ['Cardiac', 'Peripheral Pulses', 'Right carotid bruit audible; radial and femoral pulses 2+']]);
+      comorb(spec, { key: 'carotid_stenosis', problem: 'Carotid artery stenosis', details: 'Right internal carotid stenosis 60-69% on duplex, asymptomatic; medical management and surveillance.', pmh: 'Carotid artery stenosis (right ICA 60-69%)',
+        plan: (c, S, h) => ['Continue antiplatelet and statin; avoid hypotension.', 'Report any focal neuro change as a possible TIA/stroke; do not massage the carotid sinus.'] });
+    }
+  });
+
+  // ---------- Abdominal aortic aneurysm ----------
+  HX.add('aaa', {
+    label: 'Abdominal Aortic Aneurysm (surveillance)', group: CV, aliases: ['aneurysm', 'aortic aneurysm', 'abdominal aortic aneurysm'], order: 50,
+    desc: 'Adds a 4.6 cm infrarenal AAA under surveillance: BP control (beta blocker), statin, rupture warning signs and avoidance of straining/hypertension.',
+    apply(ctx, spec) {
+      spec.vitalAdjust.push({ sbp: 4 });
+      if (!betaBlockerOn(spec)) home(spec, { key: 'metoprolol', name: 'metoprolol tartrate (LOPRESSOR) tablet', dose: ageDose(ctx, '25 mg', '50 mg'), route: 'Oral', freq: 'BID', cls: 'Beta blocker', sips: true, info: 'Reduces aortic wall stress. Check BP and apical HR before giving. May give with a sip of water while NPO unless told otherwise.', monitor: ['BP', 'HR'], hold: 'Hold and notify provider if HR below 55 or SBP below 100.', holdIf: ['hypotension'], indication: 'Abdominal aortic aneurysm: blood pressure and heart-rate control' });
+      homeOnce(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '40 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'Report unexplained muscle pain or weakness.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Abdominal aortic aneurysm / atherosclerosis' });
+      homeOnce(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Monitor for bleeding.', monitor: ['Hgb'], indication: 'Atherosclerotic disease' });
+      orderOnce(spec, { name: 'AAA precautions: report severe back/abdominal pain, pulsatile mass or hypotension', category: 'Nursing', frequency: 'Continuous', instructions: 'Known 4.6 cm AAA. Sudden severe abdominal, back or flank pain, syncope, a new pulsatile mass or SBP below 90 may be rupture: keep NPO, large-bore IV access, call rapid response and the surgeon immediately. Keep SBP below 140; avoid straining (stool softener, bowel regimen).', startH: 3 });
+      assess(spec, [['GI', 'Abdomen', 'Soft; mild pulsatile fullness above the umbilicus, non-tender']]);
+      comorb(spec, { key: 'aaa', problem: 'Abdominal aortic aneurysm (4.6 cm)', details: 'Infrarenal AAA 4.6 cm on ultrasound, asymptomatic; surveillance imaging every 6-12 months; repair threshold 5.5 cm.', pmh: 'Abdominal aortic aneurysm, 4.6 cm (surveillance)',
+        plan: () => ['Keep SBP below 140 and HR 60-80; continue beta blocker and statin.', 'Any sudden severe back/abdominal pain or hypotension: treat as possible rupture (rapid response, surgery).', 'Tell radiology/surgery about the AAA before abdominal imaging or procedures.'] });
+    }
+  });
+
+  // ---------- Resistant hypertension ----------
+  HX.add('resistant_htn', {
+    label: 'Resistant Hypertension', group: CV, aliases: ['uncontrolled hypertension', 'difficult hypertension', 'resistant hypertension', 'refractory hypertension'], order: 52,
+    desc: 'Raises baseline BP substantially and adds a four-drug regimen (ACE/ARB, amlodipine, chlorthalidone, spironolactone) with hold parameters.',
+    apply(ctx, spec) {
+      spec.vitalAdjust.push({ sbp: 22, dbp: 10 });
+      const esrd = ctx.renal === 'esrd';
+      if (!hasMed(spec, 'lisinopril') && !hasMed(spec, 'losartan') && !hasMed(spec, 'sacubitril_valsartan')) home(spec, { key: 'lisinopril', name: 'lisinopril (PRINIVIL,ZESTRIL) tablet', dose: '40 mg', route: 'Oral', freq: 'daily', cls: 'ACE inhibitor', info: 'Check BP before giving. Monitor potassium and creatinine. Watch for cough and angioedema.', monitor: ['BP', 'K', 'Cr'], hold: 'Hold and notify provider if SBP is below 100.', holdIf: ['npo', 'hypotension', 'permHTN'], holdReason: 'NPO, low blood pressure or permissive hypertension', renal: { esrd: { avoid: true } }, indication: 'Resistant hypertension' });
+      homeOnce(spec, { key: 'amlodipine', name: 'amlodipine (NORVASC) tablet', dose: '10 mg', route: 'Oral', freq: 'daily', cls: 'Calcium channel blocker', sips: true, info: 'Check BP before giving. Monitor for peripheral edema.', monitor: ['BP', 'HR'], hold: 'Hold and notify provider if SBP is below 100.', holdIf: ['hypotension', 'permHTN'], holdReason: 'low blood pressure or permissive hypertension', indication: 'Resistant hypertension' });
+      if (!esrd && ctx.renal === 'none') homeOnce(spec, { key: 'chlorthalidone', name: 'chlorthalidone (HYGROTON) tablet', dose: '25 mg', route: 'Oral', freq: 'daily', cls: 'Thiazide-type diuretic', info: 'Monitor sodium, potassium and glucose. Can cause hyponatremia and hypokalemia; hold if volume depleted.', monitor: ['BP', 'Na', 'K'], hold: 'Hold and notify provider for SBP below 100, sodium below 133 or potassium below 3.5.', holdIf: ['npo', 'hypotension'], holdReason: 'NPO / low BP / volume depletion', indication: 'Resistant hypertension' });
+      if (ctx.renal === 'none') homeOnce(spec, { key: 'spironolactone', name: 'spironolactone (ALDACTONE) tablet', dose: '25 mg', route: 'Oral', freq: 'daily', cls: 'Mineralocorticoid antagonist / potassium-sparing diuretic', info: 'Monitor potassium and creatinine. Avoid potassium supplements and salt substitutes.', monitor: ['K', 'Cr', 'BP'], hold: 'Hold and notify provider for potassium above 5.0.', holdIf: ['npo', 'hypotension'], holdReason: 'NPO / low BP / AKI risk', indication: 'Resistant hypertension (fourth agent)' });
+      order(spec, { name: 'Blood pressure check with correct cuff size and both arms on admission', category: 'Nursing', frequency: 'Every 4 hours', instructions: 'Resistant hypertension: use a correctly sized cuff, patient seated 5 minutes. Notify provider for SBP above 180 or DBP above 110, or headache, chest pain or visual change (hypertensive emergency).', startH: 3 });
+      assess(spec, [['Cardiac', 'Heart Sounds', 'S1 S2 regular, prominent S4, no murmur']]);
+      comorb(spec, { key: 'resistant_htn', problem: 'Resistant hypertension', details: 'BP above goal on 3-4 agents (home BP 150-160/90s); secondary causes (sleep apnea, aldosteronism) under evaluation.', pmh: 'Resistant hypertension (on 4 agents)',
+        plan: (c, S, h) => [S.flag('hypotension', h) ? 'All antihypertensives held for low BP; restart one at a time as SBP recovers.' : S.flag('permHTN', h) ? 'Permissive hypertension: antihypertensives held per the stroke/neurology plan.' : S.flag('npo', h) ? 'Oral antihypertensives (except with sips) held while NPO; PRN IV agent for SBP above 180.' : 'Continue four-drug regimen; BP goal below 130/80; watch for rebound hypertension if doses are missed.'] });
+    }
+  });
+
+  // ---------- Orthostatic hypotension ----------
+  HX.add('orthostatic_hypotension', {
+    label: 'Orthostatic Hypotension', group: CV, aliases: ['postural hypotension', 'orthostasis', 'dizziness on standing', 'syncope'], order: 50,
+    desc: 'Adds midodrine and fludrocortisone, orthostatic vital signs, compression, slow position changes and a higher fall risk.',
+    apply(ctx, spec) {
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 2;
+      spec.vitalAdjust.push({ sbp: -6, dbp: -2 });
+      home(spec, { key: 'midodrine', name: 'midodrine (PROAMATINE) tablet', dose: ageDose(ctx, '5 mg', '10 mg'), route: 'Oral', freq: 'TID', at: ['0800', '1200', '1600'], cls: 'Alpha-1 agonist (vasopressor)', info: 'Give during the day only, last dose at least 4 hours before bedtime (causes supine hypertension). Check supine BP first. May cause scalp tingling, goosebumps and urinary retention.', monitor: ['BP', 'HR'],
+        hold: 'Hold and notify provider for supine SBP above 160 or HR below 50.', holdIf: ['npo', 'permHTN'], holdReason: 'NPO / permissive hypertension', indication: 'Orthostatic hypotension' });
+      if (!ctx.has('hf') && !ctx.has('hfpef') && !ctx.has('icd_cm')) home(spec, { key: 'fludrocortisone', name: 'fludrocortisone (FLORINEF) tablet', dose: '0.1 mg', route: 'Oral', freq: 'daily', cls: 'Mineralocorticoid', info: 'Expands volume. Monitor potassium, edema and supine BP. Can cause hypokalemia and fluid retention.', monitor: ['BP', 'K'], hold: 'Hold and notify provider for potassium below 3.5 or supine SBP above 160.', holdIf: ['npo'], holdReason: 'NPO', indication: 'Orthostatic hypotension' });
+      // vasodilating/BP-lowering medications are poorly tolerated
+      spec.meds.filter(m => m.home && /Alpha blocker|Nitrate/i.test(m.cls || '')).forEach(m => { m.nursing = [...(m.nursing || []), 'Orthostatic hypotension: discuss with provider before giving; check lying and standing BP.']; });
+      orderOnce(spec, { name: 'Orthostatic vital signs', category: 'Nursing', frequency: 'Daily and before first ambulation', instructions: 'Lying 5 minutes, then standing at 1 and 3 minutes. Positive: SBP drop 20 or more, DBP drop 10 or more, or symptoms. Report positive result before ambulating.', startH: 3 });
+      orderOnce(spec, { name: 'Slow position changes, abdominal binder / compression stockings, head of bed 30 degrees', category: 'Nursing', frequency: 'Continuous', instructions: 'Dangle at the bedside 1-2 minutes before standing; assist with the first stand; encourage fluids as permitted; elevate head of bed 30 degrees (reduces supine hypertension).', startH: 3 });
+      assess(spec, [['Cardiac', 'Orthostatic BP', 'Lying 128/76, standing 98/62 with lightheadedness; recovers in 2 minutes'], ['Safety', 'Fall Precautions', 'High risk: orthostatic hypotension; assist with every transfer, bed alarm on']]);
+      comorb(spec, { key: 'orthostatic_hypotension', problem: 'Orthostatic hypotension', details: 'Neurogenic orthostatic hypotension with falls; on midodrine; baseline standing SBP in the 90s.', pmh: 'Orthostatic hypotension (on midodrine)',
+        plan: (c, S, h) => ['Continue midodrine daytime only; orthostatic vitals daily; assist with all standing.', S.flag('hypotension', h) ? 'Additional blood pressure support per provider; hold all antihypertensives.' : 'Maintain hydration; avoid sedatives and alpha blockers.'] });
+    }
+  });
+
+  // ---------- Familial hypercholesterolemia ----------
+  HX.add('fh_hld', {
+    label: 'Familial Hypercholesterolemia', group: CV, aliases: ['familial hypercholesterolemia', 'fh', 'high cholesterol', 'severe hypercholesterolemia'], order: 50,
+    desc: 'Adds a high-intensity statin, ezetimibe and an injectable PCSK9 inhibitor with a high LDL baseline.',
+    apply(ctx, spec) {
+      baseLab(spec, 'LDL cholesterol', 128, 'set'); baseLab(spec, 'Total cholesterol', 215, 'set');
+      home(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '80 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'High-intensity statin. Report unexplained muscle pain or weakness, dark urine.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Familial hypercholesterolemia' });
+      homeOnce(spec, { key: 'ezetimibe', name: 'ezetimibe (ZETIA) tablet', dose: '10 mg', route: 'Oral', freq: 'daily', cls: 'Cholesterol absorption inhibitor', info: 'Report muscle pain or yellowing of the skin.', holdIf: ['npo'], indication: 'Familial hypercholesterolemia' });
+      heldNote(spec, 'Home evolocumab (REPATHA) 140 mg SC every 14 days is not scheduled on the MAR; confirm the last dose date and give only if due, per provider.');
+      assess(spec, [['Skin', 'Skin', 'Warm, dry; bilateral Achilles tendon thickening (xanthomas), mild corneal arcus']]);
+      comorb(spec, { key: 'fh_hld', problem: 'Familial hypercholesterolemia', details: 'Heterozygous familial hypercholesterolemia (untreated LDL above 190 mg/dL); on high-intensity statin, ezetimibe and a PCSK9 inhibitor; strong family history of early CAD.', pmh: 'Familial hypercholesterolemia (heterozygous)',
+        plan: () => ['Continue lipid-lowering therapy when taking PO; PCSK9 injection only if due (every 14 days).', 'Report muscle pain or weakness; family screening is recommended.'] });
+    }
+  });
+
+  // ---------- Hypertriglyceridemia ----------
+  HX.add('hypertg', {
+    label: 'Hypertriglyceridemia', group: CV, aliases: ['high triglycerides', 'hypertriglyceridemia', 'triglycerides'], order: 50,
+    desc: 'Adds a high triglyceride baseline, fenofibrate and icosapent ethyl, low-fat diet, and pancreatitis risk.',
+    apply(ctx, spec) {
+      baseLab(spec, 'Triglycerides', 480, 'set');
+      homeOnce(spec, { key: 'atorvastatin', name: 'atorvastatin (LIPITOR) tablet', dose: '40 mg', route: 'Oral', freq: 'qHS', cls: 'Statin', info: 'Report unexplained muscle pain or weakness.', monitor: ['LFT'], holdIf: ['npo'], indication: 'Hyperlipidemia' });
+      home(spec, { key: 'fenofibrate', name: 'fenofibrate (TRICOR) tablet', dose: '145 mg', route: 'Oral', freq: 'daily', cls: 'Fibrate', info: 'Report muscle pain, abdominal pain or dark urine. Can raise creatinine; avoid in severe kidney disease. Increases the effect of warfarin.', monitor: ['LFT', 'Cr'], holdIf: ['npo'], renal: { ckd3: { dose: '48 mg', note: 'Reduced dose for reduced GFR.' }, esrd: { avoid: true } }, indication: 'Hypertriglyceridemia' });
+      home(spec, { key: 'icosapent_ethyl', name: 'icosapent ethyl (VASCEPA) capsule', dose: '2 g', route: 'Oral', freq: 'BID', cls: 'Omega-3 fatty acid', info: 'Give with food. May increase bleeding risk with anticoagulants; report palpitations (atrial fibrillation).', holdIf: ['npo'], indication: 'Hypertriglyceridemia' });
+      sticky(spec, 'Triglyceride level', 'Baseline triglycerides about 480 mg/dL. A level above 1,000 raises the risk of acute pancreatitis: report severe epigastric pain radiating to the back. Propofol and IV lipid emulsions raise triglycerides further.');
+      comorb(spec, { key: 'hypertg', problem: 'Hypertriglyceridemia', details: 'Triglycerides about 480 mg/dL on fibrate, omega-3 and statin; risk of pancreatitis if above 1,000.', pmh: 'Hypertriglyceridemia (about 480 mg/dL)',
+        plan: () => ['Continue lipid-lowering therapy when taking PO; low-fat, low-simple-sugar diet.', 'Avoid IV lipid emulsions and propofol when possible; check lipase for abdominal pain.'] });
     }
   });
 })();

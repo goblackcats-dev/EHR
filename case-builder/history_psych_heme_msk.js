@@ -266,3 +266,112 @@ NS.HX.phm = (() => {
     }
   });
 })();
+
+(() => {
+  const { home, order, comorb, assess, addLabs, sticky, heldNote } = NS.HX.helpers;
+  const P = NS.HX.phm;
+  const add = NS.HX.add;
+  const G = 'Hematology / Oncology';
+  P.addLab('Factor VIII activity', { cat: 'Coagulation', units: '%', ref: [50, 150], dec: 0, base: 100, crit: [1, null] });
+  const opioidOrdered = spec => spec.meds.some(m => /^opioid/i.test(m.cls || '') && !m.home);
+  const bleedPrec = (spec, txt) => order(spec, { name: 'Bleeding precautions', category: 'Precautions', frequency: 'Continuous', instructions: txt || 'Soft toothbrush, electric razor, no IM injections or rectal temperatures, firm pressure 5-10 minutes after venipuncture, avoid aspirin/NSAIDs; report bleeding, black stools, hematuria or new bruising.', startH: 3 });
+  const scd = spec => order(spec, { name: 'Sequential compression devices', category: 'Nursing', frequency: 'Continuous when in bed', instructions: 'Mechanical VTE prophylaxis in place of pharmacologic prophylaxis.', startH: 3 });
+
+  // ---------- Sickle cell disease ----------
+  add('sickle_cell', {
+    label: 'Sickle Cell Disease', group: G, aliases: ['sickle cell anemia', 'hbss', 'scd', 'sickle'], order: 20,
+    desc: 'Baseline Hgb about 8 with high reticulocytes, bilirubin and LDH; hydroxyurea and folic acid; hydration, warmth, incentive spirometry (acute chest prevention), opioid-tolerant pain plan, no meperidine.',
+    apply(ctx, spec) {
+      Object.assign(spec.labBase, { Hemoglobin: ctx.female ? 7.8 : 8.3, Hematocrit: ctx.female ? 23.5 : 25, WBC: 11.8, Platelets: 410, 'Reticulocyte count': 8.5, LDH: 360, 'Total bilirubin': 2.6, 'Direct bilirubin': 0.5, 'Hemoglobin S': 82 });
+      spec.vitalAdjust.push({ hr: 6, sbp: -6, dbp: -4 });
+      addLabs(spec, 0.5, ['Reticulocyte count', 'LDH', 'Total bilirubin']);
+      home(spec, { key: 'hydroxyurea', name: 'hydroxyurea (HYDREA) capsule', dose: ctx.age % 2 ? '1,000 mg' : '1,500 mg', route: 'Oral', freq: 'daily', cls: 'Antimetabolite (HbF inducer)', holdIf: ['npo'], info: 'Cytotoxic: wear gloves, do not open capsules. Raises fetal hemoglobin and reduces crises. Monitor CBC: hold for ANC below 2.0 K/uL, platelets below 80 or Hgb below 4.5 and call the provider.', monitor: ['WBC', 'Plt', 'Hgb'], hold: 'Hold and notify provider for ANC below 2.0 K/uL, platelets below 80 K/uL or acute illness with fever.', renal: { ckd3: { dose: '500 mg', note: 'Dose reduced 50% for CKD.' }, esrd: { dose: '500 mg', note: 'Dose reduced for ESRD; give after dialysis.' } }, indication: 'Sickle cell disease (crisis prevention)' });
+      home(spec, { key: 'folic_acid', name: 'folic acid tablet', dose: '1 mg', route: 'Oral', freq: 'daily', cls: 'Vitamin B9', holdIf: ['npo'], info: 'Supports increased red cell production.', indication: 'Sickle cell disease (chronic hemolysis)' });
+      if (!opioidOrdered(spec)) home(spec, { key: 'oxycodone', name: 'oxycodone (ROXICODONE) tablet', dose: '10 mg', route: 'Oral', freq: 'q6h', prn: true, prnInterval: 'Every 6 hours', prnFor: 'moderate to severe pain', cls: 'Opioid analgesic', info: 'Opioid-tolerant (chronic sickle cell pain). Assess sedation and RR. Patient-specific pain plan from hematology.', monitor: ['Pain', 'RR'], hold: 'Hold for sedation (RASS -2 or lower) or RR below 12.', indication: 'Sickle cell pain (home PRN)', highAlert: true, prnGiven: [] });
+      order(spec, { name: 'Sickle cell precautions: hydration, warmth and oxygenation', category: 'Nursing', frequency: 'Continuous', instructions: 'Maintain hydration (oral 2-3 L/day or IV at maintenance rate; avoid fluid overload), keep patient warm (no cold packs, warm blankets), keep SpO2 at or above 94%, avoid sedation-related hypoventilation, treat pain within 30-60 minutes of arrival. Do not give meperidine. Transfuse only with hematology approval (antigen-matched, sickle-negative blood; avoid Hgb above 10 / hyperviscosity).', startH: 3, nursing: ['New chest pain, cough, fever, SpO2 drop = possible acute chest syndrome; notify provider immediately.', 'Priapism, severe headache, weakness or speech change = emergency (stroke).'] });
+      order(spec, { name: 'Incentive spirometry (acute chest syndrome prevention)', category: 'Respiratory', frequency: '10 times every hour while awake', instructions: 'Teach deep breathing with sustained inspiration; record volume. Report fever, cough, chest pain or new oxygen need.', startH: 3 });
+      order(spec, { name: 'Individualized pain plan', category: 'Nursing', frequency: 'Continuous', instructions: 'Use the patient-specific plan from hematology. Reassess pain every 30-60 minutes after IV opioid until controlled, then every 4 hours. Pain is what the patient says it is; baseline chronic pain is usually 3-5/10.', startH: 3 });
+      sticky(spec, 'Sickle cell disease', 'Baseline Hgb about 8 with jaundice and reticulocytosis. Hydrate, keep warm, incentive spirometry, individualized pain plan. Fever of 101 F or higher needs urgent evaluation (functional asplenia).');
+      assess(spec, [['Skin', 'Skin', 'Mild scleral icterus; pale conjunctivae; warm, dry'], ['Pain', 'Pain Location', 'Chronic low-grade bilateral hip and low back pain at baseline'], ['Cardiac', 'Heart Sounds', 'S1 S2 with soft systolic flow murmur']]);
+      comorb(spec, { key: 'sickle_cell', problem: 'Sickle cell disease', details: 'HbSS with chronic hemolytic anemia (baseline Hgb about 8) on hydroxyurea; functional asplenia.', pmh: 'Sickle cell disease (HbSS), on hydroxyurea', plan: () => ['Baseline Hgb 7.5-8.5; transfuse only for symptomatic drop or hematology-directed indication.', 'Hydroxyurea held for NPO/fever with low counts per provider; folate daily.', 'Hydration, warmth, incentive spirometry; opioid-tolerant pain plan; fever 101 F or higher: blood cultures and antibiotics promptly.'] });
+    }
+  });
+
+  // ---------- Hemophilia / inherited bleeding disorder ----------
+  add('hemophilia', {
+    label: 'Hemophilia / Bleeding Disorder', group: G, aliases: ['hemophilia a', 'factor viii deficiency', 'von willebrand', 'bleeding disorder'], order: 20,
+    desc: 'Moderate hemophilia A: prolonged aPTT, low factor VIII, bleeding precautions, no IM injections/NSAIDs/pharmacologic VTE prophylaxis, hematology consult and factor replacement plan before procedures.',
+    apply(ctx, spec) {
+      spec.labBase.aPTT = 62; spec.labBase['Factor VIII activity'] = 3; spec.labBase.INR = 1.0; spec.labBase.Platelets = 235;
+      spec.noPpx = true;
+      addLabs(spec, 0.5, ['aPTT', 'INR', 'Factor VIII activity']);
+      home(spec, { key: 'factor_viii', name: 'antihemophilic factor, recombinant (ADVATE) IV', dose: '40 units/kg', route: 'IV', freq: 'q24h', prn: true, prnInterval: 'Per hematology', prnFor: 'bleeding, joint pain/swelling, or before procedures (provider order)', cls: 'Clotting factor replacement', home: false, highAlert: true, info: 'Give only per hematology dose and target level (for example 80-100% before surgery). Infuse slowly over 5-10 minutes by IV push; do not mix with other drugs. Patient may self-infuse at home.', monitor: ['Hgb'], hold: 'Call the provider immediately for bleeding, a swollen painful joint, head injury or severe headache.', indication: 'Hemophilia A: bleeding/procedure coverage', prnGiven: [] });
+      bleedPrec(spec, 'No IM injections, no rectal temperatures, firm pressure 10 minutes after venipuncture, avoid aspirin/NSAIDs, smallest-gauge needles, soft toothbrush. Report joint pain/swelling (hemarthrosis), headache, black stools or hematuria at once.');
+      scd(spec);
+      order(spec, { name: 'Hematology consult: factor replacement plan', category: 'Consult / Therapy', frequency: 'Once', instructions: 'Factor VIII level and replacement before any surgery, line placement or invasive procedure. Pharmacologic VTE prophylaxis and heparin products are not ordered unless hematology approves.', startH: 3 });
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      assess(spec, [['Musculoskeletal / Mobility', 'Joint Exam', 'Chronic mild left knee enlargement and reduced extension (old hemarthrosis); no acute swelling or warmth'], ['Safety', 'Bleeding Assessment', 'No active bleeding; old ecchymoses on shins']]);
+      comorb(spec, { key: 'hemophilia', problem: 'Hemophilia A (moderate)', details: 'Factor VIII about 3%; chronic left knee arthropathy; prolonged aPTT baseline.', pmh: 'Hemophilia A (moderate)', plan: () => ['No pharmacologic VTE prophylaxis, IM injections or NSAIDs; SCDs.', 'Hematology guides factor VIII dosing before procedures; monitor Hgb and joints; acetaminophen for pain.'] });
+    }
+  });
+
+  // ---------- Immune thrombocytopenia ----------
+  add('itp', {
+    label: 'Immune Thrombocytopenia (ITP)', group: G, aliases: ['itp', 'low platelets', 'thrombocytopenia'], order: 20,
+    desc: 'Chronic ITP: baseline platelets about 55-60 with petechiae risk, eltrombopag, bleeding precautions, no NSAIDs/aspirin and SCDs instead of pharmacologic VTE prophylaxis.',
+    apply(ctx, spec) {
+      spec.labBase.Platelets = ctx.female ? 62 : 55;
+      spec.noPpx = true;
+      home(spec, { key: 'eltrombopag', name: 'eltrombopag (PROMACTA) tablet', dose: '50 mg', route: 'Oral', freq: 'daily', at: ['0900'], cls: 'Thrombopoietin receptor agonist', holdIf: ['npo'], info: 'Give on an EMPTY stomach (1 hour before or 2 hours after meals) and 4 hours apart from calcium, antacids, iron or dairy. Monitor platelets and liver tests; hepatotoxicity and thrombosis risk.', monitor: ['Plt', 'LFT'], hold: 'Hold and notify provider for platelets above 200 K/uL, ALT elevation or jaundice.', indication: 'Chronic ITP' });
+      bleedPrec(spec);
+      scd(spec);
+      order(spec, { name: 'Platelet count threshold notification', category: 'Nursing', frequency: 'Daily with CBC', instructions: 'Notify provider for platelets below 30 K/uL, any active bleeding, headache with neuro change, or before procedures. Platelet transfusion only for bleeding or counts below 10 K/uL per hematology (ITP platelets are cleared quickly). No pharmacologic VTE prophylaxis unless hematology approves.', startH: 3 });
+      assess(spec, [['Skin', 'Skin', 'Scattered petechiae on lower legs and a few forearm ecchymoses; no active bleeding'], ['Safety', 'Bleeding Assessment', 'No epistaxis, gum bleeding, hematuria or melena']]);
+      comorb(spec, { key: 'itp', problem: 'Immune thrombocytopenia', details: 'Chronic ITP, baseline platelets 50-60 K/uL on eltrombopag.', pmh: 'Chronic immune thrombocytopenia (ITP)', plan: () => ['Platelets baseline about 55; trend daily; bleeding precautions and SCDs.', 'Avoid aspirin/NSAIDs/IM injections; hematology consult if platelets fall below 30 or bleeding.'] });
+    }
+  });
+
+  // ---------- Polycythemia vera ----------
+  add('polycythemia_vera', {
+    label: 'Polycythemia Vera', group: G, aliases: ['pv', 'myeloproliferative', 'jak2', 'polycythemia'], order: 20,
+    desc: 'High Hgb/Hct, WBC and platelets; hydroxyurea and aspirin; thrombosis risk (hydration, early ambulation), phlebotomy goal Hct below 45%, pruritus.',
+    apply(ctx, spec) {
+      Object.assign(spec.labBase, { Hemoglobin: ctx.female ? 16.4 : 17.6, Hematocrit: ctx.female ? 49 : 53, WBC: 12.8, Platelets: 520, 'Uric acid': 7.8 });
+      spec.vitalAdjust.push({ sbp: 6, dbp: 3 });
+      home(spec, { key: 'hydroxyurea', name: 'hydroxyurea (HYDREA) capsule', dose: '500 mg', route: 'Oral', freq: 'BID', cls: 'Antimetabolite', holdIf: ['npo'], info: 'Cytotoxic: wear gloves, do not open capsules. Monitor CBC; hold for ANC below 1.5 or platelets below 100 and call the provider.', monitor: ['WBC', 'Plt', 'Hgb'], hold: 'Hold and notify provider for ANC below 1.5 K/uL, platelets below 100 K/uL or fever.', renal: { ckd3: { dose: '250 mg', note: 'Dose reduced for CKD.' }, esrd: { dose: '250 mg', note: 'Dose reduced for ESRD.' } }, indication: 'Polycythemia vera (cytoreduction)' });
+      home(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'Reduces thrombosis risk in polycythemia vera. Monitor for bleeding.', monitor: ['Hgb', 'Plt'], indication: 'Polycythemia vera (thrombosis prevention)' });
+      order(spec, { name: 'Hydration and thrombosis prevention', category: 'Nursing', frequency: 'Continuous', instructions: 'Maintain hydration (dehydration raises blood viscosity), early ambulation, SCDs while in bed; report headache, vision change, chest pain, calf swelling or abdominal pain (splenic/mesenteric thrombosis). Therapeutic phlebotomy per hematology if Hct above 45-48%; avoid iron supplements.', startH: 3, nursing: ['Hematocrit above 55% or new neurologic symptoms: notify provider urgently.', 'Pruritus after warm water is common; use lukewarm showers.'] });
+      scd(spec);
+      assess(spec, [['Skin', 'Skin', 'Ruddy face and plethoric appearance; warm; excoriations from itching'], ['GI', 'Abdomen', 'Soft; mild left upper quadrant fullness (splenomegaly)']]);
+      comorb(spec, { key: 'polycythemia_vera', problem: 'Polycythemia vera', details: 'JAK2-positive polycythemia vera on hydroxyurea and aspirin; Hct goal below 45%.', pmh: 'Polycythemia vera (JAK2 positive)', plan: () => ['Keep well hydrated; Hct and platelets daily; continue hydroxyurea/aspirin unless counts drop or active bleeding.', 'High clot risk: SCDs and early ambulation; hematology for phlebotomy.'] });
+    }
+  });
+
+  // ---------- MGUS ----------
+  add('mgus', {
+    label: 'MGUS (monoclonal gammopathy)', group: G, aliases: ['monoclonal gammopathy', 'm spike', 'paraprotein'], order: 50,
+    desc: 'Premalignant plasma cell condition: high total protein, normal calcium/creatinine, no medications; annual monitoring and avoidance of dehydration/nephrotoxins.',
+    apply(ctx, spec) {
+      Object.assign(spec.labBase, { 'Total protein': 8.4, Hemoglobin: ctx.female ? 12.0 : 13.2 });
+      comorb(spec, { key: 'mgus', problem: 'Monoclonal gammopathy of undetermined significance', details: 'Small IgG kappa M-spike (0.8 g/dL); stable, no end-organ damage; annual surveillance.', pmh: 'MGUS (monitored)', plan: () => ['No treatment; calcium, creatinine and Hgb are baseline normal.', 'Report new bone pain, anemia or rising creatinine to the provider.'] });
+    }
+  });
+
+  // ---------- Multiple myeloma ----------
+  add('multiple_myeloma', {
+    label: 'Multiple Myeloma (on treatment)', group: G, aliases: ['myeloma', 'plasma cell', 'revlimid', 'lenalidomide'], order: 20,
+    desc: 'Anemia, high total protein, mild renal impairment and hypercalcemia tendency; lenalidomide with aspirin, acyclovir; bone-pain and fracture precautions, infection and AKI risk (no NSAIDs, hydrate).',
+    apply(ctx, spec) {
+      Object.assign(spec.labBase, { Hemoglobin: ctx.female ? 9.6 : 10.2, 'Total protein': 9.2, Albumin: 3.2, Creatinine: ctx.female ? 1.3 : 1.5, Calcium: 10.4, WBC: 4.4, Platelets: 160, 'Absolute neutrophil count': 2.4 });
+      spec.fallRiskBoost = (spec.fallRiskBoost || 0) + 1;
+      home(spec, { key: 'lenalidomide', name: 'lenalidomide (REVLIMID) capsule', dose: ctx.renal === 'none' ? '25 mg' : '10 mg', route: 'Oral', freq: 'daily', cls: 'Immunomodulatory antineoplastic', holdIf: ['npo'], highAlert: true, info: 'REMS drug: cytotoxic and teratogenic (gloves; pregnant staff avoid handling; use patient supply per pharmacy). Days 1-21 of 28-day cycle. Renally dosed. Causes neutropenia, thrombocytopenia and VTE.', monitor: ['WBC', 'Plt', 'Cr'], hold: 'Hold and notify provider for ANC below 1.0 K/uL, platelets below 50 K/uL, fever or new leg swelling.', renal: { ckd3: { dose: '10 mg', note: 'Renally dosed.' }, esrd: { dose: '5 mg', note: 'Dosed after dialysis on dialysis days.' } }, indication: 'Multiple myeloma' });
+      home(spec, { key: 'acyclovir', name: 'acyclovir (ZOVIRAX) tablet', dose: '400 mg', route: 'Oral', freq: 'BID', cls: 'Antiviral prophylaxis', holdIf: ['npo'], info: 'Shingles prophylaxis while on myeloma therapy. Keep hydrated.', monitor: ['Cr'], renal: { ckd3: { dose: '400 mg', note: 'Continue; monitor renal function.' }, esrd: { dose: '200 mg', note: 'Dose reduced for ESRD.' } }, indication: 'Herpes zoster prophylaxis' });
+      home(spec, { key: 'aspirin', name: 'aspirin chewable tablet', dose: '81 mg', route: 'Oral', freq: 'daily', cls: 'Antiplatelet', info: 'VTE prophylaxis with lenalidomide. Hold if platelets below 50.', monitor: ['Plt'], hold: 'Hold if platelets below 50 K/uL or bleeding.', indication: 'Myeloma therapy thromboprophylaxis' });
+      order(spec, { name: 'Myeloma precautions: hydration, fracture and infection', category: 'Precautions', frequency: 'Continuous', instructions: 'Maintain hydration (2-3 L/day unless restricted); NO NSAIDs or IV contrast without provider review; move patient gently and avoid twisting/pulling (lytic bone lesions, pathologic fracture); report new back pain or leg weakness (cord compression), confusion, constipation, polyuria or thirst (hypercalcemia). Hypogammaglobulinemia: monitor closely for infection.', startH: 3 });
+      order(spec, { name: 'Neutropenic fever instructions', category: 'Nursing', frequency: 'Continuous', instructions: 'Temperature 100.4 F (38.0 C) or higher with ANC below 1.0 K/uL is an emergency: blood cultures x2 and broad-spectrum IV antibiotics within 60 minutes; notify provider.', startH: 3 });
+      addLabs(spec, 0.5, ['Absolute neutrophil count', 'Total protein', 'Albumin']);
+      assess(spec, [['Pain', 'Pain Location', 'Chronic mid-back and rib pain, 3/10, worse with movement'], ['Skin', 'Skin', 'Pale, dry; no rash']]);
+      comorb(spec, { key: 'multiple_myeloma', problem: 'Multiple myeloma', details: 'IgG myeloma with anemia and mild renal impairment on lenalidomide-based therapy; weekly dexamethasone per oncology.', pmh: 'Multiple myeloma on lenalidomide', plan: () => ['Continue lenalidomide only if ANC and platelets acceptable; weekly dexamethasone per oncology (check glucose).', 'Hydration, no NSAIDs, fracture and infection precautions; trend Cr and calcium.'] });
+    }
+  });
+})();
