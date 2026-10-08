@@ -225,7 +225,7 @@ NS.rules = (() => {
     if ((ctx.input.hx || []).includes('afib') && (ctx.input.hx || []).includes('flutter')) add('info', 'Atrial fibrillation and atrial flutter are both selected; the chart treats them together.');
     if (ctx.L > (spec.typicalLOS ? spec.typicalLOS[1] : 99)) add('info', `Hospital day ${ctx.L} is longer than typical (${spec.typicalLOS[0]}-${spec.typicalLOS[1]} days). The case is written as a prolonged stay with a complication or discharge barrier.`);
     if (ctx.L < 1) add('error', 'Hospital day must be at least 1.');
-    if (ctx.renal !== 'none' && S.prepared.some(m => /morphine|ketorolac|ibuprofen|enoxaparin/i.test(m.name) && m.startH <= ctx.nowH && (m.stopH === undefined || m.stopH > ctx.nowH))) add('warning', 'A renally-avoided drug (morphine, NSAID, enoxaparin) is active in a kidney-disease patient.');
+    if (ctx.renal !== 'none' && S.prepared.some(m => /morphine|ketorolac|ibuprofen|enoxaparin/i.test(m.name) && !(/enoxaparin/i.test(m.name) && /^(30|20) ?mg/.test(String(m.dose))) && m.startH <= ctx.nowH && (m.stopH === undefined || m.stopH > ctx.nowH))) add('warning', 'A renally-avoided drug (morphine, NSAID, enoxaparin) is active in a kidney-disease patient.');
     // PO medications while NPO
     const npoNow = S.flag('npo');
     const poWhileNpo = S.activeMeds().filter(m => (npoNow || S.flag('npoStrict')) && m.route === 'Oral' && !m.prn && !m.sips && m.freq !== 'once' && !/metoprolol|carvedilol/i.test(m.name));
@@ -245,7 +245,8 @@ NS.rules = (() => {
     });
     if (unresolved) add('info', `${unresolved} medication monitoring link(s) were dropped because that lab is not part of this case.`);
     // duplicate medication keys
-    const names = canonical.orders.filter(o => o.category === 'Medication' && o.status === 'Active').map(o => o.medication.medKey);
+    const simStart = canonical.timeline.simulationStart;
+    const names = canonical.orders.filter(o => o.category === 'Medication' && o.status === 'Active' && (!o.start || o.start <= simStart)).map(o => o.medication.medKey);
     const dupes = names.filter((k, i) => names.indexOf(k) !== i);
     if (dupes.length) add('warning', `Possible duplicate active medication(s): ${U.uniq(dupes).join(', ')}.`);
     if (!w.length) add('pass', 'No safety or consistency issues found.');
