@@ -483,5 +483,13 @@ This means student documentation immediately becomes part of the same patient re
 - **Expiration dates.** The default is the end of the month, one year out. Enter an earlier date to build an expired-drug trap; the EHR refuses to accept an expired package and tells the student to return it to pharmacy.
 - **Med-pass debrief report** (EHR: Med-pass setup). Lists every dose documented with whether the patient and medication were scanned or overridden and why, plus every wrong patient, wrong drug, expired package and override that occurred. Clear it to run the next student.
 
+## New in v22: a much larger patient library
+
+- **27 primary diagnoses** (was 8), grouped by category in the picker. New: DKA, HHS, adrenal (Addisonian) crisis, myxedema coma, thyroid storm, NSTEMI, STEMI, AFib with RVR, pulmonary embolism, asthma exacerbation, hip fracture, upper GI bleed, pancreatitis, diverticulitis, acute kidney injury with hyperkalemia, cellulitis, alcohol withdrawal, new-onset seizure, and hyponatremia. Each has a day-by-day course, labs, medications with hold parameters, orders, devices, consults and learning objectives.
+- **Medical history is now a grouped, searchable menu with check boxes** (158 conditions, grouped by body system: Cardiovascular, Respiratory, Endocrine / Metabolic, Renal / Genitourinary, GI / Hepatic, Neurologic, Psychiatric / Substance Use, Hematology / Oncology, Musculoskeletal / Rheumatologic, Infectious Disease, Skin / Wounds, Eye / Ear / Other). Type in the box to search; if what you typed is not in the list, press Enter (or **Add**) to add it as a custom history entry (listed in the history and problem list; no treatment effects are modeled). Each condition builds its own medications, labs, vitals, orders and nursing findings.
+- **Kidney disease stages 1, 2, 3, 4, 5 and ESRD** replace one another (only the most advanced is used) and each sets realistic creatinine/eGFR, diet and renal dosing. Also new: atrial flutter, HFpEF, type 1 diabetes, cirrhosis, Parkinson's, epilepsy, sickle cell disease, lupus, HIV and many more.
+- **Surgical history has a year for every item**, including surgeries you type in. 74 surgeries, grouped by body system, many with real effects (a mechanical valve adds warfarin, a transplant adds immunosuppressants, a mastectomy protects that arm, a bariatric bypass removes NSAIDs).
+- Smarter safety checks: patients on full-dose anticoagulants no longer also get preventive blood thinners, and split-dose steroids are no longer flagged as duplicates.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
