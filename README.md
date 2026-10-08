@@ -562,5 +562,10 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Read aloud** plays it with the iPad voice; **Print** makes a paper copy. Instructors see **Edit text** to rewrite it in your own words (saved with the patient and carried into the student file) and **Back to generated report**.
 - It is rule-based, so it states chart facts and standard if-then plans; it does not invent overnight stories. Add those by editing the text.
 
+## New in v32: Storyboard and Epic Chart Review tabs
+
+- **Storyboard** card at the bottom of the left menu on every screen: name, age, date of birth, code status, isolation, fall risk, allergies (red), MRN, room, hospital day, weight, height, attending, diet, and active lines. It updates with the clock. Tap its title to collapse it (remembered on the device). Hidden on phones.
+- **Chart Review tabs now follow Epic:** Encounters (admission details, hospital problem list, care team), Notes, H&P, Labs (jumps to Lab Results), Imaging, Cardiology, Procedures (surgery and procedure orders plus lines placed), and Meds (jumps to the MAR). The left-menu Chart Review list has Encounters and Procedures too.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

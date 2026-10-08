@@ -2081,3 +2081,14 @@ body.student #mpSetupBtn, body.student #mpToggleBtn, body.student #libraryDialog
 
 /* ---- v31 report from the off-going nurse ---- */
 .og-p { font-size: 15px; line-height: 1.5; margin: 4px 0 10px; } .og-text { font-size: 15px; line-height: 1.5; }
+
+/* ---- v32 storyboard ---- */
+.storyboard { margin: 14px 8px 10px; border: 1px solid #c9d6e6; border-radius: 10px; background: #fff; padding: 8px 10px 10px; font-size: 12.5px; }
+.sb-head { width: 100%; display: flex; justify-content: space-between; align-items: center; border: 0; background: transparent; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #5a6b80; padding: 4px 0 6px; cursor: pointer; min-height: 32px; }
+.sb-name { font-size: 15px; font-weight: 800; color: #1c2b3d; line-height: 1.2; } .sb-sub { color: #55657a; margin-bottom: 6px; }
+.sb-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+.sb-chip { border-radius: 10px; padding: 2px 8px; font-size: 11px; font-weight: 700; background: #eef3fa; color: #34495f; } .sb-chip.ok { background: #e3f4e8; color: #1e6b36; } .sb-chip.warn { background: #fdeaea; color: #b3261e; } .sb-chip.iso { background: #fff1d6; color: #8a5a00; }
+.sb-allergy { border-radius: 6px; padding: 5px 7px; background: #f3f6fa; margin-bottom: 6px; } .sb-allergy span { display: block; font-size: 10.5px; text-transform: uppercase; color: #5a6b80; } .sb-allergy.has { background: #fdeaea; } .sb-allergy.has b { color: #b3261e; }
+.sb-row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; border-top: 1px solid #eef2f6; } .sb-row span { color: #5a6b80; } .sb-row b { text-align: right; font-weight: 600; }
+.sb-lda { margin-top: 6px; border-top: 1px solid #eef2f6; padding-top: 4px; } .sb-lda span { display: block; font-size: 10.5px; text-transform: uppercase; color: #5a6b80; }
+@media (max-width: 700px) { .storyboard { display: none; } }
