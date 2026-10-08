@@ -2116,3 +2116,7 @@ body.student #mrToggleBtn { display: none !important; }
 .nc-pt { cursor: pointer; } .nc-pt:hover { stroke: #1c2b3d; }
 .nc-read { position: sticky; top: 0; z-index: 2; background: #eef3fa; border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; font-weight: 600; min-height: 20px; }
 .nc-empty { color: #5a6b80; padding: 10px 0; }
+
+/* ---- v35 results review ---- */
+.lab-newdot { color: #1f6fe0; margin-left: 4px; font-size: 11px; vertical-align: 1px; }
+.lab-coming { margin: 0 0 8px; padding: 8px 12px; background: #f2f6fc; border: 1px dashed #9fbfe8; border-radius: 8px; font-size: 13px; color: #34495f; }

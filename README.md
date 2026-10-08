@@ -576,5 +576,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 
 - **Flowsheets > Vitals graph** opens stacked graphs of heart rate, blood pressure (systolic and diastolic), respiratory rate, oxygen saturation, temperature and pain over the whole stay. Only values charted up to the current simulation time appear; a dashed line marks "now". The normal range is a green band, abnormal values are red dots, and tapping a dot shows its value and time.
 
+## New in v35: Results Review upgrades
+
+- Selecting a lab result shows a **trend graph** for that test with the reference range shaded green and abnormal points red (tap a dot to read it).
+- **New results** collected during the shift show a blue dot until you tap them or press **Mark all reviewed**; the status line counts them (for example "16 new"). Reviewed results are saved with the patient.
+- **Coming up** lists lab draws that are ordered but not yet collected (within the next 4 hours).
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
