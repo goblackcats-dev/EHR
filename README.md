@@ -520,5 +520,13 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Camera scanning**: the scanner window has **Scan with camera** (reads the QR code on wristbands and packages; works on an iPad over the https Pages site). Tapping and typing still work.
 - The Case Builder **Notes tab** has the same draggable divider as the EHR.
 
+## New in v26: handoff report practice with a rubric built from the patient
+
+- **Handoff button** (top bar of the EHR). The student gives report on the patient as the chart stands at the current simulation time, in five boxes (patient and illness severity; situation and background; assessment; medications, orders and to-do; if-then plans and questions). Each box has a **Speak** button (dictation, on browsers that support it, including iPad Safari) or the student can type.
+- **The rubric builds itself from the chart.** Every part of the patient creates rubric items: name, age and sex, room, code status, allergies, isolation, illness severity (stable / watcher / unstable, worked out from the vital signs, critical labs and any scenario trigger), diagnosis, presentation, hospital or post-op day, history, procedures, each vital sign, findings for each body system, abnormal and critical labs, lines and drains, I&O, diet, activity and fall risk, the scenario event and the response to it, medications given, doses due soon (high-alert ones count double), infusions, pending tests and consults, results, an if-then plan with a number, and closed-loop communication. Critical items are worth more.
+- **Scoring**: full credit for a fact said in its own section, 60% if said in another section; a wrong number scores zero and is shown ("you said 100, chart shows 124"); safety errors (saying "no allergies" when there are allergies, wrong code status, calling an unstable patient stable) cost 2 points each and are listed at the top. The student sees a checklist with what the chart says for every missed item.
+- **Faculty: view rubric** shows and prints the full rubric with points. Advance the clock to the end of the shift to get the end-of-shift rubric. Every attempt (score and what was missed) is saved with the patient.
+- Scoring is keyword and number matching, not clinical judgment; an optional Claude review of the spoken or typed report is a possible later addition.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

@@ -324,7 +324,7 @@
   const origRender = renderFlowsheetsPage;
   renderFlowsheetsPage = function () { const r = origRender.apply(null, arguments); updateButtons(); return r; };
 
-  window.FlowsheetPractice = { compare, tagsOf, findExpected, buildReview, feedbackFor };
+  window.FlowsheetPractice = { compare, tagsOf, isAbn, findExpected, buildReview, feedbackFor };
   addToolbar();
   wireDialog();
 })();

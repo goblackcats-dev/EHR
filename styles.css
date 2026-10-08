@@ -2000,3 +2000,16 @@ body.resizing { user-select: none; cursor: col-resize; }
 .mar-detail-dialog .mar-detail-header { padding-right: 48px; }
 .scan-cam { margin: 10px 0; text-align: center; } .scan-cam video { width: 100%; max-height: 300px; background: #000; border-radius: 8px; object-fit: cover; }
 .scan-cam-hint { font-size: 13px; color: #55657a; margin: 6px 0; }
+
+/* v26 handoff report practice */
+.handoff-dialog { width: min(900px, 96vw); max-height: 94vh; border: 0; border-radius: 12px; padding: 0; box-shadow: 0 12px 40px rgba(0,0,0,.35); overflow: auto; }
+.handoff-dialog::backdrop { background: rgba(10,20,40,.5); }
+.ho-box { margin: 0 0 12px; } .ho-box-head { display: flex; justify-content: space-between; align-items: center; } .ho-hint { font-size: 12px; color: #66778a; margin: 2px 0 4px; }
+.ho-box textarea { width: 100%; min-height: 84px; padding: 8px 10px; font-size: 15px; border: 1px solid #b9c7da; border-radius: 6px; box-sizing: border-box; }
+.ho-mic.rec { background: #c62828; color: #fff; }
+.ho-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 14px; }
+.ho-score { display: flex; gap: 16px; align-items: center; margin: 8px 0; } .ho-pct { font-size: 44px; font-weight: 800; } .ho-pct.ok { color: #1e8e3e; } .ho-pct.part { color: #b26a00; } .ho-pct.bad { color: #c62828; }
+.ho-errors { background: #fdeaea; border: 1px solid #e19a9a; border-radius: 8px; padding: 8px 12px; margin: 8px 0; } .ho-errors.warn { background: #fff6dd; border-color: #e4c76b; } .ho-errors ul { margin: 4px 0 0 18px; }
+.ho-sec { margin: 14px 0 4px; font-size: 15px; color: #1f3b5e; }
+.ho-table td { vertical-align: top; } .ho-m { font-weight: 800; } .ho-m.ok { color: #1e8e3e; } .ho-m.bad { color: #c62828; } .ho-m.part { color: #b26a00; }
+.ho-crit { font-size: 10px; background: #fbdcdc; color: #9a2020; border-radius: 8px; padding: 1px 6px; text-transform: uppercase; } .ho-pts { text-align: right; white-space: nowrap; color: #55657a; }
