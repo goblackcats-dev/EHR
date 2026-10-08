@@ -572,5 +572,9 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **MAR colors:** Overdue doses (more than 60 minutes past the scheduled time) are **red**, due doses (within 60 minutes) are **blue**, later doses are **light blue**, given doses are **green**; held, refused and not-given keep their colors. A legend sits above the grid.
 - **Rights checklist:** opening a dose shows eight rights (patient, medication, dose, route, time, reason, assessment and response, documentation) with the chart's own facts beside each box (name and date of birth, the order, the dose, the route, how many minutes early or late, the reason it was ordered). All boxes must be checked before **Give** works; **Hold**, **Refused** and **Not Given** do not need it. The time line turns red when the dose is outside the 60-minute window. Faculty can switch it off per patient with **Rights check: On/Off** on the MAR toolbar (hidden on the student page).
 
+## New in v34: vitals trend graphs
+
+- **Flowsheets > Vitals graph** opens stacked graphs of heart rate, blood pressure (systolic and diastolic), respiratory rate, oxygen saturation, temperature and pain over the whole stay. Only values charted up to the current simulation time appear; a dashed line marks "now". The normal range is a green band, abnormal values are red dots, and tapping a dot shows its value and time.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
