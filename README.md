@@ -567,5 +567,10 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Storyboard** card at the bottom of the left menu on every screen: name, age, date of birth, code status, isolation, fall risk, allergies (red), MRN, room, hospital day, weight, height, attending, diet, and active lines. It updates with the clock. Tap its title to collapse it (remembered on the device). Hidden on phones.
 - **Chart Review tabs now follow Epic:** Encounters (admission details, hospital problem list, care team), Notes, H&P, Labs (jumps to Lab Results), Imaging, Cardiology, Procedures (surgery and procedure orders plus lines placed), and Meds (jumps to the MAR). The left-menu Chart Review list has Encounters and Procedures too.
 
+## New in v33: Epic MAR colors and rights checklist
+
+- **MAR colors:** Overdue doses (more than 60 minutes past the scheduled time) are **red**, due doses (within 60 minutes) are **blue**, later doses are **light blue**, given doses are **green**; held, refused and not-given keep their colors. A legend sits above the grid.
+- **Rights checklist:** opening a dose shows eight rights (patient, medication, dose, route, time, reason, assessment and response, documentation) with the chart's own facts beside each box (name and date of birth, the order, the dose, the route, how many minutes early or late, the reason it was ordered). All boxes must be checked before **Give** works; **Hold**, **Refused** and **Not Given** do not need it. The time line turns red when the dose is outside the 60-minute window. Faculty can switch it off per patient with **Rights check: On/Off** on the MAR toolbar (hidden on the student page).
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

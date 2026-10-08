@@ -2092,3 +2092,19 @@ body.student #mpSetupBtn, body.student #mpToggleBtn, body.student #libraryDialog
 .sb-row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; border-top: 1px solid #eef2f6; } .sb-row span { color: #5a6b80; } .sb-row b { text-align: right; font-weight: 600; }
 .sb-lda { margin-top: 6px; border-top: 1px solid #eef2f6; padding-top: 4px; } .sb-lda span { display: block; font-size: 10.5px; text-transform: uppercase; color: #5a6b80; }
 @media (max-width: 700px) { .storyboard { display: none; } }
+body.student #mrToggleBtn { display: none !important; }
+
+/* ---- v33 MAR colors and rights checklist ---- */
+.mar-event-overdue { background: #c62828; border-color: #8e1b1b; color: #fff; }
+.mar-event-overdue.actionable { cursor: pointer; }
+.mar-event-scheduled { background: #e6f0fc; border-color: #9fbfe8; color: #1f4f8f; }
+.mar-event-scheduled.actionable, .mar-event-overdue.actionable { cursor: pointer; }
+.mar-legend { display: flex; flex-wrap: wrap; gap: 14px; padding: 6px 14px; font-size: 12.5px; color: #44556a; border-bottom: 1px solid #e3e9f1; }
+.mar-legend .lg { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; border: 1px solid transparent; }
+.lg.overdue { background: #c62828; } .lg.due { background: #0d56c6; } .lg.scheduled { background: #e6f0fc; border-color: #9fbfe8; } .lg.given { background: #dff0b7; border-color: #8cab3f; } .lg.held { background: #f3e2c4; border-color: #c9a063; }
+.mr-rights { border: 1px solid #c9d6e6; border-radius: 10px; padding: 10px 12px; margin: 10px 0; background: #f8fafc; }
+.mr-sub { font-size: 12.5px; color: #5a6b80; margin-bottom: 4px; }
+.mr-row { display: flex; gap: 10px; align-items: flex-start; padding: 8px 6px; border-radius: 8px; min-height: 44px; box-sizing: border-box; cursor: pointer; }
+.mr-row input { width: 22px; height: 22px; min-height: 0; margin: 2px 0 0; flex: none; }
+.mr-row small { color: #4a5b70; } .mr-row.warn { background: #fdeaea; } .mr-row.warn small { color: #b3261e; font-weight: 600; } .mr-row.missing { outline: 2px solid #c62828; }
+.mr-msg { color: #c62828; font-weight: 700; margin-top: 4px; min-height: 0; }
