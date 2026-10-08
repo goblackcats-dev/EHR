@@ -556,5 +556,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Developer note:** `student.html` is generated. After changing `index.html`, run `node make-student.js` and commit the new `student.html`.
 - The student page is not a security lock (a determined student could still open the instructor page address); it simply keeps the instructor tools out of their way.
 
+## New in v31: report from the off-going nurse
+
+- **Shift Report** (bottom of the left menu, on both the instructor and student pages) gives the bedside report the night nurse would give at the start of the shift. It is written from the chart as it stood at the shift start (nothing from later in the shift), in the same five parts as Handoff practice: who and how sick, why they are here, assessment (vitals with change since arrival, systems, abnormal labs, lines, intake and output, diet, activity, fall risk), medications and orders (PRNs given overnight, due in the first two hours, infusions, upcoming tests), and to-do and if-then plans.
+- **Read aloud** plays it with the iPad voice; **Print** makes a paper copy. Instructors see **Edit text** to rewrite it in your own words (saved with the patient and carried into the student file) and **Back to generated report**.
+- It is rule-based, so it states chart facts and standard if-then plans; it does not invent overnight stories. Add those by editing the text.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

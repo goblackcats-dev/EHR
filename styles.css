@@ -2078,3 +2078,6 @@ a.drug-link:hover { text-decoration-style: solid; }
 /* ---- v30 student page: instructor-only tools are hidden ---- */
 body.student #openImportBtn, body.student #openLibraryBtn, body.student #hoRubric, body.student #sbRubric,
 body.student #mpSetupBtn, body.student #mpToggleBtn, body.student #libraryDialog, body.student #importDialog { display: none !important; }
+
+/* ---- v31 report from the off-going nurse ---- */
+.og-p { font-size: 15px; line-height: 1.5; margin: 4px 0 10px; } .og-text { font-size: 15px; line-height: 1.5; }
