@@ -58,7 +58,13 @@ NS.buildCase = function buildCase(input) {
   S.patient = patient;
 
   // 6. Notes
-  const notes = NS.notes.generate(ctx, spec, S);
+  let notes = NS.notes.generate(ctx, spec, S);
+  if (spec.triggerMeta) {
+    // After a scenario trigger starts, the routine notes that were written for a stable patient no longer apply
+    // (students document these themselves); keep only the consult and result notes that belong to the trigger.
+    const onset = spec.triggerMeta.onset, own = new Set(spec.events.filter(e => e.h >= ctx.hOf(onset) - 1e-6 && ['consult', 'imaging', 'cardiology'].includes(e.type)).map(e => e.type === 'consult' ? `${e.service} Consult` : e.study));
+    notes = notes.filter(n => n.datetime < onset || own.has(n.title) || own.has(n.study));
+  }
   S.notes = notes;
   const stickyNotes = buildStickyNotes(ctx, spec, S, stage);
 
@@ -83,6 +89,7 @@ NS.buildCase = function buildCase(input) {
       marDate: U.longDate(ctx.start), marTimeSlots: marSlots, simulationStart: ctx.start, simulationEnd: U.addH(ctx.start, 8)
     },
     simulationTasks: buildSimTasks(ctx, spec, S),
+    triggers: spec.triggerMeta ? [spec.triggerMeta] : [],
     facultyBuilder: { builderVersion: 2, inputs: input }
   };
 
@@ -118,7 +125,7 @@ function eventsToOrders(ctx, spec) {
         nursing: ev.nursing || ['Confirm consent is signed and in chart.', 'Confirm NPO status and last intake time.', 'Complete pre-op checklist; verify allergy band and site marking.'] });
     }
     if (ev.type === 'consult') {
-      spec.orders.push({ name: `Consult: ${ev.service}`, category: 'Consult / Therapy', frequency: 'Once', startH: Math.max(0.5, ev.h - 0.75), completeH: ev.h + 0.5, pending: true, instructions: ev.reason || `Evaluate and recommend.`, by: ev.orderedBy || (ev.h < 3 ? 'ed' : spec.primaryTeam || 'hospitalist') });
+      spec.orders.push({ name: `Consult: ${ev.service}`, category: 'Consult / Therapy', frequency: 'Once', startH: Math.max(0.5, ev.h - (ev.orderLead ?? 0.75)), completeH: ev.h + 0.5, pending: true, instructions: ev.reason || `Evaluate and recommend.`, by: ev.orderedBy || (ev.h < 3 ? 'ed' : spec.primaryTeam || 'hospitalist') });
     }
   });
 }

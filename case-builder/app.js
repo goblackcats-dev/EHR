@@ -15,7 +15,8 @@
     hx: ['htn', 'dm2'], surg: [], surgText: '', allergies: [], facultyNotes: '',
     social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' },
     medEdits: { removed: [], changed: {}, added: [] },
-    hxCustom: [], surgYears: {}, surgCustom: []
+    hxCustom: [], surgYears: {}, surgCustom: [],
+    trigger: { mode: 'off', key: '', atMin: 90, severity: 'moderate' }
   });
 
   let input = DEFAULTS();
@@ -34,11 +35,40 @@
       social: { tobacco: v('tobacco'), alcohol: v('alcohol'), drugs: v('drugs'), living: v('living'), function: v('fn'), other: v('socialOther') },
       // medication edits belong to one diagnosis; picking a different diagnosis starts the medication list fresh
       medEdits: (input.primary === v('primary') && input.medEdits) ? input.medEdits : { removed: [], changed: {}, added: [] },
-      hxCustom: (input.hxCustom || []).slice(), surgYears: Object.assign({}, input.surgYears), surgCustom: (input.surgCustom || []).slice()
+      hxCustom: (input.hxCustom || []).slice(), surgYears: Object.assign({}, input.surgYears), surgCustom: (input.surgCustom || []).slice(),
+      trigger: readTrigger(v('primary'))
     };
     const other = v('allergyOther').trim();
     if (other) input.allergies = input.allergies.filter(a => !a.custom).concat([{ substance: other, reaction: v('allergyReaction').trim() || 'Reaction not documented', severity: 'Moderate', custom: true }]);
     return input;
+  }
+
+  // ------------------------------------------------------------------ patient status trigger
+  function readTrigger(primary) {
+    const cur = input.trigger || { mode: 'off', key: '', atMin: 90, severity: 'moderate' };
+    const list = NS.triggers.forDx(primary);
+    let mode = cur.mode;
+    const ui = $('trigMode') ? $('trigKey').value : cur.key;
+    let key = $('trigKey') && $('trigKey').options.length ? ui : cur.key;
+    if (!list.some(x => x.key === key)) key = list[0] ? list[0].key : '';
+    if (mode === 'manual' && !list.length) mode = 'off';
+    const min = $('trigMin') && $('trigMin').value !== '' ? parseInt($('trigMin').value, 10) : cur.atMin;
+    return { mode, key, atMin: U.clamp(isNaN(min) ? 90 : min, 10, 360), severity: $('trigSev') ? $('trigSev').value : cur.severity };
+  }
+  function renderTrigger() {
+    const t = input.trigger, list = NS.triggers.forDx($('primary').value);
+    document.querySelectorAll('#trigMode button').forEach(b => b.classList.toggle('on', b.dataset.v === t.mode));
+    $('trigManual').classList.toggle('hidden', t.mode !== 'manual');
+    const prev = $('trigKey').value;
+    $('trigKey').innerHTML = list.map(x => `<option value="${esc(x.key)}">${esc(x.label)}</option>`).join('');
+    $('trigKey').value = list.some(x => x.key === t.key) ? t.key : (list[0] ? list[0].key : '');
+    if (!$('trigKey').value && prev) $('trigKey').value = prev;
+    $('trigMin').value = t.atMin; $('trigSev').value = t.severity;
+    const sel = list.find(x => x.key === $('trigKey').value);
+    $('trigInfo').innerHTML = !list.length ? '<b>No status triggers have been written for this diagnosis yet.</b> (A hip fracture patient has one to try.)'
+      : t.mode === 'off' ? `Available for this diagnosis: ${list.map(x => esc(x.label)).join('; ')}.`
+        : t.mode === 'auto' ? `The builder picks the event, the start time (45 to 180 minutes into the shift) and the severity for this patient. You will see what it chose after you build. Available: ${list.map(x => esc(x.label)).join('; ')}.`
+          : (sel ? esc(sel.desc) : '');
   }
 
   function writeForm() {
@@ -48,6 +78,7 @@
     const custom = input.allergies.find(a => a.custom);
     set('allergyOther', custom ? custom.substance : ''); set('allergyReaction', custom ? custom.reaction : '');
     document.querySelectorAll('#sexSeg button').forEach(b => b.classList.toggle('on', b.dataset.v === input.sex));
+    if ($('trigMode')) renderTrigger();
   }
 
   // ------------------------------------------------------------------ chips
@@ -175,7 +206,25 @@
       const n = Math.round((U.parse(d + ' 00:00') - day0) / 86400000) + 1;
       html += `<div class="day"><h3>Hospital day ${n} · ${U.weekday(d + ' 00:00')} ${U.mdy(d + ' 00:00')}</h3>${list.map(t => `<div class="ev ${t.type === 'now' ? 'now' : ''} ${t.future ? 'future' : ''}"><span class="t">${U.hhmm(t.ts)}</span><span class="k">${esc(t.type === 'now' ? '▶' : t.type)}</span><span class="x">${esc(t.text)}${t.future ? ' (upcoming)' : ''}</span></div>`).join('')}</div>`;
     });
-    $('tab-course').innerHTML = html;
+    $('tab-course').innerHTML = triggerKeyHtml() + html;
+  }
+
+  // Faculty answer key for the scenario trigger (shown only here, not to students)
+  function triggerKeyHtml() {
+    const k = result.canonical.triggers && result.canonical.triggers[0];
+    if (!k) {
+      const w = result.report.warnings.filter(x => /trigger/i.test(x.text))[0];
+      return w ? `<div class="trigger-key muted"><b>Patient status trigger:</b> ${esc(w.text)}</div>` : '';
+    }
+    const list = (arr, f) => `<ul>${arr.map(f).join('')}</ul>`;
+    return `<details class="trigger-key" open><summary>Patient status trigger (faculty key): ${esc(k.label)}, ${esc(k.severity)}, starts ${esc(U.hhmm(k.onset))} <span class="hint">(${esc(k.chosen)})</span></summary>
+      <p>${esc(k.scenario)}</p>
+      <h4>What students will see</h4>${list(k.cues, c => `<li><b>${esc(c.at)}</b> ${esc(c.text)}</li>`)}
+      <h4>Expected nursing actions</h4>${list(k.expectedActions, a => `<li><b>${esc(a.within)}:</b> ${esc(a.action)} <span class="hint">${esc(a.why)}</span></li>`)}
+      <p><b>Escalate if:</b> ${esc(k.escalationIf)}</p><p><b>Provider response timing:</b> ${esc(k.providerOrdersTimed)}</p>
+      <h4>Common pitfalls</h4>${list(k.pitfalls, p => `<li>${esc(p)}</li>`)}
+      <h4>Debrief questions</h4>${list(k.debrief, p => `<li>${esc(p)}</li>`)}
+    </details>`;
   }
 
   const kindOf = n => (n.category === 'Nursing Note' ? 'nursing' : n.type === 'therapyNotes' || n.type === 'caseManagement' ? 'therapy' : n.type === 'erVisitSummary' ? 'ed' : (n.type === 'hp' || /MD/.test(n.author)) && n.type !== 'imaging' && n.type !== 'cardiology' ? 'physician' : 'other');
@@ -505,6 +554,9 @@
     $('dayPlus').addEventListener('click', () => { $('hospitalDay').value = Math.min(21, (parseInt($('hospitalDay').value, 10) || 1) + 1); changed(); });
     $('clearHx').addEventListener('click', () => { input.hx = []; input.hxCustom = []; renderChips(); changed(); });
     makePickers(); renderChips();
+    document.querySelectorAll('#trigMode button').forEach(b => b.addEventListener('click', () => { input.trigger = readTrigger($('primary').value); input.trigger.mode = b.dataset.v; renderTrigger(); changed(); }));
+    $('primary').addEventListener('change', () => { input.trigger = readTrigger($('primary').value); renderTrigger(); });
+    ['trigKey', 'trigMin', 'trigSev'].forEach(id => $(id).addEventListener('change', () => { input.trigger = readTrigger($('primary').value); renderTrigger(); changed(); }));
     $('buildBtn').addEventListener('click', build);
     $('resetBtn').addEventListener('click', () => { if (confirm('Reset every field to the starting example?')) { input = DEFAULTS(); writeForm(); renderChips(); changed(); build(); } });
     $('openEhrBtn').addEventListener('click', openInEhr);

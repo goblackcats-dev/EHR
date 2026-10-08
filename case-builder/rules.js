@@ -32,6 +32,7 @@ NS.rules = (() => {
     });
     applySocial(ctx, spec);
     applyBaseline(ctx, spec);
+    if (NS.triggers) NS.triggers.apply(ctx, spec);   // a scenario trigger (patient status change) goes in before contrast handling
     applyContrast(ctx, spec);
     adaptDiet(ctx, spec);
     adaptFluids(ctx, spec);

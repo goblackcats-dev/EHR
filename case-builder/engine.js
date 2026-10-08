@@ -148,9 +148,8 @@ NS.engine = (() => {
       times.push((ms - U.parse(ctx.admit)) / 3600000);
     }
     const keep = times.filter(h => h <= ctx.nowH && h >= ctx.nowH - 96);
-    keep.forEach(h => {
+    const pushSet = (h, v) => {
       const stamp = ctx.ts(h);
-      const v = vitalsAt(ctx, spec, h, true);
       const slug = U.slug(stamp);
       const push = (code, label, value, units) => obs.push({
         id: `vital_${code.toLowerCase()}_${slug}`, type: 'vital', code, label, value, units: units || '',
@@ -165,7 +164,10 @@ NS.engine = (() => {
       push('PAIN', 'Pain', `${v.pain}/10`, '');
       const last = obs[obs.length - 3];
       if (last && (v.sbp > 180 || v.sbp < 90)) last.flag = 'Abnormal';
-    });
+    };
+    keep.forEach(h => pushSet(h, vitalsAt(ctx, spec, h, true)));
+    // vital signs that belong to the simulation window itself (a scenario trigger writes these); hidden until the clock reaches them
+    (spec.futureVitals || []).filter(v => v.h <= ctx.windowEnd).forEach(v => pushSet(v.h, v));
   }
 
   // ---------- Labs ----------
@@ -198,14 +200,14 @@ NS.engine = (() => {
           if (item.toH !== undefined && h >= item.toH) continue;
           draws.push({ h, codes: item.codes });
         }
-      } else if (item.h <= ctx.windowEnd) draws.push({ h: item.h, codes: item.codes });
+      } else if (item.h <= ctx.windowEnd) draws.push({ h: item.h, codes: item.codes, values: item.values });
     });
     // Merge draws at the same time, de-duplicate codes
     draws.sort((a, b) => a.h - b.h);
     const merged = [];
     draws.forEach(d => {
       const prev = merged.find(m => Math.abs(m.h - d.h) < 0.01);
-      if (prev) prev.codes = prev.codes.concat(d.codes); else merged.push({ h: d.h, codes: d.codes.slice() });
+      if (prev) { prev.codes = prev.codes.concat(d.codes); prev.values = Object.assign({}, prev.values, d.values); } else merged.push({ h: d.h, codes: d.codes.slice(), values: d.values });
     });
     merged.forEach(draw => {
       const stamp = ctx.ts(draw.h);
@@ -220,7 +222,8 @@ NS.engine = (() => {
         } else if (code === 'Hematocrit') {
           // hematocrit follows hemoglobin (about 3x)
           value = U.round(labValueAt(ctx, spec, 'Hemoglobin', draw.h) * 3 + ctx.noise(0.4), 1);
-        } else value = labValueAt(ctx, spec, code, draw.h);
+        } else if (draw.values && draw.values[code] !== undefined) value = draw.values[code];   // exact value written by a scenario trigger
+        else value = labValueAt(ctx, spec, code, draw.h);
         if (draw.h > ctx.nowH) { /* result returns during the simulation */ }
         obs.push({
           id: `lab_${U.slug(code)}_${U.slug(stamp)}`, type: 'lab', category: def.cat, code, label: code,

@@ -71,6 +71,20 @@
         <div id="stagePreview" class="stage-preview"></div>
       </div>
 
+      <div class="card" id="triggerCard">
+        <div class="card-head"><h2>Patient status trigger (optional)</h2></div>
+        <div class="hint" style="margin-top:0">A sudden change in the patient's condition during the shift (for example a post-operative complication). Vital signs, findings, labs and provider orders appear in the EHR as the simulation clock reaches them.</div>
+        <div class="segmented" id="trigMode"><button type="button" data-v="off">None</button><button type="button" data-v="auto">Automatic</button><button type="button" data-v="manual">I choose</button></div>
+        <div id="trigManual" class="hidden">
+          <label>Event<select id="trigKey"></select></label>
+          <div class="grid g2">
+            <label>Starts (minutes after shift start)<input id="trigMin" type="number" inputmode="numeric" min="10" max="360" step="5" /></label>
+            <label>Severity<select id="trigSev"><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option></select></label>
+          </div>
+        </div>
+        <div id="trigInfo" class="hint"></div>
+      </div>
+
       <div class="card">
         <div class="card-head"><h2>3. Medical history</h2><button class="link-btn" id="clearHx">Clear</button></div>
         <div id="hxPicker"></div>
@@ -202,6 +216,7 @@
   <script src="rules.js"></script>
   <script src="notes.js"></script>
   <script src="mededit.js"></script>
+  <script src="triggers.js"></script>
   <script src="generate.js"></script>
   <script src="primary_surgical.js"></script>
   <script src="primary_medical.js"></script>

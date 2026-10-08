@@ -491,5 +491,14 @@ This means student documentation immediately becomes part of the same patient re
 - **Surgical history has a year for every item**, including surgeries you type in. 74 surgeries, grouped by body system, many with real effects (a mechanical valve adds warfarin, a transplant adds immunosuppressants, a mastectomy protects that arm, a bariatric bypass removes NSAIDs).
 - Smarter safety checks: patients on full-dose anticoagulants no longer also get preventive blood thinners, and split-dose steroids are no longer flagged as duplicates.
 
+## New in v23: patient status triggers (first example: hip fracture)
+
+A trigger is a sudden change in the patient's condition during the 8-hour simulated shift. Vital signs, nursing findings, labs, provider orders, ECG/imaging results, and medication orders are written into the chart with future timestamps, so the EHR releases them as the simulation clock reaches them (use **Next** to jump to the next event).
+
+- In the Case Builder, step 2 now has **Patient status trigger**: **None**, **Automatic** (the builder picks the event, start time and severity for this patient) or **I choose** (pick the event, the minutes after shift start, and mild / moderate / severe).
+- **Example built: post-operative pulmonary embolism for a hip fracture patient.** Sudden dyspnea and pleuritic chest pain, HR and RR up, SpO2 down, a swollen right calf; the provider evaluates about 12 minutes later, then oxygen, ECG, chest x-ray, labs (troponin, BNP, D-dimer, ABG, lactate), a CT pulmonary angiogram (V/Q scan if ESRD; contrast-allergy premedication still applies), and a weight-based heparin bolus and infusion (high-alert; the nurse starts it from the MAR with the barcode check). Prophylactic enoxaparin is stopped. Moderate and severe patients transfer to a higher level of care.
+- The **Hospital course** tab shows a **faculty key** for the trigger: the scenario, what students will see and when, the expected nursing actions with the reasons, when to escalate, common pitfalls and debrief questions. The key is saved in the case as `triggers` (not shown to students in the EHR). It is the starting point for the rubric (#10).
+- Routine notes that would contradict the change (stable progress notes, therapy evaluations) are removed after the trigger starts, so students write their own documentation. Provider orders are timed as if the nurse called promptly.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

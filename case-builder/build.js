@@ -178,6 +178,14 @@ NS.build = (() => {
           });
         });
       }
+      if (med.freq === 'continuous' && med.startH > ctx.nowH && med.startH <= ctx.windowEnd) {
+        // an infusion ordered during the shift: the nurse starts it from the MAR
+        const stamp = ctx.ts(med.startH);
+        admins.push({
+          id: `admin_${U.slug(orderId)}_start`, orderId, slotIndex: Math.min(slotHours - 1, Math.floor(med.startH - ctx.nowH + 1e-6)), time: U.hhmm(stamp), state: 'due',
+          label: `${U.hhmm(stamp)} Start ${med.rate || ''}`.trim(), dose: med.rate || med.dose, route: med.route
+        });
+      }
       if (med.freq === 'continuous' && med.startH <= ctx.nowH && !ended) {
         admins.push({
           id: `admin_${U.slug(orderId)}_run`, orderId, slotIndex: 0, time: U.hhmm(ctx.start), state: 'given',
@@ -364,6 +372,16 @@ NS.build = (() => {
           id: `assessment_${U.slug(section)}_${U.slug(label)}_${U.slug(stamp)}`, type: 'assessment', section, code: U.slug(label).toUpperCase(),
           label, value, collected: stamp, source: h < 4 ? 'Admission assessment' : 'Nursing assessment',
           abnormal: false
+        });
+      });
+    });
+    // findings written by a scenario trigger for later in the simulation window
+    (spec.futureAssessments || []).filter(f => f.h <= ctx.windowEnd).forEach(f => {
+      const stamp = ctx.ts(f.h);
+      f.items.forEach(([section, label, value, abnormal]) => {
+        obs.push({
+          id: `assessment_${U.slug(section)}_${U.slug(label)}_${U.slug(stamp)}`, type: 'assessment', section, code: U.slug(label).toUpperCase(),
+          label, value, collected: stamp, source: 'Nursing assessment', abnormal: abnormal !== false
         });
       });
     });
