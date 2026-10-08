@@ -2,7 +2,7 @@
    The data lives in druginfo_1.js, druginfo_2.js and druginfo_3.js, each entry registered with
      DrugGuide.add('generic name', { aliases: ['other names or brand words that appear in order names'], brand: 'BRAND', cls: 'drug class',
         use: 'what it is for', dose: 'usual adult dose and route (the order is what counts)', give: ['how to give it'], watch: ['what to assess before and after'],
-        hold: ['when to hold it and call the provider'], effects: ['common or serious adverse effects'], teach: 'key patient teaching', alert: false /* high-alert drug */, lasa: 'look-alike / sound-alike warning' });
+        hold: ['when to hold it and call the provider'], effects: ['common or serious adverse effects'], teach: 'key patient teaching', alert: false (true = high-alert drug), lasa: 'look-alike / sound-alike warning' });
    lookup(orderName) finds the best entry; when there is none, a basic guide is built from the order itself. */
 window.DrugGuide = (() => {
   const db = {};
