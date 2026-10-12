@@ -195,7 +195,6 @@
         else if (k === 'ovr-undo-patient') { pstat = null; updatePill(); refresh(); }
       });
       block.addEventListener('input', e => {
-        if (e.target.id === 'mpIds') state.ids = e.target.checked;
         if (e.target.id === 'mpDouble') state.double = e.target.value;
         refresh(false);
       });
@@ -206,7 +205,7 @@
   const medOk = s => !!(s.medScan && s.medScan.ok);
   const rightsList = () => {
     const s = state, pt = patientStatus(), timeBad = s.warnings.some(w => w.code === 'time');
-    return [['Right patient', !!pt && s.ids], ['Right drug', medOk(s)], ['Right dose', medOk(s)], ['Right route', medOk(s)], ['Right time', !timeBad || !!s.warnOverride]];
+    return [['Right patient', !!pt], ['Right drug', medOk(s)], ['Right dose', medOk(s)], ['Right route', medOk(s)], ['Right time', !timeBad || !!s.warnOverride]];
   };
 
   function gate() {
@@ -214,7 +213,6 @@
     if (!c.scanRequired) return { ok: true, why: '' };
     const hard = s.warnings.filter(w => w.level === 'hard'), soft = s.warnings.filter(w => w.level === 'soft');
     if (!patientStatus()) return { ok: false, why: 'Scan the patient wristband first (or use Override and give a reason).' };
-    if (!s.ids) return { ok: false, why: 'Confirm two patient identifiers (name and date of birth).' };
     if (!medOk(s)) return { ok: false, why: 'Scan the medication package; it must match the order (or use Override and give a reason).' };
     if (hard.length && !s.warnOverride) return { ok: false, why: 'A safety stop applies (see above). Hold the medication and notify the provider, or override with a documented reason.' };
     if (soft.length && !s.warnOverride) return { ok: false, why: 'There are warnings. Hold the medication, or override and document why you are giving it.' };
@@ -249,7 +247,6 @@
         <div class="mp-head">Barcode medication administration ${needsDouble ? '<span class="mp-pill alert">HIGH-ALERT</span>' : ''}</div>
         ${ptBar}
         <div class="mp-steps">${medStep}</div>
-        <label class="mp-check"><input type="checkbox" id="mpIds" ${s.ids ? 'checked' : ''}/> I asked the patient to state their name and date of birth and they match the wristband and MAR.</label>
         ${s.warnings.length ? `<div class="mp-warn-list">${s.warnings.map(w => `<div class="mp-warn ${w.level}">${esc(w.text)}</div>`).join('')}${wo ? `<div class="mp-warn ovr"><b>Override recorded:</b> ${esc(wo.reason)}${wo.detail ? ' - ' + esc(wo.detail) : ''} <button class="secondary-button" data-mp="ovr-undo-warn">Remove</button></div>` : '<button class="secondary-button" data-mp="ovr-warn">Override warnings and give anyway...</button>'}</div>` : ''}
         ${needsDouble ? `<label class="input-label" for="mpDouble">Independent double check: second nurse initials</label><input id="mpDouble" class="mp-initials" value="${esc(s.double)}" maxlength="6" />` : ''}
         <div class="mp-rights" id="mpRights"></div>
@@ -325,14 +322,11 @@
     const dlg = ensureScanner(), p = currentCanonicalCase.patient;
     $('scanMsg').textContent = ''; $('scanMsg').className = 'scan-msg'; $('scanInput').value = '';
     if (mode === 'patient') {
-      $('scanTitle').textContent = 'Scan patient wristband'; $('scanSub').textContent = 'Check the name and date of birth on the wristband, then scan it. Tap a wristband below, or use a handheld scanner.';
-      const bands = [{ name: p.name, mrn: p.mrn, dob: p.dob, code: patientCode(), allergies: (p.allergies || []).filter(a => a.substance && !/^nkda/i.test(a.substance)).map(a => a.substance) }];
-      if (cfg().decoys) { const d = decoyPatient(); bands.push({ name: d.name, mrn: d.mrn, dob: d.dob, code: d.code, allergies: [] }); }
-      bands.sort((a, b) => hash(a.code + 'order') - hash(b.code + 'order'));
-      $('scanTiles').innerHTML = bands.map(b => `<button class="band-tile" data-code="${esc(b.code)}"><div class="band-top">${esc(b.name)}</div><div>MRN ${esc(b.mrn)}</div><div>DOB ${esc(epicDate(b.dob))}</div>${b.allergies.length ? `<div class="band-allergy">ALLERGY: ${esc(b.allergies.join(', '))}</div>` : ''}<div class="band-code">${NSWristband.qrSvg(b.code, 'band-qr')} ${esc(b.code)}</div></button>`).join('');
+      $('scanTitle').textContent = 'Scan patient wristband'; $('scanSub').textContent = 'Check the name and date of birth on the wristband, then scan it.';
+      $('scanTiles').innerHTML = `<div class="scan-warn"><b>The patient must be scanned.</b><br>Scan the patient's wristband with your handheld scanner or the camera. You cannot give this medication until the patient is scanned. If you cannot scan the wristband, use <b>Override</b> and choose a reason.</div>`;
     } else {
       $('scanTitle').textContent = 'Scan medication'; $('scanSub').textContent = 'Read the label, then scan the package you are about to give.';
-      $('scanTiles').innerHTML = state.packages.map(k => `<button class="med-tile" data-code="${esc(k.code)}"><div class="med-name">${esc(k.label)}</div><div>${esc(k.strength)} · ${esc(k.route)}</div><div class="band-code">${NSWristband.qrSvg(k.code, 'band-qr')} ${esc(k.code)}</div></button>`).join('');
+      $('scanTiles').innerHTML = `<div class="scan-warn"><b>The medication must be scanned.</b><br>Scan the package barcode with your handheld scanner or the camera. If you cannot scan it, use <b>Override</b> and choose a reason.</div>`;
     }
     if (!dlg.open) dlg.showModal();
     setTimeout(() => $('scanInput').focus(), 50);
@@ -442,7 +436,7 @@
       admin.scan = cfg().scanRequired ? {
         patient: !!pt, patientMode: pt ? pt.mode : 'none', patientOverride: pt && pt.mode === 'override' ? { reason: pt.reason, detail: pt.detail } : null,
         medication: !!(md && md.ok), medicationMode: md ? (md.override ? 'override' : md.ok ? 'scanned' : 'failed') : 'none', medicationOverride: md && md.override ? { reason: md.reason, detail: md.detail } : null,
-        identifiers: !!snap.ids, warnings: snap.warnings.map(w => w.code), warningOverride: snap.warnOverride || null, doubleCheck: snap.double.trim()
+        identifiers: !!pt, warnings: snap.warnings.map(w => w.code), warningOverride: snap.warnOverride || null, doubleCheck: snap.double.trim()
       } : { skipped: true };
     }
     const ov = [pt && pt.mode === 'override' ? 'patient scan overridden' : '', snap.medScan && snap.medScan.override ? 'medication scan overridden' : '', snap.warnOverride ? 'warnings overridden' : ''].filter(Boolean);

@@ -616,5 +616,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - The student window keeps its own autosave, so working in it never overwrites your instructor chart.
 - **Student file** (the old download) still works for sending a patient to students' own iPads, and now the instructor's **Import a patient file** and the **Import Patient** paste box also accept it (before, they rejected it).
 
+## New in v42: MAR scanning and rights summary changes
+
+- **Scan patient / Scan medication** no longer show on-screen wristband or package tiles (and never another patient's information). The window shows a warning that the patient (or medication) must be scanned with a handheld scanner or the camera, and an **Override** button that asks for a reason from the list. Typed or scanned codes still work, and a wrong patient's wristband is still caught.
+- The "I asked the patient to state their name and date of birth..." checkbox is gone.
+- The **Rights of medication administration** are now a short read-only summary (patient, medication, dose, route, time, reason, assessment, documentation). Nothing has to be ticked; the scan steps are what allow **Give**. The "Rights check" toolbar button was removed.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
