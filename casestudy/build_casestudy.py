@@ -272,6 +272,7 @@ def shift_update(d, it, patient):
         for r in t.rows:
             for cc in r.cells: set_cell_border(cc, top=THIN, bottom=THIN, left=THIN, right=THIN)
         para(d, '', after=2)
+    if it.get('caption'): para(d, it['caption'], bold=True, size=10.5, before=4)
 
 
 def vitals_key(patient, times, codes):
@@ -422,11 +423,14 @@ def build(content, patient, outdir):
     para(d, 'Honor statement: I completed this work myself, using only my textbooks, notes, drug references and the patient chart.', italic=True, size=10.5, before=8)
     para(d, 'Signature: ______________________________   Date: ______________', size=11, before=6)
     for part in content['parts']:
+        items = part['items']
         page_break(d)
+        if items and items[0]['type'] == 'sealed':   # the sealed page is its own sheet, before the Part header, so it can be handed out separately
+            shift_update(d, items[0], patient); page_break(d); items = items[1:]
         para(d, f"PART {part['id']}: {part['title'].upper()}", bold=True, size=15, after=0)
         para(d, f"Nursing process step: {part['step']}   |   About {part['minutes']} minutes   |   {fmt(sum(i['points'] for i in part['items'] if i['type'] not in ('text', 'sealed')))} points", italic=True, size=10, color='444444', after=4)
         if part.get('intro'): para(d, part['intro'], size=11, after=4)
-        for it in part['items']: render_item(d, it, patient)
+        for it in items: render_item(d, it, patient)
     d.save(os.path.join(outdir, f"{meta['caseCode']}_STUDENT.docx"))
 
     # ---------------- faculty key

@@ -6,4 +6,4 @@ See `BLUEPRINT.md` for the design, the workflow and how photos of student work a
     python3 extract_facts.py patient.json > facts.txt
     python3 build_casestudy.py content.json patient.json out/
 
-Requires `python-docx` (`pip install python-docx`). Keep `content.json` and the `*_KEY.docx` private: this repo is public.
+Requires `python-docx` (`pip install python-docx`). Cases live in `cases/<name>/`. Answer keys are in the repo by the instructor's choice; the repo is public.

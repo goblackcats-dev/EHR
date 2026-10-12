@@ -1,0 +1,4448 @@
+{
+  "format": "nursingsim-case",
+  "version": 1,
+  "name": "Betsy Ross, Hip Fracture",
+  "source": "ehr",
+  "savedAt": "2026-10-12T20:10:08.778Z",
+  "simulationTime": "2026-10-08 07:00",
+  "canonical": {
+    "schemaVersion": "2.0",
+    "caseMeta": {
+      "caseId": "case_hip_fracture_d1_1jb9590",
+      "title": "Hip Fracture - Hospital Day 1",
+      "studentLevel": "ADN second year",
+      "complexity": "complex",
+      "learningObjectives": [
+        "Perform neurovascular checks and pain reassessment for a patient with a hip fracture.",
+        "Prioritize pre-operative care for an older adult with a hip fracture: pain control, neurovascular checks, NPO, VTE and bleeding-risk management.",
+        "Implement post-operative hip fracture care: weight bearing, hip precautions, early mobilization, incentive spirometry, Foley removal and pressure-injury prevention.",
+        "Recognize and prevent delirium, post-operative anemia, constipation, urinary retention and VTE in an older adult.",
+        "Coordinate PT/OT and case management for discharge to rehab.",
+        "Connect assessment findings, labs and orders to prioritize nursing care."
+      ]
+    },
+    "patient": {
+      "id": "patient_sim_98214",
+      "mrn": "SIM-98214",
+      "name": "Betsy Ross",
+      "preferredName": "Betsy",
+      "dob": "1959-04-06",
+      "age": 67,
+      "sex": "Female",
+      "pronouns": "she/her",
+      "heightCm": 163,
+      "weightKg": 70,
+      "bmi": 26.3,
+      "allergies": [
+        {
+          "substance": "Penicillin",
+          "reaction": "Hives",
+          "severity": "High"
+        },
+        {
+          "substance": "Sulfa drugs",
+          "reaction": "Rash",
+          "severity": "Moderate"
+        }
+      ]
+    },
+    "encounter": {
+      "id": "encounter_sim_98214_2026-10-08",
+      "location": "Step-Down ICU",
+      "room": "378-1",
+      "attending": "R. Alvarez, MD",
+      "admitDate": "2026-10-08 02:00",
+      "diagnosis": "Hip fracture (intertrochanteric)",
+      "chiefComplaint": "Right hip pain after a fall; unable to bear weight",
+      "codeStatus": "Full Code",
+      "isolation": "Contact precautions",
+      "dietOrder": "2 g sodium, consistent carbohydrate diet",
+      "ambulationOrder": "Bed rest, non-weight bearing right leg",
+      "fallRisk": "High",
+      "lastUpdated": "2026-10-08 07:00",
+      "hospitalDay": 1
+    },
+    "problems": [
+      {
+        "id": "problem_hip_fracture_intertrochanteric",
+        "name": "Hip fracture (intertrochanteric)",
+        "status": "Active",
+        "details": "Right hip fracture after a fall; awaiting intramedullary nail fixation within 24-48 hours."
+      },
+      {
+        "id": "problem_type_2_diabetes_mellitus",
+        "name": "Type 2 diabetes mellitus",
+        "status": "Chronic",
+        "details": "Chronic diabetes on basal insulin and oral therapy at home."
+      },
+      {
+        "id": "problem_hypertension",
+        "name": "Hypertension",
+        "status": "Chronic",
+        "details": "Chronic hypertension on home antihypertensive therapy."
+      },
+      {
+        "id": "problem_coronary_artery_disease",
+        "name": "Coronary artery disease",
+        "status": "Chronic",
+        "details": "Known atherosclerotic coronary disease on aspirin, statin and beta blocker."
+      },
+      {
+        "id": "problem_heart_failure_with_reduced_ejection_fraction",
+        "name": "Heart failure with reduced ejection fraction",
+        "status": "Chronic",
+        "details": "Chronic HFrEF (EF about 35%) on beta blocker and loop diuretic."
+      },
+      {
+        "id": "problem_atrial_fibrillation",
+        "name": "Atrial fibrillation",
+        "status": "Chronic",
+        "details": "Chronic atrial fibrillation on rate control and anticoagulation."
+      },
+      {
+        "id": "problem_chronic_obstructive_pulmonary_disease",
+        "name": "Chronic obstructive pulmonary disease",
+        "status": "Chronic",
+        "details": "Chronic obstructive lung disease; baseline SpO2 about 90-92%."
+      },
+      {
+        "id": "problem_chronic_anemia",
+        "name": "Chronic anemia",
+        "status": "Chronic",
+        "details": "Baseline hemoglobin about 10 g/dL."
+      },
+      {
+        "id": "problem_gastroesophageal_reflux_disease",
+        "name": "Gastroesophageal reflux disease",
+        "status": "Chronic",
+        "details": "Chronic GERD on a proton pump inhibitor."
+      },
+      {
+        "id": "problem_depression_anxiety",
+        "name": "Depression / anxiety",
+        "status": "Chronic",
+        "details": "Chronic depression and anxiety on an SSRI."
+      },
+      {
+        "id": "problem_chronic_constipation",
+        "name": "Chronic constipation",
+        "status": "Chronic",
+        "details": "Functional constipation managed with daily osmotic and stimulant laxatives."
+      },
+      {
+        "id": "problem_peripheral_neuropathy",
+        "name": "Peripheral neuropathy",
+        "status": "Chronic",
+        "details": "Diabetic peripheral neuropathy of both feet."
+      },
+      {
+        "id": "problem_history_of_mrsa_infection_colonization",
+        "name": "History of MRSA infection / colonization",
+        "status": "Chronic",
+        "details": "Prior MRSA skin abscess; nares colonized on screening."
+      },
+      {
+        "id": "problem_rheumatoid_arthritis",
+        "name": "Rheumatoid arthritis",
+        "status": "Chronic",
+        "details": "Seropositive RA on methotrexate 15 mg once weekly, folic acid, hydroxychloroquine and low-dose prednisone."
+      },
+      {
+        "id": "problem_chronic_peripheral_edema",
+        "name": "Chronic peripheral edema",
+        "status": "Chronic",
+        "details": "Chronic bilateral dependent leg edema with fragile skin."
+      },
+      {
+        "id": "problem_frailty",
+        "name": "Frailty",
+        "status": "Chronic",
+        "details": "Frail older adult with weight loss, weakness and reduced reserve; high risk of delirium and functional decline."
+      }
+    ],
+    "observations": [
+      {
+        "id": "vital_temp_2026_10_08_02_06",
+        "type": "vital",
+        "code": "TEMP",
+        "label": "Temperature",
+        "value": "98.2 °F",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 02:06"
+      },
+      {
+        "id": "vital_hr_2026_10_08_02_06",
+        "type": "vital",
+        "code": "HR",
+        "label": "Heart Rate",
+        "value": "111",
+        "units": "bpm",
+        "flag": "Abnormal",
+        "collected": "2026-10-08 02:06"
+      },
+      {
+        "id": "vital_bp_2026_10_08_02_06",
+        "type": "vital",
+        "code": "BP",
+        "label": "Blood Pressure",
+        "value": "155/91",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 02:06"
+      },
+      {
+        "id": "vital_rr_2026_10_08_02_06",
+        "type": "vital",
+        "code": "RR",
+        "label": "Respiratory Rate",
+        "value": "23",
+        "units": "/min",
+        "flag": "Abnormal",
+        "collected": "2026-10-08 02:06"
+      },
+      {
+        "id": "vital_spo2_2026_10_08_02_06",
+        "type": "vital",
+        "code": "SPO2",
+        "label": "SpO2",
+        "value": "92",
+        "units": "%",
+        "flag": "",
+        "collected": "2026-10-08 02:06"
+      },
+      {
+        "id": "vital_pain_2026_10_08_02_06",
+        "type": "vital",
+        "code": "PAIN",
+        "label": "Pain",
+        "value": "10/10",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 02:06"
+      },
+      {
+        "id": "lab_wbc_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CBC",
+        "code": "WBC",
+        "label": "WBC",
+        "value": "11.8",
+        "units": "K/uL",
+        "flag": "High",
+        "reference": "4-10.5",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_hemoglobin_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CBC",
+        "code": "Hemoglobin",
+        "label": "Hemoglobin",
+        "value": "8.9",
+        "units": "g/dL",
+        "flag": "Low",
+        "reference": "12-16",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_hematocrit_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CBC",
+        "code": "Hematocrit",
+        "label": "Hematocrit",
+        "value": "26.9",
+        "units": "%",
+        "flag": "Low",
+        "reference": "36-46",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_platelets_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CBC",
+        "code": "Platelets",
+        "label": "Platelets",
+        "value": "225",
+        "units": "K/uL",
+        "flag": "",
+        "reference": "150-400",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_sodium_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Sodium",
+        "label": "Sodium",
+        "value": "137",
+        "units": "mmol/L",
+        "flag": "",
+        "reference": "136-145",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_potassium_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Potassium",
+        "label": "Potassium",
+        "value": "4.2",
+        "units": "mmol/L",
+        "flag": "",
+        "reference": "3.5-5.1",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_chloride_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Chloride",
+        "label": "Chloride",
+        "value": "102",
+        "units": "mmol/L",
+        "flag": "",
+        "reference": "98-107",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_co2_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "CO2",
+        "label": "CO2",
+        "value": "24",
+        "units": "mmol/L",
+        "flag": "",
+        "reference": "22-29",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_bun_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "BUN",
+        "label": "BUN",
+        "value": "21",
+        "units": "mg/dL",
+        "flag": "High",
+        "reference": "7-20",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_creatinine_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Creatinine",
+        "label": "Creatinine",
+        "value": "0.94",
+        "units": "mg/dL",
+        "flag": "",
+        "reference": "0.5-1.1",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_glucose_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Glucose",
+        "label": "Glucose",
+        "value": "201",
+        "units": "mg/dL",
+        "flag": "High",
+        "reference": "70-110",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_calcium_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Calcium",
+        "label": "Calcium",
+        "value": "9.0",
+        "units": "mg/dL",
+        "flag": "",
+        "reference": "8.5-10.5",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_egfr_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "eGFR",
+        "label": "eGFR",
+        "value": "65",
+        "units": "mL/min/1.73m²",
+        "flag": "",
+        "reference": ">60",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_pt_2026_10_08_02_30",
+        "type": "lab",
+        "category": "Coagulation",
+        "code": "PT",
+        "label": "PT",
+        "value": "12.4",
+        "units": "sec",
+        "flag": "",
+        "reference": "11-14",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_inr_2026_10_08_02_30",
+        "type": "lab",
+        "category": "Coagulation",
+        "code": "INR",
+        "label": "INR",
+        "value": "1.0",
+        "units": "",
+        "flag": "",
+        "reference": "0.9-1.2",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_aptt_2026_10_08_02_30",
+        "type": "lab",
+        "category": "Coagulation",
+        "code": "aPTT",
+        "label": "aPTT",
+        "value": "29",
+        "units": "sec",
+        "flag": "",
+        "reference": "25-35",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_albumin_2026_10_08_02_30",
+        "type": "lab",
+        "category": "Hepatic",
+        "code": "Albumin",
+        "label": "Albumin",
+        "value": "2.7",
+        "units": "g/dL",
+        "flag": "Low",
+        "reference": "3.5-5",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_magnesium_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Magnesium",
+        "label": "Magnesium",
+        "value": "1.9",
+        "units": "mg/dL",
+        "flag": "",
+        "reference": "1.7-2.4",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_phosphorus_2026_10_08_02_30",
+        "type": "lab",
+        "category": "CMP",
+        "code": "Phosphorus",
+        "label": "Phosphorus",
+        "value": "3.4",
+        "units": "mg/dL",
+        "flag": "",
+        "reference": "2.5-4.5",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "lab_hemoglobin_a1c_2026_10_08_02_30",
+        "type": "lab",
+        "category": "Endocrine",
+        "code": "Hemoglobin A1c",
+        "label": "Hemoglobin A1c",
+        "value": "8.0",
+        "units": "%",
+        "flag": "High",
+        "reference": "<5.7",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 02:30"
+      },
+      {
+        "id": "vital_temp_2026_10_08_03_00",
+        "type": "vital",
+        "code": "TEMP",
+        "label": "Temperature",
+        "value": "98.0 °F",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 03:00"
+      },
+      {
+        "id": "vital_hr_2026_10_08_03_00",
+        "type": "vital",
+        "code": "HR",
+        "label": "Heart Rate",
+        "value": "104",
+        "units": "bpm",
+        "flag": "Abnormal",
+        "collected": "2026-10-08 03:00"
+      },
+      {
+        "id": "vital_bp_2026_10_08_03_00",
+        "type": "vital",
+        "code": "BP",
+        "label": "Blood Pressure",
+        "value": "158/87",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 03:00"
+      },
+      {
+        "id": "vital_rr_2026_10_08_03_00",
+        "type": "vital",
+        "code": "RR",
+        "label": "Respiratory Rate",
+        "value": "20",
+        "units": "/min",
+        "flag": "",
+        "collected": "2026-10-08 03:00"
+      },
+      {
+        "id": "vital_spo2_2026_10_08_03_00",
+        "type": "vital",
+        "code": "SPO2",
+        "label": "SpO2",
+        "value": "91",
+        "units": "%",
+        "flag": "",
+        "collected": "2026-10-08 03:00"
+      },
+      {
+        "id": "vital_pain_2026_10_08_03_00",
+        "type": "vital",
+        "code": "PAIN",
+        "label": "Pain",
+        "value": "8/10",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 03:00"
+      },
+      {
+        "id": "lab_type_and_screen_2026_10_08_03_12_0",
+        "type": "lab",
+        "category": "Blood Bank",
+        "code": "Type and screen",
+        "label": "Type and screen",
+        "value": "O positive; antibody screen negative",
+        "units": "",
+        "flag": "",
+        "reference": "",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 03:12"
+      },
+      {
+        "id": "lab_urinalysis_leukocyte_esterase_2026_10_08_03_24_1",
+        "type": "lab",
+        "category": "Urinalysis",
+        "code": "Urinalysis - leukocyte esterase",
+        "label": "Urinalysis - leukocyte esterase",
+        "value": "Negative",
+        "units": "",
+        "flag": "",
+        "reference": "Negative",
+        "specimen": "Urine",
+        "status": "Final",
+        "collected": "2026-10-08 03:24"
+      },
+      {
+        "id": "lab_urinalysis_nitrite_2026_10_08_03_24_2",
+        "type": "lab",
+        "category": "Urinalysis",
+        "code": "Urinalysis - nitrite",
+        "label": "Urinalysis - nitrite",
+        "value": "Negative",
+        "units": "",
+        "flag": "",
+        "reference": "Negative",
+        "specimen": "Urine",
+        "status": "Final",
+        "collected": "2026-10-08 03:24"
+      },
+      {
+        "id": "vital_temp_2026_10_08_04_24",
+        "type": "vital",
+        "code": "TEMP",
+        "label": "Temperature",
+        "value": "98.3 °F",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 04:24"
+      },
+      {
+        "id": "vital_hr_2026_10_08_04_24",
+        "type": "vital",
+        "code": "HR",
+        "label": "Heart Rate",
+        "value": "99",
+        "units": "bpm",
+        "flag": "",
+        "collected": "2026-10-08 04:24"
+      },
+      {
+        "id": "vital_bp_2026_10_08_04_24",
+        "type": "vital",
+        "code": "BP",
+        "label": "Blood Pressure",
+        "value": "150/89",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 04:24"
+      },
+      {
+        "id": "vital_rr_2026_10_08_04_24",
+        "type": "vital",
+        "code": "RR",
+        "label": "Respiratory Rate",
+        "value": "19",
+        "units": "/min",
+        "flag": "",
+        "collected": "2026-10-08 04:24"
+      },
+      {
+        "id": "vital_spo2_2026_10_08_04_24",
+        "type": "vital",
+        "code": "SPO2",
+        "label": "SpO2",
+        "value": "91",
+        "units": "%",
+        "flag": "",
+        "collected": "2026-10-08 04:24"
+      },
+      {
+        "id": "vital_pain_2026_10_08_04_24",
+        "type": "vital",
+        "code": "PAIN",
+        "label": "Pain",
+        "value": "6/10",
+        "units": "",
+        "flag": "",
+        "collected": "2026-10-08 04:24"
+      },
+      {
+        "id": "assessment_neurologic_level_of_consciousness_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Neurologic",
+        "code": "LEVEL_OF_CONSCIOUSNESS",
+        "label": "Level of Consciousness",
+        "value": "Alert",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_neurologic_orientation_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Neurologic",
+        "code": "ORIENTATION",
+        "label": "Orientation",
+        "value": "Alert and oriented x4",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_respiratory_breath_sounds_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Respiratory",
+        "code": "BREATH_SOUNDS",
+        "label": "Breath Sounds",
+        "value": "Diminished bilaterally with scattered end-expiratory wheeze",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_respiratory_respiratory_effort_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Respiratory",
+        "code": "RESPIRATORY_EFFORT",
+        "label": "Respiratory Effort",
+        "value": "Mildly prolonged expiratory phase",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_cardiac_rhythm_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Cardiac",
+        "code": "RHYTHM",
+        "label": "Rhythm",
+        "value": "Atrial fibrillation, rate controlled, irregularly irregular",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_cardiac_heart_sounds_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Cardiac",
+        "code": "HEART_SOUNDS",
+        "label": "Heart Sounds",
+        "value": "S1 S2 irregularly irregular, no murmur",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_cardiac_edema_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Cardiac",
+        "code": "EDEMA",
+        "label": "Edema",
+        "value": "Trace bilateral lower extremity edema",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_cardiac_capillary_refill_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Cardiac",
+        "code": "CAPILLARY_REFILL",
+        "label": "Capillary Refill",
+        "value": "Less than 3 seconds",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_gi_abdomen_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "GI",
+        "code": "ABDOMEN",
+        "label": "Abdomen",
+        "value": "Soft, non-tender, non-distended",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_gi_bowel_sounds_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "GI",
+        "code": "BOWEL_SOUNDS",
+        "label": "Bowel Sounds",
+        "value": "Active in all four quadrants",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_gi_nausea_vomiting_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "GI",
+        "code": "NAUSEA_VOMITING",
+        "label": "Nausea / Vomiting",
+        "value": "None",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_gu_urinary_elimination_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "GU",
+        "code": "URINARY_ELIMINATION",
+        "label": "Urinary Elimination",
+        "value": "Voiding spontaneously",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_gu_urine_appearance_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "GU",
+        "code": "URINE_APPEARANCE",
+        "label": "Urine Appearance",
+        "value": "Clear, yellow",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_skin_skin_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Skin",
+        "code": "SKIN",
+        "label": "Skin",
+        "value": "Heels and sacrum intact; blanchable redness over sacrum",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_skin_braden_score_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Skin",
+        "code": "BRADEN_SCORE",
+        "label": "Braden Score",
+        "value": "17",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_musculoskeletal_mobility_mobility_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Musculoskeletal / Mobility",
+        "code": "MOBILITY",
+        "label": "Mobility",
+        "value": "Bed rest, right leg in skin traction; repositions with assistance",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_pain_pain_location_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Pain",
+        "code": "PAIN_LOCATION",
+        "label": "Pain Location",
+        "value": "Right hip, dull ache after nerve block",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_safety_fall_precautions_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Safety",
+        "code": "FALL_PRECAUTIONS",
+        "label": "Fall Precautions",
+        "value": "High risk (frailty): bed alarm on, bed low, hourly rounding, assist x1",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_skin_chest_wall_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Skin",
+        "code": "CHEST_WALL",
+        "label": "Chest Wall",
+        "value": "Healed right mastectomy scar; flat chest wall, no erythema or seroma",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_musculoskeletal_mobility_arm_precautions_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Musculoskeletal / Mobility",
+        "code": "ARM_PRECAUTIONS",
+        "label": "Arm Precautions",
+        "value": "Right arm at risk for lymphedema: no BP, IV or venipuncture; no swelling today",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_skin_surgical_scar_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Skin",
+        "code": "SURGICAL_SCAR",
+        "label": "Surgical Scar",
+        "value": "Healed right lateral hip incision",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_cardiac_device_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Cardiac",
+        "code": "DEVICE",
+        "label": "Device",
+        "value": "Pacemaker left chest; pocket healed",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_musculoskeletal_mobility_joint_assessment_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Musculoskeletal / Mobility",
+        "code": "JOINT_ASSESSMENT",
+        "label": "Joint Assessment",
+        "value": "Symmetric swelling and tenderness of MCP/PIP joints and wrists, ulnar deviation, morning stiffness about 45 minutes; no hot effusion",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_neurologic_sensation_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Neurologic",
+        "code": "SENSATION",
+        "label": "Sensation",
+        "value": "Decreased light touch and pinprick in both feet (stocking distribution); burning pain 3/10 at baseline",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_skin_foot_skin_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Skin",
+        "code": "FOOT_SKIN",
+        "label": "Foot Skin",
+        "value": "Dry, intact; no ulcers or calluses",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_gi_bowel_habit_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "GI",
+        "code": "BOWEL_HABIT",
+        "label": "Bowel Habit",
+        "value": "Baseline: BM every 2-3 days, hard stools with straining; no impaction",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_safety_diabetes_care_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Safety",
+        "code": "DIABETES_CARE",
+        "label": "Diabetes Care",
+        "value": "Glucose checks per order; feet intact, no wounds",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_musculoskeletal_mobility_right_lower_extremity_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Musculoskeletal / Mobility",
+        "code": "RIGHT_LOWER_EXTREMITY",
+        "label": "Right Lower Extremity",
+        "value": "Right leg shortened and externally rotated; tender over hip and groin; unable to lift leg; foot warm, pedal pulses palpable, capillary refill under 3 seconds, sensation and toe movement intact",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_safety_delirium_screen_cam_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Safety",
+        "code": "DELIRIUM_SCREEN_CAM",
+        "label": "Delirium Screen (CAM)",
+        "value": "Negative",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_respiratory_incentive_spirometer_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Respiratory",
+        "code": "INCENTIVE_SPIROMETER",
+        "label": "Incentive Spirometer",
+        "value": "1,000 mL",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_respiratory_oxygen_device_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Respiratory",
+        "code": "OXYGEN_DEVICE",
+        "label": "Oxygen Device",
+        "value": "Room air",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_pain_pain_score_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Pain",
+        "code": "PAIN_SCORE",
+        "label": "Pain Score",
+        "value": "6/10",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_gi_diet_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "GI",
+        "code": "DIET",
+        "label": "Diet",
+        "value": "2 g sodium, consistent carbohydrate diet",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "assessment_musculoskeletal_mobility_ambulation_2026_10_08_05_30",
+        "type": "assessment",
+        "section": "Musculoskeletal / Mobility",
+        "code": "AMBULATION",
+        "label": "Ambulation",
+        "value": "Bed rest, non-weight bearing right leg",
+        "collected": "2026-10-08 05:30",
+        "source": "Admission assessment",
+        "abnormal": false
+      },
+      {
+        "id": "lab_mrsa_nasal_screen_pcr_2026_10_08_06_00_3",
+        "type": "lab",
+        "category": "Microbiology",
+        "code": "MRSA nasal screen (PCR)",
+        "label": "MRSA nasal screen (PCR)",
+        "value": "Negative",
+        "units": "",
+        "flag": "",
+        "reference": "Negative",
+        "specimen": "Nares",
+        "status": "Final",
+        "collected": "2026-10-08 06:00"
+      },
+      {
+        "id": "lab_25_oh_vitamin_d_2026_10_08_08_00",
+        "type": "lab",
+        "category": "Endocrine",
+        "code": "25-OH Vitamin D",
+        "label": "25-OH Vitamin D",
+        "value": "19",
+        "units": "ng/mL",
+        "flag": "Low",
+        "reference": "30-100",
+        "specimen": "Blood",
+        "status": "Final",
+        "collected": "2026-10-08 08:00"
+      }
+    ],
+    "orders": [
+      {
+        "id": "order_diet_2_g_sodium_consistent_carbohydrate_diet_0",
+        "name": "2 g sodium, consistent carbohydrate diet",
+        "category": "Diet",
+        "status": "Active",
+        "frequency": "Meals",
+        "start": "2026-10-08 02:30",
+        "end": "2026-10-09 00:00",
+        "orderedAt": "2026-10-08 02:27",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Heart-healthy; encourage fluids and protein. Offer snacks; set up meals (patient flat in bed). Modified for 2 g sodium, consistent carbohydrate.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_activity_bed_rest_non_weight_bearing_right_leg_3",
+        "name": "Bed rest, non-weight bearing right leg",
+        "category": "Activity",
+        "status": "Active",
+        "frequency": "As ordered",
+        "start": "2026-10-08 02:30",
+        "end": "2026-10-09 09:15",
+        "orderedAt": "2026-10-08 02:27",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Keep right leg in neutral rotation, pillow between knees, heels off the bed. Log roll with 2 staff. Bedpan or assisted bedside commode only.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_buck_s_skin_traction_5_lb_comfort_until__6",
+        "name": "Buck's skin traction (5 lb), comfort until surgery",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "2026-10-09 07:30",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Apply foam boot with 5 lb weight to right leg for comfort; weights hang free. Check skin of heel, malleoli and fibular head every shift. Remove for surgery.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Assess for peroneal nerve pressure (foot drop, numbness over top of foot).",
+          "Check that traction ropes are free and weights are not resting on the floor or bed."
+        ]
+      },
+      {
+        "id": "order_nursing_neurovascular_checks_right_leg_7",
+        "name": "Neurovascular checks right leg",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every 4 hours",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Check color, warmth, capillary refill, dorsalis pedis/posterior tibial pulses, sensation and ability to move toes. Notify surgeon for pallor, coolness, loss of pulse, numbness, or severe pain unrelieved by medication.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Post-op: report increasing thigh swelling or tightness (hematoma / compartment syndrome)."
+        ]
+      },
+      {
+        "id": "order_nursing_anticoagulant_and_antiplatelet_review_pr_8",
+        "name": "Anticoagulant and antiplatelet review (pre-operative)",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Once",
+        "start": "2026-10-08 05:00",
+        "end": "2026-10-08 10:00",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Confirm and document date and time of last dose of any anticoagulant (apixaban, rivaroxaban, warfarin) or antiplatelet (clopidogrel, aspirin). Hold anticoagulants. Notify surgeon and anesthesia (spinal/epidural timing). INR checked.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Aspirin 81 mg may be continued if ordered; do not give clopidogrel, apixaban or warfarin until the surgeon clears it."
+        ]
+      },
+      {
+        "id": "order_laboratory_type_and_screen_9",
+        "name": "Type and screen",
+        "category": "Laboratory",
+        "status": "Completed",
+        "frequency": "Once",
+        "start": "2026-10-08 02:36",
+        "end": "2026-10-08 03:24",
+        "orderedAt": "2026-10-08 02:33",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Blood bank specimen; armband required. Keep sample valid (repeat every 72 hours).",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_transfusion_threshold_hgb_below_8_g_dl_o_10",
+        "name": "Transfusion threshold: Hgb below 8 g/dL or symptomatic",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Per lab result",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Restrictive transfusion strategy: transfuse 1 unit PRBC for Hgb below 8 g/dL, or for chest pain, symptomatic tachycardia or hypotension. Recheck Hgb after each unit.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Notify provider for Hgb below 8, HR above 110, SBP below 90, new dyspnea, dizziness or pallor."
+        ]
+      },
+      {
+        "id": "order_precautions_delirium_prevention_bundle_11",
+        "name": "Delirium prevention bundle",
+        "category": "Precautions",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Reorient often; glasses, hearing aids and dentures within reach; day-night routine and lights off at night; treat pain; avoid benzodiazepines and anticholinergics; early mobilization; hydration; avoid restraints. Screen with CAM every shift.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "New confusion: check pain, urinary retention, constipation, hypoxia, infection, glucose and recent medications before giving any sedative."
+        ]
+      },
+      {
+        "id": "order_nursing_pressure_injury_prevention_12",
+        "name": "Pressure injury prevention",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every 2 hours",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Braden each shift; reposition every 2 hours (30-degree tilt on the non-operative side or per surgeon); float heels with pillows/boots; pressure-redistribution mattress; keep skin dry; assess sacrum, heels and hips.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Older adults lying on a hard floor or ED stretcher are at high risk for sacral and heel injury."
+        ]
+      },
+      {
+        "id": "order_respiratory_incentive_spirometry_13",
+        "name": "Incentive spirometry",
+        "category": "Respiratory",
+        "status": "Active",
+        "frequency": "10 times every hour while awake",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Teach and encourage deep breaths with sustained inspiration; record achieved volume.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Goal volume documented by RT/nursing; report below 50% of goal."
+        ]
+      },
+      {
+        "id": "order_nursing_pre_operative_checklist_consent_and_site_14",
+        "name": "Pre-operative checklist, consent and site verification",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Once",
+        "start": "2026-10-08 10:00",
+        "end": "2026-10-09 07:42",
+        "orderedAt": "2026-10-08 09:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Verify consent (or health care proxy if lacking capacity), ID and allergy bands, right hip marked, NPO status, hearing aids/dentures plan, last void, antibiotic within 60 minutes before incision, skin traction off.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_sequential_compression_devices_15",
+        "name": "Sequential compression devices",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Continuous when in bed",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Apply to both legs (or non-operative leg only if the operative leg is swollen) until fully ambulatory.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_consult_therapy_case_management_consult_post_acute_rehab_16",
+        "name": "Case management consult: post-acute rehab planning",
+        "category": "Consult / Therapy",
+        "status": "Active",
+        "frequency": "Once",
+        "start": "2026-10-08 08:00",
+        "end": "",
+        "orderedAt": "2026-10-08 07:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Evaluate for skilled nursing facility / inpatient rehab. Medicare 3-midnight qualifying stay; start insurance authorization early.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_lab_bedside_testing_point_of_care_blood_glucose_21",
+        "name": "Point-of-care blood glucose",
+        "category": "Lab / Bedside Testing",
+        "status": "Active",
+        "frequency": "ACHS (every 6 hours if NPO)",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Check before meals and at bedtime; every 6 hours while NPO. Treat per hypoglycemia protocol.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_hypoglycemia_protocol_22",
+        "name": "Hypoglycemia protocol",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "PRN glucose below 70 mg/dL",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Follow facility hypoglycemia protocol: 15 g fast carbohydrate if awake, recheck in 15 minutes; dextrose 50% IV if NPO or unable to swallow.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_daily_weight_23",
+        "name": "Daily weight",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Same scale each morning before breakfast; report gain of more than 2 lb in a day or 5 lb in a week.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_respiratory_supplemental_oxygen_via_nasal_cannula_24",
+        "name": "Supplemental oxygen via nasal cannula",
+        "category": "Respiratory",
+        "status": "Active",
+        "frequency": "Continuous, titrate",
+        "start": "2026-10-08 02:18",
+        "end": "",
+        "orderedAt": "2026-10-08 02:15",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Start 1-2 L/min; titrate to SpO2 88-92%. Do not exceed target (CO2 retention risk).",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Goal SpO2 is 88-92%, NOT higher; notify provider for drowsiness or SpO2 below 88%."
+        ]
+      },
+      {
+        "id": "order_respiratory_respiratory_therapy_evaluate_and_treat_25",
+        "name": "Respiratory therapy evaluate and treat",
+        "category": "Respiratory",
+        "status": "Active",
+        "frequency": "Daily and PRN",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "RT to assess, administer nebulizers, and review inhaler technique.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_bowel_movement_record_notify_provider_if_26",
+        "name": "Bowel movement record; notify provider if no BM in 48-72 hours",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every shift",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Record date, amount and consistency (Bristol scale). Encourage fluids, fiber and walking as tolerated; use the toilet at the same time each day. Rule out impaction before giving more laxatives.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_foot_and_skin_inspection_protect_numb_fe_27",
+        "name": "Foot and skin inspection; protect numb feet",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every shift",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Check both feet for pressure areas, blisters, wounds. Test water temperature with the elbow; no heating pads on feet; shoes or non-skid socks for all walking.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_precautions_contact_precautions_28",
+        "name": "Contact precautions",
+        "category": "Precautions",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Gown and gloves for all contact; dedicated stethoscope/equipment; private room; hand hygiene with soap and water or alcohol rub.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_chlorhexidine_bathing_29",
+        "name": "Chlorhexidine bathing",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 06:00",
+        "end": "",
+        "orderedAt": "2026-10-08 05:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Daily bath with 2% chlorhexidine cloths from neck down (avoid face, eyes, mucous membranes) to reduce MRSA burden.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_chronic_steroid_precautions_30",
+        "name": "Chronic steroid precautions",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Long-term corticosteroid user: never skip doses; provider to consider stress-dose steroids (hydrocortisone) for hypotension, sepsis or surgery. Check glucose with meals while hyperglycemic; watch for infection (fever may be blunted), GI upset and mood change.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hypotension unresponsive to fluids in a steroid-dependent patient may be adrenal insufficiency: notify the provider."
+        ]
+      },
+      {
+        "id": "order_precautions_immunosuppression_infection_precautions_31",
+        "name": "Immunosuppression / infection precautions",
+        "category": "Precautions",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Immunosuppressed (methotrexate + prednisone): strict hand hygiene, no sick visitors, no live vaccines, monitor closely for infection. Fever and WBC response may be blunted: report temperature 100.4 F or higher, new cough, dysuria, wound drainage or confusion.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Infection can progress quickly in immunosuppressed patients; escalate early."
+        ]
+      },
+      {
+        "id": "order_nursing_avoid_nsaids_ibuprofen_ketorolac_naproxe_32",
+        "name": "Avoid NSAIDs (ibuprofen, ketorolac, naproxen)",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "No NSAIDs: CKD, anticoagulant or a cardiac/renal/bleeding condition. Use acetaminophen, topical lidocaine, heat or ice instead. Question any NSAID order and notify the provider.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "NSAIDs raise bleeding risk with anticoagulants and can cause acute kidney injury in CKD."
+        ]
+      },
+      {
+        "id": "order_nursing_elevate_legs_and_protect_edematous_skin_33",
+        "name": "Elevate legs and protect edematous skin",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every shift",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Elevate legs on pillows above heart level when in bed/chair; no tight socks; inspect legs and heels each shift for blisters, weeping, skin tears or redness; pad bony areas; avoid adhesive on legs. Compression stockings only if pulses present, no decompensated HF.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_skin_assessment_with_braden_score_every__34",
+        "name": "Skin assessment with Braden Score every shift",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every shift",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Check heels, sacrum and edematous areas.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_precautions_frailty_precautions_falls_delirium_and_s_35",
+        "name": "Frailty precautions: falls, delirium and skin tears",
+        "category": "Precautions",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "High fall risk (bed alarm, assist x1-2, scheduled toileting); delirium prevention (glasses/hearing aids, orientation, sleep, avoid sedatives); fragile skin: paper tape or silicone dressings, pad bony areas, no friction when repositioning.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_consult_dietitian_consult_and_nutrition_support_36",
+        "name": "Dietitian consult and nutrition support",
+        "category": "Consult",
+        "status": "Active",
+        "frequency": "Once",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Weight loss and low albumin: high-protein supplements between meals, feeding assistance, weekly weights.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_consult_pt_ot_evaluation_and_early_mobilization_37",
+        "name": "PT/OT evaluation and early mobilization",
+        "category": "Consult",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Up to chair for meals, ambulate with assistance 3 times daily; evaluate for rehab placement.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_consult_goals_of_care_and_polypharmacy_review_38",
+        "name": "Goals of care and polypharmacy review",
+        "category": "Consult",
+        "status": "Active",
+        "frequency": "Once",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Palliative/geriatrics input as needed; review code status and deprescribe where possible. Start low and go slow with new medications.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_precautions_pacemaker_precautions_39",
+        "name": "Pacemaker precautions",
+        "category": "Precautions",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Programmed lower rate 60 bpm: notify provider for pulse below 60 or symptoms of failure to capture/sense (dizziness, syncope, fatigue). No MRI unless the system is MRI-conditional and cleared; electrocautery needs a device plan.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_precautions_no_bp_blood_draws_iv_access_or_injection_40",
+        "name": "No BP, blood draws, IV access or injections in right arm (mastectomy)",
+        "category": "Precautions",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Protect the right arm from lymphedema and infection: no BP cuff, venipuncture, IV or injections. Use the left arm. Report swelling, redness or heaviness.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_tobacco_cessation_counseling_41",
+        "name": "Tobacco cessation counseling",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Once",
+        "start": "2026-10-08 08:00",
+        "end": "",
+        "orderedAt": "2026-10-08 07:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Offer cessation counseling and quitline information before discharge.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_vital_signs_42",
+        "name": "Vital signs",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every 4 hours",
+        "start": "2026-10-08 04:30",
+        "end": "",
+        "orderedAt": "2026-10-08 04:27",
+        "provider": "S. Patel, MD",
+        "instructions": "Notify provider for SBP below 90 or above 180, HR above 120 or below 50, RR above 28, SpO2 below 90%, or temperature above 101.5 F.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_nursing_strict_intake_and_output_43",
+        "name": "Strict intake and output",
+        "category": "Nursing",
+        "status": "Active",
+        "frequency": "Every shift",
+        "start": "2026-10-08 04:30",
+        "end": "",
+        "orderedAt": "2026-10-08 04:27",
+        "provider": "S. Patel, MD",
+        "instructions": "Record all oral and IV intake and all output (urine, drains, emesis).",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_precautions_fall_precautions_44",
+        "name": "Fall precautions",
+        "category": "Precautions",
+        "status": "Active",
+        "frequency": "Continuous",
+        "start": "2026-10-08 04:30",
+        "end": "",
+        "orderedAt": "2026-10-08 04:27",
+        "provider": "S. Patel, MD",
+        "instructions": "Call light in reach, bed low, non-skid footwear, assist with ambulation.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_laboratory_cbc_and_basic_metabolic_panel_45",
+        "name": "CBC and basic metabolic panel",
+        "category": "Laboratory",
+        "status": "Active",
+        "frequency": "Daily AM",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:57",
+        "provider": "S. Patel, MD",
+        "instructions": "Draw at 0500.",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_imaging_x_ray_right_hip_and_pelvis_ap_pelvis_ap__47",
+        "name": "X-ray right hip and pelvis (AP pelvis, AP and cross-table lateral right hip)",
+        "category": "Imaging",
+        "status": "Completed",
+        "frequency": "Once",
+        "start": "2026-10-08 02:09",
+        "end": "2026-10-08 02:54",
+        "orderedAt": "2026-10-08 02:06",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Perform X-ray right hip and pelvis (AP pelvis, AP and cross-table lateral right hip).",
+        "rationale": "Right hip pain and shortened, externally rotated leg after a fall",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_imaging_chest_x_ray_portable_48",
+        "name": "Chest x-ray, portable",
+        "category": "Imaging",
+        "status": "Completed",
+        "frequency": "Once",
+        "start": "2026-10-08 03:21",
+        "end": "2026-10-08 04:06",
+        "orderedAt": "2026-10-08 03:18",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Perform Chest x-ray, portable.",
+        "rationale": "Pre-operative evaluation",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_cardiac_testing_12_lead_ecg_49",
+        "name": "12-lead ECG",
+        "category": "Cardiac Testing",
+        "status": "Completed",
+        "frequency": "Once",
+        "start": "2026-10-08 03:33",
+        "end": "2026-10-08 04:18",
+        "orderedAt": "2026-10-08 03:30",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Perform 12-lead ECG.",
+        "rationale": "Pre-operative evaluation (syncope excluded as cause of fall)",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_consult_therapy_consult_orthopedic_surgery_50",
+        "name": "Consult: Orthopedic Surgery",
+        "category": "Consult / Therapy",
+        "status": "Completed",
+        "frequency": "Once",
+        "start": "2026-10-08 03:39",
+        "end": "2026-10-08 04:54",
+        "orderedAt": "2026-10-08 03:36",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Right hip fracture",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_consult_therapy_consult_hospital_medicine_pre_operative__51",
+        "name": "Consult: Hospital Medicine (pre-operative co-management)",
+        "category": "Consult / Therapy",
+        "status": "Completed",
+        "frequency": "Once",
+        "start": "2026-10-08 04:39",
+        "end": "2026-10-08 05:54",
+        "orderedAt": "2026-10-08 04:36",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Medical optimization before hip surgery",
+        "rationale": "",
+        "linkedData": [],
+        "nursingConsiderations": []
+      },
+      {
+        "id": "order_surgery_procedure_right_cephalomedullary_nail_fixation_of__52",
+        "name": "Right cephalomedullary nail fixation of intertrochanteric fracture",
+        "category": "Surgery / Procedure",
+        "status": "Pending",
+        "frequency": "Once",
+        "start": "2026-10-08 10:00",
+        "end": "2026-10-09 09:15",
+        "orderedAt": "2026-10-08 09:57",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Right cephalomedullary nail fixation of intertrochanteric fracture. Consent, NPO status and pre-op checklist before transport.",
+        "rationale": "Unstable intertrochanteric fracture",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Confirm consent is signed and in chart.",
+          "Confirm NPO status and last intake time.",
+          "Complete pre-op checklist; verify allergy band and site marking."
+        ]
+      },
+      {
+        "id": "order_med_insulin_lispro_14",
+        "name": "insulin lispro (HUMALOG) correction scale",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "ACHS (before meals and at bedtime)",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer Low-dose correction scale Subcutaneous ACHS (before meals and at bedtime).",
+        "rationale": "Hyperglycemia correction",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "insulin_lispro",
+          "drugClass": "Rapid-acting insulin",
+          "dose": "Low-dose correction scale",
+          "route": "Subcutaneous",
+          "importantInfo": "Give per correction scale only with a meal (or q6h if NPO). Check glucose first and document it. Watch for hypoglycemia.",
+          "monitoringRules": [
+            {
+              "label": "Glucose",
+              "sourceType": "lab",
+              "code": "Glucose"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "ACHS",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "Low-dose correction scale",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_prednisone_34",
+        "name": "prednisone tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 7.5 mg Oral Daily. Do not hold without a provider order; call the provider if the patient is NPO or vomiting.",
+        "rationale": "Rheumatoid arthritis (chronic low-dose steroid)",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Do not hold without a provider order; call the provider if the patient is NPO or vomiting."
+        ],
+        "medication": {
+          "medKey": "prednisone",
+          "drugClass": "Corticosteroid",
+          "dose": "7.5 mg",
+          "route": "Oral",
+          "importantInfo": "Give with food in the morning. Do NOT stop abruptly (adrenal suppression). If NPO or not absorbing, notify the provider for an IV steroid equivalent. Raises glucose and BP, masks fever and infection.",
+          "monitoringRules": [
+            {
+              "label": "Glucose",
+              "sourceType": "lab",
+              "code": "Glucose"
+            },
+            {
+              "label": "Blood Pressure",
+              "sourceType": "vital",
+              "code": "BP"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [
+            "0800"
+          ],
+          "hold": "Do not hold without a provider order; call the provider if the patient is NPO or vomiting.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "7.5 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_senna_docusate_8",
+        "name": "senna-docusate (SENOKOT-S) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 2 tablets Oral BID.",
+        "rationale": "Opioid-induced constipation prevention",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "senna_docusate",
+          "drugClass": "Stimulant laxative / stool softener",
+          "dose": "2 tablets",
+          "route": "Oral",
+          "importantInfo": "Hold for loose stools. Goal: a bowel movement at least every other day; immobility and opioids cause constipation.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "2 tablets",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_lisinopril_15",
+        "name": "lisinopril (PRINIVIL,ZESTRIL) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 20 mg Oral Daily. Hold and notify provider if SBP is below 100.",
+        "rationale": "Hypertension (home medication)",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hold and notify provider if SBP is below 100."
+        ],
+        "medication": {
+          "medKey": "lisinopril",
+          "drugClass": "ACE inhibitor",
+          "dose": "20 mg",
+          "route": "Oral",
+          "importantInfo": "Check BP before giving. Monitor potassium and creatinine. Watch for cough and angioedema.",
+          "monitoringRules": [
+            {
+              "label": "Blood Pressure",
+              "sourceType": "vital",
+              "code": "BP"
+            },
+            {
+              "label": "Potassium",
+              "sourceType": "lab",
+              "code": "Potassium"
+            },
+            {
+              "label": "Creatinine",
+              "sourceType": "lab",
+              "code": "Creatinine"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "Hold and notify provider if SBP is below 100.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "20 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_aspirin_16",
+        "name": "aspirin chewable tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 81 mg Oral Daily.",
+        "rationale": "Coronary artery disease",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "aspirin",
+          "drugClass": "Antiplatelet",
+          "dose": "81 mg",
+          "route": "Oral",
+          "importantInfo": "Monitor for bleeding. Continue through surgery unless surgeon directs otherwise.",
+          "monitoringRules": [
+            {
+              "label": "Hemoglobin",
+              "sourceType": "lab",
+              "code": "Hemoglobin"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "81 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_metoprolol_18",
+        "name": "metoprolol tartrate (LOPRESSOR) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 25 mg Oral BID. Hold and notify provider if HR below 55 or SBP below 100.",
+        "rationale": "Coronary artery disease",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hold and notify provider if HR below 55 or SBP below 100."
+        ],
+        "medication": {
+          "medKey": "metoprolol",
+          "drugClass": "Beta blocker",
+          "dose": "25 mg",
+          "route": "Oral",
+          "importantInfo": "Check BP and apical HR before giving. May give with a sip of water while NPO unless told otherwise.",
+          "monitoringRules": [
+            {
+              "label": "Blood Pressure",
+              "sourceType": "vital",
+              "code": "BP"
+            },
+            {
+              "label": "Heart Rate",
+              "sourceType": "vital",
+              "code": "HR"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "Hold and notify provider if HR below 55 or SBP below 100.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "25 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_carvedilol_19",
+        "name": "carvedilol (COREG) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 6.25 mg Oral BID. Hold and notify provider if HR below 55 or SBP below 100.",
+        "rationale": "Heart failure with reduced EF",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hold and notify provider if HR below 55 or SBP below 100."
+        ],
+        "medication": {
+          "medKey": "carvedilol",
+          "drugClass": "Beta blocker",
+          "dose": "6.25 mg",
+          "route": "Oral",
+          "importantInfo": "Give with food. Check BP and HR before giving.",
+          "monitoringRules": [
+            {
+              "label": "Blood Pressure",
+              "sourceType": "vital",
+              "code": "BP"
+            },
+            {
+              "label": "Heart Rate",
+              "sourceType": "vital",
+              "code": "HR"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "Hold and notify provider if HR below 55 or SBP below 100.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "6.25 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_furosemide_po_20",
+        "name": "furosemide (LASIX) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 40 mg Oral Daily.",
+        "rationale": "Heart failure (home diuretic)",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "furosemide_po",
+          "drugClass": "Loop diuretic",
+          "dose": "40 mg",
+          "route": "Oral",
+          "importantInfo": "Monitor BP, urine output, potassium, creatinine and weight.",
+          "monitoringRules": [
+            {
+              "label": "Blood Pressure",
+              "sourceType": "vital",
+              "code": "BP"
+            },
+            {
+              "label": "Potassium",
+              "sourceType": "lab",
+              "code": "Potassium"
+            },
+            {
+              "label": "Creatinine",
+              "sourceType": "lab",
+              "code": "Creatinine"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "40 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_advair_24",
+        "name": "fluticasone-salmeterol (ADVAIR DISKUS) inhaler",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 250/50 mcg, 1 inhalation Inhaled BID.",
+        "rationale": "COPD maintenance (home)",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "advair",
+          "drugClass": "Inhaled corticosteroid / LABA",
+          "dose": "250/50 mcg, 1 inhalation",
+          "route": "Inhaled",
+          "importantInfo": "Rinse mouth after use. Check inhaler technique.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "250/50 mcg, 1 inhalation",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_pantoprazole_25",
+        "name": "pantoprazole (PROTONIX) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 40 mg Oral Daily.",
+        "rationale": "GERD",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "pantoprazole",
+          "drugClass": "Proton pump inhibitor",
+          "dose": "40 mg",
+          "route": "Oral",
+          "importantInfo": "Give 30-60 minutes before breakfast.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "40 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_sertraline_26",
+        "name": "sertraline (ZOLOFT) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 50 mg Oral Daily.",
+        "rationale": "Depression / anxiety",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "sertraline",
+          "drugClass": "SSRI antidepressant",
+          "dose": "50 mg",
+          "route": "Oral",
+          "importantInfo": "Do not stop abruptly. Monitor mood and bleeding risk with other anticoagulants.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "50 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_polyethylene_glycol_27",
+        "name": "polyethylene glycol (MIRALAX) powder",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 17 g in 8 oz fluid Oral Daily. Hold for loose stools; notify provider if no BM in 3 days.",
+        "rationale": "Chronic constipation",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hold for loose stools; notify provider if no BM in 3 days."
+        ],
+        "medication": {
+          "medKey": "polyethylene_glycol",
+          "drugClass": "Osmotic laxative",
+          "dose": "17 g in 8 oz fluid",
+          "route": "Oral",
+          "importantInfo": "Hold for loose stools. Dissolve in 4-8 oz of liquid. Goal: soft BM every 1-2 days.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "Hold for loose stools; notify provider if no BM in 3 days.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "17 g in 8 oz fluid",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_gabapentin_29",
+        "name": "gabapentin (NEURONTIN) capsule",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "TID",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 300 mg Oral TID.",
+        "rationale": "Painful peripheral neuropathy",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "gabapentin",
+          "drugClass": "Anticonvulsant / neuropathic pain",
+          "dose": "300 mg",
+          "route": "Oral",
+          "importantInfo": "Monitor sedation and dizziness, especially with opioids. Do not stop abruptly. Dose is adjusted for kidney function.",
+          "monitoringRules": [
+            {
+              "label": "Respiratory Rate",
+              "sourceType": "vital",
+              "code": "RR"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "TID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "300 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_mupirocin_nasal_30",
+        "name": "mupirocin (BACTROBAN) 2% nasal ointment",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-08 05:00",
+        "end": "2026-10-13 05:00",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer Apply to each nostril Nasal BID.",
+        "rationale": "MRSA decolonization",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "mupirocin_nasal",
+          "drugClass": "Topical antibiotic (decolonization)",
+          "dose": "Apply to each nostril",
+          "route": "Nasal",
+          "importantInfo": "Use for 5 days; press nostrils together after application.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "Apply to each nostril",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_folic_acid_32",
+        "name": "folic acid tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 1 mg Oral Daily.",
+        "rationale": "Rheumatoid arthritis (methotrexate support)",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "folic_acid",
+          "drugClass": "Vitamin B9",
+          "dose": "1 mg",
+          "route": "Oral",
+          "importantInfo": "Reduces methotrexate side effects (mouth sores, nausea, cytopenias).",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "1 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_hydroxychloroquine_33",
+        "name": "hydroxychloroquine (PLAQUENIL) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 200 mg Oral BID.",
+        "rationale": "Rheumatoid arthritis",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "hydroxychloroquine",
+          "drugClass": "Antimalarial DMARD",
+          "dose": "200 mg",
+          "route": "Oral",
+          "importantInfo": "Give with food. Can prolong the QT interval: review ECG/QTc and other QT drugs (ondansetron, azithromycin, fluoroquinolones). Annual eye exam at home.",
+          "monitoringRules": [
+            {
+              "label": "Heart Rate",
+              "sourceType": "vital",
+              "code": "HR"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "200 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_emollient_lymph_35",
+        "name": "fragrance-free emollient (EUCERIN) lotion",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer Thin layer to both legs Topical BID.",
+        "rationale": "Chronic edema skin care",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "emollient_lymph",
+          "drugClass": "Emollient",
+          "dose": "Thin layer to both legs",
+          "route": "Topical",
+          "importantInfo": "Keep stretched edematous skin supple to prevent cracks and weeping.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "Thin layer to both legs",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_anastrozole_36",
+        "name": "anastrozole (ARIMIDEX) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 1 mg Oral Daily.",
+        "rationale": "Adjuvant endocrine therapy after mastectomy",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "anastrozole",
+          "drugClass": "Aromatase inhibitor",
+          "dose": "1 mg",
+          "route": "Oral",
+          "importantInfo": "Adjuvant breast cancer therapy. Causes joint aches and bone loss; do not stop without oncology.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "1 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_nicotine_patch_37",
+        "name": "nicotine (NICODERM CQ) 24 hour patch",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 21 mg Transdermal Daily.",
+        "rationale": "Tobacco use disorder",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "nicotine_patch",
+          "drugClass": "Nicotine replacement",
+          "dose": "21 mg",
+          "route": "Transdermal",
+          "importantInfo": "Rotate sites; remove old patch. Do not smoke while wearing patch.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [
+            "0900"
+          ],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "21 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_duoneb_22",
+        "name": "ipratropium-albuterol (DUONEB) nebulizer solution",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 6 hours",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 3 mL Nebulized Every 6 hours.",
+        "rationale": "COPD (replaces home tiotropium while inpatient)",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "duoneb",
+          "drugClass": "Anticholinergic / beta-agonist bronchodilator",
+          "dose": "3 mL",
+          "route": "Nebulized",
+          "importantInfo": "Given by RT. Assess breath sounds, HR and work of breathing before and after.",
+          "monitoringRules": [
+            {
+              "label": "Heart Rate",
+              "sourceType": "vital",
+              "code": "HR"
+            },
+            {
+              "label": "Respiratory Rate",
+              "sourceType": "vital",
+              "code": "RR"
+            },
+            {
+              "label": "SpO2",
+              "sourceType": "vital",
+              "code": "SPO2"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "q6h",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "3 mL",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": "10/08/26 0600 (Given)"
+        }
+      },
+      {
+        "id": "order_med_acetaminophen_5",
+        "name": "acetaminophen (TYLENOL) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 8 hours",
+        "start": "2026-10-08 03:00",
+        "end": "",
+        "orderedAt": "2026-10-08 02:54",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Administer 1,000 mg Oral Every 8 hours.",
+        "rationale": "Multimodal analgesia",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "acetaminophen",
+          "drugClass": "Non-opioid analgesic",
+          "dose": "1,000 mg",
+          "route": "Oral",
+          "importantInfo": "Scheduled (not PRN) base of multimodal analgesia; opioid-sparing. Maximum 3 g per 24 hours from all sources.",
+          "monitoringRules": [
+            {
+              "label": "Temperature",
+              "sourceType": "vital",
+              "code": "TEMP"
+            },
+            {
+              "label": "Pain",
+              "sourceType": "vital",
+              "code": "PAIN"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "q8h",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "1,000 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": "10/08/26 0300 (Given)"
+        }
+      },
+      {
+        "id": "order_med_heparin_ppx_preop_38",
+        "name": "heparin injection",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 8 hours",
+        "start": "2026-10-08 06:00",
+        "end": "2026-10-09 07:00",
+        "orderedAt": "2026-10-08 05:54",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 5,000 units Subcutaneous Every 8 hours.",
+        "rationale": "VTE prophylaxis",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "heparin_ppx_preop",
+          "drugClass": "Anticoagulant (prophylaxis)",
+          "dose": "5,000 units",
+          "route": "Subcutaneous",
+          "importantInfo": "Monitor for bleeding, bruising, platelets and renal function. Never give if platelets below 50 or active bleeding.",
+          "monitoringRules": [
+            {
+              "label": "Hemoglobin",
+              "sourceType": "lab",
+              "code": "Hemoglobin"
+            },
+            {
+              "label": "Platelets",
+              "sourceType": "lab",
+              "code": "Platelets"
+            },
+            {
+              "label": "Creatinine",
+              "sourceType": "lab",
+              "code": "Creatinine"
+            }
+          ],
+          "highAlert": true,
+          "freqKey": "q8h",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "5,000 units",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": "10/08/26 0600 (Given)"
+        }
+      },
+      {
+        "id": "order_med_cefazolin_6",
+        "name": "cefazolin (ANCEF) IVPB",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 8 hours",
+        "start": "2026-10-09 07:30",
+        "end": "2026-10-10 04:00",
+        "orderedAt": "2026-10-09 07:24",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 2 g IV Every 8 hours.",
+        "rationale": "Surgical site infection prophylaxis (24 hours)",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "cefazolin",
+          "drugClass": "Cephalosporin antibiotic",
+          "dose": "2 g",
+          "route": "IV",
+          "importantInfo": "Surgical prophylaxis: first dose within 60 minutes before incision, then every 8 hours for no more than 24 hours. Low cross-reactivity with penicillin; verify reaction history. Infuse over 30 minutes.",
+          "monitoringRules": [
+            {
+              "label": "Temperature",
+              "sourceType": "vital",
+              "code": "TEMP"
+            },
+            {
+              "label": "WBC",
+              "sourceType": "lab",
+              "code": "WBC"
+            },
+            {
+              "label": "Creatinine",
+              "sourceType": "lab",
+              "code": "Creatinine"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "q8h",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 7,
+          "adminDose": "2 g",
+          "dispenseLocation": "Central Pharmacy (IV room)",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_melatonin_7",
+        "name": "melatonin tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Nightly at bedtime",
+        "start": "2026-10-08 08:00",
+        "end": "",
+        "orderedAt": "2026-10-08 07:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 3 mg Oral Nightly at bedtime.",
+        "rationale": "Sleep and delirium prevention",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "melatonin",
+          "drugClass": "Sleep aid (hormone)",
+          "dose": "3 mg",
+          "route": "Oral",
+          "importantInfo": "Delirium-prevention sleep aid. Avoid benzodiazepines, diphenhydramine and zolpidem in older adults.",
+          "monitoringRules": [
+            {
+              "label": "Pain",
+              "sourceType": "vital",
+              "code": "PAIN"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "qHS",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 1,
+          "adminDose": "3 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_ferrous_sulfate_10",
+        "name": "ferrous sulfate tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-11 05:00",
+        "end": "",
+        "orderedAt": "2026-10-11 04:54",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 325 mg Oral Daily.",
+        "rationale": "Post-operative blood loss anemia",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "ferrous_sulfate",
+          "drugClass": "Iron supplement",
+          "dose": "325 mg",
+          "route": "Oral",
+          "importantInfo": "Give with food if upset stomach. Dark stools are expected. Can worsen constipation. Give 2 hours apart from calcium.",
+          "monitoringRules": [
+            {
+              "label": "Hemoglobin",
+              "sourceType": "lab",
+              "code": "Hemoglobin"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 7,
+          "adminDose": "325 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_vitamin_d3_11",
+        "name": "cholecalciferol (vitamin D3) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-10 05:00",
+        "end": "",
+        "orderedAt": "2026-10-10 04:54",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 1,000 units Oral Daily.",
+        "rationale": "Vitamin D deficiency / fragility fracture",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "vitamin_d3",
+          "drugClass": "Vitamin",
+          "dose": "1,000 units",
+          "route": "Oral",
+          "importantInfo": "Low 25-OH vitamin D with fragility fracture; part of osteoporosis treatment.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 7,
+          "adminDose": "1,000 units",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_calcium_carbonate_12",
+        "name": "calcium carbonate (TUMS) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-10 05:00",
+        "end": "",
+        "orderedAt": "2026-10-10 04:54",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 500 mg Oral BID.",
+        "rationale": "Fragility fracture / osteoporosis",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "calcium_carbonate",
+          "drugClass": "Calcium supplement",
+          "dose": "500 mg",
+          "route": "Oral",
+          "importantInfo": "Give with meals. Separate from iron by 2 hours. May worsen constipation.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 7,
+          "adminDose": "500 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_insulin_glargine_13",
+        "name": "insulin glargine (LANTUS) injection",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Nightly at bedtime",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 20 units Subcutaneous Nightly at bedtime. Notify provider before giving if glucose is below 100 mg/dL.",
+        "rationale": "Type 2 diabetes (home basal insulin, reduced 20% while NPO)",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Notify provider before giving if glucose is below 100 mg/dL."
+        ],
+        "medication": {
+          "medKey": "insulin_glargine",
+          "drugClass": "Long-acting insulin",
+          "dose": "20 units",
+          "route": "Subcutaneous",
+          "importantInfo": "Basal insulin. Give even when NPO (dose reduced). Check glucose first; hold and call provider if glucose is below 100 mg/dL.",
+          "monitoringRules": [
+            {
+              "label": "Glucose",
+              "sourceType": "lab",
+              "code": "Glucose"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "qHS",
+          "prn": false,
+          "at": [],
+          "hold": "Notify provider before giving if glucose is below 100 mg/dL.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "20 units",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_atorvastatin_17",
+        "name": "atorvastatin (LIPITOR) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Nightly at bedtime",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 40 mg Oral Nightly at bedtime.",
+        "rationale": "Coronary artery disease / hyperlipidemia",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "atorvastatin",
+          "drugClass": "Statin",
+          "dose": "40 mg",
+          "route": "Oral",
+          "importantInfo": "Report unexplained muscle pain or weakness.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "qHS",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "40 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_apixaban_21",
+        "name": "apixaban (ELIQUIS) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "BID",
+        "start": "2026-10-11 08:00",
+        "end": "",
+        "orderedAt": "2026-10-11 07:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 5 mg Oral BID.",
+        "rationale": "Atrial fibrillation stroke prevention",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "apixaban",
+          "drugClass": "Anticoagulant (factor Xa inhibitor)",
+          "dose": "5 mg",
+          "route": "Oral",
+          "importantInfo": "Monitor for bleeding. HIGH-ALERT: do not give if the patient is scheduled for or just had surgery until the surgeon clears it.",
+          "monitoringRules": [
+            {
+              "label": "Hemoglobin",
+              "sourceType": "lab",
+              "code": "Hemoglobin"
+            },
+            {
+              "label": "Platelets",
+              "sourceType": "lab",
+              "code": "Platelets"
+            },
+            {
+              "label": "Creatinine",
+              "sourceType": "lab",
+              "code": "Creatinine"
+            }
+          ],
+          "highAlert": true,
+          "freqKey": "BID",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 7,
+          "adminDose": "5 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_methotrexate_31",
+        "name": "methotrexate (TREXALL) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Once weekly",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 15 mg Oral Once weekly. HOLD and notify provider for fever or infection, WBC below 3.0, platelets below 100, rising creatinine, mouth sores, new cough or dyspnea. Never give daily.",
+        "rationale": "Rheumatoid arthritis (home medication, ONCE WEEKLY)",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "HOLD and notify provider for fever or infection, WBC below 3.0, platelets below 100, rising creatinine, mouth sores, new cough or dyspnea. Never give daily."
+        ],
+        "medication": {
+          "medKey": "methotrexate",
+          "drugClass": "DMARD / antimetabolite (immunosuppressant)",
+          "dose": "15 mg",
+          "route": "Oral",
+          "importantInfo": "WEEKLY drug: ONE dose on ONE day each week. Daily dosing has caused fatal toxicity (bone marrow, mucositis, liver). Verify the dose day and last dose with pharmacy and the patient before giving. Check CBC, creatinine and ALT.",
+          "monitoringRules": [
+            {
+              "label": "WBC",
+              "sourceType": "lab",
+              "code": "WBC"
+            },
+            {
+              "label": "Platelets",
+              "sourceType": "lab",
+              "code": "Platelets"
+            },
+            {
+              "label": "Creatinine",
+              "sourceType": "lab",
+              "code": "Creatinine"
+            }
+          ],
+          "highAlert": true,
+          "freqKey": "weekly",
+          "prn": false,
+          "at": [
+            "0900"
+          ],
+          "hold": "HOLD and notify provider for fever or infection, WBC below 3.0, platelets below 100, rising creatinine, mouth sores, new cough or dyspnea. Never give daily.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "15 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_enoxaparin_39",
+        "name": "enoxaparin (LOVENOX) injection",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Daily",
+        "start": "2026-10-09 21:15",
+        "end": "2026-10-11 08:00",
+        "orderedAt": "2026-10-09 21:09",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 40 mg Subcutaneous Daily. Hold and notify provider for active bleeding or platelets below 50.",
+        "rationale": "VTE prophylaxis",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hold and notify provider for active bleeding or platelets below 50."
+        ],
+        "medication": {
+          "medKey": "enoxaparin",
+          "drugClass": "Anticoagulant (prophylaxis)",
+          "dose": "40 mg",
+          "route": "Subcutaneous",
+          "importantInfo": "Monitor for bleeding, bruising, platelets and renal function. Never give if platelets below 50 or active bleeding.",
+          "monitoringRules": [
+            {
+              "label": "Hemoglobin",
+              "sourceType": "lab",
+              "code": "Hemoglobin"
+            },
+            {
+              "label": "Platelets",
+              "sourceType": "lab",
+              "code": "Platelets"
+            },
+            {
+              "label": "Creatinine",
+              "sourceType": "lab",
+              "code": "Creatinine"
+            }
+          ],
+          "highAlert": true,
+          "freqKey": "daily",
+          "prn": false,
+          "at": [],
+          "hold": "Hold and notify provider for active bleeding or platelets below 50.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 7,
+          "adminDose": "40 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_lr_maintenance_1",
+        "name": "lactated Ringer's infusion",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Continuous at 40 mL/hr",
+        "start": "2026-10-09 00:00",
+        "end": "2026-10-09 23:15",
+        "orderedAt": "2026-10-08 23:54",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 40 mL/hr IV Continuous at 40 mL/hr.",
+        "rationale": "Maintenance hydration while NPO",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Reduced rate for heart failure/ESRD; assess lungs, edema and weight daily."
+        ],
+        "medication": {
+          "medKey": "lr_maintenance",
+          "drugClass": "Crystalloid IV fluid",
+          "dose": "40 mL/hr",
+          "route": "IV",
+          "importantInfo": "Assess lungs, edema, I&O and daily weight. Check IV site each shift.",
+          "monitoringRules": [
+            {
+              "label": "Sodium",
+              "sourceType": "lab",
+              "code": "Sodium"
+            },
+            {
+              "label": "Potassium",
+              "sourceType": "lab",
+              "code": "Potassium"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "continuous",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "continuous",
+          "orderStartIndex": 7,
+          "adminDose": "40 mL/hr",
+          "dispenseLocation": "Central Pharmacy (IV room)",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_opioid_iv_2",
+        "name": "morphine injection",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 3 hours PRN severe pain (7-10)",
+        "start": "2026-10-08 02:30",
+        "end": "2026-10-10 07:15",
+        "orderedAt": "2026-10-08 02:24",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Administer 2 mg IV Every 3 hours PRN severe pain (7-10). Hold for RR below 10, SpO2 below 90%, or sedation.",
+        "rationale": "Severe pain",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hold for RR below 10, SpO2 below 90%, or sedation."
+        ],
+        "medication": {
+          "medKey": "opioid_iv",
+          "drugClass": "Opioid analgesic",
+          "dose": "2 mg",
+          "route": "IV",
+          "importantInfo": "HIGH-ALERT. Low starting dose for an older adult. Assess pain, sedation (RASS), RR and SpO2 before and 15-30 minutes after. Hold for RR below 10 or oversedation. Watch for new confusion.",
+          "monitoringRules": [
+            {
+              "label": "Pain",
+              "sourceType": "vital",
+              "code": "PAIN"
+            },
+            {
+              "label": "Respiratory Rate",
+              "sourceType": "vital",
+              "code": "RR"
+            },
+            {
+              "label": "SpO2",
+              "sourceType": "vital",
+              "code": "SPO2"
+            }
+          ],
+          "highAlert": true,
+          "freqKey": "q3h",
+          "prn": true,
+          "at": [],
+          "hold": "Hold for RR below 10, SpO2 below 90%, or sedation.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "prn",
+          "orderStartIndex": 0,
+          "adminDose": "2 mg",
+          "dispenseLocation": "Central Pharmacy (IV room)",
+          "completed": false,
+          "lastAdmin": "10/08/26 0524 (Given)"
+        }
+      },
+      {
+        "id": "order_med_opioid_po_3",
+        "name": "oxycodone (ROXICODONE) tablet",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 4 hours PRN moderate pain (4-6)",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 5 mg Oral Every 4 hours PRN moderate pain (4-6). Hold for RR below 10 or sedation.",
+        "rationale": "Moderate pain",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Hold for RR below 10 or sedation."
+        ],
+        "medication": {
+          "medKey": "opioid_po",
+          "drugClass": "Opioid analgesic",
+          "dose": "5 mg",
+          "route": "Oral",
+          "importantInfo": "HIGH-ALERT. Low dose for age. Assess pain and sedation before and 30-60 minutes after. Hold for RR below 10 or oversedation. Give with a bowel regimen. Opioids are a leading cause of post-operative delirium and falls.",
+          "monitoringRules": [
+            {
+              "label": "Pain",
+              "sourceType": "vital",
+              "code": "PAIN"
+            },
+            {
+              "label": "Respiratory Rate",
+              "sourceType": "vital",
+              "code": "RR"
+            },
+            {
+              "label": "SpO2",
+              "sourceType": "vital",
+              "code": "SPO2"
+            }
+          ],
+          "highAlert": true,
+          "freqKey": "q4h",
+          "prn": true,
+          "at": [],
+          "hold": "Hold for RR below 10 or sedation.",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "prn",
+          "orderStartIndex": 0,
+          "adminDose": "5 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_ondansetron_4",
+        "name": "ondansetron (ZOFRAN) injection",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 8 hours PRN nausea or vomiting",
+        "start": "2026-10-08 02:48",
+        "end": "",
+        "orderedAt": "2026-10-08 02:42",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Administer 4 mg IV Every 8 hours PRN nausea or vomiting.",
+        "rationale": "Nausea / vomiting",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "ondansetron",
+          "drugClass": "Antiemetic (5-HT3 antagonist)",
+          "dose": "4 mg",
+          "route": "IV",
+          "importantInfo": "Check QTc before repeated dosing in an older adult. Reassess nausea in 30 minutes. Preferred over promethazine (anticholinergic, delirium risk).",
+          "monitoringRules": [
+            {
+              "label": "Potassium",
+              "sourceType": "lab",
+              "code": "Potassium"
+            },
+            {
+              "label": "Magnesium",
+              "sourceType": "lab",
+              "code": "Magnesium"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "q8h",
+          "prn": true,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "prn",
+          "orderStartIndex": 0,
+          "adminDose": "4 mg",
+          "dispenseLocation": "Central Pharmacy (IV room)",
+          "completed": false,
+          "lastAdmin": "10/08/26 0248 (Given)"
+        }
+      },
+      {
+        "id": "order_med_peg3350_9",
+        "name": "polyethylene glycol (MIRALAX) powder",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Once daily PRN no bowel movement in 24 hours",
+        "start": "2026-10-09 17:15",
+        "end": "",
+        "orderedAt": "2026-10-09 17:09",
+        "provider": "R. Alvarez, MD",
+        "instructions": "Administer 17 g Oral Once daily PRN no bowel movement in 24 hours.",
+        "rationale": "Opioid and immobility constipation prevention",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "peg3350",
+          "drugClass": "Osmotic laxative",
+          "dose": "17 g",
+          "route": "Oral",
+          "importantInfo": "Mix in 4-8 oz of fluid. Hold for loose stools. Goal: bowel movement by post-op day 3.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": true,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "prn",
+          "orderStartIndex": 7,
+          "adminDose": "17 g",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_albuterol_prn_23",
+        "name": "albuterol (PROVENTIL) nebulizer solution",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Every 2 hours PRN wheezing or shortness of breath",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 2.5 mg Nebulized Every 2 hours PRN wheezing or shortness of breath.",
+        "rationale": "COPD rescue",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "albuterol_prn",
+          "drugClass": "Short-acting bronchodilator",
+          "dose": "2.5 mg",
+          "route": "Nebulized",
+          "importantInfo": "Check HR before and after; may cause tremor and tachycardia.",
+          "monitoringRules": [
+            {
+              "label": "Heart Rate",
+              "sourceType": "vital",
+              "code": "HR"
+            },
+            {
+              "label": "SpO2",
+              "sourceType": "vital",
+              "code": "SPO2"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "q4h",
+          "prn": true,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "prn",
+          "orderStartIndex": 0,
+          "adminDose": "2.5 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_bisacodyl_supp_28",
+        "name": "bisacodyl (DULCOLAX) suppository",
+        "category": "Medication",
+        "status": "Active",
+        "frequency": "Once daily PRN no bowel movement in 48 hours",
+        "start": "2026-10-08 05:00",
+        "end": "",
+        "orderedAt": "2026-10-08 04:54",
+        "provider": "S. Patel, MD",
+        "instructions": "Administer 10 mg Rectal Once daily PRN no bowel movement in 48 hours.",
+        "rationale": "Constipation rescue",
+        "linkedData": [],
+        "nursingConsiderations": [],
+        "medication": {
+          "medKey": "bisacodyl_supp",
+          "drugClass": "Stimulant laxative",
+          "dose": "10 mg",
+          "route": "Rectal",
+          "importantInfo": "Do not use with suspected obstruction, ileus or rectal bleeding. Give 15-60 minutes before the expected BM.",
+          "monitoringRules": [],
+          "highAlert": false,
+          "freqKey": "daily",
+          "prn": true,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "prn",
+          "orderStartIndex": 0,
+          "adminDose": "10 mg",
+          "dispenseLocation": "Pharmacy to load in ADS",
+          "completed": false,
+          "lastAdmin": ""
+        }
+      },
+      {
+        "id": "order_med_bolus_lactated_ringer_s_bolus_0",
+        "name": "lactated Ringer's bolus",
+        "category": "Medication",
+        "status": "Completed",
+        "frequency": "Once",
+        "start": "2026-10-08 02:36",
+        "end": "",
+        "orderedAt": "2026-10-08 02:30",
+        "provider": "J. Whitaker, MD",
+        "instructions": "Administer 250 mL IV Once.",
+        "rationale": "Dehydration after prolonged lying / poor intake before the fall",
+        "linkedData": [],
+        "nursingConsiderations": [
+          "Stop the bolus and notify provider for new crackles, dyspnea or SpO2 drop.",
+          "Reduced bolus volume for heart failure/ESRD; reassess after each 250-500 mL."
+        ],
+        "medication": {
+          "medKey": "bolus_lactated_ringer_s_bolus",
+          "drugClass": "Crystalloid IV fluid",
+          "dose": "250 mL",
+          "route": "IV",
+          "importantInfo": "Reassess vital signs, lung sounds and urine output after the bolus.",
+          "monitoringRules": [
+            {
+              "label": "Blood Pressure",
+              "sourceType": "vital",
+              "code": "BP"
+            },
+            {
+              "label": "Heart Rate",
+              "sourceType": "vital",
+              "code": "HR"
+            }
+          ],
+          "highAlert": false,
+          "freqKey": "once",
+          "prn": false,
+          "at": [],
+          "hold": "",
+          "expires": "",
+          "barcode": "",
+          "expiredDecoy": false,
+          "edited": false,
+          "custom": false
+        },
+        "mar": {
+          "category": "scheduled",
+          "orderStartIndex": 0,
+          "adminDose": "250 mL",
+          "dispenseLocation": "Central Pharmacy (IV room)",
+          "completed": true,
+          "lastAdmin": "10/08/26 0236 (Given)"
+        }
+      }
+    ],
+    "administrations": [
+      {
+        "id": "admin_order_med_bolus_lactated_ringer_s_bolus_0_p0",
+        "orderId": "order_med_bolus_lactated_ringer_s_bolus_0",
+        "slotIndex": -1,
+        "time": "0236",
+        "state": "given",
+        "label": "0236 Given 250 mL",
+        "dose": "250 mL",
+        "route": "IV",
+        "administeredTime": "10/08/26 0236",
+        "administeredAt": "2026-10-08 02:36",
+        "administeredBy": "T. Nguyen, RN"
+      },
+      {
+        "id": "admin_order_med_opioid_iv_2_p0",
+        "orderId": "order_med_opioid_iv_2",
+        "slotIndex": -1,
+        "time": "0230",
+        "state": "given",
+        "label": "0230 Given 2 mg",
+        "dose": "2 mg",
+        "route": "IV",
+        "administeredTime": "10/08/26 0230",
+        "administeredAt": "2026-10-08 02:30",
+        "administeredBy": "T. Nguyen, RN"
+      },
+      {
+        "id": "admin_order_med_opioid_iv_2_p1",
+        "orderId": "order_med_opioid_iv_2",
+        "slotIndex": -1,
+        "time": "0524",
+        "state": "given",
+        "label": "0524 Given 2 mg",
+        "dose": "2 mg",
+        "route": "IV",
+        "administeredTime": "10/08/26 0524",
+        "administeredAt": "2026-10-08 05:24",
+        "administeredBy": "L. Bennett, RN"
+      },
+      {
+        "id": "admin_order_med_ondansetron_4_p0",
+        "orderId": "order_med_ondansetron_4",
+        "slotIndex": -1,
+        "time": "0248",
+        "state": "given",
+        "label": "0248 Given 4 mg",
+        "dose": "4 mg",
+        "route": "IV",
+        "administeredTime": "10/08/26 0248",
+        "administeredAt": "2026-10-08 02:48",
+        "administeredBy": "T. Nguyen, RN"
+      },
+      {
+        "id": "admin_order_med_acetaminophen_5_p0",
+        "orderId": "order_med_acetaminophen_5",
+        "slotIndex": -1,
+        "time": "0300",
+        "state": "given",
+        "label": "0300 Given 1,000 mg",
+        "dose": "1,000 mg",
+        "route": "Oral",
+        "administeredTime": "10/08/26 0300",
+        "administeredAt": "2026-10-08 03:00",
+        "administeredBy": "T. Nguyen, RN"
+      },
+      {
+        "id": "admin_order_med_acetaminophen_5_d0",
+        "orderId": "order_med_acetaminophen_5",
+        "slotIndex": 7,
+        "time": "1400",
+        "state": "due",
+        "label": "1400 Due",
+        "dose": "1,000 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_senna_docusate_8_d0",
+        "orderId": "order_med_senna_docusate_8",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "2 tablets",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_insulin_lispro_14_d0",
+        "orderId": "order_med_insulin_lispro_14",
+        "slotIndex": 0,
+        "time": "0730",
+        "state": "given",
+        "label": "0730 Given Low-dose correction scale",
+        "dose": "Low-dose correction scale",
+        "route": "Subcutaneous",
+        "originalState": "due",
+        "originalLabel": "0730 Due",
+        "studentModified": true,
+        "administeredAt": "2026-10-08 07:00",
+        "comment": "",
+        "scan": {
+          "patient": true,
+          "patientMode": "scanned",
+          "patientOverride": null,
+          "medication": true,
+          "medicationMode": "scanned",
+          "medicationOverride": null,
+          "identifiers": true,
+          "warnings": [],
+          "warningOverride": null,
+          "doubleCheck": ""
+        },
+        "rightsChecked": true
+      },
+      {
+        "id": "admin_order_med_insulin_lispro_14_d1",
+        "orderId": "order_med_insulin_lispro_14",
+        "slotIndex": 4,
+        "time": "1130",
+        "state": "due",
+        "label": "1130 Due",
+        "dose": "Low-dose correction scale",
+        "route": "Subcutaneous"
+      },
+      {
+        "id": "admin_order_med_lisinopril_15_d0",
+        "orderId": "order_med_lisinopril_15",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "20 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_aspirin_16_d0",
+        "orderId": "order_med_aspirin_16",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "81 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_metoprolol_18_d0",
+        "orderId": "order_med_metoprolol_18",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "25 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_carvedilol_19_d0",
+        "orderId": "order_med_carvedilol_19",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "6.25 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_furosemide_po_20_d0",
+        "orderId": "order_med_furosemide_po_20",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "40 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_duoneb_22_p0",
+        "orderId": "order_med_duoneb_22",
+        "slotIndex": -1,
+        "time": "0600",
+        "state": "given",
+        "label": "0600 Given 3 mL",
+        "dose": "3 mL",
+        "route": "Nebulized",
+        "administeredTime": "10/08/26 0600",
+        "administeredAt": "2026-10-08 06:00",
+        "administeredBy": "L. Bennett, RN"
+      },
+      {
+        "id": "admin_order_med_duoneb_22_d0",
+        "orderId": "order_med_duoneb_22",
+        "slotIndex": 5,
+        "time": "1200",
+        "state": "due",
+        "label": "1200 Due",
+        "dose": "3 mL",
+        "route": "Nebulized"
+      },
+      {
+        "id": "admin_order_med_advair_24_d0",
+        "orderId": "order_med_advair_24",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "250/50 mcg, 1 inhalation",
+        "route": "Inhaled"
+      },
+      {
+        "id": "admin_order_med_pantoprazole_25_d0",
+        "orderId": "order_med_pantoprazole_25",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "40 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_sertraline_26_d0",
+        "orderId": "order_med_sertraline_26",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "50 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_polyethylene_glycol_27_d0",
+        "orderId": "order_med_polyethylene_glycol_27",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "17 g in 8 oz fluid",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_gabapentin_29_d0",
+        "orderId": "order_med_gabapentin_29",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "300 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_gabapentin_29_d1",
+        "orderId": "order_med_gabapentin_29",
+        "slotIndex": 7,
+        "time": "1400",
+        "state": "due",
+        "label": "1400 Due",
+        "dose": "300 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_mupirocin_nasal_30_d0",
+        "orderId": "order_med_mupirocin_nasal_30",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "Apply to each nostril",
+        "route": "Nasal"
+      },
+      {
+        "id": "admin_order_med_folic_acid_32_d0",
+        "orderId": "order_med_folic_acid_32",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "1 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_hydroxychloroquine_33_d0",
+        "orderId": "order_med_hydroxychloroquine_33",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "200 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_prednisone_34_d0",
+        "orderId": "order_med_prednisone_34",
+        "slotIndex": 1,
+        "time": "0800",
+        "state": "given",
+        "label": "0800 Given 7.5 mg",
+        "dose": "7.5 mg",
+        "route": "Oral",
+        "originalState": "due",
+        "originalLabel": "0800 Due",
+        "studentModified": true,
+        "administeredAt": "2026-10-08 07:00",
+        "comment": "",
+        "scan": {
+          "patient": true,
+          "patientMode": "scanned",
+          "patientOverride": null,
+          "medication": true,
+          "medicationMode": "scanned",
+          "medicationOverride": null,
+          "identifiers": true,
+          "warnings": [],
+          "warningOverride": null,
+          "doubleCheck": ""
+        },
+        "rightsChecked": true
+      },
+      {
+        "id": "admin_order_med_emollient_lymph_35_d0",
+        "orderId": "order_med_emollient_lymph_35",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "Thin layer to both legs",
+        "route": "Topical"
+      },
+      {
+        "id": "admin_order_med_anastrozole_36_d0",
+        "orderId": "order_med_anastrozole_36",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "1 mg",
+        "route": "Oral"
+      },
+      {
+        "id": "admin_order_med_nicotine_patch_37_d0",
+        "orderId": "order_med_nicotine_patch_37",
+        "slotIndex": 2,
+        "time": "0900",
+        "state": "due",
+        "label": "0900 Due",
+        "dose": "21 mg",
+        "route": "Transdermal"
+      },
+      {
+        "id": "admin_order_med_heparin_ppx_preop_38_p0",
+        "orderId": "order_med_heparin_ppx_preop_38",
+        "slotIndex": -1,
+        "time": "0600",
+        "state": "given",
+        "label": "0600 Given 5,000 units",
+        "dose": "5,000 units",
+        "route": "Subcutaneous",
+        "administeredTime": "10/08/26 0600",
+        "administeredAt": "2026-10-08 06:00",
+        "administeredBy": "L. Bennett, RN"
+      },
+      {
+        "id": "admin_order_med_heparin_ppx_preop_38_d0",
+        "orderId": "order_med_heparin_ppx_preop_38",
+        "slotIndex": 7,
+        "time": "1400",
+        "state": "due",
+        "label": "1400 Due",
+        "dose": "5,000 units",
+        "route": "Subcutaneous"
+      }
+    ],
+    "devices": [
+      {
+        "id": "device_peripheral_iv_left_forearm_0",
+        "deviceType": "IV",
+        "type": "Peripheral IV",
+        "location": "Left forearm",
+        "siteMarker": "leftForearm",
+        "placementDate": "2026-10-08 02:24",
+        "status": "Infusing",
+        "lastAssessment": "2026-10-08 06:45 - site clean, dry, intact; flushes easily",
+        "gauge": "20 gauge",
+        "infusing": "Lactated Ringer's"
+      },
+      {
+        "id": "device_peripheral_iv_left_antecubital_1",
+        "deviceType": "IV",
+        "type": "Peripheral IV",
+        "location": "Left antecubital",
+        "siteMarker": "leftAC",
+        "placementDate": "2026-10-08 04:36",
+        "status": "Patent",
+        "lastAssessment": "2026-10-08 06:45 - site clean, dry, intact",
+        "gauge": "18 gauge",
+        "infusing": "Saline lock"
+      },
+      {
+        "id": "device_permanent_pacemaker_dual_chamber_left_upper_chest_3",
+        "deviceType": "Tube",
+        "type": "Permanent pacemaker (dual chamber)",
+        "location": "Left upper chest",
+        "siteMarker": "chestLeft",
+        "placementDate": "2025-10-08 02:00",
+        "status": "Active",
+        "lastAssessment": "2026-10-08 06:45 - pocket healed, no erythema or swelling; programmed lower rate 60 bpm"
+      }
+    ],
+    "ioEvents": [
+      {
+        "id": "io_2026_10_08_03_00",
+        "date": "2026-10-08",
+        "time": "0300-0700",
+        "intake": 236,
+        "output": 270,
+        "detail": {
+          "po": 236,
+          "iv": 0,
+          "urine": 270,
+          "other": 0,
+          "otherLabel": ""
+        }
+      }
+    ],
+    "stickyNotes": [
+      {
+        "title": "Pre-op",
+        "body": "NPO after midnight (sips with essential meds). OR about 0800. Verify consent, last dose of blood thinners, right hip marking."
+      },
+      {
+        "title": "Fall / delirium risk",
+        "body": "High fall risk: bed alarm, assist x2 early on, never leave on commode. Screen for delirium every shift; avoid sedatives."
+      },
+      {
+        "title": "Anticoagulant / antiplatelet",
+        "body": "Verify last dose of any home blood thinner before surgery. Enoxaparin plus SCDs for VTE prevention; hold doses per anesthesia timing after spinal."
+      },
+      {
+        "title": "MRSA history",
+        "body": "Prior MRSA. Contact precautions. For new skin, bone, line, pneumonia or sepsis concerns the empiric regimen should include MRSA coverage (vancomycin or linezolid) until cultures result."
+      },
+      {
+        "title": "Restricted arm",
+        "body": "Right arm: no BP, IV, venipuncture or injections."
+      }
+    ],
+    "notes": [
+      {
+        "id": "note_hospitalist_medical_co_management_consult_2026_10_08_06_30",
+        "type": "progressNotes",
+        "title": "Hospitalist Medical Co-management Consult",
+        "author": "S. Patel, MD",
+        "datetime": "2026-10-08 06:30",
+        "category": "Consult",
+        "summary": "Medical co-management of chronic conditions peri-operatively.",
+        "body": "**Reason for consult**\n- Medical co-management of chronic conditions during admission for hip fracture (intertrochanteric).\n\n**Assessment and plan**\n**Type 2 diabetes mellitus**\n- Basal glargine with ACHS correction lispro; goal glucose 140-180 mg/dL.\n- Metformin held while inpatient.\n- Hypoglycemia protocol in place.\n\n**Hypertension**\n- Continue home antihypertensive; BP goal below 140/90.\n\n**Coronary artery disease**\n- Continue aspirin, statin and beta blocker; telemetry not required unless chest pain; call for chest pain or ECG changes.\n\n**Heart failure with reduced ejection fraction**\n- Euvolemic to mildly dry on exam; continue beta blocker; judicious IV fluids with daily weights.\n- Continue home diuretic.\n\n**Atrial fibrillation**\n- Rate controlled on metoprolol/carvedilol.\n- Apixaban held peri-operatively; resume per surgery (typically 24-48 h post-op) with DVT prophylaxis meanwhile.\n\n**Chronic obstructive pulmonary disease**\n- Scheduled DuoNebs q6h with PRN albuterol; maintenance inhaler continued.\n- Oxygen goal SpO2 88-92%; avoid over-oxygenation.\n- Tobacco cessation counseling and nicotine replacement.\n\n**Chronic anemia**\n- Baseline Hgb about 10; transfuse only for Hgb below 7 (or symptomatic); trend CBC.\n\n**Gastroesophageal reflux disease**\n- Continue pantoprazole (IV while NPO).\n\n**Depression / anxiety**\n- Continue sertraline; screen for suicidal ideation per policy.\n\n**Chronic constipation**\n- Continue daily regimen (hold for loose stools); opioids and immobility make it worse: add or increase laxatives early.\n- Check for fecal impaction if no BM in 3 days or overflow diarrhea.\n\n**Peripheral neuropathy**\n- Continue neuropathic agent (renally dose); sedation risk if combined with opioids.\n- Foot checks every shift; falls precautions.\n\n**History of MRSA infection / colonization**\n- Contact precautions; decolonization protocol (mupirocin x5 days, chlorhexidine baths).\n- Include MRSA coverage in empiric antibiotics for new infection; trough/AUC monitoring if vancomycin is used.\n\n**Rheumatoid arthritis**\n- Methotrexate (WEEKLY) held during acute illness; resume only when the provider confirms infection/AKI resolved.\n- Continue folic acid, hydroxychloroquine and prednisone (do not stop steroid abruptly; stress-dose if septic/hypotensive).\n- Immunosuppression precautions; monitor CBC and creatinine.\n- Avoid NSAIDs if CKD or anticoagulated.\n\n**Chronic peripheral edema**\n- Elevation and skin care every shift; daily weight.\n- Report weeping, blisters, redness or sudden one-sided swelling (DVT/cellulitis).\n\n**Frailty**\n- Early mobility, nutrition support, delirium and fall precautions.\n- Start low, go slow with medications; goals-of-care discussion.\n\n**Peri-operative risk**\n- Intermediate cardiopulmonary risk; proceed with surgery as planned. Optimize glucose, continue beta blocker, hold anticoagulant and nephrotoxins."
+      },
+      {
+        "id": "note_respiratory_therapy_note_2026_10_08_06_12",
+        "type": "therapyNotes",
+        "title": "Respiratory Therapy Note",
+        "author": "D. Moore, RRT",
+        "datetime": "2026-10-08 06:12",
+        "category": "Respiratory Therapy",
+        "summary": "RT assessment: Room air, SpO2 91%.",
+        "body": "**Assessment**\n- O2 therapy: Room air; SpO2 91%; RR 19.\n- Breath sounds: Diminished bilaterally with scattered end-expiratory wheeze. Work of breathing: mildly prolonged expiratory phase.\n- Cough: non-productive.\n- Incentive spirometer: 1,000 mL.\n\n**Treatments**\n- Scheduled nebulizer: ipratropium-albuterol nebulizer solution 3 mL Every 6 hours; tolerated, no adverse effects.\n\n**Plan**\n- Titrate O2 to SpO2 88-92%; continue nebulizers; reinforce inhaler technique and pursed-lip breathing."
+      },
+      {
+        "id": "note_nursing_admission_note_2026_10_08_05_36",
+        "type": "progressNotes",
+        "title": "Nursing Admission Note",
+        "author": "T. Nguyen, RN",
+        "datetime": "2026-10-08 05:36",
+        "category": "Nursing Note",
+        "summary": "Admission database and baseline assessment completed.",
+        "body": "**Admission assessment**\n- Arrived to the unit at 0500 from the ED. ID band and allergy band verified (Penicillin (Hives); Sulfa drugs (Rash)).\n- Vitals on arrival: T 98.3 F, HR 99, BP 150/89, RR 19, SpO2 91% on room air, pain 6/10.\n- General: Awake and alert, uncomfortable-appearing.\n- Cardiovascular: Atrial fibrillation, rate controlled, irregularly irregular; S1 S2 irregularly irregular, no murmur. Edema: Trace bilateral lower extremity edema.\n- Respiratory: Diminished bilaterally with scattered end-expiratory wheeze; mildly prolonged expiratory phase.\n- Abdomen: Soft, non-tender, non-distended. Bowel sounds: active in all four quadrants.\n- Neurologic: Alert and oriented x4.\n- Skin: Heels and sacrum intact; blanchable redness over sacrum.\n- Pain 6/10; right hip, dull ache after nerve block.\n- Skin: Heels and sacrum intact; blanchable redness over sacrum. Braden 17.\n- Fall risk: High; fall precautions in place.\n- Lines: Peripheral IV Left forearm; Peripheral IV Left antecubital; Permanent pacemaker (dual chamber) Left upper chest.\n\n**Education**\n- Oriented to room, call light, plan of care, and fall precautions.\n\n**Plan**\n- Pain 3-4/10 after nerve block; right foot warm with palpable pulses and intact sensation.\n- Skin traction applied; heel and sacrum checked; repositioned with log roll.\n- Delirium screen negative; glasses and hearing aids within reach.\n- Pre-operative teaching started; consent in progress."
+      },
+      {
+        "id": "note_hospital_medicine_pre_operative_co_management_consult_2026_10_08_05_24",
+        "type": "progressNotes",
+        "title": "Hospital Medicine (pre-operative co-management) Consult",
+        "author": "S. Patel, MD",
+        "datetime": "2026-10-08 05:24",
+        "category": "Consult",
+        "summary": "Hospitalist co-management; medically optimized for surgery",
+        "body": "**Reason for consult**\n- Medical optimization before hip surgery\n\n**Recommendations**\n- Acceptable cardiac risk for surgery; do not delay for further testing. Hold diuretics and anticoagulants as directed; continue beta blocker. Delirium prevention bundle. Daily CBC/BMP; transfuse for Hgb below 8 g/dL or symptoms. Early mobilization and PT/OT after surgery."
+      },
+      {
+        "id": "note_12_lead_ecg_2026_10_08_04_54",
+        "type": "cardiology",
+        "title": "12-lead ECG",
+        "author": "H. Banerjee, MD",
+        "datetime": "2026-10-08 04:54",
+        "category": "Cardiology",
+        "summary": "Atrial fibrillation with controlled ventricular response (rate 84). No acute ST-T wave changes. QTc 436 ms.",
+        "body": "**Indication**\n- Pre-operative evaluation (syncope excluded as cause of fall)\n\n**Findings**\nAtrial fibrillation with controlled ventricular response (rate 84). No acute ST-T wave changes. QTc 436 ms.\n\n**Impression**\n- Atrial fibrillation with controlled ventricular response (rate 84). No acute ST-T wave changes. QTc 436 ms.",
+        "study": "12-lead ECG",
+        "impression": "Atrial fibrillation with controlled ventricular response (rate 84). No acute ST-T wave changes. QTc 436 ms."
+      },
+      {
+        "id": "note_general_surgery_h_p_consult_2026_10_08_04_42",
+        "type": "hp",
+        "title": "General Surgery H&P / Consult",
+        "author": "R. Alvarez, MD",
+        "datetime": "2026-10-08 04:42",
+        "category": "H&P",
+        "summary": "Admission H&P for hip fracture (intertrochanteric).",
+        "body": "**Chief complaint**\n- Right hip pain after a fall; unable to bear weight\n\n**History of present illness**\n67-year-old female who tripped on the way to the bathroom at night and fell onto the right side from standing height. Immediate severe right hip and groin pain with inability to stand or bear weight; the right leg was shortened and turned outward when EMS arrived. No loss of consciousness, head strike, chest pain, palpitations or preceding dizziness. Denies numbness or tingling in the foot. Received fentanyl 25 mcg IV from EMS.\n\n**Past medical history**\n- Type 2 diabetes mellitus (A1c 8.0%); Hypertension; Coronary artery disease; Heart failure with reduced ejection fraction (EF about 35%); Atrial fibrillation (CHA2DS2-VASc elevated, on apixaban); COPD; Chronic anemia; GERD; Depression and anxiety; Chronic constipation; Peripheral neuropathy; MRSA infection (prior abscess), colonized; Rheumatoid arthritis (on methotrexate weekly, hydroxychloroquine, prednisone); Chronic bilateral lower extremity edema; Frailty (weight loss, weakness)\n\n**Past surgical history**\n- Cholecystectomy (2018); CABG (2022); Coronary stent / PCI (2018); Pacemaker / ICD (2018); Total hip replacement (1989); Mastectomy - right (with axillary node surgery) (2018)\n\n**Home medications**\n- insulin glargine (LANTUS) 20 units Subcutaneous Nightly at bedtime\n- insulin lispro (HUMALOG) correction scale Low-dose correction scale Subcutaneous ACHS (before meals and at bedtime)\n- lisinopril (PRINIVIL,ZESTRIL) 20 mg Oral Daily\n- aspirin chewable 81 mg Oral Daily\n- atorvastatin (LIPITOR) 40 mg Oral Nightly at bedtime\n- metoprolol tartrate (LOPRESSOR) 25 mg Oral BID\n- carvedilol (COREG) 6.25 mg Oral BID\n- furosemide (LASIX) 40 mg Oral Daily\n- apixaban (ELIQUIS) 5 mg Oral BID\n- ipratropium-albuterol (DUONEB) nebulizer solution 3 mL Nebulized Every 6 hours\n- albuterol (PROVENTIL) nebulizer solution 2.5 mg Nebulized Every 4 hours\n- fluticasone-salmeterol (ADVAIR DISKUS) inhaler 250/50 mcg, 1 inhalation Inhaled BID\n- ferrous sulfate 325 mg Oral Daily\n- pantoprazole (PROTONIX) 40 mg Oral Daily\n- sertraline (ZOLOFT) 50 mg Oral Daily\n- polyethylene glycol (MIRALAX) powder 17 g in 8 oz fluid Oral Daily\n- senna-docusate (SENOKOT-S) 2 tablets Oral BID\n- bisacodyl (DULCOLAX) suppository 10 mg Rectal Daily\n- gabapentin (NEURONTIN) 300 mg Oral TID\n- methotrexate (TREXALL) 15 mg Oral Once weekly\n- folic acid 1 mg Oral Daily\n- hydroxychloroquine (PLAQUENIL) 200 mg Oral BID\n- prednisone 7.5 mg Oral Daily\n- fragrance-free emollient (EUCERIN) lotion Thin layer to both legs Topical BID\n- anastrozole (ARIMIDEX) 1 mg Oral Daily\n- (Metformin held while hospitalized (contrast, acute illness, renal risk).)\n- (Home tiotropium replaced by scheduled DuoNebs (avoid duplicate anticholinergic).)\n- (Methotrexate 15 mg is taken ONCE WEEKLY (Friday); the chart shows the next dose (10/09/26) and it is NOT a daily drug. Hold during acute infection, AKI or cytopenias until the provider reviews.)\n\n**Allergies**\n- Penicillin (Hives); Sulfa drugs (Rash)\n\n**Family history**\n- Mother with hypertension and type 2 diabetes; father with coronary artery disease. Mother had a hip fracture in her 80s. No known family history of bleeding disorders.\n\n**Social history**\n- Lives with spouse/partner; independent with ADLs and ambulation at baseline; tobacco: current <1 ppd; alcohol: social; other substances: past substance use.\n\n**Review of systems**\n- Positive for hip/groin pain and inability to walk. Negative for head injury, neck pain, chest pain, dyspnea, abdominal pain, focal weakness, numbness, fever, or urinary symptoms.\n\n**Vitals**\n- T 98.3 F, HR 99, BP 150/89, RR 19, SpO2 91% on room air, pain 6/10 | Wt 70 kg, BMI 26.3\n\n**Physical exam**\n- General: Awake and alert, uncomfortable-appearing.\n- Cardiovascular: Atrial fibrillation, rate controlled, irregularly irregular; S1 S2 irregularly irregular, no murmur. Edema: Trace bilateral lower extremity edema.\n- Respiratory: Diminished bilaterally with scattered end-expiratory wheeze; mildly prolonged expiratory phase.\n- Abdomen: Soft, non-tender, non-distended. Bowel sounds: active in all four quadrants.\n- Neurologic: Alert and oriented x4.\n- Skin: Warm, dry; ecchymosis over right lateral hip; no open wounds or skin tears.\n\n**Data**\n- Labs: Hemoglobin 8.9 (L); WBC 11.8 (H); Platelets 225; Sodium 137; Potassium 4.2; Creatinine 0.94; INR 1.0; Glucose 201 (H)\n- X-ray right hip and pelvis (AP pelvis, AP and cross-table lateral right hip): Unstable right intertrochanteric femur fracture.\n- Chest x-ray, portable: No acute cardiopulmonary process.\n- 12-lead ECG: Atrial fibrillation with controlled ventricular response (rate 84). No acute ST-T wave changes. QTc 436 ms.\n\n**Assessment and plan**\n67-year-old female with a history of type 2 diabetes mellitus, hypertension, coronary artery disease, heart failure with reduced ejection fraction, atrial fibrillation, chronic obstructive pulmonary disease, chronic anemia, gastroesophageal reflux disease, depression / anxiety, chronic constipation, peripheral neuropathy, history of mrsa infection / colonization, rheumatoid arthritis, chronic peripheral edema, frailty admitted with hip fracture (intertrochanteric).\n\n**Hip fracture (intertrochanteric)**\n- Intertrochanteric fracture, hemodynamically stable. Medically optimized for surgery; ECG and chest x-ray without acute findings.\n- Fascia iliaca block done; scheduled acetaminophen, low-dose IV morphine for severe pain, oral oxycodone for moderate pain; avoid NSAIDs.\n- Skin traction for comfort; neurovascular checks every 4 hours; bed rest, non-weight bearing.\n- NPO after midnight; intramedullary nail fixation planned about 0800 tomorrow; type and screen, INR, ECG done.\n- Hold anticoagulants; document last dose; SCDs and pre-operative heparin SQ for VTE prevention.\n- Gentle IV fluids; delirium prevention bundle; PT/OT after surgery.\n\n**Type 2 diabetes mellitus**\n- Basal glargine with ACHS correction lispro; goal glucose 140-180 mg/dL.\n- Metformin held while inpatient.\n- Hypoglycemia protocol in place.\n\n**Hypertension**\n- Continue home antihypertensive; BP goal below 140/90.\n\n**Coronary artery disease**\n- Continue aspirin, statin and beta blocker; telemetry not required unless chest pain; call for chest pain or ECG changes.\n\n**Heart failure with reduced ejection fraction**\n- Euvolemic to mildly dry on exam; continue beta blocker; judicious IV fluids with daily weights.\n- Continue home diuretic.\n\n**Atrial fibrillation**\n- Rate controlled on metoprolol/carvedilol.\n- Apixaban held peri-operatively; resume per surgery (typically 24-48 h post-op) with DVT prophylaxis meanwhile.\n\n**Chronic obstructive pulmonary disease**\n- Scheduled DuoNebs q6h with PRN albuterol; maintenance inhaler continued.\n- Oxygen goal SpO2 88-92%; avoid over-oxygenation.\n- Tobacco cessation counseling and nicotine replacement.\n\n**Chronic anemia**\n- Baseline Hgb about 10; transfuse only for Hgb below 7 (or symptomatic); trend CBC.\n\n**Gastroesophageal reflux disease**\n- Continue pantoprazole (IV while NPO).\n\n**Depression / anxiety**\n- Continue sertraline; screen for suicidal ideation per policy.\n\n**Chronic constipation**\n- Continue daily regimen (hold for loose stools); opioids and immobility make it worse: add or increase laxatives early.\n- Check for fecal impaction if no BM in 3 days or overflow diarrhea.\n\n**Peripheral neuropathy**\n- Continue neuropathic agent (renally dose); sedation risk if combined with opioids.\n- Foot checks every shift; falls precautions.\n\n**History of MRSA infection / colonization**\n- Contact precautions; decolonization protocol (mupirocin x5 days, chlorhexidine baths).\n- Include MRSA coverage in empiric antibiotics for new infection; trough/AUC monitoring if vancomycin is used.\n\n**Rheumatoid arthritis**\n- Methotrexate (WEEKLY) held during acute illness; resume only when the provider confirms infection/AKI resolved.\n- Continue folic acid, hydroxychloroquine and prednisone (do not stop steroid abruptly; stress-dose if septic/hypotensive).\n- Immunosuppression precautions; monitor CBC and creatinine.\n- Avoid NSAIDs if CKD or anticoagulated.\n\n**Chronic peripheral edema**\n- Elevation and skin care every shift; daily weight.\n- Report weeping, blisters, redness or sudden one-sided swelling (DVT/cellulitis).\n\n**Frailty**\n- Early mobility, nutrition support, delirium and fall precautions.\n- Start low, go slow with medications; goals-of-care discussion.\n\n**Prophylaxis / code status**\n- DVT prophylaxis per orders; fall precautions.\n- Code status: Full Code."
+      },
+      {
+        "id": "note_chest_x_ray_portable_2026_10_08_04_42",
+        "type": "imaging",
+        "title": "Chest x-ray, portable",
+        "author": "W. Chen, MD (Radiology)",
+        "datetime": "2026-10-08 04:42",
+        "category": "Radiology Report",
+        "summary": "No acute cardiopulmonary process.",
+        "body": "**Indication**\n- Pre-operative evaluation\n\n**Technique**\n- Chest x-ray, portable.\n\n**Findings**\nLungs are clear without focal consolidation, effusion or pneumothorax. Heart size is upper normal. Aortic calcification. No acute rib fracture.\n\n**Impression**\n- No acute cardiopulmonary process.",
+        "study": "Chest x-ray, portable",
+        "impression": "No acute cardiopulmonary process."
+      },
+      {
+        "id": "note_fascia_iliaca_compartment_nerve_block_2026_10_08_04_30",
+        "type": "progressNotes",
+        "title": "Fascia iliaca compartment nerve block",
+        "author": "J. Whitaker, MD",
+        "datetime": "2026-10-08 04:30",
+        "category": "Procedure Note",
+        "summary": "Ultrasound-guided fascia iliaca nerve block, right hip",
+        "body": "**Procedure**\n- Fascia iliaca compartment nerve block\n\n**Indication**\n- Hip fracture analgesia (opioid sparing)\n\n**Findings / technique**\nUltrasound-guided fascia iliaca block with 30 mL of ropivacaine 0.2% (below maximum dose for weight) injected deep to the fascia iliaca; good spread seen. Pain improved from 9/10 to 3/10 within 20 minutes. No paresthesia or vascular puncture. Expect 8-12 hours of relief; monitor for quadriceps weakness.\n\n**Complications**\n- None apparent. Patient tolerated the procedure; post-procedure vitals stable."
+      },
+      {
+        "id": "note_orthopedic_surgery_consult_2026_10_08_04_24",
+        "type": "progressNotes",
+        "title": "Orthopedic Surgery Consult",
+        "author": "R. Alvarez, MD",
+        "datetime": "2026-10-08 04:24",
+        "category": "Consult",
+        "summary": "Orthopedic surgery consulted; operative plan",
+        "body": "**Reason for consult**\n- Right hip fracture\n\n**Recommendations**\n- Admit to Orthopedic Surgery. Cephalomedullary (intramedullary) nail fixation within 24-48 hours of arrival. NPO after midnight. Hold anticoagulants; type and screen.  Weight bearing as tolerated after surgery. PT/OT post-op day 1. Consent obtained from the patient or health care proxy."
+      },
+      {
+        "id": "note_ed_provider_note_2026_10_08_04_18",
+        "type": "erVisitSummary",
+        "title": "ED Provider Note",
+        "author": "J. Whitaker, MD",
+        "datetime": "2026-10-08 04:18",
+        "category": "ED Note",
+        "summary": "67-year-old female presenting with right hip pain after a fall; unable to bear weight; admitted to General Surgery.",
+        "body": "**Chief complaint**\n- Right hip pain after a fall; unable to bear weight\n\n**HPI**\n67-year-old female who tripped on the way to the bathroom at night and fell onto the right side from standing height. Immediate severe right hip and groin pain with inability to stand or bear weight; the right leg was shortened and turned outward when EMS arrived. No loss of consciousness, head strike, chest pain, palpitations or preceding dizziness. Denies numbness or tingling in the foot. Received fentanyl 25 mcg IV from EMS.\n\n**Past medical / surgical history**\n- Medical: Type 2 diabetes mellitus (A1c 8.0%); Hypertension; Coronary artery disease; Heart failure with reduced ejection fraction (EF about 35%); Atrial fibrillation (CHA2DS2-VASc elevated, on apixaban); COPD; Chronic anemia; GERD; Depression and anxiety; Chronic constipation; Peripheral neuropathy; MRSA infection (prior abscess), colonized; Rheumatoid arthritis (on methotrexate weekly, hydroxychloroquine, prednisone); Chronic bilateral lower extremity edema; Frailty (weight loss, weakness)\n- Surgical: Cholecystectomy (2018); CABG (2022); Coronary stent / PCI (2018); Pacemaker / ICD (2018); Total hip replacement (1989); Mastectomy - right (with axillary node surgery) (2018)\n\n**Allergies**\n- Penicillin (Hives); Sulfa drugs (Rash)\n\n**Social history**\n- Lives with spouse/partner; independent with ADLs and ambulation at baseline; tobacco: current <1 ppd; alcohol: social; other substances: past substance use.\n\n**Triage vitals**\n- T 98.2 F, HR 111, BP 155/91, RR 23, SpO2 92% on room air, pain 10/10\n\n**Exam**\n- General: Awake and alert, uncomfortable-appearing.\n- Cardiovascular: Atrial fibrillation, rate controlled, irregularly irregular; S1 S2 irregularly irregular, no murmur. Edema: Trace bilateral lower extremity edema.\n- Respiratory: Diminished bilaterally with scattered end-expiratory wheeze; mildly prolonged expiratory phase.\n- Abdomen: Soft, non-tender, non-distended. Bowel sounds: active in all four quadrants.\n- Neurologic: Alert and oriented x4.\n- Skin: Warm, dry; ecchymosis over right lateral hip; no open wounds or skin tears.\n\n**ED results**\n- Labs: WBC 11.8 (H); Hemoglobin 8.9 (L); Sodium 137; Potassium 4.2; Creatinine 0.94; Glucose 201 (H)\n- X-ray right hip and pelvis (AP pelvis, AP and cross-table lateral right hip): Unstable right intertrochanteric femur fracture.\n- Chest x-ray, portable: No acute cardiopulmonary process.\n\n**ED course**\n- 0230 morphine 2 mg IV\n- 0236 lactated Ringer's bolus 250 mL IV\n- 0248 ondansetron (ZOFRAN) 4 mg IV\n- 0300 acetaminophen (TYLENOL) 1,000 mg Oral\n\n**Assessment / disposition**\n- Hip fracture (intertrochanteric). Intertrochanteric fracture, hemodynamically stable. Medically optimized for surgery; ECG and chest x-ray without acute findings.\n- Admit to General Surgery (Dr. R. Alvarez); condition guarded but stable."
+      },
+      {
+        "id": "note_x_ray_right_hip_and_pelvis_ap_pelvis_ap_and_cross_table_lateral_right_hip_2026_10_08_03_30",
+        "type": "imaging",
+        "title": "X-ray right hip and pelvis (AP pelvis, AP and cross-table lateral right hip)",
+        "author": "W. Chen, MD (Radiology)",
+        "datetime": "2026-10-08 03:30",
+        "category": "Radiology Report",
+        "summary": "Unstable right intertrochanteric femur fracture.",
+        "body": "**Indication**\n- Right hip pain and shortened, externally rotated leg after a fall\n\n**Technique**\n- X-ray right hip and pelvis (AP pelvis, AP and cross-table lateral right hip).\n\n**Findings**\nComminuted intertrochanteric right femoral fracture with varus angulation and lesser trochanter involvement. Diffuse osteopenia. No femoral neck or acetabular fracture. Pelvic ring intact.\n\n**Impression**\n- Unstable right intertrochanteric femur fracture.",
+        "study": "X-ray right hip and pelvis (AP pelvis, AP and cross-table lateral right hip)",
+        "impression": "Unstable right intertrochanteric femur fracture."
+      }
+    ],
+    "timeline": {
+      "marDate": "Thursday, October 8, 2026",
+      "marTimeSlots": [
+        "0700",
+        "0800",
+        "0900",
+        "1000",
+        "1100",
+        "1200",
+        "1300",
+        "1400"
+      ],
+      "simulationStart": "2026-10-08 07:00",
+      "simulationEnd": "2026-10-08 15:00"
+    },
+    "simulationTasks": [],
+    "triggers": [],
+    "facultyBuilder": {
+      "builderVersion": 2,
+      "inputs": {
+        "name": "Betsy Ross",
+        "age": 67,
+        "sex": "Female",
+        "mrn": "SIM-98214",
+        "unit": "Step-Down ICU",
+        "room": "378-1",
+        "heightCm": "",
+        "weightKg": "",
+        "codeStatus": "Full Code",
+        "studentLevel": "ADN second year",
+        "complexity": "complex",
+        "primary": "hip_fracture",
+        "hospitalDay": 1,
+        "simDate": "2026-10-08",
+        "startTime": "07:00",
+        "hx": [
+          "htn",
+          "dm2",
+          "afib",
+          "cad",
+          "hf",
+          "gerd",
+          "constipation",
+          "anemia",
+          "rheumatoid_arthritis",
+          "edema_skin",
+          "frailty",
+          "copd",
+          "mrsa",
+          "depression",
+          "neuropathy"
+        ],
+        "surg": [
+          "cholecystectomy",
+          "cabg",
+          "pci",
+          "pacemaker",
+          "tha",
+          "mastectomy_right"
+        ],
+        "surgText": "",
+        "allergies": [
+          {
+            "substance": "Penicillin",
+            "reaction": "Hives",
+            "severity": "High"
+          },
+          {
+            "substance": "Sulfa drugs",
+            "reaction": "Rash",
+            "severity": "Moderate"
+          }
+        ],
+        "facultyNotes": "",
+        "social": {
+          "tobacco": "Current <1 ppd",
+          "alcohol": "Social",
+          "drugs": "Past substance use",
+          "living": "Lives with spouse/partner",
+          "function": "Independent",
+          "other": ""
+        },
+        "medEdits": {
+          "removed": [],
+          "changed": {},
+          "added": []
+        },
+        "hxCustom": [],
+        "surgYears": {
+          "cholecystectomy": "2018",
+          "cabg": "2022",
+          "pci": "2018",
+          "pacemaker": "2018",
+          "tha": "1989",
+          "mastectomy_right": "2018"
+        },
+        "surgCustom": [],
+        "trigger": {
+          "mode": "off",
+          "key": "hip_fracture_pe",
+          "atMin": 90,
+          "severity": "moderate"
+        }
+      }
+    },
+    "medPass": {
+      "scanRequired": true,
+      "decoys": true,
+      "traps": [],
+      "log": [
+        {
+          "at": "2026-10-08 07:00",
+          "type": "open",
+          "detail": "Opened insulin lispro (HUMALOG) correction scale (scheduled 0730)",
+          "orderId": "order_med_insulin_lispro_14"
+        },
+        {
+          "at": "2026-10-08 07:00",
+          "type": "scan_patient",
+          "detail": "Correct patient",
+          "orderId": "order_med_insulin_lispro_14"
+        },
+        {
+          "at": "2026-10-08 07:00",
+          "type": "scan_med",
+          "detail": "Correct medication",
+          "orderId": "order_med_insulin_lispro_14"
+        },
+        {
+          "at": "2026-10-08 07:00",
+          "type": "action_given",
+          "detail": "insulin lispro (HUMALOG) correction scale: given",
+          "orderId": "order_med_insulin_lispro_14"
+        },
+        {
+          "at": "2026-10-08 07:00",
+          "type": "open",
+          "detail": "Opened prednisone tablet (scheduled 0800)",
+          "orderId": "order_med_prednisone_34"
+        },
+        {
+          "at": "2026-10-08 07:00",
+          "type": "scan_med",
+          "detail": "Correct medication",
+          "orderId": "order_med_prednisone_34"
+        },
+        {
+          "at": "2026-10-08 07:00",
+          "type": "action_given",
+          "detail": "prednisone tablet: given",
+          "orderId": "order_med_prednisone_34"
+        }
+      ]
+    },
+    "marRights": {
+      "required": true
+    },
+    "practice": {
+      "enabled": false
+    },
+    "orderAck": {},
+    "messageState": {
+      "read": [],
+      "replied": {},
+      "calls": {},
+      "toasted": []
+    }
+  }
+}

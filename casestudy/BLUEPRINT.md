@@ -3,13 +3,12 @@
 For ADN Med-Surg II. One packet per patient, built around the nursing process (ADPIE), individual, open book, take-home,
 about 6 hours, 100 points, **passing = 78**. Made only for the saved patients the instructor names. It is a faculty tool: it is not part of the student EHR.
 
-> **Do not publish answer keys.** This repository is public (GitHub Pages). Keep `*_KEY.docx` and any `content.json` (it contains the key)
-> out of the repo. The `.gitignore` here ignores `out/` and `content/`.
+> **Answer keys are stored in this repo** (the instructor chose this). The repo and its website are public, so students could find the files if they search for them. Each case lives in `cases/<name>/` with `patient.json`, `author.py` (writes the key), `content.json`, and `out/` (student packet, key, PDF previews).
 
 ## How a case study is made (the workflow)
 1. Instructor says which patient and uploads its JSON (Case Builder export or the student file).
 2. `python3 extract_facts.py patient.json > facts.txt` prints the chart facts (problems, meds, labs with trends, vitals, assessments, I&O, notes).
-3. Claude writes `content.json` for that patient (questions, answer key, point values) following this blueprint.
+3. Claude writes `cases/<name>/author.py` (which writes `content.json`) for that patient (questions, answer key, point values) following this blueprint.
 4. `python3 build_casestudy.py content.json patient.json out/` writes `<caseCode>_STUDENT.docx` and `<caseCode>_KEY.docx` (answer key, scoring rules, score sheet).
 5. Instructor prints the student packet. Students use the student EHR (`student.html`, Student View) with the same patient.
 6. Students photograph every page. Claude scores the photos against the key (see Grading below) and returns a score sheet.

@@ -1,0 +1,343 @@
+#!/usr/bin/env python3
+"""Authors content.json for the sample case study (chf_complex_L3: acute decompensated HFrEF with ESRD).
+Contains the answer key. Keep this file and its output OUT of the public repo."""
+import json, sys
+
+E = lambda t, pts, src='': {'t': t, 'pts': pts, 'src': src}
+
+meta = {'title': 'Clinical Care-Plan Case Study: Acute Decompensated Heart Failure with End-Stage Renal Disease',
+        'course': 'ADN Med-Surg II', 'caseCode': 'CS-CHF-418B', 'passPct': 78,
+        'footer': 'Write one answer per numbered box, inside the box, in dark pen, neatly. Open book, individual work.'}
+
+studentIntro = [
+    {'h': 'Your patient', 'lines': [
+        'You are the primary nurse for the patient in room 418B on the 7:00 to 15:00 shift on Wednesday, September 2, 2026 (hospital day 3). '
+        'Open the patient in the student EHR (Student View, or the patient file from your instructor). Everything you need is in the chart; set the simulation clock to 0700 and work the way you would at the start of a real shift.']},
+    {'h': 'How this case study works', 'lines': [
+        'This packet follows the nursing process: Assessment, Diagnosis, Planning, Implementation and Evaluation. You will also explain the pathophysiology and pharmacology behind your patient\'s care. '
+        'Expect to spend about 6 hours. It is a take-home, individual, open-book assignment: use your textbooks, drug guide, notes and the chart.',
+        'Questions ask you to explain WHY, not only WHAT. Short, specific answers that use this patient\'s data earn more points than general textbook answers.']},
+]
+studentRules = [
+    {'h': 'Scoring', 'lines': ['The packet is worth 100 points. A score of 78 or higher is passing.',
+                               'Each numbered item shows its point value. Points are given only for what is written in the box.']},
+    {'h': 'Writing so your pages can be scored from photos', 'lines': [
+        'Write in dark pen or very dark pencil, print clearly, and stay inside the box. Write the answer in the box with the same number as the question.',
+        'Write your name and date at the top of every page (the header prints a line for it).',
+        'If you need more room, write "continued on the back" and put the item number on the back. Do not squeeze writing between boxes.',
+        'Do not use abbreviations that are not on the approved list. Spell out drug names.',
+        'When you finish: photograph EVERY page, one page per photo, on a flat surface in good light with all four corners and the page number in view. Check that every photo is readable before you upload.']},
+    {'h': 'Part 6 is sealed', 'lines': ['Do not read the sealed page at the start of Part 6 until Parts 1 to 5 are finished. Your plan must be based on what you knew at 0700.']},
+]
+
+# ------------------------------------------------------------------ PART 1
+LAB_REFS = 'Reference ranges are on the chart (Lab Results).'
+p1 = {'id': '1', 'title': 'Assessment: Patient Data and Chart Review', 'step': 'Assessment', 'minutes': 75,
+      'intro': 'Collect and organize the data you would have at 0700. Where the chart does not document something, write "not documented." Use R and L for laterality.',
+      'keyNote': 'Part 1 is mostly chart look-up, so it should be the easiest part to score. Students who read the chart carefully should earn 20 or more of these 26 points.',
+      'items': [
+          {'id': '1.1', 'type': 'fields', 'points': 4, 'title': 'Basic Patient Information', 'where': 'Patient Summary and Storyboard', 'perRow': 2, 'fields': [
+              {'label': 'Room Number', 'answer': '418B', 'pts': 0.5}, {'label': 'Age', 'answer': '74', 'pts': 0.5},
+              {'label': 'Gender', 'answer': 'Female', 'pts': 0.5}, {'label': 'Admission Date', 'answer': '08/31/26 (ED arrival 0206; unit 0500)', 'pts': 0.5},
+              {'label': 'Allergies (and reaction)', 'answer': 'Penicillin: hives (high severity)', 'pts': 0.5}, {'label': 'Chief Complaint', 'answer': 'Shortness of breath, orthopnea, leg swelling', 'pts': 0.5},
+              {'label': 'Primary Diagnosis', 'answer': 'Acute decompensated heart failure (HFrEF)', 'pts': 0.5}, {'label': 'Code Status', 'answer': 'Full Code', 'pts': 0.25},
+              {'label': 'Fall Risk', 'answer': 'High', 'pts': 0.25}], 'labelW': 1.25},
+          {'id': '1.2', 'type': 'table', 'points': 4, 'title': 'Medical Diagnoses and How They Affect the Primary Diagnosis',
+           'prompt': 'List FIVE other medical diagnoses from this patient\'s chart. For each, explain how it affects her acute decompensated heart failure.', 'where': 'Chart Review > H&P; Encounters > Hospital problem list',
+           'cols': ['Medical diagnosis', 'How it affects the primary diagnosis (acute decompensated heart failure)'], 'widths': [2.2, 4.8], 'rows': 5, 'rowH': 0.7,
+           'key': {'answer': 'Any 5 of the 6 chart diagnoses. Each row 0.8: diagnosis is on the chart (0.3) AND the effect is accurate (0.5).',
+                   'elements': [
+                       E('End-stage renal disease on hemodialysis: cannot excrete sodium/water (oliguric), so volume overload builds between dialysis sessions; fluid is removed mainly by ultrafiltration; retains potassium and phosphorus; anemia lowers O2 delivery and increases cardiac workload.', 0.8, 'H&P'),
+                       E('Hypertension: raises afterload, causes LV hypertrophy and worsens HFrEF (admission BP 185/101).', 0.8, 'H&P'),
+                       E('Chronic HFrEF (EF about 35%): little cardiac reserve; sodium load or missed diuretic quickly causes decompensation.', 0.8, 'H&P, echo'),
+                       E('Atrial fibrillation: loss of atrial kick and fast rate shorten filling time and lower cardiac output; can trigger decompensation; stroke risk (apixaban).', 0.8, 'ECG'),
+                       E('COPD: chronic hypoxemia and pulmonary hypertension strain the right heart; dyspnea overlaps with HF; baseline SpO2 about 90-92%.', 0.8, 'H&P'),
+                       E('Dementia: impairs adherence (missed furosemide), symptom reporting and self-care; delirium risk.', 0.8, 'H&P')],
+                   'bank': True, 'rules': 'Accept alcohol use disorder or tobacco use as a row only if the effect is correct (alcohol: cardiomyopathy, AF, hypertension; tobacco: COPD, vasoconstriction). Maximum 4.0. Do not give credit for the same diagnosis twice (HF and HFrEF are the same row).'}},
+          {'id': '1.3', 'type': 'boxes', 'points': 3, 'title': 'Patient History', 'where': 'H&P; Case Management; Nursing Admission Note', 'subs': [
+              {'label': 'Medical History:', 'lines': 2}, {'label': 'Surgical History:', 'lines': 1}, {'label': 'Family History:', 'lines': 2},
+              {'label': 'Social History:', 'lines': 2}, {'label': 'Home Situation and Discharge Needs:', 'lines': 3}, {'label': 'Pre-Hospital Story of Patient:', 'lines': 3}],
+           'key': {'elements': [
+               E('Medical: ESRD on hemodialysis Mon/Wed/Fri via L arm AV fistula; HTN; HFrEF (EF about 35%); atrial fibrillation on apixaban; COPD; dementia (need at least 4 of 6).', 0.5, 'H&P'),
+               E('Surgical: hysterectomy; bowel resection / colectomy.', 0.5, 'H&P'),
+               E('Family: mother hypertension; father coronary artery disease.', 0.5, 'H&P'),
+               E('Social: tobacco at least 1 pack/day (current); heavy daily alcohol; no other substances; walker at baseline; lives alone (need tobacco AND alcohol).', 0.5, 'H&P'),
+               E('Home/discharge: lives alone with limited help (H&P) OR assisted living with 24-hour supervision (Case Management) AND any two needs: walker, home health/therapy, HD schedule, HF clinic within 7 days, cognitive supervision, tobacco/alcohol resources, Medicare.', 0.5, 'Case Mgmt'),
+               E('Pre-hospital: 4 days of progressive dyspnea, orthopnea (3 pillows), PND, bilateral leg swelling, 8-lb weight gain; salty foods at a family gathering AND missed furosemide doses (need cause plus 2 symptoms).', 0.5, 'H&P')],
+                   'rules': 'Lives alone vs assisted living is a chart conflict (see 1.8); accept either.'}},
+          {'id': '1.4', 'type': 'boxes', 'points': 4, 'title': 'Head-to-Toe Assessment at 0700 (use R and L for laterality)', 'where': 'Flowsheets; Nursing Progress Note 0645; Hospitalist Progress Note',
+           'prompt': 'Document the findings from the chart as of the start of your shift. If the chart does not document a finding, write "not documented."', 'subs': [
+              {'label': 'Neurological:', 'lines': 2},
+              {'label': 'Cardiovascular:  Radial pulses R___ L___    Pedal pulses R___ L___    Cap refill ________', 'lines': 3},
+              {'label': 'Respiratory:  RUL ____  LUL ____  RLL ____  LLL ____  (breath sounds, effort, O2)', 'lines': 3},
+              {'label': 'Integumentary:', 'lines': 2}, {'label': 'Musculoskeletal:', 'lines': 2}, {'label': 'Gastrointestinal:', 'lines': 2},
+              {'label': 'Genitourinary:', 'lines': 2}, {'label': 'IV / Lines / Devices Assessment:', 'lines': 2}, {'label': 'Psychosocial / Cultural Assessment:', 'lines': 2}, {'label': 'Erikson Stage:', 'lines': 1}],
+           'key': {'elements': [
+               E('Neuro: alert, pleasantly confused; oriented to person only (baseline per family); CIWA-Ar 6 (mild).', 0.4, 'Flowsheet'),
+               E('CV: AFib rate controlled (HR 95); S3 gallop; 2/6 systolic apical murmur; JVD to 8 cm; edema 1+ pedal (0645) [2+ improving on 09/01]; cap refill under 3 s; cool extremities. Radial/pedal pulses R/L are NOT documented: full credit for "not documented" or an honest statement.', 0.4, 'Flowsheet, notes'),
+               E('Resp: faint bibasilar crackles (crackles to lower third on 09/01); mild tachypnea RR 19-21; SpO2 90-92% on 2 L NC (room air 95% noted in the 0645 note: chart conflict); dry cough worse lying flat; lobe-by-lobe findings not documented.', 0.4, 'RT 0812, nursing'),
+               E('Integument: cool, dry skin, mild peripheral cyanosis; Braden 21; no wounds documented.', 0.4, 'Flowsheet'),
+               E('MSK: up with assistance; walker at baseline; dyspnea on exertion to bathroom; hall ambulation three times a day; high fall risk.', 0.4, 'Flowsheet'),
+               E('GI: soft, mildly distended, mild hepatic tenderness (hepatic congestion); bowel sounds active x4; no nausea or vomiting; intake 50-75% of meals; diet 2 g sodium / renal / fluid restricted.', 0.4, 'Flowsheet, RD'),
+               E('GU: oliguric ESRD (minimal urine); clear yellow; 24-hour I&O in 1246 / out 332 mL; overnight 0300-0700 in 242 / out 50.', 0.4, 'Flowsheet, I&O'),
+               E('Lines: peripheral IV R forearm patent; nasal cannula 2 L; AV fistula L upper arm patent: NO BP, venipuncture or IV in the left arm.', 0.4, 'Devices'),
+               E('Psychosocial/cultural: lives alone (or assisted living), family involved (daughter/family confirm baseline), tobacco and heavy alcohol use, Medicare with supplement; spiritual/cultural preferences not documented (full credit if student says "ask the patient/family").', 0.4, 'Case Mgmt'),
+               E('Erikson: Integrity vs Despair (late adulthood, 65+).', 0.4, '')],
+                   'rules': 'Give 0.4 for a box that contains at least 3 correct chart findings for that system (0.2 for 1-2). Do not penalize wording. Do not give credit for findings that are not in the chart (invented pulses, lung sounds by lobe).'}},
+          {'id': '1.5', 'type': 'vitals', 'points': 2, 'title': 'Vital Sign Trend', 'where': 'Flowsheets > Vital Signs (or the Vitals graph)',
+           'prompt': 'Copy the vital signs at each time. Circle every abnormal value. Then, in the last box, describe the trend in one sentence.',
+           'times': ['2026-08-31 02:06', '2026-08-31 20:00', '2026-09-01 20:00', '2026-09-02 04:00'],
+           'times_label': ['08/31 0206\n(ED arrival)', '08/31 2000', '09/01 2000', '09/02 0400'],
+           'rowsLabels': ['Temperature', 'Heart rate', 'Blood pressure', 'Respiratory rate', 'SpO2 (%)', 'Pain (0-10)'], 'codes': ['TEMP', 'HR', 'BP', 'RR', 'SPO2', 'PAIN'],
+           'key': {'rules': 'Score 1.5 x (cells correct / 24), rounded to the nearest 0.5. Circling abnormal values and the trend sentence are worth 0.5 together: HR, RR and SpO2 improved from admission; BP improved but remains hypertensive (163/88). Allow +/- 2 for rates.'}},
+          {'id': '1.6', 'type': 'table', 'points': 4, 'title': 'Laboratory Data', 'where': 'Lab Results (all columns; use Newest left/right as you like)',
+           'prompt': 'Choose the 8 laboratory results most important for this patient. For each give the current value, the trend, and the normal range, and explain why it matters for THIS patient.',
+           'cols': ['Lab', 'Results (current / trend / normal)', 'Why is this lab important for this patient?'], 'widths': [1.2, 2.3, 3.5], 'rows': 8, 'rowH': 0.62,
+           'key': {'answer': 'Any 8 of the labs below. Each 0.5: lab named with the correct current value AND trend (0.25) AND an accurate patient-specific reason (0.25).',
+                   'elements': [
+                       E('BNP 1236 pg/mL (H), single value 08/31; normal under 100. HF severity; may be chronically raised in ESRD, so trend and clinical picture matter more than the number.', 0.5, ''),
+                       E('Potassium 5.0 mmol/L (4.6 -> 4.5 -> 5.0), normal 3.5-5.1. ESRD cannot excrete K; arrhythmia risk with AFib/HF; rising trend.', 0.5, ''),
+                       E('Sodium 135 (131 -> 133 -> 135), normal 136-145. Dilutional hyponatremia from fluid excess in HF; improving as fluid removed.', 0.5, ''),
+                       E('BUN 56 (58 -> 60 -> 56), normal 7-20 and Creatinine 6.08 (6.10 -> 6.24 -> 6.08), normal 0.5-1.1: ESRD baseline; guide dosing and dialysis; eGFR 7.', 0.5, ''),
+                       E('Hemoglobin 9.1 (8.8 -> 9.0 -> 9.1), normal 12-16. Anemia of CKD lowers O2 delivery and raises cardiac workload; bleeding watch on apixaban + heparin at HD.', 0.5, ''),
+                       E('Phosphorus 5.4 (H), normal 2.5-4.5, 08/31. ESRD; explains sevelamer with meals.', 0.5, ''),
+                       E('Calcium 8.4 (L), normal 8.5-10.5 (stable). ESRD mineral-bone disorder; interacts with phosphate binders and QT/arrhythmia.', 0.5, ''),
+                       E('Magnesium 2.0 (1.7 -> 1.8 -> 2.0), normal 1.7-2.4. Arrhythmia risk; goal 2.0 per order.', 0.5, ''),
+                       E('Troponin I 0.03 -> 0.03 -> 0.02 (normal under 0.04): argues against MI as the cause of dyspnea.', 0.5, ''),
+                       E('CO2 21 -> 23 -> 24 (22-29): mild metabolic acidosis of ESRD, corrected.', 0.5, '')],
+                   'bank': True, 'rules': 'Maximum 4.0 for 8 rows. Accept other abnormal labs if value, trend and reason are correct. No credit for a lab with a wrong value.'}},
+          {'id': '1.7', 'type': 'boxes', 'points': 2, 'title': 'Diagnostics', 'where': 'Chart Review > Imaging, Cardiology',
+           'subs': [{'label': 'Chest X-ray: location and results', 'lines': 2}, {'label': 'Echocardiogram results:', 'lines': 2}, {'label': 'EKG results:', 'lines': 2}, {'label': 'Urinalysis results:', 'lines': 1}],
+           'key': {'elements': [
+               E('CXR (portable, 08/31): cardiomegaly, pulmonary vascular congestion and interstitial edema, small bilateral pleural effusions, no consolidation.', 0.5, 'Radiology'),
+               E('Echo (09/01): LVEF 30-35%, global hypokinesis, dilated LV, moderate LA enlargement, mild-moderate MR, RVSP 45, dilated IVC with reduced collapse, small pericardial effusion without tamponade.', 0.5, 'Cardiology'),
+               E('ECG (08/31): atrial fibrillation with controlled ventricular response, rate 92; LVH; old LBBB, unchanged.', 0.5, 'Cardiology'),
+               E('UA: not ordered/not documented (oliguric ESRD). Full credit for "not done" or "not documented."', 0.5, '')]}},
+          {'id': '1.8', 'type': 'table', 'points': 3, 'title': 'Chart Reconciliation',
+           'prompt': 'Real charts contain conflicts and gaps. Find THREE places where this chart is duplicated, conflicting, or needs clarification before you act. Say where you found each and who you would clarify it with.',
+           'where': 'Orders, Chart Review > Notes, Case Management', 'cols': ['What is wrong or unclear (and where)', 'Who you would clarify with and what you would ask'], 'widths': [3.5, 3.5], 'rows': 3, 'rowH': 0.95,
+           'key': {'answer': 'Any 3 valid items. Each 1.0: the issue is real and located (0.6) AND the clarification is appropriate (0.4).',
+                   'elements': [
+                       E('Two active fluid restriction orders: 1,000 mL/day and 1,500 mL/day (cardiac diet order says 1,500; encounter/nursing say 1,000). Clarify with hospitalist/dietitian and update the diet order.', 0.0, 'Orders'),
+                       E('Case Management says "return to assisted living, needs 24-hour supervision" but H&P/social history say "lives alone." Clarify with case management/family; affects discharge safety.', 0.0, 'Case Mgmt'),
+                       E('Home lisinopril 20 mg is not ordered inpatient and no reason is documented while K is rising and BP is high. Ask the provider/pharmacist if it was intentionally held.', 0.0, 'H&P vs MAR'),
+                       E('Hospitalist plans oral furosemide 40 mg BID, but she is oliguric ESRD (about 50 mL urine per 4 h). Ask nephrology/hospitalist about expected benefit; volume removal is by dialysis.', 0.0, 'Progress note'),
+                       E('Duplicate oxygen orders (0218 and 0230) and the 0645 note says room air 95% while the flowsheet/RT say 2 L NC. Clarify target SpO2 (RT: 88-92%) and the current O2.', 0.0, 'Orders, notes'),
+                       E('Volume status conflict: hospitalist "near dry weight" vs dialysis note "weight above dry weight" (2,013 mL removed). Clarify dry weight with nephrology.', 0.0, 'Notes'),
+                       E('Home albuterol every 4 hours plus scheduled DuoNeb and PRN albuterol every 2 hours: duplicate bronchodilator therapy. Clarify with pharmacy/RT.', 0.0, 'MAR')],
+                   'rules': 'Elements are shown as a bank (0 pts each); score each student row 1.0 as described above (maximum 3.0). The same issue written twice earns credit once.'}},
+      ]}
+
+# ------------------------------------------------------------------ PART 2
+p2 = {'id': '2', 'title': 'Pathophysiology: The Disease Process', 'step': 'Assessment / Analysis of cues', 'minutes': 75,
+      'intro': 'Explain WHY this is happening. Use your own words (plain language) and tie each idea to this patient.',
+      'items': [
+          {'id': '2.1', 'type': 'box', 'points': 6, 'lines': 13, 'title': 'Pathophysiology of Acute Decompensated Heart Failure (HFrEF)',
+           'prompt': 'In plain language and your own words, explain the pathophysiology of this patient\'s primary diagnosis: what is wrong with the heart, what the body does in response, and why that produces fluid in the lungs and legs.',
+           'key': {'elements': [
+               E('Reduced contractility/ejection fraction (EF 30-35%) lowers stroke volume and cardiac output.', 1, ''),
+               E('Low output decreases renal perfusion and activates RAAS: sodium and water retention increases blood volume and preload.', 1, ''),
+               E('Sympathetic nervous system activation raises HR and afterload (vasoconstriction); over time this worsens the failing heart (remodeling).', 1, ''),
+               E('Backward failure: LV filling pressure rises, fluid shifts into lung interstitium and alveoli: dyspnea, orthopnea, PND, crackles, hypoxia.', 1, ''),
+               E('Right-sided/systemic congestion: JVD, peripheral edema, weight gain, hepatic congestion/tenderness, distended abdomen.', 1, ''),
+               E('Patient-specific trigger: high-sodium meal and missed furosemide doses, with ESRD unable to excrete the volume.', 1, '')],
+                   'rules': 'One point per concept explained correctly in the student\'s own words. Copying textbook phrases without explanation earns 0.5. Do not give credit for confusing systolic and diastolic dysfunction.'}},
+          {'id': '2.2', 'type': 'concept', 'points': 3, 'title': 'Cause-and-Effect Chain',
+           'prompt': 'Fill in each box (one or two lines) to show how events in this patient lead from the trigger to her symptoms.',
+           'boxes': ['1. Trigger(s) in THIS patient', '2. What happens to blood volume and preload?', '3. What happens to the heart (EF, contractility)?', '4. Compensation by hormones/nerves, and its downside', '5. Backward effects (lungs)', '6. Forward and systemic effects (kidneys, legs, liver)'],
+           'key': {'elements': [
+               E('1: sodium load (salty foods) and missed diuretic, with ESRD (oliguria).', 0.5, ''), E('2: retained sodium and water raise blood volume and preload.', 0.5, ''),
+               E('3: dilated, weak LV (EF 30-35%) cannot eject the volume; stroke volume falls.', 0.5, ''), E('4: RAAS and sympathetic activation retain more fluid and raise afterload; worsens failure.', 0.5, ''),
+               E('5: pulmonary congestion/edema: crackles, orthopnea, hypoxia, pleural effusions.', 0.5, ''), E('6: low perfusion (cool extremities, rising BUN/Cr), peripheral edema, hepatic congestion.', 0.5, '')]}},
+          {'id': '2.3', 'type': 'table', 'points': 4, 'title': 'How Do You Know? Findings and Mechanisms',
+           'prompt': 'List EIGHT findings from this patient\'s assessment, labs or diagnostics that support acute decompensated heart failure. Beside each, explain the mechanism that causes it.',
+           'where': 'Notes, Flowsheets, Lab Results, Imaging', 'cols': ['Finding in THIS patient (with value)', 'Why it happens (mechanism)'], 'widths': [2.7, 4.3], 'rows': 8, 'rowH': 0.55,
+           'key': {'answer': 'Each row 0.5 when the finding is real and from this chart AND the mechanism is correct. Any 8 of the following.',
+                   'elements': [E('Orthopnea (3 pillows)/PND: lying flat returns fluid to the central circulation and raises LV filling pressure.', 0, ''), E('Bibasilar crackles/pulmonary edema on CXR: fluid in alveoli and interstitium from high pulmonary capillary pressure.', 0, ''),
+                                E('S3 gallop: rapid filling of a volume-overloaded, stiff-failing ventricle.', 0, ''), E('JVD 8 cm / dilated IVC on echo: elevated right-sided pressure and volume.', 0, ''),
+                                E('Leg edema 2+ then 1+ and 8-lb weight gain: sodium and water retention, high venous pressure.', 0, ''), E('BNP 1236: ventricular wall stretch releases BNP.', 0, ''),
+                                E('SpO2 86% on arrival: fluid blocks gas exchange (V/Q mismatch).', 0, ''), E('EF 30-35% with dilated LV and global hypokinesis: systolic dysfunction.', 0, ''),
+                                E('Cool extremities with cyanosis: low cardiac output, peripheral vasoconstriction.', 0, ''), E('Hepatic tenderness/distended abdomen: hepatic congestion from right-sided backup.', 0, ''),
+                                E('Tachycardia/tachypnea on arrival: compensation for low output and hypoxia.', 0, '')],
+                   'rules': 'Maximum 4.0.'}},
+          {'id': '2.4a', 'type': 'box', 'points': 1, 'lines': 6, 'title': 'ESRD and fluid', 'prompt': 'Why is this patient\'s fluid overload harder to treat than a patient with normal kidneys? How is the excess fluid actually removed in her case, and when will a diuretic such as furosemide help or not help?',
+           'key': {'elements': [E('Oliguric ESRD kidneys make little urine, so diuretics have little effect (limited response once nearly anuric).', 0.4, ''), E('Fluid is removed by hemodialysis ultrafiltration (Mon/Wed/Fri; today 0800).', 0.3, ''), E('Still must restrict sodium and fluid between treatments; interdialytic weight gain.', 0.3, '')]}},
+          {'id': '2.4b', 'type': 'box', 'points': 1, 'lines': 6, 'title': 'AFib and COPD', 'prompt': 'Explain how atrial fibrillation and COPD each can worsen her heart failure and her breathing.',
+           'key': {'elements': [E('AFib: loss of atrial kick and rapid rate shorten diastolic filling and lower cardiac output; can trigger decompensation.', 0.4, ''), E('COPD: chronic hypoxemia causes pulmonary vasoconstriction and right-heart strain; also dyspnea overlaps with HF.', 0.4, ''), E('Mentions oxygen target 88-92% in COPD, or stroke risk and anticoagulation for AFib.', 0.2, '')]}},
+          {'id': '2.4c', 'type': 'box', 'points': 1, 'lines': 6, 'title': 'Alcohol and tobacco', 'prompt': 'How may her heavy daily alcohol use and 1+ pack/day smoking have contributed to her illness, and what new risk does the alcohol create this week?',
+           'key': {'elements': [E('Alcohol: cardiomyopathy, atrial fibrillation, raises BP, poor adherence.', 0.4, ''), E('Tobacco: COPD, atherosclerosis, vasoconstriction/afterload.', 0.3, ''), E('Alcohol withdrawal risk (CIWA-Ar q4h, lorazepam PRN, thiamine); with dementia, delirium and falls.', 0.3, '')]}},
+          {'id': '2.5', 'type': 'box', 'points': 2, 'lines': 7, 'title': 'Treatment', 'prompt': 'What are we doing to treat this diagnosis? Include medical treatments AND nursing monitoring.',
+           'key': {'elements': [E('Oxygen titrated to 88-92%, upright positioning, respiratory therapy.', 0.5, ''), E('Fluid (1,000-1,500 mL) and 2 g sodium restriction, daily weights, strict I&O.', 0.5, ''), E('Fluid removal: IV diuretic given on admission, now hemodialysis ultrafiltration.', 0.5, ''), E('Guideline-directed medicines (carvedilol), telemetry, labs (K, Mg), anticoagulation for AFib, HF education.', 0.5, '')]}},
+          {'id': '2.6', 'type': 'box', 'points': 2, 'lines': 8, 'title': 'Potassium', 'where': 'Lab Results > Potassium',
+           'prompt': 'Her potassium was 4.5 yesterday and is 5.0 this morning. Why does this matter in a patient with heart failure, atrial fibrillation and ESRD? Name two contributors for this patient, two signs you would look for, and your action.',
+           'key': {'elements': [E('Hyperkalemia can cause dangerous arrhythmias; risk is higher with HF/AFib and ESRD.', 0.5, ''), E('Contributors: ESRD (cannot excrete K), diet (renal diet teaching), missed/overdue dialysis, ACE inhibitor at home, acidosis.', 0.5, ''), E('Signs: peaked T waves/ECG changes, bradycardia or irregular rhythm change, muscle weakness, paresthesia.', 0.5, ''), E('Action: telemetry watch, notify provider/nephrology, confirm dialysis proceeds today, repeat BMP, avoid K sources.', 0.5, '')]}},
+      ]}
+
+# ------------------------------------------------------------------ PART 3
+MEDBANK = [
+    E('sevelamer carbonate (Renvela): phosphate binder, binds dietary phosphate in gut; for hyperphosphatemia of ESRD (phos 5.4). Give WITH meals; constipation; monitor phos/Ca.', 0, ''),
+    E('B-complex with vitamin C and folic acid (Nephro-Vite): renal vitamin replacing water-soluble vitamins lost in dialysis. Give after HD.', 0, ''),
+    E('amlodipine (Norvasc): calcium channel blocker, relaxes arterial smooth muscle; hypertension. Hold/notify SBP <100; edema; give after HD per order timing.', 0, ''),
+    E('carvedilol (Coreg): beta blocker (alpha-1 also), lowers HR, BP, remodeling; HFrEF. Hold/notify HR <55 or SBP <100; take with food; masks hypoglycemia; non-selective, watch bronchospasm in COPD.', 0, ''),
+    E('apixaban (Eliquis): factor Xa inhibitor; stroke prevention in AFib. High-alert: bleeding precautions, never skip doses, no NSAIDs, extra bleeding risk with heparin at HD.', 0, ''),
+    E('fluticasone-salmeterol (Advair Diskus): inhaled corticosteroid + long-acting beta agonist; COPD maintenance. Rinse mouth; not for rescue; can raise HR.', 0, ''),
+    E('nicotine patch (Nicoderm CQ) 21 mg: nicotine replacement; smoking 1+ ppd. Rotate sites; remove old patch; HR/BP.', 0, ''),
+    E('thiamine / folic acid / multivitamin: vitamin replacement in alcohol use disorder; thiamine prevents Wernicke.', 0, ''),
+    E('ipratropium-albuterol (DuoNeb): anticholinergic + short-acting beta agonist; COPD. Tachycardia/tremor; replaces home tiotropium (avoid duplicate anticholinergic).', 0, ''),
+    E('donepezil (Aricept) 10 mg HS: cholinesterase inhibitor; dementia. Bradycardia/syncope (with carvedilol), GI upset, vivid dreams at bedtime.', 0, ''),
+    E('acetaminophen PRN: non-opioid analgesic; pain. Avoid NSAIDs (ESRD, HF, apixaban). Max daily dose.', 0, ''),
+    E('nitroglycerin SL PRN: nitrate vasodilator; chest pain. Hold for SBP <100; sit down; headache.', 0, ''),
+    E('albuterol neb PRN: short-acting beta agonist; rescue for wheeze/dyspnea; tachycardia.', 0, ''),
+    E('lorazepam (Ativan) PRN per CIWA-Ar >=10: benzodiazepine, enhances GABA; alcohol withdrawal. Sedation, falls, respiratory depression, delirium in dementia; assess CIWA before each dose.', 0, '')]
+p3 = {'id': '3', 'title': 'Pharmacology and Medication Safety', 'step': 'Assessment / Analysis (and safe implementation)', 'minutes': 60,
+      'intro': 'Use your drug guide and the MAR (and the drug guide link inside the EHR).',
+      'items': [
+          {'id': '3.1', 'type': 'table', 'points': 6, 'title': 'Medication List',
+           'prompt': 'From the MAR, choose the EIGHT medications that matter most to you before the 0900 medication pass. List brand and generic names.', 'where': 'MAR (click the medication name for the drug guide)',
+           'cols': ['Medication (brand and generic)', 'Drug class and mechanism (10 words or fewer)', 'Why is THIS patient taking it?', 'Key nursing check / hold parameter'], 'widths': [1.55, 1.95, 1.7, 1.8], 'rows': 8, 'rowH': 0.62,
+           'key': {'answer': 'Each row 0.75: medication is on this patient\'s MAR/home list (0.15), correct class and mechanism (0.2), correct indication for this patient (0.2), valid nursing check/hold parameter (0.2). Use the bank below.', 'elements': MEDBANK,
+                   'rules': 'Maximum 6.0. Penalize a row that names a drug not on the chart. Accept brand OR generic.'}},
+          {'id': '3.2a', 'type': 'box', 'points': 2, 'lines': 8, 'title': 'Carvedilol', 'prompt': 'Carvedilol is a non-selective beta blocker and she has COPD. Why is it still ordered? What do you assess before giving it and when do you hold it? When in the day will you give it, given her dialysis?',
+           'key': {'elements': [E('Beta blockers reduce mortality and remodeling in HFrEF; benefit outweighs COPD risk when stable (monitor for wheeze).', 0.5, ''), E('Assess apical HR/rhythm, BP, lung sounds/wheeze; hold and notify for HR <55 or SBP <100 (order).', 0.5, ''), E('Dialysis 0800-1130 can drop BP: clarify timing; give after dialysis if SBP >=100 (HD note: hold antihypertensives if SBP <100).', 0.5, ''), E('Give with food; teach not to stop abruptly; watch dizziness/falls and bradycardia with donepezil.', 0.5, '')]}},
+          {'id': '3.2b', 'type': 'box', 'points': 2, 'lines': 8, 'title': 'Apixaban', 'prompt': 'Apixaban is a high-alert drug. List the risks specific to THIS patient, what you assess, and what you teach.',
+           'key': {'elements': [E('Bleeding risk is raised by ESRD, heparin during hemodialysis, falls, alcohol use, age and anemia (Hgb 9.1).', 0.5, ''), E('Assess for bleeding: stool, urine, gums, fistula site after needles removed, bruising; Hgb/platelets; neuro checks after any fall or head strike.', 0.5, ''), E('Dose-reduction criteria (two of: age 80+, weight 60 kg or less, creatinine 1.5+) and why 5 mg BID is used; verify with pharmacy for dialysis.', 0.5, ''), E('Teach: never skip/stop without provider; no NSAIDs/aspirin; soft toothbrush; report black stool or bleeding.', 0.5, '')]}},
+          {'id': '3.2c', 'type': 'box', 'points': 2, 'lines': 8, 'title': 'Lorazepam by CIWA-Ar', 'prompt': 'She has heavy daily alcohol use, dementia, and a PRN lorazepam order for CIWA-Ar of 10 or more (her last score was 6). What must you do before giving it, and what are the dangers for this patient?',
+           'key': {'elements': [E('Perform and document a CIWA-Ar assessment first; give only if score meets the order (>=10).', 0.5, ''), E('Dangers: oversedation, respiratory depression (COPD, O2), falls (high risk), and paradoxical agitation or delirium in dementia.', 0.5, ''), E('Differentiate withdrawal from baseline dementia/delirium/hypoxia/hyperkalemia before treating.', 0.5, ''), E('Reassess after dose (CIWA, sedation, RR, SpO2), fall precautions, notify provider if score remains high.', 0.5, '')]}},
+          {'id': '3.3', 'type': 'boxes', 'points': 2, 'title': 'Math From the Chart', 'where': 'Flowsheets I&O and weights; Dialysis note',
+           'prompt': 'Show your work in the box. Include units.', 'subs': [
+              {'label': 'a) Her fluid restriction is 1,000 mL/day. Day shift (0700-1500) may receive 50% of the daily limit. How many mL may she have on your shift?', 'lines': 2},
+              {'label': 'b) The hospitalist recorded 24-hour intake of 1,246 mL and output of 332 mL. What is the net balance?', 'lines': 2},
+              {'label': 'c) Admission weight was 70 kg and the 09/01 2000 weight was 67.9 kg. How many pounds has she lost? (1 kg = 2.2 lb)', 'lines': 2},
+              {'label': 'd) Dialysis removed 2,013 mL over 3.5 hours. What was the average ultrafiltration rate in mL/hour?', 'lines': 2}],
+           'key': {'elements': [E('a) 500 mL', 0.5, ''), E('b) 1,246 - 332 = +914 mL (positive balance)', 0.5, ''), E('c) 70 - 67.9 = 2.1 kg x 2.2 = 4.6 lb', 0.5, ''), E('d) 2,013 / 3.5 = 575 mL/hour (accept 575)', 0.5, '')],
+                   'rules': 'Half credit if the method is correct but arithmetic or units are wrong. No credit without work shown.'}},
+      ]}
+
+# ------------------------------------------------------------------ PART 4
+p4 = {'id': '4', 'title': 'Nursing Diagnoses and Priorities', 'step': 'Diagnosis', 'minutes': 30,
+      'intro': 'Use NANDA-I diagnoses. Write each as problem, "related to" (cause you can treat), and "as evidenced by" (specific data). Do not use a medical diagnosis as the "related to."',
+      'items': [
+          {'id': '4.1', 'type': 'table', 'points': 6, 'title': 'Prioritized Nursing Diagnoses', 'prompt': 'Write FOUR nursing diagnoses in priority order (1 = highest).',
+           'cols': ['#', 'NANDA-I nursing diagnosis', 'Related to (etiology)', 'As evidenced by (at least 2 specific chart findings)'], 'widths': [0.4, 1.9, 2.0, 2.7], 'rows': 4, 'rowH': 1.0,
+           'key': {'answer': 'Each row 1.5: valid, patient-appropriate diagnosis (0.5); "related to" is correct and is not a medical diagnosis (0.5); "as evidenced by" cites at least 2 specific data (0.5). The top diagnosis should be a physiologic ABC problem (see 4.2).',
+                   'elements': [E('Excess fluid volume r/t compromised regulatory mechanisms (ESRD, HF) and sodium/fluid intake AEB crackles, 1+ edema, S3, JVD, 8-lb gain, BNP 1236.', 0, ''), E('Impaired gas exchange r/t alveolar-capillary changes (pulmonary edema) and COPD AEB SpO2 86-92% on 2 L, crackles, RR 19-27, CXR edema.', 0, ''),
+                                E('Decreased cardiac output r/t altered contractility and AFib AEB EF 30-35%, cool extremities, S3, HR 95-113.', 0, ''), E('Risk for electrolyte imbalance (hyperkalemia) r/t ESRD, rising K 4.5 to 5.0.', 0, ''),
+                                E('Risk for bleeding r/t apixaban, heparin at HD, anemia (Hgb 9.1).', 0, ''), E('Risk for falls r/t dementia, walker, oxygen tubing, benzodiazepine, dyspnea (fall risk high).', 0, ''),
+                                E('Risk for acute confusion / delirium r/t dementia, alcohol withdrawal, hypoxia.', 0, ''), E('Ineffective health self-management r/t cognitive impairment and sodium/medication non-adherence AEB missed furosemide, salty foods.', 0, ''),
+                                E('Activity intolerance r/t imbalance between O2 supply and demand AEB dyspnea on exertion.', 0, '')],
+                   'rules': 'Maximum 6.0. A problem-only statement with no etiology or evidence earns 0.5 for that row at most.'}},
+          {'id': '4.2', 'type': 'box', 'points': 2, 'lines': 7, 'title': 'Why This Order?', 'prompt': 'Explain why your #1 diagnosis is first (use ABCs, Maslow, or acuity). Name one risk diagnosis you ranked lower that could become the top priority and what finding would move it up.',
+           'key': {'elements': [E('Applies a framework: airway/breathing/circulation or Maslow physiologic needs.', 0.5, ''), E('Ties ranking to patient data (O2 need, crackles, BP, K).', 0.5, ''), E('Names a valid lower-ranked risk (bleeding, hyperkalemia, falls, delirium/withdrawal).', 0.5, ''), E('Gives a concrete trigger (K >=5.5 or ECG change; CIWA >=10; SpO2 <88; bleeding; SBP <100; new confusion).', 0.5, '')]}},
+      ]}
+
+# ------------------------------------------------------------------ PART 5
+SMART = 'SMART goal = Specific, Measurable, Achievable, Relevant, Time-bound, written about the PATIENT (not the nurse).'
+p5 = {'id': '5', 'title': 'Planning and Implementation', 'step': 'Planning / Implementation', 'minutes': 60,
+      'intro': 'Plan the care for the 0700-1500 shift. ' + SMART,
+      'items': [
+          {'id': '5.1a', 'type': 'table', 'points': 2.5, 'title': 'Plan for Priority Diagnosis #1: ________________', 'cols': ['SMART goal for this shift', 'Nursing interventions (at least 4: what, how often)', 'Rationale', 'I / C / D'], 'widths': [1.6, 3.1, 1.7, 0.6], 'rows': 4, 'rowH': 0.8,
+           'prompt': 'I = independent, C = collaborative, D = delegated.',
+           'key': {'answer': 'Goal 0.75 (measurable number AND time frame AND patient-centered); interventions 1.25 (at least 4 safe, specific, with frequency: about 0.3 each); rationale 0.5 (correct for at least 3 interventions). Model answers for the two most likely top diagnoses are below; accept any diagnosis chosen in 4.1.',
+                   'elements': [E('Excess fluid volume: Goal: weight down 0.5-1 kg by 1500 and intake <=500 mL on this shift; lungs improved/crackles not increased. Interventions: daily weight same scale; strict I&O (count all fluids incl. IV flushes, ice); enforce fluid and 2 g Na restriction; assess lungs, edema, JVD q4h; send to HD 0800 and assess fistula/BP post-HD; HOB elevated; report weight gain >2 lb in a day. Rationale: weight is the most sensitive fluid indicator; restriction limits load; dialysis is the main fluid removal.', 0, ''),
+                            E('Impaired gas exchange: Goal: SpO2 88-92% on <=2 L with RR <22 and no dyspnea at rest through 1500. Interventions: SpO2/RR/work of breathing q4h and with activity; HOB 30-45; titrate O2 per RT to 88-92%; scheduled nebs; pursed-lip breathing/cough; space activity; report SpO2 <88 or RR >24. Rationale: COPD target 88-92% prevents over-oxygenation; upright position decreases venous return.', 0, '')],
+                   'rules': 'A goal without a number or time frame earns 0.25. Interventions that are not specific ("monitor patient") earn no credit.'}},
+          {'id': '5.1b', 'type': 'table', 'points': 2.5, 'title': 'Plan for Priority Diagnosis #2: ________________', 'cols': ['SMART goal for this shift', 'Nursing interventions (at least 4: what, how often)', 'Rationale', 'I / C / D'], 'widths': [1.6, 3.1, 1.7, 0.6], 'rows': 4, 'rowH': 0.8,
+           'key': {'answer': 'Same scoring as 5.1a. Possible #2: Decreased cardiac output (HR/BP/rhythm q4h and before carvedilol/amlodipine; telemetry; hold for SBP <100 or HR <55; daily weight; report new arrhythmia), Risk for electrolyte imbalance (K 5.0: BMP follow-up, telemetry, diet, notify; confirm HD proceeds), or Risk for bleeding (assess sites, Hgb, bleeding precautions, fistula hemostasis after HD).'}},
+          {'id': '5.2', 'type': 'table', 'points': 3, 'title': 'Time-Sequenced Plan for the Shift', 'where': 'Brain/Worklist, MAR, Orders, Secure Chat, Notes',
+           'prompt': 'For each hour, list your priority actions IN ORDER. Include medications, hemodialysis, therapy, assessments, teaching, and communication, and say why that time.',
+           'cols': ['Time', 'Priority actions in order', 'Why at this time'], 'widths': [0.7, 4.3, 2.0], 'rows': [['0700'], ['0800'], ['0900'], ['1000'], ['1100'], ['1200'], ['1300'], ['1400']], 'rowH': 0.72,
+           'key': {'answer': 'Score 0.375 per hour row with an appropriate, sequenced, patient-specific plan.', 'elements': [
+               E('0700: bedside report with safety checks (ID band, allergy band, call light, bed alarm); full assessment (lungs, edema, mental status, CIWA); vital signs; daily weight; review labs (K 5.0); clarify orders.', 0, ''),
+               E('0800: patient to hemodialysis (RN hand-off); protect L arm; confirm HD orders and K; nebulizer; clarify timing of antihypertensives and apixaban around dialysis and heparin.', 0, ''),
+               E('0900: scheduled medications that are still due (not antihypertensives if on HD with SBP concerns); sevelamer with meals; nicotine patch; thiamine, vitamins; respiratory treatments per RT.', 0, ''),
+               E('1000: reassess unit patients; I&O check; hourly rounding for falls; document; communicate with case management/cardiology as needed.', 0, ''),
+               E('1100-1130: post-HD return: vital signs (hypotension risk), weight, fistula thrill/bruit and site hemostasis, bleeding check, post-HD labs/K; hold antihypertensives if SBP <100; renal vitamin.', 0, ''),
+               E('1200: lunch: renal/2 g sodium diet teaching, fluid allocation, sevelamer with meal; give carvedilol/amlodipine after BP check if SBP >=100.', 0, ''),
+               E('1300: PT session (premedicate/assess SpO2 and BP; fall precautions); HF teach-back on daily weights; reinforce inhaler/pursed-lip breathing.', 0, ''),
+               E('1400: reassess, CIWA, I&O totals, nebulizer; discharge-planning teaching; document and prepare SBAR handoff to the next shift.', 0, '')],
+                   'rules': 'Give no credit for a row that lists only "meds" or "assessment." Penalize a plan that gives antihypertensives at 0900 without addressing the dialysis at 0800.'}},
+          {'id': '5.3', 'type': 'boxes', 'points': 2, 'title': 'Calling the Provider (SBAR)', 'where': 'Lab Results; ECG; Orders',
+           'prompt': 'At 0715 you review the morning labs: potassium 5.0 (4.5 yesterday). She has dialysis scheduled at 0800, atrial fibrillation on telemetry, and is asymptomatic. You decide to call the hospitalist. Write what you would say.',
+           'subs': [{'label': 'S: Situation', 'lines': 3}, {'label': 'B: Background', 'lines': 3}, {'label': 'A: Assessment', 'lines': 3}, {'label': 'R: Recommendation / request', 'lines': 3}],
+           'key': {'elements': [E('S: identifies self, patient, room, the potassium 5.0 (up from 4.5), HR/rhythm, no symptoms.', 0.5, ''), E('B: ADHF, ESRD on HD MWF with dialysis at 0800, AFib, current diet/meds (home lisinopril not ordered), allergies/code status.', 0.5, ''), E('A: states a concern (rising potassium in ESRD with arrhythmia risk), vitals/telemetry stable, no ECG change.', 0.5, ''), E('R: confirm HD will run on time and whether to repeat K post-HD or get an ECG; telemetry; read-back of any orders.', 0.5, '')]}},
+          {'id': '5.4', 'type': 'matrix', 'points': 2, 'title': 'Delegation', 'prompt': 'Mark the LOWEST level of staff who may be assigned each task for this patient.', 'cols': ['RN only', 'LPN/LVN', 'UAP/PCT'],
+           'rows': ['Obtain the daily standing weight at 0600 and record it', 'Listen to heart and lung sounds and interpret an S3 gallop and crackles', 'Decide whether to give PRN lorazepam based on a new CIWA-Ar assessment', 'Give the scheduled oral carvedilol after the RN confirms HR and BP parameters'],
+           'key': {'answer': ['UAP/PCT', 'RN only', 'RN only', 'LPN/LVN'], 'rules': '0.5 per row. Accept RN-only for row 4 if the student explains that the RN retains assessment/parameter responsibility.'}},
+          {'id': '5.5', 'type': 'table', 'points': 2, 'title': 'Teaching Plan', 'prompt': 'List FOUR teaching topics this patient needs before discharge. Adapt each to her barriers (dementia, lives alone, tobacco and alcohol use) and say how you will check understanding.',
+           'cols': ['Teaching topic', 'How you will teach it (adapted to barriers)', 'How you will confirm learning'], 'widths': [1.8, 3.2, 2.0], 'rows': 4, 'rowH': 0.8,
+           'key': {'answer': 'Each row 0.5: appropriate topic (0.25) AND method adapted to her barriers/teach-back (0.25).', 'elements': [
+               E('Daily weights and when to call (gain >2-3 lb in a day or 5 lb in a week); scale and log.', 0, ''), E('2 g sodium and 1,000 mL fluid restriction/renal diet; avoid salt substitutes (potassium).', 0, ''),
+               E('Medication purpose and adherence, including never skipping dialysis and asking before OTC/NSAIDs; apixaban bleeding precautions.', 0, ''), E('Smoking and alcohol cessation resources; withdrawal danger.', 0, ''), E('Symptoms to report/911 (dyspnea, chest pain, bleeding, confusion).', 0, ''),
+               E('Barrier strategies: involve the daughter/caregiver, large-print one-page plan, pill organizer, short sessions, teach-back with return demonstration, home health referral.', 0, '')]}},
+      ]}
+
+# ------------------------------------------------------------------ PART 6
+p6 = {'id': '6', 'title': 'Evaluation: What Happened and What Next?', 'step': 'Evaluation', 'minutes': 30,
+      'intro': 'Open the sealed page. It shows what the chart recorded during your shift, plus a late-shift update from your charge nurse. Do not change your Part 1-5 answers.',
+      'items': [
+          {'id': '6.0', 'type': 'sealed', 'points': 0, 'banner': 'SEALED PAGE. Read only after Parts 1 to 5 are complete.', 'intro': 'Chart entries recorded after 0700 (copied from the patient record):', 'maxNotes': 4, 'maxLines': 8,
+           'addendum': [{'time': '1415', 'title': 'Late-shift update from the charge nurse (instructor addendum, not in the EHR)', 'lines': [
+               'The patient\'s daughter called. She says her mother "has not been taking the water pill at home because it makes her get up all night," and she wants her mother home on Friday.',
+               'When you ask her mother to repeat back the daily-weight rules, she remembers only "weigh every day." She cannot say when to call, and asks, "Can I have my ginger ale, I\'m so thirsty?" There is a 355 mL can on her tray.',
+               'The 1300 vital signs in the PT note show BP 163/88. Your 0900 note recorded that carvedilol and amlodipine were given.']}]},
+          {'id': '6.1', 'type': 'table', 'points': 4, 'title': 'Evaluating Your Goals', 'prompt': 'For each goal you wrote in 5.1a and 5.1b, use data from the sealed page to say whether it was met, partly met, or not met, and what you will change.',
+           'cols': ['Goal (copy from Part 5)', 'Data from the sealed page that you used', 'Met / Partly / Not', 'Revised plan'], 'widths': [1.6, 2.4, 0.9, 2.1], 'rows': 2, 'rowH': 1.2,
+           'key': {'answer': 'Each goal 2.0: cites at least 2 data points from the sealed page or chart (0.75); correct, defensible status (0.5); a specific revision or "continue" with reason (0.75).', 'elements': [
+               E('Fluid goal: PARTLY met. 2,013 mL removed by HD, faint crackles and 1+ edema remain, SpO2 92% on 2 L, but a 355 mL ginger ale is on the tray against a 1,000 mL restriction and teach-back failed. Revise: reinforce restriction with the tray/daughter, allocate fluids, ice chips/sugar-free candy for thirst.', 0, ''),
+               E('Gas exchange goal: MET or PARTLY met. SpO2 92% on 2 L at rest and with PT (150 ft), RR 20; continue titration 88-92%, trial wean per RT.', 0, ''),
+               E('Cardiac output/BP goal: NOT met. BP 163/88 at 1300 on two antihypertensives; notify provider, recheck and trend; do not hold without parameters.', 0, ''),
+               E('Hyperkalemia risk: unresolved. No post-HD potassium documented; ask provider/nephrology for a post-HD BMP.', 0, '')],
+                   'rules': 'Award the status points if the student\'s conclusion is consistent with the data they cite, even if it differs from the model. Credit a revision that is specific.'}},
+          {'id': '6.2', 'type': 'box', 'points': 2, 'lines': 10, 'title': 'New Problems and Priority Actions', 'prompt': 'From the sealed page, name TWO problems that are still not resolved or are new, and the priority nursing action for each (including who you would notify).',
+           'key': {'elements': [E('Teach-back failure / nonadherence (diuretic) and thirst with fluids at the bedside: re-teach with the daughter present, remove the extra fluid, notify provider and case management; oliguric ESRD: ask whether furosemide is still helpful.', 0.5, ''), E('Names who to notify: provider/pharmacist for the diuretic question; case management/social work.', 0.5, ''),
+                               E('Persistent hypertension (163/88) despite two agents and fluid removal: recheck BP, review timing of doses, notify provider.', 0.5, ''), E('Discharge safety: lives alone vs 24-hour supervision conflict; coordinate case management, home health, supervision before Friday.', 0.5, '')],
+                   'rules': 'Accept other valid problems from the sealed page (post-HD potassium, fall risk with PT, thirst) if the action is appropriate.'}},
+          {'id': '6.3', 'type': 'box', 'points': 2, 'lines': 11, 'title': 'Focused Nursing Note', 'prompt': 'Write a focused nursing progress note for the end of the shift (DAR, SOAP, or your school\'s format): data, action, and response, with the plan for the next shift.',
+           'key': {'elements': [E('Data: specific objective data (vital signs, SpO2/O2, lung sounds, edema, weight/I&O, labs, dialysis).', 0.5, ''), E('Action: nursing interventions done (teaching, notifications, medications given/held with reason).', 0.5, ''), E('Response: patient response/teach-back result.', 0.5, ''), E('Plan/handoff: concerns for next shift (K recheck, fluid restriction, BP, discharge plan); professional wording and times.', 0.5, '')]}},
+      ]}
+
+# ------------------------------------------------------------------ PART 7
+p7 = {'id': '7', 'title': 'Clinical Judgment (Next-Generation NCLEX Style)', 'step': 'Evaluation / Clinical judgment', 'minutes': 30,
+      'intro': 'Answer by marking the boxes. These items use the same patient. Some scenarios are hypothetical and say so.',
+      'items': [
+          {'id': '7.1', 'type': 'choice', 'points': 2, 'style': 'multi', 'title': 'Select All That Apply', 'prompt': 'Which teaching points are correct for this patient with heart failure and ESRD?',
+           'options': ['Weigh yourself every morning on the same scale and write it down.', 'Use a salt substitute (potassium chloride) to flavor food.', 'Limit fluids as ordered (1,000 mL/day), including ice and soup.', 'Take ibuprofen for aches because it is sold over the counter.',
+                       'Call if weight rises more than 2-3 pounds in a day or 5 pounds in a week.', 'Skip a dialysis session if you feel good and have no swelling.', 'Never miss a dialysis session, and ask before taking any new medicine.', 'Drink extra water when thirsty to protect the kidneys.'],
+           'key': {'answer': ['Weigh yourself every morning...', 'Limit fluids as ordered...', 'Call if weight rises...', 'Never miss a dialysis session...'], 'rules': '0.5 per correct option selected; subtract 0.5 for each incorrect option selected (not below 0). The four correct options total 2.0. The wrong options: salt substitute, ibuprofen, skip dialysis, extra water.'}},
+          {'id': '7.2', 'type': 'matrix', 'points': 2, 'title': 'Trend: Better, Same, or Worse?', 'prompt': 'Compare the patient at 0700 today with her ED arrival. Mark one box per row.', 'cols': ['Better', 'No real change', 'Worse'],
+           'rows': ['Oxygenation (SpO2 86% on arrival, 92% on 2 L now)', 'Leg edema (2+ on arrival, 1+ now)', 'Potassium (4.5 yesterday, 5.0 today)', 'Hemoglobin (8.8 on arrival, 9.1 now)'],
+           'key': {'answer': ['Better', 'Better', 'Worse', 'No real change'], 'rules': '0.5 per row.'}},
+          {'id': '7.3', 'type': 'bowtie', 'points': 2, 'title': 'Bowtie', 'stem': 'HYPOTHETICAL for this item: thirty minutes after her dialysis finishes she says "I feel faint." BP 88/50, HR 118 (atrial fibrillation), SpO2 91% on 2 L, skin pale and cool, lungs clearer than this morning.',
+           'pickActions': 2, 'pickParams': 2,
+           'actions': ['Lay her flat with legs elevated and notify the provider', 'Give the scheduled carvedilol and amlodipine now', 'Give her furosemide', 'Place the blood pressure cuff on her left arm', 'Hold the scheduled carvedilol and amlodipine and notify the provider'],
+           'conditions': ['Hypotension from fluid removal (post-dialysis hypovolemia) with antihypertensives', 'Acute pulmonary edema', 'Hyperkalemia', 'Alcohol withdrawal'],
+           'params': ['Blood pressure and heart rate/rhythm (telemetry)', 'Level of consciousness', 'Temperature', 'Bowel sounds', 'Pain score'],
+           'key': {'condition': 'Hypotension from fluid removal (post-dialysis hypovolemia) with antihypertensives', 'actions': ['Lay her flat with legs elevated and notify the provider', 'Hold the scheduled carvedilol and amlodipine and notify the provider'], 'params': ['Blood pressure and heart rate/rhythm (telemetry)', 'Level of consciousness']}},
+          {'id': '7.4', 'type': 'highlight', 'points': 2, 'title': 'Recognize Cues', 'prompt': 'Excerpt from a HYPOTHETICAL 0700 shift report. Which statements need follow-up NOW?',
+           'statements': ['Rate-controlled AFib on telemetry, HR 95, BP 163/88.', 'Potassium 5.0 this morning (4.5 yesterday); dialysis at 0800.', 'She slept flat for the first time since she came in.', 'She drank 600 mL of ice water from a pitcher before 0700 and asked for more.',
+                          'CIWA-Ar was 6 at 0400, no tremor.', 'Her daughter says she "seems more confused than usual" this morning.', 'Left arm fistula: thrill present, no redness or swelling.', 'The bed alarm sounded at 0630; she was trying to get up to the bathroom without calling.'],
+           'key': {'answer': [2, 4, 6, 8], 'rules': '0.5 per correct statement; subtract 0.5 for each wrong statement chosen (not below 0). Reasons: rising K in ESRD; fluid restriction broken; new confusion beyond baseline; fall risk.'}},
+          {'id': '7.5', 'type': 'choice', 'points': 2, 'style': 'ordered', 'title': 'Priority Actions', 'prompt': 'HYPOTHETICAL: at 1000 she has SpO2 84% on 2 L, RR 30, pink frothy sputum, and crackles throughout. Number the actions in the order you would do them.',
+           'options': ['Call the rapid response team or provider with SBAR.', 'Raise to high-Fowler\'s with legs dependent, stay with the patient.', 'Apply a non-rebreather mask or increase oxygen per protocol.', 'Anticipate and prepare orders (IV diuretic/urgent dialysis, ECG, labs).', 'Reassess vital signs and document.'],
+           'key': {'answer': ['1. Raise to high-Fowler\'s, stay with her (or 1-2 swapped with oxygen)', '2. Apply non-rebreather/increase oxygen', '3. Call rapid response/provider', '4. Anticipate orders', '5. Reassess and document'], 'rules': '0.4 per action in the correct position. Positions 1 and 2 may be swapped. Calling for help must come before anticipating orders and documenting.'}},
+      ]}
+
+content = {'meta': meta, 'studentIntro': studentIntro, 'studentRules': studentRules,
+           'keyIntro': [
+               {'h': 'How to score (applies to every item)', 'lines': [
+                   'Score only what is written in the student\'s box. Do not give credit for what you think the student meant. Spelling and grammar are not scored.',
+                   'Accept equivalent wording and correct synonyms. Give each required element once; do not double count the same idea.',
+                   'Partial points: use the amounts printed beside each element. Round the item total to the nearest 0.5. An item never earns more than its maximum.',
+                   'If a box is illegible, blank, or you are unsure, give 0 for that element and list the item on the score sheet under "faculty review."',
+                   'Chart-dependent answers (Part 1) are judged against the chart as it was at 0700 on 09/02/26 (the sealed Part 6 data are later).',
+                   'Identical wording across different students\' packets is a possible academic-integrity concern; flag it.']},
+               {'h': 'Passing', 'lines': ['78 of 100 points passes. A student who completes Parts 1, 3 and 7 accurately and earns about half of Parts 2, 4, 5 and 6 will pass.']}],
+           'parts': [p1, p2, p3, p4, p5, p6, p7]}
+
+if __name__ == '__main__':
+    json.dump(content, open(sys.argv[1], 'w'), indent=1)
+    # sanity: points per part and total
+    tot = 0
+    for p in content['parts']:
+        s = sum(i['points'] for i in p['items'] if i['type'] not in ('text', 'sealed')); tot += s; print('Part', p['id'], s, p['minutes'], 'min')
+    print('TOTAL', tot, 'minutes', sum(p['minutes'] for p in content['parts']))

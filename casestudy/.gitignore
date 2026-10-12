@@ -1,5 +1,2 @@
-out/
-content/
-*_KEY.docx
-*_KEY.pdf
-content*.json
+__pycache__/
+*.pyc
