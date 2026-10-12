@@ -10,17 +10,25 @@
   open.addEventListener('click', () => input.click());
   res.addEventListener('click', () => NSResults.openStudentDialog());
 
+  // The instructor's "Student View" opens this page in a new window and sends the patient here directly.
+  function openCase(parsed, ask) {
+    const canon = parsed && parsed.canonical ? parsed.canonical : parsed;
+    if (!canon || !canon.patient) throw new Error('This file is not a NursingSim patient.');
+    if (ask && typeof currentCanonicalCase !== 'undefined' && currentCanonicalCase && currentCanonicalCase.patient && !confirm('Open this patient? Your work on the patient you have open now will be replaced.')) return;
+    const report = validateCaseInput(canon);
+    if (report.errors > 0) throw new Error('This patient file has problems and cannot be opened. Ask your instructor for a new copy.');
+    renderPatient(report.canonical);
+  }
+  window.addEventListener('message', e => {
+    if (e.origin !== location.origin || !e.data || e.data.type !== 'nursingsim-student-case') return;
+    try { openCase(e.data.file, false); } catch (err) { alert(err.message); }
+  });
+  if (window.opener) { try { window.opener.postMessage({ type: 'nursingsim-student-ready' }, location.origin); } catch (err) { /* opener is gone */ } }
+
   input.addEventListener('change', async ev => {
     const f = ev.target.files[0]; ev.target.value = ''; if (!f) return;
     try {
-      const parsed = JSON.parse(await f.text());
-      const canon = parsed && parsed.canonical ? parsed.canonical : parsed;
-      if (!canon || !canon.patient) throw new Error('This file is not a NursingSim patient.');
-      if (typeof currentCanonicalCase !== 'undefined' && currentCanonicalCase && currentCanonicalCase.patient && !confirm('Open this patient? Your work on the patient you have open now will be replaced.')) return;
-      const report = validateCaseInput(canon);
-      if (report.errors > 0) throw new Error('This patient file has problems and cannot be opened. Ask your instructor for a new copy.');
-      renderPatient(report.canonical);
-      if (parsed.simulationTime && report.canonical.timeline && String(report.canonical.timeline.simulationStart) !== String(parsed.simulationTime)) { /* start time comes from the file */ }
+      openCase(JSON.parse(await f.text()), true);
     } catch (e) { alert(e.message || 'Could not open that file.'); }
   });
 })();

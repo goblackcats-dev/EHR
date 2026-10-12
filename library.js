@@ -71,6 +71,7 @@ window.NSLib = (() => {
     const text = await file.text();
     let parsed;
     try { parsed = JSON.parse(text); } catch (e) { throw new Error('That file is not valid JSON.'); }
+    if (parsed && parsed.format === 'nursingsim-student' && parsed.canonical) return save({ name: parsed.name, canonical: parsed.canonical, simulationTime: parsed.simulationTime, source: 'builder' });
     if (parsed && parsed.format === FORMAT && parsed.canonical) return save({ name: parsed.name, canonical: parsed.canonical, simulationTime: parsed.simulationTime, source: parsed.source || 'builder' });
     if (parsed && parsed.schemaVersion && parsed.patient) return save({ name: '', canonical: parsed, source: 'builder' });
     throw new Error('That file does not look like a NursingSim patient.');
@@ -93,5 +94,22 @@ window.NSLib = (() => {
     setTimeout(() => URL.revokeObjectURL(url), 4000);
   }
 
-  return { save, get, list, remove, rename, duplicate, download, importFile, toFile, FORMAT, STUDENT_FORMAT, toStudentFile, downloadStudent };
+  // Opens the student view in a new window and hands it this patient directly (no file needed).
+  // The window is opened first, straight from the click, so iPad Safari does not block it; the patient follows when the student page says it is ready.
+  function openStudentWindow(rowOrPromise) {
+    const url = new URL(location.pathname.includes('/case-builder/') ? '../student.html' : 'student.html', location.href).href;
+    const w = window.open(url, 'nursingsim_student');
+    if (!w) { alert('Your browser blocked the new window. Allow pop-ups for this site, then try again.'); return; }
+    Promise.resolve(rowOrPromise).then(row => {
+      if (!row) return;
+      const file = toStudentFile(row);
+      const onMsg = e => {
+        if (e.source !== w || e.origin !== location.origin || !e.data || e.data.type !== 'nursingsim-student-ready') return;
+        w.postMessage({ type: 'nursingsim-student-case', file }, location.origin); window.removeEventListener('message', onMsg);
+      };
+      window.addEventListener('message', onMsg);
+    });
+  }
+
+  return { save, get, list, remove, rename, duplicate, download, importFile, toFile, FORMAT, STUDENT_FORMAT, toStudentFile, downloadStudent, openStudentWindow };
 })();

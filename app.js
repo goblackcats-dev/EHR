@@ -1768,7 +1768,7 @@ function refreshSimulationView(preserveSection = true) {
   persistCase();
 }
 
-const SAVED_CASE_KEY = 'nursingsim.case.v1';
+const SAVED_CASE_KEY = window.NS_STUDENT ? 'nursingsim.student.case.v1' : 'nursingsim.case.v1';
 
 function persistCase() {
   // Autosave so a refresh (or iPad Safari reloading the tab) does not lose the patient.
@@ -3400,7 +3400,7 @@ function validatePatientData(data) { ['patient', 'encounter'].forEach(key => { i
 function renderPatient(data) { const normalized = normalizeCaseData(data); currentCanonicalCase = normalized.canonical; initializeSimulationState(currentCanonicalCase); refreshSimulationView(false); setMainSection(currentMainSection, currentChartTab); }
 
 function openImportDialog() { elements.importMessage.textContent = ''; elements.importMessage.className = 'import-message'; if (elements.validationSummary) elements.validationSummary.textContent = 'Validation has not been run.'; if (elements.validationResults) elements.validationResults.innerHTML = ''; if (!elements.jsonInput.value.trim()) elements.jsonInput.value = JSON.stringify(legacyToCanonical(samplePatient), null, 2); elements.importDialog.showModal(); }
-function applyImport() { try { const parsed = JSON.parse(elements.jsonInput.value); const report = validateCaseInput(parsed); renderValidationReport(report); if (report.errors > 0) { elements.importMessage.textContent = 'Import blocked. Resolve validation errors first.'; elements.importMessage.className = 'import-message error'; return; } renderPatient(report.canonical); elements.importMessage.textContent = report.warnings ? `Patient imported with ${report.warnings} warning(s).` : 'Patient imported successfully.'; elements.importMessage.className = report.warnings ? 'import-message' : 'import-message success'; setTimeout(() => elements.importDialog.close(), 650); } catch (error) { elements.importMessage.textContent = `Import failed: ${error.message}`; elements.importMessage.className = 'import-message error'; } }
+function applyImport() { try { let parsed = JSON.parse(elements.jsonInput.value); if (parsed && parsed.canonical && parsed.canonical.patient) parsed = parsed.canonical; const report = validateCaseInput(parsed); renderValidationReport(report); if (report.errors > 0) { elements.importMessage.textContent = 'Import blocked. Resolve validation errors first.'; elements.importMessage.className = 'import-message error'; return; } renderPatient(report.canonical); elements.importMessage.textContent = report.warnings ? `Patient imported with ${report.warnings} warning(s).` : 'Patient imported successfully.'; elements.importMessage.className = report.warnings ? 'import-message' : 'import-message success'; setTimeout(() => elements.importDialog.close(), 650); } catch (error) { elements.importMessage.textContent = `Import failed: ${error.message}`; elements.importMessage.className = 'import-message error'; } }
 
 document.getElementById('openImportBtn').addEventListener('click', openImportDialog);
 document.getElementById('closeImportBtn').addEventListener('click', () => elements.importDialog.close());
@@ -3408,7 +3408,8 @@ document.getElementById('applyImportBtn').addEventListener('click', applyImport)
 
 document.getElementById('validateImportBtn').addEventListener('click', () => {
   try {
-    const parsed = JSON.parse(elements.jsonInput.value);
+    let parsed = JSON.parse(elements.jsonInput.value);
+    if (parsed && parsed.canonical && parsed.canonical.patient) parsed = parsed.canonical;
     const report = validateCaseInput(parsed);
     renderValidationReport(report);
 
@@ -3513,7 +3514,8 @@ async function refreshLibrary() {
           <button data-act="rename" class="secondary-button">Rename</button>
           <button data-act="copy" class="secondary-button">Duplicate</button>
           <button data-act="export" class="secondary-button">Export</button>
-          <button data-act="student" class="secondary-button">For students</button>
+          <button data-act="studentview" class="primary-button">Student view</button>
+          <button data-act="student" class="secondary-button">Student file</button>
           <button data-act="delete" class="secondary-button danger">Delete</button>
         </div>
       </div>`).join('');
@@ -3543,6 +3545,10 @@ async function loadFromLibrary(id) {
   } catch (error) { libMessage(error.message, 'error'); }
 }
 
+document.getElementById('openStudentViewBtn').addEventListener('click', () => {
+  if (!currentCanonicalCase) { alert('Open a patient first, then press Student View.'); return; }
+  NSLib.openStudentWindow({ name: `${safe(currentCanonicalCase.patient && currentCanonicalCase.patient.name)}`, canonical: currentCanonicalCase });
+});
 libEl('openLibraryBtn').addEventListener('click', () => { libMessage(''); libEl('libSaveName').value = currentLibraryName || ''; libEl('libraryDialog').showModal(); refreshLibrary(); });
 libEl('closeLibraryBtn').addEventListener('click', () => libEl('libraryDialog').close());
 libEl('libSaveBtn').addEventListener('click', () => saveToLibrary(false));
@@ -3558,6 +3564,7 @@ libEl('libList').addEventListener('click', async event => {
   const id = button.closest('.lib-row').dataset.id, act = button.dataset.act;
   try {
     if (act === 'load') await loadFromLibrary(id);
+    else if (act === 'studentview') NSLib.openStudentWindow(NSLib.get(id));
     else if (act === 'student') { NSLib.downloadStudent(await NSLib.get(id)); libMessage('Student file downloaded. It has no answer key.', 'success'); }
     else if (act === 'rename') { const row = await NSLib.get(id); const name = window.prompt('New name for this saved patient:', row.name); if (name) { await NSLib.rename(id, name); if (id === currentLibraryId) currentLibraryName = name; await refreshLibrary(); } }
     else if (act === 'copy') { await NSLib.duplicate(id); await refreshLibrary(); }

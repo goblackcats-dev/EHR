@@ -610,5 +610,11 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - Generated from the chart: **laboratory critical-value calls** (the student types the read-back of patient name, test and exact value, chooses who was notified and the time; scored out of 6 with feedback), **pharmacy** notes about high-alert medications, a **charge-nurse** check-in with quick replies, and a charge-nurse message when the scenario event happens (with feedback on asking for help early).
 - **Faculty: add a message** (instructor page only): sender, time, text, and optional reply choices. Custom messages are saved with the patient and travel in the student file. Student replies and call scores are saved with the patient, and critical-value call scores appear in student results.
 
+## New in v41: Student View window (no file needed)
+
+- **Student View** (top bar of the EHR, and a **Student view** button on every row of Saved Patients and the Case Builder's saved list) opens a **new window** showing the student version of that patient: all the chart information and practice tools, without Quiz, Case Builder, Saved Patients, Import Patient, faculty rubrics or the answer key. Nothing to download or upload. If the window is already open, the button reloads it with the patient you chose. If your browser blocks the window, allow pop-ups for the site.
+- The student window keeps its own autosave, so working in it never overwrites your instructor chart.
+- **Student file** (the old download) still works for sending a patient to students' own iPads, and now the instructor's **Import a patient file** and the **Import Patient** paste box also accept it (before, they rejected it).
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
