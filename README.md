@@ -622,5 +622,10 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - The "I asked the patient to state their name and date of birth..." checkbox is gone.
 - The **Rights of medication administration** are now a short read-only summary (patient, medication, dose, route, time, reason, assessment, documentation). Nothing has to be ticked; the scan steps are what allow **Give**. The "Rights check" toolbar button was removed.
 
+## New in v43: click-to-sort
+
+- **Orders:** click a column heading (Order, Category, Status, Frequency, Start, Provider) to sort ascending; click again for descending. An arrow ▲ or ▼ shows the column and direction.
+- **Chart Review:** a **Sort** bar above the list (Date, Title, Author, Type) sorts notes, H&P, imaging and the other tabs the same way (notes stay grouped by note type, sorted within each group).
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
