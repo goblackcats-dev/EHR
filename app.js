@@ -670,6 +670,18 @@ function normalizeMedicationKey(name) {
     .trim();
 }
 
+function medicationLeadWord(name) {
+  // First real drug word, ignoring doses/units (e.g. "azithromycin 500 mg" -> "azithromycin").
+  return normalizeMedicationKey(name).split(' ')
+    .find(token => token && !/^(\d+|mg|g|mcg|ml|l|hr|meq|units?)$/.test(token)) || '';
+}
+
+function sameMedication(nameA, nameB) {
+  const a = medicationLeadWord(nameA);
+  const b = medicationLeadWord(nameB);
+  return a.length > 2 && a === b;
+}
+
 function isCanonicalCase(data) {
   return !!(
     data &&
@@ -877,14 +889,25 @@ function legacyToCanonical(data) {
 
   (data.medications || []).forEach((med, idx) => {
     const medKey = normalizeMedicationKey(med.name);
-    const firstToken = medKey.split(' ')[0] || medKey;
 
-    const exists = canonical.orders.some(order =>
+    const existing = canonical.orders.find(order =>
       safe(order.category).toLowerCase() === 'medication' &&
-      normalizeMedicationKey(order.name).includes(firstToken)
+      sameMedication(order.name, med.name)
     );
 
-    if (!exists) {
+    if (existing && !existing.medication) {
+      // The order exists but carries no dose/route: fill it in from the medication list.
+      existing.medication = {
+        medKey,
+        drugClass: '',
+        dose: safe(med.dose, ''),
+        route: safe(med.route, ''),
+        importantInfo: '',
+        monitoringRules: []
+      };
+    }
+
+    if (!existing) {
       canonical.orders.push({
         id: makeStableId('order', 'medication', med.name, idx),
         name: safe(med.name),
@@ -911,11 +934,10 @@ function legacyToCanonical(data) {
 
   (data.mar?.medications || []).forEach((med, medIdx) => {
     const medKey = normalizeMedicationKey(med.name);
-    const firstToken = medKey.split(' ')[0] || medKey;
 
     let order = canonical.orders.find(candidate =>
       safe(candidate.category).toLowerCase() === 'medication' &&
-      normalizeMedicationKey(candidate.name).includes(firstToken)
+      sameMedication(candidate.name, med.name)
     );
 
     if (!order) {
@@ -1299,7 +1321,7 @@ function canonicalToViewModel(canonical) {
   medicationOrders.forEach(order => {
     const administrations = (canonical.administrations || [])
       .filter(admin => admin.orderId === order.id)
-      .sort((a, b) => safe(a.time).localeCompare(safe(b.time)));
+      .sort((a, b) => safe(a.administeredAt || a.time).localeCompare(safe(b.administeredAt || b.time)));
 
     const monitoring = (order.medication?.monitoringRules || [])
       .map(rule => resolveMonitoringRule(rule, canonical))
@@ -1355,6 +1377,8 @@ function canonicalToViewModel(canonical) {
 }
 
 function normalizeCaseData(data) {
+  // A file saved from the patient library wraps the case; unwrap it.
+  if (data && data.format === 'nursingsim-case' && data.canonical) data = data.canonical;
   const canonical = isCanonicalCase(data)
     ? structuredClone(data)
     : legacyToCanonical(data);
@@ -1468,8 +1492,8 @@ function validateCanonicalCase(canonical) {
 
   const hospitalistNotes = (canonical.notes || [])
     .filter(note =>
-      note.type === 'progressNotes' &&
-      /hospitalist|physician|md|np|pa/i.test(`${safe(note.title)} ${safe(note.author)}`)
+      (note.type === 'progressNotes' || note.type === 'hp') &&
+      /hospitalist|physician|md|np|pa|surgery/i.test(`${safe(note.title)} ${safe(note.author)}`)
     );
 
   let uncoveredProblems = 0;
@@ -1504,12 +1528,25 @@ function validateCanonicalCase(canonical) {
     add('pass', 'All active problems are addressed in hospitalist progress documentation.');
   }
 
+  // Only orders that are in effect at the start of the simulation count as possible duplicates
+  // (an IV drug that hands over to its oral form later in the stay is not a duplicate).
+  const simStart = parseSimDate(safe(canonical.timeline?.simulationStart, ''));
+  const inEffectNow = order => {
+    if (!simStart) return true;
+    const start = parseSimDate(safe(order.start, ''));
+    const end = parseSimDate(safe(order.end, ''));
+    return (!start || start <= simStart) && (!end || end > simStart);
+  };
+
   const activeMedicationNames = medicationOrders
     .filter(order => !/discontinued|completed/i.test(safe(order.status)))
-    .map(order => normalizeMedicationKey(order.name));
+    .filter(inEffectNow)
+    // same drug, route AND dose: split-dose regimens (such as hydrocortisone 20 mg AM / 10 mg PM) are not duplicates
+    .map(order => `${normalizeMedicationKey(order.name)}${order.medication ? '|' + safe(order.medication.route) + '|' + safe(order.medication.dose) : ''}`);
 
   const duplicateMedicationKeys = activeMedicationNames
-    .filter((key, idx) => key && activeMedicationNames.indexOf(key) !== idx);
+    .filter((key, idx) => key && activeMedicationNames.indexOf(key) !== idx)
+    .map(key => key.split('|')[0]);
 
   if (duplicateMedicationKeys.length) {
     add(
@@ -1625,6 +1662,10 @@ function getVisibleCanonicalCase(canonical) {
   visible.observations = (canonical.observations || []).filter(item => availableAtSimulationTime(item));
   visible.notes = (canonical.notes || []).filter(item => availableAtSimulationTime(item));
   visible.orders = (canonical.orders || []).filter(item => availableAtSimulationTime(item, canonical.encounter?.admitDate));
+  // an order that has been placed but does not start yet is "Pending" until its start time, not "Active"
+  visible.orders.forEach(order => {
+    if (/^active$/i.test(safe(order.status)) && order.start && String(order.start) > String(simulationTime)) order.status = 'Pending';
+  });
   visible.devices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
   visible.ioEvents = (canonical.ioEvents || []).filter(item => {
     const stamp = safe(item.availableAt || item.collected, '');
@@ -1704,7 +1745,7 @@ function initializeSimulationState(canonical) {
 
 function renderSimulationClock() {
   if (!elements.simulationClockDisplay) return;
-  elements.simulationClockDisplay.textContent = simulationTime || 'No simulation time';
+  elements.simulationClockDisplay.textContent = simulationTime ? epicDate(simulationTime) : 'No simulation time';
 }
 
 function refreshSimulationView(preserveSection = true) {
@@ -1723,6 +1764,25 @@ function refreshSimulationView(preserveSection = true) {
   if (preserveSection) {
     showCurrentSectionOnly();
   }
+
+  persistCase();
+}
+
+const SAVED_CASE_KEY = 'nursingsim.case.v1';
+
+function persistCase() {
+  // Autosave so a refresh (or iPad Safari reloading the tab) does not lose the patient.
+  try {
+    localStorage.setItem(SAVED_CASE_KEY, JSON.stringify({ canonical: currentCanonicalCase, simulationTime }));
+  } catch (error) { /* storage full or blocked (private browsing): carry on without saving */ }
+}
+
+function loadSavedCase() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(SAVED_CASE_KEY) || 'null');
+    if (saved && saved.canonical && saved.canonical.patient) return saved;
+  } catch (error) { /* ignore a corrupt save */ }
+  return null;
 }
 
 function advanceSimulation(minutes) {
@@ -1983,7 +2043,7 @@ function renderBrainTask(task) {
 
   wrapper.innerHTML = `
     <div class="brain-task-title">${escapeHtml(task.title)}</div>
-    <div class="brain-task-meta">${task.dueAt ? `Due: ${escapeHtml(task.dueAt)}` : 'No specific due time'}</div>
+    <div class="brain-task-meta">${task.dueAt ? `Due: ${escapeHtml(epicDate(task.dueAt))}` : 'No specific due time'}</div>
     <div class="brain-task-detail">${escapeHtml(safe(task.detail, ''))}</div>
     <div class="brain-task-actions">
       ${task.target ? `<button class="brain-task-button" data-action="open">Open</button>` : ''}
@@ -2112,8 +2172,9 @@ function renderViewData(data) {
 
   elements.patientName.textContent = safe(patient.name, 'Unnamed simulated patient');
   elements.patientDemographics.textContent = formatDemographics(patient, encounter);
+  renderPatientAlerts(patient, encounter);
   elements.patientStatus.textContent = encounter.diagnosis ? `Active encounter: ${encounter.diagnosis}` : 'Active encounter';
-  elements.lastUpdated.textContent = `Simulation ${simulationTime || safe(encounter.lastUpdated, '—')}`;
+  elements.lastUpdated.textContent = `Simulation ${epicDate(simulationTime || encounter.lastUpdated)}`;
   elements.chiefComplaint.textContent = safe(encounter.chiefComplaint);
   elements.codeStatus.textContent = safe(encounter.codeStatus);
   elements.isolation.textContent = safe(encounter.isolation);
@@ -2141,7 +2202,7 @@ const chartTabLabels = { notes: "Notes", hp: "H&P", imaging: "Imaging", cardiolo
 const noteGroups = [
   { key: 'progressNotes', label: 'Progress Notes' },
   { key: 'erVisitSummary', label: 'ER Visit Summary' },
-  { key: 'therapyNotes', label: 'PT / OT / SLP' },
+  { key: 'therapyNotes', label: 'Therapy / RT / Nutrition' },
   { key: 'caseManagement', label: 'Case Management' }
 ];
 
@@ -2167,7 +2228,7 @@ const elements = {
   marDetailBody: document.getElementById('marDetailBody'),
   ordersStatus: document.getElementById('ordersStatus'),
   ordersTableTitle: document.getElementById('ordersTableTitle'),
-  ordersCount: document.getElementById('ordersCount'),
+  ordersPageCount: document.getElementById('ordersPageCount'),
   orderCategoryFilters: document.getElementById('orderCategoryFilters'),
   ordersListHeading: document.getElementById('ordersListHeading'),
   ordersListCount: document.getElementById('ordersListCount'),
@@ -2256,7 +2317,33 @@ const markerCoordinates = { leftForearm: { x: 254, y: 206, labelX: 212, labelY: 
 
 function safe(value, fallback = '—') { if (value === null || value === undefined || value === '') return fallback; return String(value); }
 function escapeHtml(str) { return String(str).replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
-function formatDemographics(patient, encounter) { return [`MRN ${safe(patient.mrn, '—')}`, `${safe(patient.age, '—')} y/o`, safe(patient.sex, '—'), `DOB ${safe(patient.dob, '—')}`, encounter.location ? `${encounter.location} ${safe(encounter.room, '')}`.trim() : ''].filter(Boolean).join('  |  '); }
+function epicDate(value) {
+  // "2026-06-17 08:30" -> "06/17/26 0830"; "1972-04-18" -> "04/18/1972"
+  const text = safe(value, '');
+  let m = text.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
+  if (m) return `${m[2]}/${m[3]}/${m[1].slice(2)} ${m[4]}${m[5]}`;
+  m = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) return `${m[2]}/${m[3]}/${m[1]}`;
+  return text || '—';
+}
+
+function renderPatientAlerts(patient, encounter) {
+  const box = document.getElementById('patientAlerts');
+  if (!box) return;
+  const chips = [];
+  const allergies = (patient.allergies || []).filter(a => a && a.substance && !/^(nkda|nka|none)/i.test(a.substance));
+  if (allergies.length) chips.push(['alert-red', `Allergies: ${allergies.map(a => a.substance).join(', ')}`]);
+  else chips.push(['alert-gray', 'No known allergies']);
+  const code = safe(encounter.codeStatus, '');
+  if (code) chips.push([/full/i.test(code) ? 'alert-green' : 'alert-red', code]);
+  const iso = safe(encounter.isolation, '');
+  if (iso && !/^none$/i.test(iso)) chips.push(['alert-yellow', iso]);
+  const fall = safe(encounter.fallRisk, '');
+  if (/high/i.test(fall)) chips.push(['alert-orange', 'Fall risk: High']);
+  box.innerHTML = chips.map(([cls, text]) => `<span class="alert-chip ${cls}">${escapeHtml(text)}</span>`).join('');
+}
+
+function formatDemographics(patient, encounter) { return [`MRN ${safe(patient.mrn, '—')}`, `${safe(patient.age, '—')} y.o.`, safe(patient.sex, '—'), `DOB ${epicDate(patient.dob)}`, encounter.location ? `${encounter.location} ${safe(encounter.room, '')}`.trim() : ''].filter(Boolean).join('  |  '); }
 function clearChildren(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 function flagClass(flag) { const f = safe(flag, '').toLowerCase(); return f.includes('critical') ? 'flag-critical' : (f.includes('high') || f.includes('low')) ? 'flag-high' : ''; }
 
@@ -2274,15 +2361,24 @@ function renderMedications(medications = []) { clearChildren(elements.medication
 function getSummaryLabs(data) { if (Array.isArray(data.recentLabs) && data.recentLabs.length) return data.recentLabs; const all = getAllLabResults(data); return all.slice(0, 6).map(lab => ({ category: lab.category, test: lab.test, result: `${lab.result}${lab.units ? ' ' + lab.units : ''}`.trim(), flag: lab.flag, reference: lab.reference, collected: lab.collected })); }
 function renderLabs(labs = []) { clearChildren(elements.labsTable); if (!labs.length) { elements.labsTable.innerHTML = '<tr><td colspan="5" class="empty-cell">No labs loaded</td></tr>'; return; } labs.forEach(lab => { const row = document.createElement('tr'); [lab.test, lab.result, lab.flag, lab.reference, lab.collected].forEach((value, index) => { const cell = document.createElement('td'); cell.textContent = safe(value, index === 2 ? '' : '—'); if (index === 2 && value) cell.className = flagClass(value); row.appendChild(cell); }); elements.labsTable.appendChild(row); }); }
 
-function renderIntakeOutput(records = []) { clearChildren(elements.ioTable); clearChildren(elements.ioChart); if (!records.length) { elements.ioTable.innerHTML = '<tr><td colspan="4" class="empty-cell">No I/O loaded</td></tr>'; elements.ioTotals.textContent = 'No I/O data'; elements.ioChart.innerHTML = '<div class="empty">No I/O chart available.</div>'; return; } let totalIntake = 0, totalOutput = 0; records.forEach(record => { const intake = Number(record.intake) || 0; const output = Number(record.output) || 0; const net = intake - output; totalIntake += intake; totalOutput += output; const row = document.createElement('tr'); [record.time, `${intake} mL`, `${output} mL`, `${net >= 0 ? '+' : ''}${net} mL`].forEach(value => { const cell = document.createElement('td'); cell.textContent = safe(value); row.appendChild(cell); }); elements.ioTable.appendChild(row); }); const netTotal = totalIntake - totalOutput; elements.ioTotals.textContent = `Intake ${totalIntake} mL | Output ${totalOutput} mL | Net ${netTotal >= 0 ? '+' : ''}${netTotal} mL`; drawIOChart(records); }
-function drawIOChart(records) { const width = 720, height = 260, margin = { top: 22, right: 20, bottom: 42, left: 50 }, chartWidth = width - margin.left - margin.right, chartHeight = height - margin.top - margin.bottom; const maxValue = Math.max(...records.flatMap(r => [Number(r.intake) || 0, Number(r.output) || 0]), 100), yMax = Math.ceil(maxValue / 100) * 100, barGroupWidth = chartWidth / records.length, barWidth = Math.min(34, barGroupWidth / 4); const yScale = value => margin.top + chartHeight - ((value / yMax) * chartHeight), xCenter = index => margin.left + (barGroupWidth * index) + barGroupWidth / 2; let svg = `<div class="avatar-legend" style="margin-bottom:8px;"><span class="legend-item"><span class="legend-dot iv-dot"></span> Intake</span><span class="legend-item"><span class="legend-dot" style="background:#64748b;"></span> Output</span></div><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">`; [0, 0.25, 0.5, 0.75, 1].forEach(step => { const value = Math.round(yMax * step), y = yScale(value); svg += `<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" class="io-grid"></line><text x="${margin.left - 8}" y="${y + 4}" text-anchor="end" class="io-label">${value}</text>`; }); svg += `<line x1="${margin.left}" y1="${margin.top + chartHeight}" x2="${width - margin.right}" y2="${margin.top + chartHeight}" class="io-axis"></line><line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + chartHeight}" class="io-axis"></line>`; records.forEach((record, index) => { const intake = Number(record.intake) || 0, output = Number(record.output) || 0, center = xCenter(index), intakeHeight = (intake / yMax) * chartHeight, outputHeight = (output / yMax) * chartHeight; svg += `<rect x="${center - barWidth - 3}" y="${margin.top + chartHeight - intakeHeight}" width="${barWidth}" height="${intakeHeight}" rx="4" class="io-bar-intake"></rect><rect x="${center + 3}" y="${margin.top + chartHeight - outputHeight}" width="${barWidth}" height="${outputHeight}" rx="4" class="io-bar-output"></rect><text x="${center}" y="${height - 14}" text-anchor="middle" class="io-label">${escapeHtml(safe(record.time))}</text>`; }); svg += `<text x="16" y="${margin.top + 18}" transform="rotate(-90,16,${margin.top + 18})" class="io-label">mL</text></svg>`; elements.ioChart.innerHTML = svg; }
+function ioLabel(record) { return record.date ? `${epicDate(record.date).slice(0, 5)} ${safe(record.time)}` : safe(record.time); }
+function renderIntakeOutput(records = []) { clearChildren(elements.ioTable); clearChildren(elements.ioChart); if (!records.length) { elements.ioTable.innerHTML = '<tr><td colspan="4" class="empty-cell">No I/O loaded</td></tr>'; elements.ioTotals.textContent = 'No I/O data'; elements.ioChart.innerHTML = '<div class="empty">No I/O chart available.</div>'; return; } let totalIntake = 0, totalOutput = 0; records.forEach(record => { const intake = Number(record.intake) || 0; const output = Number(record.output) || 0; const net = intake - output; totalIntake += intake; totalOutput += output; const row = document.createElement('tr'); [ioLabel(record), `${intake} mL`, `${output} mL`, `${net >= 0 ? '+' : ''}${net} mL`].forEach(value => { const cell = document.createElement('td'); cell.textContent = safe(value); row.appendChild(cell); }); elements.ioTable.appendChild(row); }); const netTotal = totalIntake - totalOutput; elements.ioTotals.textContent = `Intake ${totalIntake} mL | Output ${totalOutput} mL | Net ${netTotal >= 0 ? '+' : ''}${netTotal} mL`; drawIOChart(records); }
+function drawIOChart(records) { const width = 720, height = 260, margin = { top: 22, right: 20, bottom: 42, left: 50 }, chartWidth = width - margin.left - margin.right, chartHeight = height - margin.top - margin.bottom; const maxValue = Math.max(...records.flatMap(r => [Number(r.intake) || 0, Number(r.output) || 0]), 100), yMax = Math.ceil(maxValue / 100) * 100, barGroupWidth = chartWidth / records.length, barWidth = Math.min(34, barGroupWidth / 4); const yScale = value => margin.top + chartHeight - ((value / yMax) * chartHeight), xCenter = index => margin.left + (barGroupWidth * index) + barGroupWidth / 2; let svg = `<div class="avatar-legend" style="margin-bottom:8px;"><span class="legend-item"><span class="legend-dot iv-dot"></span> Intake</span><span class="legend-item"><span class="legend-dot" style="background:#64748b;"></span> Output</span></div><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">`; [0, 0.25, 0.5, 0.75, 1].forEach(step => { const value = Math.round(yMax * step), y = yScale(value); svg += `<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" class="io-grid"></line><text x="${margin.left - 8}" y="${y + 4}" text-anchor="end" class="io-label">${value}</text>`; }); svg += `<line x1="${margin.left}" y1="${margin.top + chartHeight}" x2="${width - margin.right}" y2="${margin.top + chartHeight}" class="io-axis"></line><line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + chartHeight}" class="io-axis"></line>`; records.forEach((record, index) => { const intake = Number(record.intake) || 0, output = Number(record.output) || 0, center = xCenter(index), intakeHeight = (intake / yMax) * chartHeight, outputHeight = (output / yMax) * chartHeight; svg += `<rect x="${center - barWidth - 3}" y="${margin.top + chartHeight - intakeHeight}" width="${barWidth}" height="${intakeHeight}" rx="4" class="io-bar-intake"></rect><rect x="${center + 3}" y="${margin.top + chartHeight - outputHeight}" width="${barWidth}" height="${outputHeight}" rx="4" class="io-bar-output"></rect><text x="${center}" y="${height - 14}" text-anchor="middle" class="io-label">${escapeHtml(ioLabel(record))}</text>`; }); svg += `<text x="16" y="${margin.top + 18}" transform="rotate(-90,16,${margin.top + 18})" class="io-label">mL</text></svg>`; elements.ioChart.innerHTML = svg; }
 
 function getTooltipHtml(device) { return `<div class="tooltip-title">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</div><div class="tooltip-row"><strong>Category:</strong> ${escapeHtml(safe(device.category))}</div><div class="tooltip-row"><strong>Status:</strong> ${escapeHtml(safe(device.status))}</div><div class="tooltip-row"><strong>Placed:</strong> ${escapeHtml(safe(device.placementDate))}</div><div class="tooltip-row"><strong>Last assessment:</strong> ${escapeHtml(safe(device.lastAssessment))}</div>${device.gauge ? `<div class="tooltip-row"><strong>Gauge:</strong> ${escapeHtml(safe(device.gauge))}</div>` : ''}${device.infusing ? `<div class="tooltip-row"><strong>Infusing:</strong> ${escapeHtml(safe(device.infusing))}</div>` : ''}${device.drainage ? `<div class="tooltip-row"><strong>Drainage / output:</strong> ${escapeHtml(safe(device.drainage))}</div>` : ''}`; }
 function positionTooltip(event, tooltip) { const wrapper = tooltip.parentElement.getBoundingClientRect(); let left = event.clientX - wrapper.left + 12, top = event.clientY - wrapper.top + 12; const maxLeft = wrapper.width - 290, maxTop = wrapper.height - 170; if (left > maxLeft) left = Math.max(8, maxLeft); if (top > maxTop) top = Math.max(8, maxTop); tooltip.style.left = `${left}px`; tooltip.style.top = `${top}px`; }
-function attachTooltipEvents(group, device) { group.addEventListener('mouseenter', event => { elements.combinedTooltip.innerHTML = getTooltipHtml(device); elements.combinedTooltip.classList.remove('hidden'); positionTooltip(event, elements.combinedTooltip); }); group.addEventListener('mousemove', event => positionTooltip(event, elements.combinedTooltip)); group.addEventListener('mouseleave', () => elements.combinedTooltip.classList.add('hidden')); }
+function attachTooltipEvents(group, device) {
+  const show = event => { elements.combinedTooltip.innerHTML = getTooltipHtml(device); elements.combinedTooltip.classList.remove('hidden'); positionTooltip(event, elements.combinedTooltip); };
+  // Mouse: hover. Touch (iPad): tap to show, tap anywhere else to dismiss.
+  group.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') show(event); });
+  group.addEventListener('pointermove', event => { if (event.pointerType === 'mouse') positionTooltip(event, elements.combinedTooltip); });
+  group.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') elements.combinedTooltip.classList.add('hidden'); });
+  group.addEventListener('click', event => { event.stopPropagation(); show(event); });
+}
+document.addEventListener('click', () => { if (elements.combinedTooltip) elements.combinedTooltip.classList.add('hidden'); });
 function getTypeClass(category) { if (category === 'IV') return 'hotspot-iv'; if (category === 'Drain') return 'hotspot-drain'; return 'hotspot-tube'; }
 function getBadgeClass(category) { if (category === 'IV') return 'type-iv'; if (category === 'Drain') return 'type-drain'; return 'type-tube'; }
-function createMarker(device) { const marker = markerCoordinates[device.siteMarker]; if (!marker) return null; const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); const shortLabel = safe(device.type, 'Item').slice(0, 16), labelWidth = Math.max(60, shortLabel.length * 6.6); g.innerHTML = `<line x1="${marker.x}" y1="${marker.y}" x2="${marker.labelX}" y2="${marker.labelY}" class="hotspot-label-line"></line><rect x="${marker.labelX - 4}" y="${marker.labelY - 14}" width="${labelWidth}" height="20" rx="4" class="hotspot-label-bg"></rect><text x="${marker.labelX + 2}" y="${marker.labelY}" class="hotspot-label-text">${escapeHtml(shortLabel)}</text><circle cx="${marker.x}" cy="${marker.y}" r="8" class="hotspot-circle ${getTypeClass(device.category)}"></circle>`; attachTooltipEvents(g, device); return g; }
+function createMarker(device) { const marker = markerCoordinates[device.siteMarker]; if (!marker) return null; const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); const shortLabel = safe(device.type, 'Item').slice(0, 16), labelWidth = Math.max(60, shortLabel.length * 6.6); g.innerHTML = `<line x1="${marker.x}" y1="${marker.y}" x2="${marker.labelX}" y2="${marker.labelY}" class="hotspot-label-line"></line><rect x="${marker.labelX - 4}" y="${marker.labelY - 14}" width="${labelWidth}" height="20" rx="4" class="hotspot-label-bg"></rect><text x="${marker.labelX + 2}" y="${marker.labelY}" class="hotspot-label-text">${escapeHtml(shortLabel)}</text><circle cx="${marker.x}" cy="${marker.y}" r="22" fill="transparent"></circle><circle cx="${marker.x}" cy="${marker.y}" r="8" class="hotspot-circle ${getTypeClass(device.category)}"></circle>`; attachTooltipEvents(g, device); return g; }
 function normalizeDevices(data) { return [...(data.ivs || []).map(item => ({ ...item, category: 'IV' })), ...(data.drains || []).map(item => ({ ...item, category: 'Drain' })), ...(data.tubes || []).map(item => ({ ...item, category: 'Tube' }))]; }
 function renderCombinedDevices(data) { clearChildren(elements.allMarkers); clearChildren(elements.deviceList); const devices = normalizeDevices(data); elements.deviceSummary.textContent = `${devices.length} active devices`; if (!devices.length) { elements.deviceList.className = 'device-list empty'; elements.deviceList.textContent = 'No devices loaded.'; return; } elements.deviceList.className = 'device-list'; devices.forEach(device => { const marker = createMarker(device); if (marker) elements.allMarkers.appendChild(marker); const item = document.createElement('div'); item.className = 'device-item'; item.innerHTML = `<div class="device-name-line"><span class="type-badge ${getBadgeClass(device.category)}">${escapeHtml(device.category)}</span><span class="device-name">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</span></div><div class="device-meta">Status: ${escapeHtml(safe(device.status))}<br>Placed: ${escapeHtml(safe(device.placementDate))}<br>Last assessment: ${escapeHtml(safe(device.lastAssessment))}${device.gauge ? `<br>Gauge: ${escapeHtml(safe(device.gauge))}` : ''}${device.infusing ? `<br>Infusing: ${escapeHtml(safe(device.infusing))}` : ''}${device.drainage ? `<br>Drainage / output: ${escapeHtml(safe(device.drainage))}` : ''}</div>`; elements.deviceList.appendChild(item); }); }
 
@@ -2325,10 +2421,13 @@ function renderChartReviewTab(tabKey, recordIndex = 0) { currentChartTab = tabKe
 function getAllLabResults(data) { if (Array.isArray(data.labResults) && data.labResults.length) return data.labResults; return (data.recentLabs || []).map(lab => ({ ...lab, units: '', specimen: '', status: 'Final' })); }
 function getLabCategories(labs) { return ['All Results', ...Array.from(new Set(labs.map(l => safe(l.category, 'Other'))))]; }
 function filterLabsByCategory(labs, category) { if (category === 'All Results') return labs; return labs.filter(lab => safe(lab.category, 'Other') === category); }
+let labNewestLeft = false;   // false: oldest on the left, newest on the right (default); true: newest on the left
 function getLabDateColumns(labs) {
-  return Array.from(new Set(labs.map(lab => safe(lab.collected, 'Unknown'))))
+  const cols = Array.from(new Set(labs.map(lab => safe(lab.collected, 'Unknown'))))
     .sort((a, b) => String(a).localeCompare(String(b)));
+  return labNewestLeft ? cols.reverse() : cols;
 }
+const newestLabTime = times => (labNewestLeft ? times[0] : times[times.length - 1]);
 
 function getLabGroups(labs) {
   const groups = {};
@@ -2435,7 +2534,7 @@ function renderLabGridHeader(times) {
 }
 
 function formatLabTimeHeader(time) {
-  const parts = safe(time, '').split(' ');
+  const parts = epicDate(time).split(' ');
   if (parts.length >= 2) {
     return `${escapeHtml(parts[0])}<br>${escapeHtml(parts.slice(1).join(' '))}`;
   }
@@ -2455,8 +2554,8 @@ function renderLabResultsPage(data) {
   const filtered = getFilteredLabsForGrid(allLabs);
   const times = getLabDateColumns(filtered);
 
-  if (!selectedLabTime && times.length) selectedLabTime = times[times.length - 1];
-  if (selectedLabTime && !times.includes(selectedLabTime)) selectedLabTime = times[times.length - 1] || null;
+  if (!selectedLabTime && times.length) selectedLabTime = newestLabTime(times);
+  if (selectedLabTime && !times.includes(selectedLabTime)) selectedLabTime = newestLabTime(times) || null;
 
   renderLabCategoryFilters(allLabs);
 
@@ -3189,7 +3288,7 @@ function renderOrdersPage(data) {
   const pendingCount = allOrders.filter(order => normalizeOrderStatus(order.status).includes('pending')).length;
 
   elements.ordersStatus.textContent = `${allOrders.length} total orders | ${activeCount} active | ${pendingCount} pending`;
-  elements.ordersCount.textContent = `${allOrders.length} orders`;
+  elements.ordersPageCount.textContent = `${allOrders.length} orders`;
   elements.ordersTableTitle.textContent = currentOrderCategory;
   elements.ordersListHeading.textContent = currentOrderCategory;
   elements.ordersListCount.textContent = `${filteredOrders.length} displayed`;
@@ -3227,16 +3326,30 @@ function buildFlowsheetRecords(canonical) {
     if (device.drainage) records.push({ id: `${device.id}_output`, section: 'Lines / Drains / Airways', field: `${safe(device.type)} Output`, value: safe(device.drainage), collected, source: 'Device record', details: safe(device.lastAssessment), abnormal: false });
   });
   (canonical.ioEvents || []).forEach((io, idx) => {
-    if (io.intake !== undefined) records.push({ id: io.id ? `${io.id}_intake` : `io_intake_${idx}`, section: 'Intake / Output', field: 'Intake', value: `${Number(io.intake)||0} mL`, collected: safe(io.time), source: 'I&O record', abnormal: false });
-    if (io.output !== undefined) records.push({ id: io.id ? `${io.id}_output` : `io_output_${idx}`, section: 'Intake / Output', field: 'Output', value: `${Number(io.output)||0} mL`, collected: safe(io.time), source: 'I&O record', abnormal: false });
+    if (io.intake !== undefined) records.push({ id: io.id ? `${io.id}_intake` : `io_intake_${idx}`, section: 'Intake / Output', field: 'Intake', value: `${Number(io.intake)||0} mL`, collected: io.date ? `${io.date} ${safe(io.time)}` : safe(io.time), source: 'I&O record', abnormal: false });
+    if (io.output !== undefined) records.push({ id: io.id ? `${io.id}_output` : `io_output_${idx}`, section: 'Intake / Output', field: 'Output', value: `${Number(io.output)||0} mL`, collected: io.date ? `${io.date} ${safe(io.time)}` : safe(io.time), source: 'I&O record', abnormal: false });
   });
+  // Place every value in an hourly column so the grid reads like an Epic flowsheet
+  // instead of one sparse column per exact timestamp.
+  const simDate = safe(canonical.timeline?.simulationStart || canonical.encounter?.admitDate, '').slice(0, 10);
+  records.forEach(r => { r.col = flowsheetColumnKey(r.collected, simDate); });
   return records;
+}
+
+function flowsheetColumnKey(collected, simDate) {
+  const text = safe(collected, '');
+  let m = text.match(/^(\d{4}-\d{2}-\d{2}) (\d{2}):\d{2}/);
+  if (m) return `${m[1]} ${m[2]}:00`;
+  // I&O period such as "0700-1100": show it in the column where the period ends.
+  m = text.match(/^(?:(\d{4}-\d{2}-\d{2}) )?(\d{2})(\d{2})\s*-\s*(\d{2})(\d{2})$/);
+  if (m && (m[1] || simDate)) return `${m[1] || simDate} ${m[4]}:00`;
+  return text;
 }
 function getFlowsheetSections(records) {
   const present = Array.from(new Set(records.map(r => r.section)));
   return [...flowsheetSectionOrder.filter(s => present.includes(s)), ...present.filter(s => !flowsheetSectionOrder.includes(s))];
 }
-function getFlowsheetTimes(records) { return Array.from(new Set(records.map(r => safe(r.collected)).filter(Boolean))).sort((a,b)=>String(a).localeCompare(String(b))); }
+function getFlowsheetTimes(records) { return Array.from(new Set(records.filter(r => !r.practiceHidden).map(r => safe(r.col || r.collected)).filter(Boolean))).sort((a,b)=>String(a).localeCompare(String(b))); }
 function renderFlowsheetSectionNav(sections, records) {
   clearChildren(elements.flowsheetSectionNav);
   sections.forEach(section => {
@@ -3251,7 +3364,7 @@ function renderFlowsheetHeader(times) {
   clearChildren(elements.flowsheetGridHead);
   const row = document.createElement('tr');
   const label = document.createElement('th'); label.className='flowsheet-label-col'; label.textContent='Assessment'; row.appendChild(label);
-  times.forEach(time => { const th=document.createElement('th'); th.className='flowsheet-time-col'; const parts=safe(time).split(' '); th.innerHTML=parts.length>1 ? `${escapeHtml(parts[0])}<br><span class="flowsheet-muted">${escapeHtml(parts.slice(1).join(' '))}</span>` : escapeHtml(time); row.appendChild(th); });
+  times.forEach(time => { const th=document.createElement('th'); th.className='flowsheet-time-col'; const stamp=epicDate(time).split(' '); th.innerHTML=stamp.length>1 ? `${escapeHtml(stamp[0])}<br><span class="flowsheet-muted">${escapeHtml(stamp[1])}</span>` : escapeHtml(time); row.appendChild(th); });
   elements.flowsheetGridHead.appendChild(row);
 }
 function renderFlowsheetCellDetail(record) {
@@ -3270,16 +3383,16 @@ function renderFlowsheetGrid(records, sections, times) {
     if (flowsheetCollapsedSections.has(section)) return;
     Array.from(new Set(sectionRecords.map(r=>r.field))).forEach(field => {
       const fr=sectionRecords.filter(r=>r.field===field); const row=document.createElement('tr'); const fc=document.createElement('td'); fc.className='flowsheet-label-col flowsheet-field-name'; fc.textContent=field; row.appendChild(fc);
-      times.forEach(time=>{ const record=fr.filter(r=>safe(r.collected)===time).slice(-1)[0]; const td=document.createElement('td'); td.className='flowsheet-cell'; if(!record){td.classList.add('empty-cell-value'); td.title='Click to chart this assessment'; td.addEventListener('click',()=>openFlowsheetChartDialog(section, field, time));} else { if(record.abnormal) td.classList.add('flowsheet-abnormal'); if(currentFlowsheetSelection===record.id) td.classList.add('selected'); td.textContent=safe(record.value); td.addEventListener('click',()=>{ currentFlowsheetSelection=record.id; renderFlowsheetsPage(currentPatientData); }); } row.appendChild(td); });
+      times.forEach(time=>{ const inCell=fr.filter(r=>!r.practiceHidden && safe(r.col||r.collected)===time); const record=inCell.slice(-1)[0]; const td=document.createElement('td'); td.className='flowsheet-cell'; if(!record){td.classList.add('empty-cell-value'); td.title='Click to chart this assessment'; td.addEventListener('click',()=>openFlowsheetChartDialog(section, field, time));} else { if(record.abnormal) td.classList.add('flowsheet-abnormal'); if(currentFlowsheetSelection===record.id) td.classList.add('selected'); td.textContent=safe(record.value); if(inCell.length>1) td.title=inCell.map(r=>`${epicDate(r.collected)}  ${r.value}`).join('\n'); td.addEventListener('click',()=>{ currentFlowsheetSelection=record.id; renderFlowsheetsPage(currentPatientData); }); } row.appendChild(td); });
       elements.flowsheetGridBody.appendChild(row);
     });
   });
 }
 function renderFlowsheetsPage(data) {
   const canonical=data?.__canonical || currentCanonicalCase || normalizeCaseData(data).canonical; const records=buildFlowsheetRecords(canonical); const sections=getFlowsheetSections(records); let times=getFlowsheetTimes(records); if(flowsheetLatestOnlyMode && times.length) times=[times[times.length-1]];
-  elements.flowsheetStatus.textContent=`${records.length} documented values | ${sections.length} sections`; elements.flowsheetSectionCount.textContent=`${sections.length} sections`; elements.flowsheetDateLabel.textContent=safe(canonical.encounter?.admitDate,'Current encounter'); elements.flowsheetFooterMeta.textContent=times.length?`${times.length} documentation time(s)`:'No documentation times'; elements.flowsheetLatestOnly.classList.toggle('active',flowsheetLatestOnlyMode);
+  elements.flowsheetStatus.textContent=`${records.length} documented values | ${sections.length} sections`; elements.flowsheetSectionCount.textContent=`${sections.length} sections`; elements.flowsheetDateLabel.textContent=canonical.encounter?.admitDate ? epicDate(canonical.encounter.admitDate) : 'Current encounter'; elements.flowsheetFooterMeta.textContent=times.length?`${times.length} documentation time(s)`:'No documentation times'; elements.flowsheetLatestOnly.classList.toggle('active',flowsheetLatestOnlyMode);
   renderFlowsheetSectionNav(sections,records); renderFlowsheetHeader(times); renderFlowsheetGrid(records,sections,times);
-  const selected=records.find(r=>r.id===currentFlowsheetSelection)||records[0]||null; if(selected) currentFlowsheetSelection=selected.id; renderFlowsheetCellDetail(selected);
+  const selected=records.find(r=>!r.practiceHidden && r.id===currentFlowsheetSelection)||records.find(r=>!r.practiceHidden)||null; if(selected) currentFlowsheetSelection=selected.id; renderFlowsheetCellDetail(selected);
 }
 
 function setMainSection(section, tabKey = null) { currentMainSection = section; acknowledgeSection(section); showCurrentSectionOnly(); if (section === 'brain') renderBrainPage(); if (section === 'chartReview') renderChartReviewTab(tabKey || currentChartTab, currentRecordIndex); if (section === 'labResults') renderLabResultsPage(currentPatientData); if (section === 'mar') renderMARPage(currentPatientData); if (section === 'orders') renderOrdersPage(currentPatientData); if (section === 'flowsheets') renderFlowsheetsPage(currentPatientData); }
@@ -3350,7 +3463,7 @@ document.getElementById('closeMarActionBtn').addEventListener('click', () => ele
 elements.marActionChoices.forEach(btn => btn.addEventListener('click', () => applyMARAction(btn.dataset.marAction)));
 
 document.getElementById('closeFlowsheetChartBtn').addEventListener('click', () => elements.flowsheetChartDialog.close());
-document.getElementById('saveChartAssessmentBtn').addEventListener('click', saveFlowsheetAssessment);
+document.getElementById('saveChartAssessmentBtn').addEventListener('click', () => saveFlowsheetAssessment());
 
 
 if (elements.showAllLabsBtn) elements.showAllLabsBtn.addEventListener('click', () => {
@@ -3376,6 +3489,93 @@ if (elements.timebarForward) elements.timebarForward.addEventListener('click', (
   renderLabResultsPage(currentPatientData);
 });
 
+
+// ---------------------------------------------------------------------------------------------
+// Saved patients (library.js)
+let currentLibraryId = null, currentLibraryName = '';
+function libEl(id) { return document.getElementById(id); }
+function libMessage(text, kind = '') { const box = libEl('libMessage'); box.textContent = text || ''; box.className = `lib-message ${kind}`; }
+function libWhen(iso) { try { const d = new Date(iso); return `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${String(d.getFullYear()).slice(2)} ${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; } catch (e) { return ''; } }
+
+async function refreshLibrary() {
+  const list = libEl('libList');
+  try {
+    const rows = await NSLib.list();
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">Nothing saved yet. Open a patient, then press Save.</div>'; return; }
+    list.innerHTML = rows.map(r => `
+      <div class="lib-row ${r.id === currentLibraryId ? 'current' : ''}" data-id="${escapeHtml(r.id)}">
+        <div class="lib-info">
+          <div class="lib-name">${escapeHtml(r.name)} ${r.id === currentLibraryId ? '<span class="lib-badge">open now</span>' : ''}</div>
+          <div class="lib-meta">${escapeHtml(safe(r.meta && r.meta.patientName, ''))}${r.meta && r.meta.age ? ', ' + escapeHtml(String(r.meta.age)) + ' y.o.' : ''} | ${escapeHtml(safe(r.meta && r.meta.diagnosis, '—'))}${r.meta && r.meta.hospitalDay ? ' | hospital day ' + escapeHtml(String(r.meta.hospitalDay)) : ''} | sim ${escapeHtml(epicDate(r.simulationTime))} | saved ${libWhen(r.updatedAt)} | ${r.source === 'ehr' ? 'saved from EHR' : 'from Case Builder'}</div>
+        </div>
+        <div class="lib-actions">
+          <button data-act="load" class="primary-button">Load</button>
+          <button data-act="rename" class="secondary-button">Rename</button>
+          <button data-act="copy" class="secondary-button">Duplicate</button>
+          <button data-act="export" class="secondary-button">Export</button>
+          <button data-act="student" class="secondary-button">For students</button>
+          <button data-act="delete" class="secondary-button danger">Delete</button>
+        </div>
+      </div>`).join('');
+  } catch (error) { list.innerHTML = ''; libMessage(error.message, 'error'); }
+}
+
+async function saveToLibrary(asNew) {
+  if (!currentCanonicalCase) { libMessage('There is no patient open to save.', 'error'); return; }
+  try {
+    const name = libEl('libSaveName').value.trim();
+    const row = await NSLib.save({ id: asNew ? null : currentLibraryId, name, canonical: currentCanonicalCase, simulationTime, source: 'ehr' });
+    currentLibraryId = row.id; currentLibraryName = row.name; libEl('libSaveName').value = row.name;
+    libMessage(`Saved "${row.name}" at simulation time ${epicDate(simulationTime)}.`, 'success');
+    await refreshLibrary();
+  } catch (error) { libMessage(error.message, 'error'); }
+}
+
+async function loadFromLibrary(id) {
+  try {
+    const row = await NSLib.get(id);
+    if (!row) { libMessage('That saved patient was not found.', 'error'); return; }
+    renderPatient(row.canonical);
+    if (row.simulationTime) { simulationTime = row.simulationTime; refreshSimulationView(); }
+    currentLibraryId = row.id; currentLibraryName = row.name;
+    libEl('libSaveName').value = row.name;
+    libEl('libraryDialog').close();
+  } catch (error) { libMessage(error.message, 'error'); }
+}
+
+libEl('openLibraryBtn').addEventListener('click', () => { libMessage(''); libEl('libSaveName').value = currentLibraryName || ''; libEl('libraryDialog').showModal(); refreshLibrary(); });
+libEl('closeLibraryBtn').addEventListener('click', () => libEl('libraryDialog').close());
+libEl('libSaveBtn').addEventListener('click', () => saveToLibrary(false));
+libEl('libSaveNewBtn').addEventListener('click', () => saveToLibrary(true));
+libEl('libImportFile').addEventListener('change', async event => {
+  const file = event.target.files[0]; if (!file) return;
+  try { const row = await NSLib.importFile(file); libMessage(`Imported "${row.name}".`, 'success'); await refreshLibrary(); }
+  catch (error) { libMessage(error.message, 'error'); }
+  event.target.value = '';
+});
+libEl('libList').addEventListener('click', async event => {
+  const button = event.target.closest('button[data-act]'); if (!button) return;
+  const id = button.closest('.lib-row').dataset.id, act = button.dataset.act;
+  try {
+    if (act === 'load') await loadFromLibrary(id);
+    else if (act === 'student') { NSLib.downloadStudent(await NSLib.get(id)); libMessage('Student file downloaded. It has no answer key.', 'success'); }
+    else if (act === 'rename') { const row = await NSLib.get(id); const name = window.prompt('New name for this saved patient:', row.name); if (name) { await NSLib.rename(id, name); if (id === currentLibraryId) currentLibraryName = name; await refreshLibrary(); } }
+    else if (act === 'copy') { await NSLib.duplicate(id); await refreshLibrary(); }
+    else if (act === 'export') { NSLib.download(await NSLib.get(id)); }
+    else if (act === 'delete') { if (window.confirm('Delete this saved patient? This cannot be undone.')) { await NSLib.remove(id); if (id === currentLibraryId) currentLibraryId = null; await refreshLibrary(); } }
+  } catch (error) { libMessage(error.message, 'error'); }
+});
+
 elements.schemaBlock.textContent = JSON.stringify(canonicalSchemaExample, null, 2);
 renderBaseBody();
-renderPatient(samplePatient);
+const savedCase = loadSavedCase();
+try {
+  if (savedCase) {
+    renderPatient(savedCase.canonical);
+    if (savedCase.simulationTime) { simulationTime = savedCase.simulationTime; refreshSimulationView(); }
+  } else {
+    renderPatient(samplePatient);
+  }
+} catch (error) {
+  renderPatient(samplePatient);
+}

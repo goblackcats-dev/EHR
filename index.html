@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NursingSim EHR - Prototype v14</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="NursingSim" />
+  <meta name="theme-color" content="#1c4f82" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <title>NursingSim EHR - Prototype v40</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -20,6 +28,7 @@
       <div class="patient-banner">
         <div class="patient-name" id="patientName">No patient loaded</div>
         <div class="patient-demographics" id="patientDemographics">Import simulated patient JSON to begin</div>
+        <div class="patient-alerts" id="patientAlerts"></div>
       </div>
 
       <div class="simulation-clock">
@@ -34,6 +43,8 @@
       </div>
 
       <div class="top-actions">
+        <a class="top-link" href="case-builder/index.html">Case Builder</a>
+        <button id="openLibraryBtn" class="top-link top-button">Saved Patients</button>
         <button id="openImportBtn" class="primary-button">Import Patient</button>
       </div>
     </header>
@@ -78,7 +89,6 @@
           <div class="section-header">
             <div>
               <h1>Patient Summary</h1>
-              <p>Simulated inpatient overview with one combined anatomical avatar, nursing orders, intake/output, and sticky notes.</p>
             </div>
             <div class="status-pill" id="patientStatus">No active encounter</div>
           </div>
@@ -275,6 +285,7 @@
               <div class="results-toolbar-actions">
                 <button class="small-tool-button" id="showAllLabsBtn">Show All</button>
                 <button class="small-tool-button" id="showFlaggedLabsBtn">Flagged Only</button>
+                <button class="small-tool-button" id="labOrderBtn" title="Switch which end of the table has the newest results">Newest: right</button>
               </div>
             </div>
 
@@ -362,6 +373,7 @@
               </div>
             </div>
 
+            <div class="mar-scroll"><div class="mar-scroll-inner">
             <div class="mar-timeline-header-wrap">
               <div class="mar-time-label-col">Medication</div>
               <div id="marTimelineHeader" class="mar-timeline-header"></div>
@@ -375,6 +387,7 @@
             <div id="marCompletedRows" class="mar-completed-rows">
               <div class="empty-state" style="padding: 16px;">No completed medications loaded.</div>
             </div>
+            </div></div>
 
             <div class="mar-legend">
               <span class="mar-legend-item"><span class="mar-legend-box mar-before"></span> Before ordered</span>
@@ -412,7 +425,7 @@
               <aside class="orders-sidebar">
                 <div class="orders-sidebar-header">
                   <h2>Order Categories</h2>
-                  <span id="ordersCount">0 orders</span>
+                  <span id="ordersPageCount">0 orders</span>
                 </div>
                 <div id="orderCategoryFilters" class="orders-category-list"></div>
               </aside>
@@ -518,6 +531,29 @@
     </main>
   </div>
 
+  <dialog id="libraryDialog" class="import-dialog library-dialog">
+    <div class="dialog-header">
+      <div>
+        <h2>Saved Patients</h2>
+        <p>Save the patient you are looking at (with the simulation time), and load it again later, for example to prepare a medication pass. Fictional patients only.</p>
+      </div>
+      <button id="closeLibraryBtn" class="icon-button" aria-label="Close saved patients">×</button>
+    </div>
+    <div class="dialog-body">
+      <div class="lib-save">
+        <input id="libSaveName" placeholder="Name for this saved patient (for example: Med pass practice, 0800)" autocomplete="off" />
+        <button id="libSaveBtn" class="primary-button">Save</button>
+        <button id="libSaveNewBtn" class="secondary-button">Save as new</button>
+      </div>
+      <div id="libMessage" class="lib-message"></div>
+      <div id="libList" class="lib-list"></div>
+      <div class="lib-foot">
+        <label class="file-button">Import a patient file<input type="file" id="libImportFile" accept="application/json,.json" /></label>
+        <span class="lib-hint">Files exported from the Case Builder or from this list can be imported here and shared with colleagues.</span>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="importDialog" class="import-dialog">
     <div class="dialog-header">
       <div>
@@ -573,7 +609,7 @@
     <div class="dialog-body">
       <div id="marActionMonitoring" class="mar-action-monitoring"></div>
       <label class="input-label" for="marActionReason">Comment / Reason</label>
-      <textarea id="marActionReason" class="small-textarea" placeholder="Optional for Give. Recommended for Hold, Refused, or Not Given."></textarea>
+      <textarea id="marActionReason" class="small-textarea" placeholder="Comment if patient refuses, or med is held/not given"></textarea>
       <div class="mar-action-buttons">
         <button class="mar-action-choice mar-action-give" data-mar-action="given">Give</button>
         <button class="mar-action-choice mar-action-hold" data-mar-action="held">Hold</button>
@@ -632,6 +668,34 @@
     </div>
   </dialog>
 
+  <script src="library.js"></script>
   <script src="app.js"></script>
+  <script src="qrcode.js"></script>
+  <script src="wristband.js"></script>
+  <script src="medlabel.js"></script>
+  <script src="medpass.js"></script>
+  <script src="mar-rights.js"></script>
+  <script src="brain-timeline.js"></script>
+  <script src="brain-timers.js"></script>
+  <script src="ui-extras.js"></script>
+  <script src="handoff.js"></script>
+  <script src="quiz.js"></script>
+  <script src="teaching.js"></script>
+  <script src="sbar.js"></script>
+  <script src="results.js"></script>
+  <script src="offgoing.js"></script>
+  <script src="discharge.js"></script>
+  <script src="careplan.js"></script>
+  <script src="messages.js"></script>
+  <script src="orders-ack.js"></script>
+  <script src="storyboard.js"></script>
+  <script src="charts.js"></script>
+  <script src="lab-trends.js"></script>
+  <script src="druginfo.js"></script>
+  <script src="druginfo_1.js"></script>
+  <script src="druginfo_2.js"></script>
+  <script src="druginfo_3.js"></script>
+  <script src="druginfo-ui.js"></script>
+  <script src="flowsheet-practice.js"></script>
 </body>
 </html>
