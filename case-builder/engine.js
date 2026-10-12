@@ -181,7 +181,7 @@ NS.engine = (() => {
     else value = base + (own && own.add ? U.interp(own.add, h) : 0);
     if (spec.labAdd[code]) value += spec.labAdd[code];
     // small natural variation
-    const jitter = { Sodium: 1, Potassium: 0.12, Chloride: 1, CO2: 0.8, BUN: 1, Creatinine: 0.03, Glucose: 6, WBC: 0.4, Hemoglobin: 0.15, Platelets: 8 }[code] || 0;
+    const jitter = { Sodium: 1, Potassium: 0.12, Chloride: 1, CO2: 0.8, BUN: 1, Creatinine: 0.03, Glucose: 6, WBC: 0.4, Hemoglobin: 0.15, Platelets: 8 }[code] || (spec.extraJitter && spec.extraJitter[code]) || 0;
     if (jitter && !(own && own.exact)) value += ctx.noise(jitter);
     const dec = def.dec;
     value = dec === 0 ? Math.round(value) : U.round(value, dec);
@@ -252,6 +252,8 @@ NS.engine = (() => {
         if (code === 'eGFR') {
           const cr = labValueAt(ctx, spec, 'Creatinine', draw.h);
           value = NS.LABS.egfr(cr, ctx.age, ctx.sex);
+        } else if (code === 'Total protein') {
+          value = U.round(labValueAt(ctx, spec, 'Albumin', draw.h) + 3.1 + ctx.noise(0.15), 1);   // total protein follows albumin (plus globulins)
         } else if (code === 'Hematocrit') {
           // hematocrit follows hemoglobin (about 3x)
           value = U.round(labValueAt(ctx, spec, 'Hemoglobin', draw.h) * 3 + ctx.noise(0.4), 1);

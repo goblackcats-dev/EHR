@@ -627,5 +627,9 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 - **Orders:** click a column heading (Order, Category, Status, Frequency, Start, Provider) to sort ascending; click again for descending. An arrow ▲ or ▼ shows the column and direction.
 - **Chart Review:** a **Sort** bar above the list (Date, Title, Author, Type) sorts notes, H&P, imaging and the other tabs the same way (notes stay grouped by note type, sorted within each group).
 
+## New in v44: daily labs and drug monitoring (Hip Fracture)
+
+- Hip fracture patients now get **daily 0500 CBC and full CMP** (with liver tests), **magnesium** and **phosphorus** when needed, and the labs, ECGs and orders that their **medicines require**: daily PT/INR with warfarin; ECGs and potassium/magnesium goals with Tikosyn (dofetilide) or sotalol; digoxin and vancomycin levels; methotrexate and heparin monitoring; QTc monitoring when two QT-prolonging drugs are combined. It reads the final medication list, including your edits. See `case-builder/README.md`. Other diagnoses are unchanged for now.
+
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.

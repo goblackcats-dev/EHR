@@ -60,3 +60,17 @@ This is an educational tool with fictional patients. The defaults are common, pl
 ## For whoever works on the code next
 
 All the files are plain JavaScript (no build step). `primary_*.js` hold one diagnosis each as a list of events and keyframes in **hours since admission**; `history.js` holds the medical-history modules; `rules.js` holds the rules between them; `engine.js`, `build.js` and `generate.js` turn that into the EHR's canonical v2 JSON; `notes.js` writes the notes; `ai.js` is the optional Claude step; `app.js` is the screen.
+
+
+## v44: medication- and condition-driven monitoring (hip fracture first)
+
+Real inpatients get routine daily labs, and their medicines add more. `monitoring.js` looks at the **final** medication list (after your medication edits) and adds the labs, ECGs and monitoring orders that go with it. For now it runs only for **Hip Fracture** (the profile sets `medMonitoring: true`); other diagnoses are unchanged.
+
+- **Daily 0500 labs:** CBC (WBC, Hgb, Hct, platelets) and a full CMP (sodium, potassium, chloride, CO2, BUN, creatinine, glucose, calcium, AST, ALT, alkaline phosphatase, bilirubin, albumin, total protein), plus **magnesium** when it is needed (loop diuretic, PPI, QT drugs, digoxin, antiarrhythmics, heart failure, atrial fibrillation, surgery) and **phosphorus** (kidney disease or low albumin). The ED draw counts for hospital day 1; the first routine AM draw is the next morning. The admission set also includes liver tests and total protein. Total protein follows albumin.
+- **Warfarin:** daily PT/INR with an order that says to check the INR before each dose.
+- **Heparin / enoxaparin / DOACs:** platelet (HIT) and kidney monitoring orders. **ACE inhibitor / ARB / diuretic:** potassium and creatinine order. **Methotrexate:** CBC, kidney and liver check before each weekly dose with hold limits.
+- **Digoxin:** level at steady state. **Vancomycin:** trough before the 4th dose. **Lithium, phenytoin, tacrolimus:** drug levels.
+- **Dofetilide (Tikosyn) or sotalol:** baseline ECG, a 12-lead ECG with QTc 2-3 hours after each of the first 5 doses, potassium and magnesium before dosing with goals (K 4.0+, Mg 2.0+), telemetry, and hold limits (QTc above 500 ms or a 15% rise). **Amiodarone:** TSH and ECG monitoring.
+- **Two or more QT-prolonging drugs** (for example ondansetron with sertraline): a QTc monitoring order.
+
+To use it for another diagnosis, add `medMonitoring: true` to that profile's spec and add any new drug rule to `monitoring.js`.

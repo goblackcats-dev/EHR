@@ -14,6 +14,7 @@ NS.buildCase = function buildCase(input) {
 
   // 2. Medications and orders
   const prepared = NS.medEdit.apply(ctx, spec, B.prepareMeds(ctx, spec), input.medEdits);
+  if (NS.monitor) NS.monitor.apply(ctx, spec, prepared);   // labs, ECGs and monitoring orders that go with the final medication list
   const med = B.buildMedicationOrders(ctx, spec, prepared);
   med.orders.forEach((o, i) => { o._src = prepared[i]; });
   const rank = o => (o.status !== 'Active' ? 4 : o.mar.category === 'continuous' ? 1 : o.mar.category === 'prn' ? 3 : 0);

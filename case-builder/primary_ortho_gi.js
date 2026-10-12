@@ -42,7 +42,7 @@ NS.OG = NS.OG || {};
         avoid: ['cephalosporin', 'cefazolin'], alt: { key: 'vancomycin_ppx', name: 'vancomycin IVPB', dose: `${Math.round(ctx.weightKg * 15 / 250) * 250} mg`, freq: 'q12h', cls: 'Glycopeptide antibiotic', info: 'Used because of cephalosporin allergy. Start infusion 60-120 minutes before incision; infuse over at least 90 minutes. Watch for red man reaction.', monitor: ['Cr'], renal: { ckd3: { freq: 'q24h', note: 'Interval extended for reduced kidney function.' }, esrd: { freq: 'q24h', note: 'Interval extended for ESRD.' } } },
         renal: { ckd3: { freq: 'q12h', note: 'Interval extended for reduced kidney function.' }, esrd: { freq: 'q24h', note: 'Interval extended for ESRD.' } } };
       const spec = {
-        primaryTeam: 'surgeon', typicalLOS: [4, 6], fallRiskBoost: 2, noBowelRegimen: true,
+        primaryTeam: 'surgeon', typicalLOS: [4, 6], fallRiskBoost: 2, noBowelRegimen: true, medMonitoring: true,
         problem: { name: arthro ? 'Hip fracture (femoral neck)' : 'Hip fracture (intertrochanteric)', details: `${side} hip fracture after a ground-level fall; ${arthro ? 'hemiarthroplasty' : 'intramedullary nail fixation'} planned within 24-48 hours.` },
         chief: `${side} hip pain after a fall; unable to bear weight`,
         hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} who tripped on the way to the bathroom at night and fell onto the ${sl} side from standing height. Immediate severe ${sl} hip and groin pain with inability to stand or bear weight; the ${sl} leg was shortened and turned outward when EMS arrived. No loss of consciousness, head strike, chest pain, palpitations or preceding dizziness. Denies numbness or tingling in the foot. Received fentanyl 25 mcg IV from EMS.`,
