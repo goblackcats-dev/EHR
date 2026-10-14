@@ -18,3 +18,6 @@ Screens reviewed at iPad landscape (1180x820): Summary, Brain/Worklist, Chart Re
 Round 1 (shell): header, banner, tools menu, page headers, buttons, cards, sidebar, type. Delivered as `epic.css` + `ui-shell.js` loaded last so it is easy to review and adjust.
 Round 2 (pages): MAR, Orders, Results, Flowsheets, Brain, Summary, dialogs.
 Round 3: re-screenshot everything, critique, refine.
+
+## Round 2 (done, v46)
+Chart Review tabs are now flat underlined tabs; note/record lists are flat rows with an accent bar; Brain buttons and Summary values compacted; dialogs flatter; storyboard flattened. Remaining ideas: sticky patient strip on scroll, tighter Flowsheet row labels, dark-text weights in tables.
