@@ -18,7 +18,7 @@ const bad = ['quiz.js', 'student-link.js', 'make-student.js'];
 if (scripts.some(s => bad.includes(s))) { console.error('instructor script present in student page'); process.exit(1); }
 if (/case-builder|casestudy|openLibraryBtn|openImportBtn|libraryDialog|importDialog/.test(h.replace(/<script src[^>]*>/g, ''))) { console.error('instructor markup still present'); process.exit(1); }
 fs.writeFileSync(out + '/index.html', h);
-const files = new Set(scripts.concat(['manifest-student.webmanifest','styles.css', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png']));
+const files = new Set(scripts.concat(['manifest-student.webmanifest','styles.css', 'epic.css', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png']));
 files.delete('manifest-student.webmanifest');
 fs.writeFileSync(out + '/manifest-student.webmanifest', fs.readFileSync('manifest-student.webmanifest', 'utf8').replace('./student.html', './'));
 files.forEach(f => { if (!fs.existsSync(f)) { console.error('missing ' + f); process.exit(1); } fs.copyFileSync(f, path.join(out, f)); });

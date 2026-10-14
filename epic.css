@@ -1,0 +1,74 @@
+/* NursingSim - Epic-style look (v46). Loaded after styles.css; overrides only. Flat, dense, compact header, system font. */
+:root { --bg: #f2f4f7; --border: #d3d9e0; --border-dark: #aeb7c2; --text: #1d2733; --muted: #5d6b7a; --brand: #0b5cad; --active: #e3effb; --appbar: #0b3d73; --radius: 3px; }
+body { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 14px; line-height: 1.35; }
+
+/* ---- header: slim app bar + patient banner ---- */
+.topbar { height: auto; display: grid; grid-template-columns: auto 1fr auto auto; grid-template-areas: "brand . clock actions" "banner banner banner banner"; gap: 0 14px; padding: 0; background: var(--appbar); border-bottom: 0; align-items: center; }
+.brand-block { grid-area: brand; padding: 4px 12px; gap: 8px; }
+.logo { width: 26px; height: 26px; border-radius: 4px; font-size: 12px; }
+.app-name { font-size: 14px; font-weight: 600; } .app-subtitle { display: none; }
+.simulation-clock { grid-area: clock; display: flex; align-items: center; gap: 8px; background: transparent; border: 0; box-shadow: none; padding: 0; min-width: 0; color: #fff; }
+.simulation-clock-label { display: none; }
+.simulation-clock-time { font-size: 13px; font-weight: 600; color: #fff; }
+.simulation-clock-controls { display: flex; flex-wrap: nowrap; gap: 4px; }
+.clock-button { min-height: 28px; min-width: 36px; padding: 0 8px; font-size: 12px; border-radius: var(--radius); background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.35); }
+.top-actions { grid-area: actions; padding: 4px 12px 4px 0; gap: 6px; position: relative; }
+.tools-menu { position: relative; }
+.tools-btn, .top-actions .primary-button, .top-actions .top-button { min-height: 28px; padding: 0 10px; font-size: 12px; font-weight: 600; border-radius: var(--radius); background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.35); cursor: pointer; }
+.top-actions .primary-button { background: #fff; color: var(--appbar); }
+.tools-pop { position: absolute; right: 0; top: 34px; z-index: 50; min-width: 200px; background: #fff; border: 1px solid var(--border-dark); border-radius: var(--radius); box-shadow: 0 6px 18px rgba(0,0,0,.2); padding: 4px 0; display: flex; flex-direction: column; }
+.tools-pop.hidden { display: none; }
+.tools-pop .top-link, .tools-pop .top-button, .tools-pop .primary-button { min-height: 40px; width: 100%; justify-content: flex-start; background: #fff; color: var(--text); border: 0; border-radius: 0; font-size: 14px; font-weight: 500; padding: 0 14px; text-align: left; }
+.tools-pop .top-link:hover, .tools-pop .top-button:hover, .tools-pop .primary-button:hover { background: var(--active); }
+
+.patient-banner { grid-area: banner; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; border: 0; border-radius: 0; border-bottom: 1px solid var(--border-dark); background: #fff; padding: 6px 14px; min-height: 44px; }
+.patient-banner .patient-name { font-size: 17px; font-weight: 700; color: var(--brand); }
+.patient-demographics { margin: 0; font-size: 13px; color: var(--text); }
+.patient-alerts { margin: 0; gap: 6px; margin-left: auto; }
+.patient-alerts > * { border-radius: 2px; font-size: 12px; padding: 2px 8px; }
+
+/* ---- workspace ---- */
+.workspace { grid-template-columns: 188px minmax(0, 1fr); min-height: 0; }
+.sidebar { background: #fff; padding: 8px 0; }
+.sidebar-section-title { margin: 4px 14px 6px; }
+.nav-item, .nav-subitem { border-radius: 0; padding: 9px 14px; font-size: 14px; border-left: 3px solid transparent; }
+.nav-subitem { padding-left: 28px; font-size: 13px; }
+.nav-item.active, .nav-subitem.active { background: var(--active); color: var(--brand); border-left-color: var(--brand); font-weight: 600; }
+.content { padding: 10px 14px; }
+.section-header { margin-bottom: 8px; align-items: center; }
+.section-header h1 { font-size: 18px; font-weight: 600; }
+.section-header p { display: none; }
+.status-pill { border-radius: 2px; padding: 3px 8px; font-size: 12px; background: transparent; border: 0; color: var(--muted); }
+
+/* ---- cards, buttons, tables ---- */
+.card, .chart-review-card, .results-review-card, .mar-card { border-radius: var(--radius); box-shadow: none; border-color: var(--border); }
+.card-header, .record-list-header, .record-detail-header { padding: 7px 12px; background: #f6f8fa; }
+.card-header h2, .sticky-header h2, .record-list-header h2, .record-detail-header h2 { font-size: 14px; font-weight: 600; }
+.primary-button, .secondary-button, .file-button, .small-tool-button { border-radius: var(--radius); font-weight: 600; font-size: 13px; padding: 6px 10px; min-height: 34px; }
+.secondary-button, .small-tool-button { border-color: var(--border-dark); color: var(--text); background: #fff; }
+.primary-button { background: var(--brand); }
+table th, .data-table th { font-weight: 600; font-size: 12px; text-transform: none; }
+table td, table th { padding-top: 5px; padding-bottom: 5px; }
+dialog { border-radius: var(--radius); }
+
+/* ---- MAR: one-line medication rows (details open on click) ---- */
+.mar-med-subtext, .mar-hint { display: none; }
+.mar-row-left { padding: 8px 12px; }
+.mar-med-name { font-size: 14px; }
+.mar-row { min-height: 0; }
+.mp-pt-pill { font-size: 11px; padding: 2px 8px; margin: 0; border-radius: 2px; }
+
+/* ---- denser MAR / Orders / Flowsheets ---- */
+.mar-row, .mar-timeline-header-wrap { grid-template-columns: 300px 1fr; }
+.mar-admin-line { display: none; }
+.mar-cell { min-height: 52px; }
+.mar-event-pill { top: 6px; }
+.mar-row-left { padding: 6px 10px; }
+.orders-layout { grid-template-columns: 190px minmax(0, 1fr); min-height: 0; }
+.orders-detail-panel { grid-column: 1 / -1; border-top: 2px solid var(--border-dark); }
+.orders-detail-body { columns: 2; column-gap: 24px; }
+.orders-table td { white-space: normal; }
+.order-subtext { display: none; }
+.orders-table th, .orders-table td { padding: 5px 8px; }
+.flowsheet-layout { grid-template-columns: 150px minmax(520px, 1fr) 280px; min-height: 0; }
+.flowsheet-sidebar .sidebar-section-title, .flowsheet-sidebar h2 { font-size: 13px; }
