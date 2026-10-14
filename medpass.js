@@ -450,6 +450,7 @@
     const t = `Scanning: ${cfg().scanRequired ? 'On' : 'Off'}`; if (b.textContent !== t) b.textContent = t;
   }
   function addToolbar() {
+    if (window.NS_STUDENT) return;
     const bar = document.querySelector('.mar-subtoolbar'); if (!bar || $('mpToggleBtn')) return;
     const sp = bar.querySelector('.mar-subtoolbar-spacer');
     const mk = (id, text, fn) => { const b = document.createElement('button'); b.className = 'small-tool-button'; b.id = id; b.textContent = text; b.addEventListener('click', fn); bar.insertBefore(b, sp); };
@@ -496,7 +497,7 @@
     $('mpTrapMed').innerHTML = meds.length ? meds.map(m => `<option value="${esc(m.order.id)}">${esc(m.order.name)} ${esc(safe(m.order.medication && m.order.medication.dose, ''))} (due ${esc(m.time)})</option>`).join('') : '<option value="">No medications are due right now</option>';
     $('mpTrapList').innerHTML = c.traps.length ? `<table class="data-table"><thead><tr><th>Trap</th><th>Medication</th><th></th></tr></thead><tbody>${c.traps.map((t, i) => `<tr><td>${esc(t.label)}</td><td>${esc(t.medName)}</td><td><button class="secondary-button" data-undo="${i}">Remove</button></td></tr>`).join('')}</tbody></table>` : '<div class="empty-state">No traps seeded.</div>';
   }
-  function openSetup() { if (!cfg()) return; const d = ensureSetup(); $('mpTrapMsg').textContent = ''; renderSetup(); d.showModal(); }
+  function openSetup() { if (window.NS_STUDENT || !cfg()) return; const d = ensureSetup(); $('mpTrapMsg').textContent = ''; renderSetup(); d.showModal(); }
 
   function addTrap() {
     const c = cfg(), id = $('mpTrapMed').value, type = $('mpTrapType').value, msg = $('mpTrapMsg');

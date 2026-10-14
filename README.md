@@ -633,3 +633,9 @@ A trigger is a sudden change in the patient's condition during the 8-hour simula
 
 ## Suggested next project
 The next major item should be built separately: a **Faculty Case Builder** that accepts a much smaller scenario description and produces validated canonical v2 patient JSON for this EHR.
+
+
+## v45 - Secure student links
+- **Student Link** button (instructor page): locks the open patient, downloads a `.enc.json` file, and gives an emailable link (`https://student-site/?case=ID#k=KEY`) plus a ready-made email.
+- **Student-only site**: `node make-student-site.js` builds `student-site/` (no Case Builder, Quiz, faculty rubrics, setup, library, import). Upload it to its own GitHub repo. See `SECURITY.md`.
+- Faculty rubrics and Med-pass setup are now also disabled inside the student app itself.

@@ -1768,6 +1768,12 @@ function refreshSimulationView(preserveSection = true) {
   persistCase();
 }
 
+// The student site leaves out the instructor dialogs (import, saved patients). elOrStub returns a harmless stand-in when an element is not on the page.
+function elOrStub(id) {
+  const e = document.getElementById(id); if (e) return e;
+  const noop = () => {};
+  return { addEventListener: noop, removeEventListener: noop, showModal: noop, close: noop, focus: noop, click: noop, setAttribute: noop, classList: { add: noop, remove: noop, toggle: noop, contains: () => false }, style: {}, dataset: {}, value: '', textContent: '', innerHTML: '', className: '', files: [], querySelector: () => null, querySelectorAll: () => [], appendChild: noop, open: false };
+}
 const SAVED_CASE_KEY = window.NS_STUDENT ? 'nursingsim.student.case.v1' : 'nursingsim.case.v1';
 
 function persistCase() {
@@ -2285,7 +2291,7 @@ const elements = {
   chartAssessmentField: document.getElementById('chartAssessmentField'),
   chartAssessmentValue: document.getElementById('chartAssessmentValue'),
   chartAssessmentAbnormal: document.getElementById('chartAssessmentAbnormal'),
-  chartAssessmentMessage: document.getElementById('chartAssessmentMessage'), labDetailTitle: document.getElementById('labDetailTitle'), labDetailMeta: document.getElementById('labDetailMeta'), labDetailBody: document.getElementById('labDetailBody'), importDialog: document.getElementById('importDialog'), jsonInput: document.getElementById('jsonInput'), importMessage: document.getElementById('importMessage'), validationSummary: document.getElementById('validationSummary'), validationResults: document.getElementById('validationResults'), schemaBlock: document.getElementById('schemaBlock')
+  chartAssessmentMessage: document.getElementById('chartAssessmentMessage'), labDetailTitle: document.getElementById('labDetailTitle'), labDetailMeta: document.getElementById('labDetailMeta'), labDetailBody: document.getElementById('labDetailBody'), importDialog: elOrStub('importDialog'), jsonInput: elOrStub('jsonInput'), importMessage: elOrStub('importMessage'), validationSummary: elOrStub('validationSummary'), validationResults: elOrStub('validationResults'), schemaBlock: elOrStub('schemaBlock')
 };
 
 let currentPatientData = structuredClone(samplePatient);
@@ -3402,11 +3408,11 @@ function renderPatient(data) { const normalized = normalizeCaseData(data); curre
 function openImportDialog() { elements.importMessage.textContent = ''; elements.importMessage.className = 'import-message'; if (elements.validationSummary) elements.validationSummary.textContent = 'Validation has not been run.'; if (elements.validationResults) elements.validationResults.innerHTML = ''; if (!elements.jsonInput.value.trim()) elements.jsonInput.value = JSON.stringify(legacyToCanonical(samplePatient), null, 2); elements.importDialog.showModal(); }
 function applyImport() { try { let parsed = JSON.parse(elements.jsonInput.value); if (parsed && parsed.canonical && parsed.canonical.patient) parsed = parsed.canonical; const report = validateCaseInput(parsed); renderValidationReport(report); if (report.errors > 0) { elements.importMessage.textContent = 'Import blocked. Resolve validation errors first.'; elements.importMessage.className = 'import-message error'; return; } renderPatient(report.canonical); elements.importMessage.textContent = report.warnings ? `Patient imported with ${report.warnings} warning(s).` : 'Patient imported successfully.'; elements.importMessage.className = report.warnings ? 'import-message' : 'import-message success'; setTimeout(() => elements.importDialog.close(), 650); } catch (error) { elements.importMessage.textContent = `Import failed: ${error.message}`; elements.importMessage.className = 'import-message error'; } }
 
-document.getElementById('openImportBtn').addEventListener('click', openImportDialog);
-document.getElementById('closeImportBtn').addEventListener('click', () => elements.importDialog.close());
-document.getElementById('applyImportBtn').addEventListener('click', applyImport);
+elOrStub('openImportBtn').addEventListener('click', openImportDialog);
+elOrStub('closeImportBtn').addEventListener('click', () => elements.importDialog.close());
+elOrStub('applyImportBtn').addEventListener('click', applyImport);
 
-document.getElementById('validateImportBtn').addEventListener('click', () => {
+elOrStub('validateImportBtn').addEventListener('click', () => {
   try {
     let parsed = JSON.parse(elements.jsonInput.value);
     if (parsed && parsed.canonical && parsed.canonical.patient) parsed = parsed.canonical;
@@ -3437,8 +3443,8 @@ document.getElementById('validateImportBtn').addEventListener('click', () => {
   }
 });
 
-document.getElementById('loadSampleBtn').addEventListener('click', () => { elements.jsonInput.value = JSON.stringify(legacyToCanonical(samplePatient), null, 2); elements.importMessage.textContent = 'Canonical v2 sample loaded. Validate it before importing.'; elements.importMessage.className = 'import-message'; if (elements.validationSummary) elements.validationSummary.textContent = 'Validation has not been run.'; if (elements.validationResults) elements.validationResults.innerHTML = ''; });
-document.getElementById('fileInput').addEventListener('change', event => { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { elements.jsonInput.value = reader.result; elements.importMessage.textContent = `Loaded file: ${file.name}`; elements.importMessage.className = 'import-message'; }; reader.onerror = () => { elements.importMessage.textContent = 'Unable to read selected file.'; elements.importMessage.className = 'import-message error'; }; reader.readAsText(file); });
+elOrStub('loadSampleBtn').addEventListener('click', () => { elements.jsonInput.value = JSON.stringify(legacyToCanonical(samplePatient), null, 2); elements.importMessage.textContent = 'Canonical v2 sample loaded. Validate it before importing.'; elements.importMessage.className = 'import-message'; if (elements.validationSummary) elements.validationSummary.textContent = 'Validation has not been run.'; if (elements.validationResults) elements.validationResults.innerHTML = ''; });
+elOrStub('fileInput').addEventListener('change', event => { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { elements.jsonInput.value = reader.result; elements.importMessage.textContent = `Loaded file: ${file.name}`; elements.importMessage.className = 'import-message'; }; reader.onerror = () => { elements.importMessage.textContent = 'Unable to read selected file.'; elements.importMessage.className = 'import-message error'; }; reader.readAsText(file); });
 elements.navItems.forEach(btn => btn.addEventListener('click', () => setMainSection(btn.dataset.section)));
 elements.navSubItems.forEach(btn => btn.addEventListener('click', () => setMainSection('chartReview', btn.dataset.chartTab)));
 elements.chartTabs.forEach(btn => btn.addEventListener('click', () => renderChartReviewTab(btn.dataset.chartTab, 0)));
@@ -3494,7 +3500,7 @@ if (elements.timebarForward) elements.timebarForward.addEventListener('click', (
 // ---------------------------------------------------------------------------------------------
 // Saved patients (library.js)
 let currentLibraryId = null, currentLibraryName = '';
-function libEl(id) { return document.getElementById(id); }
+function libEl(id) { return elOrStub(id); }
 function libMessage(text, kind = '') { const box = libEl('libMessage'); box.textContent = text || ''; box.className = `lib-message ${kind}`; }
 function libWhen(iso) { try { const d = new Date(iso); return `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${String(d.getFullYear()).slice(2)} ${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}`; } catch (e) { return ''; } }
 
@@ -3545,7 +3551,7 @@ async function loadFromLibrary(id) {
   } catch (error) { libMessage(error.message, 'error'); }
 }
 
-document.getElementById('openStudentViewBtn').addEventListener('click', () => {
+elOrStub('openStudentViewBtn').addEventListener('click', () => {
   if (!currentCanonicalCase) { alert('Open a patient first, then press Student View.'); return; }
   NSLib.openStudentWindow({ name: `${safe(currentCanonicalCase.patient && currentCanonicalCase.patient.name)}`, canonical: currentCanonicalCase });
 });

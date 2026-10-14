@@ -239,14 +239,14 @@
     dlg = document.createElement('dialog'); dlg.id = 'handoffDialog'; dlg.className = 'handoff-dialog';
     dlg.innerHTML = `<div class="dialog-header"><div><h2>Give handoff report</h2><p>Give report to the next nurse about this patient <b>as the chart stands now</b>. Type it, or tap the microphone and speak. Your report is scored against a rubric built from this patient's chart.</p></div><button id="hoClose" class="icon-button" aria-label="Close">×</button></div>
       <div class="dialog-body"><div class="ho-actions"><button id="hoFmtFive" class="primary-button">Five-part report</button> <button id="hoFmtIpass" class="secondary-button">I-PASS</button></div><div id="hoForm"></div>
-        <div class="ho-actions"><button id="hoScore" class="primary-button">Score my report</button> <button id="hoClear" class="secondary-button">Clear</button> <button id="hoRubric" class="secondary-button">Faculty: view rubric</button></div>
+        <div class="ho-actions"><button id="hoScore" class="primary-button">Score my report</button> <button id="hoClear" class="secondary-button">Clear</button> ${window.NS_STUDENT ? '' : '<button id="hoRubric" class="secondary-button">Faculty: view rubric</button>'}</div>
         <div id="hoResult"></div><div id="hoHistory"></div></div>`;
     document.body.appendChild(dlg);
     buildForm();
     $('hoClose').addEventListener('click', () => { stopMic(); dlg.close(); });
     $('hoScore').addEventListener('click', doScore);
     $('hoClear').addEventListener('click', () => { boxes().forEach(b => { $('ho_' + b.id).value = ''; }); $('hoResult').innerHTML = ''; });
-    $('hoRubric').addEventListener('click', showRubric);
+    if ($('hoRubric')) $('hoRubric').addEventListener('click', showRubric);
     $('hoFmtFive').addEventListener('click', () => { fmt = 'five'; buildForm(); });
     $('hoFmtIpass').addEventListener('click', () => { fmt = 'ipass'; buildForm(); });
     return dlg;
@@ -297,6 +297,7 @@
   }
 
   function showRubric() {
+    if (window.NS_STUDENT) return;
     const r = buildRubric(); if (!r) return;
     let html = `<p>Patient status: <b>${esc(r.severity)}</b>. Total <b>${r.total}</b> points. Items are built from the chart at ${esc(epicDate(r.at))}; advance the simulation clock to the end of the shift to build the end-of-shift rubric. A fact earns full credit in its own section, 60% if said in another section; a wrong number or a safety error scores zero (safety errors cost 2 points).</p>`;
     BOXES.forEach(b => {

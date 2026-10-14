@@ -162,10 +162,10 @@
     $('sbBody').innerHTML = `<div class="tc-card"><b>Situation for your call:</b> ${esc(F.pt.name)} (room ${esc(safe(F.enc.room))}) as of ${esc(epicDate(F.now))}.<br><b>Reason to call:</b> ${esc(curC.summary)}<br><span class="fs-muted">Latest vital signs: ${esc(curC.vitalsLine)}</span></div>
       <p class="fs-muted">Call the provider about this problem. Write or speak the call in the four boxes. You are the nurse calling.</p>` +
       BOXES.map(b => `<div class="ho-box"><div class="ho-box-head"><b>${esc(b.title)}</b><button type="button" class="small-tool-button sb-mic" data-mic="${b.id}">🎤 Speak</button></div><div class="ho-hint">${esc(b.hint)}</div><textarea id="sb_${b.id}" rows="3" placeholder="Say or type this part of the call..."></textarea></div>`).join('') +
-      `<div class="ho-actions"><button id="sbScore" class="primary-button">Score my call</button> <button id="sbRubric" class="secondary-button">Faculty: view rubric</button></div><div id="sbResult"></div>`;
+      `<div class="ho-actions"><button id="sbScore" class="primary-button">Score my call</button> ${window.NS_STUDENT ? '' : '<button id="sbRubric" class="secondary-button">Faculty: view rubric</button>'}</div><div id="sbResult"></div>`;
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     $('sbBody').querySelectorAll('.sb-mic').forEach(btn => { if (!SR) btn.classList.add('hidden'); btn.addEventListener('click', () => toggleMic(btn, SR)); });
-    $('sbScore').addEventListener('click', doScore); $('sbRubric').addEventListener('click', facultyRubric);
+    $('sbScore').addEventListener('click', doScore); if ($('sbRubric')) $('sbRubric').addEventListener('click', facultyRubric);
   }
   function doScore() {
     const texts = {}; BOXES.forEach(b => { texts[b.id] = $('sb_' + b.id).value; });
@@ -185,6 +185,7 @@
     renderHistory(); $('sbResult').scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
   function facultyRubric() {
+    if (window.NS_STUDENT) return;
     const F = facts(), C = curC || concern(F), items = buildRubric(F, C);
     const html = `<p>Reason for the call: <b>${esc(C.summary)}</b>. A fact earns full credit in its own box, 60% in another box. Wrong code status or "no allergies" when the patient has allergies costs 2 points.</p>` + BOXES.map(b => `<h3>${esc(b.title)}</h3><table class="data-table"><thead><tr><th>Student should say</th><th>From the chart / example</th><th>Points</th></tr></thead><tbody>${items.filter(i => i.box === b.id).map(i => `<tr><td>${esc(i.label)}</td><td>${esc(i.expected)}</td><td>${i.points}</td></tr>`).join('')}</tbody></table>`).join('');
     NSWristband.showDialog('SBAR call rubric', 'Built from the chart at the current simulation time.', html);

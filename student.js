@@ -32,3 +32,30 @@
     } catch (e) { alert(e.message || 'Could not open that file.'); }
   });
 })();
+
+// Secure link: https://site/?case=ID#k=KEY  -> fetch cases/ID.enc.json, unlock it with the key in the link, open the patient.
+(() => {
+  'use strict';
+  const q = new URLSearchParams(location.search), id = q.get('case'), km = /^#k=([A-Za-z0-9_-]{20,64})$/.exec(location.hash || '');
+  if (!id) return;
+  const key = km && km[1];
+  if (location.hash) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* ignore */ } } // keep the key out of the address bar and history
+  const banner = (msg) => { const d = document.createElement('div'); d.style.cssText = 'position:fixed;inset:0;background:#eef2f6;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font:18px system-ui'; d.textContent = msg; d.id = 'stuLinkMsg'; document.body.appendChild(d); return d; };
+  (async () => {
+    const wait = banner('Opening your patient…');
+    try {
+      if (!NSSecure.validId(id)) throw new Error('bad-id');
+      if (!key) throw new Error('no-key');
+      const res = await fetch('cases/' + encodeURIComponent(id) + '.enc.json', { cache: 'no-store', credentials: 'omit' });
+      if (!res.ok) throw new Error('missing');
+      const file = await NSSecure.decrypt(await res.json(), key);
+      const canon = file && file.canonical ? file.canonical : file;
+      const report = validateCaseInput(canon);
+      if (report.errors > 0) throw new Error('invalid');
+      renderPatient(report.canonical); wait.remove();
+    } catch (e) {
+      wait.textContent = e.message === 'missing' ? 'This patient is not available yet. Please try again in a few minutes, or ask your instructor.'
+        : 'This link did not work. Open the full link from your instructor’s email again (copy the whole thing, including everything after the #).';
+    }
+  })();
+})();
