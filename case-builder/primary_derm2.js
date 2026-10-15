@@ -1,2 +1,201 @@
-/* placeholder - being written */
+/* Dermatologic / wound primary diagnoses (set 2): partial-thickness scald burn (Parkland resuscitation) and Stevens-Johnson syndrome / early TEN.
+   Everything is in hours since admission (h = 0 is arrival). */
 NS.PRIMARY = NS.PRIMARY || {};
+
+// ================================================================================================
+// SCALD BURN, ~12% TBSA (right arm and chest)
+// ================================================================================================
+(() => {
+  const U = NS.util, C = NS.C;
+  const clock = (ctx, h) => { const s = U.hhmm(ctx.ts(h)); return `${s.slice(0, 2)}:${s.slice(2)}`; };
+
+  NS.PRIMARY.burn_scald = {
+    key: 'burn_scald', label: 'Scald Burn (12% TBSA)', group: 'Medical', cat: 'Dermatologic / Wound', typicalLOS: [3, 7],
+    desc: 'Kitchen scald, partial-thickness burn of the right arm and chest (about 12% TBSA). Day 1: cooling/jewelry removal, Parkland fluid resuscitation (4 mL x kg x %TBSA, half in the first 8 hours from the burn), Foley with hourly urine output, tetanus, burn center consult, silver dressings, opioids. Day 2: resuscitation complete, Foley out. Day 3-5: dressing-change teaching, PT/OT, discharge home with burn clinic. Day 8+: slow-healing deep area, grafting discussion.',
+    build(ctx) {
+      const W = ctx.weightKg, TBSA = 12, low = ctx.age >= 75 || W < 55;
+      const burnH = -1, fluid1 = 0.5, end1 = burnH + 8, end2 = burnH + 24;               // 8 and 24 hours are counted from the TIME OF THE BURN, not from arrival
+      const total = Math.round(4 * W * TBSA), half = Math.round(total / 2);
+      const r1 = Math.round(half / (end1 - fluid1)), r2 = Math.round(half / (end2 - end1));
+      const uop = Math.round(W * 0.5), foleyOut = 30;
+      const burnClk = clock(ctx, burnH), end1Clk = clock(ctx, end1), end2Clk = clock(ctx, end2);
+      const park = `Parkland formula: 4 mL x ${W} kg x ${TBSA}% TBSA = ${total.toLocaleString()} mL of lactated Ringer's in the first 24 hours from the time of burn (${burnClk}). Half (${half.toLocaleString()} mL) in the first 8 hours (by ${end1Clk}); the second half (${half.toLocaleString()} mL) over the next 16 hours (until ${end2Clk}). Because the patient arrived 1 hour after the burn, the first half is infused over 7.5 hours. Only partial- and full-thickness areas count in %TBSA.`;
+      const fluidNursing = [`Titrate hourly to urine output ${uop} mL/hr (0.5 mL/kg/hr): increase the rate about 20-25% if below goal for 2 hours, decrease about 20-25% if above 1 mL/kg/hr (avoids over-resuscitation / "fluid creep").`, 'Do not stop or bolus without the provider; count oral fluids as intake. Assess lungs, edema, HR, BP and capillary refill hourly.', 'Notify provider: urine output below goal after one rate increase, dark/cola-colored urine, SBP below 90, HR above 120, new crackles or dyspnea.'];
+      const sulfa = ctx.allergic('sulfa');
+      const ssd = { key: 'silver_sulfadiazine', name: 'silver sulfadiazine 1% (SILVADENE) cream', dose: 'thin layer (1/16 inch)', route: 'Topical', freq: 'q24h', stat: true, startH: 1.5, cls: 'Topical antimicrobial (sulfonamide)',
+        info: 'Apply a 1/16-inch layer with a sterile gloved hand to the cleansed, debrided burn, cover with non-adherent gauze and rolled gauze secured with stockinette (no tape on skin). Remove old cream gently at each dressing change; the yellow-gray film it leaves is pseudoeschar, not pus. Contains a sulfonamide: do NOT use with sulfa allergy. Can cause transient leukopenia (check WBC days 2-4) and stings on application. Avoid on the face.',
+        monitor: ['WBC', 'Temp'], indication: 'Burn wound infection prevention (partial-thickness burn)', by: 'ed', avoid: ['sulfa'], hold: 'Hold and call the provider for rash, new burning beyond the dressing, or WBC below 3.',
+        alt: { key: 'silver_foam', name: 'silver foam dressing (MEPILEX AG)', dose: '1 dressing (sized to wound)', route: 'Topical', cls: 'Silver antimicrobial foam dressing', info: 'Used instead of silver sulfadiazine because of sulfa allergy. Apply to the cleansed burn with a 2 cm margin on intact skin, secure with rolled gauze or stockinette (no tape on skin). Inspect daily; change every 3 days or when strike-through occurs. Remove gently with saline; no cream needed.', hold: 'Remove and call provider for increasing pain, odor, purulence or spreading redness.' } };
+      const spec = {
+        primaryTeam: 'surgeon', typicalLOS: [3, 7], fallRiskBoost: 1, noAutoProlonged: true, medMonitoring: true, isolation: 'None', fluidSensitive: false,
+        problem: { name: 'Partial-thickness scald burn, 12% TBSA', details: `Scald burn of the right anterior chest and right arm (circumferential forearm), about ${TBSA}% TBSA, superficial to mid-dermal partial thickness; Parkland resuscitation and daily silver dressings.` },
+        chief: 'Scald burn to the right arm and chest',
+        hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} who pulled a pot of boiling water off the stove onto the right arm and chest about 1 hour before arrival (${burnClk}). Clothing was removed at once and the area cooled under running tap water for about 10 minutes, then covered with a clean dry sheet by EMS. Immediate severe burning pain with blisters over the right chest and right arm; rings and a watch were removed by EMS. No face, neck or hand-palm burn, no smoke or steam inhalation, hoarseness, cough, loss of consciousness or other injury. Pain 9/10 on arrival. Tetanus immunization more than 5 years ago or unknown.`,
+        ros: 'Positive for burn pain, blistering and anxiety. Negative for hoarseness, cough, wheeze, shortness of breath, chest pain, headache, loss of consciousness, numbness of the fingers, abdominal pain, vomiting and other injuries.',
+        keyLabs: ['Hemoglobin', 'WBC', 'Sodium', 'Potassium', 'Creatinine', 'BUN', 'Albumin', 'Lactate'], hpLabs: ['Hemoglobin', 'WBC', 'Sodium', 'Potassium', 'Creatinine', 'Glucose', 'Lactate'],
+        famHxExtra: 'No family history of bleeding or wound-healing problems.',
+        flags: { npo: [] },
+        vitals: [
+          { h: 0, temp: 98.0, hr: 112, sbp: 148, dbp: 90, rr: 22, spo2: 98, pain: 9, o2: 'Room air' }, { h: 1.5, temp: 97.8, hr: 106, sbp: 142, dbp: 86, rr: 20, spo2: 98, pain: 7 },
+          { h: 3, temp: 98.0, hr: 100, sbp: 136, dbp: 82, rr: 18, spo2: 98, pain: 5 }, { h: 6, temp: 98.4, hr: 96, sbp: 132, dbp: 80, rr: 18, spo2: 98, pain: 5 },
+          { h: 12, temp: 98.8, hr: 94, sbp: 130, dbp: 78, rr: 18, spo2: 98, pain: 4 }, { h: 24, temp: 99.6, hr: 94, sbp: 128, dbp: 78, rr: 18, spo2: 98, pain: 4 },
+          { h: 36, temp: 100.0, hr: 90, sbp: 128, dbp: 76, rr: 18, spo2: 98, pain: 4 }, { h: 48, temp: 99.4, hr: 86, sbp: 126, dbp: 76, rr: 16, spo2: 98, pain: 3 },
+          { h: 72, temp: 98.8, hr: 82, sbp: 124, dbp: 74, rr: 16, spo2: 98, pain: 3 }, { h: 96, temp: 98.4, hr: 78, sbp: 122, dbp: 74, rr: 16, spo2: 98, pain: 2 },
+          { h: 150, temp: 98.4, hr: 76, sbp: 122, dbp: 72, rr: 16, spo2: 98, pain: 2 }
+        ],
+        labs: {
+          Hemoglobin: { add: [[0, 1.2], [12, 1.0], [24, 0], [48, -1.0], [96, -1.4], [168, -0.8]] },
+          WBC: { abs: [[0, 16.8], [24, 14.0], [48, 11.5], [72, 9.8], [150, 8.4]] },
+          Platelets: { add: [[0, 0], [48, -30], [96, -10], [150, 60]] },
+          Sodium: { add: [[0, -1], [24, -2], [48, -1], [96, 0]] },
+          Potassium: { add: [[0, 0.3], [12, 0], [36, -0.2], [72, -0.3]] },
+          Chloride: { add: [[0, 0], [24, 1], [72, 0]] },
+          CO2: { abs: [[0, 22], [24, 23], [48, 25]] },
+          BUN: { add: [[0, 6], [24, 4], [72, 0]] },
+          Creatinine: { add: [[0, 0.12], [24, 0.08], [48, 0]] },
+          Glucose: { add: [[0, 45], [24, 30], [48, 12], [96, 0]] },
+          Calcium: { add: [[0, -0.3], [24, -0.7], [72, -0.5], [144, -0.2]] },
+          Magnesium: { abs: [[0, 1.9], [24, 1.6], [72, 1.7], [144, 1.9]] },
+          Phosphorus: { abs: [[0, 3.2], [24, 2.6], [48, 2.2], [96, 2.8], [150, 3.3]] },
+          Albumin: { abs: [[0, 3.7], [24, 3.0], [72, 2.7], [150, 3.0]] },
+          Lactate: { abs: [[0.5, 2.6], [6, 1.8], [24, 1.1]] }
+        },
+        labSchedule: [
+          { h: 0.5, codes: ['Lactate', 'Albumin', 'Phosphorus', 'Magnesium'] },
+          { h: 6, codes: ['Sodium', 'Potassium', 'Creatinine', 'Glucose', 'Lactate', 'Hemoglobin'] },
+          { h: 26, codes: ['Albumin', 'Phosphorus'] }, { h: 50, codes: ['Albumin', 'Phosphorus'] }, { h: 98, codes: ['Albumin', 'Phosphorus'] }, { h: 146, codes: ['Albumin', 'Phosphorus'] }
+        ],
+        quals: [...(ctx.female && ctx.age < 55 ? [{ h: 1.0, category: 'Other', code: 'Urine hCG (pregnancy test)', value: 'Negative', reference: 'Negative', specimen: 'Urine' }] : [])],
+        events: [
+          { type: 'procedure', h: 1.2, duration: 0.8, name: 'Burn wound assessment, debridement and dressing, right arm and chest', label: 'Burn wound care in the ED', by: 'ed', service: 'Emergency Medicine', indication: 'Partial-thickness scald burn, about 12% TBSA',
+            findings: `Rings and watch removed from the right hand. Burn mapped with the Lund-Browder chart: right anterior upper arm and circumferential forearm about 7% and right upper anterior chest about 5% = ${TBSA}% TBSA (superficial and mid-dermal partial thickness; no full-thickness areas; hands, face, neck, perineum spared). Ruptured blisters debrided; intact small blisters left in place; wound cleansed with warm saline. ${sulfa ? 'Silver foam dressing' : 'Silver sulfadiazine'} applied, covered with non-adherent gauze and rolled gauze. Right arm elevated on pillows. Photographs placed in the chart.` },
+          { type: 'consult', h: 2.0, service: 'Regional Burn Center (telephone consultation)', author: 'M. Hartwell, MD (Burn Center)', orderedBy: 'ed', reason: `Partial-thickness scald burn about ${TBSA}% TBSA of the arm and chest`, label: 'Burn center consulted by telephone',
+            recommendation: `Meets burn center referral criteria (partial-thickness burn above 10% TBSA with a burn crossing the elbow). Review of photographs: no full-thickness areas and no inhalation injury; may be managed locally with burn center follow-up. Parkland resuscitation as a guide, titrated to urine output ${uop} mL/hr; avoid over-resuscitation. Daily silver dressings, elevation, hourly neurovascular checks of the circumferential forearm for 24 hours, early range of motion with OT. Transfer to the burn center if there is a drop in urine output despite fluids, new deep areas, hand involvement, or infection. Burn clinic visit 2-3 days after discharge.` },
+          { type: 'transfer', h: 4.0, label: 'Admitted to the surgical unit', text: 'Transferred from the ED to the surgical unit (burn-trained nursing team).' },
+          { type: 'consult', h: 156, service: 'Burn Surgery (re-evaluation)', author: 'M. Hartwell, MD (Burn Center)', orderedBy: 'surgeon', reason: 'Day 6-7 wound re-evaluation before discharge', label: 'Burn surgeon wound re-evaluation',
+            recommendation: 'Most of the burn has re-epithelialized. A 3 x 4 cm patch over the proximal forearm is deeper than first judged and has not healed. Continue silver dressings for another 5-7 days; if unhealed by day 14, excision and split-thickness skin graft. Discharge when dressing changes can be done safely at home with home health nursing; outpatient burn clinic visits twice weekly.' }
+        ],
+        meds: [
+          Object.assign(C.lrMaintenance({ start: fluid1, stop: end1, rate: r1, by: 'ed' }), { key: 'lr_parkland_1', name: "lactated Ringer's infusion (Parkland, first 8 hours from burn)", indication: `Burn resuscitation (Parkland formula, ${TBSA}% TBSA)`, highAlert: true, monitor: ['BP', 'HR'], info: `${park} Current rate = ${half.toLocaleString()} mL / 7.5 hours. Titrate to urine output.`, nursing: fluidNursing }),
+          Object.assign(C.lrMaintenance({ start: end1, stop: end2, rate: r2, by: 'surgeon' }), { key: 'lr_parkland_2', name: "lactated Ringer's infusion (Parkland, second 16 hours)", indication: 'Burn resuscitation (second half of the Parkland volume)', highAlert: true, monitor: ['BP', 'HR'], info: `${park} Current rate = ${half.toLocaleString()} mL / 16 hours. Titrate to urine output.`, nursing: fluidNursing }),
+          Object.assign(C.lrMaintenance({ start: end2, stop: end2 + 17, rate: 75, by: 'surgeon' }), { key: 'lr_maintenance', indication: 'Maintenance fluid after resuscitation until oral intake adequate', info: 'Resuscitation complete. Reduce and stop as the patient drinks 2-3 L per day; weigh daily; assess lungs and edema (fluid shifts back into the circulation on days 2-3).' }),
+          Object.assign(C.opioidIV(ctx, { start: 0.6, stop: 60, given: [0.6, 2.7, 5.6, 9.5, 15.0, 22.0, 33.0, 46.0], by: 'ed' }), { dose: low ? '2 mg' : '4 mg', info: 'HIGH-ALERT. Burn pain is severe and worst with dressing changes: give IV morphine 10 minutes before a dressing change if oral premedication is not enough. Assess pain, sedation (RASS), RR and SpO2 before and 15-30 minutes after. Hold for RR below 10 or oversedation.' }),
+          Object.assign(C.opioidPO(ctx, { start: 8, given: [8.5, 14.5, 20.5, 31.5, 39, 52, 64, 77, 90, 103, 118, 134, 150, 166, 182, 198], by: 'surgeon' }), { dose: low ? '2.5 mg' : '5 mg', info: 'HIGH-ALERT. For pain between dressing changes. Assess pain and sedation before and 30-60 minutes after; hold for RR below 10 or oversedation. Give with the bowel regimen.' }),
+          { key: 'oxycodone_premed', name: 'oxycodone (ROXICODONE) tablet, before dressing change', dose: low ? '5 mg' : '10 mg', route: 'Oral', freq: 'q24h', at: ['0800'], startH: 12.5, cls: 'Opioid analgesic', info: 'HIGH-ALERT. PREMEDICATE 30-60 minutes BEFORE the daily dressing change so the burn is covered by peak analgesia (dressing changes are the most painful part of burn care). Reassess pain and sedation before starting the dressing change; hold for RR below 10 or oversedation. Document the time of the dose and of the dressing change.', monitor: ['Pain', 'RR', 'SPO2'], hold: 'Hold for RR below 10, SpO2 below 90% or sedation.', highAlert: true, indication: 'Procedural pain: burn dressing change', by: 'surgeon', avoid: ['codeine'], alt: Object.assign(C.tramadol(), { key: 'oxycodone_premed', name: 'tramadol (ULTRAM) tablet, before dressing change', dose: '50 mg', prn: false, freq: 'q24h', at: ['0800'], prnInterval: undefined, prnFor: undefined, info: 'Used instead of oxycodone (codeine allergy). Give 30-60 minutes before the dressing change.' }) },
+          Object.assign(C.acetaminophenPO({ start: 1.0, by: 'ed' }), { dose: '1,000 mg', freq: 'q8h', stat: true, info: 'Scheduled base of multimodal analgesia (opioid-sparing). Maximum 3 g per 24 hours from all sources. Record temperature first: a low-grade fever is expected on days 2-3 (hypermetabolic response).' }),
+          { key: 'gabapentin', name: 'gabapentin (NEURONTIN) capsule', dose: low ? '100 mg' : '300 mg', route: 'Oral', freq: 'TID', startH: 26, cls: 'Anticonvulsant / neuropathic pain agent', info: 'Burn neuropathic pain and itching. Additive sedation with opioids: check sedation and fall risk before each dose. Do not stop abruptly.', monitor: ['Cr'], indication: 'Burn neuropathic pain and pruritus', by: 'surgeon', renal: { ckd3: { dose: '100 mg', freq: 'BID', note: 'Dose reduced for reduced kidney function.' }, esrd: { dose: '100 mg', freq: 'q24h', note: 'ESRD dosing; give after dialysis.' } } },
+          { key: 'tdap', name: 'tetanus, diphtheria, acellular pertussis vaccine (ADACEL)', dose: '0.5 mL', route: 'IM', freq: 'once', startH: 1.5, cls: 'Vaccine (toxoid)', info: 'Burns are tetanus-prone wounds: give a booster when the last tetanus dose was over 5 years ago or is unknown. Give IM in the deltoid of the UNBURNED left arm. Ask about prior severe reaction to a tetanus-containing vaccine. Observe for sore arm and low-grade fever.', indication: 'Tetanus prophylaxis (burn wound)', by: 'ed' },
+          ssd,
+          Object.assign(C.ondansetron({ start: 0.8, given: [0.8, 6.5], by: 'ed' }), { info: 'Opioid-related nausea. Check QTc/electrolytes with repeated dosing. Reassess nausea in 30 minutes.' }),
+          { key: 'multivitamin', name: 'multivitamin with minerals tablet', dose: '1 tablet', route: 'Oral', freq: 'daily', startH: 26, cls: 'Vitamin / mineral', info: 'Burn wound healing; hypermetabolism increases vitamin and mineral needs.', indication: 'Burn nutrition support', by: 'surgeon' },
+          { key: 'ascorbic_acid', name: 'ascorbic acid (vitamin C) tablet', dose: '500 mg', route: 'Oral', freq: 'BID', startH: 26, cls: 'Vitamin', info: 'Collagen synthesis and wound healing. Give with food. May be stopped at discharge per burn clinic.', indication: 'Burn wound healing', by: 'surgeon' }
+        ],
+        orders: [
+          C.diet('Regular diet', 0.5, undefined, 'High-protein, high-calorie (goal 1.5-2 g/kg protein per day) with oral nutrition supplement three times daily; encourage 2-3 L of oral fluid per day. Not NPO.'),
+          C.activity('Bed rest with right arm elevated; bathroom with assistance', 0.5, 24, 'Right arm on pillows above heart level; assist with first steps (pain, opioids). Keep covered and warm.'),
+          C.activity('Up with assistance; ambulate in hall 3 times daily', 24, 60, 'Right arm elevated on a pillow when seated; early range-of-motion of fingers, wrist, elbow and shoulder every 2 hours while awake.'),
+          C.activity('Up as tolerated; active range of motion right arm', 60, undefined, 'Hourly active range of motion of the right arm while awake; do not rest the arm in a sling (contracture risk).'),
+          { name: 'Burn resuscitation: Parkland formula', category: 'Nursing', frequency: 'Continuous for 24 hours from the burn', startH: 0.5, stopH: end2, instructions: park, nursing: fluidNursing },
+          { name: `Hourly urine output via Foley; goal ${uop} mL/hr (0.5 mL/kg/hr)`, category: 'Nursing', frequency: 'Every hour', startH: 0.6, stopH: foleyOut, instructions: `Record urine output hourly with color. Goal ${uop}-${uop * 2} mL/hr. Report below ${uop} mL/hr for 2 consecutive hours, above ${W} mL/hr (1 mL/kg/hr), or dark/cola-colored urine.`, nursing: ['Cola-colored urine: possible myoglobin from deep injury; call the provider at once.'] },
+          { name: 'Remove rings, watch and bracelets from the right hand', category: 'Nursing', frequency: 'Once', startH: 0.3, completeH: 1.0, instructions: 'Remove constricting jewelry before swelling develops (cut off if needed). Store with the patient\'s belongings and document.' },
+          { name: 'No blood pressure cuff, IV or blood draw on the right arm', category: 'Precautions', frequency: 'Continuous', startH: 0.5, instructions: 'Use the left arm for BP, IV access and venipuncture. Never place an IV through burned skin.' },
+          { name: 'Neurovascular and circulation checks, right arm and hand', category: 'Nursing', frequency: 'Every hour for 24 hours, then every 4 hours', startH: 1.0, stopH: 72, instructions: 'The forearm burn is circumferential and swelling peaks 12-24 hours after the burn and after fluid resuscitation. Check color, warmth, capillary refill, radial/ulnar pulses (Doppler if weak), sensation, finger movement and pain. Elevate above heart level.', nursing: ['Notify provider at once for pale/dusky or cool fingers, weak or absent pulses, numbness/tingling, severe pain with finger movement or a tight, hard forearm (compartment syndrome; escharotomy or fasciotomy evaluation).'] },
+          { name: 'Elevate right arm above heart level', category: 'Nursing', frequency: 'Continuous', startH: 0.5, instructions: 'Pillows under the forearm and hand to reduce edema. Keep fingers moving. Keep the elbow slightly bent in a position of function; do not let the arm hang or rest across the chest dressing.' },
+          { name: 'Burn wound care: cleanse, assess and dress daily', category: 'Nursing', frequency: 'Daily and PRN when saturated', startH: 1.5, instructions: `Premedicate with oral opioid 30-60 minutes first. Warm room. Remove old dressing (soak with saline if stuck), cleanse with mild soap or saline, debride loose skin and ruptured blisters (leave small intact blisters), apply ${sulfa ? 'silver foam dressing (change every 3 days; inspect daily)' : 'silver sulfadiazine 1/16 inch thick'}, cover with non-adherent gauze and rolled gauze; no adhesive tape on skin. Measure and document % TBSA, depth, color, drainage, odor.`, nursing: ['No adhesive on burned or fragile skin. Cover the patient between steps to prevent heat loss.', 'Report purulence, odor, redness spreading beyond the burn edge, new black/white leathery (full-thickness) areas, or fever with chills.'] },
+          { name: 'Burn wound infection surveillance', category: 'Nursing', frequency: 'Every shift', startH: 6, instructions: 'Compare the wound with the baseline photograph: increasing pain after day 3, foul odor, green drainage, cellulitis beyond the burn margin, new fever above 101.5 F or rising WBC suggest infection. Prophylactic systemic antibiotics are NOT given.' },
+          { name: 'Warmed room and warm blankets', category: 'Nursing', frequency: 'Continuous', startH: 0.5, instructions: 'Keep room 80-85 F (burned skin cannot hold heat); warm blankets; minimize exposed skin during care. Report temperature below 97 F.' },
+          { name: 'Daily weight', category: 'Nursing', frequency: 'Daily at 0600', startH: 24, instructions: 'Same scale, same time. Weight rises 10-15% during resuscitation and falls by days 4-5; record with I&O.' },
+          { name: 'Consult: registered dietitian (burn nutrition)', category: 'Consult / Therapy', frequency: 'Once', startH: 8, instructions: 'Hypermetabolic state: calculate protein (1.5-2 g/kg) and calorie needs; oral supplement three times daily.', by: 'surgeon' },
+          { name: 'Physical therapy: range of motion and mobility', category: 'Consult / Therapy', frequency: 'Daily from day 2', startH: 24, instructions: 'Early active range of motion of right shoulder, elbow, wrist and fingers; gait and endurance.', by: 'surgeon' },
+          { name: 'Occupational therapy: splinting and hand function', category: 'Consult / Therapy', frequency: 'Daily from day 2', startH: 24, instructions: 'Positioning, elbow extension splint at night if ordered, ADL retraining with the right arm.', by: 'surgeon' },
+          { name: 'Case management: home health and burn clinic follow-up', category: 'Consult / Therapy', frequency: 'Once', startH: 36, instructions: 'Home health nursing for dressing changes if caregiver cannot do them; dressing supplies; burn clinic appointment 2-3 days after discharge.', by: 'surgeon' },
+          { name: 'Discharge teaching: burn dressing changes and warning signs', category: 'Nursing', frequency: 'Once before discharge', startH: 72, instructions: 'Teach-back with caregiver: premedicate, wash hands, remove and replace dressing, signs of infection, elevation, range of motion, sun protection of healing skin, pain medication plan, return precautions.' }
+        ],
+        devices: [
+          { deviceType: 'IV', type: 'Peripheral IV', location: 'Left forearm', siteMarker: 'leftForearm', gauge: '18 gauge', placeH: 0.3, removeH: 44, infusing: "Lactated Ringer's", status: 'Infusing', assess: 'site clean, dry, intact; placed in the unburned left arm; flushes easily' },
+          Object.assign(C.pivSecond(0.7, 'Left antecubital', '20 gauge'), { removeH: 62 }),
+          { deviceType: 'Tube', type: 'Foley catheter', location: 'Urethral', siteMarker: 'pelvis', placeH: 0.6, removeH: foleyOut, status: 'Draining', assess: 'draining clear amber urine, secured to thigh, hourly output recorded', drainage: '' }
+        ],
+        assessments: [
+          { fromH: 0, items: [
+            ['Skin', 'Skin', `Right anterior upper arm, circumferential forearm and right upper chest: ${TBSA}% TBSA superficial to mid-dermal partial-thickness scald; intact and ruptured blisters, moist pink-red wound bed, blanches, very painful to air movement; a few small white deeper patches near the elbow crease; no eschar; left arm, face, neck, hands (palm), legs and perineum unburned`],
+            ['Skin', 'Braden Score', '20'],
+            ['Respiratory', 'Breath Sounds', 'Clear bilaterally; no hoarseness, stridor, soot in the mouth/nares or singed nasal hair'],
+            ['Respiratory', 'Respiratory Effort', 'Unlabored; chest wall burn is soft and does not limit chest expansion'],
+            ['Cardiac', 'Rhythm', 'Sinus tachycardia'],
+            ['Cardiac', 'Capillary Refill', 'Right hand: less than 3 seconds; radial pulse 2+; fingers warm; sensation intact'],
+            ['Cardiac', 'Edema', 'Mild swelling right forearm and hand'],
+            ['Musculoskeletal / Mobility', 'Right Upper Extremity', 'Full movement of fingers and wrist; elbow movement limited by pain; no numbness; pulses palpable'],
+            ['Pain', 'Pain Location', 'Right arm and chest, burning, 9/10, worse with air movement and any touch'],
+            ['Neurologic', 'Level of Consciousness', 'Alert, anxious'],
+            ['Safety', 'Injury Mechanism Screen', 'Accidental kitchen scald, history consistent with the injury; feels safe at home'] ] },
+          { fromH: 0.8, items: [['GU', 'Urinary Elimination', 'Foley catheter placed for hourly urine output'], ['GU', 'Urine Appearance', 'Clear amber; no cola color']] },
+          { fromH: 3, items: [['Skin', 'Skin', 'Right arm and chest dressed with silver dressing, non-adherent gauze and rolled gauze: dry and intact, no strike-through; arm elevated on pillows'], ['Pain', 'Pain Location', 'Right arm and chest, burning, 5/10 at rest after IV opioid'], ['GU', 'Urinary Elimination', `Foley draining ${uop}-${uop + 15} mL/hr, clear amber`]] },
+          { fromH: 12, items: [['Cardiac', 'Edema', 'Right forearm and hand 1-2+ non-pitting swelling (expected 12-24 hours after burn and fluids); fingers warm, capillary refill under 3 seconds, radial pulse 2+, can make a fist'], ['Cardiac', 'Rhythm', 'Normal sinus rhythm'], ['Skin', 'Skin', 'Dressing dry with scant serous strike-through; surrounding unburned skin intact']] },
+          { fromH: 24, items: [['Skin', 'Skin', 'First dressing change after premedication: blisters intact or open, moist pink to red wound bed, blanches, few white patches near elbow crease; yellow-gray film from silver sulfadiazine; no purulence, odor or redness beyond the burn edge'], ['Pain', 'Pain Location', 'Right arm 4/10 at rest; 7/10 during dressing change'], ['Cardiac', 'Edema', 'Right hand and forearm swelling peaked; 1+ and softer; pulses 2+, sensation intact'], ['Musculoskeletal / Mobility', 'Right Upper Extremity', 'Active range of motion of fingers, wrist, elbow with pain; hand strength intact'], ['Neurologic', 'Level of Consciousness', 'Alert, calm']] },
+          { fromH: foleyOut + 0.5, items: [['GU', 'Urinary Elimination', 'Foley removed; voiding spontaneously after removal'], ['GU', 'Urine Appearance', 'Clear, yellow']] },
+          { fromH: 48, items: [['Skin', 'Skin', 'Burn bed pink and moist with a thin fibrin film; blisters flattening; no purulence or odor; no erythema beyond burn margin; patchy white areas near elbow crease unchanged'], ['Pain', 'Pain Location', 'Right arm 3/10 at rest; 5-6/10 with dressing change after oral premedication; itching starting'], ['Cardiac', 'Edema', 'Trace right hand swelling'], ['Musculoskeletal / Mobility', 'Right Upper Extremity', 'Active range of motion improving: nearly full fist and wrist movement; elbow extension limited by 15 degrees'], ['Skin', 'Braden Score', '19']] },
+          { fromH: 96, items: [['Skin', 'Skin', 'Right arm and chest: edges epithelializing (pink, thin, dry); central wound bed pink and moist; no signs of infection'], ['Pain', 'Pain Location', 'Right arm 2/10 at rest; itching on healing areas'], ['Musculoskeletal / Mobility', 'Right Upper Extremity', 'Near-full range of motion; elbow extension limited by 5-10 degrees; performs exercises independently']] },
+          { fromH: 150, items: [['Skin', 'Skin', 'Most of the burn re-epithelialized (new pink skin); a 3 x 4 cm area over the proximal right forearm remains pale pink-white and dry, slower to heal (deeper dermal injury); no infection'], ['Pain', 'Pain Location', 'Right forearm 2-3/10 with dressing change'], ['Musculoskeletal / Mobility', 'Right Upper Extremity', 'Range of motion full except mild elbow extension lag; wears night splint']] }
+        ],
+        io: [
+          { fromH: 0, po: 240, urine: Math.round(uop * 4.4) },
+          { fromH: 8, po: 320, urine: Math.round(uop * 4.6) },
+          { fromH: 24, po: 500, urine: Math.round(uop * 5) },
+          { fromH: 48, po: 650, urine: Math.round(uop * 6) },
+          { fromH: 72, po: 700, urine: 380 }
+        ],
+        therapy: { fromH: 26, pt: true, assist: () => 'independent (right arm range of motion with supervision)', gait: () => '150 feet independently without a device', rec: 'Home (family assists with dressing changes) with home health nursing as needed; outpatient burn clinic and hand therapy for right arm range of motion; night elbow extension splint if ordered' },
+        discharge: { dispo: () => 'Home with family assisting with dressing changes (home health nursing if needed) and burn clinic follow-up in 2-3 days', estimate: 'day 4-5 once pain is controlled on oral medication, eating and drinking well, and a caregiver can perform the dressing change (teach-back)' },
+        stages: [
+          { fromH: 0, id: 'resus', label: 'Acute scald burn: Parkland resuscitation under way', problem: `Partial-thickness scald burn, ${TBSA}% TBSA of the right arm and chest; fluid resuscitation in the first 24 hours.`,
+            subj: 'Severe burning pain 9/10 on arrival, now 5/10 after IV morphine. Anxious. No trouble breathing, no hoarseness. Fingers of the right hand feel warm but swollen.',
+            assess: `Partial-thickness scald burn ${TBSA}% TBSA without inhalation injury; mildly tachycardic with hemoconcentration and lactate 2.6; urine output being followed hourly.`,
+            plan: [`Parkland: ${total.toLocaleString()} mL lactated Ringer's in 24 hours from the burn: ${r1} mL/hr until ${end1Clk}, then ${r2} mL/hr until ${end2Clk}; titrate to urine output ${uop} mL/hr.`, 'Foley for hourly urine output; strict I&O; repeat lactate and chemistry.', 'IV morphine for severe pain, oral oxycodone for moderate pain, scheduled acetaminophen; premedicate before dressing changes.', 'Tetanus booster; silver dressings; right arm elevated; hourly neurovascular checks (circumferential forearm).', 'Burn center consulted by phone: manage locally with burn clinic follow-up unless deterioration.'],
+            nursing: [`Parkland LR infusing at ${r1} mL/hr via left forearm IV; urine ${uop}-${uop + 15} mL/hr, amber and clear.`, 'Right arm elevated; fingers warm, capillary refill under 3 seconds, radial pulse 2+, sensation intact (hourly).', 'Rings and watch removed; no BP, IV or blood draws on the right arm.', 'Pain reassessed 30 minutes after each IV opioid; room warmed and patient covered.'],
+            teach: ['Why fluids are given quickly after a burn, why the arm is raised and checked hourly, and how to report pain, numbness or tight fingers.'], dispo: 'Anticipate 3-7 days; home with burn clinic follow-up once pain is controlled and a caregiver can do dressing changes.',
+            stickies: [{ title: 'Parkland (24 h from burn)', body: `${total.toLocaleString()} mL LR total: ${r1} mL/hr until ${end1Clk}, then ${r2} mL/hr until ${end2Clk}. Titrate to UOP ${uop} mL/hr (0.5 mL/kg/hr). Hourly UOP and neurovascular checks right arm.` }] },
+          { fromH: 24, id: 'post', label: 'Day 2: resuscitation complete; wound care and pain', problem: 'Partial-thickness scald burn 12% TBSA; resuscitation complete, edema peaked, Foley due out.',
+            subj: 'Pain 4/10 at rest and 7/10 during the dressing change even after premedication. Right hand swollen but warm and moving. Drinking well, mildly nauseated after morphine. Low-grade fever overnight.',
+            assess: 'Parkland period finished with good urine output; edema peaked; low-grade temperature is the hypermetabolic response, not infection; wound without signs of infection; albumin falling from fluid shifts.',
+            plan: ['Stop Parkland after 24 hours from burn; LR 75 mL/hr until oral intake adequate, then saline-lock.', 'Remove Foley this morning when urine output is stable; weigh daily.', 'Daily silver dressing change with oral opioid premedication 30-60 minutes before; assess depth and TBSA.', 'PT/OT start: range of motion and splint; dietitian: high-protein diet and supplements.', 'Add gabapentin for neuropathic pain/itch; continue acetaminophen scheduled.'],
+            nursing: [`Foley removed; first void within 6 hours; urine clear yellow.`, 'Dressing change after oral oxycodone: burn bed pink and moist, no purulence or odor; right hand 1+ swelling, pulses 2+, sensation intact.', 'Temp 99.6-100.0 F, HR 90-94; lungs clear; drinking 2 L/day.', 'Pain 4/10 at rest; opioid sedation checks; fall precautions.'],
+            teach: ['How to take pain medicine 30-60 minutes before dressing changes; keep raising the arm; move fingers and elbow hourly; high-protein foods help healing.'], dispo: 'Expect 2-4 more days; discharge home when pain is controlled on oral medication and dressing teaching is complete.',
+            objectives: ['Premedicate and time opioid analgesia around burn dressing changes; assess the burn wound for depth, drainage and infection.'],
+            stickies: [{ title: 'Burn dressing change', body: 'Oral opioid 30-60 min before; warm room; no adhesive on skin; chart TBSA, depth, drainage, odor; report spreading redness, odor or fever.' }] },
+          { fromH: 48, id: 'wound', label: 'Day 3: wound healing, mobilizing, teaching begins', problem: 'Partial-thickness scald burn 12% TBSA; healing, off IV fluids, working with therapy.',
+            subj: 'Pain 3/10 at rest, 5-6/10 during dressing changes. Itching beginning. Walking in the hall. Eating most of meals plus supplement.',
+            assess: 'Wound clean with new epithelium at the edges; edema resolved; afebrile; hypermetabolic state settling; nutrition is the priority for healing.',
+            plan: ['Continue daily silver dressings and premedication; wean IV morphine (none needed).', 'PT/OT daily; elbow extension splint at night.', 'Dietitian follow-up; check albumin, phosphorus and magnesium; replace if low.', 'Begin dressing-change teaching with the patient and caregiver; arrange supplies and home health.'],
+            nursing: ['Burn bed pink and moist, no odor or purulence; blisters flattened; no redness beyond the burn edge.', 'Right arm range of motion improving; elbow extension 15 degrees short.', 'IV fluids stopped; left forearm IV saline-locked; drinking 2-2.5 L/day.', 'Itching relieved by gabapentin and moisturizer to healed skin; pain 3/10.'],
+            teach: ['Start return demonstration of dressing change: hand washing, removing old dressing, cleansing, applying dressing without tape on skin.'], dispo: 'Discharge expected in 1-2 days.' },
+          { fromH: 72, id: 'ready', label: 'Day 4: discharge planning and dressing-change teach-back', problem: 'Scald burn 12% TBSA healing; medically ready for discharge home with burn clinic follow-up.',
+            subj: 'Pain 2-3/10 with oral medication. Family member practiced the dressing change. Wants to go home. Itching is bothersome.',
+            assess: 'Healing as expected: edges epithelializing, no infection, pain controlled with oral medications, tolerating diet; caregiver competence is the discharge criterion.',
+            plan: ['Discharge home when caregiver passes teach-back; dressing supplies and home health referral arranged.', 'Oral acetaminophen scheduled, oxycodone short course, gabapentin; bowel regimen.', 'Burn clinic in 2-3 days; avoid sun on healing skin; return for fever, pus, spreading redness, uncontrolled pain.'],
+            nursing: ['Wound pink, moist, edges closing; dressing intact.', 'Ambulating independently; right arm range of motion nearly full.', 'Teach-back: caregiver performed the dressing change with correct technique; supplies in hand.'],
+            teach: ['Teach-back on premedication timing, dressing change steps, signs of infection, elevation, exercise, sun protection and when to call.'], dispo: 'Discharge home today or tomorrow.',
+            stickies: [{ title: 'Discharge readiness', body: 'Caregiver return demonstration of dressing change, supplies, home health referral, burn clinic appointment in 2-3 days, pain medication plan.' }] },
+          { fromH: 108, id: 'dc', label: 'Late discharge: awaiting home dressing plan and final exam', problem: 'Scald burn healing; discharge delayed slightly by dressing-change competence and home supplies.',
+            subj: 'Feels ready; pain 2/10. Caregiver had difficulty with the dressing so practiced again; waiting for home health start date.',
+            assess: 'Clinically stable and healing; no infection; the remaining stay is for caregiver teach-back, supply delivery and the burn surgeon final exam.',
+            plan: ['Repeat dressing-change teach-back; confirm home health start and supplies.', 'Burn surgeon exam before discharge.', 'Continue oral analgesia and nutrition; discharge medication reconciliation.'],
+            nursing: ['Wound pink and dry at edges; dressing intact; afebrile.', 'Ambulating independently; eating well.', 'Second teach-back session completed.'],
+            teach: ['Reinforce return demonstration and warning signs for infection and contracture.'], dispo: 'Discharge home within 1-2 days.' },
+          { fromH: 150, id: 'prolonged', label: 'Slow-healing deep area: discharge delayed', problem: 'Scald burn largely healed; a 3 x 4 cm deeper area of the proximal right forearm is slow to heal; excision and grafting under consideration.',
+            subj: 'Pain 2-3/10 with dressing changes. Anxious about a possible skin graft and about managing the dressing at home.',
+            assess: 'Most of the burn has re-epithelialized; the deeper forearm area is not healed at day 7; no infection. Burn surgeon recommends continued silver dressings for 5-7 more days and grafting if unhealed by day 14.',
+            plan: ['Continue daily silver dressings and range of motion; watch for infection or graft decision.', 'Case management: home health for daily dressings, supplies, burn clinic twice weekly.', 'Continue nutrition (high protein), vitamin C and multivitamin; check albumin; encourage mobility.', 'Discharge when the patient or caregiver can manage the dressing and pain safely at home; otherwise short-term rehab.'],
+            nursing: ['Deeper forearm area pale pink, dry, 3 x 4 cm; surrounding skin healed; no odor or purulence; afebrile.', 'Daily dressing with premedication tolerated; elbow extension lag small; splint at night.', 'Discharge teaching and anxiety support; grafting explained by the surgeon.'],
+            teach: ['Why the area is slow to heal, signs of infection, possible skin graft, protein intake and exercise.'], dispo: 'Discharge delayed pending healing plan, home health and caregiver readiness.' }
+        ],
+        stickies: [
+          { title: 'Right arm precautions', body: 'Burned right arm and chest: no BP cuff, IV or blood draw on the right arm. Keep elevated above heart level; check pulses, color, sensation and movement of the hand.' },
+          { title: 'Premedicate for dressing changes', body: 'Give the scheduled oral opioid 30-60 minutes before each dressing change; warm room; no adhesive on burned skin.', fromH: 24 }
+        ],
+        objectives: ['Calculate and run Parkland resuscitation from weight and %TBSA with the correct 8-hour and 16-hour rates from the time of burn; titrate to urine output 0.5 mL/kg/hr.', 'Assess a circumferential burn: neurovascular checks, elevation, jewelry removal, signs of compartment syndrome.', 'Provide burn wound care with premedication, non-adherent silver dressings and infection surveillance.', 'Support nutrition, mobility and discharge teaching (dressing change teach-back, burn clinic follow-up).']
+      };
+      return spec;
+    }
+  };
+})();
