@@ -1332,7 +1332,7 @@
         "src": ""
        },
        {
-        "t": "Risk for acute kidney injury is NOT a NANDA-I label; accept \"Risk for ineffective renal perfusion\" r/t nephrotoxic drugs, CKD AEB creatinine 1.98, eGFR 38, vancomycin.",
+        "t": "Risk for ineffective renal perfusion r/t nephrotoxic drug exposure (vancomycin), CKD and dehydration AEB creatinine 1.98, eGFR 38, NPO status. (\"Risk for acute kidney injury\" is not a NANDA-I label; accept it with a note only if the student uses a valid NANDA-I wording.)",
         "pts": 0,
         "src": ""
        }
