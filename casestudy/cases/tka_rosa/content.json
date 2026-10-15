@@ -1,0 +1,2017 @@
+{
+ "meta": {
+  "title": "Clinical Care-Plan Case Study: Total Knee Replacement on Post-Operative Day 1 with Kidney Disease and Insulin-Treated Diabetes",
+  "course": "ADN Med-Surg II",
+  "caseCode": "CS-TKA-512-2",
+  "passPct": 78,
+  "footer": "Write one answer per numbered box, inside the box, in dark pen, neatly. Open book, individual work."
+ },
+ "studentIntro": [
+  {
+   "h": "Your patient",
+   "lines": [
+    "You are the primary nurse for the patient in Orthopedics 5 West room 512-2 on the 7:00 to 15:00 shift on Tuesday, October 20, 2026 (hospital day 2, post-operative day 1). Open the patient in the student EHR (Student View, or the patient file from your instructor) and set the simulation clock to 0700. She had a right total knee replacement yesterday and she also has kidney disease, diabetes treated with insulin, high blood pressure and obesity. Work the way you would at the start of a real shift.",
+    "Parts 1 to 5 must be based on what was charted BEFORE 0700. Notes written after 0700 (the 0830 surgery note, 1030 hospitalist note, 1100 dietitian note and 1200 case management note) are printed on the sealed page in Part 6."
+   ]
+  },
+  {
+   "h": "How this case study works",
+   "lines": [
+    "This packet follows the nursing process: Assessment, Diagnosis, Planning, Implementation and Evaluation. You will also explain the pathophysiology and pharmacology behind your patient's care. Expect to spend about 5 hours. It is a take-home, individual, open-book assignment: use your textbooks, drug guide, notes and the chart.",
+    "Questions ask you to explain WHY, not only WHAT. Short, specific answers that use this patient's data earn more points than general textbook answers. Real charts are imperfect: you will be asked to catch conflicts and to question orders before you act."
+   ]
+  }
+ ],
+ "studentRules": [
+  {
+   "h": "Scoring",
+   "lines": [
+    "The packet is worth 100 points. A score of 78 or higher is passing.",
+    "Each numbered item shows its point value. Points are given only for what is written in the box."
+   ]
+  },
+  {
+   "h": "Writing so your pages can be scored from photos",
+   "lines": [
+    "Write in dark pen or very dark pencil, print clearly, and stay inside the box. Write the answer in the box with the same number as the question.",
+    "Write your name and date at the top of every page (the header prints a line for it).",
+    "If you need more room, write 'continued on the back' and put the item number on the back. Do not squeeze writing between boxes.",
+    "Do not use abbreviations that are not on the approved list. Spell out drug names.",
+    "When you finish: photograph EVERY page, one page per photo, on a flat surface in good light with all four corners and the page number in view. Check that every photo is readable before you upload."
+   ]
+  },
+  {
+   "h": "Part 6 is sealed",
+   "lines": [
+    "Do not read the sealed page at the start of Part 6 until Parts 1 to 5 are finished. Your plan must be based on what you knew at 0700."
+   ]
+  }
+ ],
+ "keyIntro": [
+  {
+   "h": "How to score (applies to every item)",
+   "lines": [
+    "Score only what is written in the student's box. Do not give credit for what you think the student meant. Spelling and grammar are not scored.",
+    "Accept equivalent wording and correct synonyms. Give each required element once; do not double count the same idea.",
+    "Partial points: use the amounts printed beside each element. Round the item total to the nearest 0.5. An item never earns more than its maximum.",
+    "If a box is illegible, blank, or you are unsure, give 0 for that element and list the item on the score sheet under 'faculty review.'",
+    "Chart-dependent answers (Parts 1-5) are judged against the chart as it was at 0700 on 10/20/26 (hospital day 2, POD 1). The 0830 surgery note, 1030 hospitalist note, 1100 dietitian note and 1200 case management note are shown on the sealed page only. The addendum events on the sealed page are instructor-written and are not in the EHR.",
+    "Identical wording across different students' packets is a possible academic-integrity concern; flag it."
+   ]
+  },
+  {
+   "h": "About this patient",
+   "lines": [
+    "Rosa Delgado, 71, right cemented TKA on 10/19 under spinal plus adductor canal block, with CKD 3 (Cr 1.51 to 1.62, eGFR 38 to 34), insulin-treated type 2 diabetes (A1c 8.0%), hypertension on lisinopril, obesity (BMI 34.4), hypothyroidism, GERD, hyperlipidemia and a sulfa allergy (rash).",
+    "The chart reconciliation item (1.8) lists conflicts that were verified against the patient file: celecoxib in the plan but not ordered (sulfa allergy, CKD, ACE inhibitor, nursing order to avoid NSAIDs), LR documented infusing after its order was completed, glargine/lispro dose and scale questions with no point-of-care glucose charted, hydromorphone ordered for 7-10 but given for 5-6 plus a missing 1009 MAR entry and a 0900 auto-stop, oxygen in the PT note vs room air, template beta blocker/diuretic language with no such drugs, inconsistent baseline creatinine/eGFR, impossible charted times, bariatric 2-staff order vs assist x1, I&O shift totals, copy-forward text and the home-vs-SNF plan. Do not give credit for a 'conflict' that is not real (for example the transfusion order and the enoxaparin first-dose timing are consistent).",
+    "Chart problems that appear only in the sealed (after 0700) notes, for your information: the 0830 surgery note says 'continue acetaminophen and celecoxib' (still no celecoxib order) and 'IV morphine stopped' (no morphine was ever ordered; the IV opioid is hydromorphone), says temperature 'up to 99.6 F' while Tmax is 99.5 F, limits oxycodone to 'pain above 4' (order is 4-6), and the hospitalist notes repeat 'pantoprazole IV while NPO' and 'baseline Cr about 1.8.' These are not scored in Parts 1-5.",
+    "Clinical notes for the faculty read-through: (1) Celecoxib is a non-antibiotic sulfonamide; cross-reactivity with sulfa antibiotics is low, but the product labeling lists sulfonamide allergic-type reactions as a contraindication, and she also has CKD 3 on an ACE inhibitor, so the key accepts 'do not give; clarify' and expects the kidney reasons as well. (2) Enoxaparin prophylaxis is reduced to 30 mg daily when Cockcroft-Gault CrCl is below 30 mL/min; her CrCl is about 33 (adjusted weight) to 44 (actual weight), so the ordered 40 mg is acceptable but borderline and the key rewards verifying and trending, not holding the dose. (3) Hydromorphone and oxycodone are used with caution in CKD; morphine and meperidine are avoided. (4) The Part 6 addendum (hypoglycemia, near-fall, failed stair trial, spouse unable to assist) is hypothetical teaching material."
+   ]
+  },
+  {
+   "h": "Passing",
+   "lines": [
+    "78 of 100 points passes. A student who completes Parts 1, 3 and 7 accurately and earns about two-thirds of Parts 2, 4, 5 and 6 will pass. Planned time: Parts 1-7 are 60/60/50/25/50/25/30 minutes (about 5 hours)."
+   ]
+  }
+ ],
+ "parts": [
+  {
+   "id": "1",
+   "title": "Assessment: Patient Data and Chart Review",
+   "step": "Assessment",
+   "minutes": 60,
+   "intro": "Collect and organize the data you would have at 0700 on 10/20. Where the chart does not document something, write 'not documented.' Use R and L for laterality.",
+   "keyNote": "Part 1 is mostly chart look-up, so it should be the easiest part to score. Students who read the chart carefully should earn 20 or more of these 26 points.",
+   "items": [
+    {
+     "id": "1.1",
+     "type": "fields",
+     "points": 3,
+     "title": "Basic Patient Information",
+     "where": "Patient Summary and Storyboard",
+     "perRow": 2,
+     "labelW": 1.25,
+     "fields": [
+      {
+       "label": "Room Number",
+       "answer": "512-2 (Orthopedics 5 West)",
+       "pts": 0.25
+      },
+      {
+       "label": "Age",
+       "answer": "71",
+       "pts": 0.25
+      },
+      {
+       "label": "Gender",
+       "answer": "Female",
+       "pts": 0.25
+      },
+      {
+       "label": "Admission Date",
+       "answer": "10/19/26 (0200); surgery 10/19, today is post-op day 1",
+       "pts": 0.25
+      },
+      {
+       "label": "Allergies (and reactions)",
+       "answer": "Sulfa drugs: rash (moderate). Both substance and reaction required for 0.5.",
+       "pts": 0.5
+      },
+      {
+       "label": "Height / Weight / BMI",
+       "answer": "160 cm, 88 kg, BMI 34.4 (all three)",
+       "pts": 0.5
+      },
+      {
+       "label": "Chief Complaint",
+       "answer": "Scheduled right total knee replacement for chronic knee pain",
+       "pts": 0.25
+      },
+      {
+       "label": "Primary Diagnosis",
+       "answer": "Primary osteoarthritis of the right knee; s/p right total knee arthroplasty (cemented) 10/19",
+       "pts": 0.5
+      },
+      {
+       "label": "Code Status",
+       "answer": "Full Code",
+       "pts": 0.25
+      }
+     ]
+    },
+    {
+     "id": "1.2",
+     "type": "table",
+     "points": 3,
+     "title": "Medical Diagnoses and How They Affect Her Surgery and Recovery",
+     "prompt": "List FOUR other medical diagnoses from this patient's chart. For each, explain how it affects her knee replacement recovery or the nursing care you give.",
+     "where": "Chart Review > H&P; Encounters > Hospital problem list",
+     "cols": [
+      "Medical diagnosis",
+      "How it affects the primary diagnosis (knee replacement and recovery)"
+     ],
+     "widths": [
+      2.2,
+      4.8
+     ],
+     "rows": 4,
+     "rowH": 0.7,
+     "key": {
+      "answer": "Any 4 of the diagnoses below. Each row 0.75: diagnosis is on the chart (0.25) AND the effect is accurate (0.5).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Chronic kidney disease stage 3 (Cr 1.62, eGFR 34): higher risk of acute kidney injury after surgery; kidneys clear enoxaparin, opioids, cefazolin (dose/interval changes); avoid NSAIDs; potassium retention with lisinopril; anemia of CKD adds to blood loss.",
+        "pts": 0.75,
+        "src": "H&P, labs"
+       },
+       {
+        "t": "Type 2 diabetes on insulin (A1c 8.0%, glucose 181 to 193): stress hyperglycemia, slower healing, higher infection risk in the joint/incision; insulin needs change with intake; kidney disease prolongs insulin action (hypoglycemia).",
+        "pts": 0.75,
+        "src": "H&P, labs"
+       },
+       {
+        "t": "Obesity (BMI 34.4): harder mobilization and transfers (bariatric equipment, more staff), higher DVT and wound-infection risk, skin-fold breakdown, extra load on the new joint; dosing (enoxaparin, anesthesia, opioids).",
+        "pts": 0.75,
+        "src": "H&P"
+       },
+       {
+        "t": "Hypertension (lisinopril; BP 136-160 / 80-91): pain and stress raise BP; ACE inhibitor held while NPO and risky with low BP, blood loss or rising creatinine/potassium; BP goal below 140/90.",
+        "pts": 0.75,
+        "src": "H&P, orders"
+       },
+       {
+        "t": "Hypothyroidism (levothyroxine 75 mcg, TSH 1.80 normal): controlled; continue the drug; untreated thyroid disease would slow healing and increase sedation sensitivity.",
+        "pts": 0.75,
+        "src": "H&P, labs"
+       },
+       {
+        "t": "GERD (pantoprazole): continue; matters because NSAIDs and anticoagulants raise GI bleeding risk; sit upright to eat.",
+        "pts": 0.75,
+        "src": "H&P"
+       },
+       {
+        "t": "Hyperlipidemia (atorvastatin): continue the statin; minor effect on recovery (muscle pain would need reporting).",
+        "pts": 0.75,
+        "src": "H&P"
+       }
+      ],
+      "rules": "Maximum 3.0. Do not give credit for the same diagnosis twice. Osteoarthritis itself is the primary diagnosis and does not count."
+     }
+    },
+    {
+     "id": "1.3",
+     "type": "boxes",
+     "points": 3,
+     "title": "Patient History",
+     "where": "H&P; ED Provider Note; Nursing Admission Note; Case Management consult order; PT evaluation",
+     "subs": [
+      {
+       "label": "Medical History:",
+       "lines": 3
+      },
+      {
+       "label": "Surgical History:",
+       "lines": 2
+      },
+      {
+       "label": "Family History:",
+       "lines": 2
+      },
+      {
+       "label": "Social History:",
+       "lines": 2
+      },
+      {
+       "label": "Home Situation and Discharge Needs:",
+       "lines": 3
+      },
+      {
+       "label": "Story of the Knee Problem Before Admission:",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "Medical: at least 6 of: osteoarthritis R knee, CKD stage 3, type 2 diabetes (A1c 8.0%), hypertension, hyperlipidemia, GERD, hypothyroidism, obesity (BMI 34.4).",
+        "pts": 0.5,
+        "src": "H&P"
+       },
+       {
+        "t": "Surgical: cholecystectomy (year not documented) AND the right total knee arthroplasty (cemented) on 10/19. Full credit for 'year not documented.'",
+        "pts": 0.5,
+        "src": "H&P, op note"
+       },
+       {
+        "t": "Family: mother hypertension and type 2 diabetes; father coronary artery disease; a parent had a knee replacement; no bleeding, clotting or anesthesia problems (need 3 of these).",
+        "pts": 0.5,
+        "src": "H&P"
+       },
+       {
+        "t": "Social: lives with spouse/partner; cane for 2 years, independent; tobacco never; alcohol rare; no other substances; daughter lives nearby (need 4).",
+        "pts": 0.5,
+        "src": "H&P"
+       },
+       {
+        "t": "Home/discharge: TWO-STORY home with the BEDROOM UPSTAIRS (stairs), spouse at home, daughter nearby; needs rolling walker, raised toilet seat, home health or outpatient PT vs short-term SNF, someone for the first days (need 3 items).",
+        "pts": 0.5,
+        "src": "H&P, orders, PT"
+       },
+       {
+        "t": "Story: years of progressive knee pain worse with walking, stairs and rising from a chair, night pain, short walking distance; failed weight management, activity change, acetaminophen, topical and oral NSAIDs, PT and two steroid injections (last about 4 months ago); bone-on-bone tricompartmental arthritis with varus deformity on X-ray (need 4 elements).",
+        "pts": 0.5,
+        "src": "H&P"
+       }
+      ]
+     }
+    },
+    {
+     "id": "1.4",
+     "type": "boxes",
+     "points": 4,
+     "title": "Head-to-Toe Assessment at the Start of Your Shift (use R and L for laterality)",
+     "where": "Flowsheets (last entry 10/19 2000); Nursing Progress Note 0645; device record",
+     "prompt": "There is no 10/20 assessment yet. Use the most recent charted assessment (10/19 2000) and the night nurse's 0645 note. If the chart does not document a finding, write 'not documented.'",
+     "subs": [
+      {
+       "label": "Neurological / mental status:",
+       "lines": 2
+      },
+      {
+       "label": "Cardiovascular:  rhythm ____  heart sounds ____  cap refill ____  edema (where) ____",
+       "lines": 2
+      },
+      {
+       "label": "Respiratory:  breath sounds ____  effort ____  O2 ____  incentive spirometer ____",
+       "lines": 2
+      },
+      {
+       "label": "Skin and incision (dressing, drainage, staples, Braden):",
+       "lines": 3
+      },
+      {
+       "label": "Right leg neurovascular and mobility:  color/warmth ____  pulses ____  sensation ____  toe/ankle movement ____  calf ____  activity ____",
+       "lines": 3
+      },
+      {
+       "label": "Pain (location, score, last PRN doses):",
+       "lines": 2
+      },
+      {
+       "label": "GI and GU (bowel sounds, nausea, last bowel movement, voiding, I&O 0300-0700):",
+       "lines": 3
+      },
+      {
+       "label": "IV / Lines / Devices / Safety measures:",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "Neuro: alert, oriented x4, CAM (delirium screen) negative.",
+        "pts": 0.5,
+        "src": "Flowsheet 2000, RN 0645"
+       },
+       {
+        "t": "CV: normal sinus rhythm, S1 S2 regular no murmur, cap refill under 3 s; generalized edema 'none' but R knee and lower leg swollen with ecchymosis (expected); HR 80-87, BP 142-150/80-85 overnight.",
+        "pts": 0.5,
+        "src": "Flowsheet, RN 0645"
+       },
+       {
+        "t": "Resp: clear, diminished at bases; unlabored; room air SpO2 94-96%; incentive spirometer 1,500 mL (1,250 at 2000; 1,750 pre-op).",
+        "pts": 0.5,
+        "src": "Flowsheet, RN 0645"
+       },
+       {
+        "t": "Skin/incision: R anterior knee incision under occlusive dressing with compression wrap, clean, dry, intact, no drain, staples (X-ray/op note); Braden 20; warm and dry. Accept 'incision clean and dry' with dressing and Braden.",
+        "pts": 0.5,
+        "src": "Flowsheet, op note"
+       },
+       {
+        "t": "R leg: moves toes and ankle, lifts leg off bed; numbness over medial knee and shin from the nerve block; foot warm, pulses palpable, brisk cap refill (under 3 s); calf soft and non-tender; WBAT with rolling walker, assist x1, walked 60-100 ft with PT.",
+        "pts": 0.5,
+        "src": "Flowsheet, RN 0645"
+       },
+       {
+        "t": "Pain: R knee incision, aching 4/10 at rest, 5-6/10 overnight and with movement; last PRNs hydromorphone 0.5 mg IV 0330 and oxycodone 5 mg PO 0015; acetaminophen 0600; block has worn off (RN note).",
+        "pts": 0.5,
+        "src": "RN 0645, MAR"
+       },
+       {
+        "t": "GI/GU: abdomen soft, non-tender, bowel sounds active x4, no nausea overnight; LAST BM NOT DOCUMENTED; voiding spontaneously, no retention, clear yellow urine; I&O 0300-0700 in 470 / out 359 mL.",
+        "pts": 0.5,
+        "src": "Flowsheet, I&O"
+       },
+       {
+        "t": "Lines/safety: PIV R forearm, 20 gauge (placed 10/19 0542), site clean, dry, intact; no urinary catheter; high fall risk: bed alarm, call light, non-skid socks, assist for all transfers; SCDs, ice and elevation, CPM ordered.",
+        "pts": 0.5,
+        "src": "Devices, orders"
+       }
+      ],
+      "rules": "Give 0.5 for a box with at least 2 correct chart findings for that system (0.25 for 1). Do not give credit for findings that are not in the chart (for example a 10/20 bowel movement, pulse grades or invented calf measurements)."
+     }
+    },
+    {
+     "id": "1.5",
+     "type": "vitals",
+     "points": 2,
+     "title": "Vital Sign Trend",
+     "where": "Flowsheets > Vital Signs (or the Vitals graph)",
+     "prompt": "Copy the vital signs at each time. Circle every abnormal value. Then describe the trend in one sentence.",
+     "times": [
+      "2026-10-19 12:00",
+      "2026-10-19 16:00",
+      "2026-10-19 20:00",
+      "2026-10-20 00:00",
+      "2026-10-20 04:00"
+     ],
+     "times_label": [
+      "10/19\n1200",
+      "10/19\n1600",
+      "10/19\n2000",
+      "10/20\n0000",
+      "10/20\n0400"
+     ],
+     "rowsLabels": [
+      "Temperature",
+      "Heart rate",
+      "Blood pressure",
+      "Respiratory rate",
+      "SpO2 (%)",
+      "Pain (0-10)"
+     ],
+     "codes": [
+      "TEMP",
+      "HR",
+      "BP",
+      "RR",
+      "SPO2",
+      "PAIN"
+     ],
+     "key": {
+      "rules": "Score 1.5 x (cells correct / 30), rounded to the nearest 0.5. Circling abnormal values and the trend sentence are worth 0.5 together: temperature crept up from 98.0 to 99.5 F (low-grade, expected after surgery, below the 101.5 call limit); HR rose from 74 to 82-87 then settled at 80; BP stayed above her goal (142-150 systolic); SpO2 fell to 94% on POD 0 evening then 95-96% on room air; pain 3 to 5-6/10 after the block wore off. Allow +/- 2 for rates and +/- 0.2 F."
+     }
+    },
+    {
+     "id": "1.6",
+     "type": "table",
+     "points": 4,
+     "title": "Laboratory Data",
+     "where": "Lab Results",
+     "prompt": "Choose the 8 laboratory results most important for this patient today. For each give the 10/20 value with the normal range, the trend since admission (10/19), and explain why it matters for THIS patient.",
+     "cols": [
+      "Lab",
+      "Result / normal range / trend",
+      "Why is this lab important for this patient?"
+     ],
+     "widths": [
+      1.2,
+      2.3,
+      3.5
+     ],
+     "rows": 8,
+     "rowH": 0.6,
+     "key": {
+      "answer": "Any 8 of the labs below. Each 0.5: correct value with range and trend (0.25) AND an accurate patient-specific reason (0.25).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Hemoglobin 9.9 g/dL (L; 12-16), down from 11.5; Hct 29.6 (was 35.0): expected post-op drop of about 2 g/dL; she is on enoxaparin and has CKD; transfusion order (notify below 8, transfuse below 7 or symptomatic).",
+        "pts": 0,
+        "src": "CBC"
+       },
+       {
+        "t": "Creatinine 1.62 mg/dL (H; 0.5-1.1), up from 1.51; eGFR 34 (was 38); BUN 30 (was 28): CKD 3 plus surgery; guides enoxaparin and opioid dosing; order: report a rise of 0.3 or more; ACE inhibitor risk.",
+        "pts": 0,
+        "src": "CMP"
+       },
+       {
+        "t": "Potassium 4.7 mmol/L (3.5-5.1), unchanged: she is on lisinopril with CKD; order: report K below 3.5 or above 5.0 and hold the ACE inhibitor if rising.",
+        "pts": 0,
+        "src": "CMP"
+       },
+       {
+        "t": "Glucose 193 mg/dL (H; 70-110), was 181; HbA1c 8.0%: stress plus poorly controlled diabetes; goal 140-180; infection and healing risk; insulin decisions.",
+        "pts": 0,
+        "src": "CMP, A1c"
+       },
+       {
+        "t": "WBC 10.4 K/uL (4-10.5), up from 7.0: normal stress response to surgery; watch the trend with temperature 99.5 F and incision for infection.",
+        "pts": 0,
+        "src": "CBC"
+       },
+       {
+        "t": "Platelets 199 K/uL (150-400), down from 240: enoxaparin; check for heparin-induced thrombocytopenia (fall of 50% or below 100); hold for below 50 or bleeding.",
+        "pts": 0,
+        "src": "CBC"
+       },
+       {
+        "t": "Sodium 137 (136-145): stable; IV fluid and renal diet context.",
+        "pts": 0,
+        "src": "CMP"
+       },
+       {
+        "t": "Magnesium 2.0 (1.7-2.4) and phosphorus 4.1 (2.5-4.5): CKD electrolytes normal; ondansetron QT context.",
+        "pts": 0,
+        "src": "Labs"
+       },
+       {
+        "t": "Albumin 4.1 g/dL (3.5-5): normal nutrition status for wound healing; dietitian follow-up.",
+        "pts": 0,
+        "src": "Labs"
+       },
+       {
+        "t": "INR 1.0 / PT 12.4 (pre-op 10/19): normal clotting baseline before anticoagulant prophylaxis.",
+        "pts": 0,
+        "src": "Labs"
+       },
+       {
+        "t": "Type and screen: A positive, antibody screen negative: blood can be crossmatched quickly if needed. MRSA nasal PCR negative: prophylaxis with cefazolin was appropriate.",
+        "pts": 0,
+        "src": "Labs"
+       },
+       {
+        "t": "TSH 1.80 (0.4-4): thyroid replacement adequate.",
+        "pts": 0,
+        "src": "Labs"
+       }
+      ],
+      "rules": "Maximum 4.0. Accept other abnormal labs if value, range and reason are correct. No credit for a lab with a wrong value. Do not require the trend if only one set exists (for example INR, A1c)."
+     }
+    },
+    {
+     "id": "1.7",
+     "type": "boxes",
+     "points": 2,
+     "title": "Diagnostics and Surgical Facts",
+     "where": "Chart Review > Imaging, Cardiology, Operative note, Procedure note",
+     "subs": [
+      {
+       "label": "X-ray right knee (result):",
+       "lines": 2
+      },
+      {
+       "label": "EKG (result):",
+       "lines": 1
+      },
+      {
+       "label": "Operation and anesthesia (procedure, anesthesia type, blood loss, tourniquet time, drain, dressing):",
+       "lines": 3
+      },
+      {
+       "label": "Nerve block (type, drug, amount, expected numbness and how long):",
+       "lines": 2
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "X-ray: cemented total knee components in satisfactory alignment, patellar component well positioned, no periprosthetic fracture; expected soft tissue swelling and skin staples.",
+        "pts": 0.5,
+        "src": "Radiology 10/19 1321"
+       },
+       {
+        "t": "EKG (pre-op): normal sinus rhythm, no acute ST-T wave changes. QTc not reported (ondansetron is ordered).",
+        "pts": 0.5,
+        "src": "Cardiology"
+       },
+       {
+        "t": "Right TKA (cemented), Dr. Alvarez, spinal anesthesia with light sedation plus adductor canal block, EBL 100 mL, 1,000 mL lactated Ringer's, tourniquet 70 minutes, no drain, silver-impregnated occlusive dressing with compression wrap, no complications (need 4).",
+        "pts": 0.5,
+        "src": "Op note"
+       },
+       {
+        "t": "Ultrasound-guided adductor canal block, R thigh, 20 mL ropivacaine 0.5% (100 mg) around the saphenous nerve; numbness over medial knee and lower leg for 8 to 14 hours; quadriceps mostly preserved but fall risk remains.",
+        "pts": 0.5,
+        "src": "Procedure note 0724"
+       }
+      ]
+     }
+    },
+    {
+     "id": "1.8",
+     "type": "table",
+     "points": 5,
+     "title": "Chart Reconciliation",
+     "prompt": "Real charts contain conflicts, duplicates and gaps. Find FIVE places where this chart (as of 0700) is conflicting, impossible, or needs clarification before you act. Say where you found each and who you would clarify with and what you would ask.",
+     "where": "Orders, MAR, Devices, Chart Review > Notes (H&P, consults, nursing notes, PT, OT), I&O",
+     "cols": [
+      "What is wrong or unclear (and where)",
+      "Who you would clarify with and what you would ask"
+     ],
+     "widths": [
+      3.6,
+      3.4
+     ],
+     "rows": 5,
+     "rowH": 0.9,
+     "key": {
+      "answer": "Any 5 valid items. Each 1.0: the issue is real and located (0.6) AND the clarification is appropriate (0.4). All of these were verified against the patient file.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "CELECOXIB: the H&P (0442) says acetaminophen AND celecoxib were started pre-operatively and the oxycodone order text says to wean to 'acetaminophen and celecoxib,' but there is NO celecoxib order and none on the MAR. She has a SULFA allergy (rash), CKD (eGFR 34), takes lisinopril, and a standing order says to avoid NSAIDs and question any NSAID. Clarify with the surgeon/pharmacist: do not add it; fix the plan.",
+        "pts": 0,
+        "src": "H&P, oxycodone order, nursing order"
+       },
+       {
+        "t": "IV FLUID: the lactated Ringer's order (100 mL/hr 'while NPO') is COMPLETED (ended 10/19 1545) and she has eaten since 1115, but the PIV record and the 0645 note still show LR 'infusing,' and the I&O still records IV intake of 75 mL (1500-1900) and 100 mL (1900-2300), the last block entirely after the order ended. Clarify: is any IV fluid wanted (CKD, hypertension)? If not, stop it/saline lock per order.",
+        "pts": 0,
+        "src": "Orders, Devices, I&O"
+       },
+       {
+        "t": "INSULIN: glargine is ordered 20 units 'reduced 20% while NPO,' but the home list in the H&P is also 20 units and she has not been NPO since 1115 on 10/19; the H&P says correction lispro q6h but the order is ACHS; the lispro 'low-dose scale' has no numbers; and NO point-of-care glucose is charted (only lab glucose 181 and 193) although lispro was given 1130, 1630 and 2100 and glargine at 2100 (hold if glucose below 100). Clarify the intended dose/scale and where the bedside glucoses are with the hospitalist/pharmacy.",
+        "pts": 0,
+        "src": "Orders, MAR, H&P, labs"
+       },
+       {
+        "t": "OPIOIDS: hydromorphone IV is ordered only for pain 7-10, yet no pain score above 6 is charted and it was given at 1103, 1915 and 0330 for pain 5-6 (oxycodone is for 4-6); the day note lists hydromorphone at 1009 AND 1103 (54 minutes apart on a q3h order) but the MAR shows only 1103; oxycodone 1845 and hydromorphone 1915 were 30 minutes apart; and the IV order auto-stops 10/20 0900. Clarify with the surgeon/pharmacy: PRN indication, the missing dose, and what orders follow 0900.",
+        "pts": 0,
+        "src": "Orders, MAR, RN note, vitals"
+       },
+       {
+        "t": "OXYGEN: the PT evaluation (10/19 1415) says SpO2 96% on 2 L nasal cannula, but flowsheets and nursing notes say room air and there is no oxygen order. Clarify with PT and the day nurse whether she ever had oxygen; recheck SpO2 on room air with activity.",
+        "pts": 0,
+        "src": "PT note, flowsheet, orders"
+       },
+       {
+        "t": "TEMPLATE LANGUAGE: anesthesia and the hospitalist (10/19) say to hold diuretics and ACE inhibitor/ARB and to 'continue beta blocker,' and the H&P says hold GLP-1/SGLT2 drugs and anticoagulants, but she takes NO diuretic, beta blocker, GLP-1, SGLT2 or anticoagulant. Clarify the home medication list with the patient/pharmacy and the hospitalist so no one adds a beta blocker by mistake.",
+        "pts": 0,
+        "src": "Anesthesia, hospitalist, H&P, MAR"
+       },
+       {
+        "t": "BASELINE KIDNEY FUNCTION: the problem list says baseline creatinine about 1.8 and eGFR about 40, but the chart's own values are Cr 1.51 / eGFR 38 and Cr 1.62 / eGFR 34; a creatinine of 1.8 would match an eGFR near 30. So 'baseline' is inconsistent, which matters for enoxaparin dosing and for judging whether 1.62 is a rise. Clarify the baseline and renal dosing review with the hospitalist/pharmacist.",
+        "pts": 0,
+        "src": "Problem list, labs"
+       },
+       {
+        "t": "ENOXAPARIN AND KIDNEYS: enoxaparin 40 mg daily is ordered without a documented renal dose check, while a renal dosing review order exists and cefazolin was changed to q12h for kidney function. Cockcroft-Gault CrCl is near 30-44 mL/min depending on weight used (see 3.3b). Ask pharmacy to document the CrCl and dose check (30 mg daily if CrCl below 30).",
+        "pts": 0,
+        "src": "Orders, labs"
+       },
+       {
+        "t": "IMPOSSIBLE TIMES: pantoprazole PO is charted given 10/19 0900 while she was in the OR (block 0724, cefazolin 0730, PACU arrival 0951, NPO until 1115); the 10/19 0800 vital set is identical to the PACU arrival vitals (0951); acetaminophen was supposed to start before surgery but the first dose charted is 1400; the OT evaluation is timed 10/19 1545 but the OT order was placed 2145. Clarify with the charting nurse/unit manager (late entries) and note the true times.",
+        "pts": 0,
+        "src": "MAR, vitals, PACU note, orders"
+       },
+       {
+        "t": "LIFT/ASSIST ORDERS: the bariatric equipment order says at least 2 staff for mobilization, but the fall-precaution, activity and nursing notes say assist x1 with gait belt. Clarify the staffing for transfers with PT/charge nurse before the first walk.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "I&O TOTALS: the day note (in 1552 / out 743) adds 0300-1900 including pre-op and OR hours; the night note (in 1750 / out 1649) adds 1500-0700 (16 hours) so 1500-1900 is counted twice; the true 1900-0700 totals are in 1346 / out 1238. Matters for strict I&O in CKD. Clarify and chart correct totals.",
+        "pts": 0,
+        "src": "Nursing notes, I&O"
+       },
+       {
+        "t": "COPY-FORWARD: the 2000 skin entry still says 'surgical site marked' with no incision, and 'edema: none' while the knee and lower leg are swollen with ecchymosis; 'Voided 300 mL; no retention' repeats across entries; the first post-op void time and a bladder scan are not documented (urine 0 mL 0700-1100 then 94 mL 1100-1500). Clarify and document your own assessment.",
+        "pts": 0,
+        "src": "Flowsheet, nursing notes, I&O"
+       },
+       {
+        "t": "DISCHARGE PLAN: the 10/19 nursing handoff already says home with home health on POD 2, but PT recommends SNF if she has multiple stairs or cannot transfer safely, and she lives in a TWO-STORY home with the bedroom upstairs; stair performance is not documented. Clarify with PT and case management before telling her she is going home.",
+        "pts": 0,
+        "src": "Nursing note, PT note, H&P"
+       },
+       {
+        "t": "SERVICE: the ED note and H&P say 'admit to General Surgery' (Dr. Alvarez) while she is on Orthopedics 5 West after an orthopedic procedure. Clarify who is primary for orders and calls.",
+        "pts": 0,
+        "src": "ED note, H&P"
+       }
+      ],
+      "rules": "Elements are a bank (0 pts each); score each student row 1.0 as described (maximum 5.0). The same issue written twice earns credit once. Do not give credit for 'conflicts' that are not real, for example the transfusion order (notify below 8, transfuse below 7 or symptomatic) is consistent, and the enoxaparin first dose at 2145 (about 12 hours after surgery) matches the order."
+     }
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "title": "Pathophysiology: The Disease Process",
+   "step": "Assessment / Analysis of cues",
+   "minutes": 60,
+   "intro": "Explain WHY this is happening. Use your own words (plain language) and tie each idea to this patient.",
+   "items": [
+    {
+     "id": "2.1",
+     "type": "box",
+     "points": 5,
+     "lines": 12,
+     "title": "Pathophysiology of Knee Osteoarthritis and Why She Needed a Knee Replacement",
+     "prompt": "In plain language and your own words, explain the pathophysiology of this patient's primary diagnosis: why the knee joint wore out, why it hurts the way it does, why conservative treatment failed, what the operation changed, and what her body does in response in the first days.",
+     "key": {
+      "elements": [
+       {
+        "t": "Osteoarthritis: cartilage breaks down faster than it is repaired; bone rubs on bone (bone-on-bone, eburnated bone at surgery), bone spurs (osteophytes), inflamed synovium, stiffness and loss of motion; tricompartmental with varus (bowleg) deformity.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Her risk factors: age 71, obesity (BMI 34.4: extra load plus inflammatory mediators), varus alignment, years of wear, a parent with knee replacement (name at least 3 with a reason).",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Why it hurts: loading (walking, stairs, rising from chair) grinds exposed bone; night pain from bone and synovial inflammation; she failed weight management, activity change, acetaminophen, NSAIDs, PT and steroid injections, so replacement is indicated.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Operation: worn surfaces are cut away and replaced with cemented femoral, tibial and patellar components with a plastic insert, restoring alignment, stability and pain-free motion; 70-minute tourniquet, spinal anesthesia and adductor canal block.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Early response: tissue trauma starts inflammation (swelling, bruising, warmth, low-grade temperature to 99.5 F, WBC 10.4), bleeding into the tissues (Hgb 11.5 to 9.9), stress hormones (glucose, BP), and risk of clots (immobility, vessel injury, hypercoagulable state).",
+        "pts": 1,
+        "src": ""
+       }
+      ],
+      "rules": "One point per concept explained correctly in the student's own words. Copying textbook phrases without explanation earns 0.5."
+     }
+    },
+    {
+     "id": "2.2",
+     "type": "concept",
+     "points": 3,
+     "title": "Cause-and-Effect Chain",
+     "prompt": "Fill in each box (one or two lines) to show how events in this patient lead from the worn-out knee to the problems you will prevent after surgery.",
+     "boxes": [
+      "1. Why did her knee wear out? (factors in THIS patient)",
+      "2. Why was surgery needed?",
+      "3. What did the operation do to the tissues and blood vessels?",
+      "4. What is the body's response (swelling, pain, temperature, blood count, glucose)?",
+      "5. What happens if she does not move and breathe deeply?",
+      "6. How do the nerve block, enoxaparin, ice, PT and CPM interrupt the chain?"
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "1: osteoarthritis from age, obesity, varus alignment and years of loading; cartilage loss.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "2: bone-on-bone pain with walking and at night despite NSAIDs, PT and two steroid injections.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "3: bone cuts, cement, tourniquet 70 minutes, blood loss (EBL 100 mL plus bleeding into tissue), vessel and soft tissue injury.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "4: inflammation (swelling, bruising, 99.5 F, WBC 10.4), Hgb 9.9, stress hyperglycemia 193, BP up with pain.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "5: DVT/PE (stasis, injured vessels, clotting), atelectasis/pneumonia, constipation, joint stiffness, falls, pressure injury, deconditioning.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "6: block and multimodal drugs control pain so she can move; enoxaparin and SCDs prevent clots; ice limits swelling; PT and CPM restore motion (goal 0-90 degrees); incentive spirometry prevents atelectasis.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.3",
+     "type": "table",
+     "points": 4,
+     "title": "How Do You Know? Findings and Mechanisms",
+     "prompt": "List SIX findings from this patient's assessment, vital signs, labs or I&O that show how her body is responding to surgery. Beside each, explain the mechanism that causes it.",
+     "where": "Notes, Flowsheets, Lab Results, I&O",
+     "cols": [
+      "Finding in THIS patient (with value)",
+      "Why it happens (mechanism)"
+     ],
+     "widths": [
+      2.7,
+      4.3
+     ],
+     "rows": 6,
+     "rowH": 0.62,
+     "key": {
+      "answer": "Each row 0.67 when the finding is real and from this chart AND the mechanism is correct. Any 6 of the following.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Hemoglobin 11.5 to 9.9: blood loss into the joint and tissues plus hemodilution from IV fluids; CKD limits red cell recovery.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "WBC 7.0 to 10.4: stress and inflammatory response (demargination), not necessarily infection.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Temperature up to 99.5 F: cytokines from tissue injury (and atelectasis); mild and expected.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "R knee and lower leg swollen with ecchymosis: inflammation, capillary leak and blood tracking down the leg.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Numbness over medial knee and shin on POD 0: ropivacaine block of the saphenous nerve in the adductor canal (should wear off in 8-14 hours).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Glucose 181 to 193: cortisol and epinephrine raise insulin resistance on top of A1c 8.0%.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Creatinine 1.51 to 1.62 and eGFR 38 to 34: reduced kidney reserve with surgery, blood loss, fluid shifts and ACE inhibitor restart; small change, watch.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Incentive spirometer 1,750 to 1,250 to 1,500 and diminished bases: pain, anesthesia and shallow breathing cause atelectasis; improves with deep breathing.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Urine output only 94 mL from 1100-1500 on 10/19: spinal anesthesia and opioids reduce bladder sensation/tone and NPO status lowered intake; improved to 411-447 mL per 4 hours.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "HR 74 to 82-87 and pain 5-6/10: pain, blood loss and stress response (sympathetic activation).",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 4.0."
+     }
+    },
+    {
+     "id": "2.4a",
+     "type": "box",
+     "points": 2,
+     "lines": 9,
+     "title": "Diabetes and Surgery",
+     "where": "Lab Results; Orders; MAR",
+     "prompt": "Her A1c is 8.0% and her glucose was 181 and 193. She takes glargine at bedtime and a lispro correction scale, and she eats only part of her meals. Explain (1) why her glucose is high on POD 1, (2) why that matters for the new knee, and (3) why insulin is riskier for HER than for a patient with normal kidneys.",
+     "key": {
+      "elements": [
+       {
+        "t": "Stress response (cortisol, epinephrine) and inflammation cause insulin resistance, on top of A1c 8.0% (average glucose above goal for months).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Hyperglycemia impairs white cell function and wound healing: higher risk of incision and deep joint (prosthesis) infection, which is a major complication.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Intake is variable (about 50-75% of meals) while basal insulin is fixed and correction insulin is given with meals: risk of hypoglycemia if she eats less than expected.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "The kidneys clear insulin; with CKD (eGFR 34) insulin lasts longer and hypoglycemia is more likely and longer lasting; opioids and sleep can hide symptoms. Plan: check glucose ACHS, goal 140-180, notify if glargine due and glucose below 100.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.4b",
+     "type": "box",
+     "points": 2,
+     "lines": 9,
+     "title": "Kidney Disease and Surgery",
+     "prompt": "She has CKD stage 3 (creatinine 1.62, eGFR 34 today). Explain TWO ways her kidneys change her risks or care after knee surgery, using specific orders, drugs or labs from her chart.",
+     "key": {
+      "elements": [
+       {
+        "t": "AKI risk: surgery, blood loss, low blood pressure, dehydration, NSAIDs and the ACE inhibitor can all reduce kidney perfusion; watch creatinine (order: report a rise of 0.3 or more), urine output and BP.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Drug clearance: enoxaparin, hydromorphone/oxycodone (and their metabolites) and cefazolin accumulate; renal dosing review order; avoid morphine, meperidine and NSAIDs; sedation or bleeding may occur at 'normal' doses.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Electrolytes: potassium 4.7 with lisinopril; order to report K above 5.0 or below 3.5 and to hold the ACE inhibitor for rising K or creatinine; renal diet (sodium, potassium, phosphorus).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Anemia and fluid: CKD reduces erythropoietin so Hgb recovers slowly (Hgb 9.9); impaired fluid handling, so avoid unneeded IV fluid (LR still shown infusing) and track strict I&O.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.5",
+     "type": "box",
+     "points": 2,
+     "lines": 8,
+     "title": "Treatment",
+     "prompt": "What are we doing to treat this diagnosis after surgery? Include medical treatments AND nursing monitoring.",
+     "key": {
+      "elements": [
+       {
+        "t": "Pain: adductor canal block (now worn off), scheduled acetaminophen 1,000 mg q8h, oxycodone before PT, ice 20 min on / 40 off over the dressing, elevation (multimodal, opioid-sparing).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Clot prevention: enoxaparin 40 mg daily (started about 12 hours after surgery), SCDs, ankle pumps, walking at least 3 times a day, PT twice daily, watch calves and for chest pain/dyspnea.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Joint recovery: WBAT with rolling walker, quad sets, ROM goal 0-90 degrees, CPM (start 0-40, add about 10 per day), knee straight with a pillow under the HEEL not under the knee, stairs practice before discharge.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Nursing monitoring: neurovascular checks q4h, dressing/incision each shift, vital signs, urinary retention (void within 6-8 hours), daily CBC/BMP, glucose ACHS, bowel regimen, incentive spirometer, fall precautions, discharge planning.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.6",
+     "type": "box",
+     "points": 2,
+     "lines": 9,
+     "title": "Hemoglobin Trend",
+     "where": "Lab Results > Hemoglobin; Orders (transfusion threshold)",
+     "prompt": "Her hemoglobin went from 11.5 to 9.9 (hematocrit 35.0 to 29.6). Is this drop expected? State the ordered notification and transfusion thresholds, explain why she tolerates anemia less well than some patients, and list what you would watch for during the shift.",
+     "key": {
+      "elements": [
+       {
+        "t": "Expected: order text says to expect about a 2 g/dL drop by POD 1-2; EBL was 100 mL but fluids dilute blood and blood collects in the tissues; she has no symptoms (HR 80, BP 142/80).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Thresholds: notify the surgeon for Hgb below 8, tachycardia, dizziness or hypotension; transfuse for Hgb below 7 or symptomatic (restrictive strategy).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Her risks: age 71, CKD (low erythropoietin, Hgb was already 11.5), enoxaparin raises bleeding risk, HTN/ischemia; PT raises oxygen demand.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Watch: HR, BP, orthostatic dizziness with PT, pallor, fatigue, dressing strikethrough (mark and time), tense swelling/bruising spreading, repeat CBC in the morning; if transfused, two-nurse check, vital signs, and watch for fluid overload (CKD, HTN).",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "title": "Pharmacology and Medication Safety",
+   "step": "Assessment / Analysis (and safe implementation)",
+   "minutes": 50,
+   "intro": "Use your drug guide and the MAR (and the drug guide link inside the EHR). Part of your job is to question orders before you give them.",
+   "items": [
+    {
+     "id": "3.1",
+     "type": "table",
+     "points": 4,
+     "title": "Medication List",
+     "prompt": "From the MAR and orders, choose the SIX medications that matter most to you during the 0700-1500 shift. List brand and generic names.",
+     "where": "MAR (click the medication name for the drug guide)",
+     "cols": [
+      "Medication (brand and generic)",
+      "Drug class and mechanism (10 words or fewer)",
+      "Why is THIS patient taking it?",
+      "Key nursing check / hold parameter"
+     ],
+     "widths": [
+      1.55,
+      1.95,
+      1.7,
+      1.8
+     ],
+     "rows": 6,
+     "rowH": 0.7,
+     "key": {
+      "answer": "Each row 0.67: medication is on this patient's MAR/orders (0.15), correct class and mechanism (0.17), correct indication for this patient (0.17), valid nursing check/hold parameter (0.18). Use the bank below.",
+      "elements": [
+       {
+        "t": "insulin glargine (Lantus) 20 units at bedtime: long-acting basal insulin; type 2 diabetes. Check glucose first; order: notify the provider BEFORE giving if glucose is below 100; kidneys prolong insulin action; dose/label conflict to clarify.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "insulin lispro (Humalog) low-dose correction scale ACHS: rapid-acting insulin; treats hyperglycemia (193). Check glucose and give with a meal only; the scale numbers are not in the order (clarify); hypoglycemia protocol if below 70.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "lisinopril 20 mg daily (first dose due 0900): ACE inhibitor (blocks angiotensin II); hypertension. Order: hold and notify if SBP below 100; check K and creatinine (report K above 5.0 or Cr rise 0.3+); angioedema/cough; AKI risk with CKD, NSAIDs, low volume.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "enoxaparin 40 mg SQ daily (2145): low-molecular-weight heparin (inhibits factor Xa); VTE prophylaxis after TKA. High-alert; hold and notify for active bleeding or platelets below 50; renally cleared (check CrCl; 30 mg daily if CrCl below 30); rotate abdominal sites, do not expel the air bubble; Hgb and platelets.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "acetaminophen 1,000 mg PO q8h: non-opioid analgesic; base of multimodal pain control. Scheduled, maximum 3 g/24 h from all sources (order); give on time; next due 1400.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "oxycodone 5 mg PO q4h PRN pain 4-6: opioid agonist; moderate pain, give before PT. High-alert; hold for RR below 10 or sedation; renally impaired patients need lowest dose and monitoring; constipation, falls.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "hydromorphone 0.5 mg IV q3h PRN pain 7-10: opioid agonist; severe pain. High-alert; hold for RR below 10, SpO2 below 90% or sedation; metabolite accumulates in CKD; ordered end time 10/20 0900; continuous pulse oximetry.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "senna-docusate 2 tablets BID and polyethylene glycol 17 g daily PRN no BM in 24 hours: stimulant laxative/softener and osmotic laxative; opioid and immobility constipation. Hold for loose stools; goal BM every other day; no BM documented.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "ondansetron 4 mg IV q8h PRN nausea: 5-HT3 antagonist; post-op nausea. Reassess in 30 min; QT prolongation (check K and Mg: 4.7 and 2.0); constipation.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "pantoprazole 40 mg daily: proton pump inhibitor; GERD (and GI protection while on enoxaparin). Give before breakfast; long-term use lowers Mg/B12.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "levothyroxine 75 mcg daily (0600): thyroid hormone; hypothyroidism (TSH 1.80). Empty stomach, 30-60 min before breakfast, separate from calcium/iron.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "atorvastatin 40 mg at bedtime: HMG-CoA reductase inhibitor; hyperlipidemia. Report unexplained muscle pain; ALT 23 normal.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "cefazolin 2 g IV q12h (surgical prophylaxis, 24 hours, order completed): first-generation cephalosporin; prevent surgical site infection; interval extended for kidney function; no further doses due; low cross-reactivity with penicillin; unrelated to the sulfa allergy.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "lactated Ringer's 100 mL/hr (order completed 10/19 1545): crystalloid; hydration while NPO. Should not still be running without a new order; watch lungs/edema in CKD.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 4.0. Penalize a row that names a drug not on the chart (for example celecoxib or a beta blocker). Accept brand OR generic.",
+      "bank": true
+     }
+    },
+    {
+     "id": "3.2a",
+     "type": "box",
+     "points": 2,
+     "lines": 10,
+     "title": "Opioid Orders in a Patient with Kidney Disease",
+     "where": "MAR (PRN section), Orders, Flowsheet pain scores, Nursing notes",
+     "prompt": "Hydromorphone 0.5 mg IV (q3h PRN for pain 7-10) and oxycodone 5 mg PO (q4h PRN for pain 4-6) are ordered. Overnight she received hydromorphone at 1915 and 0330 and oxycodone at 0015; her charted pain scores were 5 and 6. Her pain is 5/10 now and PT is coming. What is wrong or unsafe in the record, what will you give and when, and how does her kidney function change opioid safety?",
+     "key": {
+      "elements": [
+       {
+        "t": "Order mismatch: pain 5-6 falls in the oxycodone range; hydromorphone is for 7-10 and no score above 6 is charted; document the PRN reason; IV order ends 10/20 0900 so ask for the next-24-hour pain plan.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Give oxycodone 5 mg PO about 30-60 minutes BEFORE PT (order), reassess pain and sedation 30-60 minutes later; do not stack opioids (oxycodone 1845 then hydromorphone 1915); scheduled acetaminophen on time (next 1400, max 3 g/day), ice/elevation, positioning.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "CKD: opioid metabolites (hydromorphone, oxycodone) accumulate; use the lowest effective dose, longer intervals, avoid morphine and meperidine; assess sedation (RASS), RR and SpO2 before and after; hold for RR below 10, SpO2 below 90% or sedation; continuous pulse oximetry ordered.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Side effects and safety: constipation (no BM documented; senna scheduled, Miralax PRN), nausea (ondansetron), falls when standing (the block is gone but opioids and a weak knee remain), delirium screening.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "3.2b",
+     "type": "box",
+     "points": 2,
+     "lines": 10,
+     "title": "The Obvious Action Is Wrong: Celecoxib",
+     "where": "H&P plan; oxycodone order text; MAR; Orders (renal dosing review); Allergies",
+     "prompt": "The H&P says acetaminophen AND celecoxib were started as part of multimodal analgesia, and the oxycodone order says to wean to 'acetaminophen and celecoxib.' There is no celecoxib on the MAR. At 0730 a coworker says, 'Just have the surgeon add the celecoxib 200 mg daily so she is on the full plan.' Decide what you will do, and explain every safety reason using HER chart.",
+     "key": {
+      "elements": [
+       {
+        "t": "Do NOT request or give it. Allergy: she is allergic to sulfa drugs (rash); celecoxib is a sulfonamide-containing non-antibiotic NSAID and the labeling lists allergic-type reactions to sulfonamides as a contraindication (cross-reactivity is lower than with sulfa antibiotics, but this is the prescriber/pharmacist's decision, not a nurse default).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Kidneys: NSAIDs block renal prostaglandins and can cause AKI, fluid retention, high potassium and higher BP; she has CKD 3 (Cr 1.62, eGFR 34) plus lisinopril; the standing order says to avoid NSAIDs and to question any NSAID order.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Other risks and action: bleeding with enoxaparin and Hgb 9.9, GERD/GI bleeding. Action: clarify with the surgeon/pharmacist that celecoxib was never ordered, ask them to correct the plan and the discharge pain plan, and ask what she took at home (HPI: oral NSAIDs failed).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Safer multimodal plan to request/continue: scheduled acetaminophen (max 3 g/day), ice and elevation, positioning, oxycodone timed before PT at the lowest effective dose; ask anesthesia/surgeon about other options. Teach: no ibuprofen, naproxen or other OTC NSAIDs at home.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "errors": "Common errors: asking for celecoxib 'because the plan says so'; saying only 'she is allergic to sulfa' without the kidney reasons; saying NSAIDs are safe because she took them before."
+     }
+    },
+    {
+     "id": "3.2c",
+     "type": "box",
+     "points": 2,
+     "lines": 10,
+     "title": "Insulin When Intake Is Changing",
+     "where": "MAR, Orders (glargine, lispro, POC glucose), Labs, Dietitian orders",
+     "prompt": "It is 0730. Her 0500 lab glucose was 193. Breakfast is arriving and she has been eating about half to three-quarters of her meals. Lispro correction is due now, and glargine 20 units is due at 2100 tonight. What do you check and do before the lispro, why is hypoglycemia a bigger risk for her, how will you treat a low glucose on her renal diet, and what will you do before tonight's glargine?",
+     "key": {
+      "elements": [
+       {
+        "t": "Check a point-of-care glucose first, then give lispro per the scale ONLY with the meal (order); do not give a correction if she is not eating; document the glucose, dose and meal percent. Do not chase 193 with extra insulin: goal is 140-180.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Higher hypoglycemia risk: variable intake with fixed basal insulin, CKD slows insulin clearance, post-op opioids can mask symptoms; check ACHS and for symptoms (shaky, sweaty, confused).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Treat glucose below 70 per the hypoglycemia protocol: 15 g fast carbohydrate if awake (glucose tablets/gel or a kidney-friendly juice such as apple; avoid orange juice because of potassium), recheck in 15 minutes, repeat, then a snack/meal; notify the provider.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Glargine tonight: check glucose first; if below 100 hold and notify the provider BEFORE giving (order). Also ask the provider/pharmacy now to clarify the intended dose (home 20 units vs 'reduced 20%') and the correction scale numbers, given her intake and eGFR.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "3.3",
+     "type": "boxes",
+     "points": 4,
+     "title": "Math From the Chart",
+     "where": "Nerve block procedure note, Orders/MAR, Labs, Patient summary, I&O",
+     "prompt": "Show your work in the box. Include units.",
+     "subs": [
+      {
+       "label": "a) The adductor canal block used 20 mL of ropivacaine 0.5%. How many mg were given? The maximum is 3 mg/kg: is the dose below the maximum for her 88 kg? (what percent of the maximum?)",
+       "lines": 3
+      },
+      {
+       "label": "b) Enoxaparin 40 mg daily is ordered (30 mg daily if CrCl is below 30 mL/min). Female Cockcroft-Gault: CrCl = (140 - age) x weight / (72 x creatinine) x 0.85. Use today's creatinine. Ideal body weight (female) = 45.5 + 2.3 x (inches over 60); adjusted weight = IBW + 0.4 x (actual - IBW). Height is 160 cm (2.54 cm = 1 inch). Calculate CrCl with her ACTUAL weight and with her ADJUSTED weight, then state if the ordered dose is acceptable and what you will do.",
+       "lines": 7
+      },
+      {
+       "label": "c) The glargine order says 20 units 'reduced 20% while NPO.' If 20 units is the already-reduced dose, what was her home dose? If 20 units is her home dose (as the H&P lists), what would a 20% reduction be?",
+       "lines": 3
+      },
+      {
+       "label": "d) Using the I&O record and her weight, find the urine output in mL/kg/hour for 10/19 1100-1500 and for 10/20 0300-0700, and her 24-hour net fluid balance from 10/19 0700 to 10/20 0700. Is each urine output adequate (goal at least 0.5 mL/kg/hour)?",
+       "lines": 5
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "a) 0.5% = 5 mg/mL; 20 mL x 5 = 100 mg; 3 mg/kg x 88 kg = 264 mg; 100 mg is about 38% of the maximum, so it is below the maximum",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "b) height 160 cm = 63 in; IBW = 45.5 + 2.3 x 3 = 52.4 kg; adjusted = 52.4 + 0.4 x (88 - 52.4) = 66.6 kg; CrCl actual = 69 x 88 / (72 x 1.62) x 0.85 = 44 mL/min; CrCl adjusted = 69 x 66.6 / 116.6 x 0.85 = 33.5 mL/min (IBW would give 26). Both actual and adjusted are 30 or higher, so 40 mg daily is within labeling, but she is close to the cutoff: creatinine near 1.8 (her stated baseline) gives CrCl about 30 with adjusted weight. Action: recheck creatinine/CrCl daily, ask pharmacy to document the renal dose check, call if CrCl falls below 30 or creatinine rises 0.3+.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "c) 20 / 0.8 = 25 units if 20 is the reduced dose; 20 x 0.8 = 16 units if 20 is the home dose. Either way the order (20 units) is not a 20% reduction of the H&P home dose, so the dose must be clarified.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "d) 94 / 4 = 23.5 mL/h; / 88 = 0.27 mL/kg/h (below 0.5, low, in the post-spinal period); 359 / 4 = 89.8 mL/h; / 88 = 1.02 mL/kg/h (adequate). Net balance: intake 500+528+404+485+391+470 = 2,778 mL; output 0+94+411+447+432+359 = 1,743 mL; net +1,035 mL.",
+        "pts": 1,
+        "src": ""
+       }
+      ],
+      "rules": "1 point each, awarded when the work is shown and the answer is within rounding. Part b: 0.5 for a correct adjusted-weight CrCl (33-34), 0.25 for the actual-weight CrCl (44), 0.25 for the correct conclusion and action; accept IBW 52 +/- 1. Half credit if the method is correct but arithmetic or units are wrong. No credit without work shown."
+     }
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "title": "Nursing Diagnoses and Priorities",
+   "step": "Diagnosis",
+   "minutes": 25,
+   "intro": "Use NANDA-I diagnoses. Write each as problem, 'related to' (cause you can treat), and 'as evidenced by' (specific data). Do not use a medical diagnosis as the 'related to.'",
+   "items": [
+    {
+     "id": "4.1",
+     "type": "table",
+     "points": 6,
+     "title": "Prioritized Nursing Diagnoses",
+     "prompt": "Write FOUR nursing diagnoses in priority order (1 = highest).",
+     "cols": [
+      "#",
+      "NANDA-I nursing diagnosis",
+      "Related to (etiology)",
+      "As evidenced by (at least 2 specific chart findings)"
+     ],
+     "widths": [
+      0.4,
+      1.9,
+      2.0,
+      2.7
+     ],
+     "rows": 4,
+     "rowH": 1.0,
+     "key": {
+      "answer": "Each row 1.5: valid, patient-appropriate diagnosis (0.5); 'related to' is correct and is not a medical diagnosis (0.5); 'as evidenced by' cites at least 2 specific data (0.5). Accept any order if the justification in 4.2 is sound.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Acute pain r/t tissue trauma from knee replacement AEB pain 5-6/10, aching 4/10 at rest, hydromorphone and oxycodone PRN use, limited participation in therapy.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for peripheral neurovascular dysfunction r/t orthopedic surgery, edema and compression dressing (R knee and lower leg swollen, ecchymosis; foot warm, pulses palpable now).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for venous thromboembolism (thrombosis) r/t major orthopedic surgery, reduced mobility, obesity (BMI 34.4) and age 71 (on enoxaparin; walked 60-100 ft).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for unstable blood glucose level r/t diabetes on insulin, surgical stress and variable intake AEB glucose 181 to 193, A1c 8.0%, eating 50-75%.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for falls r/t leg weakness and numbness after the nerve block, opioids, obesity and unfamiliar walker AEB high fall-risk score, assist x1, cane baseline.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Impaired physical mobility r/t pain and joint surgery AEB WBAT with walker, 20-30 then 60-100 feet, assist of one.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for bleeding r/t surgery and enoxaparin AEB Hgb 11.5 to 9.9, knee ecchymosis.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for acute kidney injury / impaired kidney function (use the NANDA-I wording your text uses, e.g., risk for electrolyte imbalance) r/t CKD 3, ACE inhibitor restart and surgery AEB Cr 1.51 to 1.62, eGFR 34, K 4.7.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for surgical site infection r/t diabetes, obesity and surgical wound AEB A1c 8.0%, WBC 10.4, temperature 99.5 F, staples.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for constipation r/t opioids and immobility AEB no bowel movement documented since admission.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 6.0. A problem-only statement with no etiology or evidence earns 0.5 for that row at most."
+     }
+    },
+    {
+     "id": "4.2",
+     "type": "box",
+     "points": 2,
+     "lines": 7,
+     "title": "Why This Order?",
+     "prompt": "Explain why your #1 diagnosis is first (use ABCs, Maslow, or acuity). Name one risk diagnosis you ranked lower that could become the top priority and the finding that would move it up.",
+     "key": {
+      "elements": [
+       {
+        "t": "Applies a framework: airway/breathing/circulation, Maslow physiologic needs, or acuity (what could harm her soonest).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Ties ranking to patient data (pain 5-6/10, enoxaparin, Hgb 9.9, glucose 193 on insulin, neurovascular status, fall risk).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Names a valid lower-ranked risk (VTE/PE, neurovascular compromise/compartment syndrome, bleeding, hypoglycemia, AKI).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Gives a concrete trigger (calf pain or swelling, new dyspnea/chest pain, cool pale foot or cap refill over 3 s, Hgb below 8, glucose below 70, creatinine up 0.3+, K above 5.0).",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "5",
+   "title": "Planning and Implementation",
+   "step": "Planning / Implementation",
+   "minutes": 50,
+   "intro": "Plan the care for the 0700-1500 shift on POD 1. SMART goal = Specific, Measurable, Achievable, Relevant, Time-bound, written about the PATIENT (not the nurse).",
+   "items": [
+    {
+     "id": "5.1a",
+     "type": "table",
+     "points": 2.5,
+     "title": "Plan for Priority Diagnosis #1: ________________",
+     "cols": [
+      "SMART goal for this shift",
+      "Nursing interventions (at least 4: what, how often)",
+      "Rationale",
+      "I / C / D"
+     ],
+     "widths": [
+      1.6,
+      3.1,
+      1.7,
+      0.6
+     ],
+     "rows": 4,
+     "rowH": 0.8,
+     "prompt": "I = independent, C = collaborative, D = delegated.",
+     "key": {
+      "answer": "Goal 0.75 (measurable number AND time frame AND patient-centered); interventions 1.25 (at least 4 safe, specific, with frequency: about 0.3 each); rationale 0.5 (correct for at least 3 interventions). Accept any diagnosis chosen in 4.1. Model answers:",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Acute pain: Goal: pain 4/10 or less at rest and 6/10 or less during PT, RR 12 or higher and awake through 1500. Interventions: pain score and sedation level with each vital set and 30-60 min after each dose; scheduled acetaminophen 1,000 mg on time (1400; max 3 g/day); oxycodone 5 mg PO 30-60 min before PT (hold RR below 10, sedation); ice 20 min on / 40 off over the dressing with a cloth barrier, leg elevated with knee straight and pillow under the heel; CPM per order after pain medicine; clarify the pain orders after the IV hydromorphone ends at 0900 and do not accept celecoxib. Rationale: multimodal analgesia limits opioid sedation and CKD accumulation and allows PT.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for peripheral neurovascular dysfunction: Goal: R foot warm, pink, cap refill under 3 s, pulses palpable, sensation and toe/ankle movement unchanged through 1500. Interventions: compare R to L (color, warmth, cap refill, DP/PT pulses, sensation, dorsiflexion) every 4 h and after therapy; check dressing tightness and strikethrough; calf softness; report pallor, coolness, lost pulse, new numbness, foot drop or pain unrelieved by medicine immediately. Rationale: detect compartment syndrome, arterial injury or peroneal nerve injury early.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for venous thromboembolism: Goal: no calf pain/swelling, chest pain or dyspnea, and walking at least 3 times by 1500. Interventions: ankle pumps hourly while awake; SCDs when in bed; walk with PT and nursing 3+ times; assess calves each shift; enoxaparin due 2145 (check platelets, creatinine/CrCl and bleeding); teach symptoms. Rationale: TKA, obesity and age are high-risk; prophylaxis plus mobility cuts DVT/PE.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for unstable blood glucose: Goal: glucose 100-180 mg/dL before meals today with no value below 70. Interventions: POC glucose before each meal and at bedtime; lispro per scale only with meals; record meal percent; hypoglycemia protocol (renal-friendly carbohydrate); call before glargine if below 100; clarify doses. Rationale: stress hyperglycemia and variable intake with CKD.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "A goal without a number or time frame earns 0.25. Interventions that are not specific ('monitor patient') earn no credit."
+     }
+    },
+    {
+     "id": "5.1b",
+     "type": "table",
+     "points": 2.5,
+     "title": "Plan for Priority Diagnosis #2: ________________",
+     "cols": [
+      "SMART goal for this shift",
+      "Nursing interventions (at least 4: what, how often)",
+      "Rationale",
+      "I / C / D"
+     ],
+     "widths": [
+      1.6,
+      3.1,
+      1.7,
+      0.6
+     ],
+     "rows": 4,
+     "rowH": 0.8,
+     "key": {
+      "answer": "Same scoring as 5.1a. Other strong choices: Risk for falls (gait belt and walker for every transfer with the number of staff clarified, bed alarm, non-skid socks, call light, toileting schedule, orthostatic check before first walk, never leave on the commode), Impaired mobility (PT twice daily, 3 walks, quad sets, CPM, knee ROM goal 0-90, stairs practice), Risk for AKI (strict I&O, urine output at least 0.5 mL/kg/h, K and creatinine trend, hold lisinopril and call for SBP below 100 or Cr up 0.3+, avoid NSAIDs and unneeded IV fluid), Risk for bleeding/infection."
+     }
+    },
+    {
+     "id": "5.2",
+     "type": "table",
+     "points": 3,
+     "title": "Time-Sequenced Plan for the Shift",
+     "where": "MAR, Orders, Brain/Worklist, Secure Chat, Notes",
+     "prompt": "For each hour, list your priority actions IN ORDER. Include medications (and which you will question), assessments, mobility and therapy, teaching, and communication, and say why at that time.",
+     "cols": [
+      "Time",
+      "Priority actions in order",
+      "Why at this time"
+     ],
+     "widths": [
+      0.7,
+      4.3,
+      2.0
+     ],
+     "rows": [
+      [
+       "0700"
+      ],
+      [
+       "0800"
+      ],
+      [
+       "0900"
+      ],
+      [
+       "1000"
+      ],
+      [
+       "1100"
+      ],
+      [
+       "1200"
+      ],
+      [
+       "1300"
+      ],
+      [
+       "1400"
+      ]
+     ],
+     "rowH": 0.72,
+     "key": {
+      "answer": "Score 0.375 per hour row with an appropriate, sequenced, patient-specific plan.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "0700: bedside report and safety check (ID/allergy bands, bed alarm, call light, walker in reach); full assessment: pain, R leg neurovascular, calves, dressing, lungs and incentive spirometer, bowel/bladder, glucose; review 0500 labs (Hgb 9.9, Cr 1.62, K 4.7) and the orders; list the clarifications (celecoxib, LR still infusing, glargine/POC glucose, enoxaparin CrCl, IV hydromorphone ends 0900).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "0730-0800: POC glucose before breakfast, lispro per scale only with the meal and note meal percent; call surgeon/hospitalist/pharmacy with SBAR on the clarifications; stop the LR/saline lock per order; ice and elevation; oral care and hand hygiene.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "0900: medication pass: lisinopril after checking BP (hold and call if SBP below 100) and reviewing K/Cr; pantoprazole; senna-docusate; give oxycodone about 30-60 min before PT if pain is 4+; ask about last BM and offer Miralax if due; CPM or ankle pumps.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1000: PT session with assist and gait belt (staffing clarified), walker, stairs practice; pain and sedation reassessment 30-60 min after oxycodone; orthostatic check before walking; document distance and tolerance.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1100: POC glucose before lunch and lispro per scale only if eating; neurovascular check (q4h) and dressing; I&O and urine output check; incentive spirometer 10x per hour; dietitian/CM updates.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1200: lunch upright; record intake; ice and elevation; walk again (second of 3 daily walks); discharge teaching start (walker, stairs, enoxaparin teach-back).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1300: CPM 2-hour session with pain medicine first; neurovascular check; vital signs; update case management/PT about stairs and who can help at home; bowel plan.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1400: acetaminophen 1,000 mg due (max 3 g/day); pain/sedation check; final glucose/I&O; charting; handoff: enoxaparin 2145, glargine 2100 (check glucose, call if below 100), celecoxib issue, IV fluid status, discharge plan.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Give no credit for a row that lists only 'meds' or 'assessment.' Penalize a plan that gives lisinopril without checking BP/K/Cr, adds NSAIDs, or ignores the clarifications."
+     }
+    },
+    {
+     "id": "5.3",
+     "type": "boxes",
+     "points": 2,
+     "title": "Calling the Provider (SBAR)",
+     "where": "MAR; Orders; Notes",
+     "prompt": "At 0730 you finish reviewing the chart. The plan mentions celecoxib but it is not ordered, the LR is still recorded as infusing after the order ended, the IV hydromorphone ends at 0900, and enoxaparin 40 mg is ordered with eGFR 34 and no documented dose check. You call the surgeon (Dr. Alvarez) or the hospitalist (Dr. Patel). Write what you would say.",
+     "subs": [
+      {
+       "label": "S: Situation",
+       "lines": 3
+      },
+      {
+       "label": "B: Background",
+       "lines": 3
+      },
+      {
+       "label": "A: Assessment",
+       "lines": 3
+      },
+      {
+       "label": "R: Recommendation / request",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "S: identifies self, patient, room and the specific problems (celecoxib in plan not ordered; LR documented infusing; IV hydromorphone expires 0900; enoxaparin renal check); gives current vitals/pain.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "B: POD 1 right TKA, sulfa allergy (rash), CKD 3 (Cr 1.62, eGFR 34), T2DM on insulin, lisinopril, Hgb 9.9, platelets 199, pain 5/10 with oxycodone/hydromorphone use, code status.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "A: states concern (NSAID risk with sulfa allergy/CKD/ACE inhibitor; IV fluid not needed; no pain plan after 0900; possible enoxaparin accumulation); stable vital signs, no bleeding.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "R: asks to NOT add celecoxib and to correct the plan; clarify/stop IV fluid; order the pain regimen after 0900; confirm CrCl and enoxaparin dose; read-back of orders and a time to call back.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "5.4",
+     "type": "matrix",
+     "points": 1,
+     "title": "Delegation",
+     "prompt": "Mark the LOWEST level of staff who may be assigned each task for this patient.",
+     "cols": [
+      "RN only",
+      "LPN/LVN",
+      "UAP/PCT"
+     ],
+     "rows": [
+      "Walk her to the bathroom with the walker and gait belt after the RN has checked her blood pressure and found no dizziness",
+      "Compare the pulses, color, warmth, sensation and movement of both feet and decide if the change is concerning",
+      "Give the 0900 oral lisinopril after the RN has reviewed the blood pressure, potassium and creatinine",
+      "Teach enoxaparin self-injection with teach-back for discharge"
+     ],
+     "key": {
+      "answer": [
+       "UAP/PCT",
+       "RN only",
+       "LPN/LVN",
+       "RN only"
+      ],
+      "rules": "0.25 per row. Row 1 may be UAP/PCT only with RN direction and the staffing the orders require. Accept RN-only for row 3 if the student explains the RN retains the assessment responsibility."
+     }
+    },
+    {
+     "id": "5.5",
+     "type": "boxes",
+     "points": 3,
+     "title": "Discharge Planning (Home vs Skilled Nursing Facility) and Teaching",
+     "where": "Case management order, PT and OT evaluations, H&P social history, Nursing notes",
+     "prompt": "The nursing handoff says discharge home on POD 2. Use the chart as it stood at 0700 to answer both parts.",
+     "subs": [
+      {
+       "label": "a) What does the chart say about her home and support, what does PT say is needed for home vs a skilled nursing facility, what information is still MISSING, and what would you recommend right now (and who would you ask)?",
+       "lines": 8
+      },
+      {
+       "label": "b) Name THREE teaching topics she needs before discharge. For each say how you will teach it (adapt to her) and how you will confirm learning.",
+       "lines": 7
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "Chart facts: lives with spouse/partner in a TWO-STORY home with the bedroom upstairs; daughter nearby; independent with a cane for 2 years; PT: home with home health PT if a responsible adult is available for the first days; SNF if she lives alone, has multiple stairs or cannot transfer safely; walked 60-100 ft with assist x1; stairs not yet documented; OT: lower-body dressing and toileting need minimal assist; equipment ordered: rolling walker, raised toilet seat.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Missing/ask: number and rail of stairs, can she climb them (PT stair trial), first-floor bed/bathroom option, spouse's physical ability and availability, daughter's availability for the first days, ability to self-inject enoxaparin, transportation. Ask PT, OT, case management, spouse/daughter, patient.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Recommendation with reasoning: provisional (home with home health PT and a caregiver for the first days IF she completes the stairs safely and there is a first-floor setup and a capable adult; otherwise short-term SNF rehab); do not promise discharge before the stair trial, pain control on oral drugs and stable Hgb/kidney function.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Teaching (3 topics): enoxaparin injection technique and bleeding signs (duration set by surgeon) with return demonstration; no OTC NSAIDs (ibuprofen, naproxen, celecoxib) because of CKD, sulfa allergy and bleeding; walker, stairs ('up with the good leg, down with the bad'), falls, ice/elevation and CPM; insulin/glucose and hypoglycemia plan with renal diet (metformin stays held until the provider reviews her kidney function); infection, clot and PE signs; bowel regimen. Must include a barrier-adapted method and teach-back/return demonstration.",
+        "pts": 0.75,
+        "src": ""
+       }
+      ],
+      "rules": "Score only the chart facts that are actually in the chart. Credit a recommendation that is defensible and conditional; a flat 'send home' or 'send to SNF' with no reasoning earns 0.3 at most."
+     }
+    }
+   ]
+  },
+  {
+   "id": "6",
+   "title": "Evaluation: What Happened and What Next?",
+   "step": "Evaluation",
+   "minutes": 25,
+   "intro": "Open the sealed page. It shows the real chart notes written after 0700 and an addendum written by your instructor that describes what happened during your shift (the addendum is not in the EHR). Do not change your Part 1-5 answers.",
+   "items": [
+    {
+     "id": "6.0",
+     "type": "sealed",
+     "points": 0,
+     "banner": "SEALED PAGE. Read only after Parts 1 to 5 are complete.",
+     "intro": "Chart notes written after 0700 on 10/20 (from the EHR), followed by the INSTRUCTOR ADDENDUM for the 0700-1500 shift. The addendum is NOT in the EHR; use these events as if you had charted them.",
+     "maxNotes": 4,
+     "maxLines": 40,
+     "addendum": [
+      {
+       "time": "INSTRUCTOR ADDENDUM (not in the EHR)  0730-0900",
+       "title": "Morning",
+       "lines": [
+        "Point-of-care glucose 214 at 0730. She ate about half of her breakfast. The low-dose lispro correction was given with the meal. At 0900 BP 144/82; her scheduled morning medications were given as ordered. Oxycodone 5 mg PO was given at 0945 for pain 5/10 before therapy."
+       ]
+      },
+      {
+       "time": "1015",
+       "title": "PT session",
+       "lines": [
+        "Walked 100 feet with the rolling walker and assist of one. Knee flexion 78 degrees. Stair trial: 4 steps with the rail needed moderate assistance from the therapist plus a second person; pain rose to 7/10 and she stopped. She says her bedroom is upstairs, that she is afraid of the stairs, and that her spouse uses a cane and has a bad back and cannot lift or steady her. Her daughter lives 20 minutes away and works days."
+       ]
+      },
+      {
+       "time": "1130",
+       "title": "Before lunch",
+       "lines": [
+        "She tells the nurse she feels shaky, sweaty and dizzy. Glucose 62. She tried to stand from the chair by herself to go to the bathroom and her right knee buckled; the aide caught her and lowered her to the chair. No fall to the floor, no head strike, dressing intact."
+       ]
+      },
+      {
+       "time": "1145-1300",
+       "title": "After treatment",
+       "lines": [
+        "Juice given per protocol; glucose 91 at 1145 and she ate 75% of lunch; the lispro correction for lunch was not given. At 1300 she is calm and says she wants to go home tomorrow. R foot warm, pulses palpable, capillary refill under 3 seconds, toes move, calf soft and non-tender, dressing dry. No bowel movement yet this admission that is charted."
+       ]
+      }
+     ],
+     "table": {
+      "cols": [
+       "Time",
+       "HR",
+       "BP",
+       "RR",
+       "SpO2",
+       "Temp",
+       "Pain",
+       "Other"
+      ],
+      "widths": [
+       0.7,
+       0.5,
+       0.8,
+       0.5,
+       0.9,
+       0.8,
+       0.7,
+       2.1
+      ],
+      "rows": [
+       [
+        "0400 (chart)",
+        "80",
+        "142/80",
+        "17",
+        "95% RA",
+        "99.5 F",
+        "5/10",
+        "from the flowsheet"
+       ],
+       [
+        "0800",
+        "84",
+        "144/82",
+        "16",
+        "95% RA",
+        "99.4 F",
+        "5/10",
+        "glucose 214 (0730)"
+       ],
+       [
+        "1015",
+        "96",
+        "130/76",
+        "18",
+        "94% RA",
+        "-",
+        "7/10",
+        "during stairs"
+       ],
+       [
+        "1130",
+        "98",
+        "108/64",
+        "18",
+        "96% RA",
+        "98.9 F",
+        "4/10",
+        "glucose 62; shaky, diaphoretic"
+       ],
+       [
+        "1145",
+        "90",
+        "118/70",
+        "16",
+        "96% RA",
+        "-",
+        "4/10",
+        "glucose 91 after juice"
+       ],
+       [
+        "1300",
+        "86",
+        "126/74",
+        "16",
+        "95% RA",
+        "99.6 F",
+        "5/10",
+        "ate 75% of lunch"
+       ]
+      ]
+     },
+     "caption": "Coming up: acetaminophen 1,000 mg is due at 1400; lispro with supper 1630; glargine 20 units at 2100 (order: notify the provider before giving if glucose is below 100); enoxaparin 40 mg at 2145."
+    },
+    {
+     "id": "6.1",
+     "type": "table",
+     "points": 3,
+     "title": "Evaluating Your Goals",
+     "prompt": "For each goal you wrote in 5.1a and 5.1b, use data from the sealed page to say whether it was met, partly met, or not met, and what you will change.",
+     "cols": [
+      "Goal (copy from Part 5)",
+      "Data from the sealed page that you used",
+      "Met / Partly / Not",
+      "Revised plan"
+     ],
+     "widths": [
+      1.6,
+      2.4,
+      0.9,
+      2.1
+     ],
+     "rows": 2,
+     "rowH": 1.2,
+     "key": {
+      "answer": "Each goal 1.5: cites at least 2 data points from the sealed page (0.5); correct, defensible status (0.5); a specific revision or 'continue' with reason (0.5).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Pain goal: partly met. Pain 5/10 before PT, 7/10 on stairs, 4-5/10 afterward with oxycodone and ice; revise: premedicate 45-60 min before PT, ice after therapy, ask about a pain plan for stairs, do not add NSAIDs.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Neurovascular goal: met. Foot warm, pulses palpable, cap refill under 3 s, toes move, calf soft at 1300; continue q4h checks and after near-fall.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "VTE goal: met so far. Calf soft and non-tender, walked 100 ft, no chest pain or dyspnea, SpO2 94-96%; continue ankle pumps, 3+ walks, enoxaparin 2145 with platelet/creatinine review.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Glucose goal: NOT met. Glucose 214 then 62 at 1130 with symptoms (about half breakfast eaten, lispro given, CKD); revise: provider call to reduce/clarify the correction scale and tonight's glargine, check before every meal, hold correction when intake is poor.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Fall/mobility goal: NOT met. Knee buckled at 1130 (near-fall) after hypoglycemia, stairs needed moderate assist of two; revise: assist x2 per the bariatric order until cleared by PT, orthostatic check before standing, call light/bed alarm, toileting schedule, teach her not to get up alone.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Award the status points if the student's conclusion is consistent with the data they cite."
+     }
+    },
+    {
+     "id": "6.2",
+     "type": "box",
+     "points": 3,
+     "lines": 14,
+     "title": "New Problems and Priority Actions",
+     "prompt": "From the sealed page, name the TWO most urgent new problems. For each give your priority nursing actions: what you do at the bedside, whom you notify, what you will do about tonight's glargine, and how the stair trial and the family situation change the discharge plan you wrote in 5.5.",
+     "key": {
+      "elements": [
+       {
+        "t": "Problem 1 hypoglycemia (62, symptomatic) with a near-fall: stay with her, protocol 15 g fast carbohydrate (juice or glucose gel/tablets suitable for a renal diet), recheck in 15 minutes and repeat if below 70, then food; do NOT give the lunch lispro; 1145 glucose 91 is recovery.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Safety after the near-fall: assess for injury (knee, incision and dressing, neurovascular status, head), orthostatic vital signs, bed/chair alarm, assist x2 per the bariatric order until PT clears, event report per policy.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Notify the hospitalist (or surgeon) with SBAR: glucose 62 after 0730 lispro with 50% intake in CKD; ask to change the correction scale and basal dose, and what to do tonight. Tonight: check glucose before the 2100 glargine and hold and call if below 100 (order); do not give 20 units on autopilot.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Problem 2 unsafe stairs / discharge: 4 steps needed moderate assistance of two with pain 7/10, bedroom upstairs, spouse cannot lift or steady her, daughter works days: home on POD 2 is not safe yet; tell PT/OT and case management; recommend SNF or short-term rehab (or delay discharge until stairs, caregiver and first-floor setup are in place); include the patient in the decision.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Pain with therapy: premedicate before PT, ice after; check the pain plan for after the IV hydromorphone ends; no NSAIDs.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Handoff items for the next shift: glargine/glucose plan, enoxaparin 2145, fall precautions with 2 staff, discharge disposition pending, labs in the morning (CBC, BMP).",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "rules": "Accept other valid urgent problems from the sealed page if the action is appropriate. Giving the correction lispro for the 1130 glucose of 62, or planning to give glargine tonight without checking glucose, is a safety error: cap the item at 1.5."
+     }
+    },
+    {
+     "id": "6.3",
+     "type": "box",
+     "points": 2,
+     "lines": 11,
+     "title": "Focused Nursing Note",
+     "prompt": "Write a focused nursing note for the 1130 event (DAR, SOAP, or your school's format): data, action, and response, with the plan.",
+     "key": {
+      "elements": [
+       {
+        "t": "Data: symptoms (shaky, sweaty, dizzy), glucose 62, time, BP 108/64, HR 98, last lispro 0730, breakfast 50%, near-fall: knee buckled, no floor contact or head strike, dressing intact.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Action: protocol carbohydrate given, recheck in 15 minutes, lispro held, safety measures, injury and neurovascular check, who was notified (provider, PT) and when.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Response: glucose 91 at 1145, symptoms resolved, ate 75% of lunch, BP 118/70, orders received/read back.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Plan/handoff: glucose before meals and bedtime, glargine check and call, assist x2, orthostatics, discharge plan under review; professional wording with times.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "7",
+   "title": "Clinical Judgment (Next-Generation NCLEX Style)",
+   "step": "Evaluation / Clinical judgment",
+   "minutes": 30,
+   "intro": "Answer by marking the boxes. These items use the same patient. Some scenarios are hypothetical and say so.",
+   "items": [
+    {
+     "id": "7.1",
+     "type": "choice",
+     "points": 2,
+     "style": "multi",
+     "title": "Select All That Apply",
+     "prompt": "Which nursing actions are correct for this patient on post-operative day 1?",
+     "options": [
+      "Compare the color, warmth, cap refill, pulses, sensation and toe/ankle movement of the right foot with the left every 4 hours.",
+      "Place a pillow under the right knee so it rests bent and comfortable.",
+      "Apply the ice pack directly to the skin under the dressing for an hour because the nerve block is gone.",
+      "Check blood pressure, potassium and creatinine before the lisinopril, and hold it and call if SBP is below 100.",
+      "Give enoxaparin 40 mg without any checks because it is a standard prophylaxis dose.",
+      "Review the platelet count, creatinine/CrCl and bleeding signs when giving enoxaparin, and report platelets below 50 or active bleeding.",
+      "Offer ibuprofen from the unit stock for knee pain because it is an over-the-counter drug.",
+      "Give oxycodone 30-60 minutes before PT and reassess pain and sedation afterward."
+     ],
+     "key": {
+      "answer": [
+       "Compare the color... every 4 hours",
+       "Check blood pressure, potassium and creatinine before the lisinopril...",
+       "Review the platelet count, creatinine/CrCl and bleeding signs when giving enoxaparin...",
+       "Give oxycodone 30-60 minutes before PT..."
+      ],
+      "rules": "0.5 per correct option selected; subtract 0.5 for each incorrect option selected (not below 0). The wrong options: pillow under the knee (flexion contracture; the pillow goes under the heel), ice directly on skin / for an hour (barrier, 20 on / 40 off), enoxaparin without checks, ibuprofen (NSAID: CKD, ACE inhibitor, enoxaparin bleeding risk; also not ordered)."
+     }
+    },
+    {
+     "id": "7.2",
+     "type": "matrix",
+     "points": 2,
+     "title": "Trend Matrix: Expected or Report Now?",
+     "prompt": "HYPOTHETICAL: on post-operative day 2 you find each of these trends compared with POD 1. Mark one box per row.",
+     "cols": [
+      "Expected after surgery",
+      "Report now"
+     ],
+     "rows": [
+      "Hemoglobin 9.9 to 9.5 g/dL, HR 82, BP 138/78, no dizziness, dressing dry",
+      "Creatinine 1.62 to 2.0 mg/dL (up 0.38), potassium 4.7 to 5.4 mmol/L, urine output about 20 mL/hour for 4 hours",
+      "New right calf tenderness and warmth, calf larger than the left, HR 104",
+      "Temperature 99.5 to 99.8 F, WBC 10.4 to 9.6, incision edges dry with bruising"
+     ],
+     "key": {
+      "answer": [
+       "Expected after surgery",
+       "Report now",
+       "Report now",
+       "Expected after surgery"
+      ],
+      "rules": "0.5 per row. Row 2 meets the standing order (report a creatinine rise of 0.3 or more and K above 5.0; hold the ACE inhibitor and call). Row 3 is a possible DVT."
+     }
+    },
+    {
+     "id": "7.3",
+     "type": "bowtie",
+     "points": 2,
+     "title": "Bowtie",
+     "stem": "HYPOTHETICAL post-operative day 1 afternoon: she reports pain 9/10 in the right calf that is not relieved by oxycodone. The calf is tense and swollen, the right foot is cool and pale with capillary refill of 5 seconds, she has tingling in the toes and severe pain when the nurse moves her toes. Pulses are faint. The CPM machine is running.",
+     "pickActions": 2,
+     "pickParams": 2,
+     "actions": [
+      "Stop the CPM and call the surgeon immediately with SBAR",
+      "Give another dose of oxycodone and recheck in one hour",
+      "Raise the leg high on three pillows and add more ice",
+      "Do a focused neurovascular check of both legs and stay with her",
+      "Document the findings and recheck in four hours"
+     ],
+     "conditions": [
+      "Compartment syndrome / acute neurovascular compromise",
+      "Expected post-operative swelling",
+      "Surgical site infection",
+      "Hypoglycemia"
+     ],
+     "params": [
+      "Capillary refill, color, temperature and pulses of the right foot",
+      "Pain with passive toe movement and tightness of the calf",
+      "Bowel sounds",
+      "Blood glucose",
+      "Urine color"
+     ],
+     "key": {
+      "condition": "Compartment syndrome / acute neurovascular compromise",
+      "actions": [
+       "Stop the CPM and call the surgeon immediately with SBAR",
+       "Do a focused neurovascular check of both legs and stay with her"
+      ],
+      "params": [
+       "Capillary refill, color, temperature and pulses of the right foot",
+       "Pain with passive toe movement and tightness of the calf"
+      ],
+      "rules": "Condition 0.8 (all or nothing). Actions 0.3 per correct selection and parameters 0.3 per correct selection (maximum 0.6 each); subtract 0.15 for each incorrect selection in that column (not below 0)."
+     }
+    },
+    {
+     "id": "7.4",
+     "type": "highlight",
+     "points": 2,
+     "title": "Recognize Cues",
+     "prompt": "Excerpt from a HYPOTHETICAL post-operative day 1 evening shift report. Which statements need follow-up NOW?",
+     "statements": [
+      "Dressing clean, dry and intact; knee swollen with bruising; calf soft.",
+      "Walked 80 feet with the walker and assist of one; pain 4/10 after oxycodone.",
+      "The numbness over her inner knee and shin has not gone away 30 hours after the block, and she says her foot feels like it flaps when she walks.",
+      "Glucose 152 before breakfast and 168 before supper; ate about 60% of her meals.",
+      "She says she took two ibuprofen from her purse this afternoon for knee pain.",
+      "Voided 350 mL twice this shift; no fullness over the bladder.",
+      "No bowel movement since admission 2 days ago; she has taken oxycodone and says the senna 'upsets her stomach' so she has skipped it.",
+      "Temperature 99.4 F, SpO2 95% on room air, incentive spirometer 1,500 mL."
+     ],
+     "key": {
+      "answer": [
+       3,
+       5,
+       7
+      ],
+      "rules": "Three cues: possible foot drop / prolonged sensory loss (peroneal or saphenous nerve injury; a block should be gone in 8-14 hours), NSAID taken in CKD with enoxaparin (notify the provider; teach), and constipation after 2 days of opioids without the bowel regimen. Score 0.67 per correct statement (round to 0.5 increments); subtract 0.5 for each wrong statement chosen (not below 0)."
+     }
+    },
+    {
+     "id": "7.5",
+     "type": "choice",
+     "points": 2,
+     "style": "ordered",
+     "title": "Priority Actions",
+     "prompt": "HYPOTHETICAL: on post-operative day 2 she is walking with PT when she suddenly becomes short of breath with sharp chest pain, HR 126, RR 30, SpO2 86% on room air. Number the actions in the order you would do them.",
+     "options": [
+      "Call the rapid response team (or surgeon) with SBAR and stay with her.",
+      "Raise the head of the bed, apply oxygen and attach continuous pulse oximetry and a cardiac monitor.",
+      "Stop the activity, help her to sit or lie down, and assess airway, breathing and circulation.",
+      "Confirm IV access and gather the MAR (enoxaparin times), allergies and latest labs for the team.",
+      "Document the event and update the family."
+     ],
+     "key": {
+      "answer": [
+       "1. Stop the activity, position her, assess airway/breathing/circulation",
+       "2. Raise the head of the bed, oxygen, pulse oximetry and monitor",
+       "3. Call rapid response/surgeon with SBAR",
+       "4. IV access, MAR and labs for the team",
+       "5. Document and update the family"
+      ],
+      "rules": "0.4 per action in the correct position. Positions 1 and 2 may be swapped; calling for help must come before the IV/MAR preparation and documenting."
+     }
+    }
+   ]
+  }
+ ]
+}
