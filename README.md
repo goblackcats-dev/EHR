@@ -647,3 +647,6 @@ The next major item should be built separately: a **Faculty Case Builder** that 
 - Orthopedic: **Total knee arthroplasty**, **Ankle fracture (ORIF)**.
 - New category **Dermatologic / Wound**: **Diabetic foot infection with osteomyelitis**, **Stage 3-4 pressure injury**, **Scald burn (12% TBSA, Parkland)**, **SJS/TEN**.
 - Three new sample patients with care-plan case studies are in `casestudy/cases/` (`tka_rosa`, `dfi_walter`, `pressure_eleanor`).
+
+## v48 - More Case Builder diagnoses
+Added: **Total hip arthroplasty**, **Lumbar spinal fusion**, **Femoral shaft fracture**, **Septic arthritis** (Orthopedic / Trauma); **Necrotizing fasciitis**, **Erythrodermic psoriasis** (Dermatologic / Wound). Known limit: the shared rules add enoxaparin 40 mg daily in CKD3, which triggers the generic "renally-avoided drug" warning; trauma patients may need 30 mg twice daily instead.
