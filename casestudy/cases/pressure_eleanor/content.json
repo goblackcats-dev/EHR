@@ -1,0 +1,2116 @@
+{
+ "meta": {
+  "title": "Clinical Care-Plan Case Study: Stage 4 Sacral Pressure Injury with Early Sepsis in a Frail Older Adult with Dementia",
+  "course": "ADN Med-Surg II",
+  "caseCode": "CS-PI-322-2",
+  "passPct": 78,
+  "footer": "Write one answer per numbered box, inside the box, in dark pen, neatly. Open book, individual work."
+ },
+ "studentIntro": [
+  {
+   "h": "Your patient",
+   "lines": [
+    "You are the primary nurse for the patient in Medical-Surgical 3 West, room 322-2, on the 7:00 to 15:00 shift on Thursday, October 22, 2026 (hospital day 3). Open the patient in the student EHR (Student View, or the patient file from your instructor) and set the simulation clock to 0700. Everything you need is in the chart. She came in with a deep, infected pressure injury over her tailbone and early sepsis. The wound was cleaned out (debrided) at the bedside and a wound vac was placed this morning. She also has dementia, heart failure, diabetes and poor nutrition. Work the way you would at the start of a real shift."
+   ]
+  },
+  {
+   "h": "How this case study works",
+   "lines": [
+    "This packet follows the nursing process: Assessment, Diagnosis, Planning, Implementation and Evaluation. You will also explain the pathophysiology and pharmacology behind your patient's care. Expect to spend about 5 hours. It is a take-home, individual, open-book assignment: use your textbooks, drug guide, notes and the chart.",
+    "Questions ask you to explain WHY, not only WHAT. Short, specific answers that use this patient's data earn more points than general textbook answers. Real charts are imperfect: you will be asked to catch conflicts and gaps, and to question orders before you act."
+   ]
+  }
+ ],
+ "studentRules": [
+  {
+   "h": "Scoring",
+   "lines": [
+    "The packet is worth 100 points. A score of 78 or higher is passing.",
+    "Each numbered item shows its point value. Points are given only for what is written in the box."
+   ]
+  },
+  {
+   "h": "Writing so your pages can be scored from photos",
+   "lines": [
+    "Write in dark pen or very dark pencil, print clearly, and stay inside the box. Write the answer in the box with the same number as the question.",
+    "Write your name and date at the top of every page (the header prints a line for it).",
+    "If you need more room, write \"continued on the back\" and put the item number on the back. Do not squeeze writing between boxes.",
+    "Do not use abbreviations that are not on the approved list. Spell out drug names.",
+    "When you finish: photograph EVERY page, one page per photo, on a flat surface in good light with all four corners and the page number in view. Check that every photo is readable before you upload."
+   ]
+  },
+  {
+   "h": "Part 6 is sealed",
+   "lines": [
+    "Do not read the sealed page at the start of Part 6 until Parts 1 to 5 are finished. Your plan must be based on what you knew at 0700."
+   ]
+  }
+ ],
+ "keyIntro": [
+  {
+   "h": "How to score (applies to every item)",
+   "lines": [
+    "Score only what is written in the student's box. Do not give credit for what you think the student meant. Spelling and grammar are not scored.",
+    "Accept equivalent wording and correct synonyms. Give each required element once; do not double count the same idea.",
+    "Partial points: use the amounts printed beside each element. Round the item total to the nearest 0.5. An item never earns more than its maximum.",
+    "If a box is illegible, blank, or you are unsure, give 0 for that element and list the item on the score sheet under \"faculty review.\"",
+    "Chart-dependent answers (Parts 1-5) are judged against the chart as it was at 0700 on 10/22/26. The sealed Part 6 events after the two real chart notes are instructor-written and are not in the EHR.",
+    "Identical wording across different students' packets is a possible academic-integrity concern; flag it."
+   ]
+  },
+  {
+   "h": "About this patient",
+   "lines": [
+    "The chart is detailed (8 problems, 26 medication orders, 71 orders, 21 notes). The chart reconciliation item (1.8) lists the real conflicts and gaps that were verified against the patient file: critical hemoglobin 6.4 with no plan, duplicate multivitamin (the EHR validator also warns about this), duplicate oral supplements and calorie conflict, protein target disagreement, weights, mistimed vancomycin level, antibiotic stop dates versus osteomyelitis question, CRP/ESR not trended, baseline cognition, residence conflict, mobility orders, glargine wording, analgesia gaps, NPWT documented before it existed, differing call parameters, duplicate lab draws, swallow screen result, and proxy documentation. Do not give credit for a \"conflict\" you cannot verify (vancomycin plus pip-tazo is not a duplication; the LR orders are Completed).",
+    "Clinical reminders: NPIAP stage 4 = exposed or palpable fascia, muscle, tendon, ligament, cartilage or bone; never reverse-stage. The codeine reaction is nausea/vomiting (intolerance). Her BMI 20.7 is not underweight; malnutrition is supported by intake, temporal wasting and prealbumin. Cockcroft-Gault creatinine clearance with 51 kg and creatinine 0.87 is about 39 mL/min (eGFR 66 overestimates): relevant to vancomycin, pip-tazo and enoxaparin dosing, and it was about 25 mL/min on admission (creatinine 1.35) when enoxaparin 40 mg was started (usual dose 30 mg if CrCl below 30): worth discussing in class.",
+    "Part 6: the sealed page prints the two real chart notes written after 0700 (hospitalist 0830 and PT 0900) followed by the instructor addendum (daughter, provider call, transfusion, circulatory overload); the addendum is hypothetical and clearly labeled as not in the EHR."
+   ]
+  },
+  {
+   "h": "Passing",
+   "lines": [
+    "78 of 100 points passes. A student who completes Parts 1, 3 and 7 accurately and earns about half of Parts 2, 4, 5 and 6 will pass."
+   ]
+  }
+ ],
+ "parts": [
+  {
+   "id": "1",
+   "title": "Assessment: Patient Data and Chart Review",
+   "step": "Assessment",
+   "minutes": 60,
+   "intro": "Collect and organize the data you would have at 0700. Where the chart does not document something, write \"not documented.\" Use R and L for laterality.",
+   "keyNote": "Part 1 is mostly chart look-up, so it should be the easiest part to score. Students who read the chart carefully should earn 20 or more of these 26 points.",
+   "items": [
+    {
+     "id": "1.1",
+     "type": "fields",
+     "points": 3,
+     "title": "Basic Patient Information",
+     "where": "Patient Summary and Storyboard",
+     "perRow": 2,
+     "labelW": 1.25,
+     "fields": [
+      {
+       "label": "Room Number",
+       "answer": "322-2, Medical-Surgical 3 West",
+       "pts": 0.5
+      },
+      {
+       "label": "Age",
+       "answer": "84 (DOB 12/08/1941)",
+       "pts": 0.5
+      },
+      {
+       "label": "Admission Date",
+       "answer": "10/20/26 (ED triage 0206; on the unit 0500); today is hospital day 3",
+       "pts": 0.5
+      },
+      {
+       "label": "Allergies (and reactions)",
+       "answer": "Codeine: nausea and vomiting (moderate). Both substance and reaction required.",
+       "pts": 0.5
+      },
+      {
+       "label": "Primary Diagnosis",
+       "answer": "Stage 4 sacral pressure injury with early sepsis (infected wound)",
+       "pts": 0.5
+      },
+      {
+       "label": "Code Status / Decision-maker",
+       "answer": "Full Code; daughter is the health care proxy (patient has dementia, capacity limited)",
+       "pts": 0.5
+      }
+     ]
+    },
+    {
+     "id": "1.2",
+     "type": "table",
+     "points": 3,
+     "title": "Medical Diagnoses and How They Affect the Wound",
+     "prompt": "List FOUR other medical diagnoses from this patient's chart. For each, explain how it contributed to the pressure injury, slows healing, or raises her risk of complications now.",
+     "where": "Chart Review > H&P; Problem list",
+     "cols": [
+      "Medical diagnosis",
+      "How it affects the pressure injury, her healing, or her care"
+     ],
+     "widths": [
+      2.2,
+      4.8
+     ],
+     "rows": 4,
+     "rowH": 0.8,
+     "key": {
+      "answer": "Any 4 of the diagnoses below. Each row 0.75: diagnosis is on the chart (0.25) AND the effect is accurate (0.5).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Type 2 diabetes (A1c 8.0%, glucose 176-184): hyperglycemia impairs white-cell function and collagen formation, raises infection risk; neuropathy/microvascular disease reduces perfusion.",
+        "pts": 0.75,
+        "src": "H&P, labs"
+       },
+       {
+        "t": "Heart failure with reduced EF (about 35%): poor perfusion and edema lower tissue oxygen; limits how much IV fluid, blood and sodium she can tolerate; diuretic and ACE inhibitor decisions.",
+        "pts": 0.75,
+        "src": "H&P"
+       },
+       {
+        "t": "Dementia: cannot feel/report pressure or reposition herself (sensory perception, mobility); pain is hard to report (PAINAD); delirium risk; may pull at the wound vac; needs a surrogate decision maker.",
+        "pts": 0.75,
+        "src": "H&P"
+       },
+       {
+        "t": "Malnutrition (intake about 25% of needs on admission, temporal wasting, albumin 2.3, prealbumin 9): not enough protein, calories, vitamin C, zinc for collagen and immune function; thin padding over bone; refeeding risk.",
+        "pts": 0.75,
+        "src": "H&P, labs"
+       },
+       {
+        "t": "Urinary incontinence/overactive bladder (plus loose stools): moisture macerates skin, raises friction, contaminates the wound with stool; incontinence-associated dermatitis already present.",
+        "pts": 0.75,
+        "src": "H&P, flowsheet"
+       },
+       {
+        "t": "Frailty: thin fragile skin, little reserve, weight loss, immobility; delirium, falls and skin tears; slower recovery; \"start low, go slow\" with drugs.",
+        "pts": 0.75,
+        "src": "H&P"
+       },
+       {
+        "t": "Hypertension (lisinopril): sepsis can drop pressure so ACE inhibitor needs hold parameters; BP goal below 140/90; mirabegron can raise BP.",
+        "pts": 0.75,
+        "src": "H&P"
+       }
+      ],
+      "rules": "Maximum 3.0. Do not give credit for the same diagnosis twice. Pressure injury itself and sepsis are not \"other\" diagnoses."
+     }
+    },
+    {
+     "id": "1.3",
+     "type": "boxes",
+     "points": 2.5,
+     "title": "Patient History",
+     "where": "ED Provider Note; Hospitalist H&P; Nursing Admission Note; Case Management and PT notes",
+     "subs": [
+      {
+       "label": "Medical History:",
+       "lines": 3
+      },
+      {
+       "label": "Surgical History:",
+       "lines": 1
+      },
+      {
+       "label": "Family History:",
+       "lines": 2
+      },
+      {
+       "label": "Social History, Living Situation and Function:",
+       "lines": 3
+      },
+      {
+       "label": "Pre-Hospital Story (how did she get here?):",
+       "lines": 3
+      },
+      {
+       "label": "Likely Discharge Needs:",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "Medical: at least 5 of: type 2 diabetes (A1c 8.0), hypertension, HFrEF (EF about 35%), dementia, protein-calorie malnutrition (BMI 20.7), urinary incontinence/overactive bladder, frailty.",
+        "pts": 0.4,
+        "src": "H&P"
+       },
+       {
+        "t": "Surgical: no prior surgeries (this admission: bedside sharp debridement 10/21 does not count as prior). Accept \"none\".",
+        "pts": 0.3,
+        "src": "H&P"
+       },
+       {
+        "t": "Family: mother hypertension and type 2 diabetes; father coronary artery disease; no family history of skin or bleeding disorders (need both parents).",
+        "pts": 0.3,
+        "src": "H&P"
+       },
+       {
+        "t": "Social: long-term care facility resident; dependent for transfers and ADLs; wheelchair; feeds self with set-up; never tobacco, no alcohol or drugs; daughter is health care proxy and visits daily (need living situation, function and proxy).",
+        "pts": 0.5,
+        "src": "H&P"
+       },
+       {
+        "t": "Pre-hospital: 3 days of poor oral intake (about a quarter of meals), new sleepiness, fever to 100.6 F, foul draining sacral wound worsening over a week that began as a \"red spot\" weeks ago; pain with turning; incontinent of urine and loose stool; no antibiotics before arrival (need 4 details).",
+        "pts": 0.5,
+        "src": "ED note"
+       },
+       {
+        "t": "Discharge needs (any 4): return to long-term care/SNF-level care; NPWT supplies and trained staff; low-air-loss mattress and wheelchair cushion; mechanical lift; wound clinic follow-up; nutrition/supplements; caregiver and neglect screening; PT/OT; antibiotic plan.",
+        "pts": 0.5,
+        "src": "Orders, CM/PT notes"
+       }
+      ],
+      "rules": "The ED/H&P HPI says \"cared for at home by a family caregiver\" which conflicts with the social history (see item 1.8). Give the social-history points for long-term care; do not penalize a student who notes the conflict."
+     }
+    },
+    {
+     "id": "1.4",
+     "type": "boxes",
+     "points": 4,
+     "title": "Head-to-Toe Assessment at 0700 (use R and L for laterality)",
+     "where": "Flowsheets (latest assessment 10/21 2000); Nursing Progress Note 10/22 0645; vital signs 0400",
+     "prompt": "Document the findings from the chart as of the start of your shift. If the chart does not document a finding, write \"not documented.\" Include the PAINAD score if one is charted.",
+     "subs": [
+      {
+       "label": "Neurological / Cognition / Pain:",
+       "lines": 3
+      },
+      {
+       "label": "Cardiovascular:  Pedal pulses R___ L___    Cap refill ________    Edema ________",
+       "lines": 2
+      },
+      {
+       "label": "Respiratory:  breath sounds, effort, oxygen",
+       "lines": 2
+      },
+      {
+       "label": "Gastrointestinal / Nutrition:",
+       "lines": 3
+      },
+      {
+       "label": "Genitourinary:",
+       "lines": 2
+      },
+      {
+       "label": "Integumentary (wound, NPWT, perineum, heels, Braden):",
+       "lines": 4
+      },
+      {
+       "label": "Musculoskeletal / Mobility:",
+       "lines": 2
+      },
+      {
+       "label": "IV / Lines / Devices:",
+       "lines": 3
+      },
+      {
+       "label": "Psychosocial / Cultural Assessment:",
+       "lines": 2
+      },
+      {
+       "label": "Erikson Stage:",
+       "lines": 1
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "Neuro: alert, follows commands (drowsy on admission); oriented to person, place and time with baseline mild forgetfulness (earlier notes: person only); pain 3/10 (sacrum 2-3/10); PAINAD 4 on admission with grimacing on turning; no CAM/4AT charted.",
+        "pts": 0.4,
+        "src": "Flowsheet, notes"
+       },
+       {
+        "t": "CV: sinus rhythm, rate 90s (HR 87, BP 115/71 at 0400); S1 S2 regular, no murmur; trace bilateral leg edema; cap refill under 3 s. Pedal pulses R/L NOT documented: full credit for \"not documented.\"",
+        "pts": 0.4,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "Resp: clear bilaterally, unlabored, room air, SpO2 96%, RR 16.",
+        "pts": 0.4,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "GI/nutrition: abdomen soft, non-tender, non-distended, bowel sounds active x4; no nausea/vomiting; eating 50-75% of meals with set-up and feeding assistance plus supplements; loose brown stool incontinence x2 (flowsheet); diet 2 g sodium, consistent carbohydrate, high calorie, high protein.",
+        "pts": 0.4,
+        "src": "Flowsheet, notes"
+       },
+       {
+        "t": "GU: incontinent of urine; concentrated amber urine in an external female catheter (suction); clear yellow; I&O 0300-0700 in 492 mL / out 324 mL; 24 h in 2,409 / out 1,860.",
+        "pts": 0.4,
+        "src": "Flowsheet, I&O"
+       },
+       {
+        "t": "Skin: sacral wound on NPWT, black foam collapsed, seal intact, -125 mmHg continuous, 40-60 mL serosanguineous per 12 h, periwound intact with barrier film, no odor or erythema; heels intact; incontinence-associated dermatitis of buttocks/perineum (moist red skin, no open areas); Braden 12 (11 on 10/21 2000, 10 on admission).",
+        "pts": 0.4,
+        "src": "Flowsheet, notes"
+       },
+       {
+        "t": "MSK/mobility: dependent for turning and transfers; mild knee contractures; total assist with mechanical lift (PT); up to chair for meals, maximum 1 hour; low-air-loss mattress; 30-degree turns q2h.",
+        "pts": 0.4,
+        "src": "Flowsheet, PT, orders"
+       },
+       {
+        "t": "Lines/devices: PIV R forearm (infusing; placed 10/20 0224); PIV L antecubital (patent; 10/20 0236); external female urinary catheter (10/20 0400); NPWT sacral (10/22 0430). Both IVs are about 2 days old.",
+        "pts": 0.4,
+        "src": "Devices"
+       },
+       {
+        "t": "Psychosocial: long-term care resident with dementia; daughter (health care proxy) visits daily; dependent for ADLs; delirium precautions; spiritual/cultural preferences not documented (full credit if the student says to ask the daughter).",
+        "pts": 0.4,
+        "src": "H&P"
+       },
+       {
+        "t": "Erikson: Integrity vs Despair (late adulthood, 65+).",
+        "pts": 0.4,
+        "src": ""
+       }
+      ],
+      "rules": "Give the full amount for a box that contains at least 3 correct chart findings for that system (half for 1-2). No credit for findings that are not in the chart (invented pulses, lobe-by-lobe lung sounds)."
+     }
+    },
+    {
+     "id": "1.5",
+     "type": "vitals",
+     "points": 2,
+     "title": "Vital Sign Trend",
+     "where": "Flowsheets > Vital Signs (or the Vitals graph)",
+     "prompt": "Copy the vital signs at each time. Circle every abnormal value. Then describe the trend in one sentence.",
+     "times": [
+      "2026-10-20 02:06",
+      "2026-10-20 12:00",
+      "2026-10-21 12:00",
+      "2026-10-22 04:00"
+     ],
+     "times_label": [
+      "10/20 0206\n(ED triage)",
+      "10/20 1200",
+      "10/21 1200",
+      "10/22 0400"
+     ],
+     "rowsLabels": [
+      "Temperature",
+      "Heart rate",
+      "Blood pressure",
+      "Respiratory rate",
+      "SpO2 (%)",
+      "Pain (0-10)"
+     ],
+     "codes": [
+      "TEMP",
+      "HR",
+      "BP",
+      "RR",
+      "SPO2",
+      "PAIN"
+     ],
+     "key": {
+      "rules": "Score 1.5 x (cells correct / 24), rounded to the nearest 0.5. Circling abnormal values (ED HR 106 and RR 23; 10/20 0206 BP 99/56) and the trend sentence are worth 0.5 together: low-grade fever, tachycardia, tachypnea and borderline BP at triage have resolved (T 100.1 to 98.4, HR 106 to 87, RR 23 to 16, BP 99/56 to 115/71) after fluids, antibiotics and debridement, consistent with sepsis responding to treatment; pain has eased from 5 to 3. Allow +/- 2 for rates and +/- 0.2 F."
+     }
+    },
+    {
+     "id": "1.6",
+     "type": "table",
+     "points": 2.5,
+     "title": "Wound Assessment: Measurement and Tissue Type",
+     "prompt": "Describe the sacral wound at each time. Give length x width x depth in centimeters, and say \"not documented\" if there is no entry. Name the NPIAP stage.",
+     "where": "Notes (ED, Nursing Admission, Wound/Ostomy consult, Debridement note, Nursing Progress Notes 10/21 and 10/22); Flowsheets > Skin",
+     "cols": [
+      "Feature",
+      "Admission 10/20",
+      "After debridement 10/21",
+      "This morning 10/22 (NPWT)"
+     ],
+     "widths": [
+      1.3,
+      1.9,
+      1.9,
+      1.9
+     ],
+     "rows": [
+      [
+       "Size L x W x depth"
+      ],
+      [
+       "Undermining / tunneling"
+      ],
+      [
+       "Tissue in wound bed and structures visible"
+      ],
+      [
+       "Drainage and odor"
+      ],
+      [
+       "Periwound skin"
+      ]
+     ],
+     "rowH": 0.75,
+     "key": {
+      "answer": "Each row 0.5 when all three columns are correct (or correctly \"not documented\"). Stage: stage 4 in all three columns (full-thickness loss with muscle and fascia visible; bone not exposed).",
+      "elements": [
+       {
+        "t": "Size: 6.2 x 5.0 x 3.0 cm | 6.9 x 5.6 x 3.8 cm | not documented since 10/21 (measure at foam change in 48-72 h). Stage 4.",
+        "pts": 0.5,
+        "src": "Notes"
+       },
+       {
+        "t": "Undermining: 2 cm from 6 to 12 o'clock | pus pocket drained from the undermined area (new size not separately given) | undermined area gently filled with foam, foam count recorded.",
+        "pts": 0.5,
+        "src": "Notes"
+       },
+       {
+        "t": "Tissue: 70% yellow-black slough/eschar, muscle and fascia visible, probes close to bone with no bone exposed | 100% red granulating base, no slough or eschar, fascia visible, bone not exposed or rough | clean red granulation, no slough, black foam collapsed.",
+        "pts": 0.5,
+        "src": "Notes"
+       },
+       {
+        "t": "Drainage: thick tan, foul | small serosanguineous strikethrough (later moderate serous, no odor) | 40-60 mL serosanguineous per 12 h in canister, no odor.",
+        "pts": 0.5,
+        "src": "Notes"
+       },
+       {
+        "t": "Periwound: erythema 3 cm, warm, indurated | erythema 2 cm (1 cm by 10/21 2000) | intact with barrier film, no erythema.",
+        "pts": 0.5,
+        "src": "Notes"
+       }
+      ],
+      "rules": "A healing stage 4 is NEVER re-staged as stage 3. Wound grew larger and deeper after debridement: expected because necrotic tissue was removed."
+     }
+    },
+    {
+     "id": "1.7",
+     "type": "table",
+     "points": 4,
+     "title": "Laboratory and Diagnostic Data",
+     "prompt": "Choose the 8 results (labs, cultures or imaging) most important for this patient today. For each give the latest value with the normal range, the trend since 10/20, and why it matters for THIS patient.",
+     "where": "Lab Results; Imaging; Chart Review > Notes",
+     "cols": [
+      "Result",
+      "Value / normal range / trend",
+      "Why is this important for this patient?"
+     ],
+     "widths": [
+      1.3,
+      2.3,
+      3.4
+     ],
+     "rows": 8,
+     "rowH": 0.62,
+     "key": {
+      "answer": "Any 8 of the results below. Each 0.5: correct value, range and trend (0.25) AND an accurate patient-specific reason (0.25).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Hemoglobin 6.4 g/dL (critical low; 12-16): 7.0 -> 6.5 -> 6.4. HFrEF heart cannot compensate; tissue oxygen for healing; needs provider notification, transfusion decision (threshold 8 in cardiac disease), enoxaparin question.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "WBC 11.6 K/uL (H; 4-10.5): 16.7 -> 14.5 -> 11.6. Infection and sepsis responding to debridement and antibiotics, still not normal.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Creatinine 0.87 mg/dL (0.5-1.1) with eGFR 66: 1.35 -> 1.05 -> 0.87. Prerenal AKI on admission is resolving; vancomycin, pip-tazo, lisinopril, furosemide and enoxaparin all depend on kidney function (note eGFR overestimates in a small 84-year-old).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Lactate 1.5 mmol/L (0.5-2): 2.6 -> 1.5. Hypoperfusion from sepsis has cleared; guides fluid decisions in HFrEF.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Albumin 2.3 g/dL (L; 3.5-5): 2.4 -> 2.3 -> 2.3, and prealbumin 9 mg/dL (L; 18-38). Malnutrition and inflammation; both fall with CRP, so interpret with CRP; wound healing and refeeding risk.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Phosphorus 2.9 mg/dL (2.5-4.5): 3.4 -> 3.2 -> 2.9; magnesium 1.7 (1.7-2.4) and potassium 3.7 (3.5-5.1) also drifting down. Refeeding syndrome watch; report phosphorus below 2.5, potassium below 3.5, magnesium below 1.5.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Glucose 182 mg/dL (H; goal 140-180): 184 -> 176 -> 182; A1c 8.0% (H). Poor control impairs healing and immunity; insulin dosing while intake is only 50-75%.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Sodium 141 (136-145): 147 -> 143 -> 141. Dehydration on admission corrected; watch with fluids and furosemide.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "CRP 164 mg/L (H; under 10), ESR 92 mm/hr (H; under 20), procalcitonin 1.80 ng/mL (H; under 0.10): measured ONCE on 10/20; need a repeat to trend infection and possible osteomyelitis.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Vancomycin level 12.0 mcg/mL (10-20) on 10/21 1224: drawn about 3.5 h after the dose, not a true trough.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Cultures: blood cultures x2 no growth at 48 h; MRSA nasal PCR negative; urine culture no growth; wound deep-tissue culture shows gram-negative rods and gram-positive cocci in pairs (final pending). Guides stopping vancomycin.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "MRI pelvis 10/21: full-thickness sacrococcygeal ulcer to the sacral fascia, 2 cm undermined fluid collection, mild coccyx-tip marrow edema equivocal for early osteomyelitis; no abscess; sacroiliac joints normal.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Chest x-ray 10/20: low lung volumes, no consolidation, effusion or pneumothorax, normal heart size, aortic calcification (no pulmonary source of fever).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Platelets 344 (150-400): 293 -> 322 -> 344. Safe for enoxaparin (hold below 50); rising platelets are also an acute-phase response.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 4.0. No credit for a result with a wrong value. A trend is required for labs with more than one value."
+     }
+    },
+    {
+     "id": "1.8",
+     "type": "table",
+     "points": 5,
+     "title": "Chart Reconciliation",
+     "prompt": "Real charts contain conflicts, duplicates and gaps. Find FIVE places where this chart is conflicting, duplicated, missing something, or needs clarification before you act. Say where you found each and who you would clarify with.",
+     "where": "Orders, MAR, Chart Review > Notes, Lab Results, Sticky notes",
+     "cols": [
+      "What is wrong or unclear (and where)",
+      "Who you would clarify with and what you would ask"
+     ],
+     "widths": [
+      3.5,
+      3.5
+     ],
+     "rows": 5,
+     "rowH": 0.85,
+     "key": {
+      "answer": "Any 5 valid items. Each 1.0: the issue is real and located (0.6) AND the clarification is appropriate (0.4). The first four below are the most important for patient safety.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "CRITICAL HEMOGLOBIN WITH NO PLAN: Hgb 7.0 (10/20) -> 6.5 (10/21) -> 6.4 (10/22 0500), Hct 18.9, all flagged Critical Low. There is no type and screen, no transfusion order, no anemia work-up (iron, B12, folate, reticulocytes) and no provider plan: the 10/21 and 10/22 hospitalist notes only list the value (\"down from 7.0\", \"stable from 6.5\") with no plan. Enoxaparin 40 mg was still given at 0600 today, and she has HFrEF. Clarify with the hospitalist now (critical value, transfusion threshold for a cardiac patient, enoxaparin, work-up).",
+        "pts": 0,
+        "src": "Labs, Orders, MAR, Notes"
+       },
+       {
+        "t": "DUPLICATE MULTIVITAMIN: two active daily orders for multivitamin with minerals (start 10/20 0500 and 10/20 1400), both given at 0900 on 10/21 and both due at 0900 today. She also takes zinc 50 mg elemental daily, so minerals are doubled. Ask pharmacy/provider to discontinue one.",
+        "pts": 0,
+        "src": "Orders, MAR"
+       },
+       {
+        "t": "DUPLICATE ORAL SUPPLEMENTS AND CALORIE CONFLICT: Ensure Enlive 350 kcal TID (1,050 kcal) AND Ensure Plus 350 kcal BID (700 kcal) = 1,750 kcal/day from supplements alone. The dietitian goal is about 1,550 kcal/day in total, the admission dietitian order says start at 10-20 kcal/kg/day (510-1,020 kcal) and advance over 3-5 days (refeeding risk), and the 10/21 dietitian assessment says give a supplement only if intake is under 50%. Phosphorus is falling (3.4, 3.2, 2.9). Clarify with the dietitian and provider.",
+        "pts": 0,
+        "src": "Orders, Notes, Labs"
+       },
+       {
+        "t": "PROTEIN AND ENERGY TARGETS DISAGREE: Nutrition consult 10/20 = 1,550 kcal and 77 g protein/day (1.5 g/kg); Dietitian assessment 10/21 = 1,300-1,550 kcal and 51-61 g protein/day (about 1.0-1.2 g/kg). Wound-healing guidelines call for about 1.25-1.5 g/kg. Clarify one target with the dietitian.",
+        "pts": 0,
+        "src": "Notes"
+       },
+       {
+        "t": "WEIGHTS: orders for a daily bed-scale weight and \"Daily weight\" (report gain over 2 lb/day) in an HFrEF patient, but the dietitian orders, H&P and hospitalist notes say \"weekly weights\", and NO weight other than the admission 51 kg is charted. Ask for one clear order and obtain today's weight before the 0900 furosemide.",
+        "pts": 0,
+        "src": "Orders, Notes, Flowsheets"
+       },
+       {
+        "t": "VANCOMYCIN \"TROUGH\" WAS NOT A TROUGH: the order says draw 30 minutes before the dose; the level (12.0 mcg/mL) was collected 10/21 at 1224, about 3.5 hours after the 0900 dose was started (infusion takes 90-120 minutes). It cannot be interpreted as a trough. Today's dose is due 0900. Clarify with pharmacy when to draw and how they are dosing (AUC vs trough).",
+        "pts": 0,
+        "src": "Labs, Orders, MAR"
+       },
+       {
+        "t": "ANTIBIOTIC DURATION AND STOP DATES DO NOT MATCH THE PLAN: piperacillin-tazobactam is ordered to stop 10/24 0600 (about 3 days after the 10/21 debridement) but the hospitalist says \"about 4 days after debridement\"; vancomycin is ordered to stop 10/23 0600 but the plan is \"stop when the final culture shows no MRSA\" (nasal MRSA PCR was negative; wound Gram stain showed gram-negative rods and gram-positive cocci in pairs). The MRI says osteomyelitis is NOT excluded, yet no ID consult, bone reassessment or repeat ESR/CRP is ordered. Clarify with the hospitalist/surgeon.",
+        "pts": 0,
+        "src": "Orders, Notes, Labs"
+       },
+       {
+        "t": "INFLAMMATORY MARKERS NOT TRENDED: the 10/21 and 10/22 notes list \"CRP 164, ESR 92\" (these are the 10/20 values; only one CRP/ESR exists) and the 10/22 plan says \"CRP falling\" and \"WBC 12.2\" while the lab WBC is 11.6. The ED/H&P assessment says WBC 16.8; the lab is 16.7. Ask for a repeat CRP/ESR and correct the note.",
+        "pts": 0,
+        "src": "Labs, Notes"
+       },
+       {
+        "t": "ALBUMIN AND \"UNDERWEIGHT\": the problem list says albumin \"about 2.8\" and \"malnutrition / underweight\", but albumin is 2.4, 2.3, 2.3 and BMI is 20.7 (51 kg / 1.57 m squared; not underweight). The malnutrition is supported by intake about 25% of needs, temporal wasting and prealbumin 9, not by BMI. The amount and time frame of weight loss are not documented. Ask the daughter/facility for weight history.",
+        "pts": 0,
+        "src": "Problem list, Labs"
+       },
+       {
+        "t": "BASELINE COGNITION CONFLICT: the problem list and sticky note say baseline is oriented to person only; the flowsheet (10/21 2000) and 10/22 notes say oriented to person, place and time (\"baseline mild forgetfulness\"). No delirium screen (CAM, 4AT) is charted. Ask the daughter/facility for her real baseline and choose a screening tool so a change can be detected.",
+        "pts": 0,
+        "src": "Problem list, Sticky notes, Flowsheets"
+       },
+       {
+        "t": "WHERE DOES SHE LIVE? The social history, case management and PT say long-term care facility; the ED note and H&P HPI say \"cared for at home by a family caregiver\" and \"the family noticed\"; discharge options list \"home with home health, hospital bed and mechanical lift\". The social work/case management order for neglect screening (10/20 1400) has no documented result. Clarify residence, who provided care, and the screening with social work.",
+        "pts": 0,
+        "src": "Notes, Orders"
+       },
+       {
+        "t": "MOBILITY ORDERS DISAGREE: the new 10/22 0400 order says \"up to chair for meals, assist x2\" but its own text says lift sheet or mechanical lift, and PT documents TOTAL assist with a mechanical lift (no ambulation); the older PT/OT order says \"ambulate with assistance 3 times daily\"; the wound nurse (10/20) and the discontinued activity order said no sitting on the wound. Clarify chair time and method with the provider/PT/wound nurse before getting her up.",
+        "pts": 0,
+        "src": "Orders, Notes"
+       },
+       {
+        "t": "INSULIN: glargine 20 units is described as \"home basal reduced 20% while NPO\" but she is not NPO (diet active) and the home dose in the H&P is also 20 units, so no reduction was made; she eats 50-75% (hypoglycemia risk). The lispro order is a \"low-dose correction scale\" with no scale written, and no point-of-care glucose values are charted. The H&P says metformin is held for \"contrast\" but no contrast study was done. Clarify scale and glargine dose.",
+        "pts": 0,
+        "src": "Orders, H&P, Flowsheets"
+       },
+       {
+        "t": "ANALGESIA: the H&P plans oxycodone before wound care, but no oxycodone is ordered; the only oral opioid is tramadol 25 mg PRN for pain 4-6 (her pain is 3/10, so a premedication dose is outside the order), with codeine intolerance on the chart. The 10/22 0645 note says \"premedicated for foam changes\" but no PRN analgesic is charted after 10/21 1800. Acetaminophen 650 mg q6h = 2.6 g/day, above the 2 g/day maximum the order itself lists for malnourished patients. Ask for a specific premedication order and an acetaminophen limit.",
+        "pts": 0,
+        "src": "Orders, MAR, Notes"
+       },
+       {
+        "t": "NPWT DOCUMENTED BEFORE IT EXISTED: nursing notes of 10/20 1845, 10/21 0645 and 10/21 1845 list the wound vac as \"active\" while the same notes describe saline-gauze packing; NPWT was ordered 10/22 0400, placed 0430 and the procedure note is 0448 (hospitalist 10/21: \"NPWT starts tomorrow\"). Also the debridement time is 0100 (culture order), 0142 (premedication), 0200 (hospitalist) and 0303 (note), and surgery asked to \"hold the afternoon enoxaparin\" although enoxaparin is scheduled at 0600 (it was given at 0600 on 10/21, about 4 hours after debridement). Correct the documentation.",
+        "pts": 0,
+        "src": "Notes, Devices, MAR"
+       },
+       {
+        "t": "NOTIFY PARAMETERS DIFFER: the vital-sign order says call for SBP below 90, HR above 120, temperature above 101.5 F; the sepsis sticky note says SBP below 100, HR above 110, temperature above 101 F; lisinopril and carvedilol hold for SBP below 100. Furosemide has NO hold parameter. Ask the provider for one set of call parameters.",
+        "pts": 0,
+        "src": "Orders, Sticky notes"
+       },
+       {
+        "t": "DUPLICATE ORDERS AND LAB DRAWS: potassium, magnesium and phosphorus were each drawn three times a day (0200, 0300 and 0500) on 10/21 and 10/22 from overlapping orders, plus the 0500 CMP, in a patient with Hgb 6.4 (blood loss from draws); prealbumin was drawn twice 30 minutes apart on 10/20. Fall precautions appear twice, dietitian consult three times, PT/OT twice, daily weight twice. Ask to consolidate.",
+        "pts": 0,
+        "src": "Labs, Orders"
+       },
+       {
+        "t": "SWALLOW SCREEN: the diet order says aspiration precautions until a swallow screen is done and the speech therapy evaluation is marked Completed (10/20 2200), but no result or note exists in the chart. Find the result or ask speech therapy before she eats in the chair.",
+        "pts": 0,
+        "src": "Orders, Notes"
+       },
+       {
+        "t": "HEALTH CARE PROXY AND GOALS: the daughter is named health care proxy only in the social history (no name, phone, or document); Full Code with an active \"goals of care and polypharmacy review\" order but no note. Verify the proxy paperwork and ask the provider about the goals-of-care conversation.",
+        "pts": 0,
+        "src": "Social history, Orders"
+       },
+       {
+        "t": "Minor: admission nursing note \"plan\" lists T 100.6, HR 108, BP 98/54 which are not in the flowsheet (flowsheet 02:06-04:24 shows 100.1-100.2, HR 105-106, BP 99/56-106/60); H&P sepsis plan says LR 1 L bolus but 500 mL was ordered and given (reduced for HFrEF); LR maintenance was ordered \"while NPO\" (ran 10/20 0600 to 10/21 0800) although she was never NPO. Accept if clearly explained.",
+        "pts": 0,
+        "src": "Notes, Orders"
+       }
+      ],
+      "rules": "Elements are a bank (0 pts each); score each student row 1.0 as described (maximum 5.0). The same issue written twice earns credit once. Do not give credit for a \"conflict\" that is not in this list unless you can verify it in the chart; for example, giving vancomycin AND piperacillin-tazobactam together is NOT a duplicate (different spectrum), and the LR bolus and maintenance orders are Completed."
+     }
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "title": "Pathophysiology: The Disease Process",
+   "step": "Assessment / Analysis of cues",
+   "minutes": 60,
+   "intro": "Explain WHY this is happening. Use your own words (plain language) and tie each idea to this patient.",
+   "items": [
+    {
+     "id": "2.1",
+     "type": "box",
+     "points": 5,
+     "lines": 14,
+     "title": "Pathophysiology of a Stage 4 Pressure Injury",
+     "prompt": "In plain language and your own words, explain: how pressure and shear injure tissue over the sacrum, why her risk factors made it worse, what makes this wound stage 4 (NPIAP), and why it became infected and made her septic.",
+     "key": {
+      "elements": [
+       {
+        "t": "Pressure compresses soft tissue between bone (sacrum/coccyx) and a surface; when pressure and TIME exceed capillary closing pressure the tissue becomes ischemic, then reperfusion injury adds damage; muscle and deep tissue are more sensitive than skin, so damage starts deep and the surface can look like only a \"red spot\" at first.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Shear and friction: raising the head of the bed or sliding/dragging her makes the skeleton slide while skin stays put, stretching and kinking vessels over the sacrum; moisture (urine, loose stool) macerates skin and increases friction.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Tissue tolerance and perfusion: malnutrition (albumin 2.3, prealbumin 9, intake 25% on admission), anemia (Hgb 6.4), diabetes, heart failure, age/frailty; dementia means she does not feel pressure or shift weight (sensory perception, mobility), and she is dependent for turning.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Staging: stage 4 = full-thickness skin and tissue loss with exposed or directly palpable fascia, muscle, tendon, ligament, cartilage or bone; slough/eschar, undermining and tunneling are common. Hers: 6.2 x 5.0 x 3.0 cm, muscle and fascia visible, 2 cm undermining, probes close to bone but no bone exposed (not stage 3: fascia/muscle seen; not unstageable: base visible). A healing stage 4 stays \"stage 4\"; never reverse-stage.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Infection: necrotic slough/eschar and a pus pocket plus stool/urine contamination, poor immunity (diabetes, malnutrition) allow bacteria (gram-negative rods, gram-positive cocci) to multiply -> foul drainage, periwound erythema, fever, tachycardia, WBC 16.7, lactate 2.6 = early sepsis; infection stalls healing and can reach bone (osteomyelitis not excluded on MRI).",
+        "pts": 1,
+        "src": ""
+       }
+      ],
+      "rules": "One point per concept explained correctly in the student's own words. Copying textbook phrases without explanation earns 0.5."
+     }
+    },
+    {
+     "id": "2.2",
+     "type": "concept",
+     "points": 3,
+     "title": "Cause-and-Effect Chain",
+     "prompt": "Fill in each box (one or two lines) to show how events in this patient lead from her risk factors to sepsis and what we do to interrupt the chain.",
+     "boxes": [
+      "1. Why was she at high risk? (factors in THIS patient)",
+      "2. What happened to the tissue over her sacrum?",
+      "3. Why did the wound become infected?",
+      "4. How is her body responding (systemic signs)?",
+      "5. Why will healing be slow, and what complication is still possible?",
+      "6. How do debridement, NPWT, antibiotics, nutrition and offloading interrupt the chain?"
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "1: dementia and frailty, bed/chair-bound and dependent for turning, urinary and fecal incontinence, malnutrition, diabetes, heart failure; Braden 10 on admission.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "2: prolonged pressure and shear -> capillary compression, ischemia and reperfusion -> necrosis, \"red spot\" weeks ago deepened to full-thickness, muscle and fascia exposed.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "3: dead tissue, a pus pocket, moisture and stool contamination, and weak immunity (A1c 8.0, malnutrition) let bacteria grow: foul tan drainage, periwound erythema 3 cm, warm and indurated.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "4: fever 100.1, HR 106, RR 23, BP 99/56, drowsy, WBC 16.7, lactate 2.6, procalcitonin 1.80, creatinine 1.35 and sodium 147 (dehydration/prerenal).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "5: low protein/calories, Hgb 6.4, high glucose, ongoing pressure and pain; osteomyelitis risk (equivocal coccyx edema); refeeding syndrome and fluid overload are risks of treatment.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "6: debridement removes necrotic tissue and pus (source control); NPWT -125 mmHg removes exudate and promotes granulation; antibiotics treat soft-tissue infection/sepsis; protein, calories, vitamin C and zinc rebuild tissue; low-air-loss surface, 30-degree turns and moisture control remove the cause.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.3",
+     "type": "table",
+     "points": 3,
+     "title": "Braden Scale: Subscales and Mechanisms",
+     "prompt": "Her Braden total was 12 at 0645 (the chart gives only the total: 10 on admission, 11 on 10/21 2000, 12 this morning). Assign a score to each subscale that you can defend from the chart (your six scores should total 11 to 13). Give the chart evidence, then explain how that subscale lets pressure or shear injure HER tissue.",
+     "where": "Flowsheets > Skin, Neuro, Mobility, GU, GI; PT note; Orders (support surface)",
+     "cols": [
+      "Subscale (range)",
+      "Your score and chart evidence",
+      "How this lets pressure/shear injure her tissue"
+     ],
+     "widths": [
+      1.4,
+      2.7,
+      2.9
+     ],
+     "rows": [
+      [
+       "Sensory perception (1-4)"
+      ],
+      [
+       "Moisture (1-4)"
+      ],
+      [
+       "Activity (1-4)"
+      ],
+      [
+       "Mobility (1-4)"
+      ],
+      [
+       "Nutrition (1-4)"
+      ],
+      [
+       "Friction and shear (1-3)"
+      ]
+     ],
+     "rowH": 0.78,
+     "key": {
+      "answer": "Each row 0.5: a defensible score with chart evidence (0.25) AND an accurate mechanism (0.25). Defensible ranges (model total 12): Sensory 2-3 (model 3: slightly limited, responds to commands but dementia limits reporting discomfort); Moisture 2-3 (model 3 or 2: urinary incontinence diverted by external catheter, but loose stool incontinence and IAD); Activity 1-2 (model 2 chairfast: bed/chair-bound, up to chair for meals); Mobility 1-2 (model 1: dependent for all turning); Nutrition 1-2 (model 2: eats 50-75% with supplements; 1 on admission); Friction/shear 1-2 (model 1: needs lift, knee contractures).",
+      "elements": [
+       {
+        "t": "Sensory perception: dementia, cannot reliably report discomfort -> does not feel pressure or ask to be moved, so duration of loading is long.",
+        "pts": 0.5,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "Moisture: incontinent of urine and loose stool, IAD buttocks/perineum -> macerated, weaker skin, more friction, and stool contaminates the wound.",
+        "pts": 0.5,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "Activity: bed/chair-bound, up to chair only for meals with a lift -> sitting loads the sacrum/coccyx/ischium, lying on the back loads the sacrum.",
+        "pts": 0.5,
+        "src": "PT, orders"
+       },
+       {
+        "t": "Mobility: dependent for turning, cannot offload herself, mild knee contractures -> same tissue stays compressed beyond the time capillaries tolerate.",
+        "pts": 0.5,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "Nutrition: intake 25% on admission, now 50-75% with supplements, albumin 2.3, prealbumin 9, temporal wasting -> less padding and collagen, less ability to resist and repair damage.",
+        "pts": 0.5,
+        "src": "Flowsheet, labs"
+       },
+       {
+        "t": "Friction/shear: needs maximum help, HOB elevation or sliding in bed/chair pulls skin and deep tissue over the sacrum -> torn vessels, undermining; reason for HOB 30 degrees or less, lift sheet and mechanical lift.",
+        "pts": 0.5,
+        "src": "Orders"
+       }
+      ],
+      "rules": "Total 3.0. Give the score part if the number is in the defensible range AND cited with a chart finding. Do not require the total to be exactly 12."
+     }
+    },
+    {
+     "id": "2.4",
+     "type": "box",
+     "points": 2,
+     "lines": 10,
+     "title": "Malnutrition and Refeeding Syndrome",
+     "where": "Nutrition consult and RD assessment; Orders (dietitian, refeeding precautions); Lab Results (phosphorus, magnesium, potassium)",
+     "prompt": "Why does she need more protein, calories, vitamin C and zinc? What is refeeding syndrome, why is she at risk, and what in her labs or orders shows you how to watch for it? Why is BMI 20.7 not a reliable sign that she is well nourished?",
+     "key": {
+      "elements": [
+       {
+        "t": "Need: healing a large wound and fighting infection raise protein/calorie needs (about 30 kcal/kg and 1.25-1.5 g/kg protein); vitamin C for collagen, zinc for cell growth and immunity (limited to 10-14 days); intake only about 25% of needs, temporal wasting, prealbumin 9. BMI 20.7 is normal; malnutrition is shown by intake, weight loss and muscle/fat loss; albumin and prealbumin also fall with inflammation (CRP 164), so they are not diagnostic alone.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Mechanism: after prolonged starvation, giving carbohydrate/calories causes an insulin surge that drives phosphate, potassium and magnesium into cells and uses up thiamine, so blood levels fall -> arrhythmias, weakness, respiratory failure, confusion/seizures, fluid retention and edema (dangerous in HFrEF).",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Her data/orders: phosphorus 3.4 -> 3.2 -> 2.9, magnesium 1.7, potassium 4.1 -> 3.7 are drifting down as intake rises; thiamine 100 mg daily; daily phosphorus/magnesium/potassium x3 days (report phosphorus below 2.5, potassium below 3.5, magnesium below 1.5; replace BEFORE advancing calories); start 10-20 kcal/kg/day (about 510-1,020 kcal) and advance over 3-5 days; furosemide also wastes potassium and magnesium.",
+        "pts": 0.75,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.5",
+     "type": "box",
+     "points": 3,
+     "lines": 14,
+     "title": "Hemoglobin 7.0 -> 6.5 -> 6.4 in a Patient with HFrEF",
+     "where": "Lab Results > Hemoglobin; Notes; Orders; I&O",
+     "prompt": "Her hemoglobin has fallen to a critical value and no transfusion order or work-up is on the chart. Why does this matter more in HER than in a healthy adult? List three possible causes you can find in the chart, say what you would do and report, and explain what makes a transfusion riskier in her. What obvious fix would be wrong?",
+     "key": {
+      "elements": [
+       {
+        "t": "Matters more: EF about 35% heart must pump faster to deliver oxygen (ischemia, worsening heart failure, tachycardia); the wound, infection and sepsis recovery need oxygen delivery; frail, dementia (delirium); critical value must be reported.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Possible causes from the chart (any 3): anemia of inflammation/infection; hemodilution from LR (bolus plus 26 h of maintenance) and oral intake; blood loss from the wound and debridement (EBL 40 mL) and strikethrough; repeated blood draws (K, Mg, phosphorus 3 times a day, daily CBC/CMP); nutritional deficiency (iron, B12, folate, copper with prolonged zinc); possible GI loss (not assessed). No iron/B12/folate/reticulocyte studies are ordered.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Nursing action: assess for symptoms (HR, BP, dyspnea, chest pain, dizziness, pallor, new confusion) and bleeding (wound, canister, stool); SBAR the provider before the 0900 meds; ask about type and screen, transfusion threshold (restrictive about 8 g/dL for patients with cardiovascular disease; the provider decides), anemia work-up, whether to hold enoxaparin, and fewer blood draws; the daughter (health care proxy) gives consent.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Transfusion risk in HFrEF: transfusion-associated circulatory overload (TACO): give slowly (usually one unit over up to 3-4 h), baseline vital signs and lung sounds, recheck at 15 minutes and per protocol, watch for crackles, dyspnea, rising BP/HR, SpO2 drop; if it happens stop, keep the vein open with saline, sit her up, oxygen, call; diuretic per provider.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Obvious action that is wrong: giving a fluid bolus to \"raise\" the count or hurrying the transfusion; fluid dilutes hemoglobin further and overloads the heart. Doing nothing because she looks stable is also wrong.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "rules": "Accept other defensible causes (e.g., occult GI blood loss, hemolysis) if tied to the chart. Do not give credit for stating an exact transfusion threshold as an order: it requires a provider order."
+     }
+    },
+    {
+     "id": "2.6",
+     "type": "box",
+     "points": 2,
+     "lines": 10,
+     "title": "Recognizing Sepsis in an Older Adult with Dementia",
+     "where": "ED note and H&P (triage vitals, labs); Sticky notes; Orders (infection watch)",
+     "prompt": "Using her ED data, explain why she met criteria for early sepsis (use SIRS and qSOFA with her numbers). Why can sepsis be hard to see in an 84-year-old with dementia? What will you watch and report on your shift?",
+     "key": {
+      "elements": [
+       {
+        "t": "SIRS: HR 106 (above 90), RR 23 (above 20), WBC 16.7 (above 12) = 3 of 4 (temperature 100.1 F = 37.8 C does NOT meet above 38 C). Infection source known (wound).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "qSOFA: RR 23 (22 or more), SBP 99 (100 or less), altered mentation (drowsy, oriented to person only) = 3 of 3; organ dysfunction/hypoperfusion: lactate 2.6, creatinine 1.35 (baseline unknown), procalcitonin 1.80.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Atypical in older adults: blunted fever, new sleepiness/confusion instead of complaints, poor intake, dehydration; she cannot report symptoms; diabetes and malnutrition blunt immunity.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Report: temperature above 101 F (sticky note) or 101.5 F (order), HR above 110, SBP below 100, RR above 22, new confusion/drowsiness, urine output below 0.5 mL/kg/hr (25.5 mL/hr for 51 kg), spreading erythema, foul drainage, lactate above 2; the call parameters in the chart differ (see 1.8). Good response so far: lactate 1.5, T 98.4, HR 87.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.7",
+     "type": "box",
+     "points": 2,
+     "lines": 10,
+     "title": "Treatment: How Each Piece Helps the Wound",
+     "where": "Debridement and NPWT procedure notes; Wound/Ostomy and Surgery consults; Orders",
+     "prompt": "Explain how EACH of these treats her wound problem: sharp debridement, negative pressure wound therapy (-125 mmHg continuous), antibiotics, nutrition, and the support surface with turning. Name one thing the wound vac cannot do for her.",
+     "key": {
+      "elements": [
+       {
+        "t": "Debridement: removes necrotic slough/eschar and pus (source control), converts a stalled infected wound to a clean bleeding bed, allows deep tissue culture; wound looks bigger/deeper afterward (expected).",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "NPWT: foam and suction at -125 mmHg remove exudate and edema fluid, pull wound edges together, increase blood flow and granulation, protect from stool; needs an airtight seal; not for necrotic tissue or UNTREATED osteomyelitis (her MRI is equivocal, so bone must be reassessed); cannot treat infection or malnutrition.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Antibiotics: vancomycin (MRSA coverage until cultures) and piperacillin-tazobactam (E. coli, Enterococcus, anaerobes) treat the infection and sepsis but do not heal the wound; duration depends on whether bone is infected.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Nutrition: protein 1.25-1.5 g/kg, calories advanced slowly (refeeding), vitamin C and zinc for 10-14 days, glucose control; healing requires them.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Support surface and offloading: low-air-loss mattress, 30-degree tilts q2h, HOB 30 degrees or less, no sitting on the wound for long, moisture control; removes the cause; without it the wound re-opens.",
+        "pts": 0.4,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "title": "Pharmacology and Medication Safety",
+   "step": "Assessment / Analysis (and safe implementation)",
+   "minutes": 50,
+   "intro": "Use your drug guide and the MAR (click the medication name for the drug guide in the EHR). Part of your job is to question orders. Only active orders count; the LR bolus and LR maintenance orders are completed.",
+   "items": [
+    {
+     "id": "3.1",
+     "type": "table",
+     "points": 4.5,
+     "title": "Medication List",
+     "prompt": "From the MAR and orders, choose the SIX medications that matter most to you before the 0900 medication pass. List brand and generic names.",
+     "where": "MAR (click the medication name for the drug guide)",
+     "cols": [
+      "Medication (brand and generic)",
+      "Drug class and mechanism (10 words or fewer)",
+      "Why is THIS patient taking it?",
+      "Key nursing check / hold parameter"
+     ],
+     "widths": [
+      1.55,
+      1.95,
+      1.7,
+      1.8
+     ],
+     "rows": 6,
+     "rowH": 0.68,
+     "key": {
+      "answer": "Each row 0.75: medication is on this patient's MAR/orders (0.15), correct class and mechanism (0.2), correct indication for this patient (0.2), valid nursing check/hold parameter (0.2). Use the bank below.",
+      "elements": [
+       {
+        "t": "vancomycin 750 mg IV q24h (due 0900; last given 10/21 0900; 1,250 mg load given 10/20): glycopeptide, blocks cell-wall synthesis; empiric MRSA coverage until the final culture. HIGH-ALERT. Infuse over at least 90-120 min; hold and call pharmacy/provider for creatinine rise of 0.3 or more, urine output below 0.5 mL/kg/hr, or level above 20; ototoxicity; kidney risk with pip-tazo; order ends 10/23 0600.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "piperacillin-tazobactam (Zosyn) 3.375 g IV q8h (0600, 1400, 2200), extended 4-hour infusion: penicillin plus beta-lactamase inhibitor; infected wound (E. coli, Enterococcus, anaerobes). Rash, diarrhea/C. difficile (loose stools, on antibiotics); order ends 10/24 0600; no penicillin allergy on chart.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "lisinopril 20 mg daily: ACE inhibitor; hypertension/heart failure (home). Hold and notify for SBP below 100; check potassium and creatinine; extra kidney risk with sepsis, vancomycin, pip-tazo and furosemide; angioedema, cough.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "carvedilol 6.25 mg BID: beta blocker; HFrEF. Give with food; hold and notify for HR below 55 or SBP below 100; do not stop abruptly; can blunt tachycardia (a sepsis sign) and hypoglycemia symptoms; donepezil adds bradycardia.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "furosemide 40 mg daily: loop diuretic; heart failure (home). NO hold parameter on the order: ask; check BP, weight (none charted), lungs, edema, urine output, potassium 3.7, magnesium 1.7, creatinine; she is \"euvolemic to mildly dry\" and septic; wastes potassium and magnesium (refeeding).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "insulin glargine (Lantus) 20 units at bedtime (2100): basal insulin; type 2 diabetes. Notify provider before giving if glucose below 100; intake is only 50-75%: hypoglycemia risk; \"reduced 20% while NPO\" wording does not match the chart.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "insulin lispro (Humalog) low-dose correction scale ACHS (due 0730 and 1130): rapid-acting insulin; hyperglycemia. Check glucose first, give with a meal; glucose goal 140-180; scale numbers are not written in the order (clarify).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "enoxaparin (Lovenox) 40 mg subcut daily (0600; given today): low-molecular-weight heparin; VTE prophylaxis (immobile). HIGH-ALERT. Hold and notify for active bleeding or platelets below 50; kidney clearance; Hgb 6.4 means ask the provider before tomorrow's dose.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "acetaminophen 650 mg PO q6h (0600, 1200, 1800, 0000): non-opioid analgesic/antipyretic; multimodal pain control and premedication. 2.6 g/day: order reference says maximum 3 g/day, 2 g if malnourished; records temperature first (masks fever).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "tramadol 25 mg PO q6h PRN pain 4-6: opioid analgesic (and serotonin/norepinephrine reuptake effects). HIGH-ALERT. Hold for RR below 10 or sedation; lowers seizure threshold, dizziness, nausea; chart has a codeine intolerance; Beers list caution (hyponatremia, falls, delirium).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "hydromorphone (Dilaudid) 0.25 mg IV q3h PRN pain 7-10: opioid agonist. HIGH-ALERT. Hold for RR below 10, SpO2 below 90% or sedation; assess sedation, RR, SpO2 before and 15-30 minutes after; not yet given on the floor.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "donepezil (Aricept) 10 mg at bedtime: cholinesterase inhibitor; dementia. Bradycardia (check HR), nausea, poor appetite/weight loss, vivid dreams; can worsen urge incontinence and QT prolongation (with ondansetron).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "mirabegron (Myrbetriq) 25 mg ER daily: beta-3 agonist (relaxes bladder); overactive bladder. Swallow whole; hold and notify for SBP above 180; non-anticholinergic, so does not worsen confusion; moderate CYP2D6 inhibitor.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "thiamine 100 mg daily: vitamin B1; prevents Wernicke encephalopathy/refeeding complications when feeding resumes after starvation.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "zinc sulfate 220 mg (50 mg elemental) daily and ascorbic acid 500 mg BID: wound-healing nutrients (cell growth/immunity; collagen). Zinc with food; limit both to 10-14 days (order ends 11/03): prolonged zinc causes copper deficiency and anemia.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "multivitamin with minerals daily (TWO duplicate active orders, both due 0900): nutrition support; ask pharmacy to discontinue one.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Ensure Enlive 1 bottle TID and Ensure Plus BID (duplicate supplements, 1,750 kcal/day): high-calorie/protein supplements between meals; record percent taken; refeeding caution; clarify one order.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "ondansetron 4 mg IV q8h PRN nausea; zinc oxide 20% ointment PRN after each incontinence episode: 5-HT3 antagonist (QTc check, with donepezil and low K/Mg); skin protectant (apply to buttocks, perineum and folds, NOT into the wound).",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 4.5. Penalize a row that names a drug not on the chart (for example oxycodone, which the H&P mentions but is not ordered). Accept brand OR generic.",
+      "bank": true
+     }
+    },
+    {
+     "id": "3.2a",
+     "type": "box",
+     "points": 1.5,
+     "lines": 9,
+     "title": "Vancomycin and Piperacillin-Tazobactam",
+     "where": "MAR; Orders (vancomycin, trough/AUC order); Lab Results (creatinine, vancomycin level, cultures)",
+     "prompt": "Vancomycin 750 mg is due at 0900 and pip-tazo continues. Her creatinine is 0.87 (it was 1.35 on admission), the 10/21 level was 12.0, the nasal MRSA PCR was negative, and the wound culture shows gram-negative rods and gram-positive cocci in pairs. What will you check before and after the dose and when will you hold and call? What is wrong with how the 10/21 \"trough\" was timed? What question will you ask about continuing vancomycin?",
+     "key": {
+      "elements": [
+       {
+        "t": "Check and hold: creatinine daily, urine output (hold and call for rise of 0.3 or more, output below 0.5 mL/kg/hr = 25.5 mL/hr for 51 kg, or level above 20); infuse over at least 90-120 minutes (rate no faster than 1 g/hr) to prevent infusion reaction; ask about ringing in the ears; vancomycin plus pip-tazo, lisinopril and furosemide increase kidney injury risk in an older adult; watch for diarrhea (C. difficile).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Timing: the order says draw 30 minutes BEFORE the dose; the level was collected at 1224, about 3.5 hours after the 0900 dose started, so it was near the peak, not a trough and cannot be used as one; tell pharmacy; today's level (if wanted) must be drawn before the 0900 dose.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Question: the MRSA nasal PCR was negative and the Gram stain shows organisms pip-tazo covers; the hospitalist plan is to stop vancomycin when the final culture shows no MRSA but the order auto-stops 10/23 0600 regardless: ask whether to continue or stop it today, and when the final culture will be back.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "3.2b",
+     "type": "box",
+     "points": 1.5,
+     "lines": 10,
+     "title": "Pain Assessment and the Codeine Reaction",
+     "where": "Orders (pain assessment/premedication, analgesics); Allergies; Nursing Admission Note",
+     "prompt": "She has dementia and cannot always report pain. How will you assess it (name the tool and what it scores, and her chart score)? Her orders are acetaminophen, tramadol 25 mg PRN for pain 4-6 and IV hydromorphone PRN for 7-10, and her pain is 3/10. Her codeine \"allergy\" is nausea and vomiting. What would you do before the next NPWT foam change (due in 48-72 hours) and how do you think about opioid choice?",
+     "key": {
+      "elements": [
+       {
+        "t": "Tool: PAINAD (breathing, negative vocalization, facial expression, body language, consolability; each 0-2, total 0-10; 1-3 mild, 4-6 moderate, 7-10 severe); her admission PAINAD was 4 (grimaces with turning). Assess at rest AND with movement, before and after medication; use the 0-10 number when she can give it; behavior change (new agitation) may be pain or delirium.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Plan: acetaminophen on schedule (30-60 minutes before dressing changes and turning) but note 650 mg q6h = 2.6 g/day exceeds the 2 g limit the order lists for malnourished patients: ask; her baseline 3/10 is below the tramadol PRN range (4-6), so ask the provider for a specific premedication order before the foam change; low dose first (start low go slow), sedation and RR checks, bowel regimen, delirium watch.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Codeine: nausea/vomiting is an intolerance/side effect rather than an immune allergy, but clarify the reaction and document it; do not give codeine; tramadol is a related opioid that is activated like codeine (CYP2D6), also causes nausea and lowers the seizure threshold and is on the Beers list; a non-codeine opioid at the lowest dose with an antiemetic plan (ondansetron PRN: check QTc/potassium/magnesium with donepezil) and monitoring is reasonable; the provider and pharmacist choose.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "rules": "Do not require a specific drug change; credit sound reasoning. No credit for \"give codeine because it is only nausea.\""
+     }
+    },
+    {
+     "id": "3.2c",
+     "type": "box",
+     "points": 2,
+     "lines": 14,
+     "title": "The Obvious Action Is Wrong",
+     "prompt": "A busy colleague offers these shortcuts for Mrs. Whitcomb. Choose FOUR of the six. For each, write why it is unsafe for HER (use her data) and what you would do instead.\n(a) \"She is septic and a bit dry: run a 1 L LR bolus and put her back on LR at 100 mL/hr.\"\n(b) \"She only eats half, so give every supplement now and push 1,550 calories today.\"\n(c) \"She gets agitated at night and pulls at the tubing: ask for lorazepam, or use mitts and a vest restraint.\"\n(d) \"The right hip area is red: massage it to bring the circulation back.\"\n(e) \"Put her on a donut cushion in the chair so the sacral wound touches nothing.\"\n(f) \"Lay her fully on her side, 90 degrees, to get the sacrum free, and raise the head of the bed to 60 degrees after meals.\"",
+     "key": {
+      "answer": "Any 4. Each 0.5: names why it is unsafe with a patient-specific reason (0.25) AND a safer action (0.25).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "(a) Fluids: EF about 35%, trace edema, net +549 mL in 24 h, lactate already 1.5, SBP 115, creatinine and sodium corrected; a large bolus or continuous fluid risks pulmonary edema. Safer: small boluses (250-500 mL) only if hypotensive or lactate rises, reassess lungs, SpO2, BP, weight and I&O after each; stop for crackles or dyspnea; the standard 30 mL/kg = 1,530 mL is not appropriate here.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "(b) Refeeding: starvation then rapid calories can drop phosphorus (2.9 and falling), potassium and magnesium and cause arrhythmia, respiratory failure and fluid overload. Safer: follow the dietitian plan: start 10-20 kcal/kg (510-1,020 kcal), advance over 3-5 days, thiamine, daily electrolytes with replacement before advancing; ask which supplement order is intended (the two orders total 1,750 kcal).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "(c) Benzodiazepines and restraints worsen delirium, falls and injury (Beers; the delirium order says avoid restraints, limit sedatives). Safer: find and treat the cause (pain by PAINAD, full bladder or soiled brief, hypoxia, infection, hunger), reorient, daughter at bedside, glasses/hearing aids, day-night routine, hide/secure NPWT tubing, frequent rounding or a sitter; call the provider if she is unsafe.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "(d) Massage over a reddened bony area damages fragile capillaries and deep tissue. Safer: if it blanches it is only pressure-related erythema: offload with the 30-degree tilt, protective foam, keep skin dry, check with each turn; non-blanchable redness = stage 1, report and document.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "(e) A donut ring concentrates pressure on the surrounding tissue and reduces blood flow (the support-surface order says no donut cushions). Safer: pressure-redistribution cushion, sit at most 1 hour (three times a day), lift/transfer by mechanical lift, return to the low-air-loss bed; confirm the chair order first (see 1.8).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "(f) A 90-degree side-lying position loads the trochanter; raising the head of the bed beyond 30 degrees shears the sacrum. Safer: 30-degree tilt with wedges alternating left, back-tilt and right; HOB 30 degrees or less except at meals (sit upright for eating, then lower); limit time upright; use knee gatch and lift sheet; aspiration precautions per swallow evaluation.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 2.0. Choose the best four; do not give extra credit for more than four."
+     }
+    },
+    {
+     "id": "3.2d",
+     "type": "box",
+     "points": 1.5,
+     "lines": 9,
+     "title": "Lisinopril, Carvedilol and Furosemide at 0900",
+     "where": "MAR; Orders (hold parameters, potassium/creatinine monitoring); Flowsheets; Notes",
+     "prompt": "At 0900 lisinopril 20 mg, carvedilol 6.25 mg and furosemide 40 mg are due. Her BP is 115/71, HR 87, potassium 3.7, magnesium 1.7, creatinine 0.87, the hospitalist calls her \"euvolemic to mildly dry,\" and she is on vancomycin and pip-tazo. What do you check, which drugs have hold parameters, what is missing, and what will you ask the provider before you give them?",
+     "key": {
+      "elements": [
+       {
+        "t": "Check BP and HR (and rhythm) immediately before: hold and notify for SBP below 100 (lisinopril, carvedilol) or HR below 55 (carvedilol); give carvedilol with food; check potassium, creatinine, urine output, lung sounds and edema; do not stop the beta blocker abruptly in HFrEF.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Furosemide has NO hold parameter, and no weight is charted: ask for one (SBP, creatinine, potassium, volume status) and get today's bed-scale weight first; loop diuretic plus lisinopril plus two nephrotoxic antibiotics in a septic, \"mildly dry\" older adult risks acute kidney injury; furosemide also lowers potassium and magnesium (refeeding watch, QT risk with ondansetron/donepezil).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Context to report: Hgb 6.4 (critical, unaddressed); if she is transfused, ask how to manage volume (diuretic timing); donepezil plus carvedilol adds bradycardia; ask whether the ACE inhibitor and diuretic should be continued today while recovering from sepsis and prerenal injury; document the decision.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "3.3",
+     "type": "boxes",
+     "points": 3,
+     "title": "Math From the Chart",
+     "where": "MAR, Orders, Nutrition notes, I&O, Lab Results",
+     "prompt": "Show your work in the box. Include units. Weight 51 kg.",
+     "subs": [
+      {
+       "label": "a) Vancomycin 750 mg IV is supplied in 250 mL and ordered over 90 minutes. What pump rate in mL/hour? How many mg/kg is the 750 mg dose?",
+       "lines": 2
+      },
+      {
+       "label": "b) Acetaminophen is 650 mg every 6 hours. How many mg per 24 hours? The order's drug reference gives a maximum of 2 g/day for malnourished patients: by how much does her daily total exceed it, and what is the largest dose she could receive every 6 hours?",
+       "lines": 3
+      },
+      {
+       "label": "c) Ensure Enlive (350 kcal, 20 g protein) is ordered 3 times daily and Ensure Plus (350 kcal) twice daily. How many kcal per day do the supplements give? Her refeeding order says start at 10 to 20 kcal/kg/day: what is that range in kcal? Does the supplement total fit?",
+       "lines": 3
+      },
+      {
+       "label": "d) Her goal urine output is at least 0.5 mL/kg/hr. What is the minimum in mL per hour and in one 8-hour shift? Her last 24 hours intake was 2,409 mL and output 1,860 mL: what is the net balance?",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "a) 250 mL / 1.5 h = 166.7, about 167 mL/hr (0.4); 750 mg / 51 kg = 14.7 mg/kg (0.35)",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "b) 650 x 4 = 2,600 mg/24 h (0.25); 2,600 - 2,000 = 600 mg over (0.25); 2,000 / 4 = 500 mg per dose (0.25)",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "c) Enlive 3 x 350 = 1,050 + Plus 2 x 350 = 700 = 1,750 kcal/day (0.25); 10 x 51 = 510 to 20 x 51 = 1,020 kcal (0.25); 1,750 is more than the whole goal (about 1,550) and well above the refeeding start range: it does NOT fit (0.25)",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "d) 0.5 x 51 = 25.5 mL/hr (0.2); 25.5 x 8 = 204 mL per shift (0.2); 2,409 - 1,860 = +549 mL positive (0.35)",
+        "pts": 0.75,
+        "src": ""
+       }
+      ],
+      "rules": "Within each lettered problem award the amounts shown. Half credit for a correct method with an arithmetic or unit error. No credit without work shown. Accept 167 or 166.7 mL/hr and 14.7 or 15 mg/kg."
+     }
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "title": "Nursing Diagnoses and Priorities",
+   "step": "Diagnosis",
+   "minutes": 25,
+   "intro": "Use NANDA-I diagnoses. Write each as problem, \"related to\" (cause you can treat), and \"as evidenced by\" (specific data). Do not use a medical diagnosis as the \"related to.\"",
+   "items": [
+    {
+     "id": "4.1",
+     "type": "table",
+     "points": 6,
+     "title": "Prioritized Nursing Diagnoses",
+     "prompt": "Write FOUR nursing diagnoses in priority order (1 = highest).",
+     "cols": [
+      "#",
+      "NANDA-I nursing diagnosis",
+      "Related to (etiology)",
+      "As evidenced by (at least 2 specific chart findings)"
+     ],
+     "widths": [
+      0.4,
+      1.9,
+      2.0,
+      2.7
+     ],
+     "rows": 4,
+     "rowH": 1.0,
+     "key": {
+      "answer": "Each row 1.5: valid, patient-appropriate diagnosis (0.5); \"related to\" is correct and is not a medical diagnosis (0.5); \"as evidenced by\" cites at least 2 specific data (0.5). Accept any defensible top diagnosis if the justification in 4.2 uses ABCs, Maslow or acuity.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Impaired tissue integrity r/t prolonged pressure, shear, moisture and malnutrition AEB stage 4 sacral wound 6.9 x 5.6 x 3.8 cm with fascia exposed, undermining, Braden 12.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for infection (progression to sepsis or osteomyelitis) r/t infected wound over bone, diabetes (A1c 8.0), malnutrition AEB WBC 11.6, CRP 164, ESR 92, MRI coccyx edema equivocal, cultures positive for gram-negative rods and cocci.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for decreased cardiac output / Risk for ineffective peripheral tissue perfusion r/t critical anemia and HFrEF AEB Hgb 6.4 (7.0 on admission), EF about 35%, tachycardia history.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for imbalanced fluid volume (or Risk for excess fluid volume) r/t HFrEF, IV fluids/transfusion and diuretic during sepsis AEB net +549 mL/24 h, trace edema, no weights charted.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Imbalanced nutrition: less than body requirements (accept equivalent wording) r/t inadequate intake and increased needs for healing AEB intake 50-75% of meals, albumin 2.3, prealbumin 9, temporal wasting.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for electrolyte imbalance (refeeding) r/t increased calorie intake after prolonged poor intake AEB phosphorus 3.4 -> 2.9, potassium 3.7, magnesium 1.7.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Acute pain r/t tissue injury, debridement and repositioning/dressing changes AEB PAINAD 4 with grimacing on turning, pain 3-5/10.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for acute confusion r/t dementia, infection, age, unfamiliar environment and opioids AEB oriented to person only on admission, drowsy, baseline mild confusion.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Impaired skin integrity (incontinence-associated dermatitis) / Urge urinary incontinence r/t overactive bladder, cognitive impairment, loose stools AEB moist red buttocks and perineum, incontinent urine and stool.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for unstable blood glucose level r/t diabetes, infection, variable intake and basal insulin AEB glucose 176-184, A1c 8.0, eating 50-75%.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Impaired bed mobility / Impaired transfer ability r/t frailty, contractures, dementia AEB total assist with mechanical lift, mild knee contractures.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for falls; Compromised family coping (daughter); Risk for compromised dignity (accept with data).",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 6.0. A problem-only statement with no etiology or evidence earns 0.5 for that row at most. \"Stage 4 pressure injury\" is a medical diagnosis and cannot be the \"related to.\""
+     }
+    },
+    {
+     "id": "4.2",
+     "type": "box",
+     "points": 2,
+     "lines": 7,
+     "title": "Why This Order?",
+     "prompt": "Explain why your #1 diagnosis is first (use ABCs, Maslow, or acuity). Name one lower-ranked diagnosis that could become the top priority and what finding would move it up.",
+     "key": {
+      "elements": [
+       {
+        "t": "Applies a framework: airway/breathing/circulation, Maslow physiologic needs, or acuity (what could harm her soonest).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Ties ranking to patient data (Hgb 6.4, sepsis markers, SBP/HR, wound, intake).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Names a valid lower-ranked risk (infection/sepsis, fluid overload, refeeding, delirium, bleeding).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Gives a concrete trigger (temperature above 101 F, HR above 110, SBP below 100, new confusion, urine output below 25.5 mL/hr; phosphorus below 2.5; crackles or SpO2 below 92%; bright red blood in the canister).",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "5",
+   "title": "Planning and Implementation",
+   "step": "Planning / Implementation",
+   "minutes": 50,
+   "intro": "Plan the care for the 0700-1500 shift. SMART goal = Specific, Measurable, Achievable, Relevant, Time-bound, written about the PATIENT (not the nurse).",
+   "items": [
+    {
+     "id": "5.1",
+     "type": "table",
+     "points": 4,
+     "title": "Plan for Your Priority Diagnosis #1: ________________",
+     "cols": [
+      "SMART goal for this shift",
+      "Nursing interventions (at least 5: what, how often)",
+      "Rationale",
+      "I / C / D"
+     ],
+     "widths": [
+      1.6,
+      3.1,
+      1.7,
+      0.6
+     ],
+     "rows": 4,
+     "rowH": 1.0,
+     "prompt": "Use the top diagnosis from 4.1. I = independent, C = collaborative, D = delegated.",
+     "key": {
+      "answer": "Goal 1.0 (measurable number AND time frame AND patient-centered); interventions 2.0 (at least 5 safe, specific, with frequency: about 0.4 each); rationale 1.0 (correct for at least 4 interventions). Accept any diagnosis chosen in 4.1. Model answers:",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Impaired tissue integrity: Goal: through 1500 the NPWT stays sealed at -125 mmHg continuous with no off-time over 2 hours, all 4 scheduled turns (0800, 1000, 1200, 1400) are documented on a 30-degree tilt, and no new non-blanchable area appears on trochanters, ischium, heels or coccyx. Interventions: turn q2h on 30-degree tilt (left, back-tilt, right) with wedges and a lift sheet; HOB 30 degrees or less except meals; check NPWT seal, canister, tubing every shift and after every turn and every incontinence episode; clean urine/stool right away with pH-balanced no-rinse cleanser, barrier ointment on buttocks/perineum (NOT in the wound), one breathable underpad, tubing off the skin; float heels, inspect bony prominences with each turn; give acetaminophen 30-60 min before turns/foam changes and use PAINAD; chair only after the order is clarified, mechanical lift, cushion (no donut), 1 hour maximum, then back to the low-air-loss bed; Braden each shift. Rationale: pressure relief and shear reduction remove the cause; an airtight seal is needed for NPWT to work; moisture and stool cause infection and skin damage.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for infection/sepsis: Goal: temperature stays below 100.4 F, HR below 100, SBP 100 or higher, no new confusion, and urine output at least 25.5 mL/hr (204 mL per shift) through 1500. Interventions: vital signs and sepsis screen q4h and with any change; mark periwound borders and describe drainage/odor; hand hygiene and aseptic NPWT care; vancomycin and pip-tazo on time (extended 4-h pip-tazo infusion), question the vancomycin stop; follow cultures, creatinine, WBC; report CRP/ESR repeat need; watch for diarrhea (C. difficile). Rationale: early detection prevents septic shock; timely antibiotics maintain levels.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Imbalanced nutrition / refeeding risk: Goal: she eats at least 75% of two meals and takes 2 supplements with percent recorded by 1500, and phosphorus, potassium and magnesium stay at or above 2.5, 3.5 and 1.5. Interventions: set-up and feeding assistance, sit upright for meals then lower HOB, offer protein first; record percent eaten and supplement volume; give thiamine and ONE multivitamin; clarify the duplicate supplement orders and calorie goal with the dietitian; get today's weight; review electrolytes and report phosphorus below 2.5; check swallow clearance; glucose before meals. Rationale: protein and calories are needed for healing; slow advancement prevents refeeding syndrome.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for decreased cardiac output/excess fluid volume (Hgb 6.4 with HFrEF): Goal: provider notified of Hgb 6.4 before 0900 and an order plan is documented; HR below 100, SBP 100 or higher, SpO2 94% or higher, lungs clear through 1500. Interventions: SBAR early; assess symptoms and bleeding; weight, I&O, lung sounds q4h; hold/clarify per orders; if transfused, slow rate and TACO watch. Rationale: the failing heart cannot compensate for anemia or volume.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Acute pain: Goal: PAINAD below 4 at rest and below 5 with repositioning, RR 12 or more and awake, through 1500. Interventions: PAINAD with each vital set and turn; premedicate 30-60 min before care; non-drug measures; sedation/RR before opioids; ask for a premedication order. Rationale: unrelieved pain causes agitation, delirium and avoids turning.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "A goal without a number or time frame earns 0.5 (of 1.0). Interventions that are not specific (\"monitor patient\") earn no credit."
+     }
+    },
+    {
+     "id": "5.2",
+     "type": "table",
+     "points": 3,
+     "title": "Time-Sequenced Plan for the Shift",
+     "where": "MAR, Orders, Notes, Sticky notes",
+     "prompt": "For each hour, list your priority actions IN ORDER. Include medications (and which you will question), wound/NPWT care, repositioning, nutrition, assessments, communication, and say why that time.",
+     "cols": [
+      "Time",
+      "Priority actions in order",
+      "Why at this time"
+     ],
+     "widths": [
+      0.7,
+      4.3,
+      2.0
+     ],
+     "rows": [
+      [
+       "0700"
+      ],
+      [
+       "0800"
+      ],
+      [
+       "0900"
+      ],
+      [
+       "1000"
+      ],
+      [
+       "1100"
+      ],
+      [
+       "1200"
+      ],
+      [
+       "1300"
+      ],
+      [
+       "1400"
+      ]
+     ],
+     "rowH": 0.72,
+     "key": {
+      "answer": "Score 0.375 per hour row with an appropriate, sequenced, patient-specific plan.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "0700: bedside report with safety checks (ID and allergy bands, bed alarm, low bed, call light); vital signs and sepsis screen; look at the 0500 labs (Hgb 6.4 critical, phosphorus 2.9); NPWT seal, canister and tubing; skin check and turn on a 30-degree tilt (due 0800); PAINAD; bed-scale weight before breakfast; review orders and list clarifications (Hgb, duplicate multivitamin and supplements, chair order, furosemide parameter, vancomycin level/stop).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "0730-0800: glucose before breakfast and lispro per scale (0730); meal set-up and feeding assistance, record percent eaten; toileting/perineal care with barrier ointment; call the hospitalist (SBAR) about Hgb 6.4 and other clarifications BEFORE the 0900 medications; 0800 turn.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "0900: medication pass after clarification: check BP/HR; vancomycin over 90-120 min (or hold if told); lisinopril/carvedilol/furosemide per parameters and answers; thiamine, mirabegron, vitamin C, zinc with food, ONE multivitamin; Ensure Enlive; lung sounds and urine output.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1000: Ensure Plus; 1000 turn; PT may mobilize with mechanical lift if the chair order is clarified (no donut, cushion, 1 hour maximum); premedicate before moving; if a transfusion is ordered, consent from the daughter, double check, baseline vital signs and lung sounds.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1100: reassess pain (PAINAD) and delirium; mouth care, hydration, bowel check; NPWT seal check after each turn; document percent intake and calorie count; update daughter (health care proxy) about plan and answer questions.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1130-1200: glucose and lispro before lunch; acetaminophen 1200 (check total for the day); upright for lunch with feeding assistance then HOB back to 30 degrees; 1200 turn on tilt; incontinence care and skin check of ischium/sacrum if up in the chair.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1300: vital signs; reassess I&O and weight trend; wound/NPWT and heels check; social work/case management and dietitian updates; teach daughter or facility staff (turning, NPWT alarms); document.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1400: pip-tazo (extended infusion); Ensure Enlive; 1400 turn; final skin and NPWT check; handoff with open issues (Hgb plan, vancomycin decision, phosphorus/magnesium/potassium, chair tolerance, daughter's questions, neglect-screening status).",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Give no credit for a row that lists only \"meds\" or \"assessment.\" Penalize a plan that gives every 0900 medication without addressing the critical hemoglobin and the order questions. Turns should be about every 2 hours (0800, 1000, 1200, 1400)."
+     }
+    },
+    {
+     "id": "5.3",
+     "type": "boxes",
+     "points": 2,
+     "title": "Calling the Provider (SBAR)",
+     "where": "Lab Results; MAR; Orders; Notes",
+     "prompt": "At 0745 you review the 0500 labs and the 0900 medications. Hemoglobin is 6.4 (6.5 yesterday, 7.0 on admission), there is no transfusion order or anemia work-up, enoxaparin was given at 0600, and she has HFrEF. HR 87, BP 115/71, no bleeding seen, 40-60 mL serosanguineous in the NPWT canister over 12 hours. You call Dr. Patel (hospitalist). Write what you would say.",
+     "subs": [
+      {
+       "label": "S: Situation",
+       "lines": 3
+      },
+      {
+       "label": "B: Background",
+       "lines": 3
+      },
+      {
+       "label": "A: Assessment",
+       "lines": 3
+      },
+      {
+       "label": "R: Recommendation / request",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "S: identifies self, patient, room and the specific problem: critical hemoglobin 6.4 (a downward trend) with no plan, current vital signs HR 87, BP 115/71.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "B: 84-year-old, stage 4 sacral wound after debridement 10/21 and NPWT, early sepsis improving, HFrEF EF about 35%, hemoglobin 7.0 -> 6.5 -> 6.4, enoxaparin 40 mg given 0600, full code, daughter is health care proxy, last labs and the volume she has received.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "A: states a concern (critical anemia that her heart may not tolerate; possible bleeding/ongoing loss or dilution; not sure of cause); no symptoms or bleeding seen now.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "R: asks whether to type and screen and transfuse (threshold), anemia work-up, hold enoxaparin, repeat CBC and fewer blood draws, parameters for furosemide today; mentions the other clarifications briefly (duplicate multivitamin/supplements, vancomycin level/stop, chair order); read-back of orders and agreed time to reassess.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "5.4",
+     "type": "matrix",
+     "points": 2,
+     "title": "Delegation",
+     "prompt": "Mark the LOWEST level of staff who may be assigned each task for this patient.",
+     "cols": [
+      "RN only",
+      "LPN/LVN",
+      "UAP/PCT"
+     ],
+     "rows": [
+      "Turn her to a 30-degree tilt with a lift sheet and wedges, float her heels, and keep the wound vac tubing off her skin",
+      "Compare her 0900 vital signs and urine output with her sepsis call parameters and decide whether to notify the provider",
+      "Give the 0900 oral carvedilol and lisinopril after the RN has checked the BP and heart rate and clarified the hold parameters",
+      "Perform the NPWT foam change and measure the wound"
+     ],
+     "key": {
+      "answer": [
+       "UAP/PCT",
+       "RN only",
+       "LPN/LVN",
+       "RN only"
+      ],
+      "rules": "0.5 per row. Accept RN-only for row 3 if the student explains the RN retains the assessment and clarification responsibility. Row 4: per the order, foam changes are done by the WOC nurse or a trained RN."
+     }
+    },
+    {
+     "id": "5.5",
+     "type": "box",
+     "points": 3,
+     "lines": 18,
+     "title": "Communication, Dignity, Reporting and Discharge Back to Long-Term Care",
+     "where": "Social history; Orders (social work/case management; delirium); Case Management and PT notes",
+     "prompt": "Her daughter, the health care proxy, arrives upset. Write (1) what you will tell her about the wound vac and the plan and how you will include her, (2) three ways you will protect your patient's dignity, (3) what your responsibility is because a stage 4 pressure injury developed in the long-term care facility and an order asks for neglect screening, and (4) what the receiving long-term care facility must be told and have ready before she returns.",
+     "key": {
+      "elements": [
+       {
+        "t": "Daughter/proxy: introduce yourself; explain in plain language what NPWT does, that the foam is changed every 48-72 hours with pain medicine, the alarms and what to do if it stops; why she is turned every 2 hours; teach-back; ask about baseline cognition, preferences, pain behaviors and prior wound care; invite her to participate; she consents for the patient (capacity limited) so confirm proxy documents; give a contact for questions; ask her not to adjust the vac.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Dignity (any 3): address her by name; explain every step even if she may not understand; privacy and covering during dressing changes and incontinence care (door/curtain); do not speak about her as if absent; prompt, gentle incontinence care; maintain clothing, hair and glasses/hearing aids; offer choices and respect her routine; avoid restraints and medication to quiet her.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Reporting: nurses are mandated reporters of suspected abuse or neglect of a dependent adult (laws vary by state); a deep facility-acquired pressure injury may need to be reported through the proper channel (adult protective services / state long-term care ombudsman / health department per hospital policy). Your role: document objective facts (location, size, stage, timeline from the daughter, photos only as policy allows) without accusing; tell the charge nurse and social work/case management (neglect screening was ordered 10/20 1400 with no documented result); follow the chain of command and policy; do not investigate yourself; document present-on-admission status; protect the daughter and patient from retaliation.",
+        "pts": 1.0,
+        "src": ""
+       },
+       {
+        "t": "Discharge handoff (any 5): nursing/physician report to the facility (SBAR); NPWT settings (-125 mmHg continuous), foam-change schedule and WOC/home health plan, supplies and vendor confirmed BEFORE transfer; low-air-loss mattress, chair cushion (no donut), mechanical lift; 30-degree turning q2h; HOB 30 degrees or less; nutrition plan, supplements, weights, electrolytes; antibiotic stop date or ID/bone plan and lab follow-up (ESR/CRP); glucose and insulin plan; hemoglobin follow-up; baseline cognition and delirium plan; follow-up with surgery/wound clinic; goals-of-care conversation; teach facility staff; PT/OT recommendations.",
+        "pts": 0.75,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "6",
+   "title": "Evaluation: What Happened and What Next?",
+   "step": "Evaluation",
+   "minutes": 25,
+   "intro": "Open the sealed page. It shows the real chart notes written after 0700 and then events written by your instructor (the instructor events are NOT in the EHR; use them as if you had charted them). Do not change your Part 1-5 answers.",
+   "items": [
+    {
+     "id": "6.0",
+     "type": "sealed",
+     "points": 0,
+     "banner": "SEALED PAGE. Read only after Parts 1 to 5 are complete.",
+     "maxNotes": 2,
+     "maxLines": 70,
+     "intro": "Part A (from the EHR): the two chart notes written after 0700 are printed below exactly as in the chart. Part B (INSTRUCTOR ADDENDUM, NOT IN THE EHR) follows them. Part B is written by your instructor for this assignment.",
+     "addendum": [
+      {
+       "time": "PART B  INSTRUCTOR ADDENDUM (not in the EHR)  0915",
+       "title": "Daughter at the bedside",
+       "lines": [
+        "She is back in bed on the low-air-loss mattress after PT. Her daughter (health care proxy) arrives, tearful. She says: \"Mom usually knows me and her own name, not the year. She is worse around 5 in the evening.\" She says she first saw a red spot on her mother's tailbone about three weeks ago, told the facility nurse and was told \"we are turning her.\" She asks if the wound vac will hurt, whether the facility can care for it, and says \"please do not let them sedate her.\""
+       ]
+      },
+      {
+       "time": "0930",
+       "title": "Provider call",
+       "lines": [
+        "Dr. Patel is reached about the hemoglobin of 6.4. Orders: type and screen; transfuse 1 unit packed red cells over 3 hours; add iron studies, B12, folate and reticulocyte count to ONE blood draw; repeat hemoglobin 1 hour after the unit; review tomorrow's enoxaparin dose after the repeat result. The daughter agrees to the transfusion and signs consent."
+       ]
+      },
+      {
+       "time": "1015",
+       "title": "Transfusion started",
+       "lines": [
+        "One unit of red cells is started through the left antecubital IV at 100 mL/hour with 0.9% saline. Before starting: lungs clear, trace leg edema, NPWT canister 20 mL serosanguineous since 0700, seal intact."
+       ]
+      },
+      {
+       "time": "1130",
+       "title": "75 minutes into the unit (about 125 mL infused)",
+       "lines": [
+        "She says \"I can't breathe,\" is coughing, restless and pulling at the wound vac tubing and trying to climb over the bed rail. New crackles at both lung bases. The daughter is at the bedside."
+       ]
+      },
+      {
+       "time": "1135-1215",
+       "title": "Assume you stopped the transfusion and called",
+       "lines": [
+        "The unit was stopped at 1135 after about 125 mL. The provider orders furosemide 40 mg IV (given 1150) and oxygen 2 L by nasal cannula, and the blood bank is notified. At 1215 she is calmer with her daughter present; the tubing is re-secured and the NPWT seal is intact."
+       ]
+      },
+      {
+       "time": "1240-1400",
+       "title": "Rest of the shift",
+       "lines": [
+        "1240 incontinent of loose stool, cleaned, barrier ointment applied, seal re-checked and intact. Glucose 168 before lunch. Ate 25% of lunch. Turned to a 30-degree right tilt at 1300. NPWT canister total since 0700: 60 mL serosanguineous. The repeat hemoglobin is pending at 1400 and pip-tazo is due at 1400."
+       ]
+      }
+     ],
+     "table": {
+      "cols": [
+       "Time",
+       "HR",
+       "BP",
+       "RR",
+       "SpO2",
+       "Temp",
+       "Other"
+      ],
+      "widths": [
+       0.9,
+       0.6,
+       0.9,
+       0.6,
+       1.2,
+       0.8,
+       2.0
+      ],
+      "rows": [
+       [
+        "0400 (chart)",
+        "87",
+        "115/71",
+        "16",
+        "96% room air",
+        "98.4 F",
+        "pain 3/10"
+       ],
+       [
+        "0900 (chart, PT note)",
+        "87",
+        "115/71",
+        "16",
+        "96% room air",
+        "98.4 F",
+        "pain 3/10"
+       ],
+       [
+        "1015 instructor",
+        "88",
+        "118/70",
+        "16",
+        "96% room air",
+        "98.5 F",
+        "lungs clear"
+       ],
+       [
+        "1130 instructor",
+        "108",
+        "148/88",
+        "26",
+        "89% room air",
+        "98.7 F",
+        "crackles, restless, PAINAD 6"
+       ],
+       [
+        "1215 instructor",
+        "98",
+        "136/78",
+        "20",
+        "94% on 2 L",
+        "98.8 F",
+        "calmer"
+       ],
+       [
+        "1400 instructor",
+        "92",
+        "132/76",
+        "18",
+        "95% on 2 L",
+        "98.6 F",
+        "repeat Hgb pending"
+       ]
+      ]
+     },
+     "caption": "Your Part 1-5 answers must not change. Use these data in 6.1 to 6.3."
+    },
+    {
+     "id": "6.1",
+     "type": "table",
+     "points": 3,
+     "title": "Evaluating Your Goals",
+     "prompt": "Copy the SMART goal from 5.1 and one more goal you set in 5.2 (for example for skin, NPWT, nutrition or fluid balance). For each, use data from the sealed page to say whether it was met, partly met, or not met, and what you will change.",
+     "cols": [
+      "Goal (copy from Part 5)",
+      "Data from the sealed page that you used",
+      "Met / Partly / Not",
+      "Revised plan"
+     ],
+     "widths": [
+      1.6,
+      2.4,
+      0.9,
+      2.1
+     ],
+     "rows": 2,
+     "rowH": 1.2,
+     "key": {
+      "answer": "Each goal 1.5: cites at least 2 data points from the sealed page (0.6); correct, defensible status (0.4); a specific revision or \"continue\" with reason (0.5).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Skin/NPWT goal: MET or partly met if the turns were done and the seal held (canister 60 mL, seal intact at 1215 and 1240; stool cleaned and seal re-checked). Revise: stay at q2h tilts, recheck the seal after every turn and incontinence episode, secure the tubing, keep the chair order on hold until clarified and after her breathing recovers.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Infection/sepsis goal: MET (afebrile 98.4-98.8, HR 87-108 only during the event, BP 118-148, no new fever, drainage low); the 1130 changes were respiratory, not septic; continue q4h screens and the vancomycin question.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Nutrition goal: NOT MET or partly met (25% of lunch after the event); revise: smaller frequent meals and supplements as tolerated after she recovers, dietitian and refeeding labs, clarify the duplicate supplements; do not push calories.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Cardiac/fluid goal: NOT MET (SpO2 89%, RR 26, crackles, BP 148/88 at 1130): transfusion-associated circulatory overload in HFrEF; revise: slower rate/split unit and diuretic plan with the provider, recheck lungs, weight and I&O.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Pain/delirium goal: partly met or not met (PAINAD 6 and agitation at 1130 were mostly from hypoxia/overload); revise: treat the cause first, reorient with the daughter present, avoid sedatives and restraints, reassess pain once breathing is better.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Award the status points if the student's conclusion is consistent with the data they cite."
+     }
+    },
+    {
+     "id": "6.2",
+     "type": "box",
+     "points": 3,
+     "lines": 14,
+     "title": "New Problem and Priority Actions",
+     "prompt": "Name the MOST urgent problem at 1130, give the data that show it, and write your priority nursing actions in order. Include what you do about her breathing AND her sacral wound position, her agitation, and who you notify.",
+     "key": {
+      "elements": [
+       {
+        "t": "Problem: transfusion-associated circulatory overload (TACO) from transfusion in HFrEF (or suspected transfusion reaction/pulmonary edema): RR 26, SpO2 89% on room air, new bibasilar crackles, BP 148/88, HR 108, cough, restlessness. Compare with fever/back pain/hypotension (hemolytic, febrile, TRALI).",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Immediate actions in order: STOP the transfusion; keep the IV open with 0.9% saline through NEW tubing (do not flush the blood line into her); check vital signs, lungs and temperature; stay with her; notify the provider/rapid response and the blood bank; keep the unit and tubing, send what policy requires; anticipate a diuretic, oxygen and repeat labs.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Breathing versus sacrum: raise the head of the bed (or sit her up) to ease breathing now, because breathing comes first; limit shear (knee gatch, lift sheet, feet supported) and the time spent upright; give oxygen to keep SpO2 about 92% or higher; return to the 30-degree tilt and re-check the sacral skin and NPWT seal when she recovers.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Agitation: the likely cause is hypoxia (and fear, tubing, pain): treat the cause first, do not restrain or give a benzodiazepine; daughter at bedside, calm voice, reorient, secure/hide the tubing, protect the NPWT seal, PAINAD after breathing improves, bed alarm and rounding; report new confusion and screen for delirium.",
+        "pts": 0.75,
+        "src": ""
+       }
+      ],
+      "rules": "Accept other valid urgent problems from the sealed page if the actions are appropriate. Continuing the transfusion, giving a fluid bolus, or sedating her without addressing oxygenation is a safety error: cap the item at 1.0."
+     }
+    },
+    {
+     "id": "6.3",
+     "type": "box",
+     "points": 2,
+     "lines": 11,
+     "title": "Focused Nursing Note",
+     "prompt": "Write a focused nursing note for the 1130 event (DAR, SOAP, or your school's format): data, action, and response, with the plan.",
+     "key": {
+      "elements": [
+       {
+        "t": "Data: specific objective data with times (vital signs, SpO2, lung sounds, cough, restlessness, unit infused volume, NPWT status).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Action: transfusion stopped, saline KVO via new tubing, oxygen, position, notifications (provider, blood bank; who and when), furosemide given, medications held.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Response: vital signs and breathing at 1215 and 1400, calmer, seal intact, daughter present.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Plan/handoff: repeat hemoglobin pending, transfusion plan to be decided by the provider, lung/I&O/weight monitoring, delirium and pressure precautions, update to daughter; professional wording and times.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "7",
+   "title": "Clinical Judgment (Next-Generation NCLEX Style)",
+   "step": "Evaluation / Clinical judgment",
+   "minutes": 30,
+   "intro": "Answer by marking the boxes. These items use the same patient. Some scenarios are hypothetical and say so.",
+   "items": [
+    {
+     "id": "7.1",
+     "type": "choice",
+     "points": 2,
+     "style": "multi",
+     "title": "Select All That Apply",
+     "prompt": "Which nursing actions are correct for this patient today?",
+     "options": [
+      "Turn her on a 30-degree tilt with wedges, alternating left, back-tilt and right, every 2 hours.",
+      "Massage the reddened area over her right hip to improve circulation.",
+      "Re-check the wound vac seal after each turn and after each incontinence episode.",
+      "Place her on a donut-shaped cushion in the chair.",
+      "Lay her directly on her side at 90 degrees so the sacrum bears no weight.",
+      "Keep the head of the bed at 30 degrees or less except at meals.",
+      "Apply zinc oxide barrier ointment to the buttocks and perineum, not into the wound.",
+      "Add two extra layers of linen and a plastic-backed pad on the air mattress for easy cleanup."
+     ],
+     "key": {
+      "answer": [
+       "Turn her on a 30-degree tilt...",
+       "Re-check the wound vac seal after each turn...",
+       "Keep the head of the bed at 30 degrees or less except at meals.",
+       "Apply zinc oxide barrier ointment...not into the wound."
+      ],
+      "rules": "0.5 per correct option selected; subtract 0.5 for each incorrect option selected (not below 0). Wrong options: massage, donut cushion, 90-degree side-lying, extra layers/plastic pad."
+     }
+    },
+    {
+     "id": "7.2",
+     "type": "matrix",
+     "points": 2,
+     "title": "Trend: Better, Same or Worse?",
+     "prompt": "Judge each trend from 10/20 to 10/22 clinically: is she moving toward safety or away? A value can still be in the normal range and be getting worse. Mark one box per row.",
+     "cols": [
+      "Improving",
+      "Stable",
+      "Getting worse"
+     ],
+     "rows": [
+      "WBC 16.7 -> 14.5 -> 11.6 K/uL",
+      "Hemoglobin 7.0 -> 6.5 -> 6.4 g/dL",
+      "Creatinine 1.35 -> 1.05 -> 0.87 mg/dL",
+      "Glucose 184 -> 176 -> 182 mg/dL",
+      "Phosphorus 3.4 -> 3.2 -> 2.9 mg/dL (normal 2.5-4.5) while intake is rising"
+     ],
+     "key": {
+      "answer": [
+       "Improving",
+       "Getting worse",
+       "Improving",
+       "Stable",
+       "Getting worse"
+      ],
+      "rules": "0.4 per row. Phosphorus is still normal but falling toward the 2.5 report level during feeding: refeeding trend = getting worse."
+     }
+    },
+    {
+     "id": "7.3",
+     "type": "bowtie",
+     "points": 2,
+     "title": "Bowtie",
+     "stem": "HYPOTHETICAL day 5: her calories were advanced quickly to the full goal. She is now weak and confused. HR 124 and irregular, RR 26, SpO2 91% on room air, new pitting edema of both legs, and fine crackles at the bases. Phosphorus 1.6 mg/dL, potassium 3.0 mmol/L, magnesium 1.2 mg/dL.",
+     "pickActions": 2,
+     "pickParams": 2,
+     "actions": [
+      "Hold further calorie advancement, notify the provider now and ask for electrolyte replacement",
+      "Place her on continuous cardiac monitoring and ask for a 12-lead ECG",
+      "Give an extra supplement bottle to restore her strength",
+      "Give a 1 L fluid bolus for weakness",
+      "Give the scheduled furosemide for the edema without checking the electrolytes"
+     ],
+     "conditions": [
+      "Refeeding syndrome",
+      "Hypovolemic shock",
+      "Hypoglycemia",
+      "Opioid toxicity"
+     ],
+     "params": [
+      "Serum phosphorus, potassium and magnesium",
+      "Heart rate and rhythm",
+      "Wound drainage color",
+      "Braden score",
+      "Urine color"
+     ],
+     "key": {
+      "condition": "Refeeding syndrome",
+      "actions": [
+       "Hold further calorie advancement, notify the provider now and ask for electrolyte replacement",
+       "Place her on continuous cardiac monitoring and ask for a 12-lead ECG"
+      ],
+      "params": [
+       "Serum phosphorus, potassium and magnesium",
+       "Heart rate and rhythm"
+      ]
+     }
+    },
+    {
+     "id": "7.4",
+     "type": "highlight",
+     "points": 2,
+     "title": "Recognize Cues",
+     "prompt": "Excerpt from a HYPOTHETICAL day-shift report on a later day. Which statements need follow-up NOW?",
+     "statements": [
+      "Pain 3/10 at rest; PAINAD 2 during the turn.",
+      "Temperature 101.8 F, HR 116, and new confusion since 0200; yesterday she was oriented to person and place.",
+      "Ate 60% of breakfast and drank two supplements.",
+      "NPWT canister has 90 mL of serosanguineous fluid over 12 hours; seal intact.",
+      "A red area over the left hip does not blanch when pressed.",
+      "Bright red fluid is filling the NPWT tubing; 150 mL in the canister in the last hour.",
+      "Phosphorus 2.3 mg/dL (2.9 two days ago); calorie advance is due today.",
+      "Glucose 168 before lunch."
+     ],
+     "key": {
+      "answer": [
+       2,
+       5,
+       6,
+       7
+      ],
+      "rules": "Four cues: possible sepsis with new confusion; non-blanchable redness (stage 1 injury); active bleeding in the NPWT canister; phosphorus below the 2.5 report level during refeeding. Score 0.5 per correct statement; subtract 0.5 for each wrong statement chosen (not below 0)."
+     }
+    },
+    {
+     "id": "7.5",
+     "type": "choice",
+     "points": 2,
+     "style": "ordered",
+     "title": "Priority Actions",
+     "prompt": "HYPOTHETICAL: while on enoxaparin she suddenly has bright red blood filling the wound vac tubing and canister. HR 124, BP 86/50, pale and sweaty. Number the actions in the order you would do them.",
+     "options": [
+      "Turn off the wound vac, clamp the tubing, and leave the dressing in place.",
+      "Apply firm direct pressure over the dressing with a gloved hand and stay with her.",
+      "Call the rapid response team or surgeon with SBAR.",
+      "Apply oxygen, attach monitors, check IV access, and prepare for labs, type and cross, and possible blood.",
+      "Hold the next enoxaparin dose, measure the blood loss in the canister and document."
+     ],
+     "key": {
+      "answer": [
+       "1. Turn off the wound vac, clamp the tubing, leave dressing in place",
+       "2. Apply direct pressure and stay with her",
+       "3. Call rapid response/surgeon (2 and 3 may be swapped)",
+       "4. Oxygen, monitors, IV access, labs, prepare for blood",
+       "5. Hold enoxaparin, measure loss, document"
+      ],
+      "rules": "0.4 per action in the correct position. Positions 2 and 3 may be swapped. Calling for help must come before preparing blood and documenting; stopping the vacuum first is what the NPWT manufacturer instructs."
+     }
+    }
+   ]
+  }
+ ]
+}
