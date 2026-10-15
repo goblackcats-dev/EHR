@@ -1,0 +1,42 @@
+{
+ "name": "Rosa Delgado",
+ "age": 71,
+ "sex": "Female",
+ "mrn": "SIM-60417",
+ "unit": "Orthopedics 5 West",
+ "room": "512-2",
+ "heightCm": 160,
+ "weightKg": 88,
+ "primary": "tka",
+ "hospitalDay": 2,
+ "simDate": "2026-10-20",
+ "startTime": "07:00",
+ "hx": [
+  "htn",
+  "dm2",
+  "ckd3",
+  "obesity",
+  "hypothyroid",
+  "gerd",
+  "hld"
+ ],
+ "surg": [
+  "cholecystectomy"
+ ],
+ "allergies": [
+  {
+   "substance": "Sulfa drugs",
+   "reaction": "Rash",
+   "severity": "Moderate"
+  }
+ ],
+ "social": {
+  "tobacco": "Never",
+  "alcohol": "Rare",
+  "drugs": "None",
+  "living": "Lives with spouse/partner",
+  "function": "Independent with a cane for 2 years",
+  "other": "Two-story home with a bedroom upstairs; daughter lives nearby"
+ },
+ "fileName": "Rosa Delgado, Total Knee Replacement POD 1"
+}
