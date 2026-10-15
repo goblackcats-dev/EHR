@@ -1,0 +1,2065 @@
+{
+ "meta": {
+  "title": "Clinical Care-Plan Case Study: Diabetic Foot Infection with Osteomyelitis, Before and After First-Ray Amputation",
+  "course": "ADN Med-Surg II",
+  "caseCode": "CS-DFI-436-1",
+  "passPct": 78,
+  "footer": "Write one answer per numbered box, inside the box, in dark pen, neatly. Open book, individual work."
+ },
+ "studentIntro": [
+  {
+   "h": "Your patient",
+   "lines": [
+    "You are the primary nurse for the patient in Medical-Surgical 4 East, room 436-1, on the 7:00 to 15:00 shift on Wednesday, October 21, 2026 (hospital day 3). Open the patient in the student EHR (Student View, or the patient file from your instructor) and set the simulation clock to 0700. Everything you need is in the chart. He is waiting to go to the operating room for surgery on an infected foot, and he has several other chronic illnesses. Work the way you would at the start of a real shift: before the surgery, while he is in the OR, and when he comes back."
+   ]
+  },
+  {
+   "h": "How this case study works",
+   "lines": [
+    "This packet follows the nursing process: Assessment, Diagnosis, Planning, Implementation and Evaluation. You will also explain the pathophysiology and pharmacology behind your patient's care. Expect to spend about 5 hours. It is a take-home, individual, open-book assignment: use your textbooks, drug guide, notes and the chart.",
+    "Questions ask you to explain WHY, not only WHAT. Short, specific answers that use this patient's data earn more points than general textbook answers. Real charts are imperfect: you will be asked to catch conflicts and to question orders and recommendations before you act."
+   ]
+  }
+ ],
+ "studentRules": [
+  {
+   "h": "Scoring",
+   "lines": [
+    "The packet is worth 100 points. A score of 78 or higher is passing.",
+    "Each numbered item shows its point value. Points are given only for what is written in the box."
+   ]
+  },
+  {
+   "h": "Writing so your pages can be scored from photos",
+   "lines": [
+    "Write in dark pen or very dark pencil, print clearly, and stay inside the box. Write the answer in the box with the same number as the question.",
+    "Write your name and date at the top of every page (the header prints a line for it).",
+    "If you need more room, write \"continued on the back\" and put the item number on the back. Do not squeeze writing between boxes.",
+    "Do not use abbreviations that are not on the approved list. Spell out drug names.",
+    "When you finish: photograph EVERY page, one page per photo, on a flat surface in good light with all four corners and the page number in view. Check that every photo is readable before you upload."
+   ]
+  },
+  {
+   "h": "Part 6 is sealed",
+   "lines": [
+    "Do not read the sealed page at the start of Part 6 until Parts 1 to 5 are finished. Your plan must be based on what you knew at 0700."
+   ]
+  }
+ ],
+ "keyIntro": [
+  {
+   "h": "How to score (applies to every item)",
+   "lines": [
+    "Score only what is written in the student's box. Do not give credit for what you think the student meant. Spelling and grammar are not scored.",
+    "Accept equivalent wording and correct synonyms. Give each required element once; do not double count the same idea.",
+    "Partial points: use the amounts printed beside each element. Round the item total to the nearest 0.5. An item never earns more than its maximum.",
+    "If a box is illegible, blank, or you are unsure, give 0 for that element and list the item on the score sheet under \"faculty review.\"",
+    "Chart-dependent answers (Parts 1-5) are judged against the chart as it was at 0700 on 10/21/26. The post-0700 notes on the sealed page are real chart entries; the blue instructor addendum is invented and is not in the EHR.",
+    "Identical wording across different students' packets is a possible academic-integrity concern; flag it."
+   ]
+  },
+  {
+   "h": "About this patient",
+   "lines": [
+    "Walter Jennings, 61, diabetic foot infection with osteomyelitis of the right first ray; CKD stage 3 (eGFR 38), T2DM (A1c 10.2%), PAD (ABI R 0.72, toe pressure 58), obesity, penicillin allergy (hives), MRSA. NPO for first-ray amputation about 0800 on hospital day 3, then post-op.",
+    "Chart reconciliation (1.8): the conflicts listed were verified against the patient file. The most important is that the ID consult and hospitalist notes recommend piperacillin-tazobactam although the patient has a penicillin allergy; the MAR (meropenem) is the safe order. Do not give credit for a \"conflict\" that is not real (for example, heparin ending at 0700 and enoxaparin starting at 2130 is a planned transition, not a duplication).",
+    "The NPO insulin rule in this chart: basal insulin is NOT skipped (give 80%), mealtime insulin only when eating, correction scale q6h while NPO. Antibiotics are not held for NPO. No SCDs or compression (PAD). Avoid NSAIDs and IV contrast (CKD, vancomycin).",
+    "Math answers use the chart weight 108 kg; vancomycin bag volume in 3.3b and the hypothetical scenarios in Part 7 are not chart data."
+   ]
+  },
+  {
+   "h": "Passing",
+   "lines": [
+    "78 of 100 points passes. A student who completes Parts 1, 3 and 7 accurately and earns about half of Parts 2, 4, 5 and 6 will pass."
+   ]
+  }
+ ],
+ "parts": [
+  {
+   "id": "1",
+   "title": "Assessment: Patient Data and Chart Review",
+   "step": "Assessment",
+   "minutes": 60,
+   "intro": "Collect and organize the data you would have at 0700. Where the chart does not document something, write \"not documented.\" Use R and L for laterality.",
+   "keyNote": "Part 1 is mostly chart look-up, so it should be the easiest part to score. Students who read the chart carefully should earn 20 or more of these 26 points. The chart reconciliation (1.8) is the hardest item in this part.",
+   "items": [
+    {
+     "id": "1.1",
+     "type": "fields",
+     "points": 3,
+     "title": "Basic Patient Information",
+     "where": "Patient Summary and Storyboard",
+     "perRow": 2,
+     "labelW": 1.25,
+     "fields": [
+      {
+       "label": "Room Number",
+       "answer": "436-1 (Medical-Surgical 4 East)",
+       "pts": 0.25
+      },
+      {
+       "label": "Age",
+       "answer": "61",
+       "pts": 0.25
+      },
+      {
+       "label": "Gender",
+       "answer": "Male",
+       "pts": 0.25
+      },
+      {
+       "label": "Admission Date",
+       "answer": "10/19/26 (ED arrival about 0200; unit 0500)",
+       "pts": 0.25
+      },
+      {
+       "label": "Allergies (and reactions)",
+       "answer": "Penicillin: hives (severity High). Both the drug and the reaction are required for 0.5.",
+       "pts": 0.5
+      },
+      {
+       "label": "Chief Complaint",
+       "answer": "Right foot ulcer with redness, swelling, drainage and fever",
+       "pts": 0.25
+      },
+      {
+       "label": "Primary Diagnosis",
+       "answer": "Diabetic foot infection with osteomyelitis (right first metatarsal head and great toe); awaiting right first-ray amputation",
+       "pts": 0.5
+      },
+      {
+       "label": "Code Status",
+       "answer": "Full Code",
+       "pts": 0.25
+      },
+      {
+       "label": "Isolation",
+       "answer": "Contact precautions (MRSA in the nares and wound)",
+       "pts": 0.25
+      },
+      {
+       "label": "Height / Weight",
+       "answer": "178 cm / 108 kg (BMI 34.1)",
+       "pts": 0.25
+      }
+     ]
+    },
+    {
+     "id": "1.2",
+     "type": "table",
+     "points": 3,
+     "title": "Medical Diagnoses and How They Affect the Foot Infection and Healing",
+     "prompt": "List FOUR other medical diagnoses from this patient's chart. For each, explain how it affects his foot infection, his surgery or his healing.",
+     "where": "Chart Review > H&P; Encounters > Hospital problem list",
+     "cols": [
+      "Medical diagnosis",
+      "How it affects the foot infection, the surgery or healing"
+     ],
+     "widths": [
+      2.2,
+      4.8
+     ],
+     "rows": 4,
+     "rowH": 0.75,
+     "key": {
+      "answer": "Any 4 of the diagnoses below. Each row 0.75: diagnosis is on the chart (0.25) AND the effect is accurate (0.5).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Type 2 diabetes (A1c 10.2%, glucose 336 on arrival): hyperglycemia weakens white-cell function and slows healing; peripheral neuropathy hides injury; raises surgical-site infection risk.",
+        "pts": 0.75,
+        "src": "H&P, labs"
+       },
+       {
+        "t": "Peripheral neuropathy with loss of protective sensation (monofilament 0/4 sites R foot): he felt no pain from the ulcer and kept walking on it; also fall risk and hides post-op problems.",
+        "pts": 0.75,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "Peripheral arterial disease (ABI R 0.72, L 0.88; toe pressure 58 mmHg; pulses 1+, cap refill 3-4 s R foot): less blood, oxygen and antibiotic reaches the foot; slow healing; no SCDs or compression.",
+        "pts": 0.75,
+        "src": "H&P, arterial studies"
+       },
+       {
+        "t": "Chronic kidney disease stage 3 (creatinine 1.98, eGFR 38; baseline about 1.8): drug dosing (vancomycin, carbapenems, enoxaparin, insulin), avoid nephrotoxins/contrast, vein preservation for IV access.",
+        "pts": 0.75,
+        "src": "H&P, labs"
+       },
+       {
+        "t": "Obesity (BMI 34.1, 108 kg): skin folds, harder mobility and transfers (bariatric equipment), dosing, higher wound-complication risk.",
+        "pts": 0.75,
+        "src": "H&P"
+       },
+       {
+        "t": "Hypertension (BP 147-160/80-88 this admission, above goal <140/90): lisinopril held while NPO; ACE inhibitor plus vancomycin raises kidney risk.",
+        "pts": 0.75,
+        "src": "H&P, vitals"
+       },
+       {
+        "t": "Hyperlipidemia (atorvastatin): atherosclerosis that adds to PAD; statin continues for limb protection.",
+        "pts": 0.75,
+        "src": "H&P"
+       },
+       {
+        "t": "Tobacco use (current, 1/2 pack per day): vasoconstriction and reduced oxygen delivery slow healing and raise amputation risk; nicotine patch ordered.",
+        "pts": 0.75,
+        "src": "Social history"
+       },
+       {
+        "t": "MRSA colonization/infection (nares PCR positive): contact precautions; vancomycin needed; recurrence risk.",
+        "pts": 0.75,
+        "src": "Labs, orders"
+       },
+       {
+        "t": "Anemia (Hgb 10.0, mildly low, falling from 10.8) and low albumin (3.1): reduced oxygen delivery and protein for healing.",
+        "pts": 0.75,
+        "src": "Labs"
+       }
+      ],
+      "rules": "Maximum 3.0. Do not give credit for the same diagnosis twice. Do not give credit for the foot infection itself."
+     }
+    },
+    {
+     "id": "1.3",
+     "type": "boxes",
+     "points": 3,
+     "title": "Patient History",
+     "where": "H&P; ED Provider Note; Case Management Initial Assessment; Nursing Admission Note",
+     "subs": [
+      {
+       "label": "Medical History:",
+       "lines": 3
+      },
+      {
+       "label": "Surgical History:",
+       "lines": 1
+      },
+      {
+       "label": "Family History:",
+       "lines": 2
+      },
+      {
+       "label": "Social History:",
+       "lines": 3
+      },
+      {
+       "label": "Home Situation and Discharge Needs:",
+       "lines": 3
+      },
+      {
+       "label": "Pre-Hospital Story of Patient:",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "Medical: at least 5 of: long-standing type 2 diabetes (home glucose in the 300s for a week), peripheral neuropathy, CKD stage 3, PAD with claudication, hypertension, hyperlipidemia, obesity, tobacco use.",
+        "pts": 0.5,
+        "src": "H&P"
+       },
+       {
+        "t": "Surgical: no prior surgeries (full credit for \"none\"; bedside sharp debridement 10/19 and planned amputation this admission are fine to add).",
+        "pts": 0.5,
+        "src": "H&P"
+       },
+       {
+        "t": "Family: mother hypertension and type 2 diabetes; father coronary artery disease; a brother with type 2 diabetes who had a toe amputation (need mother, father AND brother).",
+        "pts": 0.5,
+        "src": "H&P"
+       },
+       {
+        "t": "Social: at least 5 of: lives alone; works part-time as a delivery driver; current smoker 1/2 pack per day; occasional alcohol; no drug use; has not seen a podiatrist in 3 years; walks barefoot at home; limited home glucose checking.",
+        "pts": 0.5,
+        "src": "H&P, ED note"
+       },
+       {
+        "t": "Home/discharge: lives alone, independent at baseline; case management expects home with home health nursing (wound care, PICC/home IV antibiotics) or short-term SNF, estimated discharge hospital day 5-6 once PICC is in, wound granulating and glucose controlled on a home insulin regimen; PT will advise on walker and offloading shoe (need 3 needs).",
+        "pts": 0.5,
+        "src": "Case management"
+       },
+       {
+        "t": "Pre-hospital: ulcer under the ball of the R foot for 3 weeks that began after new shoes; he felt no pain and kept walking on it; then foul drainage, redness spreading over the forefoot, swollen great toe, chills and fever (101.4 F); home glucose in the 300s; sent to the ED.",
+        "pts": 0.5,
+        "src": "ED note"
+       }
+      ]
+     }
+    },
+    {
+     "id": "1.4",
+     "type": "boxes",
+     "points": 4,
+     "title": "Head-to-Toe Assessment at 0700 (use R and L for laterality)",
+     "where": "Flowsheets; Nursing Admission Note; Nursing Progress Note 0645",
+     "prompt": "Document the findings from the chart as of the start of your shift. If the chart does not document a finding, write \"not documented.\"",
+     "subs": [
+      {
+       "label": "Neurological (include foot sensation):",
+       "lines": 2
+      },
+      {
+       "label": "Cardiovascular and perfusion:  Radial pulses R___ L___    Pedal pulses R___ L___    Cap refill R foot ____",
+       "lines": 3
+      },
+      {
+       "label": "Respiratory:  breath sounds, effort, O2",
+       "lines": 2
+      },
+      {
+       "label": "Integumentary (R foot wound: size, tissue, drainage, erythema; other skin):",
+       "lines": 4
+      },
+      {
+       "label": "Musculoskeletal, mobility and pain:",
+       "lines": 3
+      },
+      {
+       "label": "Gastrointestinal and Genitourinary (diet/NPO, I&O):",
+       "lines": 2
+      },
+      {
+       "label": "IV / Lines / Devices Assessment:",
+       "lines": 2
+      },
+      {
+       "label": "Psychosocial / Cultural Assessment and Erikson Stage:",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "Neuro: alert, oriented x4; loss of protective sensation: 10 g monofilament felt at 0 of 4 sites R foot and 1 of 4 sites L foot; vibration absent at both great toes; baseline numbness in both feet.",
+        "pts": 0.5,
+        "src": "Flowsheet 10/20 2000"
+       },
+       {
+        "t": "CV: sinus rhythm (charted as sinus tachycardia; HR 86-89 overnight), S1 S2 regular, no murmur; femoral pulses 2+; DP and PT faint (1+) bilaterally with Doppler signals present; cap refill R foot 3-4 s; R foot 1-2+ pitting edema. Radial pulses NOT documented (full credit for \"not documented\").",
+        "pts": 0.5,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "Resp: clear bilaterally, unlabored and even; room air, SpO2 96%. Lobe-by-lobe findings not documented.",
+        "pts": 0.5,
+        "src": "Flowsheet, vitals"
+       },
+       {
+        "t": "Integument: R plantar ulcer under the 1st metatarsal head after debridement 3.6 x 2.8 x 1.4 cm, red-pink base, probe reaches bone, moderate less-purulent drainage with reduced odor, moist saline packing; erythema receded to 2 cm from the ulcer edge (inside the marked border), less warm; great toe still swollen; Braden 19. Need size AND 3 other findings.",
+        "pts": 0.5,
+        "src": "Flowsheet, nursing note"
+       },
+       {
+        "t": "MSK: cannot bear weight on the R forefoot (antalgic); strict non-weight-bearing R foot with leg elevated; bariatric/lift-assist equipment; high fall risk; pain R forefoot 3/10 (dull, neuropathy blunts pain).",
+        "pts": 0.5,
+        "src": "Flowsheet, orders"
+       },
+       {
+        "t": "GI/GU: abdomen soft, non-tender, bowel sounds active x4, no nausea/vomiting; NPO since midnight with LR 75 mL/hr; voiding spontaneously, clear yellow; I&O 0300-0700 in 300 mL / out 309 mL.",
+        "pts": 0.5,
+        "src": "Flowsheet, I&O"
+       },
+       {
+        "t": "Lines: PIV R forearm (20 g) and PIV L antecubital (18 g), both patent, clean, dry, intact; no PICC, no urinary catheter; (devices list shows saline lock though LR is infusing: see 1.8).",
+        "pts": 0.5,
+        "src": "Devices"
+       },
+       {
+        "t": "Psychosocial: lives alone, works part-time as a delivery driver, current smoker (1/2 pack/day), occasional alcohol, consent signed and teaching about the block, sedation, open wound with packing, heel-weight-bearing shoe and daily dressing changes done; spiritual/cultural preferences not documented (full credit for \"ask the patient\"). Erikson: Generativity vs Stagnation (middle adulthood, about 40-65).",
+        "pts": 0.5,
+        "src": "Nursing note 0645"
+       }
+      ],
+      "rules": "Give 0.5 for a box that contains at least 3 correct chart findings for that system (0.25 for 1-2). Do not give credit for findings that are not in the chart (invented radial pulses, lobe-by-lobe lung sounds)."
+     }
+    },
+    {
+     "id": "1.5",
+     "type": "vitals",
+     "points": 2,
+     "title": "Vital Sign Trend",
+     "where": "Flowsheets > Vital Signs (or the Vitals graph)",
+     "prompt": "Copy the vital signs at each time. Circle every abnormal value. Then describe the trend in one sentence.",
+     "times": [
+      "2026-10-19 02:06",
+      "2026-10-20 12:00",
+      "2026-10-21 04:00"
+     ],
+     "times_label": [
+      "10/19 0206\n(ED arrival)",
+      "10/20 1200",
+      "10/21 0400"
+     ],
+     "rowsLabels": [
+      "Temperature",
+      "Heart rate",
+      "Blood pressure",
+      "Respiratory rate",
+      "SpO2 (%)",
+      "Pain (0-10)"
+     ],
+     "codes": [
+      "TEMP",
+      "HR",
+      "BP",
+      "RR",
+      "SPO2",
+      "PAIN"
+     ],
+     "key": {
+      "rules": "Score 1.5 x (cells correct / 18), rounded to the nearest 0.5. Circling abnormal values and the trend sentence are worth 0.5 together: fever (101.6 F), tachycardia (113) and tachypnea (22) on arrival have resolved with antibiotics and drainage (T 99.3, HR 88, RR 17); BP stayed 147-160/80-88, above the goal of <140/90, and never normalized; SpO2 95-97% on room air; pain low (2-5/10), and neuropathy blunts pain. Allow +/- 2 for rates and +/- 0.2 F."
+     }
+    },
+    {
+     "id": "1.6",
+     "type": "table",
+     "points": 3,
+     "title": "Laboratory Data",
+     "where": "Lab Results (look at the trend, not only today)",
+     "prompt": "Choose the 6 laboratory results most important for this patient today. For each give the most recent value, the normal range, the trend since 10/19, and explain why it matters for THIS patient.",
+     "cols": [
+      "Lab",
+      "Latest value, normal range, trend",
+      "Why is this lab important for this patient?"
+     ],
+     "widths": [
+      1.2,
+      2.3,
+      3.5
+     ],
+     "rows": 6,
+     "rowH": 0.7,
+     "key": {
+      "answer": "Any 6 of the labs below. Each 0.5: correct value with range and trend (0.25) AND an accurate patient-specific reason (0.25).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Creatinine 1.98 mg/dL (H; 0.7-1.3), 1.94 on 10/19, 1.91 on 10/20; eGFR 38 (>60): CKD stage 3 baseline about 1.8; vancomycin hold parameter is a rise of 0.3 or more; drug dosing and nephrotoxin avoidance.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Glucose 185 mg/dL on 10/21 (336 on 10/19, 214 on 10/20; goal 140-180) and A1c 10.2% (H): poor long-term control, insulin dosing while NPO, healing and infection risk; surgery goal below 180.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "WBC 13.6 K/uL (H; 4-10.5), down from 17.8 and 14.7: infection responding to antibiotics and drainage; recheck after surgery.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Vancomycin level 18.9 mcg/mL (10-20) on 10/20 and 10/21: close to the hold limit of 20; AUC goal 400-600; kidney injury risk.",
+        "pts": 0.5,
+        "src": "Labs, order"
+       },
+       {
+        "t": "CRP 148 mg/L, ESR 98 mm/hr, procalcitonin 0.90 (all H, measured only 10/19): very high ESR supports osteomyelitis; baseline for monitoring response and for OPAT labs.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Hemoglobin 10.0 g/dL (L; 13.5-17.5), down from 10.8: anemia of CKD/inflammation; baseline before surgery and enoxaparin.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Albumin 3.1 g/dL (L; 3.5-5), 3.3 on 10/19 and prealbumin 11 (L): poor protein stores slow wound healing; dietitian involved.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Potassium 4.6 mmol/L (3.5-5.1), BUN 34 (H), sodium 138: CKD, ACE inhibitor (held today) and LR fluid; check before surgery.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Platelets 322 K/uL (150-400), INR 1.0 (0.9-1.2): normal clotting before surgery; platelets matter for heparin/enoxaparin (hold if below 50).",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Blood cultures x2: no growth at 48 hours; MRSA nares PCR positive; deep tissue culture Gram stain: Gram-positive cocci in clusters and Gram-negative rods (many WBC), final pending: guides antibiotic narrowing.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "Lactate 1.4 mmol/L (0.5-2) on 10/19 0700, down from 2.1: sepsis physiology resolved.",
+        "pts": 0.5,
+        "src": "Labs"
+       }
+      ],
+      "rules": "Maximum 3.0. Accept other abnormal labs if value, range, trend and reason are correct. No credit for a lab with a wrong value."
+     }
+    },
+    {
+     "id": "1.7",
+     "type": "boxes",
+     "points": 3,
+     "title": "Diagnostics",
+     "where": "Chart Review > Imaging, Cardiology, Notes (arterial studies), Labs (microbiology)",
+     "subs": [
+      {
+       "label": "X-ray right foot: results",
+       "lines": 2
+      },
+      {
+       "label": "MRI right foot: results (note whether contrast was used)",
+       "lines": 2
+      },
+      {
+       "label": "Arterial studies (ABI, toe pressure): results and what they mean",
+       "lines": 2
+      },
+      {
+       "label": "ECG / echocardiogram / chest x-ray:",
+       "lines": 1
+      },
+      {
+       "label": "Cultures and MRSA screen:",
+       "lines": 2
+      },
+      {
+       "label": "Urinalysis:",
+       "lines": 1
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "X-ray: plantar soft tissue defect beneath the 1st metatarsal head with swelling; cortical erosion and periosteal reaction of the R 1st metatarsal head and base of the great toe proximal phalanx (concerning for osteomyelitis); dense calcification of the dorsalis pedis and plantar arteries; no gas, no foreign body, no Charcot.",
+        "pts": 0.5,
+        "src": "Radiology"
+       },
+       {
+        "t": "MRI: osteomyelitis of the 1st metatarsal head and proximal phalanx of the great toe with a plantar abscess about 2 cm; no midfoot extension; done WITHOUT gadolinium because of reduced kidney function.",
+        "pts": 0.5,
+        "src": "Radiology"
+       },
+       {
+        "t": "Arterial: ABI R 0.72, L 0.88 (calcified vessels may overestimate); R great toe pressure 58 mmHg, toe-brachial index 0.46; biphasic PT and monophasic DP waveforms: mild-moderate PAD; toe pressure above 30 means enough flow to heal a forefoot amputation.",
+        "pts": 0.5,
+        "src": "Arterial studies note"
+       },
+       {
+        "t": "ECG: normal sinus rhythm, no acute ST-T changes. Echocardiogram and chest x-ray: not documented (full credit for \"not documented\").",
+        "pts": 0.5,
+        "src": "Cardiology"
+       },
+       {
+        "t": "Blood cultures x2 no growth at 48 hours; MRSA nasal PCR positive; deep tissue (wound) culture Gram stain: Gram-positive cocci in clusters and Gram-negative rods with many WBC, final result pending; bone margin culture/pathology will be sent from the OR.",
+        "pts": 0.5,
+        "src": "Labs"
+       },
+       {
+        "t": "UA: ketones negative (no DKA). Other UA values not documented.",
+        "pts": 0.5,
+        "src": "Labs"
+       }
+      ]
+     }
+    },
+    {
+     "id": "1.8",
+     "type": "table",
+     "points": 5,
+     "title": "Chart Reconciliation",
+     "prompt": "Real charts contain conflicts, copy-forward errors and gaps. Find FOUR places where this chart is conflicting, unsafe, or needs clarification before you act. Say where you found each and who you would clarify with.",
+     "where": "Orders, MAR, Chart Review > Notes (ID and hospitalist notes), Devices, Sticky notes",
+     "cols": [
+      "What is wrong or unclear (and where)",
+      "Who you would clarify with and what you would ask"
+     ],
+     "widths": [
+      3.5,
+      3.5
+     ],
+     "rows": 4,
+     "rowH": 0.95,
+     "key": {
+      "answer": "Any 4 valid items. Each 1.25: the issue is real and located (0.75) AND the clarification is appropriate (0.5).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "ANTIBIOTIC vs ALLERGY (the most important): the ID consult (10/19 1300), the H&P plan (10/19) and the hospitalist note (10/20) all say vancomycin PLUS piperacillin-tazobactam, and the sticky note/vancomycin drug information mention pip-tazo, but the allergy is penicillin (hives, severity High) and the MAR has vancomycin PLUS meropenem; no pip-tazo order exists. Clarify with the hospitalist/ID and pharmacy; do not give or enter pip-tazo; ask for the plan and notes to be corrected.",
+        "pts": 0,
+        "src": "Notes, allergy, MAR"
+       },
+       {
+        "t": "A1c conflict: ED note and H&P past history say A1c 8.0%, but the lab and the H&P assessment say 10.2% (10/19 0230). Clarify with the hospitalist and use the lab value for insulin and teaching decisions.",
+        "pts": 0,
+        "src": "ED note, H&P, labs"
+       },
+       {
+        "t": "ABI conflict: problem list and the SCD order title say ABI 0.45 bilaterally, but the arterial study says R 0.72, L 0.88 (and the H&P says 0.72). Also the ED note (0418) and H&P (0530) quote the ABI 0.72 hours before the study was ordered (0912) and reported (1036). Clarify with the hospitalist/vascular lab; keep avoiding SCDs.",
+        "pts": 0,
+        "src": "Problem list, orders, notes"
+       },
+       {
+        "t": "Vancomycin level timing: the order says draw 30 minutes before the dose (dose due 0900) but the two \"trough\" results (both 18.9) were collected 10/20 1224 (3.5 hours AFTER the 0900 dose) and 10/21 0300 (18 hours after); the sticky note says level before the 4th dose but only 2 doses have been given (load 10/19 0254; 1,000 mg 10/20 0900). Ask pharmacy for a correctly timed level or AUC interpretation before the 0900 dose.",
+        "pts": 0,
+        "src": "Orders, MAR, labs, sticky note"
+       },
+       {
+        "t": "Insulin plan vs orders: the H&P, diabetes education order and 10/20 assessment say basal-bolus insulin and ACHS, but the lispro order is correction scale only every 6 hours (its rationale still reads mealtime and correction insulin) and the NPO order says mealtime insulin held; nothing says what to give when diet resumes at noon. Clarify with the hospitalist/pharmacy.",
+        "pts": 0,
+        "src": "Orders, notes"
+       },
+       {
+        "t": "Glargine dose: the order is still 22 units (22 units given 10/19 and 10/20 at 2100; home dose 20 units per H&P), while the NPO order, hospitalist note and sticky note say reduced 20% (80% of 22 = 17.6, about 18 units). Ask the hospitalist/pharmacy what exact dose to give tonight if still NPO and what if eating.",
+        "pts": 0,
+        "src": "Orders, MAR, sticky note"
+       },
+       {
+        "t": "Missing glucose data: no point-of-care glucose values appear in the chart (only AM lab glucose 336, 214, 185); notes quote ranges (224-268, 180-240); lispro correction is charted as given at 10/20 1800, 10/21 0000 and 0600 with no glucose value or units. Retrieve meter data, chart the number before every insulin dose, ask the night RN.",
+        "pts": 0,
+        "src": "MAR, flowsheets"
+       },
+       {
+        "t": "MRI order says \"without and with contrast\" but the report says it was done without gadolinium because of kidney function; relevant to the avoid-contrast orders. Clarify with radiology/hospitalist so the order record is accurate.",
+        "pts": 0,
+        "src": "Orders, radiology"
+       },
+       {
+        "t": "Device record: both PIVs are listed as saline lock, but LR 75 mL/hr is running per the MAR (0700) and I&O. Check which site the LR is infusing in and correct the record; both lines are on day 3.",
+        "pts": 0,
+        "src": "Devices, MAR"
+       },
+       {
+        "t": "Pulse documentation: assessments say DP and PT faint (1+) bilaterally, but the capillary refill line says PT by Doppler (not palpable). Re-examine with Doppler and document clearly; this is the baseline for post-op checks.",
+        "pts": 0,
+        "src": "Flowsheet"
+       },
+       {
+        "t": "Copy-forward: rhythm charted as sinus tachycardia on 10/20 2000 and in the 10/21 0645 note while HR was 86-89 (ECG normal sinus rhythm). Also nursing notes repeat the same ulcer measurements and \"glucose 224-268\" on 3 shifts.",
+        "pts": 0,
+        "src": "Flowsheet, nursing notes"
+       },
+       {
+        "t": "Ertapenem order (start 10/22 0800, when meropenem ends) is labeled culture-directed for 6 weeks, but cultures are not final and ID says 6 weeks only if the bone margin is positive; its rationale cites penicillin/cephalosporin allergy though only penicillin is documented; 500 mg is the dose for CrCl 30 or below (eGFR 38). Clarify with ID/pharmacy.",
+        "pts": 0,
+        "src": "Orders, ID note"
+       },
+       {
+        "t": "VTE prophylaxis gap: heparin 5,000 units SQ q8h was ordered from 10/19 0600 but the first documented dose is 10/20 1400; SCDs are not allowed (PAD). Ask pharmacy/the charge RN whether doses were given and not charted; do not double up.",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "Open orders with no documentation: verify tetanus immunization (Tdap if unknown or >5 years); diabetes education ordered 10/19 2200 but no teaching charted (notes show only MRSA and surgery teaching); tobacco counseling ordered.",
+        "pts": 0,
+        "src": "Orders, notes"
+       },
+       {
+        "t": "IV access plan: ID and case management assume a PICC for 6 weeks of IV antibiotics, but there is no PICC order and eGFR is 38 (CKD 3b); ask the hospitalist/nephrology/ID about vein preservation (for example tunneled small-bore catheter) before any PICC.",
+        "pts": 0,
+        "src": "Orders, notes"
+       },
+       {
+        "t": "Mobility: assessments say antalgic gait while orders are bed rest/strict non-weight-bearing with commode and wheelchair; clarify what he is actually doing and reinforce offloading.",
+        "pts": 0,
+        "src": "Flowsheet, orders"
+       },
+       {
+        "t": "Minor accepted items: WBC 17.6 in the H&P assessment vs 17.8 in labs; deep tissue culture result collected 10/20 1600 but debridement was 10/19 (about 1600-1654); cilostazol is a home medicine but not ordered until 10/23 0800; problem list says PAD \"no tissue loss\" despite the ulcer.",
+        "pts": 0,
+        "src": "Various"
+       }
+      ],
+      "rules": "Elements are a bank (0 pts each); score each student row 1.25 as described (maximum 5.0). The same issue written twice earns credit once. Do not credit a \"conflict\" that is not real (for example, the heparin order ending at 0700 and enoxaparin starting at 2130 is NOT a duplication)."
+     }
+    }
+   ]
+  },
+  {
+   "id": "2",
+   "title": "Pathophysiology: The Disease Process",
+   "step": "Assessment / Analysis of cues",
+   "minutes": 60,
+   "intro": "Explain WHY this is happening. Use your own words (plain language) and tie each idea to this patient.",
+   "items": [
+    {
+     "id": "2.1",
+     "type": "box",
+     "points": 5,
+     "lines": 13,
+     "title": "Pathophysiology of a Diabetic Foot Infection with Osteomyelitis",
+     "prompt": "In plain language and your own words, explain the pathophysiology of this patient's primary diagnosis: why a small ulcer under his foot went unnoticed, why it did not heal, how it reached the bone, what the body does in response, and why the problem is treated with surgery as well as antibiotics.",
+     "key": {
+      "elements": [
+       {
+        "t": "Long-standing high glucose (A1c 10.2%) damages nerves: sensory neuropathy (monofilament 0/4 sites R foot) removes pain so he kept walking on the ulcer; motor neuropathy changes foot shape and puts high pressure under the 1st metatarsal head; autonomic neuropathy dries and cracks skin.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Repeated pressure (new shoes, barefoot at home) on an insensate foot makes a plantar ulcer (3.0 x 2.4 x 0.8 cm) that is not offloaded; PAD (ABI R 0.72, toe pressure 58, faint pulses), smoking and CKD reduce blood flow, oxygen and antibiotic delivery, so it does not heal.",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Hyperglycemia impairs neutrophil function and collagen/wound healing, so bacteria (MRSA and Gram-negative rods) invade; infection spreads from skin and soft tissue (erythema 4 cm, abscess) down to bone (probe-to-bone positive, cortical erosion on x-ray, marrow edema on MRI).",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Systemic response: fever 101.6 F, HR 113, WBC 17.8, CRP 148, ESR 98 (very high ESR suggests bone infection), lactate 2.1; stress hormones and infection raise glucose (336) and insulin needs; osmotic diuresis causes dehydration (BUN 37, creatinine 1.94).",
+        "pts": 1,
+        "src": ""
+       },
+       {
+        "t": "Why surgery: infected bone with poor blood supply cannot be sterilized by antibiotics alone; first-ray amputation removes infected bone and drains the abscess (source control); toe pressure 58 mmHg predicts healing; wound is left open; the proximal bone margin culture decides antibiotic duration (2-5 days vs 6 weeks IV).",
+        "pts": 1,
+        "src": ""
+       }
+      ],
+      "rules": "One point per concept explained correctly in the student's own words. Copying textbook phrases without explanation earns 0.5."
+     }
+    },
+    {
+     "id": "2.2",
+     "type": "concept",
+     "points": 3,
+     "title": "Cause-and-Effect Chain",
+     "prompt": "Fill in each box (one or two lines) to show how events in this patient lead from long-standing diabetes to the problems you will have to prevent.",
+     "boxes": [
+      "1. Why can he not feel his foot? (factors in THIS patient)",
+      "2. Why did the ulcer start and stay open for 3 weeks?",
+      "3. Why is healing poor? (name at least 3 patient factors)",
+      "4. How did the infection reach the bone?",
+      "5. What is the body's response (data from his chart)?",
+      "6. How do surgery, antibiotics and offloading interrupt the chain?"
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "1: years of hyperglycemia (A1c 10.2%) damage nerves: loss of protective sensation, absent vibration at both great toes, baseline numbness.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "2: new shoes created pressure under the 1st metatarsal head; no pain, so he kept walking (and walks barefoot); no podiatrist for 3 years, limited glucose checking.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "3: PAD (ABI 0.72), hyperglycemia, tobacco, CKD, anemia (Hgb 10.0) and low albumin (3.1).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "4: an open deep ulcer lets bacteria (MRSA, Gram-negative rods) reach the bone: probe-to-bone positive, erosion on x-ray, osteomyelitis and plantar abscess on MRI.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "5: fever, tachycardia, WBC 17.8, CRP 148, ESR 98, glucose 336, dehydration.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "6: surgery removes infected bone and drains the abscess; IV antibiotics treat remaining infection; offloading and glucose control allow healing; smoking cessation and foot care prevent recurrence.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.3",
+     "type": "table",
+     "points": 3,
+     "title": "How Do You Know? Findings and Mechanisms",
+     "prompt": "List SIX findings from this patient's assessment, labs or diagnostics that support the diagnosis or show how his body is responding. Beside each, explain the mechanism that causes it.",
+     "where": "Notes, Flowsheets, Lab Results, Imaging",
+     "cols": [
+      "Finding in THIS patient (with value)",
+      "Why it happens (mechanism)"
+     ],
+     "widths": [
+      2.7,
+      4.3
+     ],
+     "rows": 6,
+     "rowH": 0.6,
+     "key": {
+      "answer": "Each row 0.5 when the finding is real and from this chart AND the mechanism is correct. Any 6 of the following.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Monofilament felt at 0 of 4 sites R foot, vibration absent: diabetic sensory neuropathy from hyperglycemia damaging nerves.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Probe reaches bone: deep ulcer extends to bone (high likelihood of osteomyelitis).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "ESR 98 and CRP 148: inflammation; a very high ESR points to bone infection.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "WBC 17.8, T 101.6 F, HR 113, RR 22: systemic inflammatory response to infection.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Glucose 336 with A1c 10.2%: chronic insulin deficiency/resistance made worse by infection stress hormones; polyuria and thirst.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Sodium 135 with glucose 336: glucose pulls water into the blood (dilutional low sodium); BUN 37 and creatinine 1.94: dehydration from osmotic diuresis on top of CKD.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "DP and PT pulses 1+, cap refill 3-4 s R foot, ABI 0.72, toe-brachial index 0.46: atherosclerosis narrows arteries, so less blood reaches the foot.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "R foot 2+ pitting edema and erythema 4 cm, warm: inflammation (vasodilation and capillary leak) plus infection.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Dense calcification of the DP and plantar arteries on x-ray: arterial wall calcification in diabetes/CKD (ABI may read falsely high).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Hemoglobin 10.8 to 10.0: anemia of CKD and chronic inflammation, plus hemodilution from IV fluid.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Albumin 3.3 to 3.1, prealbumin 11: inflammation and poor intake lower protein stores; wound healing needs protein.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Lactate 2.1: reduced tissue perfusion and sepsis physiology on arrival (1.4 later).",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 3.0."
+     }
+    },
+    {
+     "id": "2.4a",
+     "type": "box",
+     "points": 2,
+     "lines": 9,
+     "title": "Perfusion: PAD and Healing",
+     "prompt": "His right ABI is 0.72, but the x-ray shows dense calcification of the foot arteries, and the toe pressure is 58 mmHg. Explain (a) what the ABI and toe pressure tell you, (b) why the ABI can be misleading here, (c) why that toe pressure matters for surgery, and (d) why SCDs/compression stockings are not allowed and how smoking harms him.",
+     "key": {
+      "elements": [
+       {
+        "t": "ABI compares ankle to arm pressure; below 0.9 means PAD, 0.72 is mild-moderate; toe pressure/TBI (0.46) measures flow at the end of the foot.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Calcified, stiff arteries do not compress, so the ABI can read falsely high and hide how bad flow is; toe pressures are more reliable in diabetes.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Toe pressure above 30 mmHg (58) means enough blood flow to heal a forefoot amputation, so vascular surgery planned no revascularization before surgery (angiography/duplex later if healing is slow).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Compression/SCDs can reduce arterial flow and cause limb ischemia in PAD (order says avoid; use drug prophylaxis); smoking causes vasoconstriction, carbon monoxide and clotting, which slow healing and raise amputation risk.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.4b",
+     "type": "box",
+     "points": 2,
+     "lines": 9,
+     "title": "Kidneys: CKD Stage 3",
+     "prompt": "His creatinine is 1.98 and eGFR 38 (baseline creatinine about 1.8). Explain FOUR ways his kidney disease changes the care in this chart (include drugs, other nephrotoxins, and IV access for 6 weeks of antibiotics).",
+     "key": {
+      "elements": [
+       {
+        "t": "Drug clearance: vancomycin dosed by level/AUC (interval q24h), meropenem and ertapenem dose-adjusted, enoxaparin cleared by kidneys, insulin doses reduced about 25% (hypoglycemia lasts longer).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Avoid nephrotoxins: NSAIDs, IV contrast (MRI done without gadolinium, vascular says avoid contrast); vancomycin (especially with pip-tazo) can injure the kidney: creatinine and urine output daily.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "ACE inhibitor (lisinopril) is held while NPO; monitor potassium and creatinine; report creatinine rise of 0.3 or more; avoid dehydration (maintenance LR while NPO).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Vein preservation: with eGFR below 45 avoid PICC and unnecessary forearm sticks; ask nephrology/ID about a tunneled small-bore central line to save arm veins for future dialysis access.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.5",
+     "type": "box",
+     "points": 2,
+     "lines": 8,
+     "title": "Treatment",
+     "prompt": "What are we doing to treat this diagnosis before, during and after surgery? Include medical treatments AND nursing monitoring.",
+     "key": {
+      "elements": [
+       {
+        "t": "Antibiotics: vancomycin (MRSA) plus meropenem (broad Gram-negative/anaerobic coverage, chosen because of the penicillin allergy), narrowed by cultures; duration set by the bone margin (2-5 days vs 6 weeks IV).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Source control: bedside sharp debridement 10/19 with deep tissue culture; first-ray amputation (great toe and 1st metatarsal head), wound left open; bone margin sent for culture and pathology.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Glucose control (basal insulin plus correction, goal 140-180), offloading/non-weight-bearing then heel weight bearing in a post-op shoe, wound care, nutrition (protein), smoking cessation (nicotine patch 14 mg).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Nursing monitoring: neurovascular checks, erythema borders, wound/dressing, glucose, vital signs, creatinine/urine output, vancomycin levels, pain and sedation, I&O, fall precautions.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "2.6",
+     "type": "box",
+     "points": 3,
+     "lines": 10,
+     "title": "Reading the Lab Trends",
+     "where": "Lab Results (trend view)",
+     "prompt": "Look at WBC (17.8, 14.7, 13.6), creatinine (1.94, 1.91, 1.93, 1.98), glucose (336, 214, 185), vancomycin level (18.9, 18.9), hemoglobin (10.8, 10.5, 10.0), albumin (3.3, 3.2, 3.1) and CRP/ESR (measured once). What is getting better, what worries you, what is missing, and what would you tell the surgeon and pharmacist before the 0900 antibiotics?",
+     "key": {
+      "elements": [
+       {
+        "t": "Better: WBC, glucose, temperature and erythema (4 cm to 2 cm) are improving: infection responding to antibiotics, drainage and insulin; lactate normalized.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Creatinine is not rising by 0.3 (1.94 to 1.98, baseline about 1.8) so the hold parameter is not met, but it is not falling either while on vancomycin: keep monitoring creatinine and urine output.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Vancomycin level 18.9 is close to the limit of 20, and both levels were drawn at the wrong time (see 1.8): ask pharmacy for a properly timed level/AUC (goal 400-600) before the 0900 dose.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Hemoglobin and albumin are drifting down (anemia/inflammation/hemodilution; low protein for healing), and CRP/ESR were never repeated: ask for repeat CRP/ESR and a dietitian follow-up; recheck hemoglobin after surgery.",
+        "pts": 0.75,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "3",
+   "title": "Pharmacology and Medication Safety",
+   "step": "Assessment / Analysis (and safe implementation)",
+   "minutes": 50,
+   "intro": "Use your drug guide and the MAR (and the drug guide link inside the EHR). Part of your job is to question orders and recommendations before you act.",
+   "items": [
+    {
+     "id": "3.1",
+     "type": "table",
+     "points": 4.5,
+     "title": "Medication List",
+     "prompt": "From the MAR and orders, choose the SIX medications that matter most to you before and after his surgery today. List brand and generic names.",
+     "where": "MAR (click the medication name for the drug guide); Orders",
+     "cols": [
+      "Medication (brand and generic)",
+      "Drug class and mechanism (10 words or fewer)",
+      "Why is THIS patient taking it?",
+      "Key nursing check / hold parameter"
+     ],
+     "widths": [
+      1.55,
+      1.95,
+      1.7,
+      1.8
+     ],
+     "rows": 6,
+     "rowH": 0.68,
+     "key": {
+      "answer": "Each row 0.75: medication is on this patient's MAR/orders (0.15), correct class and mechanism (0.2), correct indication for this patient (0.2), valid nursing check/hold parameter (0.2). Use the bank below.",
+      "elements": [
+       {
+        "t": "vancomycin 1,000 mg IV every 24 hours (0900): glycopeptide, blocks bacterial cell wall synthesis; MRSA (nares PCR positive, Gram-positive cocci in clusters). Infuse over at least 90-120 minutes (no faster than 1 g/hr); level/AUC; hold and call for creatinine rise 0.3 or more, urine output drop or level above 20; nephrotoxic and ototoxic (tinnitus); flushing = infusion reaction.",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "meropenem 1 g IV every 12 hours (0900, 2100; order ends 10/22 0800): carbapenem, broad Gram-negative/anaerobic coverage; chosen because of penicillin allergy (low cross-reactivity); infuse over 30 min; dose adjusted for reduced GFR; seizure risk in renal impairment; no MRSA coverage.",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "ertapenem 500 mg IV every 24 hours (starts 10/22 0800): carbapenem for once-daily home infusion; renal-dose question (500 mg is the CrCl 30 or below dose) and \"cephalosporin allergy\" wording to clarify.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "insulin glargine (Lantus) 22 units subcutaneous at bedtime: long-acting basal insulin; T2DM. Give even when NPO but at 80% (about 18 units); check glucose first; notify provider before giving if glucose below 100; high-alert.",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "insulin lispro (Humalog) correction scale only, every 6 hours: rapid-acting insulin; hyperglycemia. Check glucose first; mealtime dose only when eating; hypoglycemia risk; kidney disease prolongs action; high-alert (independent double check).",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "enoxaparin 40 mg subcutaneous daily (starts 10/21 2130), after heparin 5,000 units q8h (ended 0700): anticoagulants for VTE prophylaxis (no SCDs with PAD). Hold and call for bleeding or platelets below 50; CKD; high-alert; watch dressing/strikethrough.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "aspirin 81 mg daily: antiplatelet; PAD. Continue through surgery unless surgeon directs otherwise; bleeding.",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "nicotine patch (NicoDerm CQ) 14 mg/24 h: nicotine replacement; tobacco use (1/2 pack/day). Rotate sites, remove old patch, no smoking while wearing; counsel on cessation.",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "lisinopril 20 mg daily: ACE inhibitor; hypertension. Held while NPO and resumes with diet (order starts 1200); hold and notify SBP below 100; check potassium and creatinine; kidney risk with vancomycin.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "atorvastatin 40 mg at bedtime: statin; hyperlipidemia/PAD. Report muscle pain; resumes 1200 order.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "cilostazol 100 mg twice daily (order starts 10/23 0800): phosphodiesterase-3 inhibitor for claudication; hold for HR above 110, palpitations; contraindicated in heart failure (none documented); bleeding with aspirin.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "acetaminophen 650 mg every 6 hours: non-opioid analgesic; multimodal pain control. Maximum 3 g/24 h; record temperature before giving; avoid NSAIDs.",
+        "pts": 0,
+        "src": "MAR"
+       },
+       {
+        "t": "oxycodone 5 mg PO every 4 hours PRN pain 4-6 and hydromorphone 0.25 mg IV every 3 hours PRN pain 7-10 (starts 0918): opioid agonists; post-op pain. High-alert; hold for RR below 10, sedation or SpO2 below 90%; neuropathy dulls pain but surgical wounds still hurt; senna-docusate prevents constipation.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "dextrose 50% 25 mL (12.5 g) IV every 15 minutes PRN glucose below 70 when NPO, glucagon 1 mg IM if no IV: hypoglycemia treatment per protocol; recheck in 15 minutes; notify provider.",
+        "pts": 0,
+        "src": "Orders"
+       },
+       {
+        "t": "lactated Ringer's 75 mL/hr: isotonic crystalloid; maintenance hydration while NPO (order ends 1730). Assess lungs, edema, I&O; IV site.",
+        "pts": 0,
+        "src": "MAR"
+       }
+      ],
+      "rules": "Maximum 4.5. Penalize a row that names a drug not on the chart (for example piperacillin-tazobactam). Accept brand OR generic.",
+      "bank": true
+     }
+    },
+    {
+     "id": "3.2a",
+     "type": "box",
+     "points": 2.5,
+     "lines": 12,
+     "title": "Which Antibiotic? Penicillin Allergy and Stewardship",
+     "where": "Allergies; MAR; Notes (ID consult 10/19 1300, H&P, hospitalist 10/20); Orders (ertapenem)",
+     "prompt": "The ID consult and hospitalist notes recommend vancomycin PLUS piperacillin-tazobactam, but the MAR has vancomycin PLUS meropenem. (a) What do you do about the pip-tazo recommendation and why? (b) Why is meropenem acceptable, and what do you watch for? (c) What will decide whether he needs 2-5 more days or 6 weeks of IV antibiotics, and what cultures are still pending? (d) What do you raise about IV access for a 6-week course?",
+     "key": {
+      "elements": [
+       {
+        "t": "Pip-tazo is a penicillin; his reaction is hives (IgE-type, severity High): do NOT give or enter it even though a consultant wrote it. Verify there is no pip-tazo order, then call the hospitalist/ID and pharmacy to correct the plan and notes (the obvious action, following the consultant, is wrong). Pip-tazo plus vancomycin also adds kidney injury risk in CKD.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Meropenem is a carbapenem with very low (<1%) cross-reactivity with penicillin; acceptable for this allergy. Doses already given 10/19 2100, 10/20 0900 and 2100 per MAR without a documented reaction; keep watching for hives, wheeze, swelling, hypotension; dose is renally adjusted; seizure risk; it does not cover MRSA, so vancomycin continues.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Duration: ID says proximal bone margin culture/pathology from the OR decides it: clean margin = 2-5 more days; positive = 6 weeks IV with weekly CBC, BMP, ESR/CRP and vancomycin level and ID clinic. Pending: bone margin culture and pathology, final deep tissue culture and susceptibilities (Gram stain: Gram-positive cocci in clusters and Gram-negative rods); blood cultures no growth at 48 h. Narrow (de-escalate) when final.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Access: a PICC is assumed by case management, but with eGFR 38 (below 45) ask nephrology/ID/IV team about vein preservation (tunneled small-bore central line) before any PICC; protect arm veins (use hand veins when possible); line care and OPAT teaching; once-daily ertapenem suits home infusion.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "rules": "A student who says to give the pip-tazo because ID recommended it loses the first element and may not earn more than 1.5 on this item."
+     }
+    },
+    {
+     "id": "3.2b",
+     "type": "box",
+     "points": 2,
+     "lines": 12,
+     "title": "Vancomycin, the OR and the Kidneys",
+     "where": "MAR; Orders (vancomycin, renal dosing review); Labs",
+     "prompt": "Vancomycin 1,000 mg is due at 0900, when he will be in the OR or PACU. (a) Read the hold parameters on the order and decide whether any is met today (show the values). (b) What is odd about how the levels were timed? (c) Whom do you call, and what do you do so the dose is neither missed nor given wrongly? (d) A colleague suggests ketorolac for post-op pain: what is your response?",
+     "key": {
+      "elements": [
+       {
+        "t": "Hold parameters: creatinine rise of 0.3 mg/dL or more, urine output drop, level above 20 mcg/mL. Values: creatinine 1.98 vs 1.91 yesterday (+0.07; +0.04 from admission 1.94), urine output 2,009 mL/24 h (about 0.78 mL/kg/hr), level 18.9: none met, so no reason to hold on my own; keep watching.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Timing: the order says draw 30 minutes before the dose (0830), but the two \"trough\" results (both 18.9) were drawn 3.5 hours after the 0900 dose (10/20 1224) and 18 hours after (10/21 0300), so neither is a true trough; ask pharmacy to interpret by AUC (goal 400-600) or order a correctly timed level.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Antibiotics are not held for NPO (sticky note: antibiotics on schedule): call the surgeon/anesthesia and pharmacy before 0800 so the 0900 vancomycin and meropenem are given on time (before transport or in PACU on return) rather than skipped; document the actual times.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Safe administration: no faster than 1 g/hr, over 90-120 minutes; watch for flushing/itching/hypotension (infusion reaction) and slow the rate; report ringing in the ears; check creatinine and urine output daily.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Ketorolac/NSAIDs: refuse and ask for an alternative; NSAIDs plus vancomycin plus CKD (and ACE inhibitor) risk acute kidney injury; the orders say avoid nephrotoxins, NSAIDs and contrast; use acetaminophen and low-dose opioid as ordered; same for any contrast study.",
+        "pts": 0.4,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "3.2c",
+     "type": "box",
+     "points": 2,
+     "lines": 12,
+     "title": "Insulin While NPO",
+     "where": "MAR; Orders (NPO, glargine, lispro, hypoglycemia protocol); Sticky notes",
+     "prompt": "NPO since midnight. Glucose was 185 on this morning's lab. Glargine 22 units is ordered at bedtime and lispro correction scale every 6 hours; the NPO order and the hospitalist plan say basal insulin 80% and mealtime insulin held. (a) What is the glucose goal? (b) Why is \"hold all his insulin because he is NPO\" wrong, and why is giving the full 22 units also wrong? (c) What do you check and when? (d) At 1130 he is sweaty and shaky and the meter reads 56 mg/dL: what do you do? (e) What changes in his insulin needs now that the infected bone is out, and what is unclear in the orders when he starts eating?",
+     "key": {
+      "elements": [
+       {
+        "t": "Goal 140-180 mg/dL (order); below 180 for surgery; notify provider for glucose below 70 or above 300.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Basal insulin is continued when NPO but at 80% (22 x 0.8 = 17.6, about 18 units) because skipping it lets glucose and ketones rise (infection, healing); full dose with no food risks hypoglycemia, worse with CKD (slower insulin clearance); the glargine order still says 22 units, so clarify before the bedtime dose.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Check glucose before ANY insulin (every 6 hours while NPO, before the OR and with symptoms); lispro correction scale only; independent double check for insulin (high-alert); document the glucose and units.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Hypoglycemia, NPO/nauseated: stay with him, give dextrose 50% 25 mL (12.5 g) IV per protocol (glucagon IM only if no IV), recheck in 15 minutes and repeat if still below 70, notify provider, then feed when awake; sedation and neuropathy/autonomic changes can hide symptoms.",
+        "pts": 0.4,
+        "src": ""
+       },
+       {
+        "t": "Insulin needs fall after source control (infection and stress hormones decrease) and surgery/NPO; watch for lows. Only correction insulin is ordered even though notes say basal-bolus: clarify whether mealtime insulin should start when the renal consistent-carbohydrate diet begins at 1200.",
+        "pts": 0.4,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "3.3",
+     "type": "boxes",
+     "points": 3,
+     "title": "Math From the Chart",
+     "where": "MAR; Orders; Vital signs; I&O",
+     "prompt": "Show your work in the box. Include units.",
+     "subs": [
+      {
+       "label": "a) The vancomycin loading dose was 2,750 mg and he weighs 108 kg. How many mg/kg is that? The rate must not exceed 1 g/hour: what is the shortest safe infusion time for the full load?",
+       "lines": 2
+      },
+      {
+       "label": "b) Pharmacy sends the 1,000 mg maintenance dose in 250 mL (this volume is given for the problem). To run it over 2 hours, what pump rate in mL/hour do you set?",
+       "lines": 2
+      },
+      {
+       "label": "c) His glargine order is 22 units. If he is still NPO tonight and the dose is reduced by 20%, how many units are due (round to the nearest whole unit)?",
+       "lines": 2
+      },
+      {
+       "label": "d) From 0300 to 0700 his urine output was 309 mL. What is that in mL/kg/hour for 108 kg, and is it above 0.5 mL/kg/hour?",
+       "lines": 2
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "a) 2,750 / 108 = 25.5 mg/kg; 2,750 mg / 1,000 mg per hour = 2.75 hours (2 hours 45 minutes)",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "b) 250 mL / 2 hours = 125 mL/hour",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "c) 22 x 0.80 = 17.6, rounded to 18 units",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "d) 309 / 4 = 77.25 mL/hr; 77.25 / 108 = 0.72 mL/kg/hr: above 0.5 (adequate)",
+        "pts": 0.75,
+        "src": ""
+       }
+      ],
+      "rules": "Half credit if the method is correct but arithmetic or units are wrong. No credit without work shown."
+     }
+    }
+   ]
+  },
+  {
+   "id": "4",
+   "title": "Nursing Diagnoses and Priorities",
+   "step": "Diagnosis",
+   "minutes": 25,
+   "intro": "Use NANDA-I diagnoses. Write each as problem, \"related to\" (cause you can treat), and \"as evidenced by\" (specific data). Do not use a medical diagnosis as the \"related to.\"",
+   "items": [
+    {
+     "id": "4.1",
+     "type": "table",
+     "points": 6,
+     "title": "Prioritized Nursing Diagnoses",
+     "prompt": "Write FOUR nursing diagnoses in priority order (1 = highest) for the 0700-1500 shift.",
+     "cols": [
+      "#",
+      "NANDA-I nursing diagnosis",
+      "Related to (etiology)",
+      "As evidenced by (at least 2 specific chart findings)"
+     ],
+     "widths": [
+      0.4,
+      1.9,
+      2.0,
+      2.7
+     ],
+     "rows": 4,
+     "rowH": 1.0,
+     "key": {
+      "answer": "Each row 1.5: valid, patient-appropriate diagnosis (0.5); \"related to\" is correct and is not a medical diagnosis (0.5); \"as evidenced by\" cites at least 2 specific data (0.5). Accept the top diagnosis if the justification in 4.2 uses a physiologic framework.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Risk for unstable blood glucose level r/t NPO status, insulin therapy, infection and surgical stress, CKD AEB glucose 336 to 185, A1c 10.2%, basal/correction insulin orders.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for surgical site infection (or infection) r/t osteomyelitis, open wound, hyperglycemia, MRSA colonization, PAD AEB probe-to-bone, WBC 13.6, MRSA nares PCR positive, planned open amputation wound.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Impaired tissue integrity r/t pressure on an insensate foot, neuropathy and impaired circulation AEB plantar ulcer 3.6 x 2.8 x 1.4 cm, erythema, planned open amputation wound.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Ineffective peripheral tissue perfusion r/t PAD, hyperglycemia and tobacco use AEB ABI R 0.72, pulses 1+, cap refill 3-4 s R foot, edema.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for peripheral neurovascular dysfunction (post-op) r/t surgery, edema and dressing AEB PAD, loss of protective sensation, nerve block.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Acute pain r/t tissue injury and surgery AEB pain 3/10 now (neuropathy blunts pain), expected post-op pain; opioid PRN orders.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for falls r/t loss of protective sensation, non-weight bearing, nerve block numbness, opioids, obesity AEB fall risk High, antalgic gait, lives alone.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Impaired physical mobility r/t surgical restriction (heel weight bearing only), pain AEB cannot bear weight on R forefoot, walker/PT.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Ineffective health self-management r/t knowledge deficit about foot care and glucose monitoring, tobacco use AEB walking barefoot, kept walking on ulcer, A1c 10.2%, limited glucose checks, no podiatrist for 3 years.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for acute kidney injury is NOT a NANDA-I label; accept \"Risk for ineffective renal perfusion\" r/t nephrotoxic drugs, CKD AEB creatinine 1.98, eGFR 38, vancomycin.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Maximum 6.0. A problem-only statement with no etiology or evidence earns 0.5 for that row at most."
+     }
+    },
+    {
+     "id": "4.2",
+     "type": "box",
+     "points": 2,
+     "lines": 7,
+     "title": "Why This Order?",
+     "prompt": "Explain why your #1 diagnosis is first (use ABCs, Maslow, or acuity). Name one lower-ranked diagnosis that could become the top priority and what finding would move it up.",
+     "key": {
+      "elements": [
+       {
+        "t": "Applies a framework: airway/breathing/circulation, Maslow physiologic needs, or acuity (what could harm him soonest, for example perioperative glucose instability or spread of infection).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Ties ranking to patient data (glucose, NPO and insulin, WBC and erythema, perfusion findings).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Names a valid lower-ranked risk (limb perfusion/neurovascular compromise, bleeding, infection, falls, pain).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Gives a concrete trigger (glucose below 70 or above 300; cool, pale or dusky toes, cap refill over 3 s or lost Doppler signal; strikethrough bleeding; temperature above 101.5 F or SBP below 90; creatinine rise of 0.3 or more).",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "5",
+   "title": "Planning and Implementation",
+   "step": "Planning / Implementation",
+   "minutes": 50,
+   "intro": "Plan the care for the 0700-1500 shift. He goes to the OR at about 0800 and will return to the unit afterward. SMART goal = Specific, Measurable, Achievable, Relevant, Time-bound, written about the PATIENT (not the nurse).",
+   "items": [
+    {
+     "id": "5.1a",
+     "type": "table",
+     "points": 2,
+     "title": "Plan for Priority Diagnosis #1: ________________",
+     "cols": [
+      "SMART goal for this shift",
+      "Nursing interventions (at least 4: what, how often)",
+      "Rationale",
+      "I / C / D"
+     ],
+     "widths": [
+      1.6,
+      3.1,
+      1.7,
+      0.6
+     ],
+     "rows": 4,
+     "rowH": 0.8,
+     "prompt": "I = independent, C = collaborative, D = delegated.",
+     "key": {
+      "answer": "Goal 0.5 (measurable number AND time frame AND patient-centered); interventions 1.0 (at least 4 safe, specific, with frequency: 0.25 each); rationale 0.5 (correct for at least 3 interventions). Accept any diagnosis chosen in 4.1. Model answers:",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Risk for unstable blood glucose: Goal: glucose stays 140-180 mg/dL (never below 70 or above 300) with no symptoms of hypoglycemia through 1500. Interventions: check the glucose and chart the number before the OR and every 6 hours while NPO (0600 done), at once for sweating/shaking/confusion, and on return from PACU and before his first meal; give lispro only by the correction scale after an independent double check; ask about the exact glargine dose for tonight (80% while NPO); keep D50 25 mL IV per protocol available; tell the OR/PACU team the last insulin time and glucose. Rationale: NPO plus insulin (slower clearance in CKD) risks hypoglycemia; hyperglycemia raises infection risk.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for surgical site infection: Goal: temperature below 100.4 F, no spreading redness past the marked border, and antibiotics given within 30 minutes of the scheduled time through 1500. Interventions: contact precautions (gown and gloves) and hand hygiene; verify the penicillin allergy and meropenem (no pip-tazo); coordinate vancomycin and meropenem timing around the OR; temperature and vital signs per order (notify T above 101.5 F); inspect dressing and mark/time strikethrough; aseptic dressing handling; track WBC. Rationale: MRSA osteomyelitis with open wound; antibiotics must stay at therapeutic levels.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Ineffective peripheral tissue perfusion / neurovascular dysfunction: Goal: after return, R foot toes warm with capillary refill under 3 seconds (his baseline 3-4 s), DP/PT Doppler signals present, and sensation/movement unchanged from the post-block baseline at every check through 1500. Interventions: neurovascular check R foot compared with L (pulses by Doppler, color, warmth, cap refill, sensation, movement) every hour until the block wears off, then per order; leg elevated, heel floated, no pillow under the knee; no SCDs, no heat, no tight wrap; inspect dressing; report cool, pale or dusky toes immediately. Rationale: PAD plus surgery and swelling can threaten the skin flap and remaining toes; neuropathy hides pain.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Risk for falls: Goal: no fall or unprotected weight bearing on the R forefoot through 1500. Interventions: bed alarm, bed low, call light and phone in reach, hourly rounding; no weight on the forefoot, post-op shoe for every transfer and gait belt and walker once weight-bearing order starts; at least 2 staff and bariatric equipment; teach that numbness from the nerve block and neuropathy hide pain and weakness; teach-back. Rationale: block numbness, opioids, neuropathy and obesity raise the risk; weight on the open wound causes breakdown.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "A goal without a number or time frame earns 0.25. Interventions that are not specific (\"monitor patient\") earn no credit."
+     }
+    },
+    {
+     "id": "5.1b",
+     "type": "table",
+     "points": 2,
+     "title": "Plan for Priority Diagnosis #2: ________________",
+     "cols": [
+      "SMART goal for this shift",
+      "Nursing interventions (at least 4: what, how often)",
+      "Rationale",
+      "I / C / D"
+     ],
+     "widths": [
+      1.6,
+      3.1,
+      1.7,
+      0.6
+     ],
+     "rows": 4,
+     "rowH": 0.8,
+     "key": {
+      "answer": "Same scoring as 5.1a. Other strong choices: Acute pain (pain 0-10 and sedation before/after each opioid, hold for RR below 10 or SpO2 below 90, scheduled acetaminophen, premedicate before dressing changes, goal at or below 4/10 at rest, anticipate the nerve block wearing off, constipation prevention); Impaired tissue integrity (dressing, erythema marking, offloading, no soaks or heat, nutrition: protein 108-130 g/day); Ineffective health self-management (teach-back on foot checks, glucose monitoring, smoking cessation)."
+     }
+    },
+    {
+     "id": "5.2",
+     "type": "table",
+     "points": 3,
+     "title": "Time-Sequenced Plan for the Shift",
+     "where": "Brain/Worklist, MAR, Orders, Secure Chat, Notes",
+     "prompt": "For each hour, list your priority actions IN ORDER. Include medications (and which you will question), pre-operative preparation, post-operative care when he returns, teaching and communication, and say why that time.",
+     "cols": [
+      "Time",
+      "Priority actions in order",
+      "Why at this time"
+     ],
+     "widths": [
+      0.7,
+      4.3,
+      2.0
+     ],
+     "rows": [
+      [
+       "0700"
+      ],
+      [
+       "0800"
+      ],
+      [
+       "0900"
+      ],
+      [
+       "1000"
+      ],
+      [
+       "1100"
+      ],
+      [
+       "1200"
+      ],
+      [
+       "1300"
+      ],
+      [
+       "1400"
+      ]
+     ],
+     "rowH": 0.72,
+     "key": {
+      "answer": "Score 0.375 per hour row with an appropriate, sequenced, patient-specific plan.",
+      "bank": true,
+      "elements": [
+       {
+        "t": "0700: bedside handoff with safety checks (ID and penicillin allergy bands, NPO sign, contact precautions, bed alarm); assess both feet, R foot neurovascular with Doppler, erythema border, dressing, pain, vital signs; confirm last glucose/insulin (lispro 0600) and last heparin (0600); review the 0900 antibiotics against the OR time; list questions for the hospitalist and pharmacy.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "0730-0800: finish the pre-op checklist (order ends 0742): consent signed, R foot marked, NPO, glucose below 180, last antibiotic and insulin times, blood thinners; call hospitalist/pharmacy (pip-tazo vs allergy, vancomycin level timing and 0900 dose, glargine dose); report to OR with MRSA contact precautions, allergy and PAD/neuropathy; baseline foot assessment documented; transport.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "0900: he is in the OR/PACU: the vancomycin and meropenem due at 0900 are given on time or as arranged with anesthesia/PACU (not skipped for NPO); hold aspirin, nicotine patch and multivitamin until awake and swallowing unless provider says otherwise; prepare the room: bariatric bed, pillows to elevate leg with heel floated, no pillow under the knee, suction, glucose meter, call light.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1000: receive PACU report (anesthesia, block type, last opioid and antiemetic, vital signs, glucose, dressing, neurovascular baseline); first assessments on arrival: airway, vital signs, dressing, R foot circulation and sensation, pain and sedation, nausea; start hourly sensation/movement/color checks until the block resolves; bed alarm and fall precautions.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1100: glucose check and chart; pain scale before PRN opioid (hold for RR below 10, sedation); ondansetron for nausea; I&O and LR 75 mL/hr until diet; dressing check and mark strikethrough; call light and reposition without pressure on the heel; update the plan with PT.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1130-1200: diet advanced as tolerated at 1200 (renal, consistent carbohydrate): only if awake, swallowing and not nauseated; glucose before meal and lispro by scale only; lisinopril, atorvastatin and senna-docusate begin per 1200 orders (check BP, hold SBP below 100); scheduled acetaminophen 1200.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1300: neurovascular check and dressing; pain reassessment as the block wears off (premedicate before activity); heel-weight-bearing order starts 1330: PT/OT with gait belt, walker and post-op shoe, 2 staff; teaching on offloading, foot checks and calling before getting up.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "1400: vital signs and glucose; review 1500 handoff: pending bone margin culture, enoxaparin 2130, meropenem 2100 then ertapenem 10/22 0800, glargine dose tonight (NPO vs eating), PICC/line plan with case management, creatinine and vancomycin level plan, open questions; document.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Give no credit for a row that lists only \"meds\" or \"assessment.\" Penalize a plan that skips the 0900 antibiotics because he is NPO or in the OR, gives lisinopril before the order starts, or never addresses the allergy and the insulin dose."
+     }
+    },
+    {
+     "id": "5.3",
+     "type": "boxes",
+     "points": 2,
+     "title": "Calling the Provider (SBAR)",
+     "where": "MAR; Orders; Notes; Labs",
+     "prompt": "At 0730 you call the hospitalist (Dr. Patel). The ID and hospitalist notes call for piperacillin-tazobactam although he is allergic to penicillin (the MAR has meropenem), vancomycin is due at 0900 during the OR time, the vancomycin levels were drawn at odd times (18.9 twice) and his creatinine is 1.98, and the glargine order is still 22 units while the plan says 80%. Write what you would say.",
+     "subs": [
+      {
+       "label": "S: Situation",
+       "lines": 3
+      },
+      {
+       "label": "B: Background",
+       "lines": 3
+      },
+      {
+       "label": "A: Assessment",
+       "lines": 3
+      },
+      {
+       "label": "R: Recommendation / request",
+       "lines": 3
+      }
+     ],
+     "key": {
+      "elements": [
+       {
+        "t": "S: identifies self, patient, room and the specific problems: pip-tazo recommended despite penicillin allergy, 0900 vancomycin/meropenem and OR at 0800, level timing, glargine dose.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "B: 61-year-old with DFI/osteomyelitis, hospital day 3, NPO for first-ray amputation, CKD3 (creatinine 1.98, eGFR 38), allergy penicillin (hives), meropenem given x3 without reaction, vancomycin levels 18.9 on 10/20 1224 and 10/21 0300, glargine 22 units ordered.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "A: states a concern (risk of allergic reaction if pip-tazo is entered, risk of missed or mistimed antibiotic doses, uncertain vancomycin exposure with kidney risk, hypoglycemia if the full basal dose is given while NPO); vital signs stable, afebrile.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "R: asks to confirm meropenem is the plan and the notes are corrected; how/when to give the 0900 antibiotics around the OR; pharmacy to interpret levels and set the next level; exact glargine dose tonight and mealtime insulin plan; read-back of orders.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "5.4",
+     "type": "matrix",
+     "points": 1.5,
+     "title": "Delegation",
+     "prompt": "Mark the LOWEST level of staff who may be assigned each task for this patient.",
+     "cols": [
+      "RN only",
+      "LPN/LVN",
+      "UAP/PCT"
+     ],
+     "rows": [
+      "Measure and record post-op vital signs and urine output, and float his heels on pillows as arranged by the RN",
+      "Compare the pulses, color, warmth, sensation and movement of both feet and decide if the change is concerning",
+      "Give the scheduled 1200 oral acetaminophen after the RN has checked that he is awake, swallowing and not nauseated"
+     ],
+     "key": {
+      "answer": [
+       "UAP/PCT",
+       "RN only",
+       "LPN/LVN"
+      ],
+      "rules": "0.5 per row. Accept RN-only for row 3 if the student explains the RN retains the assessment responsibility."
+     }
+    },
+    {
+     "id": "5.5",
+     "type": "table",
+     "points": 3.5,
+     "title": "Teaching and Discharge Plan",
+     "prompt": "List FIVE teaching or discharge-planning topics this patient needs from admission to discharge. Adapt each to his barriers (lives alone, neuropathy, delivery driver, limited glucose checking, smoking) and say how you will check understanding.",
+     "cols": [
+      "Teaching / discharge topic",
+      "How you will teach it or arrange it (adapted to barriers)",
+      "How you will confirm learning"
+     ],
+     "widths": [
+      1.8,
+      3.2,
+      2.0
+     ],
+     "rows": 5,
+     "rowH": 0.8,
+     "key": {
+      "answer": "Each row 0.7: appropriate topic (0.35) AND method/arrangement adapted to his barriers with teach-back or return demonstration (0.35).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Daily foot care and protection: inspect both feet every day (mirror or helper), between toes; never walk barefoot; well-fitting shoes with protective socks; no soaking, heating pads or cutting calluses; test water with the elbow or thermometer; see podiatry every few months; report new redness, drainage, odor, fever.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Glucose and insulin: check glucose as ordered, record, insulin technique, hypoglycemia recognition and treatment, sick-day rules, A1c goal; obtain meter/supplies; diabetes educator; lives alone so teach emergency plan.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Offloading and safety: heel weight bearing only in the post-op shoe, walker, elevate foot, no driving per surgeon, fall prevention and calling for help when numb; PT recommends home with home health PT/nursing or short-term SNF.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Home IV antibiotics and line care: why 6 weeks if the bone margin is positive, line care/signs of infection, infusion schedule, weekly labs (CBC, BMP, ESR/CRP, vancomycin level), report ringing in ears, rash, decreased urine; home health or OPAT arranged by case management.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Smoking cessation: link to PAD, healing and amputation risk; nicotine patch 14 mg, quitline, counseling order; set a quit date.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Wound care and follow-up: dressing changes (first change by surgeon on post-op day 1, then packing with moist saline gauze), signs of infection or ischemia, follow-up with foot and ankle surgery/podiatry, vascular surgery (duplex or angiography in 2-4 weeks if slow healing), ID clinic, primary care and diabetes follow-up, nephrology for CKD.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Medication and kidney safety: avoid NSAIDs, tell every provider about CKD, drug list and allergy to penicillin.",
+        "pts": 0,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "6",
+   "title": "Evaluation: What Happened and What Next?",
+   "step": "Evaluation",
+   "minutes": 25,
+   "intro": "Open the sealed page. It has two sections: REAL chart notes dated after 0700 (the EHR hides them until the simulation clock reaches them) and an INSTRUCTOR ADDENDUM that is NOT in the EHR. Do not change your Part 1-5 answers.",
+   "keyNote": "Chart problems in the real post-0700 notes (all verified; none is required but each may be credited under 6.2): (1) the hospitalist note timed 0830 says the amputation was \"performed 10/21/26 0800\" with findings, yet PACU arrival was 0936 and the operative note is timed 0954; (2) the 0830 plan says \"Continue vancomycin and pip-tazo\" a third time despite the penicillin allergy (MAR has meropenem); (3) the 0830 note says ankle block with MAC but the operative note says popliteal and saphenous nerve block with MAC; (4) the PACU transfer vitals (T 99.3, HR 88, BP 158/85, RR 17, SpO2 96%, pain 3/10) are identical to the arrival vitals, the 0830 note and the 1130 PT vitals (copy-forward), and the note says \"extubated\" after MAC; (5) PT mobilized him at 1130 (moderate assist of one, bed to chair with walker) while the activity order is bed rest until the block wears off (0930-1330) and the heel-weight-bearing order starts 1330, and the bariatric order requires at least 2 staff; (6) the OT note says he \"needs assistance with some ADLs, uses independent\", conflicting with the PT note and baseline. The instructor addendum (labeled) is invented for teaching and does not contradict the chart.",
+   "items": [
+    {
+     "id": "6.0",
+     "type": "sealed",
+     "points": 0,
+     "banner": "SEALED PAGE. Read only after Parts 1 to 5 are complete.",
+     "intro": "Part A: real chart notes written after 0700 (they are in the patient file; read them critically, they are not perfect). Part B (in blue) is the instructor addendum: it is NOT in the EHR; use it as if you had charted it.",
+     "maxNotes": 5,
+     "maxLines": 16,
+     "addendum": [
+      {
+       "time": "1115",
+       "title": "INSTRUCTOR ADDENDUM (not in the EHR): back on 4 East from PACU",
+       "lines": [
+        "The block is still working: R foot numb, toes warm, capillary refill of the 2nd toe 3 seconds, DP Doppler signal present. Dressing has a 2 cm spot of pink drainage on the outer wrap (you marked and timed it). Pain 2/10. Nauseated; ondansetron 4 mg IV given. Glucose 144 mg/dL."
+       ]
+      },
+      {
+       "time": "1200",
+       "title": "INSTRUCTOR ADDENDUM: diet advanced",
+       "lines": [
+        "Glucose 118 before lunch (no lispro needed by the scale). He eats about 30% of the renal, consistent-carbohydrate lunch. Lisinopril, atorvastatin and senna-docusate start per the 1200 orders (BP 150/84)."
+       ]
+      },
+      {
+       "time": "1245-1315",
+       "title": "INSTRUCTOR ADDENDUM: reassessment",
+       "lines": [
+        "At 1245 he got up to the bathroom alone with the walker, without the post-op shoe, \"because I can't feel my foot anyway.\" He did not fall. At 1315 the block is wearing off: throbbing pain 7/10 (oral/IV opioid PRN orders are available). The dressing now has about 6 cm of bright red strikethrough on the outer wrap (2 cm at 1115). The 2nd and 3rd toes look pale-dusky and cool, capillary refill 4 to 5 seconds, DP Doppler signal faint (it was clear at 1115). Enoxaparin 40 mg is next due at 2130."
+       ]
+      }
+     ],
+     "table": {
+      "cols": [
+       "Time",
+       "HR",
+       "BP",
+       "RR",
+       "SpO2",
+       "Temp",
+       "Pain",
+       "Other"
+      ],
+      "widths": [
+       0.8,
+       0.5,
+       0.8,
+       0.5,
+       0.8,
+       0.7,
+       0.6,
+       2.3
+      ],
+      "rows": [
+       [
+        "0400 (chart)",
+        "88",
+        "158/85",
+        "17",
+        "96% RA",
+        "99.3 F",
+        "3/10",
+        "pre-op baseline; glucose lab 185 at 0500"
+       ],
+       [
+        "1115",
+        "92",
+        "150/84",
+        "16",
+        "96% RA",
+        "99.1 F",
+        "2/10",
+        "glucose 144; 2 cm pink drainage; toes warm; cap refill 3 s"
+       ],
+       [
+        "1315",
+        "106",
+        "168/94",
+        "20",
+        "95% RA",
+        "99.6 F",
+        "7/10",
+        "6 cm bright red strikethrough; toes 2-3 pale/cool, cap refill 4-5 s; DP Doppler faint"
+       ],
+       [
+        "1330 labs",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Hgb 9.2 (was 10.0); platelets 318; creatinine 2.01 (was 1.98); K 4.7; glucose 121"
+       ]
+      ]
+     },
+     "caption": "Next doses coming up after this shift: meropenem 2100 (order ends 10/22 0800), enoxaparin 2130, glargine 2100, ertapenem begins 10/22 0800."
+    },
+    {
+     "id": "6.1",
+     "type": "table",
+     "points": 3,
+     "title": "Evaluating Your Goals",
+     "prompt": "For each goal you wrote in 5.1a and 5.1b, use data from the sealed page to say whether it was met, partly met, or not met, and what you will change.",
+     "cols": [
+      "Goal (copy from Part 5)",
+      "Data from the sealed page that you used",
+      "Met / Partly / Not",
+      "Revised plan"
+     ],
+     "widths": [
+      1.6,
+      2.4,
+      0.9,
+      2.1
+     ],
+     "rows": 2,
+     "rowH": 1.2,
+     "key": {
+      "answer": "Each goal 1.5: cites at least 2 data points from the sealed page (0.5); correct, defensible status (0.5); a specific revision or \"continue\" with reason (0.5).",
+      "bank": true,
+      "elements": [
+       {
+        "t": "Glucose goal: MET (glucose 144 at 1115, 118 at 1200, 121 at 1330; no lows) but he eats only 30% and his insulin needs are falling after source control: continue glucose checks before meals and with symptoms, lispro by scale only, ask about the glargine dose tonight and a plan if intake stays low.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Perfusion/neurovascular goal: NOT met at 1315 (toes 2-3 pale-dusky, cool, cap refill 4-5 s, DP Doppler faint; strikethrough growing to 6 cm; pain 7/10): call the surgeon now (hematoma/flap compromise/ischemia in PAD), check every 15 minutes with Doppler, no heat, do not loosen the wrap yourself.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Infection goal: PARTLY/MET (T 99.1-99.6 F, no new fever; WBC 13.6 before surgery) but bleeding and perfusion threaten the flap; continue antibiotics on time, watch temperature, dressing and drainage.",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Falls/offloading goal: NOT met (walked at 1245 without the shoe on an operated foot and numb leg): reinforce teaching with teach-back, bed alarm and 2 staff, shoe at bedside; report to the surgeon (weight on the wound may have caused the bleeding).",
+        "pts": 0,
+        "src": ""
+       },
+       {
+        "t": "Pain goal: NOT met at 1315 (7/10, throbbing, sudden increase as the block wears off): pain out of proportion with dusky toes must be reported, not only treated with opioid; give PRN per order with sedation/RR checks.",
+        "pts": 0,
+        "src": ""
+       }
+      ],
+      "rules": "Award the status points if the student's conclusion is consistent with the data they cite."
+     }
+    },
+    {
+     "id": "6.2",
+     "type": "box",
+     "points": 3,
+     "lines": 13,
+     "title": "New Problems and Priority Actions",
+     "prompt": "From the sealed page (both parts), name the TWO most urgent problems and for each the priority nursing actions (include who you notify, what you do about the 2130 enoxaparin and the pain medicine, and one thing you would question in the real post-op notes).",
+     "key": {
+      "elements": [
+       {
+        "t": "Problem 1: possible surgical bleeding/hematoma with threatened perfusion of the remaining toes (strikethrough 2 to 6 cm, HR 106, BP 168/94, Hgb 9.2, pale-dusky cool toes, cap refill 4-5 s, faint Doppler) in a patient with PAD: stay with him, call the surgeon (Dr. Alvarez) now with SBAR; do not remove the surgical dressing; reinforce, mark and time the drainage; neurovascular check with Doppler every 15 minutes; keep NPO until the surgeon decides; large-bore IV, anticipate labs/imaging/return to OR.",
+        "pts": 1.0,
+        "src": ""
+       },
+       {
+        "t": "Hold/ask about the 2130 enoxaparin (and aspirin) until the surgeon decides; do not apply heat or compression; avoid NSAIDs; give PRN analgesic per order after assessing RR and sedation and tell the surgeon that pain is out of proportion; creatinine 2.01 is not a 0.3 rise yet but keep monitoring because of CKD and vancomycin.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Problem 2: unsafe mobility/weight bearing and fall risk (walked alone at 1245 without the post-op shoe; numb leg from the block; neuropathy; lives alone): bed alarm, call light, shoe at bedside, 2 staff and bariatric equipment, teach-back that numbness does not mean safe; tell the surgeon and PT that weight was put on the wound.",
+        "pts": 0.75,
+        "src": ""
+       },
+       {
+        "t": "Questioned note content: for example PT mobilized him at 1130 (moderate assist of one) while the order said bed rest until the block resolved and the bariatric order requires 2 staff, the 0830 note says \"pip-tazo\" despite penicillin allergy and documents the surgery before it ended, copy-forward vitals in PACU. Any valid item with a plan to clarify.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ],
+      "rules": "Accept other valid urgent problems from the sealed page if the actions are appropriate (for example hyperglycemia/hypoglycemia, pain, infection). Waiting until the next shift to call the surgeon, or giving the 2130 enoxaparin without question, is a safety error: cap the item at 1.5."
+     }
+    },
+    {
+     "id": "6.3",
+     "type": "box",
+     "points": 2,
+     "lines": 11,
+     "title": "Focused Nursing Note",
+     "prompt": "Write a focused nursing note for the 1315 event (DAR, SOAP, or your school's format): data, action, and response, with the plan.",
+     "key": {
+      "elements": [
+       {
+        "t": "Data: specific objective data (vital signs with times, pain, R foot dressing strikethrough size and color, toe color, temperature, capillary refill, Doppler signal, glucose, lab values).",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Action: nursing interventions and notifications (who, when, SBAR), what you did with the dressing, enoxaparin and pain medicine.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Response: patient response/orders received (use \"pending\" if no response yet), repeat assessments.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Plan/handoff: continuing neurovascular checks, glucose and diet plan, falls/offloading teaching, concerns for the next shift; professional wording and times.",
+        "pts": 0.5,
+        "src": ""
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "7",
+   "title": "Clinical Judgment (Next-Generation NCLEX Style)",
+   "step": "Evaluation / Clinical judgment",
+   "minutes": 30,
+   "intro": "Answer by marking the boxes. These items use the same patient. Some scenarios are hypothetical and say so.",
+   "items": [
+    {
+     "id": "7.1",
+     "type": "choice",
+     "points": 2,
+     "style": "multi",
+     "title": "Select All That Apply",
+     "prompt": "Which nursing actions are correct for Mr. Jennings today, before and after his surgery?",
+     "options": [
+      "Float his heels on pillows and keep the right leg elevated without a pillow under the knee.",
+      "Apply sequential compression devices to both legs to prevent clots.",
+      "Inspect BOTH feet and between the toes every shift, not only the operated foot.",
+      "Give ketorolac if he asks for something stronger than acetaminophen.",
+      "Give the scheduled vancomycin and meropenem on time, arranging with the OR and PACU team how to do so.",
+      "Hold all of his insulin because he is NPO.",
+      "Use gown and gloves for dressing changes and room entry (MRSA contact precautions).",
+      "Apply a heating pad to a cool right foot to improve circulation.",
+      "Question any order for NSAIDs or IV contrast before giving or sending him."
+     ],
+     "key": {
+      "answer": [
+       "Float his heels on pillows...",
+       "Inspect BOTH feet...",
+       "Give the scheduled vancomycin and meropenem on time...",
+       "Use gown and gloves...",
+       "Question any order for NSAIDs or IV contrast..."
+      ],
+      "rules": "0.4 per correct option selected; subtract 0.4 for each incorrect option selected (not below 0). The wrong options: SCDs (PAD, order says avoid), ketorolac (CKD, vancomycin), holding all insulin (basal continues at 80%), heating pad (neuropathy burns; ischemia)."
+     }
+    },
+    {
+     "id": "7.2",
+     "type": "matrix",
+     "points": 2,
+     "title": "Trend: Better, Same or Worse?",
+     "prompt": "Using the lab results in the chart from 10/19 to 10/21, mark the trend for each row.",
+     "cols": [
+      "Improving",
+      "No change",
+      "Worsening"
+     ],
+     "rows": [
+      "WBC: 17.8, 14.7, 13.6",
+      "Albumin: 3.3, 3.2, 3.1",
+      "Creatinine: 1.94, 1.91, 1.98 (baseline about 1.8)",
+      "Blood pressure: 152/83, 159/87, 158/85 (goal below 140/90)"
+     ],
+     "key": {
+      "answer": [
+       "Improving",
+       "Worsening",
+       "No change",
+       "No change"
+      ],
+      "rules": "0.5 per row. Creatinine: within 0.3 of baseline and admission value, so no change (but keep monitoring). Blood pressure never reached the goal: no change (not improving)."
+     }
+    },
+    {
+     "id": "7.3",
+     "type": "bowtie",
+     "points": 2,
+     "title": "Bowtie",
+     "stem": "HYPOTHETICAL (not in the chart): fifteen minutes after his vancomycin 1,000 mg infusion is started over 30 minutes by a covering nurse, he has flushing and itching of the face, neck and upper chest. HR 108, BP 96/58, SpO2 97% on room air. No wheeze, stridor, lip or tongue swelling, or hives elsewhere.",
+     "pickActions": 2,
+     "pickParams": 2,
+     "actions": [
+      "Stop the infusion, stay with him and notify the provider",
+      "Restart later over at least 2 hours once symptoms resolve and the provider agrees (antihistamine if ordered)",
+      "Give epinephrine 0.3 mg IM immediately",
+      "Increase the infusion rate to finish sooner",
+      "Continue at the same rate and recheck in 30 minutes"
+     ],
+     "conditions": [
+      "Vancomycin infusion reaction",
+      "Anaphylaxis to penicillin",
+      "Hypoglycemia",
+      "Surgical site infection"
+     ],
+     "params": [
+      "Blood pressure and heart rate",
+      "Respiratory effort, wheeze, stridor and lip or tongue swelling",
+      "Right foot capillary refill",
+      "Bowel sounds",
+      "Urine specific gravity"
+     ],
+     "key": {
+      "condition": "Vancomycin infusion reaction",
+      "actions": [
+       "Stop the infusion, stay with him and notify the provider",
+       "Restart later over at least 2 hours once symptoms resolve and the provider agrees (antihistamine if ordered)"
+      ],
+      "params": [
+       "Blood pressure and heart rate",
+       "Respiratory effort, wheeze, stridor and lip or tongue swelling"
+      ]
+     }
+    },
+    {
+     "id": "7.4",
+     "type": "highlight",
+     "points": 2,
+     "title": "Recognize Cues",
+     "prompt": "Excerpt from a HYPOTHETICAL post-operative day 1 shift report. Which statements need follow-up NOW?",
+     "statements": [
+      "Glucose 156 before breakfast; no symptoms of hypoglycemia.",
+      "The foot dressing has bright red drainage soaked through to the outer wrap and now extends past the line marked at 0400.",
+      "Pain 4/10 at rest, 2/10 about 45 minutes after oxycodone.",
+      "The remaining 2nd toe is pale and cool with capillary refill of 5 seconds, and the Doppler signal is weaker than yesterday.",
+      "T 99.4 F, HR 84, BP 148/82, SpO2 96% on room air.",
+      "Morning creatinine 2.31 (was 1.98 yesterday) and vancomycin is due at 0900.",
+      "Left heel has a small area of blanchable redness; heels are floated on pillows.",
+      "He ate 75% of his breakfast and drank his protein supplement."
+     ],
+     "key": {
+      "answer": [
+       2,
+       4,
+       6
+      ],
+      "rules": "Three cues: bleeding through the dressing, threatened perfusion of the remaining toes in PAD, and a creatinine rise of 0.3 or more (vancomycin hold parameter: hold and call pharmacy/provider). Score 0.67 per correct statement (round to 0.5 increments); subtract 0.5 for each wrong statement chosen (not below 0)."
+     }
+    },
+    {
+     "id": "7.5",
+     "type": "choice",
+     "points": 2,
+     "style": "ordered",
+     "title": "Priority Actions",
+     "prompt": "HYPOTHETICAL: at 1130 on the day of surgery he is still NPO and nauseated, sweaty and shaky, drowsy but arousable. The meter reads 54 mg/dL. His right forearm IV is patent. Number the actions in the order you would do them.",
+     "options": [
+      "Stay with him, check his airway and level of consciousness, and call for help.",
+      "Give dextrose 50% 25 mL (12.5 g) IV per the hypoglycemia protocol.",
+      "Recheck the glucose in 15 minutes and repeat the dextrose if it is still below 70.",
+      "Notify the provider with SBAR and ask about changing the insulin doses.",
+      "Document, then give a carbohydrate snack when awake and nausea is controlled and recheck glucose again within the hour."
+     ],
+     "key": {
+      "answer": [
+       "1. Stay with him, check airway/LOC, call for help",
+       "2. Give dextrose 50% 25 mL IV per protocol",
+       "3. Recheck glucose in 15 minutes; repeat dextrose if below 70",
+       "4. Notify the provider (SBAR), insulin review",
+       "5. Document; snack when awake; recheck within the hour"
+      ],
+      "rules": "0.4 per action in the correct position. Positions 3 and 4 may be swapped. Treatment must come before documenting; oral carbohydrate is not first because he is nauseated and drowsy (aspiration risk)."
+     }
+    }
+   ]
+  }
+ ]
+}
