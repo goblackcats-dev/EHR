@@ -538,7 +538,7 @@
   function init() {
     // primary diagnosis list
     const sel = $('primary');
-    const CATS = ['Cardiovascular', 'Pulmonary', 'Endocrine', 'Gastrointestinal / Abdominal Surgery', 'Renal / Fluid & Electrolytes', 'Neurologic', 'Infectious Disease', 'Orthopedic / Trauma', 'Toxicology / Substance Use'];
+    const CATS = ['Cardiovascular', 'Pulmonary', 'Endocrine', 'Gastrointestinal / Abdominal Surgery', 'Renal / Fluid & Electrolytes', 'Neurologic', 'Infectious Disease', 'Orthopedic / Trauma', 'Dermatologic / Wound', 'Toxicology / Substance Use'];
     const profiles = Object.values(NS.PRIMARY), catOf = p => p.cat || p.group || 'Other';
     U.uniq(CATS.concat(profiles.map(catOf))).forEach(cat => {
       const inCat = profiles.filter(p => catOf(p) === cat).sort((x, y) => x.label.localeCompare(y.label)); if (!inCat.length) return;
