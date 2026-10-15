@@ -44,7 +44,7 @@
     else homeOnce(spec, Object.assign({ freq: 'once', startH: h, freqText: `${every} (${DOW[dow]}s) - next dose ${when}`, highAlert: true }, m));
     return { h, when, day: DOW[dow] };
   };
-  const ACUTE_HOLD = ['sepsis', 'pneumonia', 'cellulitis', 'aki', 'ugib', 'appendicitis', 'sbo', 'cholecystitis', 'diverticulitis', 'pancreatitis', 'hip_fracture', 'ankle_fracture', 'diabetic_foot_infection', 'pressure_injury', 'sjs_ten', 'burn_scald'];
+  const ACUTE_HOLD = ['sepsis', 'pneumonia', 'cellulitis', 'aki', 'ugib', 'appendicitis', 'sbo', 'cholecystitis', 'diverticulitis', 'pancreatitis', 'hip_fracture', 'ankle_fracture', 'diabetic_foot_infection', 'pressure_injury', 'sjs_ten', 'burn_scald', 'femur_fracture', 'septic_arthritis', 'necrotizing_fasciitis', 'erythroderma'];
   const acute = spec => ACUTE_HOLD.includes(spec.primaryKey);
   const steroid = (ctx, spec, mg, why) => {
     homeOnce(spec, {
