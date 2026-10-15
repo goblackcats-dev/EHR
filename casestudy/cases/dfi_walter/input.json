@@ -1,0 +1,39 @@
+{
+ "name": "Walter Jennings",
+ "age": 61,
+ "sex": "Male",
+ "mrn": "SIM-71882",
+ "unit": "Medical-Surgical 4 East",
+ "room": "436-1",
+ "heightCm": 178,
+ "weightKg": 108,
+ "primary": "diabetic_foot_infection",
+ "hospitalDay": 3,
+ "simDate": "2026-10-21",
+ "startTime": "07:00",
+ "hx": [
+  "dm2",
+  "ckd3",
+  "pad",
+  "htn",
+  "hld",
+  "obesity"
+ ],
+ "surg": [],
+ "allergies": [
+  {
+   "substance": "Penicillin",
+   "reaction": "Hives",
+   "severity": "High"
+  }
+ ],
+ "social": {
+  "tobacco": "Current, 1/2 pack per day",
+  "alcohol": "Occasional",
+  "drugs": "None",
+  "living": "Lives alone",
+  "function": "Independent; works part-time as a delivery driver",
+  "other": "Has not seen a podiatrist in 3 years; walks barefoot at home; limited home glucose checking"
+ },
+ "fileName": "Walter Jennings, Diabetic Foot Infection HD 3"
+}

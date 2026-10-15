@@ -1,0 +1,40 @@
+{
+ "name": "Eleanor Whitcomb",
+ "age": 84,
+ "sex": "Female",
+ "mrn": "SIM-82305",
+ "unit": "Medical-Surgical 3 West",
+ "room": "322-2",
+ "heightCm": 157,
+ "weightKg": 51,
+ "primary": "pressure_injury",
+ "hospitalDay": 3,
+ "simDate": "2026-10-22",
+ "startTime": "07:00",
+ "hx": [
+  "dementia",
+  "hf",
+  "htn",
+  "dm2",
+  "malnutrition",
+  "urinary_incontinence",
+  "frailty"
+ ],
+ "surg": [],
+ "allergies": [
+  {
+   "substance": "Codeine",
+   "reaction": "Nausea and vomiting",
+   "severity": "Moderate"
+  }
+ ],
+ "social": {
+  "tobacco": "Never",
+  "alcohol": "None",
+  "drugs": "None",
+  "living": "Long-term care facility",
+  "function": "Dependent for transfers and ADLs; wheelchair; feeds self with set-up",
+  "other": "Daughter is health care proxy and visits daily"
+ },
+ "fileName": "Eleanor Whitcomb, Sacral Pressure Injury HD 3"
+}
