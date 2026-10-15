@@ -28,7 +28,7 @@ NS.PRIMARY = NS.PRIMARY || {};
       const pressOff = orEnd2 + 6, stepH = atClock(ctx, '10:00', orEnd3 + 6), cxH = 56;
       const clindStop = orEnd3 + 36, abxStop = Math.max(orEnd3 + 96, 150);
       const orH4 = atClock(ctx, '08:00', Math.max(190, abxStop + 12)), orEnd4 = orH4 + 1.75;   // split-thickness skin graft
-      const takedownH = atClock(ctx, '09:00', orEnd4 + 72), readyH = takedownH + 4, delayH = readyH + 24;
+      const takedownH = atClock(ctx, '09:00', orEnd4 + 60), readyH = takedownH + 4, delayH = readyH + 24;
       const foleyOut = fourn ? atClock(ctx, '06:00', orEnd4 + 80) : atClock(ctx, '06:00', stepH + 12);
       const fmsOut = atClock(ctx, '06:00', orEnd4 + 60);
       const t2 = U.hhmm(ctx.ts(orH2)), t3 = U.hhmm(ctx.ts(orH3)), t4 = U.hhmm(ctx.ts(orH4));
