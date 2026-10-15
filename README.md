@@ -642,3 +642,8 @@ The next major item should be built separately: a **Faculty Case Builder** that 
 
 ## v46 - Epic-style UI, round 1
 - New `epic.css` + `ui-shell.js`: slim app bar, one-strip patient banner, instructor buttons moved into an "Instructor tools" menu (students get "Practice tools"), flat cards, denser MAR/Orders/Flowsheets. See `UI_AUDIT.md` for the full comparison and plan.
+
+## v47 - New Case Builder diagnoses
+- Orthopedic: **Total knee arthroplasty**, **Ankle fracture (ORIF)**.
+- New category **Dermatologic / Wound**: **Diabetic foot infection with osteomyelitis**, **Stage 3-4 pressure injury**, **Scald burn (12% TBSA, Parkland)**, **SJS/TEN**.
+- Three new sample patients with care-plan case studies are in `casestudy/cases/` (`tka_rosa`, `dfi_walter`, `pressure_eleanor`).
