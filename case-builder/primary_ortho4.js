@@ -93,7 +93,9 @@ if (!NS.OG.atClock) {
           { h: 16, codes: ['Hemoglobin', 'Hematocrit', 'Creatine kinase'] },
           { h: orH - 3, codes: ['Hemoglobin', 'Hematocrit', 'Potassium', 'Creatinine', 'Platelets'] },
           { h: orEnd + 6, codes: ['Hemoglobin', 'Hematocrit', 'Creatine kinase'] },
+          { h: pod1 + 1, codes: ['Creatine kinase'] },
           { h: pod1 + 14, codes: ['Hemoglobin', 'Hematocrit'] },
+          { h: pod2 + 1, codes: ['Creatine kinase'] },
           { h: pod2 + 14, codes: ['Hemoglobin', 'Hematocrit'] }
         ],
         quals: [
@@ -252,7 +254,7 @@ if (!NS.OG.atClock) {
       assess: `Stable overnight; Hgb down about 3 g/dL from admission without need for transfusion (threshold ${thr}); CK rising; no fat embolism or compartment syndrome; cleared for surgery.`,
       plan: ['NPO; maintenance IV fluids; essential meds with sips.', `General anesthesia for ${nailName} IM nail about ${orTime}; cefazolin 30-60 minutes before incision; heparin SQ held; crossmatched blood available.`, 'Pre-operative checklist, consent, site marking; keep traction until the OR.'],
       nursing: ['NPO since midnight; LR infusing at 100 mL/hr.', 'Neurovascular checks unchanged; no petechiae; SpO2 97% on room air.', 'Pre-op checklist and consent verified; thigh marked.'],
-      teach: ['What to expect: general anesthesia, an incision with drains none, Foley, PCA for pain, and getting up with PT the day after surgery.'],
+      teach: ['What to expect: general anesthesia, a Foley catheter, PCA for pain, and getting up with PT the day after surgery.'],
       dispo: 'Surgery today.',
       stickies: [{ title: 'To OR', body: `OR about ${orTime}: NPO, cefazolin 30-60 min before incision, hold heparin SQ, verify consent, marked ${sl} thigh and crossmatch.` }]
     });
@@ -306,6 +308,314 @@ if (!NS.OG.atClock) {
       nursing: ['Vital signs stable; incisions clean; calves soft.', 'Out of bed to chair and walks with walker; WBAT maintained.'],
       teach: ['Reinforce warning signs and enoxaparin teaching.'],
       dispo: 'Discharge when services and equipment are confirmed.'
+    });
+    return st;
+  }
+})();
+
+// ================================================================================================
+// SEPTIC ARTHRITIS (native knee or hip; washout on hospital day 1, PICC for IV antibiotics)
+// ================================================================================================
+(() => {
+  const U = NS.util, C = NS.C, { atClock, clock } = NS.OG;
+  const S = a => a.slice().sort((x, y) => x[0] - y[0]);
+  const fmt = n => n.toLocaleString();
+
+  NS.PRIMARY.septic_arthritis = {
+    key: 'septic_arthritis', label: 'Septic Arthritis (Native Joint)', group: 'Medical', cat: 'Orthopedic / Trauma', typicalLOS: [5, 8],
+    desc: 'Acute bacterial infection of a native knee (or hip) in an adult with diabetes or another risk factor. Day 1: hot swollen joint with fever, blood cultures, arthrocentesis, empiric vancomycin + ceftriaxone, urgent arthroscopic washout and drain. Day 2-3: drain output, PT/ROM, cultures finalize and antibiotics narrow. Day 4-5: PICC and home infusion/SNF teaching for 4-6 weeks of IV antibiotics. Day 6+: discharge delayed for authorization.',
+    build(ctx) {
+      const hip = ctx.age % 4 === 0, J = hip ? 'hip' : 'knee';
+      const side = ctx.age % 2 ? 'Right' : 'Left', sl = side.toLowerCase();
+      const dmHx = ctx.has('dm1') || ctx.has('dm2');
+      const otherRisk = ['rheumatoid_arthritis', 'chronic_steroids', 'hiv', 'cvid', 'lymphoma_leukemia', 'multiple_myeloma', 'lupus_sle', 'cirrhosis', 'oud'].some(k => ctx.has(k));
+      const addDm = !dmHx && !otherRisk;                                              // default risk factor: type 2 diabetes unless the history already supplies one
+      const dm = dmHx || addDm;
+      const mrsa = ctx.has('mrsa');                                                   // MRSA history -> MRSA isolate; otherwise MSSA
+      const betaAllergy = ctx.allergic('penicillin') || ctx.allergic('cephalosporin');
+      const vancDef = mrsa || betaAllergy;                                            // vancomycin remains the definitive drug
+      const orgName = mrsa ? 'Methicillin-resistant Staphylococcus aureus (MRSA)' : 'Methicillin-susceptible Staphylococcus aureus (MSSA)';
+      const picc = ctx.renal !== 'esrd';
+      const orH = atClock(ctx, '13:00', 4), dur = hip ? 1.5 : 1.25, orEnd = orH + dur, npoH = 0.5, dietH = orEnd + 2, orTime = clock(ctx, orH);
+      const pod1 = atClock(ctx, '05:00', orEnd + 6), pod2 = pod1 + 24, drainOutH = pod1 + 28, ptH = pod1 + 3;
+      const cxPrelimH = 26, targetedH = 50;
+      const picH = atClock(ctx, '11:00', 72), dcH = atClock(ctx, '11:00', picH + 18), dcStageH = atClock(ctx, '05:00', picH + 6);
+      const basal = Math.max(12, Math.min(40, Math.round(ctx.weightKg * 0.25 / 2) * 2)), meal = Math.max(4, Math.min(10, Math.round(ctx.weightKg * 0.07)));
+      const vLoad = Math.min(3000, Math.max(1500, Math.round(ctx.weightKg * 25 / 250) * 250)), vMaint = Math.min(2000, Math.max(1000, Math.round(ctx.weightKg * 15 / 250) * 250));
+      const vancInfo = 'Infuse over at least 90-120 minutes (no faster than 1 g/hr) to avoid vancomycin infusion reaction (flushing, itching, hypotension). Dosed by AUC (goal 400-600) or trough. Nephrotoxic and ototoxic: monitor creatinine and urine output daily; report ringing in the ears.';
+      const vancRenal = { ckd3: { dose: '1,000 mg', freq: 'q24h', note: 'Interval extended for reduced GFR; pharmacy doses by level/AUC.' }, esrd: { dose: '750 mg', freq: 'q24h', note: 'ESRD: pharmacy doses by random level, given after dialysis; hold until the pre-dose level is reviewed.' } };
+      const dietParts = [ctx.renal !== 'none' ? 'renal' : ctx.has('hf') ? '2 g sodium' : '', dm ? 'consistent carbohydrate' : '', ctx.renal === 'none' ? 'high protein' : ''].filter(Boolean);
+      const dietName = dietParts.length ? `${U.cap(dietParts.join(', '))} diet` : 'Regular diet';
+      const lowDose = ctx.age >= 70 || ctx.weightKg < 55;
+      const hm = Object.assign(C.hydromorphone(), { dose: lowDose ? '0.25 mg' : '0.5 mg' });
+      const morphine = Object.assign(C.opioidIV(ctx, { start: 0.4, stop: orEnd + 14, given: [0.5, 4.2, 8.5, orEnd + 0.4, orEnd + 4, orEnd + 10], by: 'ed' }),
+        { dose: lowDose ? '2 mg' : '4 mg', alt: hm, renal: { ckd3: { avoid: true, sub: hm }, esrd: { avoid: true, sub: hm } }, info: 'HIGH-ALERT. Severe pain (7-10) only; give oral medication first for moderate pain. Assess pain, sedation (RASS), RR and SpO2 before and 15-30 minutes after. Hold for RR below 10 or oversedation. Premedicate 30 minutes before range-of-motion therapy.' });
+      const insRenal = f => ({ ckd3: { dose: f(0.75), note: 'Dose reduced about 25% for reduced kidney function.' }, esrd: { dose: f(0.5), note: 'Dose reduced about 50% for ESRD (insulin is cleared by the kidney).' } });
+      const tempMask = 'Record the temperature BEFORE giving so the fever trend is not hidden.';
+      const spec = {
+        primaryTeam: 'hospitalist', typicalLOS: [5, 8], fallRiskBoost: 1, medMonitoring: true, ppxStartH: orEnd + 6,
+        problem: { name: `Septic arthritis, ${sl} ${J}`, details: `Acute bacterial septic arthritis of the native ${sl} ${J} (synovial WBC 68,400, Gram-positive cocci in clusters); ${hip ? 'open arthrotomy' : 'arthroscopic'} washout on hospital day 1; ${mrsa ? 'MRSA' : 'MSSA'}; 4-6 weeks of IV antibiotics planned.` },
+        chief: `${side} ${J} pain, swelling and fever`,
+        hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with ${dm ? (ctx.has('dm1') ? 'type 1 diabetes' : 'poorly controlled type 2 diabetes (home glucose in the 250s)') : 'an immunosuppressing condition'} who developed ${sl} ${J} pain and swelling 3 days ago and now cannot bear weight. Fever to 102 F and shaking chills for 24 hours. The ${J} is hot and ${hip ? 'held still; any movement causes severe groin pain' : 'swollen; the patient cannot bend or straighten it'}. No injury, no recent joint injection or surgery, no skin wound near the joint, no prosthetic joint. No rash, sore throat, urethral discharge or other painful joints. Acetaminophen at home did not help. No chest pain, dyspnea, vomiting or confusion.`,
+        ros: `Positive for fever, chills, ${J} pain and swelling, fatigue and decreased appetite${dm ? ', polyuria and polydipsia' : ''}. Negative for chest pain, shortness of breath, cough, abdominal pain, dysuria, headache, neck stiffness, rash, or other joint pain.`,
+        keyLabs: ['WBC', 'CRP', 'ESR', 'Creatinine', 'Glucose', 'Hemoglobin', 'Platelets', ...(vancDef ? ['Vancomycin trough'] : [])], hpLabs: ['WBC', 'CRP', 'ESR', 'Creatinine', 'Glucose', 'Lactate'],
+        isolation: mrsa ? 'Contact precautions' : 'None', famHxExtra: dm ? 'Mother and a brother with type 2 diabetes.' : 'No family history of inflammatory arthritis.',
+        flags: { npo: npoH <= ctx.windowEnd ? [[npoH, dietH]] : [], preop: [[0, orH]], surgeryWindow: [[0, orH + 48]], postop: [[orEnd, 9999]] },
+        comorb: addDm ? [{ key: 'dm2_sa', problem: 'Type 2 diabetes mellitus', details: 'Type 2 diabetes with A1c 9.4%; a major risk factor for joint infection.', pmh: 'Type 2 diabetes mellitus (A1c 9.4%)', plan: (c, St, h) => [`Basal-bolus insulin${St.flag('npo', h) ? ' (basal reduced 20% while NPO, correction q6h)' : ''}; glucose goal 140-180 mg/dL; metformin held.`, 'Hypoglycemia protocol in place; diabetes teaching before discharge.'] }] : [],
+        vitals: S([
+          { h: 0, temp: 101.8, hr: 108, sbp: 138, dbp: 80, rr: 20, spo2: 97, pain: 8, o2: 'Room air' },
+          { h: 3, temp: 102.2, hr: 104, sbp: 136, dbp: 78, rr: 20, spo2: 97, pain: 6 },
+          { h: 6, temp: 101.4, hr: 100, sbp: 134, dbp: 78, rr: 18, spo2: 97, pain: 6 },
+          { h: orH - 1, temp: 101.0, hr: 98, sbp: 134, dbp: 78, rr: 18, spo2: 97, pain: 6 },
+          { h: orEnd, temp: 98.8, hr: 94, sbp: 118, dbp: 68, rr: 14, spo2: 96, pain: 3, o2: '2 L nasal cannula' },
+          { h: orEnd + 3, temp: 99.4, hr: 94, sbp: 126, dbp: 72, rr: 16, spo2: 96, pain: 5, o2: 'Room air' },
+          { h: orEnd + 10, temp: 100.4, hr: 92, sbp: 128, dbp: 74, rr: 16, spo2: 96, pain: 5 },
+          { h: pod1 + 3, temp: 100.2, hr: 90, sbp: 128, dbp: 74, rr: 16, spo2: 96, pain: 4 },
+          { h: pod1 + 14, temp: 99.6, hr: 86, sbp: 128, dbp: 76, rr: 16, spo2: 96, pain: 4 },
+          { h: pod2 + 4, temp: 99.2, hr: 82, sbp: 126, dbp: 76, rr: 16, spo2: 97, pain: 3 },
+          { h: pod2 + 18, temp: 98.8, hr: 80, sbp: 126, dbp: 74, rr: 16, spo2: 97, pain: 3 },
+          { h: pod2 + 42, temp: 98.4, hr: 78, sbp: 124, dbp: 74, rr: 16, spo2: 97, pain: 2 },
+          { h: pod2 + 90, temp: 98.2, hr: 76, sbp: 124, dbp: 74, rr: 16, spo2: 97, pain: 2 }
+        ]),
+        labs: {
+          WBC: { abs: S([[0, 16.8], [24, 15.4], [48, 12.6], [72, 10.4], [96, 8.8], [144, 7.8]]) },
+          CRP: { abs: S([[0.5, 186], [24, 214], [48, 164], [72, 112], [96, 78], [144, 40], [192, 22]]) },
+          ESR: { abs: S([[0.5, 84], [72, 92], [120, 74], [192, 56]]) },
+          Procalcitonin: { abs: [[0.5, 0.8]] }, Lactate: { abs: [[0.5, 1.9], [5, 1.3]] },
+          Glucose: dm ? { abs: S([[0, 268], [6, 236], [orEnd + 3, 210], [24, 190], [48, 172], [72, 160], [120, 148]]) } : { add: S([[0, 30], [24, 16], [72, 6]]) },
+          ...(dm ? { 'Hemoglobin A1c': { abs: [[0.5, 9.4]] } } : {}),
+          Hemoglobin: { add: S([[0, -0.8], [24, -1.4], [orEnd, -1.7], [pod1, -2.0], [96, -1.8], [192, -1.4]]) },
+          Platelets: { add: S([[0, 30], [48, 70], [96, 120], [192, 110]]) },
+          Sodium: { add: [[0, -3], [24, -2], [72, -1]] }, Chloride: { add: [[0, -2], [24, -1]] }, CO2: { add: [[0, -1], [24, 0]] }, Potassium: { add: [[0, 0.1], [72, 0]] },
+          Creatinine: { add: S([[0, 0.1], [24, 0.08], [72, vancDef ? 0.15 : 0.12], [144, vancDef ? 0.22 : 0.1]]) }, BUN: { add: S([[0, 7], [24, 4], [72, 3]]) },
+          Albumin: { add: [[0, -0.7], [48, -0.9]] },
+          ...(vancDef ? { 'Vancomycin trough': { abs: [[37, ctx.renal === 'none' ? 14.2 : 18.6], [129, ctx.renal === 'none' ? 15.6 : 19.4], [201, ctx.renal === 'none' ? 15.8 : 19.5]] } } : { 'Vancomycin trough': { abs: [[37, ctx.renal === 'none' ? 14.2 : 18.6]] } })
+        },
+        labSchedule: [
+          { h: 0.4, codes: ['Lactate', 'CRP', 'ESR', 'Procalcitonin', 'Albumin', ...(dm ? ['Hemoglobin A1c'] : [])] },
+          { h: 5, codes: ['Lactate'] },
+          { h: orH - 2, codes: ['PT', 'INR', 'Hemoglobin', 'Potassium', 'Creatinine'] },
+          { h: 37, codes: ['Vancomycin trough'] },
+          { h: pod1 + 2, codes: ['CRP', 'ESR'] },
+          { h: 97, codes: ['CRP', 'ESR'] },
+          ...(vancDef ? [{ h: 129, codes: ['Vancomycin trough', 'CRP', 'ESR'] }, { h: 201, codes: ['Vancomycin trough', 'CRP', 'ESR'] }] : [{ h: 145, codes: ['CRP', 'ESR'] }])
+        ],
+        quals: [
+          { h: 2.5, category: 'Other', code: 'Synovial fluid cell count and differential', value: `WBC 68,400/uL with 92% neutrophils; RBC 2,100/uL; appearance cloudy yellow-green, poor viscosity`, reference: 'WBC under 200/uL', flag: 'Abnormal', specimen: 'Synovial fluid' },
+          { h: 2.5, category: 'Other', code: 'Synovial fluid glucose', value: `28 mg/dL (serum ${dm ? '268' : '130'} mg/dL; low synovial-to-serum ratio)`, flag: 'Abnormal', specimen: 'Synovial fluid' },
+          { h: 3.4, category: 'Microbiology', code: 'Synovial fluid Gram stain', value: 'Many white blood cells; Gram-positive cocci in clusters', flag: 'Abnormal', specimen: 'Synovial fluid', status: 'Final' },
+          { h: 3.6, category: 'Other', code: 'Synovial fluid crystal analysis (polarized light)', value: 'No monosodium urate or calcium pyrophosphate crystals seen', reference: 'No crystals', specimen: 'Synovial fluid' },
+          { h: cxPrelimH, category: 'Microbiology', code: 'Synovial fluid culture', value: 'Growth of Gram-positive cocci in clusters at 24 hours; identification and susceptibilities pending', specimen: 'Synovial fluid', flag: 'Abnormal', status: 'Preliminary' },
+          { h: targetedH, category: 'Microbiology', code: 'Synovial fluid culture', value: mrsa ? `${orgName}: vancomycin MIC 1, susceptible to trimethoprim-sulfamethoxazole, doxycycline and linezolid; resistant to oxacillin and cefazolin` : `${orgName}: susceptible to oxacillin and cefazolin, clindamycin and trimethoprim-sulfamethoxazole; resistant to penicillin`, specimen: 'Synovial fluid', flag: 'Abnormal', status: 'Final' },
+          { h: orH + 1, category: 'Microbiology', code: 'Synovial tissue culture (operative)', value: `Growth of ${orgName.split(' (')[0]}, same susceptibilities as the aspirate`, specimen: 'Synovial tissue', flag: 'Abnormal', status: 'Final' },
+          { h: 12, category: 'Microbiology', code: 'Blood cultures x2', value: 'No growth at 12 hours', specimen: 'Blood', status: 'Preliminary' },
+          { h: 50, category: 'Microbiology', code: 'Blood cultures x2', value: 'No growth at 48 hours', specimen: 'Blood', status: 'Preliminary' },
+          { h: 124, category: 'Microbiology', code: 'Blood cultures x2', value: 'No growth at 5 days', specimen: 'Blood', status: 'Final' },
+          { h: 4, category: 'Microbiology', code: 'MRSA nasal screen (PCR)', value: mrsa ? 'Positive' : 'Negative', reference: 'Negative', flag: mrsa ? 'Abnormal' : undefined, specimen: 'Nares' },
+          { h: 1.4, category: 'Urinalysis', code: 'Urinalysis - leukocyte esterase', value: 'Negative', reference: 'Negative', specimen: 'Urine' },
+          { h: 1.4, category: 'Urinalysis', code: 'Urinalysis - nitrite', value: 'Negative', reference: 'Negative', specimen: 'Urine' },
+          ...(dm ? [{ h: 1.4, category: 'Urinalysis', code: 'Urinalysis - ketones', value: 'Negative', reference: 'Negative', specimen: 'Urine' }] : []),
+          ...(ctx.female && ctx.age < 55 ? [{ h: 1.4, category: 'Other', code: 'Urine hCG (pregnancy test)', value: 'Negative', reference: 'Negative', specimen: 'Urine' }] : [])
+        ],
+        events: [
+          { type: 'imaging', h: 1.0, study: `X-ray ${sl} ${J}${hip ? ' and pelvis (AP pelvis, AP and frog-leg lateral)' : ', 3 views'}`, modality: 'X-ray', indication: `Hot, swollen ${J} with fever: exclude fracture, gas, bone erosion or foreign body`,
+            findings: hip ? `Mild widening of the ${sl} hip joint space with lateral displacement of the femoral head and blurring of the capsular fat planes consistent with effusion. No fracture, dislocation, gas, or bony erosion. Mild osteopenia. Pelvis otherwise normal.` : `Large suprapatellar effusion with soft tissue swelling. Joint space preserved; no fracture, subcutaneous gas, bone erosion or periosteal reaction. Mild degenerative osteophytes.`, impression: `${U.cap(J)} effusion without bony destruction.` },
+          { type: 'procedure', h: 1.5, duration: 0.4, name: hip ? `Ultrasound-guided ${sl} hip arthrocentesis` : `${side} knee arthrocentesis (diagnostic)`, label: hip ? `Ultrasound-guided ${sl} hip aspiration` : `${side} knee arthrocentesis`, by: hip ? 'surgeon' : 'ed', service: hip ? 'Orthopedic Surgery' : 'Emergency Medicine', indication: 'Acute monoarthritis with fever: exclude septic arthritis and crystal disease',
+            findings: `Time-out done. Sterile prep through intact skin away from any cellulitis; ${hip ? 'ultrasound-guided anterior approach' : 'superolateral approach'} with 1% lidocaine. ${hip ? '18' : '35'} mL of cloudy yellow-green purulent fluid removed and sent for cell count and differential, Gram stain, crystal analysis, glucose and aerobic/anaerobic culture (in a sterile tube and blood culture bottle). No complications; pain eased to 5/10 after decompression. Antibiotics given only after fluid and blood cultures were collected.` },
+          { type: 'consult', h: 2.6, service: 'Orthopedic Surgery', author: 'surgeon', orderedBy: 'ed', reason: `Septic arthritis of the ${sl} ${J}`, label: 'Orthopedic surgery consulted; urgent washout',
+            recommendation: `Synovial WBC 68,400 with Gram-positive cocci in clusters: septic arthritis until proven otherwise. Urgent ${hip ? 'open hip arthrotomy' : 'arthroscopic'} irrigation and debridement today (about ${orTime}) with synovectomy, tissue cultures and a closed-suction drain. NPO now; hold VTE chemoprophylaxis until after surgery. Knee/hip immobilized and elevated for comfort until the first post-operative day, then early active-assisted range of motion with PT. ${hip ? 'Partial weight bearing with walker.' : 'Weight bearing as tolerated with walker.'} Repeat washout if fever persists beyond 48 hours.` },
+          { type: 'transfer', h: 4.2, label: 'Admitted to the medical unit', text: 'Transferred from the ED to the medical unit with the joint immobilized and elevated; vancomycin and ceftriaxone running.' },
+          { type: 'consult', h: 7, service: 'Infectious Diseases', author: 'A. Rahman, MD (Infectious Diseases)', orderedBy: 'hospitalist', reason: 'Septic arthritis: antibiotic selection and duration', label: 'Infectious Diseases consulted',
+            recommendation: `Native joint septic arthritis in a patient with ${dm ? 'diabetes' : 'immunosuppression'}: S. aureus most likely. Continue vancomycin (AUC-guided) plus ceftriaxone for gram-negative coverage until synovial cultures finalize (expected 48 hours), then narrow. Repeat blood cultures if the first set is positive. Drain and washout is essential; do not stop antibiotics for the OR. Plan 4 weeks of IV therapy through a PICC (up to 6 weeks if slow response or bacteremia), with weekly CBC, BMP, ESR/CRP${vancDef ? ' and vancomycin level' : ''}, and ID clinic follow-up. Place PICC only after blood cultures are negative at 48 hours.` },
+          { type: 'surgery', h: orH, duration: dur, name: hip ? `${side} hip arthrotomy with irrigation and debridement, synovectomy and drain placement` : `${side} knee arthroscopic irrigation and debridement with synovectomy and drain placement`, label: hip ? `${side} hip arthrotomy washout` : `${side} knee arthroscopic washout`, anesthesia: hip ? 'Spinal anesthesia with light sedation' : 'General anesthesia (laryngeal mask) with adductor canal block', orderH: 3,
+            indication: `Septic arthritis of the native ${sl} ${J}`, by: 'surgeon',
+            findings: `Turbid purulent fluid under pressure with fibrinous debris and hyperemic, friable synovium. Articular cartilage intact ${hip ? 'with mild softening of the femoral head' : '(grade I-II chondromalacia, no erosion)'}. No loose bodies or osteomyelitis seen.`,
+            procedure: hip ? 'Supine with a bump; anterior (Smith-Petersen) approach with the capsule opened. Joint irrigated with 6 L of normal saline by gravity and pulsatile lavage; synovium and fibrin debrided; tissue sent for culture and pathology. Capsule loosely closed over a closed-suction drain; wound closed in layers with sterile dressing.' : 'Supine with a leg holder and tourniquet. Anterolateral and anteromedial portals; suprapatellar pouch and gutters irrigated with 9 L of normal saline; extensive synovectomy and removal of fibrin; tissue sent for culture and pathology. Closed-suction drain placed through the superolateral portal; portals closed with nylon; bulky compressive dressing and knee immobilizer applied.',
+            ebl: '20 mL', fluids: "1,000 mL lactated Ringer's", specimens: 'Synovial fluid and synovial tissue for culture; tissue to pathology', complications: 'None', disposition: 'PACU, then medical unit' },
+          { type: 'consult', h: targetedH + 1.5, service: 'Infectious Diseases', author: 'A. Rahman, MD (Infectious Diseases)', orderedBy: 'hospitalist', reason: 'Culture results: narrowing antibiotics, OPAT plan', label: 'Infectious Diseases follow-up: narrow antibiotics',
+            recommendation: vancDef ? `${orgName} in the joint and operative tissue; blood cultures negative at 48 hours. ${mrsa ? 'Continue vancomycin (AUC-guided)' : 'Continue vancomycin because of beta-lactam allergy'}; stop ceftriaxone/aztreonam. PICC when afebrile for 24 hours and blood cultures remain negative; 4-6 weeks of IV therapy with weekly CBC, BMP, ESR/CRP and vancomycin level.` : `${orgName} in the joint and operative tissue; blood cultures negative at 48 hours. Stop vancomycin and ceftriaxone; change to cefazolin 2 g IV every 8 hours. PICC once afebrile for 24 hours; 4 weeks of IV cefazolin (up to 6 weeks if slow response) with weekly CBC, BMP and ESR/CRP, then ID clinic.` },
+          ...(picc ? [
+            { type: 'procedure', h: picH, duration: 0.7, name: 'Bedside PICC placement (single lumen, ultrasound-guided)', label: 'PICC line placed', by: 'hospitalist', service: 'Vascular Access Team', indication: 'Four to six weeks of IV antibiotics for septic arthritis; blood cultures negative at 48 hours',
+              findings: 'Time-out, maximal sterile barrier. Right basilic vein accessed under ultrasound; 4 Fr single-lumen PICC advanced to 38 cm (external length 2 cm). Blood return and flushes easily. Secured with a securement device and chlorhexidine dressing. Tip confirmation by chest x-ray ordered.' },
+            { type: 'imaging', h: picH + 1.2, study: 'Chest x-ray, portable: PICC tip position', modality: 'X-ray', indication: 'Confirm PICC tip before use', findings: 'Right PICC tip projects over the cavoatrial junction. No pneumothorax. Lungs clear.', impression: 'PICC tip in satisfactory position; OK to use.' }
+          ] : [])
+        ],
+        meds: [
+          { key: 'vancomycin_load', name: 'vancomycin IVPB', dose: `${fmt(vLoad)} mg`, route: 'IV', freq: 'once', startH: 1.8, volume: 500, cls: 'Glycopeptide antibiotic', info: `Weight-based loading dose (25 mg/kg), given after blood cultures and joint aspiration. ${vancInfo}`, monitor: ['Temp', 'WBC', 'Cr'], indication: 'Septic arthritis (empiric MRSA coverage)', by: 'ed', highAlert: true },
+          { key: 'vancomycin', name: 'vancomycin IVPB', dose: `${fmt(vMaint)} mg`, route: 'IV', freq: 'q12h', startH: 13.8, stopH: vancDef ? undefined : targetedH, volume: 250, cls: 'Glycopeptide antibiotic', info: vancInfo, monitor: ['Temp', 'WBC', 'Cr'], hold: 'Hold and call pharmacy/provider for creatinine rise of 0.3 mg/dL or more, urine output drop, or vancomycin level above 20 mcg/mL.', indication: vancDef ? (mrsa ? 'MRSA septic arthritis (IV through the course)' : 'Septic arthritis (beta-lactam allergy): IV through the course') : 'Septic arthritis (empiric MRSA coverage until cultures finalize)', by: 'hospitalist', highAlert: true, renal: vancRenal },
+          { key: 'ceftriaxone', name: 'ceftriaxone (ROCEPHIN) IVPB', dose: '2 g', route: 'IV', freq: 'q24h', startH: 2.2, stopH: targetedH, volume: 100, cls: 'Cephalosporin antibiotic', info: 'Empiric gram-negative coverage (diabetes/immunosuppression) until synovial culture finalizes. Infuse over 30 minutes. Report rash, severe diarrhea (C. difficile) and swelling of the lips or face. Do not mix with calcium-containing IV fluids.', monitor: ['Temp', 'WBC'], indication: 'Septic arthritis (empiric gram-negative coverage)', by: 'ed', avoid: ['penicillin', 'cephalosporin'],
+            alt: { key: 'aztreonam', name: 'aztreonam (AZACTAM) IVPB', dose: '2 g', freq: 'q8h', cls: 'Monobactam antibiotic', info: 'Used because of penicillin/cephalosporin allergy; gram-negative coverage only (vancomycin covers staphylococci). Infuse over 20-60 minutes.', monitor: ['Cr'], renal: { ckd3: { dose: '1 g', freq: 'q8h', note: 'Dose halved for reduced kidney function.' }, esrd: { dose: '500 mg', freq: 'q8h', note: 'ESRD dosing.' } } } },
+          { key: 'cefazolin', name: 'cefazolin (ANCEF) IVPB', dose: ctx.weightKg >= 120 ? '3 g' : '2 g', route: 'IV', freq: 'q8h', startH: targetedH + 1, volume: 100, cls: 'Cephalosporin antibiotic', when: !vancDef, info: 'Culture-directed therapy for MSSA septic arthritis; narrowed from vancomycin. Infuse over 30 minutes. Dosed every 8 hours (home infusion pump). Report rash, severe diarrhea (C. difficile) and swelling of the lips or face.', monitor: ['Temp', 'WBC', 'Cr'], indication: 'MSSA septic arthritis (4-6 weeks IV)', by: 'hospitalist',
+            renal: { ckd3: { dose: '1 g', freq: 'q12h', note: 'Interval extended for reduced GFR.' }, esrd: { dose: '1 g', freq: 'q24h', note: 'ESRD: dose given after dialysis; pharmacy adjusts.' } } },
+          C.bolus("lactated Ringer's bolus", 500, { start: 0.8, by: 'ed', indication: 'Fever and poor oral intake before arrival; HR 108' }),
+          C.lrMaintenance({ start: 1.5, stop: orEnd + 8, rate: 75 }),
+          { key: 'insulin_lispro_ed', name: 'insulin lispro (HUMALOG) injection', dose: '6 units', route: 'Subcutaneous', freq: 'once', startH: 1.4, cls: 'Rapid-acting insulin', highAlert: true, info: 'One-time correction for glucose 268 in the ED. Recheck glucose in 2 hours.', monitor: ['Glucose'], indication: 'Hyperglycemia correction (ED)', by: 'ed', when: dm },
+          { key: 'insulin_glargine', name: 'insulin glargine (LANTUS) injection', dose: `${basal} units`, route: 'Subcutaneous', freq: 'qHS', startH: 4.5, cls: 'Long-acting insulin', highAlert: true, info: 'Basal insulin (about 0.25 units/kg). Give even when NPO, at 80% of the dose. Check glucose first; call the provider before giving if glucose is below 100 mg/dL. Infection raises needs now; doses fall as the infection is controlled.', monitor: ['Glucose'], hold: 'Notify provider before giving if glucose is below 100 mg/dL.', variants: { npo: { dose: `${Math.round(basal * 0.8)} units` } }, indication: 'Diabetes: basal insulin, glucose goal 140-180 mg/dL', by: 'hospitalist', renal: insRenal(f => `${Math.round(basal * f)} units`), when: dm },
+          { key: 'insulin_lispro', name: 'insulin lispro (HUMALOG) injection', dose: `${meal} units + moderate correction scale`, route: 'Subcutaneous', freq: 'AC', startH: 5, cls: 'Rapid-acting insulin', highAlert: true, info: 'Mealtime dose given 0-15 minutes BEFORE eating plus correction by scale. Check glucose first and document it. Hold the mealtime dose if the patient eats less than half the meal (correction only).', monitor: ['Glucose'], hold: 'Hold mealtime dose if not eating or glucose below 70 mg/dL; call provider.', variants: { npo: { freq: 'q6h', dose: 'Correction scale only (moderate-dose)' } }, indication: 'Diabetes: mealtime and correction insulin', by: 'hospitalist', renal: insRenal(f => `${Math.max(2, Math.round(meal * f))} units + low-dose correction scale`), when: dm },
+          { key: 'dextrose50', name: 'dextrose 50% injection', dose: '25 mL (12.5 g)', route: 'IV', freq: 'q15min', prn: true, prnInterval: 'Every 15 minutes', prnFor: 'glucose below 70 mg/dL when NPO or unable to swallow', cls: 'Hypoglycemia treatment', info: 'Per hypoglycemia protocol; recheck glucose in 15 minutes and repeat if below 70. Notify the provider of any glucose below 70.', monitor: ['Glucose'], indication: 'Hypoglycemia', startH: 4.5, prnGiven: [], by: 'hospitalist', when: dm },
+          { key: 'glucagon', name: 'glucagon injection', dose: '1 mg', route: 'IM', freq: 'q15min', prn: true, prnInterval: 'Every 15 minutes', prnFor: 'glucose below 70 mg/dL with no IV access and unable to swallow', cls: 'Hypoglycemia treatment', info: 'Per hypoglycemia protocol. Turn the patient on the side; vomiting can follow.', monitor: ['Glucose'], indication: 'Severe hypoglycemia', startH: 4.5, prnGiven: [], by: 'hospitalist', when: dm },
+          Object.assign(C.acetaminophenPO({ start: 1.0 }), { dose: ctx.weightKg < 55 ? '650 mg' : '1,000 mg', freq: ctx.weightKg < 55 ? 'q6h' : 'q8h', stat: true, sips: true, by: 'ed', info: `Scheduled base of pain control; maximum 3 g per 24 hours from all sources. ${tempMask} NSAIDs are avoided (kidney injury with vancomycin, diabetes).` }),
+          morphine,
+          Object.assign(C.opioidPO(ctx, { start: 4, given: [orEnd + 12, orEnd + 18, pod1 + 4, pod1 + 9, pod1 + 14, pod1 + 20, pod2 + 5, pod2 + 12, pod2 + 20, pod2 + 30, pod2 + 44] }), { dose: lowDose ? '2.5 mg' : '5 mg', by: 'hospitalist', sips: true, info: 'HIGH-ALERT. Assess pain and sedation before and 30-60 minutes after. Hold for RR below 10 or oversedation. Give 30-45 minutes before PT range-of-motion sessions. Use with a bowel regimen.' }),
+          Object.assign(C.ondansetron({ start: orEnd, given: [orEnd + 1.2] }), { by: 'surgeon' }),
+          { key: 'peg3350', name: 'polyethylene glycol (MIRALAX) powder', dose: '17 g', route: 'Oral', freq: 'daily', prn: true, prnInterval: 'Once daily', prnFor: 'no bowel movement in 24 hours', cls: 'Osmotic laxative', info: 'Mix in 4-8 oz of fluid. Hold for loose stools (also report diarrhea on antibiotics: C. difficile).', indication: 'Opioid and immobility constipation prevention', startH: orEnd + 8, prnGiven: [], by: 'hospitalist' }
+        ],
+        orders: [
+          C.diet('NPO', npoH, dietH, `NPO for urgent joint washout (about ${orTime}); sips of water with essential medications. ${dm ? 'Glucose every 6 hours; basal insulin reduced 20%; mealtime insulin held.' : ''}`),
+          C.diet(dietName, dietH, undefined, `Advance as tolerated once awake and not nauseated.${dm ? ' Carbohydrate 60 g per meal; glucose before every meal.' : ''} Encourage protein and fluids.`),
+          C.activity(`Bed rest, ${sl} ${J} immobilized and elevated`, 0.5, orEnd, hip ? `Keep the ${sl} hip in a comfortable position with a pillow under the knee; log roll with assistance; bedpan or bedside commode with 2 staff.` : `Knee immobilizer; ${sl} leg elevated on pillows with the heel floated (no pillow behind the knee); bedside commode with assistance.`),
+          C.activity('Bed rest until recovered from anesthesia, then up with assistance', orEnd, orEnd + 4, `Keep the ${sl} ${J} elevated and immobilized until PT sees the patient; neurovascular checks every 4 hours.`),
+          C.activity(hip ? `Partial weight bearing ${sl} leg with walker, up with assistance` : `Weight bearing as tolerated ${sl} leg with walker, up with assistance`, orEnd + 4, undefined, 'Out of bed to chair for meals with 1-2 staff and gait belt; progress with PT. Call light within reach; knee immobilizer only for transfers if ordered.'),
+          { name: 'Blood cultures x2', category: 'Laboratory', frequency: 'Once, before the first antibiotic dose', startH: 0.2, completeH: 0.8, instructions: 'Two sets from separate venipuncture sites. Do not delay antibiotics more than one hour for cultures.' },
+          { name: 'Synovial fluid studies: cell count, Gram stain, crystals, culture', category: 'Laboratory', frequency: 'Once at arthrocentesis', startH: 1.0, completeH: 1.8, instructions: 'Sterile tubes: cell count with differential (EDTA or heparin), crystals (heparin), Gram stain and aerobic/anaerobic culture (blood culture bottle). Transport to the lab immediately. Do not refrigerate.' },
+          { name: 'Sepsis screen and temperature trend', category: 'Nursing', frequency: 'Vital signs every 4 hours', startH: 0.5, instructions: 'Temperature, HR, BP, RR, SpO2 and mental status every 4 hours. Notify the provider for T above 102 F, HR above 120, SBP below 100, RR above 24, new confusion, or lactate above 2.', nursing: ['Fever persisting beyond 48 hours after washout suggests inadequate source control or a second focus: tell the surgeon.'] },
+          { name: `Joint assessment: ${sl} ${J}`, category: 'Nursing', frequency: 'Every 4 hours', startH: 1.0, instructions: `Warmth, erythema (mark borders), swelling${hip ? '' : ', circumference at mid-patella'}, pain with passive movement and active range of motion, and distal neurovascular status (color, warmth, pulses, capillary refill, sensation, toe movement) compared with the other leg. Notify the surgeon for increasing redness, swelling, severe pain, fever, or loss of pulse or sensation.`, nursing: ['Increasing pain after the washout, a rising joint circumference or new redness may mean re-accumulation of pus.'] },
+          { name: `Joint immobilization, elevation and ice, ${sl} ${J}`, category: 'Nursing', frequency: 'Ice 20 minutes on / 40 minutes off while awake', startH: 1.0, stopH: pod1 + 4, instructions: hip ? 'Position of comfort; cold pack with a cloth barrier over the hip 20 minutes at a time; check skin.' : 'Knee immobilizer in slight flexion, leg elevated; cold pack with a cloth barrier over the knee for 20 minutes at a time; check skin each application.', nursing: ['Immobilization is for comfort and only until the first post-operative day; prolonged immobilization stiffens the joint.'] },
+          { name: 'Pre-operative checklist, consent and site verification', category: 'Nursing', frequency: 'Once', startH: 3, completeH: orH - 0.3, instructions: `Verify consent, ID and allergy bands, ${sl} ${J} marked, NPO status, glucose within range (goal below 180), antibiotics on schedule (do not hold for NPO), insulin plan, and last dose of any blood thinner.` },
+          ...(dm ? [
+            { name: 'Point-of-care blood glucose', category: 'Lab / Bedside Testing', frequency: 'ACHS (every 6 hours if NPO)', startH: 3, instructions: 'Check before meals and at bedtime; every 6 hours while NPO and with any symptoms. Goal 140-180 mg/dL. Notify the provider for glucose below 70 or above 300.' },
+            { name: 'Hypoglycemia protocol', category: 'Nursing', frequency: 'PRN glucose below 70 mg/dL', startH: 3, instructions: 'Awake and able to swallow: 15 g fast carbohydrate, recheck in 15 minutes, repeat until above 70, then a snack. NPO or unable to swallow: dextrose 50% IV (glucagon IM if no IV). Notify the provider.' },
+            { name: 'Diabetes education', category: 'Consult / Therapy', frequency: 'Before discharge', startH: 24, instructions: 'Insulin teaching, glucometer, hypoglycemia treatment, and why glucose control prevents re-infection. Teach-back.', by: 'hospitalist' }
+          ] : []),
+          ...(mrsa ? [{ name: 'MRSA contact precautions', category: 'Precautions', frequency: 'Continuous', startH: 4, instructions: 'MRSA history and positive nasal PCR: gown and gloves for contact with the patient and the wound/drain; dedicated equipment; hand hygiene; sign on the door.' }] : []),
+          { name: 'Joint drain (closed suction) care and output', category: 'Nursing', frequency: 'Every shift and PRN', startH: orEnd, stopH: drainOutH, instructions: `Closed-suction drain in the ${sl} ${J}: keep the suction device compressed (Hemovac) or bulb flat (JP); empty when half full, record the amount and color every shift; secure the tubing so it is not pulled; keep the dressing dry. Expected: serosanguineous, 80-120 mL in the first 12 hours, falling below 30 mL/24 hours by post-operative day 2, when the surgeon removes it. Cloudy or purulent output, a sudden stop with a swollen joint, or fever: notify the surgeon.`, nursing: ['Use sterile technique when emptying; never open a pulled-out drain to the air.'] },
+          { name: 'Post-operative dressing and incision assessment', category: 'Nursing', frequency: 'Every shift', startH: orEnd, instructions: hip ? 'Assess the anterior hip incision and dressing for strikethrough (mark and time), swelling, warmth, odor and drainage.' : 'Assess the portal sites and compressive dressing for strikethrough (mark and time), swelling, warmth, odor and drainage. First dressing change by the surgeon on post-operative day 1 or 2.', nursing: ['Report purulent drainage, spreading redness or an expanding joint.'] },
+          { name: `Neurovascular checks ${sl} leg`, category: 'Nursing', frequency: 'Every 4 hours', startH: orEnd, instructions: 'Color, warmth, capillary refill, pedal pulses, sensation and toe movement compared with the other foot; notify the surgeon for pallor, coolness, numbness, or severe pain.' },
+          { name: `Range of motion: ${J}`, category: 'Consult / Therapy', frequency: 'PT twice daily and nursing with each turn', startH: pod1, instructions: hip ? 'Active-assisted hip flexion, abduction and rotation within pain tolerance; partial weight bearing with a walker; premedicate 30-45 minutes before therapy.' : 'Active-assisted knee flexion and extension; goal 0-90 degrees by post-operative day 3; heel slides and quadriceps sets; WBAT with walker; knee immobilizer discontinued when quadriceps control returns; premedicate 30-45 minutes before therapy.', by: 'surgeon' },
+          C.incentive(orEnd + 1, undefined),
+          { name: 'Fall prevention (fever, opioids, new walker use)', category: 'Precautions', frequency: 'Continuous', startH: 1.5, instructions: 'Bed alarm, assist x1-2 for every transfer, gait belt, walker within reach, call light in reach.' },
+          { name: 'Physical therapy evaluation and treatment', category: 'Consult / Therapy', frequency: 'Daily from post-operative day 1', startH: orEnd + 2, instructions: `Bed mobility, transfers and walker gait; ${hip ? 'partial' : 'as tolerated'} weight bearing ${sl} leg; ${J} range of motion; stairs if needed at home.`, by: 'surgeon' },
+          { name: 'Occupational therapy evaluation', category: 'Consult / Therapy', frequency: 'Once', startH: pod1 + 4, instructions: 'ADL training and equipment (reacher, shower chair); PICC arm care for dressing and bathing.', by: 'surgeon' },
+          { name: 'Case management: home infusion (OPAT), home health or SNF', category: 'Consult / Therapy', frequency: 'Once', startH: targetedH, instructions: 'Arrange home infusion pharmacy and home health nursing for PICC care and antibiotic infusion (or a skilled nursing facility), walker, PT, insurance authorization for 4-6 weeks of IV therapy, and ID, orthopedic and PCP follow-up.', by: 'hospitalist' },
+          ...(picc ? [
+            { name: 'PICC placement', category: 'Nursing', frequency: 'Once', startH: picH - 2, completeH: picH + 0.8, instructions: 'Vascular access team places a single-lumen PICC after blood cultures are negative at 48 hours and the patient has been afebrile for 24 hours. Consent; right arm preferred. Do not use until tip position is confirmed by chest x-ray.' },
+            { name: 'PICC care and flushing', category: 'Nursing', frequency: 'Each infusion; dressing and connector change every 7 days and PRN', startH: picH + 1.3, instructions: 'Scrub the hub for 15 seconds; flush with 10 mL normal saline before and after each infusion; chlorhexidine dressing change every 7 days or if loose or soiled. Measure external length and arm circumference. No blood pressure or venipuncture in the PICC arm.', nursing: ['Report arm swelling, redness, pain, fever or a catheter that will not flush: possible clot or line infection.'] },
+            { name: `Weekly OPAT labs: CBC with differential, BMP, ESR, CRP${vancDef ? ', vancomycin level' : ''}`, category: 'Laboratory', frequency: 'Weekly while on IV antibiotics', startH: picH + 2, instructions: 'Results go to the ID clinic. Watch creatinine, neutropenia and rash.' }
+          ] : [{ name: 'Antibiotic dosing at dialysis (vein preservation)', category: 'Nursing', frequency: 'Per dialysis schedule', startH: targetedH + 2, instructions: `ESRD: no PICC to protect arm veins for future access. Pharmacy and nephrology arrange ${vancDef ? 'vancomycin' : 'cefazolin'} dosing after each hemodialysis session for the full course.` }]),
+          { name: 'Discharge teaching: antibiotics, PICC, joint care and warning signs', category: 'Nursing', frequency: 'Once before discharge', startH: dcH - 10, instructions: 'Teach-back: antibiotic schedule and pump, PICC care and bathing, ROM exercises, glucose and insulin, warning signs (fever, increasing joint pain, redness, swelling, drainage, PICC arm swelling, diarrhea), and follow-up with ortho, ID and PCP.' }
+        ],
+        devices: [
+          { deviceType: 'IV', type: 'Peripheral IV', location: 'Right forearm', siteMarker: 'rightForearm', gauge: '20 gauge', placeH: 0.4, removeH: picc ? picH + 8 : undefined, infusing: "Lactated Ringer's", status: 'Infusing', assess: 'site clean, dry, intact; flushes easily' },
+          Object.assign(C.pivSecond(0.6, 'Left antecubital', '18 gauge'), { removeH: picc ? picH + 8 : undefined }),
+          { deviceType: 'Drain', type: hip ? 'Closed-suction drain (Hemovac, 10 Fr), hip' : 'Closed-suction drain (Hemovac, 10 Fr), knee', location: `${side} ${J}`, placeH: orEnd, removeH: drainOutH, status: 'Active', drainage: ctx.nowH < pod1 ? '90 mL serosanguineous over the last 8 hours' : ctx.nowH < pod1 + 14 ? '45 mL serosanguineous over the last 12 hours' : '25 mL serous over the last 24 hours', assess: 'suction maintained, dressing clean, dry, intact; tubing secured, no kinks; output thin serosanguineous' },
+          ...(picc ? [{ deviceType: 'IV', type: 'PICC line (single lumen, 4 Fr)', location: 'Right upper arm, basilic vein; tip at cavoatrial junction', siteMarker: 'rightUpperArm', placeH: picH + 1.3, status: 'Patent', infusing: vancDef ? 'Vancomycin' : 'Cefazolin', assess: 'dressing clean, dry, intact; external length 2 cm, no arm swelling, flushes easily with blood return' }] : [])
+        ],
+        assessments: [
+          { fromH: 0, items: [['Musculoskeletal / Mobility', 'Mobility', `Unable to bear weight on the ${sl} leg; holds the ${J} still`], ['Musculoskeletal / Mobility', `${side} Lower Extremity`, hip ? `${side} hip held flexed, abducted and externally rotated; severe groin pain with any log roll or passive motion; foot warm, pulses palpable, capillary refill under 3 seconds, sensation and toe movement intact` : `${side} knee hot, red and tense with a large ballotable effusion; range of motion 10-40 degrees limited by pain; foot warm, dorsalis pedis palpable, capillary refill under 3 seconds, sensation and toe movement intact`], ['Pain', 'Pain Location', `${side} ${J}, throbbing, 8/10, worse with any movement`], ['Skin', 'Skin', 'Hot, flushed and diaphoretic with rigors; no break in skin, abscess or cellulitis over the joint; no rash or petechiae'], ['Skin', 'Braden Score', '19'], ['Cardiac', 'Rhythm', ctx.has('afib') ? 'Atrial fibrillation' : 'Sinus tachycardia'], ['Neurologic', 'Level of Consciousness', 'Alert and oriented x4; no neck stiffness'], ['Safety', 'Fall Precautions', 'Moderate risk: fever, cannot bear weight; bed alarm, call light in reach'], ...(dm ? [['Safety', 'Diabetes Care', 'Glucose 268 on arrival; no ketones; thirsty, polyuria']] : [])] },
+          { fromH: 4.2, items: [['Musculoskeletal / Mobility', `${side} Lower Extremity`, `${hip ? 'Hip' : 'Knee'} immobilized and elevated; pain 5/10 after aspiration and morphine; ${hip ? 'groin tender' : 'knee warm and tense but less distended'}; foot warm, pulses palpable, capillary refill under 3 seconds, sensation intact`], ['Pain', 'Pain Location', `${side} ${J} aching 5/10`], ['Skin', 'Skin', 'Warm, flushed; chills resolving after acetaminophen and fluids']] },
+          { fromH: orEnd, items: [['Skin', 'Surgical Incisions', hip ? `${side} anterior hip incision with dressing clean, dry, intact; small amount of serosanguineous drainage` : `${side} knee arthroscopy portals covered by a bulky compressive dressing and knee immobilizer, clean, dry, intact; scant serosanguineous staining`], ['Musculoskeletal / Mobility', `${side} Lower Extremity`, `${hip ? 'Spinal wearing off: moves toes, sensation returning' : 'Adductor canal block active: thigh numb, can move ankle and toes'}; foot warm, pulses palpable, capillary refill under 3 seconds`], ['Musculoskeletal / Mobility', 'Mobility', 'Bed rest after anesthesia; leg elevated; turned with assistance'], ['Pain', 'Pain Location', `${side} ${J} surgical pain 3/10 with block, rising as it wears off`], ['GI', 'Nausea / Vomiting', 'Mild nausea after anesthesia; relieved with ondansetron'], ['Respiratory', 'Breath Sounds', 'Clear, diminished at bases'], ['Respiratory', 'Incentive Spirometer', '1,250 mL']] },
+          { fromH: orEnd + 3, items: [['Skin', 'Drain', `Closed-suction drain to suction: 90 mL serosanguineous in the first 8 hours; dressing dry; tubing secured`]] },
+          { fromH: pod1, items: [['Skin', 'Surgical Incisions', `${side} ${J} dressing dry with scant drainage; swelling decreased; periwound erythema none`], ['Skin', 'Drain', 'Closed-suction drain 45 mL serosanguineous over the last 12 hours; suction maintained'], ['Musculoskeletal / Mobility', `${side} Lower Extremity`, `${hip ? 'Spinal resolved' : 'Block resolved'}: moves toes and ankle; foot warm, pulses palpable, capillary refill under 3 seconds; ${J} less hot, effusion smaller`], ['GI', 'Nausea / Vomiting', 'None'], ['GI', 'Last BM / Flatus', 'No BM for 2 days; passing flatus'], ['Pain', 'Pain Location', `${side} ${J} 4/10 with movement`], ['Skin', 'Braden Score', '17']] },
+          { fromH: ptH, items: [['Musculoskeletal / Mobility', 'Mobility', `Out of bed to chair with walker and moderate assist x1 with PT; ${hip ? 'partial' : 'as tolerated'} weight bearing ${sl} leg`], ['Musculoskeletal / Mobility', `${side} ${U.cap(J)} Range of Motion`, hip ? 'Active-assisted flexion to 70 degrees; pain 4/10 with movement' : 'Active-assisted flexion 0-50 degrees; pain 4/10 at end range']] },
+          { fromH: pod2, items: [['Skin', 'Surgical Incisions', `${side} ${J} incisions clean, dry, intact; erythema none`], ['Musculoskeletal / Mobility', 'Mobility', 'Walking 30-50 feet with walker and contact guard'], ['Musculoskeletal / Mobility', `${side} ${U.cap(J)} Range of Motion`, hip ? 'Active flexion 85 degrees' : 'Active-assisted flexion 0-75 degrees'], ['Pain', 'Pain Location', `${side} ${J} 3/10`]] },
+          { fromH: drainOutH, items: [['Skin', 'Drain', 'Drain removed intact by the surgeon (25 mL serous over 24 hours); site covered with dry gauze, no drainage']] },
+          { fromH: 72, items: [['Skin', 'Skin', `${side} ${J} cool, minimal swelling, no erythema; afebrile for 24 hours`], ['Musculoskeletal / Mobility', 'Mobility', 'Walking 100 feet with walker and standby assist'], ...(dm ? [['Safety', 'Diabetes Care', 'Glucose 140-190 before meals on basal-bolus insulin; no hypoglycemia; verbalizes insulin plan']] : [])] },
+          ...(picc ? [{ fromH: picH + 1.3, items: [['Skin', 'PICC Site', 'Right upper arm PICC: chlorhexidine dressing clean, dry, intact; external length 2 cm; no swelling, redness or tenderness; flushes with blood return']] }] : []),
+          { fromH: dcStageH, items: [['Musculoskeletal / Mobility', 'Mobility', 'Walking 150 feet with walker, independent with transfers and stairs with supervision'], ['Pain', 'Pain Location', `${side} ${J} 1-2/10 on acetaminophen only`], ['Musculoskeletal / Mobility', `${side} ${U.cap(J)} Range of Motion`, hip ? 'Active flexion 95 degrees' : 'Active flexion 0-95 degrees']] }
+        ],
+        io: [{ fromH: 0, po: 240, urine: 450 }, { fromH: 8, po: 120, urine: 380 }, { fromH: orEnd, po: 0, urine: 300, other: 60, otherLabel: 'Joint drain' }, { fromH: dietH + 2, po: 360, urine: 340 }, { fromH: pod1, po: 480, urine: 360, other: 45, otherLabel: 'Joint drain' }, { fromH: pod2, po: 600, urine: 380, other: 25, otherLabel: 'Joint drain' }, { fromH: drainOutH, po: 640, urine: 400 }],
+        therapy: { fromH: ptH, assist: h => (h < ptH + 24 ? 'moderate assist of one' : h < ptH + 56 ? 'contact guard assist' : 'standby assist'), gait: h => (h < ptH + 24 ? 'bed to chair with walker' : h < ptH + 56 ? '30-50 feet with walker' : '100-150 feet with walker'), rec: `Home with home health PT/nursing and walker, ${hip ? 'partial' : 'as-tolerated'} weight bearing ${sl} leg, or short-term SNF if unable to manage IV antibiotics and mobility at home`, pt: true },
+        discharge: { dispo: () => 'Home with home infusion (OPAT) via PICC and home health nursing/PT, or short-term SNF for IV antibiotics', estimate: 'hospital day 5 once the PICC is in, the patient is afebrile with falling CRP, the drain is out, and pain is controlled on oral medication' },
+        stages: saStages(ctx, { hip, J, side, sl, dm, mrsa, vancDef, picc, orH, orEnd, orTime, npoH, pod1, pod2, drainOutH, ptH, targetedH, picH, dcH, dcStageH, basal, meal }),
+        stickies: [
+          { title: 'Cultures before antibiotics', body: 'Blood cultures x2 and joint fluid cultures are drawn BEFORE the first antibiotic dose; do not delay the antibiotics more than one hour. Vancomycin over at least 90 minutes.' },
+          { title: 'Septic joint: reassess', body: `Joint warmth, swelling, pain and neurovascular status every 4 hours. Fever after 48 hours or re-swelling of the ${J} means the pus is re-accumulating: tell the surgeon.`, fromH: 1 },
+          { title: 'Closed-suction drain', body: 'Record output every shift; keep suction compressed; secure the tubing. Removal by the surgeon when output is under 30 mL/24 hours.', fromH: orEnd },
+          ...(dm ? [{ title: 'Insulin safety', body: 'Basal insulin is NOT skipped when NPO (give 80% of the dose). Mealtime insulin only when eating; correction scale every 6 hours while NPO. Treat glucose below 70 per protocol.', fromH: 4 }] : []),
+          ...(picc ? [{ title: 'PICC line', body: 'No BP or venipuncture in the PICC arm. Scrub the hub 15 seconds; flush 10 mL saline before and after each infusion. Report arm swelling, fever or line problems.', fromH: picH + 1.3 }] : []),
+          ...(mrsa ? [{ title: 'MRSA contact precautions', body: 'Gown and gloves for the room and the drain/wound.', fromH: 4 }] : [])
+        ],
+        objectives: ['Recognize septic arthritis (hot swollen joint, fever, loss of range of motion) and obtain blood and synovial fluid cultures before the first antibiotic dose.', 'Safely administer vancomycin and ceftriaxone (infusion times, allergy swaps, renal dosing, levels) and narrow therapy on culture results.', 'Care for a post-washout patient: closed-suction drain output, joint and neurovascular assessment, immobilization then range of motion, pain control and glucose management.', 'Prepare the patient for 4-6 weeks of IV therapy: PICC care, weekly OPAT labs, home infusion or SNF planning, and warning signs.']
+      };
+      return spec;
+    }
+  };
+
+  function saStages(ctx, p) {
+    const { hip, J, side, sl, dm, mrsa, vancDef, picc, orEnd, orTime, pod1, drainOutH, targetedH, picH, dcH, dcStageH } = p;
+    const org = mrsa ? 'MRSA' : 'MSSA';
+    const abx = picc ? `PICC for 4-6 weeks of IV ${vancDef ? 'vancomycin' : 'cefazolin'}` : `${vancDef ? 'vancomycin' : 'cefazolin'} dosed at dialysis for 4-6 weeks`;
+    const st = [];
+    st.push({
+      fromH: 0, id: 'ed', label: `Septic arthritis of the ${sl} ${J}: cultures, aspiration, empiric antibiotics`,
+      problem: `Acute hot swollen ${sl} ${J} with fever; septic arthritis suspected${dm ? '; hyperglycemia (glucose 268)' : ''}.`,
+      subj: `${side} ${J} pain 8/10 for 3 days, worse today; shaking chills and fever at home. Cannot bear weight. No injury, rash, or other swollen joints.`,
+      assess: `Septic arthritis (T 101.8 F, HR 108, WBC 16.8, ESR 84, CRP 186; joint fluid 68,400 WBC with Gram-positive cocci in clusters) in a patient with ${dm ? 'diabetes' : 'an immunosuppressing condition'}. No sepsis shock; lactate 1.9. Blood cultures pending.`,
+      plan: ['Blood cultures x2 and joint aspiration before antibiotics; vancomycin load plus gram-negative coverage (ceftriaxone, or aztreonam if beta-lactam allergic).', 'Orthopedic surgery: urgent ' + (hip ? 'open hip washout' : 'arthroscopic washout') + ' today; NPO.', 'Acetaminophen scheduled, IV morphine for severe pain; ice and elevation; no NSAIDs.', dm ? 'Insulin basal-bolus (basal 80% while NPO) with correction; glucose every 6 hours; hold metformin.' : 'Glucose checks; hold immunosuppressant doses only if the team directs.', 'ID consult; VTE prophylaxis after surgery.'],
+      nursing: [`T 101.8 F, HR 108; ${sl} ${J} hot, red and swollen; cultures drawn before antibiotics.`, 'Vancomycin running over 2 hours; ceftriaxone given.', 'Pain 8/10 improved to 5/10 after aspiration and morphine; joint immobilized and elevated.', 'NPO; two IVs; neurovascular status of the leg intact.'],
+      teach: ['Why the joint must be drained and washed out, why antibiotics are given through the vein for weeks, and the NPO plan.'],
+      dispo: 'Anticipate 5-8 days including washout, culture-directed antibiotics and a PICC.', objectives: ['Obtain cultures before antibiotics and assess a septic joint.'],
+      stickies: [{ title: 'Septic work-up', body: 'Cultures before antibiotics. Vancomycin over at least 90 minutes. Reassess the joint, temperature and pain every 4 hours.' }]
+    });
+    st.push({
+      fromH: 4.5, id: 'preop', label: 'Pre-operative: awaiting joint washout', isolation: mrsa ? 'Contact precautions' : undefined,
+      problem: `Septic ${sl} ${J}; Gram stain shows Gram-positive cocci in clusters; NPO for washout about ${orTime}.`,
+      subj: `Pain 5-6/10, chills improving. Thirsty and hungry. Worried about surgery.`,
+      assess: 'Hemodynamically stable on antibiotics; fever still above 101 F; lactate 1.3; glucose improving; no neurovascular deficit.',
+      plan: ['Continue vancomycin and ceftriaxone on schedule (not held for NPO); maintenance fluids.', `${hip ? 'Open hip arthrotomy' : 'Knee arthroscopy'} about ${orTime}; consent, site marking, glucose below 180.`, 'Keep the joint elevated; ice 20 minutes on/off.', 'ID consulted.'],
+      nursing: ['NPO; LR at 75 mL/hr; glucose checked every 6 hours.', 'Consent signed; joint marked; IV antibiotics on time.', 'Temperature recorded before acetaminophen.'],
+      teach: ['What to expect: anesthesia, a drain in the joint, a bulky dressing, and starting therapy the next morning.'],
+      dispo: 'Washout today.', stickies: [{ title: 'To OR', body: `OR about ${orTime}: NPO, glucose below 180, antibiotics on schedule, consent, ${sl} ${J} marked.` }]
+    });
+    st.push({
+      fromH: orEnd, id: 'postop0', label: 'Post-operative day 0: washout done, drain in place', isolation: mrsa ? 'Contact precautions' : undefined,
+      problem: `Status post ${sl} ${J} ${hip ? 'arthrotomy' : 'arthroscopic'} washout (POD 0); drain in place; synovial and tissue cultures pending.`,
+      subj: `Awake; ${J} sore 3/10 under the block, nauseated once. Chills gone.`,
+      assess: 'Source control achieved: purulent fluid evacuated; temperature falling; hemodynamically stable.',
+      plan: ['Antibiotics continue; follow cultures.', 'Acetaminophen scheduled, oxycodone PRN, IV morphine only for severe pain before the block wears off.', 'Drain to suction; record output; neurovascular checks every 4 hours.', 'Enoxaparin about 6 hours after surgery per order; SCDs; incentive spirometry.', dm ? 'Resume mealtime insulin when eating; glucose before meals.' : 'Diet as tolerated.'],
+      nursing: ['Dressing clean, dry, intact; drain 90 mL serosanguineous.', 'Foot warm, pulses palpable, sensation and toe movement intact.', 'Nausea relieved with ondansetron; diet advanced when awake.', 'Temperature 99.4 F.'],
+      teach: ['Keep the leg elevated; do not bend or put weight until PT teaches you; call for pain that suddenly worsens.'],
+      dispo: 'Expect 4-6 more days.'
+    });
+    st.push({
+      fromH: pod1, id: 'pod1', label: 'Post-operative day 1: drain, first PT and ROM', isolation: mrsa ? 'Contact precautions' : undefined,
+      problem: `POD 1 ${sl} ${J} washout; low-grade fever; cultures growing Gram-positive cocci; drain in place.`,
+      subj: `Pain 4/10 with movement; slept poorly. Wants to move the ${J}. No chest pain or shortness of breath.`,
+      assess: 'Improving: temperature 100.2 F, WBC 15, CRP peak 214 expected on day 1; synovial culture growing Gram-positive cocci in clusters; blood cultures no growth so far.',
+      plan: ['Continue vancomycin and ceftriaxone until culture identification (tomorrow).', `PT today: active-assisted ${J} ROM, ${hip ? 'partial' : 'as-tolerated'} weight bearing with walker.`, 'Drain care; remove when output below 30 mL/24 hours.', 'Daily CBC, CRP, ESR, creatinine; vancomycin level before the 4th dose.', 'Fever curve; repeat washout if no improvement by 48 hours.'],
+      nursing: ['Drain 45 mL serosanguineous in 12 hours; dressing dry.', 'Out of bed to chair with PT, walker and moderate assist; premedicated before ROM.', 'Temperature 100.2 F, lungs clear; IS 1,250 mL.', 'Glucose 160-210 on basal-bolus insulin.'],
+      teach: ['ROM exercises matter to prevent stiffness; use the walker and call before getting up; why we keep checking temperature.'],
+      dispo: 'Anticipate discharge after the PICC and infusion plan, around hospital day 5.'
+    });
+    st.push({
+      fromH: targetedH, id: 'targeted', label: `Cultures final: ${org}, narrowing antibiotics`, isolation: mrsa ? 'Contact precautions' : undefined,
+      problem: `${org} septic arthritis of the ${sl} ${J}; blood cultures negative at 48 hours; antibiotics narrowed; drain output falling.`,
+      subj: `Pain 3/10; feels better, no chills. Eating well. Anxious about weeks of IV antibiotics.`,
+      assess: `${org} in synovial fluid and tissue; blood cultures negative; afebrile trend; WBC 12.6 and CRP falling; kidney function stable on ${vancDef ? 'vancomycin' : 'antibiotics'}.`,
+      plan: [vancDef ? 'Continue vancomycin only; stop ceftriaxone/aztreonam; vancomycin level and creatinine.' : 'Stop vancomycin and ceftriaxone; start cefazolin 2 g IV every 8 hours.', 'PICC when afebrile for 24 hours and blood cultures remain negative.', 'Drain out when output below 30 mL/24 hours.', 'Case management: home infusion or SNF; ID outlines 4-6 weeks of IV therapy.'],
+      nursing: ['Drain output 25-45 mL/12 hours; site clean.', 'Walking with PT; knee flexion improving.', 'Antibiotic change verified against the order and pharmacy; allergy reviewed.', 'Glucose 140-180.'],
+      teach: ['Why antibiotics continue for weeks even after the joint looks better, and what a PICC is.'],
+      dispo: 'PICC in 1-2 days; discharge on hospital day 4-5 with home infusion.'
+    });
+    st.push({
+      fromH: 72, id: 'recovering', label: 'Afebrile, drain out: PICC and infusion planning', isolation: mrsa ? 'Contact precautions' : undefined,
+      problem: `${org} septic arthritis improving; drain removed; afebrile; PICC and OPAT planning.`,
+      subj: `Pain 2-3/10. Walked in the hall. Asks how the IV medicine will be given at home.`,
+      assess: 'Afebrile more than 24 hours; WBC 10, CRP falling; joint cool with improving ROM; blood cultures no growth at 48-72 hours.',
+      plan: [picc ? 'PICC today after blood cultures are negative and fever resolved; tip confirmation chest x-ray before first use.' : 'No PICC (ESRD): dose antibiotics at dialysis.', 'Home infusion pharmacy, home health nursing and PT referrals; authorization for 4-6 weeks.', 'Weekly OPAT labs; ID and orthopedic follow-up.'],
+      nursing: ['Afebrile since yesterday; incisions clean; drain site dry.', 'Walking 100 feet with walker and standby assist.', 'Diabetes teaching started; glucose 140-190.'],
+      teach: ['PICC care, bathing with a cover, flushing and the infusion pump; signs of joint re-infection and line infection.'],
+      dispo: 'Discharge tomorrow if teaching and infusion plan are complete.'
+    });
+    st.push({
+      fromH: dcStageH, id: 'dc', label: 'Discharge day: PICC, home infusion teaching', isolation: mrsa ? 'Contact precautions' : undefined,
+      problem: `${org} septic arthritis of the ${sl} ${J}; ready for discharge on IV antibiotics through ${picc ? 'a PICC' : 'dialysis dosing'}.`,
+      subj: `Pain 1-2/10 on acetaminophen. Ready to go home. Understands the pump and PICC care.`,
+      assess: 'Clinically resolving: afebrile, CRP down more than 60% from peak, ROM improving, drain out; ' + abx + ' arranged.',
+      plan: [`Discharge on ${abx}; end date set by ID (weekly CBC, BMP, ESR/CRP).`, 'Home health nursing for PICC care; PT; walker.', 'Follow-up: ID in 1-2 weeks, orthopedics in 2 weeks, PCP for glucose.', 'Return precautions reviewed.'],
+      nursing: ['Vital signs stable, afebrile; incisions dry.', 'PICC flushes with blood return; dressing intact; patient demonstrated flush and pump use.', 'Prescriptions, supplies and first home infusion time confirmed.'],
+      teach: ['Teach-back: antibiotic schedule, PICC care, ROM exercises, glucose and warning signs (fever, redness, swelling, joint pain, PICC arm swelling, diarrhea).'],
+      dispo: 'Discharge home with home infusion today.', stickies: [{ title: 'Discharge today', body: 'Confirm home infusion delivery, first-dose time, home health visit, teach-back, and follow-up appointments before leaving.' }]
+    });
+    st.push({
+      fromH: dcH + 6, id: 'ready', label: 'Medically ready; discharge delayed', isolation: mrsa ? 'Contact precautions' : undefined,
+      problem: `${org} septic arthritis of the ${sl} ${J}; stable on IV antibiotics, awaiting infusion/SNF arrangements.`,
+      subj: 'Pain 1-2/10. Walking with the walker. Frustrated by waiting.',
+      assess: 'Recovered; the remaining stay is driven by authorization, home infusion delivery or SNF bed availability, not by acute illness.',
+      plan: ['Case management finalizing home infusion or SNF acceptance.', 'Continue IV antibiotics on time, PICC care, ROM and PT; watch for diarrhea (C. difficile), rash, kidney injury, falls and PICC complications.'],
+      nursing: ['Vital signs stable and afebrile; PICC site clean.', 'Out of bed with walker; glucose controlled.'],
+      teach: ['Reinforce PICC and warning-sign teaching.'],
+      dispo: 'Discharge when infusion services or SNF bed are confirmed.'
     });
     return st;
   }
