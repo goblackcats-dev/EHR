@@ -652,6 +652,10 @@ The next major item should be built separately: a **Faculty Case Builder** that 
 Added: **Total hip arthroplasty**, **Lumbar spinal fusion**, **Femoral shaft fracture**, **Septic arthritis** (Orthopedic / Trauma); **Necrotizing fasciitis**, **Erythrodermic psoriasis** (Dermatologic / Wound). Known limit: the shared rules add enoxaparin 40 mg daily in CKD3, which triggers the generic "renally-avoided drug" warning; trauma patients may need 30 mg twice daily instead.
 
 ## v49 - LPN Med Pass cases
-New Case Builder category **LPN Med Pass** (every key starts with `lpn_`, every label starts with "LPN Med Pass:"). Very simple charts for first-semester LPN medication-pass practice with patient and medication scanning; each has one ordered medication and no IV, routine labs, DVT prophylaxis or PRN extras:
-- Hypertension follow-up (1 PO: lisinopril), Cellulitis antibiotic only (1 PO: cephalexin, doxycycline if penicillin-allergic), Fall with limited mobility (1 SubQ: enoxaparin), Type 2 diabetes (1 SubQ: insulin lispro before meals), Vitamin B12 deficiency (1 IM: cyanocobalamin), and a capstone with three routes (PO lisinopril, SubQ enoxaparin, IM ceftriaxone).
+New Case Builder category **LPN Med Pass** (every key starts with `lpn_`, every label starts with "LPN Med Pass:"). Very simple charts for first-semester LPN medication-pass practice with patient and medication scanning. **Every case has exactly three medications, one PO, one SubQ and one IM**, all due at 0900 (insulin before meals); no IV, routine labs, DVT prophylaxis or PRN extras:
+- Hypertension follow-up: lisinopril PO, enoxaparin SubQ, influenza vaccine IM.
+- Cellulitis: acetaminophen PO, enoxaparin SubQ, ceftriaxone IM (clindamycin IM if penicillin-allergic).
+- Fall with limited mobility: acetaminophen PO, enoxaparin SubQ, Tdap IM.
+- Type 2 diabetes: metformin PO, insulin lispro SubQ, pneumococcal vaccine IM.
+- Vitamin B12 deficiency: folic acid PO, heparin SubQ, cyanocobalamin IM.
 Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
