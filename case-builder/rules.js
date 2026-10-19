@@ -81,11 +81,12 @@ NS.rules = (() => {
     const surgery = firstSurgery(spec);
     const q = (name, extra) => !spec.orders.some(o => o.name.toLowerCase().startsWith(name.toLowerCase())) && H.order(spec, extra);
 
+    const simple = !!spec.simpleMedPass;   // LPN med-pass cases: nothing beyond the one ordered medication, no routine labs, IV or PRN extras
     q('Vital signs', { name: 'Vital signs', category: 'Nursing', frequency: 'Every 4 hours', instructions: 'Notify provider for SBP below 90 or above 180, HR above 120 or below 50, RR above 28, SpO2 below 90%, or temperature above 101.5 F.', startH: 2.5 });
     const ioStrict = ['chf', 'sbo', 'sepsis', 'cholecystitis'].includes(spec.primaryKey) || ctx.renal !== 'none' || ctx.has('hf');
     q(ioStrict ? 'Strict intake and output' : 'Intake and output', { name: ioStrict ? 'Strict intake and output' : 'Intake and output', category: 'Nursing', frequency: 'Every shift', instructions: 'Record all oral and IV intake and all output (urine, drains, emesis).', startH: 2.5 });
     q('Fall precautions', { name: 'Fall precautions', category: 'Precautions', frequency: 'Continuous', instructions: 'Call light in reach, bed low, non-skid footwear, assist with ambulation.', startH: 2.5 });
-    H.order(spec, { name: 'CBC and basic metabolic panel', category: 'Laboratory', frequency: 'Daily AM', instructions: 'Draw at 0500.', startH: 3 });
+    if (!simple) H.order(spec, { name: 'CBC and basic metabolic panel', category: 'Laboratory', frequency: 'Daily AM', instructions: 'Draw at 0500.', startH: 3 });
     if ((spec.isolation || 'None') !== 'None') H.order(spec, { name: spec.isolation, category: 'Precautions', frequency: 'Continuous', instructions: `Maintain ${spec.isolation.toLowerCase()} per policy; sign on the door.`, startH: 3 });
 
     // Pre-operative ECG for older / cardiac patients
@@ -95,11 +96,13 @@ NS.rules = (() => {
 
     // Labs: ED draw and daily AM draw
     const edCodes = ['WBC', 'Hemoglobin', 'Hematocrit', 'Platelets', 'Sodium', 'Potassium', 'Chloride', 'CO2', 'BUN', 'Creatinine', 'Glucose', 'Calcium', 'eGFR'];
-    spec.labSchedule.unshift({ h: 0.5, codes: edCodes });
-    spec.labSchedule.unshift({ daily: true, codes: [...edCodes, 'Magnesium'] });
+    if (!simple) {
+      spec.labSchedule.unshift({ h: 0.5, codes: edCodes });
+      spec.labSchedule.unshift({ daily: true, codes: [...edCodes, 'Magnesium'] });
+    }
 
     // Peripheral IV(s)
-    if (!spec.devices.some(d => d.deviceType === 'IV')) {
+    if (!simple && !spec.devices.some(d => d.deviceType === 'IV')) {
       const side = ctx.has('esrd') ? 'Right' : 'Right';
       spec.devices.unshift({ deviceType: 'IV', type: 'Peripheral IV', location: `${side} forearm`, siteMarker: 'rightForearm', gauge: '20 gauge', placeH: 0.4, infusing: 'Saline lock', status: 'Patent', assess: 'site clean, dry, intact; flushes easily' });
     }
@@ -114,7 +117,7 @@ NS.rules = (() => {
     const ppxStop = afib ? swEnd : undefined; // apixaban resumes when the surgery window closes
     const team = spec.primaryTeam || 'hospitalist';
     // patients already on full-dose anticoagulation for a mechanical valve do not also get prophylaxis-dose enoxaparin/heparin
-    const onTherapeutic = !!spec.therapeuticAnticoagulation || !!spec.noPpx || spec.meds.some(m => /warfarin/i.test(m.name));
+    const onTherapeutic = simple || !!spec.therapeuticAnticoagulation || !!spec.noPpx || spec.meds.some(m => /warfarin/i.test(m.name));
     if (!onTherapeutic && !(afib && swEnd === undefined)) {
       const heparin = ctx.renal !== 'none' && (ctx.renal === 'esrd' || (spec.labBase.Creatinine || 1) > 2.2);
       const mk = (start, stop) => heparin
@@ -129,7 +132,7 @@ NS.rules = (() => {
     if (surgery && !spec.orders.some(o => /sequential compression/i.test(o.name))) H.order(spec, { name: 'Sequential compression devices', category: 'Nursing', frequency: 'Continuous when in bed', instructions: 'Apply SCDs to both legs until fully ambulatory.', startH: 3 });
 
     // Acetaminophen PRN if the diagnosis profile did not supply analgesia
-    if (!spec.meds.some(m => /acetaminophen/i.test(m.name))) {
+    if (!simple && !spec.meds.some(m => /acetaminophen/i.test(m.name))) {
       spec.meds.push({ key: 'acetaminophen', name: 'acetaminophen (TYLENOL) tablet', dose: '650 mg', route: 'Oral', freq: 'q6h', prn: true, prnInterval: 'Every 6 hours', prnFor: 'mild pain or fever', cls: 'Non-opioid analgesic', info: 'Maximum 3 g per 24 hours from all sources.', monitor: ['Temp', 'Pain'], indication: 'Mild pain / fever', startH: 3, by: 'hospitalist', prnGiven: [], variants: { npo: { name: 'acetaminophen (OFIRMEV) IVPB', dose: '1 g', route: 'IV' } } });
     }
     // Bowel regimen with opioids (not while NPO / ileus)
