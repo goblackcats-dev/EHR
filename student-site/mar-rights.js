@@ -43,10 +43,10 @@
     const time = prn ? 'PRN: when needed; check the last dose and the maximum dose' : late > WINDOW_MIN ? `Scheduled ${safe(event.time)}; now ${String(simulationTime).slice(11)}: ${late} minutes late, outside the ${WINDOW_MIN}-minute window` : late < -WINDOW_MIN ? `Scheduled ${safe(event.time)}; now ${String(simulationTime).slice(11)}: more than ${WINDOW_MIN} minutes early` : `Scheduled ${safe(event.time)}; now ${String(simulationTime).slice(11)}: within the ${WINDOW_MIN}-minute window`;
     return [
       { t: 'Patient', d: `${safe(p.name)}, DOB ${NSWristband && NSWristband.dobText ? NSWristband.dobText(p.dob) : safe(p.dob)}` },
-      { t: 'Medication', d: safe(med.name) }, { t: 'Dose', d: `${safe(med.dose)}${m.highAlert ? ' (HIGH-ALERT: independent double check)' : ''}` },
+      { t: 'Medication', d: safe(med.name) }, { t: 'Dose', d: `${typeof doseDisplay === 'function' ? doseDisplay(med) : safe(med.dose)}${m.highAlert ? ' (HIGH-ALERT: independent double check)' : ''}` },
       { t: 'Route', d: safe(med.route) }, { t: 'Time', d: time, warn: bad },
       { t: 'Reason', d: order.rationale ? order.rationale : 'Ordered for this patient\'s condition' },
-      { t: 'Assessment and response', d: prn ? 'Assess before giving; reassess in 60 minutes' : 'Assess before giving; watch for effect and side effects' },
+      ...(window.NS_STUDENT ? [] : [{ t: 'Assessment and response', d: prn ? 'Assess before giving; reassess in 60 minutes' : 'Assess before giving; watch for effect and side effects' }]),
       { t: 'Documentation', d: 'Document right after giving' }
     ];
   }

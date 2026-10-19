@@ -659,3 +659,9 @@ New Case Builder category **LPN Med Pass** (every key starts with `lpn_`, every 
 - Type 2 diabetes: metformin PO, insulin lispro SubQ, pneumococcal vaccine IM.
 - Vitamin B12 deficiency: folic acid PO, heparin SubQ, cyanocobalamin IM.
 Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
+
+## v50 - Med pass changes
+- Tapping **Scan wristband** or **Scan medication** opens the camera right away.
+- The Right patient / drug / dose / route / time check chips are gone.
+- The Rights of Medication Administration summary no longer shows "Assessment and response" on the student side.
+- Every IM, IV, IVPB and SubQ medication built by the Case Builder shows the volume and the strength per mL, e.g. clindamycin 600 mg = 4 mL (150 mg/mL), vancomycin 1,250 mg in 250 mL (5 mg/mL), enoxaparin 40 mg = 0.4 mL (100 mg/mL). Rebuild a patient to pick this up; patients saved earlier keep their old text.

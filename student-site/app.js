@@ -1769,6 +1769,15 @@ function refreshSimulationView(preserveSection = true) {
 }
 
 // The student site leaves out the instructor dialogs (import, saved patients). elOrStub returns a harmless stand-in when an element is not on the page.
+// dose with the volume to give and the strength for injectables, e.g. "600 mg = 4 mL (150 mg/mL)" or "1,000 mg in 250 mL (4 mg/mL)"
+function doseDisplay(med) {
+  const dose = String(med.dose == null ? '' : med.dose), a = String(med.adminDose || ''), c = String(med.concentration || '');
+  const eq = a.match(/=\s*([\d.,]+\s*mL)/i), inb = a.match(/\bin\s+([\d.,]+\s*mL)/i);
+  const extra = eq ? ` = ${eq[1]}` : (inb && !/\bin\s+[\d.,]+\s*mL/i.test(dose) ? ` in ${inb[1]}` : '');
+  const cc = c && !/\bin\b/i.test(c) ? c : '';
+  return dose + extra + (cc ? ` (${cc})` : '');
+}
+
 function elOrStub(id) {
   const e = document.getElementById(id); if (e) return e;
   const noop = () => {};
@@ -2827,7 +2836,7 @@ function renderMARRow(med, timeSlots) {
   const rowKey = getMARRowKey(med);
   row.className = `mar-row mar-clickable ${currentMARSelectedKey === rowKey ? 'selected-mar-row' : ''}`;
 
-  const metaBits = [safe(med.dose), safe(med.route), safe(med.frequency)].filter(Boolean).join(' • ');
+  const metaBits = [doseDisplay(med), safe(med.route), safe(med.frequency)].filter(Boolean).join(' • ');
   const hasDetail = !!med.detail;
   const left = document.createElement('div');
   left.className = 'mar-row-left';
@@ -2937,7 +2946,7 @@ function openMARActionDialog(med, event) {
   };
 
   elements.marActionTitle.textContent = safe(med.name);
-  elements.marActionSubtitle.textContent = `${safe(med.dose)} | ${safe(med.route)} | Scheduled ${safe(event.time)}`;
+  elements.marActionSubtitle.textContent = `${doseDisplay(med)} | ${safe(med.route)} | Scheduled ${safe(event.time)}`;
   elements.marActionReason.value = '';
 
   const visibleCanonical = getVisibleCanonicalCase(currentCanonicalCase);

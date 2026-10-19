@@ -2,6 +2,53 @@
 NS.build = (() => {
   const U = NS.util, E = NS.engine;
 
+
+  // ---------- Injectable strength and volume (IM, IV push, IV piggyback, SubQ) ----------
+  // Every IM and IV medication states how many mL are drawn up / hung and the strength per mL, e.g. clindamycin 600 mg = 4 mL (150 mg/mL).
+  // perMl = strength of the vial / syringe; bag = fixed piggyback volume in mL; text = shown instead of a strength when the dose is already a volume.
+  const INJ = [
+    [/ceftriaxone.*injection/i, { perMl: [350, 'mg'] }], [/clindamycin.*injection/i, { perMl: [150, 'mg'] }], [/cyanocobalamin/i, { perMl: [1000, 'mcg'] }], [/glucagon/i, { perMl: [1, 'mg'] }],
+    [/enoxaparin/i, { perMl: [100, 'mg'] }], [/heparin injection \((ACS|STEMI|VTE) bolus\)/i, { perMl: [1000, 'units'] }], [/heparin injection/i, { perMl: [5000, 'units'] }],
+    [/insulin (glargine|lispro|regular).*(injection|correction)/i, { perMl: [100, 'units'], noVol: true }],
+    [/furosemide/i, { perMl: [10, 'mg'] }], [/hydromorphone.*injection/i, { perMl: [1, 'mg'] }], [/morphine injection/i, { perMl: [2, 'mg'] }], [/ondansetron/i, { perMl: [2, 'mg'] }],
+    [/ketorolac/i, { perMl: [15, 'mg'] }], [/labetalol/i, { perMl: [5, 'mg'] }], [/metoprolol injection/i, { perMl: [1, 'mg'] }], [/lorazepam/i, { perMl: [2, 'mg'] }],
+    [/methylprednisolone/i, { perMl: [40, 'mg'], big: [62.5] }], [/hydrocortisone/i, { perMl: [50, 'mg'] }], [/pantoprazole.*(IV|injection)$/i, { perMl: [4, 'mg'] }], [/phenobarbital/i, { perMl: [65, 'mg'] }],
+    [/thiamine/i, { perMl: [100, 'mg'] }], [/desmopressin/i, { perMl: [4, 'mcg'] }], [/diltiazem.*injection/i, { perMl: [5, 'mg'] }], [/levothyroxine.*injection/i, { perMl: [100, 'mcg'] }],
+    [/dextrose 50%/i, { text: '500 mg/mL (50%)' }], [/calcium gluconate 10%/i, { text: '100 mg/mL (10%)' }],
+    [/vaccine|ADACEL/i, { text: 'single-dose prefilled syringe' }], [/hydromorphone.*PCA/i, { text: '0.2 mg/mL (PCA syringe)' }], [/potassium chloride IV replacement/i, { text: '10 mEq per 100 mL bag' }],
+    [/aztreonam/i, { perMl: [20, 'mg'] }], [/meropenem/i, { perMl: [20, 'mg'] }], [/ertapenem/i, { perMl: [20, 'mg'] }], [/potassium chloride IVPB/i, { perMl: [0.1, 'mEq'] }],
+    [/acetaminophen.*IVPB/i, { perMl: [10, 'mg'] }], [/azithromycin.*IVPB/i, { perMl: [2, 'mg'] }], [/calcium gluconate IVPB/i, { perMl: [20, 'mg'] }], [/cefazolin.*IVPB/i, { perMl: [20, 'mg'] }],
+    [/cefepime.*IVPB/i, { perMl: [20, 'mg'] }], [/ceftriaxone.*IVPB/i, { perMl: [20, 'mg'] }], [/clindamycin.*IVPB/i, { perMl: [18, 'mg'] }], [/doxycycline.*IVPB/i, { perMl: [1, 'mg'] }],
+    [/levetiracetam/i, { perMl: [10, 'mg'] }], [/magnesium sulfate IVPB/i, { perMl: [20, 'mg'] }], [/metronidazole/i, { perMl: [5, 'mg'] }], [/piperacillin/i, { bag: 100 }],
+    [/pantoprazole.*IVPB/i, { bag: 100 }], [/tranexamic/i, { perMl: [10, 'mg'] }], [/infliximab/i, { bag: 250 }], [/vancomycin/i, { perMl: [5, 'mg'] }], [/immune globulin/i, { perMl: [100, 'mg'] }], [/sodium phosphate/i, { bag: 250 }]
+  ];
+  const nice = n => { const r = Math.round(n * 100) / 100; return Number.isInteger(r) ? r.toLocaleString('en-US') : String(r); };
+  function injectableDisplay(med) {
+    if (!/^(IV|IM|Intramuscular|Subcutaneous|SubQ)/i.test(med.route || '') || med.freq === 'continuous' || med.concentration) return null;
+    const hit = INJ.find(([re]) => re.test(med.name || '')); if (!hit) return null;
+    const sp = hit[1], dose = String(med.dose || '');
+    if (/demand|lockout|\/hr|\/min|\bPCA\b|correction/i.test(dose) && !sp.noVol && !sp.text) return null;
+    if (sp.text) return { concentration: sp.text, adminDose: /mL/i.test(dose) ? dose : '' };
+    if (sp.noVol) return { concentration: `${sp.perMl[0]} ${sp.perMl[1]}/mL`, adminDose: '' };
+    const m = dose.match(/^([\d,.]+)\s*(mg|mcg|g|units|mEq|mmol)\b/i); if (!m) return null;
+    let amt = parseFloat(m[1].replace(/,/g, '')), unit = m[2].toLowerCase();
+    if (sp.noVol) return { concentration: `${sp.perMl[0]} ${sp.perMl[1]}/mL`, adminDose: '' };
+    if (sp.perMl) {
+      let [c, cu] = sp.perMl; if (sp.big && amt > 100) c = sp.big[0];
+      if (unit === 'g' && cu === 'mg') { amt *= 1000; unit = 'mg'; }
+      if (unit === 'g' && cu === 'units') return null;
+      if (unit.toLowerCase() !== cu.toLowerCase()) return null;
+      const bag = med.volume || (/in\s+([\d,.]+)\s*mL/i.exec(dose) || [])[1];
+      if (/IVPB|infusion/i.test(med.name) || bag) {
+        const v = bag ? parseFloat(String(bag).replace(/,/g, '')) : amt / c;
+        return { concentration: `${nice(amt / v)} ${cu}/mL`, adminDose: `${m[1]} ${m[2]} in ${nice(v)} mL` };
+      }
+      return { concentration: `${nice(c)} ${cu}/mL`, adminDose: `${dose.replace(/\s*\(.*$/, '')} = ${nice(amt / c)} mL` };
+    }
+    if (sp.bag) { const v = med.volume || sp.bag; if (unit === 'g') { amt *= 1000; unit = 'mg'; } return { concentration: `${nice(amt / v)} ${unit}/mL`, adminDose: `${m[1]} ${m[2]} in ${nice(v)} mL` }; }
+    return null;
+  }
+
   // ---------- Medication preparation (allergy swaps, renal dosing, holds) ----------
   function prepareMeds(ctx, spec) {
     const prepared = [];
@@ -202,6 +249,7 @@ NS.build = (() => {
         completed: ended, lastAdmin: last ? `${U.epic(last)} (Given)` : ''
       };
       if (med.concentration) mar.concentration = med.concentration;
+      else { const inj = injectableDisplay(med); if (inj) { mar.concentration = inj.concentration; if (inj.adminDose && !med.adminDose) mar.adminDose = inj.adminDose; } }
       if (med.stopH !== undefined && med.stopH > ctx.nowH && med.stopH <= ctx.windowEnd) mar.discontinuedIndex = Math.floor(med.stopH - ctx.nowH);
 
       orders.push({

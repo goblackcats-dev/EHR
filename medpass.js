@@ -253,7 +253,7 @@
         <div class="mp-why" id="mpWhy"></div>`;
     }
     const rights = $('mpRights');
-    if (rights) rights.innerHTML = rightsList().map(([l, ok]) => `<span class="mp-right ${ok ? 'ok' : ''}">${ok ? '✓' : '○'} ${l}</span>`).join('');
+    if (rights) { rights.innerHTML = ''; rights.classList.add('hidden'); }   // the checkmark chips were removed
     const g = gate(); if ($('mpWhy')) { $('mpWhy').textContent = g.ok ? 'All checks complete. You may give the medication.' : g.why; $('mpWhy').className = `mp-why ${g.ok ? 'ok' : ''}`; }
     if (give) give.disabled = !g.ok;
   }
@@ -329,6 +329,7 @@
       $('scanTiles').innerHTML = `<div class="scan-warn"><b>The medication must be scanned.</b><br>Scan the package barcode with your handheld scanner or the camera. If you cannot scan it, use <b>Override</b> and choose a reason.</div>`;
     }
     if (!dlg.open) dlg.showModal();
+    startCamera();   // the camera opens right away (from the tap); the typed/handheld-scanner box still works
     setTimeout(() => $('scanInput').focus(), 50);
   }
 
