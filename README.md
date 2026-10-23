@@ -665,3 +665,8 @@ Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
 - The Right patient / drug / dose / route / time check chips are gone.
 - The Rights of Medication Administration summary no longer shows "Assessment and response" on the student side.
 - Every IM, IV, IVPB and SubQ medication built by the Case Builder shows the volume and the strength per mL, e.g. clindamycin 600 mg = 4 mL (150 mg/mL), vancomycin 1,250 mg in 250 mL (5 mg/mL), enoxaparin 40 mg = 0.4 mL (100 mg/mL). Rebuild a patient to pick this up; patients saved earlier keep their old text.
+
+## v51 - Case Studies menu
+- **Instructor tools > Case Studies** lists every patient with a built case study: student packet (PDF/Word), answer key + score sheet (PDF/Word), and **Copy student link**. The list comes from `casestudy/index.json` (run `python3 casestudy/make_index.py` after building a case study).
+- `node make-student-site.js` copies only the student PDFs into `student-site/casestudies/` with an unguessable file name (the answer key is never copied). Link: `<student site>/casestudies/<code>-<token>.pdf`.
+- Grading: photograph every page of a student's packet, upload the photos to Claude and say "Grade this student's case study with CS-xxx"; Claude scores it against the key's rubric and returns a score sheet (see `casestudy/BLUEPRINT.md`).

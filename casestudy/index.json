@@ -1,0 +1,94 @@
+{
+ "cases": [
+  {
+   "id": "betsy_ross",
+   "caseCode": "CS-HIP-378-1",
+   "title": "Hip Fracture in a Frail Patient with Multiple Chronic Conditions",
+   "patient": "Betsy Ross",
+   "age": 67,
+   "sex": "Female",
+   "diagnosis": "Hip fracture (intertrochanteric)",
+   "room": "378-1",
+   "passPct": 78,
+   "token": "06e615b810",
+   "files": {
+    "studentPdf": "cases/betsy_ross/out/CS-HIP-378-1_STUDENT.pdf",
+    "studentDocx": "cases/betsy_ross/out/CS-HIP-378-1_STUDENT.docx",
+    "keyPdf": "cases/betsy_ross/out/CS-HIP-378-1_KEY.pdf",
+    "keyDocx": "cases/betsy_ross/out/CS-HIP-378-1_KEY.docx"
+   }
+  },
+  {
+   "id": "chf_418b",
+   "caseCode": "CS-CHF-418B",
+   "title": "Acute Decompensated Heart Failure with End-Stage Renal Disease",
+   "patient": "Taylor Morgan",
+   "age": 74,
+   "sex": "Female",
+   "diagnosis": "Acute decompensated heart failure",
+   "room": "418B",
+   "passPct": 78,
+   "token": "d95cc92d9d",
+   "files": {
+    "studentPdf": "cases/chf_418b/out/CS-CHF-418B_STUDENT.pdf",
+    "studentDocx": "cases/chf_418b/out/CS-CHF-418B_STUDENT.docx",
+    "keyPdf": "cases/chf_418b/out/CS-CHF-418B_KEY.pdf",
+    "keyDocx": "cases/chf_418b/out/CS-CHF-418B_KEY.docx"
+   }
+  },
+  {
+   "id": "dfi_walter",
+   "caseCode": "CS-DFI-436-1",
+   "title": "Diabetic Foot Infection with Osteomyelitis, Before and After First-Ray Amputation",
+   "patient": "Walter Jennings",
+   "age": 61,
+   "sex": "Male",
+   "diagnosis": "Diabetic foot infection with osteomyelitis",
+   "room": "436-1",
+   "passPct": 78,
+   "token": "543a522d84",
+   "files": {
+    "studentPdf": "cases/dfi_walter/out/CS-DFI-436-1_STUDENT.pdf",
+    "studentDocx": "cases/dfi_walter/out/CS-DFI-436-1_STUDENT.docx",
+    "keyPdf": "cases/dfi_walter/out/CS-DFI-436-1_KEY.pdf",
+    "keyDocx": "cases/dfi_walter/out/CS-DFI-436-1_KEY.docx"
+   }
+  },
+  {
+   "id": "pressure_eleanor",
+   "caseCode": "CS-PI-322-2",
+   "title": "Stage 4 Sacral Pressure Injury with Early Sepsis in a Frail Older Adult with Dementia",
+   "patient": "Eleanor Whitcomb",
+   "age": 84,
+   "sex": "Female",
+   "diagnosis": "Stage 4 sacral pressure injury with early sepsis",
+   "room": "322-2",
+   "passPct": 78,
+   "token": "ad4148f654",
+   "files": {
+    "studentPdf": "cases/pressure_eleanor/out/CS-PI-322-2_STUDENT.pdf",
+    "studentDocx": "cases/pressure_eleanor/out/CS-PI-322-2_STUDENT.docx",
+    "keyPdf": "cases/pressure_eleanor/out/CS-PI-322-2_KEY.pdf",
+    "keyDocx": "cases/pressure_eleanor/out/CS-PI-322-2_KEY.docx"
+   }
+  },
+  {
+   "id": "tka_rosa",
+   "caseCode": "CS-TKA-512-2",
+   "title": "Total Knee Replacement on Post-Operative Day 1 with Kidney Disease and Insulin-Treated Diabetes",
+   "patient": "Rosa Delgado",
+   "age": 71,
+   "sex": "Female",
+   "diagnosis": "Primary osteoarthritis of the right knee",
+   "room": "512-2",
+   "passPct": 78,
+   "token": "24fc298cb2",
+   "files": {
+    "studentPdf": "cases/tka_rosa/out/CS-TKA-512-2_STUDENT.pdf",
+    "studentDocx": "cases/tka_rosa/out/CS-TKA-512-2_STUDENT.docx",
+    "keyPdf": "cases/tka_rosa/out/CS-TKA-512-2_KEY.pdf",
+    "keyDocx": "cases/tka_rosa/out/CS-TKA-512-2_KEY.docx"
+   }
+  }
+ ]
+}

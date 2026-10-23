@@ -22,6 +22,11 @@ const files = new Set(scripts.concat(['manifest-student.webmanifest','styles.css
 files.delete('manifest-student.webmanifest');
 fs.writeFileSync(out + '/manifest-student.webmanifest', fs.readFileSync('manifest-student.webmanifest', 'utf8').replace('./student.html', './'));
 files.forEach(f => { if (!fs.existsSync(f)) { console.error('missing ' + f); process.exit(1); } fs.copyFileSync(f, path.join(out, f)); });
+// student case-study PDFs (student packet only, never the key); the file name carries a random token so it cannot be guessed
+try {
+  const idx = JSON.parse(fs.readFileSync('casestudy/index.json', 'utf8')); fs.mkdirSync(out + '/casestudies', { recursive: true });
+  idx.cases.forEach(c => { const f = c.files.studentPdf; if (f && fs.existsSync('casestudy/' + f)) fs.copyFileSync('casestudy/' + f, `${out}/casestudies/${c.caseCode}-${c.token}.pdf`); });
+} catch (e) { console.log('no case study PDFs copied: ' + e.message); }
 fs.writeFileSync(out + '/cases/README.txt', 'Patient files (.enc.json) go here. They are locked; the key is only in the link you email.\n');
 fs.writeFileSync(out + '/robots.txt', 'User-agent: *\nDisallow: /\n');
 fs.writeFileSync(out + '/.nojekyll', '');
