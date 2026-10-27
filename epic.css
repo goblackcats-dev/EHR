@@ -200,3 +200,12 @@ dialog, dialog[class] { border-radius: 4px !important; }
 .flowsheet-grid tbody td.flowsheet-label-col { z-index: 6; }
 .flowsheet-grid { table-layout: fixed; }
 .fs-mon-O2 b { white-space: normal !important; font-size: 16px !important; }
+/* vital sign source rows + wide vitals form */
+.fs-form-wide { width: min(860px, calc(100vw - 24px)); }
+.fs-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 760px) { .fs-grid3 { grid-template-columns: 1fr 1fr; } }
+.fs-map { display: flex; align-items: center; min-height: 44px; padding: 0 10px; border: 1px solid var(--border); border-radius: 4px; background: #f1f6fb; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.flowsheet-grid tr.fs-subrow td { height: 30px !important; padding-top: 2px; padding-bottom: 2px; font-size: 11.5px; color: #55657a; }
+.flowsheet-grid tr.fs-subrow td.flowsheet-label-col { padding-left: 18px; font-weight: 400; font-size: 11.5px; color: #55657a; }
+.fs-mon-sub { font-size: 11px; color: #9db2c9; min-height: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fs-mon-tile .fs-mon-unit { color: #b6c9de; }
