@@ -173,9 +173,9 @@
       (sug.hx.length ? `<div class="sug-h">Medical history</div>${sug.hx.map(k => row('h', k, label(k))).join('')}` : '') +
       (sug.surg.length ? `<div class="sug-h">Surgical history</div>${sug.surg.map(k => row('s', k, slabel(k))).join('')}` : '') + '</details>';
     root.innerHTML = body;
-    const det = root.querySelector('details'); if (det) det.addEventListener('toggle', () => { s.open = det.open; });
+    const det = root.querySelector('details'); if (det) det.addEventListener('toggle', () => { sg().open = det.open; });
     root.querySelectorAll('input[data-sug]').forEach(cb => cb.addEventListener('change', () => {
-      const id = cb.dataset.sug; s.unchecked = s.unchecked.filter(x => x !== id); if (!cb.checked) s.unchecked.push(id);
+      const id = cb.dataset.sug, cur = sg(); cur.unchecked = cur.unchecked.filter(x => x !== id); if (!cb.checked) cur.unchecked.push(id);
       applySuggest(); renderChips(); changed();
     }));
     if ($('suggestOn')) $('suggestOn').checked = !!s.on;
