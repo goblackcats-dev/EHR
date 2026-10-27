@@ -1155,6 +1155,21 @@ function resolveMonitoringRule(rule, canonical) {
   return null;
 }
 
+// Student-charted I&O entries made at the same time show as one row / one bar on the Summary page (totals are unchanged).
+function mergeStudentIo(events) {
+  const out = [], byTime = new Map();
+  events.forEach(item => {
+    if (!item.studentEntered || !item.collected) { out.push(item); return; }
+    const hit = byTime.get(item.collected);
+    if (!hit) { const copy = { ...item, ioTypes: [item.ioType] }; byTime.set(item.collected, copy); out.push(copy); return; }
+    hit.intake = (Number(hit.intake) || 0) + (Number(item.intake) || 0);
+    hit.output = (Number(hit.output) || 0) + (Number(item.output) || 0);
+    if (!hit.ioTypes.includes(item.ioType)) hit.ioTypes.push(item.ioType);
+  });
+  out.forEach(item => { if (item.ioTypes) item.ioType = item.ioTypes.join(', '); });
+  return out;
+}
+
 function canonicalToViewModel(canonical) {
   const view = {
     patient: structuredClone(canonical.patient || {}),
@@ -1166,7 +1181,7 @@ function canonicalToViewModel(canonical) {
     tubes: [],
     nursingOrders: [],
     medications: [],
-    intakeOutput: structuredClone(canonical.ioEvents || []),
+    intakeOutput: mergeStudentIo(structuredClone(canonical.ioEvents || [])),
     recentLabs: [],
     labResults: [],
     chartReview: {
@@ -1197,6 +1212,7 @@ function canonicalToViewModel(canonical) {
     else if (device.deviceType === 'Drain') view.drains.push(copy);
     else view.tubes.push(copy);
   });
+  view.removedDevices = (canonical.removedDevices || []).map(device => ({ ...structuredClone(device), category: device.deviceType === 'IV' ? 'IV' : device.deviceType === 'Drain' ? 'Drain' : 'Tube' }));
 
   const vitalCodes = {
     TEMP: 'temp',
@@ -1666,7 +1682,12 @@ function getVisibleCanonicalCase(canonical) {
   visible.orders.forEach(order => {
     if (/^active$/i.test(safe(order.status)) && order.start && String(order.start) > String(simulationTime)) order.status = 'Pending';
   });
-  visible.devices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
+  // A device that has been placed is "active" until its removal time; removed devices are kept apart so the Avatar can drop them.
+  const placedDevices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
+  const simNow = parseSimDate(simulationTime);
+  const isRemoved = item => { const at = parseSimDate(item.removedAt); return !!(at && simNow && at <= simNow); };
+  visible.devices = placedDevices.filter(item => !isRemoved(item));
+  visible.removedDevices = placedDevices.filter(isRemoved).map(item => ({ ...structuredClone(item), priorStatus: item.status, status: 'Removed' }));
   visible.ioEvents = (canonical.ioEvents || []).filter(item => {
     const stamp = safe(item.availableAt || item.collected, '');
     return stamp ? availableAtSimulationTime({ availableAt: stamp }) : true;
@@ -1883,6 +1904,15 @@ function resetSimulation() {
     .filter(obs => !obs.studentEntered);
   currentCanonicalCase.simulationTasks = (currentCanonicalCase.simulationTasks || [])
     .filter(task => !task.studentEntered);
+
+  // student-added devices and I&O entries go too; devices a student removed come back
+  currentCanonicalCase.devices = (currentCanonicalCase.devices || []).filter(device => !device.studentEntered);
+  currentCanonicalCase.devices.forEach(device => {
+    if (!device.removedByStudent) return;
+    delete device.removedAt; delete device.removedNote; delete device.removedByStudent;
+    if (device.originalStatus !== undefined) { device.status = device.originalStatus; delete device.originalStatus; }
+  });
+  currentCanonicalCase.ioEvents = (currentCanonicalCase.ioEvents || []).filter(item => !item.studentEntered);
 
   refreshSimulationView();
 }
@@ -2382,7 +2412,7 @@ function getSummaryLabs(data) { if (Array.isArray(data.recentLabs) && data.recen
 function renderLabs(labs = []) { clearChildren(elements.labsTable); if (!labs.length) { elements.labsTable.innerHTML = '<tr><td colspan="5" class="empty-cell">No labs loaded</td></tr>'; return; } labs.forEach(lab => { const row = document.createElement('tr'); [lab.test, lab.result, lab.flag, lab.reference, lab.collected].forEach((value, index) => { const cell = document.createElement('td'); cell.textContent = safe(value, index === 2 ? '' : '—'); if (index === 2 && value) cell.className = flagClass(value); row.appendChild(cell); }); elements.labsTable.appendChild(row); }); }
 
 function ioLabel(record) { return record.date ? `${epicDate(record.date).slice(0, 5)} ${safe(record.time)}` : safe(record.time); }
-function renderIntakeOutput(records = []) { clearChildren(elements.ioTable); clearChildren(elements.ioChart); if (!records.length) { elements.ioTable.innerHTML = '<tr><td colspan="4" class="empty-cell">No I/O loaded</td></tr>'; elements.ioTotals.textContent = 'No I/O data'; elements.ioChart.innerHTML = '<div class="empty">No I/O chart available.</div>'; return; } let totalIntake = 0, totalOutput = 0; records.forEach(record => { const intake = Number(record.intake) || 0; const output = Number(record.output) || 0; const net = intake - output; totalIntake += intake; totalOutput += output; const row = document.createElement('tr'); [ioLabel(record), `${intake} mL`, `${output} mL`, `${net >= 0 ? '+' : ''}${net} mL`].forEach(value => { const cell = document.createElement('td'); cell.textContent = safe(value); row.appendChild(cell); }); elements.ioTable.appendChild(row); }); const netTotal = totalIntake - totalOutput; elements.ioTotals.textContent = `Intake ${totalIntake} mL | Output ${totalOutput} mL | Net ${netTotal >= 0 ? '+' : ''}${netTotal} mL`; drawIOChart(records); }
+function renderIntakeOutput(records = []) { clearChildren(elements.ioTable); clearChildren(elements.ioChart); if (!records.length) { elements.ioTable.innerHTML = '<tr><td colspan="4" class="empty-cell">No I/O loaded</td></tr>'; elements.ioTotals.textContent = 'No I/O data'; elements.ioChart.innerHTML = '<div class="empty">No I/O chart available.</div>'; return; } let totalIntake = 0, totalOutput = 0; records.forEach(record => { const intake = Number(record.intake) || 0; const output = Number(record.output) || 0; const net = intake - output; totalIntake += intake; totalOutput += output; const row = document.createElement('tr'); [ioLabel(record) + (record.studentEntered && record.ioType ? ` ${record.ioType}` : ''), `${intake} mL`, `${output} mL`, `${net >= 0 ? '+' : ''}${net} mL`].forEach(value => { const cell = document.createElement('td'); cell.textContent = safe(value); row.appendChild(cell); }); elements.ioTable.appendChild(row); }); const netTotal = totalIntake - totalOutput; elements.ioTotals.textContent = `Intake ${totalIntake} mL | Output ${totalOutput} mL | Net ${netTotal >= 0 ? '+' : ''}${netTotal} mL`; drawIOChart(records); }
 function drawIOChart(records) { const width = 720, height = 260, margin = { top: 22, right: 20, bottom: 42, left: 50 }, chartWidth = width - margin.left - margin.right, chartHeight = height - margin.top - margin.bottom; const maxValue = Math.max(...records.flatMap(r => [Number(r.intake) || 0, Number(r.output) || 0]), 100), yMax = Math.ceil(maxValue / 100) * 100, barGroupWidth = chartWidth / records.length, barWidth = Math.min(34, barGroupWidth / 4); const yScale = value => margin.top + chartHeight - ((value / yMax) * chartHeight), xCenter = index => margin.left + (barGroupWidth * index) + barGroupWidth / 2; let svg = `<div class="avatar-legend" style="margin-bottom:8px;"><span class="legend-item"><span class="legend-dot iv-dot"></span> Intake</span><span class="legend-item"><span class="legend-dot" style="background:#64748b;"></span> Output</span></div><svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">`; [0, 0.25, 0.5, 0.75, 1].forEach(step => { const value = Math.round(yMax * step), y = yScale(value); svg += `<line x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}" class="io-grid"></line><text x="${margin.left - 8}" y="${y + 4}" text-anchor="end" class="io-label">${value}</text>`; }); svg += `<line x1="${margin.left}" y1="${margin.top + chartHeight}" x2="${width - margin.right}" y2="${margin.top + chartHeight}" class="io-axis"></line><line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + chartHeight}" class="io-axis"></line>`; records.forEach((record, index) => { const intake = Number(record.intake) || 0, output = Number(record.output) || 0, center = xCenter(index), intakeHeight = (intake / yMax) * chartHeight, outputHeight = (output / yMax) * chartHeight; svg += `<rect x="${center - barWidth - 3}" y="${margin.top + chartHeight - intakeHeight}" width="${barWidth}" height="${intakeHeight}" rx="4" class="io-bar-intake"></rect><rect x="${center + 3}" y="${margin.top + chartHeight - outputHeight}" width="${barWidth}" height="${outputHeight}" rx="4" class="io-bar-output"></rect><text x="${center}" y="${height - 14}" text-anchor="middle" class="io-label">${escapeHtml(ioLabel(record))}</text>`; }); svg += `<text x="16" y="${margin.top + 18}" transform="rotate(-90,16,${margin.top + 18})" class="io-label">mL</text></svg>`; elements.ioChart.innerHTML = svg; }
 
 function getTooltipHtml(device) { return `<div class="tooltip-title">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</div><div class="tooltip-row"><strong>Category:</strong> ${escapeHtml(safe(device.category))}</div><div class="tooltip-row"><strong>Status:</strong> ${escapeHtml(safe(device.status))}</div><div class="tooltip-row"><strong>Placed:</strong> ${escapeHtml(safe(device.placementDate))}</div><div class="tooltip-row"><strong>Last assessment:</strong> ${escapeHtml(safe(device.lastAssessment))}</div>${device.gauge ? `<div class="tooltip-row"><strong>Gauge:</strong> ${escapeHtml(safe(device.gauge))}</div>` : ''}${device.infusing ? `<div class="tooltip-row"><strong>Infusing:</strong> ${escapeHtml(safe(device.infusing))}</div>` : ''}${device.drainage ? `<div class="tooltip-row"><strong>Drainage / output:</strong> ${escapeHtml(safe(device.drainage))}</div>` : ''}`; }
@@ -2400,7 +2430,20 @@ function getTypeClass(category) { if (category === 'IV') return 'hotspot-iv'; if
 function getBadgeClass(category) { if (category === 'IV') return 'type-iv'; if (category === 'Drain') return 'type-drain'; return 'type-tube'; }
 function createMarker(device) { const marker = markerCoordinates[device.siteMarker]; if (!marker) return null; const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); const shortLabel = safe(device.type, 'Item').slice(0, 16), labelWidth = Math.max(60, shortLabel.length * 6.6); g.innerHTML = `<line x1="${marker.x}" y1="${marker.y}" x2="${marker.labelX}" y2="${marker.labelY}" class="hotspot-label-line"></line><rect x="${marker.labelX - 4}" y="${marker.labelY - 14}" width="${labelWidth}" height="20" rx="4" class="hotspot-label-bg"></rect><text x="${marker.labelX + 2}" y="${marker.labelY}" class="hotspot-label-text">${escapeHtml(shortLabel)}</text><circle cx="${marker.x}" cy="${marker.y}" r="22" fill="transparent"></circle><circle cx="${marker.x}" cy="${marker.y}" r="8" class="hotspot-circle ${getTypeClass(device.category)}"></circle>`; attachTooltipEvents(g, device); return g; }
 function normalizeDevices(data) { return [...(data.ivs || []).map(item => ({ ...item, category: 'IV' })), ...(data.drains || []).map(item => ({ ...item, category: 'Drain' })), ...(data.tubes || []).map(item => ({ ...item, category: 'Tube' }))]; }
-function renderCombinedDevices(data) { clearChildren(elements.allMarkers); clearChildren(elements.deviceList); const devices = normalizeDevices(data); elements.deviceSummary.textContent = `${devices.length} active devices`; if (!devices.length) { elements.deviceList.className = 'device-list empty'; elements.deviceList.textContent = 'No devices loaded.'; return; } elements.deviceList.className = 'device-list'; devices.forEach(device => { const marker = createMarker(device); if (marker) elements.allMarkers.appendChild(marker); const item = document.createElement('div'); item.className = 'device-item'; item.innerHTML = `<div class="device-name-line"><span class="type-badge ${getBadgeClass(device.category)}">${escapeHtml(device.category)}</span><span class="device-name">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</span></div><div class="device-meta">Status: ${escapeHtml(safe(device.status))}<br>Placed: ${escapeHtml(safe(device.placementDate))}<br>Last assessment: ${escapeHtml(safe(device.lastAssessment))}${device.gauge ? `<br>Gauge: ${escapeHtml(safe(device.gauge))}` : ''}${device.infusing ? `<br>Infusing: ${escapeHtml(safe(device.infusing))}` : ''}${device.drainage ? `<br>Drainage / output: ${escapeHtml(safe(device.drainage))}` : ''}</div>`; elements.deviceList.appendChild(item); }); }
+function renderCombinedDevices(data) {
+  clearChildren(elements.allMarkers); clearChildren(elements.deviceList);
+  const devices = normalizeDevices(data), removed = data.removedDevices || [];
+  elements.deviceSummary.textContent = `${devices.length} active devices` + (removed.length ? ` | ${removed.length} removed` : '');
+  if (!devices.length && !removed.length) { elements.deviceList.className = 'device-list empty'; elements.deviceList.textContent = 'No devices loaded.'; return; }
+  elements.deviceList.className = 'device-list';
+  const addItem = (device, gone) => {
+    const item = document.createElement('div'); item.className = 'device-item' + (gone ? ' device-removed' : '');
+    item.innerHTML = `<div class="device-name-line"><span class="type-badge ${getBadgeClass(device.category)}">${escapeHtml(device.category)}</span><span class="device-name">${escapeHtml(safe(device.type))} - ${escapeHtml(safe(device.location))}</span></div><div class="device-meta">Status: ${escapeHtml(safe(device.status))}${gone ? `<br>Removed: ${escapeHtml(safe(device.removedAt))}${device.removedNote ? ' - ' + escapeHtml(device.removedNote) : ''}` : ''}<br>Placed: ${escapeHtml(safe(device.placementDate))}<br>Last assessment: ${escapeHtml(safe(device.lastAssessment))}${device.gauge ? `<br>Gauge: ${escapeHtml(safe(device.gauge))}` : ''}${device.infusing ? `<br>Infusing: ${escapeHtml(safe(device.infusing))}` : ''}${device.drainage ? `<br>Drainage / output: ${escapeHtml(safe(device.drainage))}` : ''}</div>`;
+    elements.deviceList.appendChild(item);
+  };
+  devices.forEach(device => { const marker = createMarker(device); if (marker) elements.allMarkers.appendChild(marker); addItem(device, false); });
+  removed.forEach(device => addItem(device, true));
+}
 
 function flattenNotes(data) { const chartReview = data.chartReview || {}; const flattened = []; noteGroups.forEach(group => { const records = Array.isArray(chartReview[group.key]) ? chartReview[group.key] : []; records.forEach(record => flattened.push({ ...record, noteGroupKey: group.key, noteGroupLabel: group.label })); }); return flattened; }
 function getChartReviewArray(data, tabKey) { const chartReview = data.chartReview || {}; if (tabKey === 'notes') return flattenNotes(data); return Array.isArray(chartReview[tabKey]) ? chartReview[tabKey] : []; }
@@ -3048,7 +3091,7 @@ function openFlowsheetChartDialog(section = '', field = '', time = '') {
   elements.chartAssessmentSection.value = section || 'Respiratory';
   elements.chartAssessmentField.value = field || '';
   elements.chartAssessmentValue.value = '';
-  elements.chartAssessmentTime.value = time && parseSimDate(time) ? time : simulationTime;
+  elements.chartAssessmentTime.value = String(time && parseSimDate(time) ? time : simulationTime).replace(' ', 'T');
   elements.chartAssessmentAbnormal.checked = false;
   elements.chartAssessmentMessage.textContent = '';
   elements.flowsheetChartDialog.showModal();
@@ -3060,7 +3103,7 @@ function saveFlowsheetAssessment() {
   const section = elements.chartAssessmentSection.value;
   const field = elements.chartAssessmentField.value.trim();
   const value = elements.chartAssessmentValue.value.trim();
-  const collected = elements.chartAssessmentTime.value.trim() || simulationTime;
+  const collected = elements.chartAssessmentTime.value.trim().replace('T', ' ') || simulationTime;
 
   if (!field || !value) {
     elements.chartAssessmentMessage.textContent = 'Assessment field and value are required.';
@@ -3326,28 +3369,69 @@ function renderOrdersPage(data) {
 const flowsheetSectionOrder = [
   'Vital Signs','Neurologic','Respiratory','Cardiac','GI','GU','Skin','Musculoskeletal / Mobility','Pain','Safety','Lines / Drains / Airways','Intake / Output'
 ];
+// The Flowsheets page shows five flowsheets. "Adult Assessment" bundles every body-system section (Neurologic, Respiratory, ...).
+const flowsheetSheets = ['Vital Signs', 'Adult Assessment', 'Pain / Safety', 'Lines / Drains / Airways', 'Intake / Output'];
+function flowsheetSheetOf(section) {
+  if (section === 'Vital Signs') return 'Vital Signs';
+  if (section === 'Pain' || section === 'Safety') return 'Pain / Safety';
+  if (section === 'Lines / Drains / Airways') return 'Lines / Drains / Airways';
+  if (section === 'Intake / Output') return 'Intake / Output';
+  return 'Adult Assessment';
+}
 const flowsheetVitalSectionMap = {
   TEMP: ['Vital Signs','Temperature'], HR: ['Vital Signs','Heart Rate'], BP: ['Vital Signs','Blood Pressure'],
-  RR: ['Respiratory','Respiratory Rate'], SPO2: ['Respiratory','SpO2'], PAIN: ['Pain','Pain Score']
+  RR: ['Vital Signs','Respiratory Rate'], SPO2: ['Vital Signs','SpO2'], O2DEV: ['Vital Signs','O2 Device'], PAIN: ['Vital Signs','Pain Score']
 };
+function flowsheetDeviceField(device) { return `${safe(device.type, 'Device')} - ${safe(device.location, 'site not documented')}`; }
+// Splits one I&O event into rows such as "Intake: Oral" / "Output: Urine" (students chart one type at a time; case events carry a detail breakdown).
+function flowsheetIoParts(io) {
+  const parts = [], n = v => Number(v) || 0;
+  if (io.studentEntered) {
+    const kind = io.ioKind || (n(io.intake) > 0 ? 'intake' : 'output');
+    const ml = kind === 'intake' ? n(io.intake) : n(io.output);
+    if (ml) parts.push({ kind, label: safe(io.ioType, 'Other'), ml });
+    return parts;
+  }
+  const d = io.detail || {};
+  const add = (kind, label, ml) => { if (ml > 0) parts.push({ kind, label, ml }); };
+  if (io.intake !== undefined) {
+    if (io.detail) { add('intake', 'Oral', n(d.po)); add('intake', 'IV', n(d.iv)); add('intake', 'Other', n(io.intake) - n(d.po) - n(d.iv)); }
+    else add('intake', 'Total', n(io.intake));
+  }
+  if (io.output !== undefined) {
+    if (io.detail) { add('output', 'Urine', n(d.urine)); add('output', safe(d.otherLabel, 'Other'), n(d.other)); add('output', 'Other', n(io.output) - n(d.urine) - n(d.other)); }
+    else add('output', 'Total', n(io.output));
+  }
+  return parts;
+}
 function buildFlowsheetRecords(canonical) {
   const records = [];
   (canonical.observations || []).forEach(obs => {
+    const mine = { studentEntered: !!obs.studentEntered, src: 'obs' };
     if (obs.type === 'assessment') {
-      records.push({ id: obs.id, section: safe(obs.section,'Other'), field: safe(obs.label || obs.code), value: `${safe(obs.value)}${obs.units ? ' ' + obs.units : ''}`.trim(), collected: safe(obs.collected), source: safe(obs.source,'Nursing assessment'), details: safe(obs.details,''), abnormal: !!obs.abnormal || !!safe(obs.flag,'') });
+      records.push({ id: obs.id, section: safe(obs.section,'Other'), field: safe(obs.label || obs.code), value: `${safe(obs.value)}${obs.units ? ' ' + obs.units : ''}`.trim(), collected: safe(obs.collected), source: safe(obs.source,'Nursing assessment'), details: safe(obs.details,''), abnormal: !!obs.abnormal || !!safe(obs.flag,''), ...mine });
+      // the oxygen device is also shown on the Vital Signs flowsheet
+      if (/^oxygen device$/i.test(safe(obs.label || obs.code, ''))) records.push({ id: `${obs.id}_vs`, cloneOf: obs.id, section: 'Vital Signs', field: 'O2 Device', value: safe(obs.value), collected: safe(obs.collected), source: safe(obs.source,'Nursing assessment'), details: '', abnormal: false, ...mine });
     } else if (obs.type === 'vital') {
       const map = flowsheetVitalSectionMap[safe(obs.code).toUpperCase()];
-      if (map) records.push({ id: obs.id, section: map[0], field: map[1], value: `${safe(obs.value)}${obs.units ? ' ' + obs.units : ''}`.trim(), collected: safe(obs.collected), source: 'Vital signs', abnormal: !!safe(obs.flag,'') });
+      if (map) {
+        const rec = { id: obs.id, section: map[0], field: map[1], value: `${safe(obs.value)}${obs.units ? ' ' + obs.units : ''}`.trim(), collected: safe(obs.collected), source: obs.studentEntered ? 'Student charting' : 'Vital signs', abnormal: !!safe(obs.flag,''), ...mine };
+        records.push(rec);
+        if (safe(obs.code).toUpperCase() === 'PAIN') records.push({ ...rec, id: `${obs.id}_ps`, cloneOf: obs.id, section: 'Pain', field: 'Pain Score' });
+      }
     }
   });
-  (canonical.devices || []).forEach(device => {
+  [...(canonical.devices || []).map(d => [d, false]), ...(canonical.removedDevices || []).map(d => [d, true])].forEach(([device, removed]) => {
     const collected = safe(device.lastAssessment).match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/)?.[0] || safe(device.placementDate);
-    records.push({ id: device.id, section: 'Lines / Drains / Airways', field: `${safe(device.deviceType,'Device')}: ${safe(device.type)}`, value: `${safe(device.location)} — ${safe(device.status)}`, collected, source: 'Device record', details: safe(device.lastAssessment), abnormal: false });
-    if (device.drainage) records.push({ id: `${device.id}_output`, section: 'Lines / Drains / Airways', field: `${safe(device.type)} Output`, value: safe(device.drainage), collected, source: 'Device record', details: safe(device.lastAssessment), abnormal: false });
+    const field = flowsheetDeviceField(device), mine = { studentEntered: !!device.studentEntered, src: 'device', deviceId: device.id };
+    records.push({ id: device.id, section: 'Lines / Drains / Airways', field, value: safe(removed ? device.priorStatus : device.status, 'Placed'), collected, source: 'Device record', details: safe(device.lastAssessment), abnormal: false, ...mine });
+    if (device.drainage) records.push({ id: `${device.id}_output`, section: 'Lines / Drains / Airways', field: `${field} - drainage`, value: safe(device.drainage), collected, source: 'Device record', details: safe(device.lastAssessment), abnormal: false, ...mine });
+    if (removed) records.push({ id: `${device.id}_removed`, section: 'Lines / Drains / Airways', field, value: 'Removed', collected: safe(device.removedAt), source: 'Device removal', details: safe(device.removedNote, ''), abnormal: false, studentEntered: !!device.removedByStudent, src: 'deviceRemoval', deviceId: device.id });
   });
   (canonical.ioEvents || []).forEach((io, idx) => {
-    if (io.intake !== undefined) records.push({ id: io.id ? `${io.id}_intake` : `io_intake_${idx}`, section: 'Intake / Output', field: 'Intake', value: `${Number(io.intake)||0} mL`, collected: io.date ? `${io.date} ${safe(io.time)}` : safe(io.time), source: 'I&O record', abnormal: false });
-    if (io.output !== undefined) records.push({ id: io.id ? `${io.id}_output` : `io_output_${idx}`, section: 'Intake / Output', field: 'Output', value: `${Number(io.output)||0} mL`, collected: io.date ? `${io.date} ${safe(io.time)}` : safe(io.time), source: 'I&O record', abnormal: false });
+    const base = io.id || `io_${idx}`;
+    const collected = io.collected || (io.date ? `${io.date} ${safe(io.time)}` : safe(io.time));
+    flowsheetIoParts(io).forEach((p, i) => records.push({ id: `${base}_${p.kind}${i}`, section: 'Intake / Output', field: `${p.kind === 'intake' ? 'Intake' : 'Output'}: ${p.label}`, value: `${p.ml} mL`, ml: p.ml, ioKind: p.kind, collected, source: 'I&O record', abnormal: false, studentEntered: !!io.studentEntered, src: 'io', ioId: io.id }));
   });
   // Place every value in an hourly column so the grid reads like an Epic flowsheet
   // instead of one sparse column per exact timestamp.
@@ -3409,6 +3493,7 @@ function renderFlowsheetGrid(records, sections, times) {
   });
 }
 function renderFlowsheetsPage(data) {
+  if (window.FlowsheetCharting) return window.FlowsheetCharting.render(data);
   const canonical=data?.__canonical || currentCanonicalCase || normalizeCaseData(data).canonical; const records=buildFlowsheetRecords(canonical); const sections=getFlowsheetSections(records); let times=getFlowsheetTimes(records); if(flowsheetLatestOnlyMode && times.length) times=[times[times.length-1]];
   elements.flowsheetStatus.textContent=`${records.length} documented values | ${sections.length} sections`; elements.flowsheetSectionCount.textContent=`${sections.length} sections`; elements.flowsheetDateLabel.textContent=canonical.encounter?.admitDate ? epicDate(canonical.encounter.admitDate) : 'Current encounter'; elements.flowsheetFooterMeta.textContent=times.length?`${times.length} documentation time(s)`:'No documentation times'; elements.flowsheetLatestOnly.classList.toggle('active',flowsheetLatestOnlyMode);
   renderFlowsheetSectionNav(sections,records); renderFlowsheetHeader(times); renderFlowsheetGrid(records,sections,times);
@@ -3464,11 +3549,9 @@ elements.navSubItems.forEach(btn => btn.addEventListener('click', () => setMainS
 elements.chartTabs.forEach(btn => btn.addEventListener('click', () => renderChartReviewTab(btn.dataset.chartTab, 0)));
 elements.marFilterBtns.forEach(btn => btn.addEventListener('click', () => { currentMARFilter = btn.dataset.marFilter; renderMARPage(currentPatientData); }));
 elements.orderFilterBtns.forEach(btn => btn.addEventListener('click', () => { currentOrderStatus = btn.dataset.orderStatus; currentOrderIndex = 0; renderOrdersPage(currentPatientData); }));
-elements.flowsheetExpandAll.addEventListener('click', () => { flowsheetCollapsedSections.clear(); renderFlowsheetsPage(currentPatientData); });
-elements.flowsheetCollapseAll.addEventListener('click', () => { const canonical=currentPatientData?.__canonical || currentCanonicalCase || normalizeCaseData(currentPatientData).canonical; getFlowsheetSections(buildFlowsheetRecords(canonical)).forEach(section=>flowsheetCollapsedSections.add(section)); renderFlowsheetsPage(currentPatientData); });
 elements.flowsheetLatestOnly.addEventListener('click', () => { flowsheetLatestOnlyMode=!flowsheetLatestOnlyMode; renderFlowsheetsPage(currentPatientData); });
 
-elements.flowsheetChartBtn.addEventListener('click', () => openFlowsheetChartDialog());
+elements.flowsheetChartBtn.addEventListener('click', () => { if (window.FlowsheetCharting) window.FlowsheetCharting.chart(); else openFlowsheetChartDialog(); });
 elements.simulationNextEventBtn.addEventListener('click', advanceToNextSimulationEvent);
 // ---- patient clock: runs in real time from the scenario start; arrows move it, the center button pauses ----
 var simClock = { seconds: 0, paused: false, pending: 0 };

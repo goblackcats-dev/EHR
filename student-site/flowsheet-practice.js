@@ -20,7 +20,9 @@
   const BANK = {
     'Neurologic': {
       'Level of Consciousness': ['Alert', 'Drowsy, arouses easily to voice', 'Lethargic', 'Confused', 'Unresponsive to voice'],
-      'Orientation': ['Oriented x4', 'Oriented to person only', 'Disoriented to time and place']
+      'Orientation': ['Oriented x4', 'Oriented to person only', 'Disoriented to time and place'],
+      'Pupils': ['PERRL', 'Sluggish bilaterally', 'Unequal pupils'],
+      'Speech': ['Clear', 'Slurred', 'Aphasic']
     },
     'Respiratory': {
       'Breath Sounds': ['Clear bilaterally', 'Expiratory wheezes', 'Crackles bilateral bases', 'Diminished at bases', 'Absent on the left'],
@@ -53,11 +55,15 @@
     },
     'Pain': {
       'Pain Score': ['0', '2', '4', '6', '8'],
-      'Pain Location': ['No pain', 'Abdomen', 'Chest', 'Head', 'Incision']
+      'Pain Location': ['No pain', 'Abdomen', 'Chest', 'Head', 'Incision'],
+      'Pain Quality': ['Sharp', 'Dull / aching', 'Burning', 'Cramping'],
+      'Pain Intervention': ['Repositioned', 'Medication given per MAR', 'Ice / heat applied', 'Non-pharmacologic comfort measures']
     },
     'Safety': {
       'Fall Precautions': ['Bed low, call light in reach, bed alarm on', 'Fall precautions not in place'],
-      'Precautions': ['Standard', 'Contact', 'Droplet', 'Aspiration']
+      'Precautions': ['Standard', 'Contact', 'Droplet', 'Aspiration'],
+      'Restraints': ['None', 'Soft restraints per order'],
+      'Skin Integrity at Risk': ['Turned and repositioned q2h', 'Heels floated', 'Pressure-relieving mattress on']
     }
   };
 
@@ -183,7 +189,7 @@
     if (!practice().enabled) return records;
     const hide = new Set([...currentFindings(canonical).values()].map(o => o.id));
     // keep a stub so the field's row stays on the grid (the student charts into it) without revealing the value
-    return records.map(r => hide.has(r.id) ? { id: r.id, section: r.section, field: r.field, value: '', collected: r.collected, col: r.col, source: '', abnormal: false, practiceHidden: true } : r);
+    return records.map(r => (hide.has(r.id) || hide.has(r.cloneOf)) ? { id: r.id, section: r.section, field: r.field, value: '', collected: r.collected, col: r.col, source: '', abnormal: false, practiceHidden: true } : r);
   };
 
   // ------------------------------------------------------------ feedback after each entry
@@ -324,7 +330,7 @@
   const origRender = renderFlowsheetsPage;
   renderFlowsheetsPage = function () { const r = origRender.apply(null, arguments); updateButtons(); return r; };
 
-  window.FlowsheetPractice = { compare, tagsOf, isAbn, findExpected, buildReview, feedbackFor };
+  window.FlowsheetPractice = { BANK, compare, tagsOf, isAbn, findExpected, buildReview, feedbackFor };
   addToolbar();
   wireDialog();
 })();

@@ -1,0 +1,108 @@
+{
+ "groups": [
+  {
+   "id": "lpn",
+   "title": "LPN Med Pass",
+   "note": "First-semester LPN medication pass: scan the patient and each medication. One PO, one SubQ and one IM medication each.",
+   "patients": [
+    {
+     "id": "lpn_htn",
+     "name": "Harold Bennett",
+     "title": "Hypertension follow-up (PO + SubQ + IM)",
+     "desc": "PO lisinopril, SubQ enoxaparin, IM influenza vaccine",
+     "file": "prebuilt/lpn_htn.json",
+     "age": 62,
+     "sex": "Male"
+    },
+    {
+     "id": "lpn_cellulitis",
+     "name": "Maria Santos",
+     "title": "Cellulitis, antibiotic (PO + SubQ + IM)",
+     "desc": "PO acetaminophen, SubQ enoxaparin, IM ceftriaxone",
+     "file": "prebuilt/lpn_cellulitis.json",
+     "age": 55,
+     "sex": "Female"
+    },
+    {
+     "id": "lpn_fall",
+     "name": "Dorothy Hughes",
+     "title": "Fall with limited mobility (PO + SubQ + IM)",
+     "desc": "PO acetaminophen, SubQ enoxaparin, IM Tdap vaccine",
+     "file": "prebuilt/lpn_fall.json",
+     "age": 78,
+     "sex": "Female"
+    },
+    {
+     "id": "lpn_diabetes",
+     "name": "Calvin Reed",
+     "title": "Type 2 diabetes, high blood sugar (PO + SubQ + IM)",
+     "desc": "PO metformin, SubQ insulin lispro, IM pneumococcal vaccine",
+     "file": "prebuilt/lpn_diabetes.json",
+     "age": 58,
+     "sex": "Male"
+    },
+    {
+     "id": "lpn_b12",
+     "name": "Linda Park",
+     "title": "Vitamin B12 deficiency anemia (PO + SubQ + IM)",
+     "desc": "PO folic acid, SubQ heparin, IM vitamin B12",
+     "file": "prebuilt/lpn_b12.json",
+     "age": 66,
+     "sex": "Female"
+    }
+   ]
+  },
+  {
+   "id": "casestudy",
+   "title": "Case Study Patients",
+   "note": "Patients with a built care-plan case study (see Case Studies).",
+   "patients": [
+    {
+     "id": "betsy_ross",
+     "name": "Betsy Ross",
+     "title": "Hip Fracture in a Frail Patient with Multiple Chronic Conditions",
+     "desc": "CS-HIP-378-1 · Hip fracture (intertrochanteric)",
+     "file": "casestudy/cases/betsy_ross/patient.json",
+     "age": 67,
+     "sex": "Female"
+    },
+    {
+     "id": "chf_418b",
+     "name": "Taylor Morgan",
+     "title": "Acute Decompensated Heart Failure with End-Stage Renal Disease",
+     "desc": "CS-CHF-418B · Acute decompensated heart failure",
+     "file": "casestudy/cases/chf_418b/patient.json",
+     "age": 74,
+     "sex": "Female"
+    },
+    {
+     "id": "dfi_walter",
+     "name": "Walter Jennings",
+     "title": "Diabetic Foot Infection with Osteomyelitis, Before and After First-Ray Amputation",
+     "desc": "CS-DFI-436-1 · Diabetic foot infection with osteomyelitis",
+     "file": "casestudy/cases/dfi_walter/patient.json",
+     "age": 61,
+     "sex": "Male"
+    },
+    {
+     "id": "pressure_eleanor",
+     "name": "Eleanor Whitcomb",
+     "title": "Stage 4 Sacral Pressure Injury with Early Sepsis in a Frail Older Adult with Dementia",
+     "desc": "CS-PI-322-2 · Stage 4 sacral pressure injury with early sepsis",
+     "file": "casestudy/cases/pressure_eleanor/patient.json",
+     "age": 84,
+     "sex": "Female"
+    },
+    {
+     "id": "tka_rosa",
+     "name": "Rosa Delgado",
+     "title": "Total Knee Replacement on Post-Operative Day 1 with Kidney Disease and Insulin-Treated Diabetes",
+     "desc": "CS-TKA-512-2 · Primary osteoarthritis of the right knee",
+     "file": "casestudy/cases/tka_rosa/patient.json",
+     "age": 71,
+     "sex": "Female"
+    }
+   ]
+  }
+ ]
+}

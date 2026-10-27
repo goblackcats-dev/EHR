@@ -677,3 +677,6 @@ Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
 - **Print dialog** (`printsheet.js`) for wristbands and medication labels: tick items, choose each label's size and copies, shared pages, nothing cut off.
 - **Case Builder:** "Suggest history for this diagnosis" lists suggested medical and surgical history (all pre-ticked) to untick, per diagnosis (`case-builder/suggest.js`).
 - **Natural voice for the off-going report** from a local text-to-speech server (OpenAI-compatible `/v1/audio/speech`), saved into the patient so students hear it too.
+
+## v53 - Pre-Built Patients
+**Pre-Built Patients** (button in the top bar of the EHR and the Case Builder): a separate library of ready-made patients: **LPN Med Pass** (5 patients, one PO + one SubQ + one IM medication each) and **Case Study Patients** (5). Pick one, change only name, MRN, room, code status and allergies, then open it. Built by `node tools/make-prebuilt.js` into `prebuilt/` (re-run after changing an LPN profile or adding a case study).

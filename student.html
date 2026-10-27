@@ -492,18 +492,16 @@
                 <span id="flowsheetDateLabel">Current encounter</span>
               </div>
               <div class="flowsheet-toolbar-actions">
-                <button id="flowsheetExpandAll" class="small-tool-button">Expand All</button>
-                <button id="flowsheetCollapseAll" class="small-tool-button">Collapse All</button>
                 <button id="flowsheetLatestOnly" class="small-tool-button">Latest Column</button>
-                <button id="flowsheetChartBtn" class="primary-button compact-primary">Chart Assessment</button>
+                <button id="flowsheetChartBtn" class="primary-button compact-primary">Chart</button>
               </div>
             </div>
 
             <div class="flowsheet-layout">
               <aside class="flowsheet-sidebar">
                 <div class="flowsheet-sidebar-header">
-                  <h2>Sections</h2>
-                  <span id="flowsheetSectionCount">0 sections</span>
+                  <h2>Flowsheets</h2>
+                  <span id="flowsheetSectionCount">5 flowsheets</span>
                 </div>
                 <div id="flowsheetSectionNav" class="flowsheet-section-nav"></div>
               </aside>
@@ -650,12 +648,11 @@
             <option>Musculoskeletal / Mobility</option>
             <option>Pain</option>
             <option>Safety</option>
-            <option>Lines / Drains / Airways</option>
           </select>
         </label>
         <label>
           <span class="input-label">Documentation Time</span>
-          <input id="chartAssessmentTime" type="text" />
+          <input id="chartAssessmentTime" type="datetime-local" step="60" />
         </label>
       </div>
       <label>
@@ -711,6 +708,7 @@
   <script src="druginfo_3.js"></script>
   <script src="druginfo-ui.js"></script>
   <script src="flowsheet-practice.js"></script>
+  <script src="flowsheet-charting.js"></script>
   <script src="ui-shell.js"></script>
   <script src="student.js"></script>
 </body>
