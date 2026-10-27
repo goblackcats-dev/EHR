@@ -34,7 +34,7 @@ NS.PRIMARY = NS.PRIMARY || {};
   const heparin = (why) => ({ key: 'heparin_ppx', name: 'heparin injection', dose: '5,000 units', route: 'Subcutaneous', freq: 'BID', startH: 1.0, cls: 'Anticoagulant (prophylaxis)', by: 'hospitalist', highAlert: true,
     hold: 'Hold and notify the provider for active bleeding or platelets below 100 or a falling platelet count.', indication: why,
     info: 'HIGH-ALERT. Check the concentration on the vial or syringe (5,000 units per mL) with a second nurse per policy. Abdomen, 2 inches from the belly button; do not rub. Watch for bleeding and a falling platelet count.' });
-  const acetaminophen = (why) => ({ key: 'acetaminophen_sched', name: 'acetaminophen (TYLENOL) tablet', dose: '650 mg', route: 'Oral', freq: 'TID', startH: 1.0, cls: 'Non-opioid analgesic / antipyretic', by: 'hospitalist', indication: why,
+  const acetaminophen = (why) => ({ key: 'acetaminophen_sched', name: 'acetaminophen (TYLENOL) tablet', dose: '650 mg', route: 'Oral', freq: 'daily', startH: 1.0, cls: 'Non-opioid analgesic / antipyretic', by: 'hospitalist', indication: why,
     info: 'Maximum 3 g per 24 hours from all sources. Check the temperature and pain score before giving. Space doses evenly.', monitor: ['Temp'] });
 
   // ---------------------------------------------------------------- 1. HYPERTENSION FOLLOW-UP (PO lisinopril + SubQ enoxaparin + IM flu vaccine)
@@ -115,7 +115,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ---------------------------------------------------------------- 4. TYPE 2 DIABETES (PO metformin + SubQ lispro + IM pneumococcal vaccine)
   prof('lpn_diabetes', 'Type 2 diabetes, high blood sugar (PO + SubQ + IM)',
-    'Hyperglycemia in type 2 diabetes. Three medications: metformin 500 mg PO with breakfast and supper, insulin lispro 6 units SubQ before meals (hold if glucose below 70 or not eating), pneumococcal vaccine 0.5 mL IM.',
+    'Hyperglycemia in type 2 diabetes. Three medications, one dose each: metformin 500 mg PO, insulin lispro 6 units SubQ (check glucose first; hold if below 70 or not eating), pneumococcal vaccine 0.5 mL IM.',
     ctx => ({
       problem: 'Type 2 diabetes mellitus with hyperglycemia', details: 'Blood glucose 312 mg/dL on arrival without ketones; observation, restarting oral medication, mealtime insulin, vaccines and diabetes teaching.',
       chief: 'High blood sugar, thirst and frequent urination',
@@ -125,10 +125,10 @@ NS.PRIMARY = NS.PRIMARY || {};
       vitals: [norm({ h: 0, hr: 92, sbp: 132, dbp: 80 }), norm({ h: 24, hr: 82 }), norm({ h: 48, hr: 78 })],
       diet: 'Consistent carbohydrate diet', dietNote: 'Three meals with a bedtime snack; carbohydrate counting teaching.',
       meds: [
-        { key: 'metformin', name: 'metformin (GLUCOPHAGE) tablet', dose: '500 mg', route: 'Oral', freq: 'BID', startH: 1.0, cls: 'Biguanide antidiabetic', monitor: ['Glucose'], by: 'hospitalist',
+        { key: 'metformin', name: 'metformin (GLUCOPHAGE) tablet', dose: '500 mg', route: 'Oral', freq: 'daily', startH: 1.0, cls: 'Biguanide antidiabetic', monitor: ['Glucose'], by: 'hospitalist',
           hold: 'Hold and notify the provider if the patient is NPO, vomiting, or before contrast dye, or if creatinine is high.', indication: 'Type 2 diabetes',
           info: 'Give with a meal to reduce stomach upset. Do not crush extended-release tablets. Hold if NPO or before contrast dye; report vomiting or diarrhea.' },
-        { key: 'insulin_lispro_fixed', name: 'insulin lispro (HUMALOG) injection', dose: '6 units', route: 'Subcutaneous', freq: 'AC', startH: 1.0, cls: 'Rapid-acting insulin', monitor: ['Glucose'], by: 'hospitalist', highAlert: true,
+        { key: 'insulin_lispro_fixed', name: 'insulin lispro (HUMALOG) injection', dose: '6 units', route: 'Subcutaneous', freq: 'daily', startH: 1.0, cls: 'Rapid-acting insulin', monitor: ['Glucose'], by: 'hospitalist', highAlert: true,
           hold: 'Hold and notify the provider if glucose is below 70 mg/dL or the patient is not eating.', indication: 'Mealtime insulin for type 2 diabetes',
           info: 'HIGH-ALERT. Check the blood glucose BEFORE giving, and give within 15 minutes of the meal. Confirm the patient will eat. Rotate sites (abdomen, thigh, upper arm). Watch for hypoglycemia: sweating, shakiness, confusion.' },
         { key: 'pneumococcal_vaccine', name: 'pneumococcal 20-valent conjugate vaccine (PREVNAR 20) injection', dose: '0.5 mL', route: 'Intramuscular', freq: 'daily', startH: 1.0, stopH: 20, cls: 'Vaccine', by: 'hospitalist', indication: 'Pneumonia prevention in diabetes',
@@ -144,7 +144,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ---------------------------------------------------------------- 5. VITAMIN B12 DEFICIENCY (PO folic acid + SubQ heparin + IM cyanocobalamin)
   prof('lpn_b12', 'Vitamin B12 deficiency anemia (PO + SubQ + IM)',
-    'Anemia and tingling from low vitamin B12. Three medications: folic acid 1 mg PO daily, heparin 5,000 units SubQ twice a day, cyanocobalamin 1,000 mcg IM daily.',
+    'Anemia and tingling from low vitamin B12. Three medications: folic acid 1 mg PO daily, enoxaparin 40 mg SubQ daily, cyanocobalamin 1,000 mcg IM daily.',
     ctx => ({
       problem: 'Vitamin B12 deficiency anemia', details: 'Fatigue, tingling in the hands and feet and a low vitamin B12 level; daily intramuscular B12 for one week, then monthly; folic acid by mouth; clot prevention while less mobile.',
       chief: 'Fatigue and tingling in the hands and feet',
@@ -156,13 +156,13 @@ NS.PRIMARY = NS.PRIMARY || {};
       meds: [
         { key: 'folic_acid', name: 'folic acid tablet', dose: '1 mg', route: 'Oral', freq: 'daily', startH: 1.0, cls: 'Vitamin B9', by: 'hospitalist', indication: 'Anemia with large red blood cells',
           info: 'Give with or without food. Teach that it works together with B12: folic acid alone can hide B12 deficiency, so the B12 shots must continue.' },
-        heparin('Blood clot prevention while less mobile'),
+        enox('Blood clot prevention while less mobile'),
         { key: 'cyanocobalamin', name: 'cyanocobalamin (VITAMIN B12) injection', dose: '1,000 mcg', route: 'Intramuscular', freq: 'daily', startH: 1.0, cls: 'Vitamin B12', monitor: ['Hgb'], by: 'hospitalist',
           indication: 'Vitamin B12 deficiency', info: 'Give deep IM in the ventrogluteal or deltoid site; use a 1-1.5 inch needle (22-25 gauge), rotate sites and aspirate per policy. Check for allergy to cobalt/B12. Dizziness and tingling improve over weeks. Teach about monthly injections after the first week.' }
       ],
       orders: [{ name: 'Neurovascular and sensation check, hands and feet', category: 'Nursing', frequency: 'Every shift', startH: 3, instructions: 'Document tingling or numbness; fall precautions for unsteady walking.' },
         { name: 'Bleeding precautions', category: 'Precautions', frequency: 'Continuous', startH: 3, instructions: 'Report black or bloody stools, blood in urine, nosebleeds or unusual bruising.' }],
       assessments: [{ fromH: 0, items: [['Skin', 'Skin', 'Pale, warm and dry; mildly jaundiced sclera'], ['Neurologic', 'Level of Consciousness', 'Alert and oriented x4'], ['Neurologic', 'Sensation', 'Decreased light touch in both fingertips and toes'], ['Musculoskeletal / Mobility', 'Mobility', 'Steady but slow gait']] }],
-      objectives: ['Complete a medication pass with one oral, one subcutaneous and one intramuscular medication, scanning the patient and every medication.', 'Select an appropriate IM site, needle size and technique, and rotate sites between doses.', 'Verify a high-alert heparin dose with a second nurse and check for bleeding before giving it.']
+      objectives: ['Complete a medication pass with one oral, one subcutaneous and one intramuscular medication, scanning the patient and every medication.', 'Select an appropriate IM site, needle size and technique, and rotate sites between doses.', 'Check for bleeding before giving an anticoagulant and apply the hold parameter.']
     }));
 })();
