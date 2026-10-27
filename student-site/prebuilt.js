@@ -17,10 +17,21 @@
     const g = lib.find(x => x.id === groupId) || lib[0]; groupId = g.id;
     box().innerHTML = `<div class="pb-tabs" style="display:flex;gap:6px;margin:0 0 10px">${lib.map(x => `<button class="${x.id === g.id ? 'primary-button' : 'secondary-button'}" data-g="${esc(x.id)}">${esc(x.title)} (${x.patients.length})</button>`).join('')}</div>
       <p style="color:#5d6b7a;margin:0 0 10px">${esc(g.note || '')}</p>` +
-      g.patients.map((p, i) => `<button class="pb-row" data-p="${i}" style="display:block;width:100%;text-align:left;border:1px solid #c9d4e2;background:#fff;border-radius:3px;padding:10px 12px;margin:0 0 8px;cursor:pointer;min-height:44px">
-        <b>${esc(p.name)}</b>, ${esc(p.age)} ${esc(p.sex === 'Female' ? 'F' : 'M')} &middot; ${esc(p.title)}<div style="color:#5d6b7a;font-size:12px">${esc(p.desc)}</div></button>`).join('');
+      g.patients.map((p, i) => `<div class="pb-item" style="display:flex;gap:8px;align-items:stretch;margin:0 0 8px">
+        <button class="pb-row" data-p="${i}" style="flex:1;text-align:left;border:1px solid #c9d4e2;background:#fff;border-radius:3px;padding:10px 12px;cursor:pointer;min-height:44px">
+          <b>${esc(p.name)}</b>, ${esc(p.age)} ${esc(p.sex === 'Female' ? 'F' : 'M')} &middot; ${esc(p.title)}<div style="color:#5d6b7a;font-size:12px">${esc(p.desc)}</div></button>
+        <button class="secondary-button pb-print" data-pp="${i}" title="Choose wristband and medication labels to print" style="min-width:120px">Print list</button></div>`).join('');
     box().querySelectorAll('[data-g]').forEach(b => b.addEventListener('click', () => { groupId = b.dataset.g; renderList(); }));
     box().querySelectorAll('[data-p]').forEach(b => b.addEventListener('click', () => pick(g.patients[+b.dataset.p])));
+    box().querySelectorAll('[data-pp]').forEach(b => b.addEventListener('click', async () => { b.disabled = true; try { const r = await fetch(pre + g.patients[+b.dataset.pp].file, { cache: 'no-store' }); const j = await r.json(); printCanon(j.canonical || j); } catch (e) { alert('That patient could not be loaded for printing.'); } b.disabled = false; }));
+  }
+
+  // opens the print list (wristband, allergy band and a label for every active medication) for a pre-built patient
+  function printCanon(c) {
+    if (!window.NSMedLabel) { alert('Printing is not available on this page.'); return; }
+    const orders = (c.orders || []).filter(o => o.category === 'Medication' && o.status === 'Active');
+    const simDate = String((c.timeline && c.timeline.simulationStart) || '').slice(0, 10);
+    NSMedLabel.openSheet(c, orders, { simDate, decoys: !(c.medPass && c.medPass.decoys === false) });
   }
 
   async function pick(p) {
@@ -48,7 +59,7 @@
       <div><b>Allergies</b> <span style="color:#5d6b7a">(tap to add or remove; none selected = no known allergies)</span></div>
       <div id="pbAl" style="margin:8px 0">${ALLERGENS.map(a => chip(a, allergies.some(x => x.substance === a[0]))).join('')}${custom.map(a => chip([a.substance], true)).join('')}</div>
       <div style="display:flex;gap:6px;margin-bottom:14px"><input id="pbOther" placeholder="Other allergy (e.g. Kiwi)" style="flex:1;padding:8px"><input id="pbOtherRx" placeholder="Reaction" style="flex:1;padding:8px"><button class="secondary-button" id="pbAddOther">Add</button></div>
-      <button class="primary-button" id="pbOpen" style="min-height:44px">Open this patient</button>`;
+      <button class="primary-button" id="pbOpen" style="min-height:44px">Open this patient</button> <button class="secondary-button" id="pbPrint" style="min-height:44px">Print list (wristband and labels)</button>`;
     box().querySelector('#pbBack').addEventListener('click', renderList);
     box().querySelectorAll('[data-al]').forEach(b => b.addEventListener('click', () => {
       const name = b.dataset.al, i = allergies.findIndex(x => x.substance === name);
@@ -57,6 +68,7 @@
     }));
     box().querySelector('#pbAddOther').addEventListener('click', () => { const n = box().querySelector('#pbOther').value.trim(); if (!n) return; allergies.push({ substance: n, reaction: box().querySelector('#pbOtherRx').value.trim() || 'Reaction not documented', severity: 'Moderate' }); keepFields(); renderEdit(); });
     box().querySelector('#pbOpen').addEventListener('click', openPatient);
+    box().querySelector('#pbPrint').addEventListener('click', () => { keepFields(); const pt = canon.patient; pt.allergies = allergies.length ? allergies : [{ substance: 'NKDA', reaction: '', severity: '' }]; printCanon(canon); });
   }
   const edits = {};
   function keepFields() { ['Name', 'Mrn', 'Room', 'Code'].forEach(k => { const el = box().querySelector('#pb' + k); if (el) edits[k] = el.value; }); const pt = canon.patient, en = canon.encounter || (canon.encounter = {}); if (edits.Name) pt.name = edits.Name; if (edits.Mrn) pt.mrn = edits.Mrn; if (edits.Room !== undefined) en.room = edits.Room; if (edits.Code) en.codeStatus = edits.Code; }
