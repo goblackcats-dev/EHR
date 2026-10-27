@@ -1,10 +1,11 @@
-/* Flowsheet charting (v60).
-   - The Flowsheets page shows ONE flowsheet at a time: Vital Signs, Adult Assessment (all body systems), Pain / Safety,
-     Lines / Drains / Airways, Intake / Output. The choice is remembered.
-   - Students chart everything themselves, at a chosen time (default: the patient's current time):
-       vitals (form), assessments and pain/safety (existing chart dialog + quick-pick chips), intake/output (form),
-       devices (add a line/drain/tube at an Avatar site, assess it, or remove it).
-     Every entry is studentEntered:true, so "Reset simulation" removes it and it never mixes with case data.
+/* Flowsheet charting (v61, Epic-style).
+   - Template TABS across the top (Vital Signs | Adult Assessment | Pain / Safety | Lines / Drains / Airways | Intake / Output).
+   - A "Table of Contents" on the left: search, Hide All / Show All, and one checkbox per row group (remembered per template).
+   - Charting happens IN the grid: click a cell and type (numbers) or pick (fixed choices). Enter or leaving the cell files it, Esc cancels.
+   - Selecting a cell also opens a RIGHT SIDEBAR with the row, the time, the entry control (dropdown + free text, or number + units,
+     BP with live MAP), a Comment, File / Cancel, Value Information, Min/Max and Last Filed Values (24 hours).
+     Case-built values are read-only (a comment can still be added).
+   - Every student entry is studentEntered:true, so "Reset simulation" removes it and it never mixes with case data.
    - Bedside monitor panel (top of Vital Signs): what the monitor reads NOW and the SUGGESTED NEXT SET of case vitals.
      Instructors always see it; students only when canonical.practice.showMonitor is on.
    Depends on app.js globals (currentCanonicalCase, simulationTime, buildFlowsheetRecords, flowsheetSheets, ...) and flowsheet-practice.js. */
@@ -19,23 +20,43 @@
   const fromLocal = v => String(v || '').trim().replace('T', ' ').slice(0, 16);
   const ms = t => { const d = parseSimDate(t); return d ? d.getTime() : NaN; };
   const hhmm = t => String(t || '').slice(11, 16);
+  const pad2 = n => String(n).padStart(2, '0');
 
   const SHEETS = flowsheetSheets;
   const SYSTEMS = ['Neurologic', 'Respiratory', 'Cardiac', 'GI', 'GU', 'Skin', 'Musculoskeletal / Mobility'];
   const PAIN_SAFETY = ['Pain', 'Safety'];
   const SHEET_KEY = 'nursingsim.flowsheet.sheet';
-  const CHART_LABEL = { 'Vital Signs': 'Chart vitals', 'Adult Assessment': 'Chart assessment', 'Pain / Safety': 'Chart pain / safety', 'Lines / Drains / Airways': 'Add device', 'Intake / Output': 'Chart intake / output' };
-  const VITAL_ROWS = ['Temperature', 'Temp Source', 'Heart Rate', 'HR Source', 'Pulse Rate from SpO2', 'Blood Pressure', 'MAP', 'BP Location', 'BP Method', 'Respiratory Rate', 'RR Source', 'SpO2', 'O2 Device'];
-  const SUB_ROWS = ['Temp Source', 'HR Source', 'MAP', 'BP Location', 'BP Method', 'RR Source'];
+  const HIDDEN_KEY = 'nursingsim.flowsheet.hidden.';
+  const INTAKE_TYPES = ['Oral', 'IV fluid', 'IV med', 'Tube feeding', 'Blood', 'Other'];
+  const OUTPUT_TYPES = ['Urine', 'Stool', 'Emesis', 'Drain', 'Blood loss', 'Other'];
+  const O2_DEVICES = ['Room air', 'Nasal cannula', 'Simple face mask', 'Venturi mask', 'Non-rebreather mask', 'High-flow nasal cannula', 'CPAP / BiPAP', 'Ventilator'];
   const SHORT = { 'Telemetry/ECG monitor': 'Telemetry', 'Pulse oximeter': 'Pulse ox', 'Palpated radial': 'Radial', 'Apical stethoscope': 'Apical', 'Monitor/capnography': 'Monitor', 'Counted manually': 'Manual count', 'Automatic cuff': 'Auto cuff' };
   const TEMP_SOURCES = ['Oral', 'Temporal', 'Axillary', 'Tympanic', 'Rectal', 'Bladder/core'];
   const HR_SOURCES = ['Telemetry/ECG monitor', 'Pulse oximeter', 'Palpated radial', 'Apical stethoscope'];
   const BP_LOCS = ['Left arm', 'Right arm', 'Left leg', 'Right leg', 'Left wrist', 'Right wrist'];
   const BP_METHODS = ['Automatic cuff', 'Manual'];
   const RR_SOURCES = ['Monitor/capnography', 'Counted manually'];
-  const INTAKE_TYPES = ['Oral', 'IV fluid', 'IV med', 'Tube feeding', 'Blood', 'Other'];
-  const OUTPUT_TYPES = ['Urine', 'Stool', 'Emesis', 'Drain', 'Blood loss', 'Other'];
-  const O2_DEVICES = ['Room air', 'Nasal cannula', 'Simple face mask', 'Venturi mask', 'Non-rebreather mask', 'High-flow nasal cannula', 'CPAP / BiPAP', 'Ventilator'];
+  const DEVICE_STATUS = ['Patent', 'Infusing', 'Saline lock', 'Draining', 'Active', 'In place', 'Secured', 'To suction', 'Clamped'];
+  const DEVICE_ASSESS = ['Site clean, dry, intact', 'Dressing clean, dry, intact', 'Flushes without resistance', 'Redness or swelling noted', 'Drainage present', 'Dressing changed'];
+
+  // Vital sign rows: [row label, observation code, entry kind, extra]
+  const VSPEC = {
+    'Temperature': { code: 'TEMP', kind: 'temp', units: '°F' },
+    'Temp Source': { code: 'TEMPSRC', kind: 'choice', opts: TEMP_SOURCES, sub: true },
+    'Heart Rate': { code: 'HR', kind: 'num', units: 'bpm', lo: 20, hi: 300 },
+    'HR Source': { code: 'HRSRC', kind: 'choice', opts: HR_SOURCES, sub: true },
+    'Pulse Rate from SpO2': { code: 'SPO2HR', kind: 'num', units: 'bpm', lo: 20, hi: 300 },
+    'Blood Pressure': { code: 'BP', kind: 'bp', units: 'mmHg' },
+    'MAP': { kind: 'map', readonly: true, sub: true, units: 'mmHg' },
+    'BP Location': { code: 'BPLOC', kind: 'choice', opts: BP_LOCS, sub: true },
+    'BP Method': { code: 'BPMETH', kind: 'choice', opts: BP_METHODS, sub: true },
+    'Respiratory Rate': { code: 'RR', kind: 'num', units: '/min', lo: 4, hi: 70 },
+    'RR Source': { code: 'RRSRC', kind: 'choice', opts: RR_SOURCES, sub: true },
+    'SpO2': { code: 'SPO2', kind: 'num', units: '%', lo: 50, hi: 100 },
+    'O2 Device': { code: 'O2DEV', kind: 'o2' }
+  };
+  const VGROUPS = [['Temperature', ['Temperature', 'Temp Source']], ['Heart Rate', ['Heart Rate', 'HR Source', 'Pulse Rate from SpO2']],
+    ['Blood Pressure', ['Blood Pressure', 'MAP', 'BP Location', 'BP Method']], ['Respiratory Rate', ['Respiratory Rate', 'RR Source']], ['Oxygen / SpO2', ['SpO2', 'O2 Device']]];
 
   // Avatar site markers (same keys as markerCoordinates in app.js)
   const SITES = [
@@ -65,20 +86,39 @@
     ['Other device', 'Tube', 'pelvis', [], 'In place']
   ];
 
+  // ------------------------------------------------------------ state
   let sheet = (() => { try { const v = localStorage.getItem(SHEET_KEY); return SHEETS.includes(v) ? v : SHEETS[0]; } catch (e) { return SHEETS[0]; } })();
+  const hiddenBySheet = {};
+  let query = '';
   let stickRight = true;
-  let lastCell = null;
+  let sel = null;            // { rowKey, col }
+  let draft = null;          // { text, aux, comment, time }
+  let initialText = '';
+  let editing = false;       // an inline editor is open in the selected cell
+  let editToken = 0;
+  let addDevMode = false;
+  let pendingComment = '';
+  let msgText = '';
+  const extraCols = new Set();      // columns added with "Add Col" (exact "YYYY-MM-DD HH:mm")
+  let view = { rows: new Map(), cells: new Map(), records: [], canonical: null };
 
   const practice = () => { if (!currentCanonicalCase) return {}; if (!currentCanonicalCase.practice) currentCanonicalCase.practice = { enabled: false }; return currentCanonicalCase.practice; };
   const isInstructor = () => !window.NS_STUDENT;
   const monitorVisible = () => isInstructor() || !!practice().showMonitor;
   const canon = () => currentCanonicalCase;
+  const bank = () => (window.FlowsheetPractice && window.FlowsheetPractice.BANK) || {};
 
+  function hiddenSet(name) {
+    if (!hiddenBySheet[name]) { let arr = []; try { arr = JSON.parse(localStorage.getItem(HIDDEN_KEY + name) || '[]'); } catch (e) { arr = []; } hiddenBySheet[name] = new Set(Array.isArray(arr) ? arr : []); }
+    return hiddenBySheet[name];
+  }
+  function saveHidden(name) { try { localStorage.setItem(HIDDEN_KEY + name, JSON.stringify([...hiddenSet(name)])); } catch (e) { /* remembered only when storage works */ } }
+  function rerender() { renderFlowsheetsPage(currentPatientData); }
   function setSheet(name) {
     if (!SHEETS.includes(name)) return;
-    sheet = name; stickRight = true; lastCell = null;
-    try { localStorage.setItem(SHEET_KEY, name); } catch (e) { /* remembered only when storage works */ }
-    renderFlowsheetsPage(currentPatientData);
+    sheet = name; stickRight = true; sel = null; draft = null; editing = false; addDevMode = false; query = '';
+    try { localStorage.setItem(SHEET_KEY, name); } catch (e) { /* ok */ }
+    rerender();
   }
 
   // ------------------------------------------------------------ vital flags (same limits the case builder uses)
@@ -125,44 +165,79 @@
     sets.forEach(s => { if (s.time <= now) cur = { time: s.time, obs: Object.assign({}, cur ? cur.obs : {}, s.obs) }; else if (!next) next = s; });
     return { cur, next };
   }
+  // the monitor's value for one vital row, as { text, aux } ready for an entry control
+  function monitorValueFor(spec) {
+    const { cur } = monitorState(); if (!cur) return null;
+    const v = setValues(cur), num = s => { const m = String(s || '').match(/-?\d+(\.\d+)?/); return m ? m[0] : ''; };
+    switch (spec.code) {
+      case 'TEMP': return { text: num(valText(v.TEMP)), aux: /°?\s*C\b/.test(valText(v.TEMP)) ? 'C' : 'F' };
+      case 'HR': return { text: num(valText(v.HR)) };
+      case 'SPO2HR': return { text: num(v.PR) };
+      case 'BP': { const m = valText(v.BP).match(/(\d+)\s*\/\s*(\d+)/); return m ? { text: `${m[1]}/${m[2]}` } : null; }
+      case 'RR': return { text: num(valText(v.RR)) };
+      case 'SPO2': return { text: num(valText(v.SPO2)) };
+      case 'TEMPSRC': return v.TEMPSRC ? { text: v.TEMPSRC } : null;
+      case 'HRSRC': return v.HRSRC ? { text: v.HRSRC } : null;
+      case 'BPLOC': return v.BPLOC ? { text: v.BPLOC } : null;
+      case 'BPMETH': return v.BPMETH ? { text: v.BPMETH } : null;
+      case 'RRSRC': return v.RRSRC ? { text: v.RRSRC } : null;
+      case 'O2DEV': { const o2 = String(v.O2 || ''); if (!o2) return null; const hit = O2_DEVICES.find(d => o2.toLowerCase().includes(d.toLowerCase().split(' ')[0]) && (d !== 'Room air' || /room|\bra\b/i.test(o2))); const fl = o2.match(/(\d+(?:\.\d+)?)\s*l/i); const dev = /room air|\bra\b/i.test(o2) ? 'Room air' : (hit || ''); return dev ? { text: dev, aux: fl && dev !== 'Room air' ? fl[1] : '' } : null; }
+    }
+    return null;
+  }
 
   // ------------------------------------------------------------ page shell
   function ensureShell() {
-    const main = document.querySelector('#flowsheetsSection .flowsheet-main'); if (!main || $('fsSheetBar')) return;
+    const card = document.querySelector('#flowsheetsSection .flowsheet-card'), main = card && card.querySelector('.flowsheet-main'); if (!main || $('fsSheetBar')) return;
+    const layout = card.querySelector('.flowsheet-layout');
+    const tabs = document.createElement('div'); tabs.id = 'fsTabs'; tabs.className = 'fs-tabs'; tabs.setAttribute('role', 'tablist');
+    const addcol = document.createElement('div'); addcol.id = 'fsAddCol'; addcol.className = 'fs-addcol hidden';
+    layout.parentNode.insertBefore(tabs, layout); layout.parentNode.insertBefore(addcol, layout);
+    // left: Table of Contents
+    const toc = card.querySelector('.flowsheet-sidebar');
+    toc.innerHTML = `<div class="flowsheet-sidebar-header"><h2>Table of Contents</h2></div>
+      <div class="fs-toc-tools"><input id="fsSearch" type="search" placeholder="Search rows" aria-label="Search rows" autocomplete="off"><div class="fs-toc-links"><a href="#" id="fsHideAll">Hide All</a><a href="#" id="fsShowAll">Show All</a></div></div>
+      <div id="flowsheetSectionNav" class="flowsheet-section-nav fs-toc"></div>`;
+    $('fsSearch').addEventListener('input', e => { query = e.target.value.trim(); rerenderKeepSearch(); });
+    $('fsHideAll').addEventListener('click', e => { e.preventDefault(); const h = hiddenSet(sheet); (view.groups || []).forEach(g => h.add(g.name)); saveHidden(sheet); rerender(); });
+    $('fsShowAll').addEventListener('click', e => { e.preventDefault(); hiddenSet(sheet).clear(); saveHidden(sheet); rerender(); });
+    // right: sidebar
+    const side = card.querySelector('.flowsheet-detail-panel'); side.innerHTML = '<div id="fsSide" class="fs-side"></div>'; side.id = 'fsSidePanel';
     const bar = document.createElement('div'); bar.id = 'fsSheetBar'; bar.className = 'fs-sheetbar';
     const mon = document.createElement('div'); mon.id = 'fsMonitorPanel'; mon.className = 'fs-monitor hidden';
     const io = document.createElement('div'); io.id = 'fsIoTotals'; io.className = 'fs-io-totals hidden';
     const scroll = main.querySelector('.flowsheet-grid-scroll');
     main.insertBefore(bar, scroll); main.insertBefore(mon, scroll); scroll.insertAdjacentElement('afterend', io);
+    const btn = $('flowsheetChartBtn'); if (btn) btn.textContent = 'Add Col';
   }
+  function rerenderKeepSearch() { rerender(); const s = $('fsSearch'); if (s) { s.focus(); const n = s.value.length; try { s.setSelectionRange(n, n); } catch (e) { /* search inputs */ } } }
 
-  function renderNav(bySheet) {
-    const nav = $('flowsheetSectionNav'); clearChildren(nav);
+  function renderTabs(bySheet) {
+    const tabs = $('fsTabs'); clearChildren(tabs);
     SHEETS.forEach(name => {
       const n = bySheet[name].filter(r => !r.practiceHidden).length;
-      const b = document.createElement('button'); b.type = 'button';
-      b.className = 'flowsheet-section-button' + (name === sheet ? ' active' : '');
-      b.setAttribute('aria-pressed', String(name === sheet));
-      b.innerHTML = `<span class="fs-nav-name">${esc(name)}</span><span class="flowsheet-section-count">${n}</span>`;
-      b.addEventListener('click', () => setSheet(name));
-      nav.appendChild(b);
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab');
+      b.className = 'fs-tab' + (name === sheet ? ' active' : ''); b.setAttribute('aria-selected', String(name === sheet));
+      b.innerHTML = `${esc(name)} <span class="fs-tab-count">${n}</span>`;
+      b.addEventListener('click', () => { if (name !== sheet) { fileIfDirty(); setSheet(name); } });
+      tabs.appendChild(b);
     });
   }
 
   function renderSheetBar() {
     const bar = $('fsSheetBar'); if (!bar) return;
     const hints = {
-      'Vital Signs': 'Tap an empty cell to chart that vital at that time, or use Chart vitals.',
-      'Adult Assessment': 'All body systems. Tap an empty cell to chart that finding at that time.',
-      'Pain / Safety': 'Tap an empty cell to chart that item at that time.',
-      'Lines / Drains / Airways': 'Add a device at an Avatar site, assess it, or remove it. Tap an empty cell to assess or remove that device.',
-      'Intake / Output': 'Tap an empty cell to chart that intake or output at that time. Totals update the Summary page too.'
+      'Vital Signs': 'Click a cell and type, or pick from the list. Press Enter to file.',
+      'Adult Assessment': 'All body systems. Click a cell to chart it; the sidebar offers common findings.',
+      'Pain / Safety': 'Click a cell to chart pain and safety items.',
+      'Lines / Drains / Airways': 'One group per device. Click a cell to chart site, status or assessment; use Add line / drain to place a device.',
+      'Intake / Output': 'Click a cell and type mL (adds to that hour). Totals update the Summary page too.'
     };
-    bar.innerHTML = `<div class="fs-sheetbar-title"><h3>${esc(sheet)}</h3><span>${esc(hints[sheet])}</span></div><div class="fs-sheetbar-actions"></div>`;
+    bar.innerHTML = `<span class="fs-hint">${esc(hints[sheet])}</span><span class="fs-sheetbar-actions"></span>`;
     const acts = bar.querySelector('.fs-sheetbar-actions');
     const add = (text, fn, cls) => { const b = document.createElement('button'); b.type = 'button'; b.className = cls || 'small-tool-button'; b.textContent = text; b.addEventListener('click', fn); acts.appendChild(b); };
-    if (sheet === 'Lines / Drains / Airways') add('Assess / remove device', () => openDeviceAction(null, 'remove'));
-    const btn = $('flowsheetChartBtn'); if (btn) btn.textContent = CHART_LABEL[sheet] || 'Chart';
+    if (sheet === 'Lines / Drains / Airways') add('Add line / drain', () => { fileIfDirty(); sel = null; draft = null; editing = false; addDevMode = true; rerender(); }, 'primary-button compact-primary');
+    if (sheet === 'Vital Signs' && monitorVisible()) add('Fill column from monitor', fillColumn);
   }
 
   // ------------------------------------------------------------ monitor panel
@@ -189,106 +264,134 @@
     if (cb) cb.addEventListener('change', () => { practice().showMonitor = cb.checked; try { persistCase(); } catch (e) { /* best effort */ } });
   }
 
-  // ------------------------------------------------------------ grid
-  function nowCol() { return simulationTime ? simulationTime.slice(0, 13) + ':00' : ''; }
-  function rowsFor(records) {
-    // returns [{header:'text'} | {field, section, label}]
-    const out = [];
-    const fieldsIn = (section) => { const seen = []; records.filter(r => r.section === section).forEach(r => { if (!seen.some(f => norm(f) === norm(r.field))) seen.push(r.field); }); return seen; };
-    const bank = (window.FlowsheetPractice && window.FlowsheetPractice.BANK) || {};
-    const withBank = (section) => {
-      const have = fieldsIn(section), list = [];
-      Object.keys(bank[section] || {}).forEach(k => { const hit = have.find(f => norm(f) === norm(k)); list.push(hit || k); });
-      have.forEach(f => { if (!list.some(x => norm(x) === norm(f))) list.push(f); });
-      return list;
-    };
+  // ------------------------------------------------------------ rows
+  const nowCol = () => simulationTime ? simulationTime.slice(0, 13) + ':00' : '';
+  const entryTime = col => col === nowCol() ? simulationTime : col;
+  function deviceList() {
+    const c = view.canonical || canon() || {};
+    return [...(c.devices || []).map(d => ({ d, removed: false })), ...(c.removedDevices || []).map(d => ({ d, removed: true }))];
+  }
+  function buildGroups(records) {
+    const groups = [];
+    const fieldsIn = section => { const seen = []; records.filter(r => r.section === section).forEach(r => { if (!seen.some(f => norm(f) === norm(r.field))) seen.push(r.field); }); return seen; };
     if (sheet === 'Vital Signs') {
-      const extra = fieldsIn('Vital Signs').filter(f => !VITAL_ROWS.includes(f));
-      [...VITAL_ROWS, ...extra].forEach(f => out.push({ field: f, section: 'Vital Signs', sub: SUB_ROWS.includes(f) }));
+      VGROUPS.forEach(([name, rows]) => groups.push({ name, rows: rows.map(f => ({ section: 'Vital Signs', field: f, label: f, vital: VSPEC[f], kind: VSPEC[f].kind, sub: !!VSPEC[f].sub, readonly: !!VSPEC[f].readonly })) }));
     } else if (sheet === 'Adult Assessment' || sheet === 'Pain / Safety') {
       const base = sheet === 'Adult Assessment' ? SYSTEMS : PAIN_SAFETY;
       const others = [...new Set(records.map(r => r.section))].filter(s => !base.includes(s));
-      [...base, ...others].forEach(sec => { out.push({ header: sec }); withBank(sec).forEach(f => out.push({ field: f, section: sec })); });
+      [...base, ...others].forEach(sec => {
+        const have = fieldsIn(sec), list = [];
+        Object.keys(bank()[sec] || {}).forEach(k => { const hit = have.find(f => norm(f) === norm(k)); list.push(hit || k); });
+        have.forEach(f => { if (!list.some(x => norm(x) === norm(f))) list.push(f); });
+        const chipsFor = f => { const b = bank()[sec] || {}, key = Object.keys(b).find(k => norm(k) === norm(f)); return key ? b[key] : []; };
+        groups.push({ name: sec, rows: list.map(f => ({ section: sec, field: f, label: f, kind: norm(f) === 'pain score' ? 'painscore' : 'assess', opts: chipsFor(f) })) });
+      });
     } else if (sheet === 'Lines / Drains / Airways') {
-      const seen = [];
-      records.forEach(r => { if (!seen.includes(r.field)) seen.push(r.field); });
-      seen.forEach(f => out.push({ field: f, section: 'Lines / Drains / Airways' }));
+      deviceList().forEach(({ d, removed }) => {
+        const f = flowsheetDeviceField(d), out = records.some(r => r.field === `${f} | Drainage / output`);
+        const rows = [['Site', []], ['Status', DEVICE_STATUS], ['Assessment', DEVICE_ASSESS]].concat(out ? [['Drainage / output', []]] : []);
+        groups.push({ name: f + (removed ? ' (removed)' : ''), deviceId: d.id, removed, rows: rows.map(([l, opts]) => ({ section: 'Lines / Drains / Airways', field: `${f} | ${l}`, label: l, kind: 'assess', opts, deviceId: d.id, removed })) });
+      });
     } else {
       [['Intake', INTAKE_TYPES], ['Output', OUTPUT_TYPES]].forEach(([kind, std]) => {
-        out.push({ header: `${kind} (mL)` });
         const extra = [...new Set(records.filter(r => r.field.startsWith(kind + ':')).map(r => r.field.slice(kind.length + 2)))].filter(l => !std.includes(l)).sort();
-        [...std, ...extra].forEach(l => out.push({ field: `${kind}: ${l}`, label: l, section: 'Intake / Output', io: kind.toLowerCase() }));
+        groups.push({ name: kind, rows: [...std, ...extra].map(l => ({ section: 'Intake / Output', field: `${kind}: ${l}`, label: l, kind: 'io', io: kind.toLowerCase(), units: 'mL' })) });
       });
-      out.push({ header: 'Totals (mL)' });
-      ['Total intake', 'Total output', 'Net balance'].forEach(l => out.push({ total: l }));
+      groups.push({ name: 'Totals', rows: ['Total intake', 'Total output', 'Net balance'].map(l => ({ section: 'Intake / Output', field: l, label: l, kind: 'total', total: l, readonly: true })) });
     }
-    return out;
+    groups.forEach(g => g.rows.forEach(r => { r.key = `${r.section}|${r.field}`; r.group = g.name; }));
+    return groups;
   }
 
-  function renderGrid(records, times, nowKey) {
+  const cellRecs = (row, col) => view.records.filter(r => !r.practiceHidden && r.section === row.section && norm(r.field) === norm(row.field) && r.col === col);
+  const rowRecs = row => view.records.filter(r => !r.practiceHidden && r.section === row.section && norm(r.field) === norm(row.field));
+
+  // ------------------------------------------------------------ TOC
+  function matches(g, row) { if (!query) return true; const q = query.toLowerCase(); return g.name.toLowerCase().includes(q) || (row && row.label.toLowerCase().includes(q)); }
+  function renderToc(groups) {
+    const nav = $('flowsheetSectionNav'); clearChildren(nav);
+    const h = hiddenSet(sheet);
+    const shown = groups.filter(g => g.rows.some(r => matches(g, r)));
+    if (!shown.length) nav.innerHTML = '<div class="fs-toc-empty">' + (groups.length ? 'No rows match.' : 'Nothing to show yet.') + '</div>';
+    shown.forEach(g => {
+      const item = document.createElement('div'); item.className = 'fs-toc-item';
+      const lab = document.createElement('label'); lab.className = 'fs-toc-check';
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !h.has(g.name); cb.setAttribute('aria-label', `Show ${g.name}`);
+      cb.addEventListener('change', () => { cb.checked ? h.delete(g.name) : h.add(g.name); saveHidden(sheet); rerender(); });
+      lab.appendChild(cb); item.appendChild(lab);
+      const a = document.createElement('button'); a.type = 'button'; a.className = 'fs-toc-name'; a.textContent = g.name;
+      a.addEventListener('click', () => scrollToGroup(g.name));
+      item.appendChild(a); nav.appendChild(item);
+    });
+    $('flowsheetSectionCount') && ($('flowsheetSectionCount').textContent = '');
+  }
+  function scrollToGroup(name) {
+    const h = hiddenSet(sheet); if (h.has(name)) { h.delete(name); saveHidden(sheet); rerender(); }
+    const scroller = document.querySelector('#flowsheetsSection .flowsheet-grid-scroll'), head = $('flowsheetGridHead');
+    const tr = [...document.querySelectorAll('#flowsheetGridBody tr.flowsheet-section-row')].find(x => x.dataset.group === name);
+    if (scroller && tr) scroller.scrollTo({ top: Math.max(0, tr.offsetTop - (head ? head.offsetHeight : 0)), behavior: 'smooth' });
+  }
+
+  // ------------------------------------------------------------ grid
+  function renderGrid(records, times, nowKey, groups) {
     const head = $('flowsheetGridHead'), body = $('flowsheetGridBody'), scroller = document.querySelector('#flowsheetsSection .flowsheet-grid-scroll');
-    const prevLeft = scroller ? scroller.scrollLeft : 0;
+    const prevLeft = scroller ? scroller.scrollLeft : 0, prevTop = scroller ? scroller.scrollTop : 0;
     clearChildren(head); clearChildren(body);
+    view.rows = new Map(); view.cells = new Map();
     const hr = document.createElement('tr');
-    const lab = document.createElement('th'); lab.className = 'flowsheet-label-col'; lab.textContent = sheet === 'Intake / Output' ? 'Intake / output' : sheet === 'Lines / Drains / Airways' ? 'Device' : 'Assessment'; hr.appendChild(lab);
+    const lab = document.createElement('th'); lab.className = 'flowsheet-label-col'; lab.textContent = sheet === 'Intake / Output' ? 'Intake / output' : sheet === 'Lines / Drains / Airways' ? 'Device' : 'Row'; hr.appendChild(lab);
     times.forEach(t => {
-      const th = document.createElement('th'); th.className = 'flowsheet-time-col' + (t === nowKey ? ' fs-now-col' : '');
+      const th = document.createElement('th'); th.className = 'flowsheet-time-col' + (t === nowKey ? ' fs-now-col' : '') + (sel && sel.col === t ? ' fs-col-sel' : '');
       const st = epicDate(t).split(' '); th.innerHTML = st.length > 1 ? `${esc(st[0])}<br><span class="flowsheet-muted">${esc(st[1])}</span>${t === nowKey ? '<br><span class="fs-now-tag">now</span>' : ''}` : esc(t);
-      if (sheet === 'Vital Signs' || sheet === 'Intake / Output') { th.classList.add('fs-time-click'); th.title = 'Chart at this time'; th.addEventListener('click', () => sheet === 'Vital Signs' ? openVitals(colTime(t)) : openIO(colTime(t))); }
       hr.appendChild(th);
     });
     head.appendChild(hr);
-    const rows = rowsFor(records);
-    const live = records.filter(r => !r.practiceHidden);
-    rows.forEach(rw => {
-      const tr = document.createElement('tr');
-      if (rw.header) {
-        tr.className = 'flowsheet-section-row';
-        const td = document.createElement('td'); td.className = 'flowsheet-label-col'; td.textContent = rw.header; tr.appendChild(td);
-        const sp = document.createElement('td'); sp.colSpan = times.length; tr.appendChild(sp); body.appendChild(tr); return;
-      }
-      if (rw.sub) tr.classList.add('fs-subrow');
-      const fc = document.createElement('td'); fc.className = 'flowsheet-label-col flowsheet-field-name'; fc.textContent = rw.total || rw.label || rw.field; tr.appendChild(fc);
-      if (rw.total) tr.classList.add('fs-total-row');
-      times.forEach(t => {
-        const td = document.createElement('td'); td.className = 'flowsheet-cell' + (t === nowKey ? ' fs-now-col' : '');
-        if (rw.total) {
-          const inCol = live.filter(r => r.col === t);
-          const inn = inCol.filter(r => r.ioKind === 'intake').reduce((s, r) => s + r.ml, 0), outt = inCol.filter(r => r.ioKind === 'output').reduce((s, r) => s + r.ml, 0);
-          if (!inCol.length) { td.classList.add('empty-cell-value'); } else td.textContent = rw.total === 'Total intake' ? `${inn}` : rw.total === 'Total output' ? `${outt}` : `${inn - outt >= 0 ? '+' : ''}${inn - outt}`;
-          tr.appendChild(td); return;
-        }
-        const inCell = live.filter(r => norm(r.field) === norm(rw.field) && r.section === rw.section && r.col === t);
-        const stubs = records.filter(r => r.practiceHidden && norm(r.field) === norm(rw.field) && r.section === rw.section && r.col === t);
-        if (!inCell.length) {
-          td.classList.add('empty-cell-value'); td.title = stubs.length ? 'Practice mode: chart what you find' : 'Tap to chart this at this time'; td.textContent = '';
-          td.addEventListener('click', () => chartCell(rw, t));
-        } else if (rw.io) {
-          const total = inCell.reduce((s, r) => s + r.ml, 0); td.textContent = String(total);
-          if (inCell.some(r => r.studentEntered)) td.classList.add('fs-student');
-          if (inCell.length > 1) td.title = inCell.map(r => `${epicDate(r.collected)}  ${r.value}`).join('\n');
-          const last = inCell[inCell.length - 1]; if (currentFlowsheetSelection === last.id) td.classList.add('selected');
-          td.addEventListener('click', () => { currentFlowsheetSelection = last.id; lastCell = inCell; renderFlowsheetsPage(currentPatientData); });
-        } else {
-          const rec = inCell[inCell.length - 1];
-          if (rec.abnormal) td.classList.add('flowsheet-abnormal');
-          if (rec.studentEntered) td.classList.add('fs-student');
-          if (currentFlowsheetSelection === rec.id) td.classList.add('selected');
-          td.textContent = rw.sub ? (SHORT[rec.value] || rec.value) : safe(rec.value);
-          if (rw.sub && SHORT[rec.value]) td.title = rec.value;
-          if (inCell.length > 1) td.title = inCell.map(r => `${epicDate(r.collected)}  ${r.value}`).join('\n');
-          td.addEventListener('click', () => { currentFlowsheetSelection = rec.id; lastCell = inCell; renderFlowsheetsPage(currentPatientData); });
-        }
-        tr.appendChild(td);
+    const live = records.filter(r => !r.practiceHidden), h = hiddenSet(sheet);
+    let any = false;
+    groups.forEach(g => {
+      if (h.has(g.name)) return;
+      const rows = g.rows.filter(r => matches(g, r)); if (!rows.length) return;
+      any = true;
+      const gr = document.createElement('tr'); gr.className = 'flowsheet-section-row'; gr.dataset.group = g.name;
+      const gl = document.createElement('td'); gl.className = 'flowsheet-label-col'; gl.textContent = g.name; gr.appendChild(gl);
+      const sp = document.createElement('td'); sp.colSpan = times.length; gr.appendChild(sp); body.appendChild(gr);
+      rows.forEach(rw => {
+        view.rows.set(rw.key, rw);
+        const tr = document.createElement('tr'); if (rw.sub) tr.classList.add('fs-subrow'); if (rw.kind === 'total') tr.classList.add('fs-total-row');
+        const fc = document.createElement('td'); fc.className = 'flowsheet-label-col flowsheet-field-name' + (sel && sel.rowKey === rw.key ? ' fs-row-sel' : ''); fc.textContent = rw.label; tr.appendChild(fc);
+        times.forEach(t => {
+          const td = document.createElement('td'); td.className = 'flowsheet-cell' + (t === nowKey ? ' fs-now-col' : '');
+          const recs = rw.kind === 'total' ? [] : cellRecs(rw, t);
+          fillCell(td, rw, t, recs, live);
+          if (sel && sel.rowKey === rw.key && sel.col === t) td.classList.add('selected');
+          td.addEventListener('click', () => selectCell(rw.key, t));
+          view.cells.set(`${rw.key}@@${t}`, td); tr.appendChild(td);
+        });
+        body.appendChild(tr);
       });
-      body.appendChild(tr);
     });
-    if (sheet === 'Lines / Drains / Airways' && !records.length) {
-      const tr = document.createElement('tr'); tr.innerHTML = `<td class="empty-cell" colspan="${times.length + 1}">No lines, drains or airways yet. Use Add device to place one.</td>`; body.appendChild(tr);
-    }
+    if (!any) { const tr = document.createElement('tr'); tr.innerHTML = `<td class="empty-cell" colspan="${times.length + 1}">${groups.length ? 'No rows shown. Use the Table of Contents to show a group.' : (sheet === 'Lines / Drains / Airways' ? 'No lines, drains or airways yet. Use Add line / drain to place one.' : 'Nothing to show.')}</td>`; body.appendChild(tr); }
     if (scroller) {
       if (scroller.clientWidth > 0) { scroller.scrollLeft = stickRight ? scroller.scrollWidth : prevLeft; stickRight = false; }   // while the page is hidden there is nothing to scroll yet
+      scroller.scrollTop = prevTop;
     }
+  }
+  function fillCell(td, rw, t, recs, live) {
+    if (rw.kind === 'total') {
+      const inCol = live.filter(r => r.col === t && r.ioKind);
+      if (!inCol.length) { td.classList.add('empty-cell-value'); return; }
+      const inn = inCol.filter(r => r.ioKind === 'intake').reduce((s, r) => s + r.ml, 0), outt = inCol.filter(r => r.ioKind === 'output').reduce((s, r) => s + r.ml, 0);
+      td.textContent = rw.total === 'Total intake' ? `${inn}` : rw.total === 'Total output' ? `${outt}` : `${inn - outt >= 0 ? '+' : ''}${inn - outt}`; return;
+    }
+    if (!recs.length) { td.classList.add('empty-cell-value'); return; }
+    const last = recs[recs.length - 1];
+    if (rw.kind === 'io') { td.textContent = String(recs.reduce((s, r) => s + r.ml, 0)); }
+    else td.textContent = rw.sub ? (SHORT[last.value] || last.value) : safe(last.value);
+    if (last.abnormal) td.classList.add('flowsheet-abnormal');
+    if (recs.some(r => r.studentEntered)) td.classList.add('fs-student');
+    const cm = recs.map(r => r.comment).filter(Boolean);
+    if (cm.length) { td.classList.add('fs-has-comment'); td.title = 'Comment: ' + cm.join(' | '); }
+    else if (recs.length > 1) td.title = recs.map(r => `${epicDate(r.collected)}  ${r.value}`).join('\n');
   }
 
   // ------------------------------------------------------------ I&O totals by shift / 24 h
@@ -306,12 +409,9 @@
     let start;
     if (h >= 7 && h < 19) { start = new Date(day); start.setHours(7); }
     else { start = new Date(day); if (h < 7) start.setDate(start.getDate() - 1); start.setHours(19); }
-    const stop = new Date(start.getTime() + 12 * 3600000);
-    const f = formatSimDate;
-    const day12 = start.getHours() === 7;
+    const stop = new Date(start.getTime() + 12 * 3600000), f = formatSimDate, day12 = start.getHours() === 7;
     return { key: f(start), label: `${day12 ? 'Day' : 'Night'} shift ${epicDate(f(start)).slice(0, 5)} ${pad2(start.getHours())}00 to ${epicDate(f(stop)).slice(0, 5)} ${pad2(stop.getHours())}00` };
   }
-  const pad2 = n => String(n).padStart(2, '0');
   function renderIoTotals(canonical) {
     const box = $('fsIoTotals'); if (!box) return;
     if (sheet !== 'Intake / Output') { box.className = 'fs-io-totals hidden'; box.innerHTML = ''; return; }
@@ -334,43 +434,197 @@
   function render(data) {
     ensureShell();
     const canonical = data?.__canonical || currentCanonicalCase || normalizeCaseData(data).canonical;
+    view.canonical = canonical;
     const all = buildFlowsheetRecords(canonical);
+    // columns added with "Add Col" take the values filed at exactly that minute
+    all.forEach(r => { const k = String(r.collected).slice(0, 16); if (extraCols.has(k)) r.col = k; });
     const bySheet = {}; SHEETS.forEach(s => { bySheet[s] = []; });
     all.forEach(r => bySheet[flowsheetSheetOf(r.section)].push(r));
-    const records = bySheet[sheet];
+    const records = bySheet[sheet]; view.records = records;
     const doc = Array.from(new Set(records.filter(r => !r.practiceHidden).map(r => safe(r.col || r.collected)).filter(Boolean))).sort();
-    const nk = nowCol();
-    let times = flowsheetLatestOnlyMode && doc.length ? [doc[doc.length - 1]] : (nk && !doc.includes(nk) ? [...doc, nk].sort() : doc.slice());
-    if (!times.length && nk) times = [nk];
+    const nk = nowCol(), set = new Set(flowsheetLatestOnlyMode && doc.length ? [doc[doc.length - 1]] : doc);
+    if (nk) set.add(nk);
+    extraCols.forEach(k => { if (!flowsheetLatestOnlyMode) set.add(k); });
+    if (sel && sel.col) set.add(sel.col);
+    const times = [...set].sort();
     $('flowsheetStatus').textContent = `${all.filter(r => !r.practiceHidden).length} documented values | ${SHEETS.length} flowsheets`;
-    $('flowsheetSectionCount').textContent = `${SHEETS.length} flowsheets`;
     $('flowsheetDateLabel').textContent = canonical.encounter?.admitDate ? epicDate(canonical.encounter.admitDate) : 'Current encounter';
     $('flowsheetFooterMeta').textContent = doc.length ? `${doc.length} documentation time(s)` : 'No documentation times';
     $('flowsheetLatestOnly').classList.toggle('active', flowsheetLatestOnlyMode);
-    renderNav(bySheet); renderSheetBar(); renderMonitor();
-    renderGrid(records, times, nk);
+    const groups = buildGroups(records); view.groups = groups;
+    renderTabs(bySheet); renderToc(groups); renderSheetBar(); renderMonitor();
+    renderGrid(records, times, nk, groups);
     renderIoTotals(canonical);
-    const live = records.filter(r => !r.practiceHidden);
-    let selected = live.find(r => r.id === currentFlowsheetSelection) || live.slice().sort((a, b) => String(a.col || a.collected).localeCompare(String(b.col || b.collected))).pop() || null;
-    if (selected) currentFlowsheetSelection = selected.id;
-    renderFlowsheetCellDetail(selected);
-    addDetailExtras(selected);
+    if (sel && !view.rows.has(sel.rowKey)) { sel = null; draft = null; editing = false; }
+    if (sel && !draft) resetDraft();
+    renderSide();
+    if (sel && editing) startInline(false);
   }
 
-  function addDetailExtras(rec) {
-    const body = $('flowsheetDetailBody'); if (!body || !rec) return;
-    const cell = (lastCell && lastCell.some(r => r.id === rec.id)) ? lastCell : null;
-    if (cell && cell.length > 1) {
-      const d = document.createElement('div'); d.className = 'flowsheet-detail-section';
-      d.innerHTML = `<h3>Entries in this column</h3>` + cell.map(r => `<div class="fs-entry-line">${esc(epicDate(r.collected))} &nbsp; ${esc(r.field)}: <b>${esc(r.value)}</b></div>`).join('');
-      body.appendChild(d);
+  // ------------------------------------------------------------ selecting and inline entry
+  const canEdit = (row, recs) => !row.readonly && row.kind !== 'total' && !row.removed && (row.kind === 'io' || recs.every(r => r.studentEntered));
+  function initialDraft(row, recs) {
+    const last = recs[recs.length - 1], d = { text: '', aux: '', comment: last && last.studentEntered ? safe(last.comment, '') : '', time: '' };
+    if (last && last.studentEntered && row.kind !== 'io') {
+      const v = String(last.value);
+      if (row.kind === 'temp') { const m = v.match(/(-?\d+(\.\d+)?)\s*°?\s*([CF])?/); d.text = m ? m[1] : ''; d.aux = m && m[3] ? m[3] : ''; }
+      else if (row.kind === 'num' || row.kind === 'painscore') d.text = (v.match(/-?\d+(\.\d+)?/) || [''])[0];
+      else if (row.kind === 'o2') { const dev = O2_DEVICES.find(x => v.startsWith(x)); d.text = dev || v; const fl = v.match(/(\d+(?:\.\d+)?)\s*L\/min/); d.aux = fl ? fl[1] : ''; }
+      else d.text = v;
     }
-    if (rec.studentEntered) {
-      const d = document.createElement('div'); d.className = 'flowsheet-detail-section';
-      d.innerHTML = `<span class="fs-student-tag">Charted by student</span> <button type="button" class="secondary-button fs-del">${rec.src === 'deviceRemoval' ? 'Undo removal' : 'Delete this entry'}</button>`;
-      d.querySelector('.fs-del').addEventListener('click', () => deleteEntry(rec));
-      body.appendChild(d);
+    return d;
+  }
+  function resetDraft() {
+    const row = selRow(); if (!row) return;
+    draft = initialDraft(row, cellRecs(row, sel.col)); draft.origComment = draft.comment; initialText = draft.text;
+  }
+  function draftDirty() { return !!draft && (draft.text !== initialText || (draft.comment && draft.comment !== (draft.origComment || ''))); }
+  function fileIfDirty() { if (sel && editing && draft && draft.text !== initialText && draft.text !== '') return fileSel(); return null; }
+  function selectCell(rowKey, col) {
+    if (sel && sel.rowKey === rowKey && sel.col === col && !addDevMode) { if (!editing) { const row = view.rows.get(rowKey); if (row && canEdit(row, cellRecs(row, col))) { if (!draft) resetDraft(); editing = true; startInline(true); } } return; }
+    if (sel && editing && draft && draft.text !== initialText && draft.text !== '') { const err = fileSel(true); if (err) return; }
+    const row = view.rows.get(rowKey); if (!row) return;
+    const recs = cellRecs(row, col);
+    sel = { rowKey, col }; addDevMode = false; msgText = '';
+    draft = initialDraft(row, recs); draft.origComment = draft.comment; initialText = draft.text;
+    editing = canEdit(row, recs);
+    rerender();
+  }
+  function closeSide() { sel = null; draft = null; editing = false; addDevMode = false; rerender(); }
+
+  function startInline(focus) {
+    if (!sel) return;
+    const row = view.rows.get(sel.rowKey), td = view.cells.get(`${sel.rowKey}@@${sel.col}`); if (!row || !td || !editing) return;
+    let el;
+    if (row.kind === 'choice' || row.kind === 'o2') {
+      el = document.createElement('select'); el.innerHTML = '<option value=""></option>' + (row.vital.opts || O2_DEVICES).map(o => `<option>${esc(o)}</option>`).join('');
+      el.value = draft.text;
+    } else {
+      el = document.createElement('input');
+      const numeric = ['temp', 'num', 'painscore', 'io'].includes(row.kind);
+      el.type = numeric ? 'number' : 'text'; if (numeric) { el.step = 'any'; el.inputMode = row.kind === 'temp' ? 'decimal' : 'numeric'; }
+      el.value = draft.text; el.placeholder = row.kind === 'io' ? '+ mL' : row.kind === 'bp' ? '120/80' : '';
+      if (row.kind === 'assess' && row.opts.length) { let dl = $('fsInlineList'); if (!dl) { dl = document.createElement('datalist'); dl.id = 'fsInlineList'; document.body.appendChild(dl); } dl.innerHTML = row.opts.map(o => `<option value="${esc(o)}"></option>`).join(''); el.setAttribute('list', 'fsInlineList'); }
     }
+    el.className = 'fs-inline'; el.setAttribute('aria-label', row.label);
+    td.textContent = ''; td.classList.add('fs-editing'); td.appendChild(el);
+    const tok = ++editToken;
+    el.addEventListener('input', () => { if (!draft) return; draft.text = el.value; writeSide(); });
+    el.addEventListener('change', () => { if (!draft) return; draft.text = el.value; writeSide(); if (el.tagName === 'SELECT') setTimeout(() => { if (tok === editToken && el.value) fileSel(); }, 0); });
+    el.addEventListener('keydown', e => {
+      if (!draft) return;
+      if (e.key === 'Enter') { e.preventDefault(); draft.text = el.value; fileSel(); }
+      else if (e.key === 'Escape') { e.preventDefault(); draft.text = initialText; editing = false; editToken++; rerender(); }
+    });
+    el.addEventListener('blur', e => {
+      const rt = e.relatedTarget; if (rt && rt.closest && rt.closest('#fsSidePanel')) return;
+      setTimeout(() => {
+        if (tok !== editToken || !editing || !draft) return;
+        const ae = document.activeElement; if (ae && ae.closest && ae.closest('#fsSidePanel')) return;
+        draft.text = el.value;
+        if (draft.text !== initialText && draft.text !== '') fileSel(); else { editing = false; editToken++; rerender(); }
+      }, 300);
+    });
+    if (focus !== false) { el.focus(); if (el.select && el.type !== 'number') { try { el.select(); } catch (e2) { /* ok */ } } }
+    else el.focus();
+  }
+
+  // ------------------------------------------------------------ filing
+  function selRow() { return sel ? view.rows.get(sel.rowKey) : null; }
+  function selTime() { return fromLocal(draft && draft.time) || entryTime(sel.col); }
+  function checkTime(t) {
+    if (!parseSimDate(t)) return 'Choose a valid time.';
+    if (ms(t) > ms(simulationTime)) return `That time is later than the patient's current time (${epicDate(simulationTime)}). Chart a time at or before now.`;
+    return '';
+  }
+  // returns an error text, or '' when filed
+  function fileSel(silent) {
+    const row = selRow(); if (!row || !draft) return '';
+    const recs = cellRecs(row, sel.col), t = selTime();
+    const d = draft, text = String(d.text || '').trim(), comment = String(d.comment || '').trim();
+    const fail = m => { msgText = m; renderSide(); if (editing) startInline(false); return m; };
+    const textChanged = text !== initialText && text !== '';
+    if (!textChanged || !canEdit(row, recs)) {
+      // comment only (also the way to comment on case-built values)
+      if (comment && comment !== (d.origComment || '') && recs.length && row.kind !== 'io') { fileComment(recs[recs.length - 1], comment); editing = false; editToken++; msgText = ''; refreshSimulationView(); return ''; }
+      if (!textChanged) { editing = false; editToken++; rerender(); return ''; }
+      return fail('This value is read-only.');
+    }
+    const te = checkTime(t); if (te) return fail(te);
+    let err = '';
+    const wasEditing = editing; editing = false; editToken++;   // so a refresh during filing does not reopen the editor
+    if (row.vital) err = fileVital(row, recs, t, d);
+    else if (row.kind === 'io') err = fileIo(row, t, d);
+    else if (row.kind === 'painscore') { const v = parseFloat(text); err = v >= 0 && v <= 10 ? fileAssessment(row, t, String(Math.round(v)), comment) : 'Pain should be between 0 and 10.'; }
+    else err = fileAssessment(row, t, text, comment);
+    if (err) { editing = wasEditing; return fail(err); }
+    msgText = ''; draft = null;
+    if (row.kind !== 'assess' && row.kind !== 'painscore') refreshSimulationView();
+    return '';
+  }
+  function buildVital(row, d) {
+    const spec = row.vital, text = String(d.text || '').trim(), num = parseFloat(text);
+    switch (spec.kind) {
+      case 'temp': { if (!(num > 0)) return { error: 'Enter the temperature.' }; const unit = d.aux || (num <= 45 ? 'C' : 'F'), f = unit === 'C' ? num * 9 / 5 + 32 : num; if (f < 85 || f > 110) return { error: 'Temperature looks out of range for the unit chosen.' }; return { v: ['TEMP', 'Temperature', `${num.toFixed(1)} °${unit}`, '', vitalFlag('TEMP', f)] }; }
+      case 'num': { if (!(num >= spec.lo && num <= spec.hi)) return { error: `${row.label} should be between ${spec.lo} and ${spec.hi}.` }; const fc = spec.code === 'SPO2HR' ? 'HR' : spec.code; return { v: [spec.code, row.label, String(Math.round(num)), spec.code === 'SPO2' ? '%' : spec.code === 'RR' ? '/min' : 'bpm', vitalFlag(fc, num)] }; }
+      case 'bp': { const m = text.match(/^(\d{2,3})\s*\/\s*(\d{2,3})$/); if (!m) return { error: 'Enter the blood pressure as systolic/diastolic, for example 120/80.' }; const s = +m[1], dd = +m[2]; if (s < 40 || s > 300 || dd < 20 || dd > 200) return { error: 'Blood pressure looks out of range.' }; if (s <= dd) return { error: 'Systolic pressure should be higher than diastolic.' }; return { v: ['BP', 'Blood Pressure', `${s}/${dd}`, '', vitalFlag('SBP', s)] }; }
+      case 'choice': return text ? { v: [spec.code, row.label, text, '', false] } : { error: 'Choose a value.' };
+      case 'o2': { if (!text) return { error: 'Choose an O2 device.' }; const fl = String(d.aux || '').trim(); return { v: ['O2DEV', 'O2 Device', text + (fl && text !== 'Room air' ? ` ${fl} L/min` : ''), '', false] }; }
+    }
+    return { error: 'This row cannot be charted.' };
+  }
+  function pushVital(v, t, comment, tag) {
+    const [code, label, value, units, abn] = v;
+    canon().observations.push({ id: `student_vital_${code.toLowerCase()}_${tag}`, type: 'vital', code, label, value, units, flag: abn ? 'Abnormal' : '', collected: t, source: 'Student charting', comment: comment || undefined, studentEntered: true });
+  }
+  function dropStudent(recs) {
+    const ids = new Set(recs.filter(r => r.studentEntered && r.src === 'obs').map(r => r.cloneOf || r.id));
+    if (ids.size) canon().observations = canon().observations.filter(o => !ids.has(o.id));
+  }
+  function fileVital(row, recs, t, d) {
+    const b = buildVital(row, d); if (b.error) return b.error;
+    dropStudent(recs);
+    pushVital(b.v, t, String(d.comment || '').trim(), stampDigits(t) + '_' + uid());
+    return '';
+  }
+  function fileIo(row, t, d) {
+    const ml = Math.round(parseFloat(d.text));
+    if (!(ml > 0) || ml > 10000) return 'Enter an amount between 1 and 10,000 mL.';
+    const c = canon(), kind = row.io, type = row.label;
+    if (!Array.isArray(c.ioEvents)) c.ioEvents = [];
+    const detail = { po: 0, iv: 0, urine: 0, other: 0, otherLabel: '' };
+    if (kind === 'intake') { if (type === 'Oral') detail.po = ml; else if (/^IV/.test(type)) detail.iv = ml; else { detail.otherIntake = ml; detail.otherIntakeLabel = type; } }
+    else if (type === 'Urine') detail.urine = ml; else { detail.other = ml; detail.otherLabel = type; }
+    c.ioEvents.push({ id: `io_student_${stampDigits(t)}_${kind}_${uid()}`, date: t.slice(0, 10), time: t.slice(11, 13) + t.slice(14, 16), collected: t, intake: kind === 'intake' ? ml : 0, output: kind === 'output' ? ml : 0, detail, ioKind: kind, ioType: type, comment: String(d.comment || '').trim() || undefined, studentEntered: true });
+    return '';
+  }
+  // assessments go through the existing save routine so practice-mode feedback still works
+  function fileAssessment(row, t, value, comment) {
+    const c = canon(), sec = $('chartAssessmentSection');
+    sec.innerHTML = `<option>${esc(row.section)}</option>`; sec.value = row.section;
+    $('chartAssessmentField').value = row.field; $('chartAssessmentValue').value = value; $('chartAssessmentTime').value = toLocal(t);
+    $('chartAssessmentAbnormal').checked = !!(window.FlowsheetPractice && row.section !== 'Lines / Drains / Airways' && window.FlowsheetPractice.isAbn(window.FlowsheetPractice.tagsOf(value)));
+    $('chartAssessmentMessage').textContent = '';
+    const before = c.observations.length; pendingComment = comment || '';
+    currentFlowsheetSelection = null;
+    saveFlowsheetAssessment();
+    pendingComment = '';
+    return c.observations.length > before ? '' : ($('chartAssessmentMessage').textContent || 'Could not file this entry.');
+  }
+  function findSource(rec) {
+    const c = canon();
+    if (rec.src === 'obs') return (c.observations || []).find(o => o.id === (rec.cloneOf || rec.id));
+    if (rec.src === 'io') return (c.ioEvents || []).find(e => e.id === rec.ioId);
+    if (rec.src === 'device' || rec.src === 'deviceRemoval') return (c.devices || []).find(d => d.id === rec.deviceId);
+    return null;
+  }
+  function fileComment(rec, text) {
+    const c = canon(), src = rec.studentEntered ? findSource(rec) : null;
+    if (src) { src.comment = text; return; }
+    if (!Array.isArray(c.flowsheetComments)) c.flowsheetComments = [];
+    const key = rec.cloneOf || rec.id;
+    c.flowsheetComments = c.flowsheetComments.filter(x => x.recordId !== key);
+    c.flowsheetComments.push({ id: `fscomment_${uid()}`, recordId: key, comment: text, collected: simulationTime, studentEntered: true });
   }
   function deleteEntry(rec) {
     const c = canon(); if (!c || !window.confirm(rec.src === 'deviceRemoval' ? 'Put this device back in service?' : 'Delete this student entry?')) return;
@@ -381,162 +635,129 @@
       const d = (c.devices || []).find(x => x.id === rec.deviceId);
       if (d) { delete d.removedAt; delete d.removedNote; delete d.removedByStudent; if (d.originalStatus !== undefined) { d.status = d.originalStatus; delete d.originalStatus; } }
     }
-    currentFlowsheetSelection = null; lastCell = null;
+    editing = false; editToken++; draft = null;
+    refreshSimulationView();
+  }
+  function fillColumn() {
+    const col = sel ? sel.col : nowCol(), t = col === nowCol() ? simulationTime : col, te = checkTime(t);
+    if (te) { alert(te); return; }
+    if (!monitorState().cur) { alert('The monitor has no reading yet.'); return; }
+    const tag = stampDigits(t) + '_' + uid(); let n = 0;
+    Object.keys(VSPEC).forEach(label => {
+      const spec = VSPEC[label]; if (!spec.code) return;
+      const mv = monitorValueFor(spec); if (!mv || !mv.text) return;
+      const row = { vital: spec, label, kind: spec.kind };
+      const b = buildVital(row, { text: mv.text, aux: mv.aux || '' }); if (b.error) return;
+      dropStudent(cellRecs({ section: 'Vital Signs', field: label }, col));
+      pushVital(b.v, t, '', tag); n++;
+    });
+    if (n) refreshSimulationView();
+  }
+
+  // ------------------------------------------------------------ sidebar
+  const unitsOf = row => row.vital ? (row.vital.kind === 'temp' ? '' : (row.vital.units || '')) : (row.units || (row.kind === 'painscore' ? '/10' : ''));
+  function controlsHtml(row, dis) {
+    const d = dis ? ' disabled' : '';
+    const sel2 = (id, list, withBlank) => `<select id="${id}"${d}>${withBlank ? '<option value=""></option>' : ''}${list.map(o => `<option>${esc(o)}</option>`).join('')}</select>`;
+    switch (row.kind) {
+      case 'temp': return `<div class="fs-ctl"><input id="fsS_text" type="number" step="0.1" inputmode="decimal"${d}><select id="fsS_aux"${d}><option value="">auto</option><option>F</option><option>C</option></select></div>`;
+      case 'num': case 'painscore': case 'io': return `<div class="fs-ctl"><input id="fsS_text" type="number" step="any" inputmode="numeric"${d} placeholder="${row.kind === 'io' ? 'mL to add' : ''}"><span class="fs-units">${esc(unitsOf(row))}</span></div>`;
+      case 'bp': return `<div class="fs-ctl"><input id="fsS_sbp" type="number" inputmode="numeric" placeholder="SBP"${d}><b>/</b><input id="fsS_dbp" type="number" inputmode="numeric" placeholder="DBP"${d}><span class="fs-units">mmHg</span></div><div class="fs-map-line">MAP <output id="fsS_map">--</output></div>`;
+      case 'choice': return `<div class="fs-ctl">${sel2('fsS_sel', row.vital.opts, true)}</div>`;
+      case 'o2': return `<div class="fs-ctl">${sel2('fsS_sel', O2_DEVICES, true)}</div><div class="fs-ctl"><input id="fsS_aux" type="number" step="0.5" inputmode="decimal" placeholder="Flow (L/min)"${d}><span class="fs-units">L/min</span></div>`;
+      case 'assess': return `${row.opts.length ? `<div class="fs-ctl">${sel2('fsS_sel', row.opts.concat(['Other (type below)']), true)}</div>` : ''}<div class="fs-ctl"><input id="fsS_text" type="text" placeholder="Type a finding"${d}></div>`;
+    }
+    return '';
+  }
+  function writeSide() {
+    if (!draft) return;
+    const set = (id, v) => { const el = $(id); if (el && document.activeElement !== el) el.value = v; };
+    set('fsS_text', draft.text); set('fsS_aux', draft.aux || '');
+    const sel3 = $('fsS_sel'); if (sel3 && document.activeElement !== sel3) { const has = [...sel3.options].some(o => o.value === draft.text || o.text === draft.text); sel3.value = has ? draft.text : (draft.text ? 'Other (type below)' : ''); }
+    const row = selRow();
+    if (row && row.kind === 'bp') { const m = String(draft.text).match(/^(\d*)\s*\/?\s*(\d*)$/); if (m) { set('fsS_sbp', m[1]); set('fsS_dbp', m[2]); } const mp = flowsheetMapOf(draft.text); const o = $('fsS_map'); if (o) o.textContent = mp != null ? `${mp} mmHg` : '--'; }
+    const fi = document.querySelector('#flowsheetGridBody .fs-inline'); if (fi && document.activeElement !== fi) fi.value = draft.text;
+  }
+  function bindSide(row) {
+    const upd = () => { const f = document.querySelector('#flowsheetGridBody .fs-inline'); if (f && document.activeElement !== f) f.value = draft.text; };
+    const t = $('fsS_text'); if (t) t.addEventListener('input', () => { if (!draft) return; draft.text = t.value; if (row.kind === 'assess') { const s = $('fsS_sel'); if (s) { const has = [...s.options].some(o => o.value === t.value); s.value = has ? t.value : (t.value ? 'Other (type below)' : ''); } } upd(); });
+    const a = $('fsS_aux'); if (a) { const setAux = () => { if (draft) draft.aux = a.value; }; a.addEventListener('input', setAux); a.addEventListener('change', setAux); }
+    const s = $('fsS_sel'); if (s) s.addEventListener('change', () => { if (!draft) return; if (s.value === 'Other (type below)') { draft.text = ''; const tx = $('fsS_text'); if (tx) { tx.value = ''; tx.focus(); } } else { draft.text = s.value; const tx = $('fsS_text'); if (tx) tx.value = s.value; } upd(); });
+    if (row.kind === 'bp') {
+      const sb = $('fsS_sbp'), db = $('fsS_dbp'), map = $('fsS_map');
+      const f = () => { if (!draft) return; draft.text = sb.value || db.value ? `${sb.value}/${db.value}` : ''; const mp = flowsheetMapOf(draft.text); map.textContent = mp != null ? `${mp} mmHg` : '--'; upd(); };
+      sb.addEventListener('input', f); db.addEventListener('input', f);
+    }
+    const cm = $('fsS_comment'); if (cm) cm.addEventListener('input', () => { if (draft) draft.comment = cm.value; });
+  }
+  const sourceOf = r => r.studentEntered ? 'Student charting' : 'Case data';
+  function renderSide() {
+    const side = $('fsSide'), layout = document.querySelector('#flowsheetsSection .flowsheet-layout'); if (!side || !layout) return;
+    if (addDevMode) { layout.classList.add('fs-side-open'); renderAddDevice(side); return; }
+    if (!sel) { layout.classList.remove('fs-side-open'); side.innerHTML = ''; return; }
+    const row = selRow(); if (!row) { layout.classList.remove('fs-side-open'); side.innerHTML = ''; return; }
+    layout.classList.add('fs-side-open');
+    const recs = cellRecs(row, sel.col), last = recs[recs.length - 1], edit = canEdit(row, recs), t = draft && draft.time ? draft.time : toLocal(entryTime(sel.col));
+    const dev = row.deviceId ? activeDeviceById(row.deviceId) : null;
+    const hist = rowRecs(row).filter(r => { const tm = ms(r.collected); return isFinite(tm) ? (tm <= ms(entryTime(sel.col)) + 59000 && tm >= ms(entryTime(sel.col)) - 24 * 3600000) : false; }).sort((a, b) => String(b.collected).localeCompare(String(a.collected))).slice(0, 12);
+    const nums = hist.map(r => parseFloat(String(r.value))).filter(x => isFinite(x));
+    const monBtn = row.vital && row.vital.code && monitorVisible() && edit ? '<button type="button" class="secondary-button" id="fsS_fill">Fill from monitor</button>' : '';
+    const readOnlyNote = row.kind === 'total' || row.readonly ? 'Calculated automatically.' : (!edit ? (row.removed ? 'This device has been removed.' : 'Case data is read-only. You can add a comment.') : '');
+    const canComment = row.kind !== 'total' && !row.readonly;
+    side.innerHTML = `<div class="fs-side-head"><div><b>${esc(row.label)}</b><span>${esc(row.group)} &middot; ${esc(epicDate(entryTime(sel.col)))}</span></div><button type="button" class="icon-button" id="fsS_close" aria-label="Close sidebar">×</button></div>
+      <div class="fs-side-body">
+        ${readOnlyNote ? `<div class="fs-side-note">${esc(readOnlyNote)}</div>` : ''}
+        ${edit ? `<label class="fs-side-label">Value${unitsOf(row) && row.kind !== 'bp' ? ` (${esc(unitsOf(row))})` : ''}</label>${controlsHtml(row, false)}<label class="fs-side-label">Time</label><div class="fs-ctl"><input id="fsS_time" type="datetime-local" step="60" value="${esc(t)}" max="${esc(toLocal(simulationTime))}"><button type="button" class="secondary-button" id="fsS_now">Now</button></div>`  : ''}
+        ${canComment ? `<label class="fs-side-label" for="fsS_comment">Comment</label><textarea id="fsS_comment" rows="2" placeholder="Add a comment">${esc(draft ? draft.comment : '')}</textarea>` : ''}
+        ${canComment ? `<div class="fs-side-actions"><button type="button" class="primary-button" id="fsS_file">${edit ? 'File' : 'File comment'}</button>${monBtn}<button type="button" class="secondary-button" id="fsS_cancel">Cancel</button></div>` : ''}
+        <div id="fsS_msg" class="import-message ${msgText ? 'error' : ''}">${esc(msgText)}</div>
+        <h4 class="fs-side-h">Value Information</h4>
+        ${last ? `<dl class="fs-info"><dt>Value</dt><dd class="${last.abnormal ? 'flowsheet-abnormal' : ''}">${esc(last.value)}</dd><dt>Collected</dt><dd>${esc(safe(last.collected))}</dd><dt>Source</dt><dd>${esc(sourceOf(last))}${last.derived ? ' (default)' : ''}</dd><dt>Recorded by</dt><dd>${last.studentEntered ? 'Student' : 'Case record'}</dd>${last.comment ? `<dt>Comment</dt><dd>${esc(last.comment)}</dd>` : ''}${last.details && row.section !== 'Intake / Output' ? `<dt>Detail</dt><dd>${esc(last.details)}</dd>` : ''}</dl>` : '<div class="fs-side-empty">No value filed for this time.</div>'}
+        ${recs.filter(r => r.studentEntered).map((r, i) => `<div class="fs-entry-line">${esc(epicDate(r.collected))} <b>${esc(r.value)}</b> <button type="button" class="secondary-button fs-del" data-i="${i}">${r.src === 'deviceRemoval' ? 'Undo removal' : 'Delete'}</button></div>`).join('')}
+        ${nums.length >= 1 && row.kind !== 'io' ? `<h4 class="fs-side-h">Min / Max (24 hours)</h4><dl class="fs-info"><dt>Min</dt><dd>${Math.min(...nums)}</dd><dt>Max</dt><dd>${Math.max(...nums)}</dd></dl>` : ''}
+        <h4 class="fs-side-h">Last Filed Values (24 hours)</h4>
+        ${hist.length ? `<ul class="fs-hist">${hist.map(r => `<li><b class="${r.abnormal ? 'flowsheet-abnormal' : ''}">${esc(r.value)}</b><span>${esc(epicDate(r.collected))} &middot; ${esc(sourceOf(r))}</span></li>`).join('')}</ul>` : '<div class="fs-side-empty">None in the last 24 hours.</div>'}
+        ${dev ? `<h4 class="fs-side-h">Remove / discontinue device</h4><div class="fs-ctl"><input id="fsR_time" type="datetime-local" step="60" value="${esc(toLocal(simulationTime))}" max="${esc(toLocal(simulationTime))}"></div><div class="fs-ctl"><input id="fsR_note" type="text" placeholder="Removal note (tip intact, site care)"></div><div class="fs-side-actions"><button type="button" class="secondary-button" id="fsR_go">Remove device</button></div>` : ''}
+      </div>`;
+    if (edit) { writeSide(); bindSide(row); const tm = $('fsS_time'); if (tm) tm.addEventListener('change', () => { if (draft) draft.time = tm.value; }); const nw = $('fsS_now'); if (nw) nw.addEventListener('click', () => { tm.value = toLocal(simulationTime); if (draft) draft.time = tm.value; }); }
+    else { const cm = $('fsS_comment'); if (cm) cm.addEventListener('input', () => { if (draft) draft.comment = cm.value; }); }
+    $('fsS_close').addEventListener('click', closeSide);
+    const fb = $('fsS_file'); if (fb) fb.addEventListener('click', () => { if (editing || edit) { const ae = document.querySelector('#flowsheetGridBody .fs-inline'); if (ae && draft) draft.text = draft.text || ae.value; } fileSel(); });
+    const cb = $('fsS_cancel'); if (cb) cb.addEventListener('click', () => { editing = false; editToken++; draft = null; sel = null; rerender(); });
+    const fl = $('fsS_fill'); if (fl) fl.addEventListener('click', () => { const mv = monitorValueFor(row.vital); if (!mv) { msgText = 'The monitor has no reading for this row.'; renderSide(); return; } draft.text = mv.text; if (mv.aux !== undefined) draft.aux = mv.aux; writeSide(); const f = document.querySelector('#flowsheetGridBody .fs-inline'); if (f) f.value = draft.text; msgText = ''; });
+    side.querySelectorAll('.fs-del').forEach(b => b.addEventListener('click', () => deleteEntry(recs.filter(r => r.studentEntered)[+b.dataset.i])));
+    const rg = $('fsR_go'); if (rg) rg.addEventListener('click', () => removeDevice(dev));
+  }
+  const activeDeviceById = id => (view.canonical && (view.canonical.devices || []).find(d => d.id === id)) || null;
+  function removeDevice(dev) {
+    const t = fromLocal($('fsR_time').value), msg = $('fsR_msg') || $('fsS_msg');
+    const err = m => { msgText = m; renderSide(); };
+    const te = checkTime(t); if (te) return err(te);
+    const c = canon(), real = (c.devices || []).find(x => x.id === dev.id); if (!real) return err('Device not found.');
+    if (parseSimDate(real.placementDate) && ms(t) < ms(real.placementDate)) return err(`The device was placed at ${epicDate(real.placementDate)}; it cannot be removed before that.`);
+    if (real.originalStatus === undefined) real.originalStatus = real.status;
+    real.removedAt = t; real.removedNote = $('fsR_note').value.trim(); real.removedByStudent = true;
+    sel = null; draft = null; editing = false; msgText = '';
     refreshSimulationView();
   }
 
-  // ------------------------------------------------------------ dialogs
-  function makeDialog(id, title, sub, body) {
-    let dlg = $(id); if (dlg) dlg.remove();
-    dlg = document.createElement('dialog'); dlg.id = id; dlg.className = 'action-dialog fs-form';
-    dlg.innerHTML = `<div class="dialog-header"><div><h2>${esc(title)}</h2><p>${esc(sub)}</p></div><button type="button" class="icon-button" data-close aria-label="Close">×</button></div><div class="dialog-body">${body}</div>`;
-    document.body.appendChild(dlg);
-    dlg.addEventListener('click', e => { if (e.target.closest && e.target.closest('[data-close]')) dlg.close(); const n = e.target.closest && e.target.closest('[data-now]'); if (n) { const inp = $(n.dataset.now); if (inp) inp.value = toLocal(simulationTime); } });
-    return dlg;
-  }
-  const timeField = (id, label) => `<label class="fs-wide"><span class="input-label">${label || 'Time charted'}</span><span class="fs-time-row"><input id="${id}" type="datetime-local" step="60"><button type="button" class="secondary-button" data-now="${id}">Now</button></span></label>`;
-  const setTime = (id, t) => { const el = $(id); el.value = toLocal(t && parseSimDate(t) ? t : simulationTime); el.max = toLocal(simulationTime); };
-  function readTime(id, msgId) {
-    const t = fromLocal($(id).value), msg = $(msgId);
-    const fail = text => { msg.textContent = text; msg.className = 'import-message error'; return null; };
-    if (!parseSimDate(t)) return fail('Choose the time you are charting.');
-    if (ms(t) > ms(simulationTime)) return fail(`That time is later than the patient's current time (${epicDate(simulationTime)}). Move the clock forward first, or choose an earlier time.`);
-    return t;
-  }
-  const opts = (list, sel) => list.map(x => `<option${x === sel ? ' selected' : ''}>${esc(x)}</option>`).join('');
-  const done = () => { currentFlowsheetSelection = null; lastCell = null; refreshSimulationView(); };
-
-  // ---- vitals
-  const srcSel = (id, label, list) => `<label><span class="input-label">${label}</span><select id="${id}"><option value="">(not charted)</option>${opts(list)}</select></label>`;
-  function openVitals(time) {
-    if (!canon()) { alert('Load a patient first.'); return; }
-    const dlg = makeDialog('fsVitalsDialog', 'Chart vital signs', 'Creates time-stamped vital sign entries. Leave a box empty to skip it.', `
-      <div class="fs-grid fs-grid3">
-        ${timeField('fsv_time')}
-        <label><span class="input-label">Temperature</span><span class="fs-time-row"><input id="fsv_temp" type="number" inputmode="decimal" step="0.1" placeholder="98.6"><select id="fsv_tunit" style="max-width:76px"><option>F</option><option>C</option></select></span></label>
-        ${srcSel('fsv_tsrc', 'Temp source', TEMP_SOURCES)}
-        <label><span class="input-label">Heart rate (bpm)</span><input id="fsv_hr" type="number" inputmode="numeric" placeholder="80"></label>
-        ${srcSel('fsv_hrsrc', 'HR source', HR_SOURCES)}
-        <label><span class="input-label">Pulse rate from SpO2 (bpm)</span><input id="fsv_pr" type="number" inputmode="numeric" placeholder="80"></label>
-        <label><span class="input-label">Blood pressure (mmHg)</span><span class="fs-time-row"><input id="fsv_sbp" type="number" inputmode="numeric" placeholder="120"><b>/</b><input id="fsv_dbp" type="number" inputmode="numeric" placeholder="80"></span></label>
-        ${srcSel('fsv_bploc', 'BP location', BP_LOCS)}
-        ${srcSel('fsv_bpmeth', 'BP method', BP_METHODS)}
-        <label><span class="input-label">MAP (calculated)</span><output id="fsv_map" class="fs-map">--</output></label>
-        <label><span class="input-label">Respiratory rate (/min)</span><input id="fsv_rr" type="number" inputmode="numeric" placeholder="16"></label>
-        ${srcSel('fsv_rrsrc', 'RR source', RR_SOURCES)}
-        <label><span class="input-label">SpO2 (%)</span><input id="fsv_spo2" type="number" inputmode="numeric" placeholder="97"></label>
-        <label><span class="input-label">O2 device</span><select id="fsv_o2"><option value="">(not charted)</option>${opts(O2_DEVICES)}</select></label>
-        <label><span class="input-label">O2 flow (L/min)</span><input id="fsv_flow" type="number" inputmode="decimal" step="0.5" placeholder="2"></label>
-        <label><span class="input-label">Pain (0 to 10)</span><input id="fsv_pain" type="number" inputmode="numeric" min="0" max="10" placeholder="0"></label>
-      </div>
-      <div class="dialog-actions"><div id="fsv_msg" class="import-message"></div><span class="fs-btn-row">${monitorVisible() ? '<button type="button" id="fsv_fill" class="secondary-button">Fill from monitor</button>' : ''}<button type="button" id="fsv_save" class="primary-button">Save vitals</button></span></div>`);
-    dlg.classList.add('fs-form-wide');
-    setTime('fsv_time', time);
-    const updMap = () => { const s = parseFloat($('fsv_sbp').value), d = parseFloat($('fsv_dbp').value); $('fsv_map').textContent = s > 0 && d > 0 ? `${Math.round((s + 2 * d) / 3)} mmHg` : '--'; };
-    $('fsv_sbp').addEventListener('input', updMap); $('fsv_dbp').addEventListener('input', updMap);
-    const fill = $('fsv_fill'); if (fill) fill.addEventListener('click', () => { fillFromMonitor(); updMap(); });
-    $('fsv_save').addEventListener('click', saveVitals);
-    dlg.showModal();
-  }
-  function fillFromMonitor() {
-    const { cur } = monitorState(), msg = $('fsv_msg');
-    if (!cur) { msg.textContent = 'The monitor has no reading yet.'; msg.className = 'import-message error'; return; }
-    const v = setValues(cur), num = s => { const m = String(s || '').match(/-?\d+(\.\d+)?/); return m ? m[0] : ''; };
-    $('fsv_temp').value = num(valText(v.TEMP)); $('fsv_tunit').value = /°?\s*C\b/.test(valText(v.TEMP)) ? 'C' : 'F';
-    $('fsv_hr').value = num(valText(v.HR)); $('fsv_pr').value = num(v.PR); $('fsv_rr').value = num(valText(v.RR)); $('fsv_spo2').value = num(valText(v.SPO2)); $('fsv_pain').value = num(valText(v.PAIN));
-    const bp = valText(v.BP).match(/(\d+)\s*\/\s*(\d+)/); $('fsv_sbp').value = bp ? bp[1] : ''; $('fsv_dbp').value = bp ? bp[2] : '';
-    const pick = (id, list, val) => { $(id).value = list.includes(val) ? val : ''; };
-    pick('fsv_tsrc', TEMP_SOURCES, v.TEMPSRC); pick('fsv_hrsrc', HR_SOURCES, v.HRSRC); pick('fsv_bploc', BP_LOCS, v.BPLOC); pick('fsv_bpmeth', BP_METHODS, v.BPMETH); pick('fsv_rrsrc', RR_SOURCES, v.RRSRC);
-    const o2 = String(v.O2 || ''), hit = O2_DEVICES.find(d => o2.toLowerCase().includes(d.toLowerCase().split(' ')[0]) && (d !== 'Room air' || /room|\bra\b/i.test(o2)));
-    $('fsv_o2').value = /room air|\bra\b/i.test(o2) ? 'Room air' : (hit || ''); const fl = o2.match(/(\d+(?:\.\d+)?)\s*l/i); $('fsv_flow').value = fl && $('fsv_o2').value !== 'Room air' ? fl[1] : '';
-    setTime('fsv_time', simulationTime);
-    msg.textContent = `Filled from the monitor reading at ${hhmm(cur.time)}. Check, then save.`; msg.className = 'import-message success';
-  }
-  function saveVitals() {
-    const msg = $('fsv_msg'), t = readTime('fsv_time', 'fsv_msg'); if (!t) return;
-    const err = text => { msg.textContent = text; msg.className = 'import-message error'; };
-    const g = id => $(id).value.trim(), out = [];
-    const num = (id, lo, hi, name) => { const s = g(id); if (s === '') return null; const v = parseFloat(s); if (!(v >= lo && v <= hi)) { err(`${name} should be between ${lo} and ${hi}.`); return NaN; } return v; };
-    const src = (code, label, id) => { const v = g(id); if (v) out.push([code, label, v, '', false]); };
-    const temp = num('fsv_temp', 25, 110, 'Temperature'); if (Number.isNaN(temp)) return;
-    if (temp != null) { const unit = $('fsv_tunit').value, f = unit === 'C' ? temp * 9 / 5 + 32 : temp; if (f < 85 || f > 110) return err('Temperature looks out of range for the unit chosen.'); out.push(['TEMP', 'Temperature', `${temp.toFixed(1)} °${unit}`, '', vitalFlag('TEMP', f)]); src('TEMPSRC', 'Temp Source', 'fsv_tsrc'); }
-    else if (g('fsv_tsrc')) return err('Enter the temperature that goes with the source, or clear the source.');
-    const hr = num('fsv_hr', 20, 300, 'Heart rate'); if (Number.isNaN(hr)) return; if (hr != null) { out.push(['HR', 'Heart Rate', String(Math.round(hr)), 'bpm', vitalFlag('HR', hr)]); src('HRSRC', 'HR Source', 'fsv_hrsrc'); }
-    else if (g('fsv_hrsrc')) return err('Enter the heart rate that goes with the source, or clear the source.');
-    const pr = num('fsv_pr', 20, 300, 'Pulse rate from SpO2'); if (Number.isNaN(pr)) return; if (pr != null) out.push(['SPO2HR', 'Pulse Rate from SpO2', String(Math.round(pr)), 'bpm', vitalFlag('HR', pr)]);
-    const sbp = num('fsv_sbp', 40, 300, 'Systolic pressure'); if (Number.isNaN(sbp)) return;
-    const dbp = num('fsv_dbp', 20, 200, 'Diastolic pressure'); if (Number.isNaN(dbp)) return;
-    if ((sbp == null) !== (dbp == null)) return err('Enter both numbers of the blood pressure.');
-    if (sbp != null) { if (sbp <= dbp) return err('Systolic pressure should be higher than diastolic.'); out.push(['BP', 'Blood Pressure', `${Math.round(sbp)}/${Math.round(dbp)}`, '', vitalFlag('SBP', sbp)]); src('BPLOC', 'BP Location', 'fsv_bploc'); src('BPMETH', 'BP Method', 'fsv_bpmeth'); }
-    else if (g('fsv_bploc') || g('fsv_bpmeth')) return err('Enter the blood pressure that goes with the location / method, or clear them.');
-    const rr = num('fsv_rr', 4, 70, 'Respiratory rate'); if (Number.isNaN(rr)) return; if (rr != null) { out.push(['RR', 'Respiratory Rate', String(Math.round(rr)), '/min', vitalFlag('RR', rr)]); src('RRSRC', 'RR Source', 'fsv_rrsrc'); }
-    else if (g('fsv_rrsrc')) return err('Enter the respiratory rate that goes with the source, or clear the source.');
-    const sp = num('fsv_spo2', 50, 100, 'SpO2'); if (Number.isNaN(sp)) return; if (sp != null) out.push(['SPO2', 'SpO2', String(Math.round(sp)), '%', vitalFlag('SPO2', sp)]);
-    const pn = num('fsv_pain', 0, 10, 'Pain'); if (Number.isNaN(pn)) return; if (pn != null) out.push(['PAIN', 'Pain', `${Math.round(pn)}/10`, '', false]);
-    const dev = $('fsv_o2').value, flow = g('fsv_flow');
-    if (dev) out.push(['O2DEV', 'O2 Device', dev + (flow && dev !== 'Room air' ? ` ${flow} L/min` : ''), '', false]);
-    if (!out.length) return err('Enter at least one vital sign.');
-    const c = canon(), tag = stampDigits(t) + '_' + uid();
-    out.forEach(([code, label, value, units, abn]) => c.observations.push({ id: `student_vital_${code.toLowerCase()}_${tag}`, type: 'vital', code, label, value, units, flag: abn ? 'Abnormal' : '', collected: t, source: 'Student charting', studentEntered: true }));
-    $('fsVitalsDialog').close(); done();
-  }
-
-  // ---- intake / output
-  function openIO(time, kind, label) {
-    if (!canon()) { alert('Load a patient first.'); return; }
-    const dlg = makeDialog('fsIoDialog', 'Chart intake and output', 'Adds to the patient\'s totals on the Flowsheet and the Summary page.', `
-      <div class="fs-grid">
-        ${timeField('fsio_time')}
-        <label><span class="input-label">Intake type</span><select id="fsio_itype">${opts(INTAKE_TYPES)}</select></label>
-        <label><span class="input-label">Intake amount (mL)</span><input id="fsio_iml" type="number" inputmode="numeric" min="0" placeholder="0"></label>
-        <label><span class="input-label">Output type</span><select id="fsio_otype">${opts(OUTPUT_TYPES)}</select></label>
-        <label><span class="input-label">Output amount (mL)</span><input id="fsio_oml" type="number" inputmode="numeric" min="0" placeholder="0"></label>
-        <label class="fs-wide"><span class="input-label">Note (optional)</span><input id="fsio_note" type="text" placeholder="e.g., clear yellow urine, 8 oz cup"></label>
-      </div>
-      <div class="dialog-actions"><div id="fsio_msg" class="import-message"></div><span class="fs-btn-row"><button type="button" id="fsio_more" class="secondary-button">Save and add another</button><button type="button" id="fsio_save" class="primary-button">Save</button></span></div>`);
-    setTime('fsio_time', time);
-    if (kind === 'output') { if (label) $('fsio_otype').value = label; $('fsio_oml').focus(); } else if (label) $('fsio_itype').value = label;
-    $('fsio_save').addEventListener('click', () => saveIO(false));
-    $('fsio_more').addEventListener('click', () => saveIO(true));
-    dlg.showModal();
-  }
-  function saveIO(again) {
-    const msg = $('fsio_msg'), t = readTime('fsio_time', 'fsio_msg'); if (!t) return;
-    const err = text => { msg.textContent = text; msg.className = 'import-message error'; };
-    const iml = $('fsio_iml').value === '' ? 0 : Math.round(parseFloat($('fsio_iml').value)), oml = $('fsio_oml').value === '' ? 0 : Math.round(parseFloat($('fsio_oml').value));
-    if (!(iml >= 0 && oml >= 0) || iml > 10000 || oml > 10000) return err('Amounts must be between 0 and 10,000 mL.');
-    if (!iml && !oml) return err('Enter an intake or an output amount in mL.');
-    const c = canon(), note = $('fsio_note').value.trim();
-    if (!Array.isArray(c.ioEvents)) c.ioEvents = [];
-    const make = (kind, type, ml) => {
-      const detail = { po: 0, iv: 0, urine: 0, other: 0, otherLabel: '' };
-      if (kind === 'intake') { if (type === 'Oral') detail.po = ml; else if (/^IV/.test(type)) detail.iv = ml; else { detail.otherIntake = ml; detail.otherIntakeLabel = type; } }
-      else if (type === 'Urine') detail.urine = ml; else { detail.other = ml; detail.otherLabel = type; }
-      c.ioEvents.push({ id: `io_student_${stampDigits(t)}_${kind}_${uid()}`, date: t.slice(0, 10), time: t.slice(11, 13) + t.slice(14, 16), collected: t, intake: kind === 'intake' ? ml : 0, output: kind === 'output' ? ml : 0, detail, ioKind: kind, ioType: type, note, studentEntered: true });
-    };
-    if (iml) make('intake', $('fsio_itype').value, iml);
-    if (oml) make('output', $('fsio_otype').value, oml);
-    if (again) { $('fsio_iml').value = ''; $('fsio_oml').value = ''; $('fsio_note').value = ''; msg.textContent = 'Saved. Add another.'; msg.className = 'import-message success'; refreshSimulationView(); }
-    else { $('fsIoDialog').close(); done(); }
-  }
-
-  // ---- devices
-  function openDeviceAdd() {
-    if (!canon()) { alert('Load a patient first.'); return; }
+  // ---- Add line / drain (sidebar form)
+  const optsHtml = (list, sel2) => list.map(x => `<option${x === sel2 ? ' selected' : ''}>${esc(x)}</option>`).join('');
+  function renderAddDevice(side) {
     const first = DEVICE_TYPES[0];
-    const dlg = makeDialog('fsDeviceDialog', 'Add a line, drain, tube or airway', 'The device appears on the Avatar at the site you choose.', `
-      <div class="fs-grid">
-        <label><span class="input-label">Device type</span><select id="fsd_type">${DEVICE_TYPES.map(d => `<option>${esc(d[0])}</option>`).join('')}</select></label>
-        <label id="fsd_otherwrap" class="hidden"><span class="input-label">Device name</span><input id="fsd_other" type="text" placeholder="e.g., Rectal tube"></label>
-        <label><span class="input-label">Location (Avatar site)</span><select id="fsd_site">${SITES.map(s => `<option value="${s[0]}"${s[0] === first[2] ? ' selected' : ''}>${esc(s[1])}</option>`).join('')}</select></label>
-        <label><span class="input-label">Gauge / size</span><input id="fsd_size" type="text" list="fsd_sizes" placeholder="e.g., 20 gauge"><datalist id="fsd_sizes"></datalist></label>
-        ${timeField('fsd_time', 'Date / time placed')}
-        <label><span class="input-label">Status</span><input id="fsd_status" type="text" value="${esc(first[4])}"></label>
-        <label class="fs-wide"><span class="input-label" id="fsd_infl">Infusing (optional)</span><input id="fsd_inf" type="text" placeholder="e.g., 0.9% NS at 75 mL/hr"></label>
-        <label class="fs-wide"><span class="input-label">Assessment</span><input id="fsd_assess" type="text" placeholder="e.g., Site clean, dry, intact; flushes without resistance"></label>
-      </div>
-      <div class="dialog-actions"><div id="fsd_msg" class="import-message"></div><button type="button" id="fsd_save" class="primary-button">Add device</button></div>`);
-    setTime('fsd_time', simulationTime);
+    side.innerHTML = `<div class="fs-side-head"><div><b>Add line / drain</b><span>Appears on the Avatar at the site you choose</span></div><button type="button" class="icon-button" id="fsD_close" aria-label="Close sidebar">×</button></div>
+      <div class="fs-side-body">
+        <label class="fs-side-label">Device type</label><div class="fs-ctl"><select id="fsd_type">${DEVICE_TYPES.map(d => `<option>${esc(d[0])}</option>`).join('')}</select></div>
+        <div id="fsd_otherwrap" class="fs-ctl hidden"><input id="fsd_other" type="text" placeholder="Device name"></div>
+        <label class="fs-side-label">Location (Avatar site)</label><div class="fs-ctl"><select id="fsd_site">${SITES.map(s => `<option value="${s[0]}"${s[0] === first[2] ? ' selected' : ''}>${esc(s[1])}</option>`).join('')}</select></div>
+        <label class="fs-side-label">Gauge / size</label><div class="fs-ctl"><input id="fsd_size" type="text" list="fsd_sizes" placeholder="e.g., 20 gauge"><datalist id="fsd_sizes"></datalist></div>
+        <label class="fs-side-label">Date / time placed</label><div class="fs-ctl"><input id="fsd_time" type="datetime-local" step="60" value="${esc(toLocal(simulationTime))}" max="${esc(toLocal(simulationTime))}"><button type="button" class="secondary-button" id="fsd_now">Now</button></div>
+        <label class="fs-side-label">Status</label><div class="fs-ctl"><input id="fsd_status" type="text" value="${esc(first[4])}"></div>
+        <label class="fs-side-label" id="fsd_infl">Infusing (optional)</label><div class="fs-ctl"><input id="fsd_inf" type="text" placeholder="e.g., 0.9% NS at 75 mL/hr"></div>
+        <label class="fs-side-label">Assessment</label><div class="fs-ctl"><input id="fsd_assess" type="text" placeholder="e.g., Site clean, dry, intact"></div>
+        <div class="fs-side-actions"><button type="button" class="primary-button" id="fsd_save">Add device</button><button type="button" class="secondary-button" id="fsd_cancel">Cancel</button></div>
+        <div id="fsd_msg" class="import-message"></div>
+      </div>`;
     const sync = () => {
       const d = DEVICE_TYPES.find(x => x[0] === $('fsd_type').value) || DEVICE_TYPES[0];
       $('fsd_site').value = d[2]; $('fsd_status').value = d[4];
@@ -545,12 +766,13 @@
       $('fsd_infl').textContent = d[1] === 'IV' ? 'Infusing (optional)' : 'Drainage / output (optional)';
     };
     $('fsd_type').addEventListener('change', sync); sync();
+    $('fsd_now').addEventListener('click', () => { $('fsd_time').value = toLocal(simulationTime); });
+    $('fsD_close').addEventListener('click', closeSide); $('fsd_cancel').addEventListener('click', closeSide);
     $('fsd_save').addEventListener('click', saveDeviceAdd);
-    dlg.showModal();
   }
   function saveDeviceAdd() {
-    const msg = $('fsd_msg'), t = readTime('fsd_time', 'fsd_msg'); if (!t) return;
-    const err = text => { msg.textContent = text; msg.className = 'import-message error'; };
+    const msg = $('fsd_msg'), t = fromLocal($('fsd_time').value), err = text => { msg.textContent = text; msg.className = 'import-message error'; };
+    const te = checkTime(t); if (te) return err(te);
     const d = DEVICE_TYPES.find(x => x[0] === $('fsd_type').value) || DEVICE_TYPES[0];
     const type = d[0] === 'Other device' ? $('fsd_other').value.trim() : d[0];
     if (!type) return err('Name the device.');
@@ -560,78 +782,35 @@
     if (size) dev.gauge = size;
     if (extra) { if (d[1] === 'IV') dev.infusing = extra; else dev.drainage = extra; }
     canon().devices.push(dev);
-    $('fsDeviceDialog').close(); done();
+    addDevMode = false; sel = null; draft = null; editing = false; msgText = '';
+    refreshSimulationView();
   }
 
-  function activeDevices() { return canon() ? getVisibleCanonicalCase(canon()).devices : []; }
-  function openDeviceAction(deviceId, action, time) {
-    if (!canon()) { alert('Load a patient first.'); return; }
-    const devs = activeDevices();
-    if (!devs.length) { alert('There are no active devices to assess or remove. Use Add device first.'); return; }
-    const dlg = makeDialog('fsDevActDialog', 'Assess or remove a device', 'Charts a device assessment, or discontinues the device at the time you choose.', `
-      <div class="fs-grid">
-        <label class="fs-wide"><span class="input-label">Device</span><select id="fsa_dev">${devs.map(x => `<option value="${esc(x.id)}">${esc(x.type)} - ${esc(x.location)}</option>`).join('')}</select></label>
-        <label class="checkbox-row fs-radio"><input type="radio" name="fsa_act" id="fsa_assess" value="assess"><span>Assess device</span></label>
-        <label class="checkbox-row fs-radio"><input type="radio" name="fsa_act" id="fsa_remove" value="remove"><span>Remove / discontinue device</span></label>
-        ${timeField('fsa_time')}
-        <label class="fs-wide"><span class="input-label" id="fsa_txtl">Assessment</span><input id="fsa_text" type="text" placeholder="e.g., Site clean, dry, intact; no redness or swelling"></label>
-      </div>
-      <div class="dialog-actions"><div id="fsa_msg" class="import-message"></div><button type="button" id="fsa_save" class="primary-button">Save</button></div>`);
-    setTime('fsa_time', time);
-    if (deviceId && devs.some(x => x.id === deviceId)) $('fsa_dev').value = deviceId;
-    $(action === 'remove' ? 'fsa_remove' : 'fsa_assess').checked = true;
-    const sync = () => { const rem = $('fsa_remove').checked; $('fsa_txtl').textContent = rem ? 'Removal note (reason, catheter tip intact, site care)' : 'Assessment'; $('fsa_text').placeholder = rem ? 'e.g., Removed per order, tip intact, pressure held, dressing applied' : 'e.g., Site clean, dry, intact; no redness or swelling'; };
-    $('fsa_assess').addEventListener('change', sync); $('fsa_remove').addEventListener('change', sync); sync();
-    $('fsa_save').addEventListener('click', saveDeviceAction);
-    dlg.showModal();
-  }
-  function saveDeviceAction() {
-    const msg = $('fsa_msg'), t = readTime('fsa_time', 'fsa_msg'); if (!t) return;
-    const err = text => { msg.textContent = text; msg.className = 'import-message error'; };
-    const c = canon(), dev = (c.devices || []).find(x => x.id === $('fsa_dev').value); if (!dev) return err('Choose a device.');
-    const text = $('fsa_text').value.trim();
-    if ($('fsa_remove').checked) {
-      if (parseSimDate(dev.placementDate) && ms(t) < ms(dev.placementDate)) return err(`The device was placed at ${epicDate(dev.placementDate)}; it cannot be removed before that.`);
-      if (dev.originalStatus === undefined) dev.originalStatus = dev.status;
-      dev.removedAt = t; dev.removedNote = text; dev.removedByStudent = true;
-    } else {
-      if (!text) return err('Enter your assessment.');
-      c.observations.push({ id: `student_assessment_dev_${stampDigits(t)}_${uid()}`, type: 'assessment', section: 'Lines / Drains / Airways', code: flowsheetDeviceField(dev).toUpperCase().replace(/[^A-Z0-9]+/g, '_'), label: flowsheetDeviceField(dev), value: text, collected: t, source: 'Student charting', abnormal: false, studentEntered: true });
-    }
-    $('fsDevActDialog').close(); done();
+  // ---- Add Col
+  function chart() { openAddCol(); }
+  function openAddCol() {
+    const box = $('fsAddCol'); if (!box) return;
+    if (!box.classList.contains('hidden')) { box.classList.add('hidden'); return; }
+    box.classList.remove('hidden');
+    box.innerHTML = `<label>New column at <input id="fsAC_time" type="datetime-local" step="60" value="${esc(toLocal(simulationTime))}"></label><button type="button" class="secondary-button" id="fsAC_now">Now</button><button type="button" class="primary-button" id="fsAC_add">Add column</button><button type="button" class="secondary-button" id="fsAC_close">Close</button><span id="fsAC_msg" class="fs-hint"></span>`;
+    $('fsAC_now').addEventListener('click', () => { $('fsAC_time').value = toLocal(simulationTime); });
+    $('fsAC_close').addEventListener('click', () => box.classList.add('hidden'));
+    $('fsAC_add').addEventListener('click', () => {
+      const t = fromLocal($('fsAC_time').value); if (!parseSimDate(t)) { $('fsAC_msg').textContent = 'Choose a valid time.'; return; }
+      extraCols.add(t); box.classList.add('hidden'); stickRight = true; rerender();
+    });
   }
 
-  // ---- assessment dialog: show the right systems for the flowsheet
+  // ---- assessment dialog (kept for compatibility): show the right systems
   const prevOpen = openFlowsheetChartDialog;
   openFlowsheetChartDialog = function (section, field, time) {
-    const sel = $('chartAssessmentSection');
+    const sel2 = $('chartAssessmentSection');
     const forSheet = section ? flowsheetSheetOf(section) : sheet;
     const list = forSheet === 'Pain / Safety' ? PAIN_SAFETY : forSheet === 'Adult Assessment' ? SYSTEMS : SYSTEMS.concat(PAIN_SAFETY);
     const all = section && !list.includes(section) ? list.concat([section]) : list;
-    if (sel) sel.innerHTML = all.map(s => `<option>${esc(s)}</option>`).join('');
-    const h = document.querySelector('#flowsheetChartDialog h2'); if (h) h.textContent = forSheet === 'Pain / Safety' ? 'Chart pain / safety' : 'Chart adult assessment';
+    if (sel2) sel2.innerHTML = all.map(s => `<option>${esc(s)}</option>`).join('');
     return prevOpen.call(null, section || all[0], field, time);
   };
 
-  // ---- clicking an empty cell
-  const colTime = t => (t === nowCol() ? simulationTime : t);
-  function chartCell(rw, time) {
-    time = colTime(time);
-    if (sheet === 'Vital Signs') return openVitals(time);
-    if (sheet === 'Intake / Output') return openIO(time, rw.io, rw.label);
-    if (sheet === 'Lines / Drains / Airways') {
-      const dev = activeDevices().find(d => flowsheetDeviceField(d) === rw.field || `${flowsheetDeviceField(d)} - drainage` === rw.field);
-      if (dev) return openDeviceAction(dev.id, 'assess', time);
-      return openDeviceAdd();
-    }
-    return openFlowsheetChartDialog(rw.section, rw.field, time);
-  }
-  function chart() {
-    if (sheet === 'Vital Signs') return openVitals();
-    if (sheet === 'Intake / Output') return openIO();
-    if (sheet === 'Lines / Drains / Airways') return openDeviceAdd();
-    return openFlowsheetChartDialog('', '', '');
-  }
-
-  window.FlowsheetCharting = { render, chart, setSheet, getSheet: () => sheet, openVitals, openIO, openDeviceAdd, openDeviceAction, monitorState, vitalFlag, SITES, DEVICE_TYPES };
+  window.FlowsheetCharting = { render, chart, setSheet, getSheet: () => sheet, monitorState, vitalFlag, SITES, DEVICE_TYPES, takeComment: () => { const c = pendingComment; pendingComment = ''; return c; } };
 })();

@@ -693,3 +693,6 @@ Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
 ## v54 - Case Builder presets; diagnoses archived
 - Case Builder step 2 is now **Primary Diagnosis and Patient Presets**: choosing a diagnosis fills in the expected medical and surgical history (tick or untick items), the social history, and one suggested status trigger. Untick "Apply presets" to turn it off.
 - All earlier primary diagnosis profiles are saved in `case-builder/primary-archive/` (see the README there) and are not loaded: the Primary diagnosis list is empty until diagnoses are rebuilt one at a time. The Pre-Built Patients (LPN Med Pass and Case Study patients) are unchanged static files and still open normally.
+
+### v61 update: Epic-style flowsheets
+Charting no longer uses pop-up boxes. Template tabs run across the top, a Table of Contents on the left (search, Hide All / Show All, a checkbox per row group, remembered per template) controls which groups show, and you chart by clicking a cell and typing or picking. Selecting a cell opens a right sidebar with the entry control, Comment, File, Value Information, Min/Max and Last Filed Values (24 hours). **Add Col** adds a column at a chosen time; **Add line / drain** (Lines / Drains / Airways tab) opens the device form in the sidebar.
