@@ -689,3 +689,7 @@ Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
 - **Bedside monitor** panel (top of Vital Signs): what the monitor reads now, the suggested next case vital set with a countdown, and "Fill from monitor" in the vitals form. Instructors always see it; students only when `canonical.practice.showMonitor` is on (instructor checkbox "Show monitor to students").
 - Case vital sets without source information show default sources (Oral, Telemetry or Pulse ox, Left arm, Automatic cuff, Monitor) at display time; MAP = round((SBP + 2 x DBP) / 3).
 - Case Builder now plans vital signs every 2 hours through the rest of the shift (they appear in the chart as the clock reaches them); the flowsheet **Bedside monitor** panel shows the current reading and the suggested next set.
+
+## v54 - Case Builder presets; diagnoses archived
+- Case Builder step 2 is now **Primary Diagnosis and Patient Presets**: choosing a diagnosis fills in the expected medical and surgical history (tick or untick items), the social history, and one suggested status trigger. Untick "Apply presets" to turn it off.
+- All earlier primary diagnosis profiles are saved in `case-builder/primary-archive/` (see the README there) and are not loaded: the Primary diagnosis list is empty until diagnoses are rebuilt one at a time. The Pre-Built Patients (LPN Med Pass and Case Study patients) are unchanged static files and still open normally.

@@ -10,14 +10,14 @@
   <link rel="apple-touch-icon" href="../icon-180.png" />
   <link rel="icon" href="../icon.svg" type="image/svg+xml" />
   <title>NursingSim Case Builder v2</title>
-  <link rel="stylesheet" href="styles.css?v=53" />
+  <link rel="stylesheet" href="styles.css?v=54" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
       <a class="brand-logo" href="../index.html" title="Back to the EHR">NS</a>
       <div>
-        <div class="brand-name">NursingSim Case Builder <span style="font-weight:400;opacity:.7;font-size:12px">v50</span></div>
+        <div class="brand-name">NursingSim Case Builder <span style="font-weight:400;opacity:.7;font-size:12px">v54</span></div>
         <div class="brand-sub">Give it a diagnosis and a hospital day; it builds the patient</div>
       </div>
     </div>
@@ -59,9 +59,12 @@
       </div>
 
       <div class="card">
-        <div class="card-head"><h2>2. Why they are here, and how long</h2></div>
+        <div class="card-head"><h2>2. Primary Diagnosis and Patient Presets</h2></div>
         <label>Primary diagnosis<select id="primary"></select></label>
         <div id="primaryDesc" class="hint"></div>
+        <label class="sug-toggle"><input type="checkbox" id="suggestOn" /><span>Apply presets for this diagnosis (expected medical and surgical history, social history, one suggested status trigger)</span></label>
+        <div id="presetSummary" class="hint"></div>
+        <div id="suggestBox" class="sug-box"></div>
         <div class="grid g3 stay-row">
           <div class="field"><span class="lbl">Hospital day</span>
             <div class="stepper"><button id="dayMinus" aria-label="Previous day">−</button><input id="hospitalDay" type="number" inputmode="numeric" min="1" max="21" /><button id="dayPlus" aria-label="Next day">+</button></div></div>
@@ -73,8 +76,6 @@
 
       <div class="card">
         <div class="card-head"><h2>3. Medical history</h2><button class="link-btn" id="clearHx">Clear</button></div>
-        <label class="sug-toggle"><input type="checkbox" id="suggestOn" /><span>Suggest history for this diagnosis</span></label>
-        <div id="suggestBox" class="sug-box"></div>
         <div id="hxPicker"></div>
         <div id="hxEffects" class="effects"></div>
       </div>
@@ -202,46 +203,33 @@
 
   <script src="../library.js"></script>
   <script src="../prebuilt.js"></script>
-  <script src="util.js?v=53"></script>
-  <script src="picker.js?v=53"></script>
-  <script src="labs.js?v=53"></script>
-  <script src="labs_extra.js?v=53"></script>
-  <script src="engine.js?v=53"></script>
-  <script src="build.js?v=53"></script>
-  <script src="common.js?v=53"></script>
-  <script src="history.js?v=53"></script>
-  <script src="history_cardio_resp.js?v=53"></script>
-  <script src="history_endo_renal.js?v=53"></script>
-  <script src="history_gi_neuro.js?v=53"></script>
-  <script src="history_psych_heme_msk.js?v=53"></script>
-  <script src="history_msk_other.js?v=53"></script>
-  <script src="history_surgical.js?v=53"></script>
-  <script src="rules.js?v=53"></script>
-  <script src="monitoring.js?v=53"></script>
-  <script src="notes.js?v=53"></script>
-  <script src="mededit.js?v=53"></script>
-  <script src="triggers.js?v=53"></script>
-  <script src="generate.js?v=53"></script>
-  <script src="primary_surgical.js?v=53"></script>
-  <script src="primary_medical.js?v=53"></script>
-  <script src="primary_medical2.js?v=53"></script>
-  <script src="primary_endocrine.js?v=53"></script>
-  <script src="primary_cardiopulm.js?v=53"></script>
-  <script src="primary_ortho_gi.js?v=53"></script>
-  <script src="primary_misc.js?v=53"></script>
-  <script src="primary_ortho2.js?v=53"></script>
-  <script src="primary_derm.js?v=53"></script>
-  <script src="primary_derm2.js?v=53"></script>
-  <script src="primary_ortho3.js?v=53"></script>
-  <script src="primary_ortho4.js?v=53"></script>
-  <script src="primary_derm3.js?v=53"></script>
-  <script src="primary_lpn.js?v=53"></script>
-  <script src="suggest.js?v=53"></script>
+  <script src="util.js?v=54"></script>
+  <script src="picker.js?v=54"></script>
+  <script src="labs.js?v=54"></script>
+  <script src="labs_extra.js?v=54"></script>
+  <script src="engine.js?v=54"></script>
+  <script src="build.js?v=54"></script>
+  <script src="common.js?v=54"></script>
+  <script src="history.js?v=54"></script>
+  <script src="history_cardio_resp.js?v=54"></script>
+  <script src="history_endo_renal.js?v=54"></script>
+  <script src="history_gi_neuro.js?v=54"></script>
+  <script src="history_psych_heme_msk.js?v=54"></script>
+  <script src="history_msk_other.js?v=54"></script>
+  <script src="history_surgical.js?v=54"></script>
+  <script src="rules.js?v=54"></script>
+  <script src="monitoring.js?v=54"></script>
+  <script src="notes.js?v=54"></script>
+  <script src="mededit.js?v=54"></script>
+  <script src="triggers.js?v=54"></script>
+  <script src="generate.js?v=54"></script>
+  <script src="primary_registry.js?v=54"></script>
+  <script src="suggest.js?v=54"></script>
   <script type="module" src="ai.js"></script>
   <script src="../qrcode.js"></script>
   <script src="../wristband.js"></script>
   <script src="../medlabel.js"></script>
   <script src="../printsheet.js"></script>
-  <script src="app.js?v=53"></script>
+  <script src="app.js?v=54"></script>
 </body>
 </html>

@@ -58,6 +58,23 @@
     'Toxicology / Substance Use': S(['depression', 'anxiety'], [], 'Common co-occurring mental health conditions.'),
     'LPN Med Pass': S([], [], '')
   };
+
+  // Social-history preset for a diagnosis (values match the Case Builder's social-history menus).
+  NS.suggestSocial = function (dx, hx, age) {
+    const has = k => (hx || []).includes(k), a = Number(age) || 50;
+    let tobacco = 'Never';
+    if (['copd_exac', 'nstemi', 'stemi', 'diabetic_foot_infection', 'pe'].includes(dx)) tobacco = 'Current <1 ppd';
+    else if (has('copd') || has('lung_cancer') || has('pad') || has('cad')) tobacco = 'Former';
+    let alcohol = a >= 25 && a < 75 ? 'Social' : 'None';
+    if (dx === 'etoh_withdrawal' || has('aud')) alcohol = 'Heavy daily'; else if (has('cirrhosis') || dx === 'pancreatitis') alcohol = 'Moderate daily';
+    let living = 'Lives with spouse/partner';
+    if (dx === 'pressure_injury' || (has('dementia') && a >= 80)) living = 'Skilled nursing facility';
+    else if (a >= 85 || has('dementia')) living = 'Assisted living';
+    else if (a >= 75) living = 'Lives alone';
+    let fn = 'Independent';
+    if (dx === 'pressure_injury') fn = 'Wheelchair'; else if (a >= 85 || has('dementia') || has('frailty')) fn = 'Walker'; else if (a >= 75 || has('fall_history') || has('osteoporosis')) fn = 'Cane';
+    return { tobacco, alcohol, drugs: 'None', living, function: fn };
+  };
   // Returns {hx, surg, note} for a primary diagnosis key; lpn_* and unknown categories give empty lists.
   NS.suggestFor = function (key) {
     const p = (NS.PRIMARY || {})[key]; if (!p) return { hx: [], surg: [], note: '' };

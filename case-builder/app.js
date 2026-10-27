@@ -16,7 +16,7 @@
     social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' },
     medEdits: { removed: [], changed: {}, added: [] },
     hxCustom: [], surgYears: {}, surgCustom: [],
-    suggest: { on: false, dx: '', unchecked: [], addedHx: [], addedSurg: [] },
+    suggest: { on: true, dx: '', unchecked: [], addedHx: [], addedSurg: [] },
     trigger: { mode: 'off', key: '', atMin: 90, severity: 'moderate' }
   });
 
@@ -37,7 +37,7 @@
       // medication edits belong to one diagnosis; picking a different diagnosis starts the medication list fresh
       medEdits: (input.primary === v('primary') && input.medEdits) ? input.medEdits : { removed: [], changed: {}, added: [] },
       hxCustom: (input.hxCustom || []).slice(), surgYears: Object.assign({}, input.surgYears), surgCustom: (input.surgCustom || []).slice(),
-      suggest: Object.assign({ on: false, dx: '', unchecked: [], addedHx: [], addedSurg: [] }, input.suggest || {}),
+      suggest: Object.assign({ on: true, dx: '', unchecked: [], addedHx: [], addedSurg: [] }, input.suggest || {}),
       trigger: readTrigger(v('primary'))
     };
     const other = v('allergyOther').trim();
@@ -143,7 +143,7 @@
   // ------------------------------------------------------------------ suggested history for the diagnosis
   // input.suggest = { on, dx, unchecked[], addedHx[], addedSurg[] }; added* lists only what the suggestion put in
   // (items the instructor picked by hand are never touched, and unticking removes only items the suggestion added).
-  function sg() { if (!input.suggest) input.suggest = { on: false, dx: '', unchecked: [], addedHx: [], addedSurg: [] }; return input.suggest; }
+  function sg() { if (!input.suggest) input.suggest = { on: true, dx: '', unchecked: [], addedHx: [], addedSurg: [] }; return input.suggest; }
   function pruneSuggest() { const s = sg(); s.addedHx = s.addedHx.filter(k => input.hx.includes(k)); s.addedSurg = s.addedSurg.filter(k => input.surg.includes(k)); }
   function applySuggest() {
     const s = sg(), sug = NS.suggestFor ? NS.suggestFor($('primary').value) : { hx: [], surg: [] };
@@ -180,6 +180,23 @@
     }));
     if ($('suggestOn')) $('suggestOn').checked = !!s.on;
   }
+
+  // Presets that go with a NEW diagnosis: social history and one suggested status trigger (history is handled by applySuggest above).
+  function applyPresetsForDiagnosis() {
+    const s = sg(); if (!s.on) { renderPresetSummary(); return; }
+    const dx = $('primary').value; readInput();
+    if (NS.suggestSocial) { const soc = NS.suggestSocial(dx, input.hx, input.age); input.social = Object.assign({}, input.social, soc); }
+    const list = (NS.triggers && NS.triggers.forDx) ? NS.triggers.forDx(dx) : [];
+    input.trigger = list.length ? { mode: 'manual', key: list[0].key, atMin: list[0].defaults.atMin, severity: list[0].defaults.severity } : { mode: 'off', key: '', atMin: 90, severity: 'moderate' };
+    writeForm(); renderTrigger(); renderPresetSummary();
+  }
+  function renderPresetSummary() {
+    const el = $('presetSummary'); if (!el) return; const s = sg(), dx = $('primary').value;
+    if (!s.on || !dx) { el.innerHTML = ''; return; }
+    const soc = input.social || {}, list = (NS.triggers && NS.triggers.forDx) ? NS.triggers.forDx(dx) : [], t = input.trigger || {};
+    const trig = t.mode === 'manual' && list.find(x => x.key === t.key);
+    el.innerHTML = `<b>Presets applied:</b> social history (tobacco ${esc(soc.tobacco)}, alcohol ${esc(soc.alcohol)}, ${esc(String(soc.living || '').toLowerCase())}, ${esc(String(soc.function || '').toLowerCase())}) &middot; status trigger: ${trig ? esc(trig.label) : 'none written for this diagnosis yet'}. Change any of these in steps 3 to 8.`;
+  }
   function suggestRefresh() { applySuggest(); renderChips(); renderSuggest(); changed(); }
   const toggle = (arr, k) => { const i = arr.indexOf(k); if (i >= 0) arr.splice(i, 1); else arr.push(k); };
 
@@ -204,6 +221,7 @@
 
   // ------------------------------------------------------------------ build + render
   function build() {
+    if (!Object.keys(NS.PRIMARY || {}).length) { $('alerts').innerHTML = '<div class="alert error">No primary diagnoses are loaded yet. They are saved in case-builder/primary-archive/ and will be added back one at a time.</div>'; showPane('result'); return; }
     readInput();
     safeSet(STORE_INPUT, JSON.stringify(input));
     try {
@@ -590,6 +608,7 @@
       inCat.forEach(p => { const o = document.createElement('option'); o.value = p.key; o.textContent = p.label; og.appendChild(o); });
       sel.appendChild(og);
     });
+    if (!sel.options.length) { const o = document.createElement('option'); o.value = ''; o.textContent = '(no primary diagnoses loaded yet)'; sel.appendChild(o); }
     try { const saved = JSON.parse(safeGet(STORE_INPUT) || 'null'); if (saved && saved.primary && NS.PRIMARY[saved.primary]) input = Object.assign(DEFAULTS(), saved, { social: Object.assign(DEFAULTS().social, saved.social || {}) }); } catch (e) { /* use defaults */ }
     writeForm(); renderChips();
 
@@ -598,8 +617,8 @@
     $('dayMinus').addEventListener('click', () => { $('hospitalDay').value = Math.max(1, (parseInt($('hospitalDay').value, 10) || 1) - 1); changed(); });
     $('dayPlus').addEventListener('click', () => { $('hospitalDay').value = Math.min(21, (parseInt($('hospitalDay').value, 10) || 1) + 1); changed(); });
     $('clearHx').addEventListener('click', () => { input.hx = []; input.hxCustom = []; pruneSuggest(); renderChips(); renderSuggest(); changed(); });
-    $('suggestOn').addEventListener('change', () => { sg().on = $('suggestOn').checked; suggestRefresh(); });
-    $('primary').addEventListener('change', () => { if (sg().on || sg().addedHx.length || sg().addedSurg.length) suggestRefresh(); else renderSuggest(); });
+    $('suggestOn').addEventListener('change', () => { sg().on = $('suggestOn').checked; suggestRefresh(); if (sg().on) { applyPresetsForDiagnosis(); changed(); } else renderPresetSummary(); });
+    $('primary').addEventListener('change', () => { if (sg().on || sg().addedHx.length || sg().addedSurg.length) { suggestRefresh(); applyPresetsForDiagnosis(); changed(); } else renderSuggest(); });
     // drag the divider to make the note list narrower or wider (remembered on this device)
     (() => {
       const lay = document.querySelector('.notes-layout'); if (!lay) return;

@@ -8,6 +8,8 @@ const root = path.join(__dirname, '..'), dir = path.join(root, 'case-builder') +
 const html = fs.readFileSync(dir + 'index.html', 'utf8');
 [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map(m => m[1].split('?')[0]).filter(f => !f.startsWith('../') && f !== 'app.js' && fs.existsSync(dir + f))
   .forEach(f => vm.runInThisContext(fs.readFileSync(dir + f, 'utf8'), { filename: f }));
+const arch = path.join(dir, 'primary-archive');
+if (fs.existsSync(arch)) fs.readdirSync(arch).filter(f => /^primary_.*\.js$/.test(f)).sort((a, b) => (a === 'primary_ortho_gi.js' ? -1 : b === 'primary_ortho_gi.js' ? 1 : 0)).forEach(f => vm.runInThisContext(fs.readFileSync(path.join(arch, f), 'utf8'), { filename: f }));
 const base = o => Object.assign({ name: 'Patient', age: 60, sex: 'Female', mrn: 'SIM-0', unit: 'Medical-Surgical 2 East', room: '', heightCm: 170, weightKg: 80, primary: 'lpn_htn', hospitalDay: 1, simDate: '2026-10-20', startTime: '08:45', hx: [], surg: [], surgText: '', allergies: [], codeStatus: 'Full Code',
   social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' }, studentLevel: 'First-semester LPN', complexity: 'simple', facultyNotes: '' }, o);
 const LPN = [
