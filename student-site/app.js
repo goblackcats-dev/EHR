@@ -3379,9 +3379,23 @@ function flowsheetSheetOf(section) {
   return 'Adult Assessment';
 }
 const flowsheetVitalSectionMap = {
-  TEMP: ['Vital Signs','Temperature'], HR: ['Vital Signs','Heart Rate'], BP: ['Vital Signs','Blood Pressure'],
-  RR: ['Vital Signs','Respiratory Rate'], SPO2: ['Vital Signs','SpO2'], O2DEV: ['Vital Signs','O2 Device'], PAIN: ['Vital Signs','Pain Score']
+  TEMP: ['Vital Signs','Temperature'], TEMPSRC: ['Vital Signs','Temp Source'],
+  HR: ['Vital Signs','Heart Rate'], HRSRC: ['Vital Signs','HR Source'], SPO2HR: ['Vital Signs','Pulse Rate from SpO2'],
+  BP: ['Vital Signs','Blood Pressure'], BPLOC: ['Vital Signs','BP Location'], BPMETH: ['Vital Signs','BP Method'],
+  RR: ['Vital Signs','Respiratory Rate'], RRSRC: ['Vital Signs','RR Source'],
+  SPO2: ['Vital Signs','SpO2'], O2DEV: ['Vital Signs','O2 Device'], PAIN: ['Pain','Pain Score']
 };
+// Mean arterial pressure from "SBP/DBP": round((SBP + 2 x DBP) / 3)
+function flowsheetMapOf(bpText) {
+  const m = String(bpText || '').match(/(\d{2,3})\s*\/\s*(\d{2,3})/);
+  return m ? Math.round((Number(m[1]) + 2 * Number(m[2])) / 3) : null;
+}
+// Case-built vital sets carry no source information, so sensible defaults are shown instead.
+function flowsheetVitalDefaults(canonical) {
+  const tele = (canonical.devices || []).some(d => /telemetry|cardiac monitor/i.test(`${safe(d.type, '')} ${safe(d.deviceType, '')}`)) ||
+    (canonical.orders || []).some(o => /telemetry|cardiac monitor|continuous ecg/i.test(`${safe(o.name, '')} ${safe(o.instructions, '')}`));
+  return { TEMPSRC: 'Oral', HRSRC: tele ? 'Telemetry/ECG monitor' : 'Pulse oximeter', BPLOC: 'Left arm', BPMETH: 'Automatic cuff', RRSRC: 'Monitor/capnography' };
+}
 function flowsheetDeviceField(device) { return `${safe(device.type, 'Device')} - ${safe(device.location, 'site not documented')}`; }
 // Splits one I&O event into rows such as "Intake: Oral" / "Output: Urine" (students chart one type at a time; case events carry a detail breakdown).
 function flowsheetIoParts(io) {
@@ -3406,6 +3420,7 @@ function flowsheetIoParts(io) {
 }
 function buildFlowsheetRecords(canonical) {
   const records = [];
+  const hasVital = new Set((canonical.observations || []).filter(o => o.type === 'vital').map(o => `${safe(o.code).toUpperCase()}|${safe(o.collected)}`));
   (canonical.observations || []).forEach(obs => {
     const mine = { studentEntered: !!obs.studentEntered, src: 'obs' };
     if (obs.type === 'assessment') {
@@ -3417,7 +3432,21 @@ function buildFlowsheetRecords(canonical) {
       if (map) {
         const rec = { id: obs.id, section: map[0], field: map[1], value: `${safe(obs.value)}${obs.units ? ' ' + obs.units : ''}`.trim(), collected: safe(obs.collected), source: obs.studentEntered ? 'Student charting' : 'Vital signs', abnormal: !!safe(obs.flag,''), ...mine };
         records.push(rec);
-        if (safe(obs.code).toUpperCase() === 'PAIN') records.push({ ...rec, id: `${obs.id}_ps`, cloneOf: obs.id, section: 'Pain', field: 'Pain Score' });
+        const code = safe(obs.code).toUpperCase();
+        if (code === 'BP' && flowsheetMapOf(obs.value) != null) { const mp = flowsheetMapOf(obs.value); records.push({ ...rec, id: `${obs.id}_map`, cloneOf: obs.id, field: 'MAP', value: `${mp} mmHg`, abnormal: mp < 65 }); }
+        if (!obs.studentEntered) {
+          // fill the source rows with defaults unless the case documents them for this time
+          const defaults = flowsheetVitalDefaults(canonical), stamp = safe(obs.collected);
+          const derive = (srcCode, value) => {
+            if (hasVital.has(`${srcCode}|${stamp}`)) return;
+            const m2 = flowsheetVitalSectionMap[srcCode];
+            records.push({ id: `${obs.id}_${srcCode.toLowerCase()}`, cloneOf: obs.id, section: m2[0], field: m2[1], value, collected: stamp, source: 'Default (source not documented in case)', details: '', abnormal: false, studentEntered: false, src: 'obs', derived: true });
+          };
+          if (code === 'TEMP') derive('TEMPSRC', defaults.TEMPSRC);
+          if (code === 'HR') { derive('HRSRC', defaults.HRSRC); derive('SPO2HR', rec.value); }
+          if (code === 'BP') { derive('BPLOC', defaults.BPLOC); derive('BPMETH', defaults.BPMETH); }
+          if (code === 'RR') derive('RRSRC', defaults.RRSRC);
+        }
       }
     }
   });

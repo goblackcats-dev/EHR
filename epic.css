@@ -209,3 +209,5 @@ dialog, dialog[class] { border-radius: 4px !important; }
 .flowsheet-grid tr.fs-subrow td.flowsheet-label-col { padding-left: 18px; font-weight: 400; font-size: 11.5px; color: #55657a; }
 .fs-mon-sub { font-size: 11px; color: #9db2c9; min-height: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fs-mon-tile .fs-mon-unit { color: #b6c9de; }
+.flowsheet-grid tr.fs-subrow td.flowsheet-cell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.flowsheet-grid td.flowsheet-cell { height: 36px; }

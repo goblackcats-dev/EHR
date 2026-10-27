@@ -167,6 +167,15 @@ NS.engine = (() => {
       if (last && (v.sbp > 180 || v.sbp < 90)) last.flag = 'Abnormal';
     };
     keep.forEach(h => pushSet(h, vitalsAt(ctx, spec, h, true)));
+    // planned vital sets for the rest of the simulation window (every 2 hours on the clock). They appear in the chart as the clock reaches them
+    // and the flowsheet monitor panel uses them as the "suggested next set".
+    if (!spec.noPlannedVitals) {
+      const have = new Set(keep.map(h => Math.round(h * 100)));
+      for (let ms = Math.ceil((U.parse(ctx.ts(ctx.nowH)) + 60000) / (2 * 3600000)) * 2 * 3600000; ms <= U.parse(ctx.ts(ctx.windowEnd)); ms += 2 * 3600000) {
+        const h = (ms - U.parse(ctx.admit)) / 3600000;
+        if (h > ctx.nowH && !have.has(Math.round(h * 100)) && !(spec.futureVitals || []).some(v => Math.abs(v.h - h) < 0.3)) pushSet(h, vitalsAt(ctx, spec, h, true));
+      }
+    }
     // vital signs that belong to the simulation window itself (a scenario trigger writes these); hidden until the clock reaches them
     (spec.futureVitals || []).filter(v => v.h <= ctx.windowEnd).forEach(v => pushSet(v.h, v));
   }

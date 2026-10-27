@@ -25,7 +25,14 @@
   const PAIN_SAFETY = ['Pain', 'Safety'];
   const SHEET_KEY = 'nursingsim.flowsheet.sheet';
   const CHART_LABEL = { 'Vital Signs': 'Chart vitals', 'Adult Assessment': 'Chart assessment', 'Pain / Safety': 'Chart pain / safety', 'Lines / Drains / Airways': 'Add device', 'Intake / Output': 'Chart intake / output' };
-  const VITAL_ROWS = ['Temperature', 'Heart Rate', 'Blood Pressure', 'Respiratory Rate', 'SpO2', 'O2 Device', 'Pain Score'];
+  const VITAL_ROWS = ['Temperature', 'Temp Source', 'Heart Rate', 'HR Source', 'Pulse Rate from SpO2', 'Blood Pressure', 'MAP', 'BP Location', 'BP Method', 'Respiratory Rate', 'RR Source', 'SpO2', 'O2 Device'];
+  const SUB_ROWS = ['Temp Source', 'HR Source', 'MAP', 'BP Location', 'BP Method', 'RR Source'];
+  const SHORT = { 'Telemetry/ECG monitor': 'Telemetry', 'Pulse oximeter': 'Pulse ox', 'Palpated radial': 'Radial', 'Apical stethoscope': 'Apical', 'Monitor/capnography': 'Monitor', 'Counted manually': 'Manual count', 'Automatic cuff': 'Auto cuff' };
+  const TEMP_SOURCES = ['Oral', 'Temporal', 'Axillary', 'Tympanic', 'Rectal', 'Bladder/core'];
+  const HR_SOURCES = ['Telemetry/ECG monitor', 'Pulse oximeter', 'Palpated radial', 'Apical stethoscope'];
+  const BP_LOCS = ['Left arm', 'Right arm', 'Left leg', 'Right leg', 'Left wrist', 'Right wrist'];
+  const BP_METHODS = ['Automatic cuff', 'Manual'];
+  const RR_SOURCES = ['Monitor/capnography', 'Counted manually'];
   const INTAKE_TYPES = ['Oral', 'IV fluid', 'IV med', 'Tube feeding', 'Blood', 'Other'];
   const OUTPUT_TYPES = ['Urine', 'Stool', 'Emesis', 'Drain', 'Blood loss', 'Other'];
   const O2_DEVICES = ['Room air', 'Nasal cannula', 'Simple face mask', 'Venturi mask', 'Non-rebreather mask', 'High-flow nasal cannula', 'CPAP / BiPAP', 'Ventilator'];
@@ -105,8 +112,11 @@
   }
   const valText = o => o ? `${safe(o.value)}${o.units ? ' ' + o.units : ''}`.trim() : '';
   function setValues(set) {
-    const g = code => set.obs[code];
-    return { TEMP: g('TEMP'), HR: g('HR'), BP: g('BP'), RR: g('RR'), SPO2: g('SPO2'), PAIN: g('PAIN'), O2: o2At(set.time) || (g('O2DEV') ? valText(g('O2DEV')) : '') };
+    const g = code => set.obs[code], d = flowsheetVitalDefaults(canon());
+    const src = code => g(code) ? valText(g(code)) : d[code];
+    return { TEMP: g('TEMP'), HR: g('HR'), BP: g('BP'), RR: g('RR'), SPO2: g('SPO2'), PAIN: g('PAIN'), O2: o2At(set.time) || (g('O2DEV') ? valText(g('O2DEV')) : ''),
+      MAP: g('BP') ? flowsheetMapOf(g('BP').value) : null, PR: g('SPO2HR') ? valText(g('SPO2HR')) : (g('HR') ? valText(g('HR')) : ''),
+      TEMPSRC: g('TEMP') ? src('TEMPSRC') : '', HRSRC: g('HR') ? src('HRSRC') : '', BPLOC: g('BP') ? src('BPLOC') : '', BPMETH: g('BP') ? src('BPMETH') : '', RRSRC: g('RR') ? src('RRSRC') : '' };
   }
   function monitorState() {
     const sets = vitalSets(), now = simulationTime;
@@ -162,18 +172,18 @@
     box.className = 'fs-monitor';
     const { cur, next } = monitorState();
     const v = cur ? setValues(cur) : null;
-    const tile = (label, unit, code, text, flagged) => `<div class="fs-mon-tile fs-mon-${code}${flagged ? ' abn' : ''}"><span class="fs-mon-label">${label}</span><b>${esc(text || '--')}</b><span class="fs-mon-unit">${unit}</span></div>`;
+    const tile = (label, unit, code, text, flagged, sub) => `<div class="fs-mon-tile fs-mon-${code}${flagged ? ' abn' : ''}"><span class="fs-mon-label">${label}</span><b>${esc(text || '--')}</b><span class="fs-mon-unit">${unit}</span><span class="fs-mon-sub">${esc(sub || '')}</span></div>`;
     const flag = o => !!(o && safe(o.flag, ''));
     const ago = cur ? Math.max(0, simMinutesBetween(cur.time, simulationTime)) : 0;
     const agoText = ago < 1 ? 'now' : ago < 60 ? `${ago} min ago` : `${Math.floor(ago / 60)} h ${ago % 60} min ago`;
     let nextHtml;
     if (next) {
       const nv = setValues(next), mins = simMinutesBetween(simulationTime, next.time);
-      const bits = [['HR', valText(nv.HR)], ['BP', valText(nv.BP)], ['RR', valText(nv.RR)], ['SpO2', valText(nv.SPO2)], ['Temp', valText(nv.TEMP)], ['Pain', valText(nv.PAIN)], ['O2', nv.O2]].filter(x => x[1]);
+      const bits = [['HR', valText(nv.HR)], ['BP', valText(nv.BP)], ['MAP', nv.MAP != null ? `${nv.MAP} mmHg` : ''], ['RR', valText(nv.RR)], ['SpO2', valText(nv.SPO2)], ['Temp', valText(nv.TEMP)], ['Pain', valText(nv.PAIN)], ['O2', nv.O2]].filter(x => x[1]);
       nextHtml = `<div class="fs-mon-next-head"><b>Suggested next set</b><span class="fs-mon-count">${esc(hhmm(next.time))} (${esc(epicDate(next.time).split(' ')[0])}) &nbsp; in ${mins} min</span></div><div class="fs-mon-next-vals">${bits.map(([k, t]) => `<span><em>${k}</em> ${esc(t)}</span>`).join('')}</div>`;
     } else nextHtml = `<div class="fs-mon-next-head"><b>Suggested next set</b><span class="fs-mon-count">No further sets planned</span></div>`;
     box.innerHTML = `<div class="fs-mon-head"><b>Bedside monitor</b><span>${cur ? `Reading from ${esc(hhmm(cur.time))} (${agoText})` : 'No monitor reading yet'}</span>${isInstructor() ? `<label class="fs-mon-share"><input type="checkbox" id="fsMonShow"${practice().showMonitor ? ' checked' : ''}> Show monitor to students</label>` : ''}</div>
-      <div class="fs-mon-grid">${tile('HR', 'bpm', 'HR', v && valText(v.HR).replace(/\s*bpm$/i, ''), v && flag(v.HR))}${tile('BP', 'mmHg', 'BP', v && valText(v.BP), v && flag(v.BP))}${tile('RR', '/min', 'RR', v && valText(v.RR).replace(/\s*\/min$/i, ''), v && flag(v.RR))}${tile('SpO2', '%', 'SPO2', v && valText(v.SPO2).replace(/\s*%$/, ''), v && flag(v.SPO2))}${tile('Temp', '', 'TEMP', v && valText(v.TEMP), v && flag(v.TEMP))}${tile('Pain', '0 to 10', 'PAIN', v && valText(v.PAIN).replace(/\/10$/, ''), false)}${tile('O2 device', '', 'O2', v && v.O2, false)}</div>
+      <div class="fs-mon-grid">${tile('HR', 'bpm', 'HR', v && valText(v.HR).replace(/\s*bpm$/i, ''), v && flag(v.HR), v && (SHORT[v.HRSRC] || v.HRSRC))}${tile('BP', v && v.MAP != null ? `MAP ${v.MAP} mmHg` : 'mmHg', 'BP', v && valText(v.BP), v && flag(v.BP), v && v.BP ? `${v.BPLOC}, ${SHORT[v.BPMETH] || v.BPMETH}` : '')}${tile('RR', '/min', 'RR', v && valText(v.RR).replace(/\s*\/min$/i, ''), v && flag(v.RR), v && (SHORT[v.RRSRC] || v.RRSRC))}${tile('SpO2', '%', 'SPO2', v && valText(v.SPO2).replace(/\s*%$/, ''), v && flag(v.SPO2), v && v.PR ? `PR ${v.PR.replace(/\s*bpm$/i, '')} bpm` : '')}${tile('Temp', v && /°\s*[CF]/.test(valText(v.TEMP)) ? valText(v.TEMP).replace(/^.*?(°\s*[CF]).*$/, '$1') : '', 'TEMP', v && valText(v.TEMP).replace(/\s*°\s*[CF]\s*$/, ''), v && flag(v.TEMP), v && v.TEMPSRC)}${tile('Pain', '0 to 10', 'PAIN', v && valText(v.PAIN).replace(/\/10$/, ''), false)}${tile('O2 device', '', 'O2', v && v.O2, false)}</div>
       <div class="fs-mon-next">${nextHtml}</div>`;
     const cb = $('fsMonShow');
     if (cb) cb.addEventListener('change', () => { practice().showMonitor = cb.checked; try { persistCase(); } catch (e) { /* best effort */ } });
@@ -194,7 +204,7 @@
     };
     if (sheet === 'Vital Signs') {
       const extra = fieldsIn('Vital Signs').filter(f => !VITAL_ROWS.includes(f));
-      [...VITAL_ROWS, ...extra].forEach(f => out.push({ field: f, section: 'Vital Signs' }));
+      [...VITAL_ROWS, ...extra].forEach(f => out.push({ field: f, section: 'Vital Signs', sub: SUB_ROWS.includes(f) }));
     } else if (sheet === 'Adult Assessment' || sheet === 'Pain / Safety') {
       const base = sheet === 'Adult Assessment' ? SYSTEMS : PAIN_SAFETY;
       const others = [...new Set(records.map(r => r.section))].filter(s => !base.includes(s));
@@ -237,6 +247,7 @@
         const td = document.createElement('td'); td.className = 'flowsheet-label-col'; td.textContent = rw.header; tr.appendChild(td);
         const sp = document.createElement('td'); sp.colSpan = times.length; tr.appendChild(sp); body.appendChild(tr); return;
       }
+      if (rw.sub) tr.classList.add('fs-subrow');
       const fc = document.createElement('td'); fc.className = 'flowsheet-label-col flowsheet-field-name'; fc.textContent = rw.total || rw.label || rw.field; tr.appendChild(fc);
       if (rw.total) tr.classList.add('fs-total-row');
       times.forEach(t => {
@@ -263,7 +274,8 @@
           if (rec.abnormal) td.classList.add('flowsheet-abnormal');
           if (rec.studentEntered) td.classList.add('fs-student');
           if (currentFlowsheetSelection === rec.id) td.classList.add('selected');
-          td.textContent = safe(rec.value);
+          td.textContent = rw.sub ? (SHORT[rec.value] || rec.value) : safe(rec.value);
+          if (rw.sub && SHORT[rec.value]) td.title = rec.value;
           if (inCell.length > 1) td.title = inCell.map(r => `${epicDate(r.collected)}  ${r.value}`).join('\n');
           td.addEventListener('click', () => { currentFlowsheetSelection = rec.id; lastCell = inCell; renderFlowsheetsPage(currentPatientData); });
         }
@@ -395,23 +407,34 @@
   const done = () => { currentFlowsheetSelection = null; lastCell = null; refreshSimulationView(); };
 
   // ---- vitals
+  const srcSel = (id, label, list) => `<label><span class="input-label">${label}</span><select id="${id}"><option value="">(not charted)</option>${opts(list)}</select></label>`;
   function openVitals(time) {
     if (!canon()) { alert('Load a patient first.'); return; }
     const dlg = makeDialog('fsVitalsDialog', 'Chart vital signs', 'Creates time-stamped vital sign entries. Leave a box empty to skip it.', `
-      <div class="fs-grid">
+      <div class="fs-grid fs-grid3">
         ${timeField('fsv_time')}
         <label><span class="input-label">Temperature</span><span class="fs-time-row"><input id="fsv_temp" type="number" inputmode="decimal" step="0.1" placeholder="98.6"><select id="fsv_tunit" style="max-width:76px"><option>F</option><option>C</option></select></span></label>
+        ${srcSel('fsv_tsrc', 'Temp source', TEMP_SOURCES)}
         <label><span class="input-label">Heart rate (bpm)</span><input id="fsv_hr" type="number" inputmode="numeric" placeholder="80"></label>
+        ${srcSel('fsv_hrsrc', 'HR source', HR_SOURCES)}
+        <label><span class="input-label">Pulse rate from SpO2 (bpm)</span><input id="fsv_pr" type="number" inputmode="numeric" placeholder="80"></label>
         <label><span class="input-label">Blood pressure (mmHg)</span><span class="fs-time-row"><input id="fsv_sbp" type="number" inputmode="numeric" placeholder="120"><b>/</b><input id="fsv_dbp" type="number" inputmode="numeric" placeholder="80"></span></label>
+        ${srcSel('fsv_bploc', 'BP location', BP_LOCS)}
+        ${srcSel('fsv_bpmeth', 'BP method', BP_METHODS)}
+        <label><span class="input-label">MAP (calculated)</span><output id="fsv_map" class="fs-map">--</output></label>
         <label><span class="input-label">Respiratory rate (/min)</span><input id="fsv_rr" type="number" inputmode="numeric" placeholder="16"></label>
+        ${srcSel('fsv_rrsrc', 'RR source', RR_SOURCES)}
         <label><span class="input-label">SpO2 (%)</span><input id="fsv_spo2" type="number" inputmode="numeric" placeholder="97"></label>
         <label><span class="input-label">O2 device</span><select id="fsv_o2"><option value="">(not charted)</option>${opts(O2_DEVICES)}</select></label>
         <label><span class="input-label">O2 flow (L/min)</span><input id="fsv_flow" type="number" inputmode="decimal" step="0.5" placeholder="2"></label>
         <label><span class="input-label">Pain (0 to 10)</span><input id="fsv_pain" type="number" inputmode="numeric" min="0" max="10" placeholder="0"></label>
       </div>
       <div class="dialog-actions"><div id="fsv_msg" class="import-message"></div><span class="fs-btn-row">${monitorVisible() ? '<button type="button" id="fsv_fill" class="secondary-button">Fill from monitor</button>' : ''}<button type="button" id="fsv_save" class="primary-button">Save vitals</button></span></div>`);
+    dlg.classList.add('fs-form-wide');
     setTime('fsv_time', time);
-    const fill = $('fsv_fill'); if (fill) fill.addEventListener('click', fillFromMonitor);
+    const updMap = () => { const s = parseFloat($('fsv_sbp').value), d = parseFloat($('fsv_dbp').value); $('fsv_map').textContent = s > 0 && d > 0 ? `${Math.round((s + 2 * d) / 3)} mmHg` : '--'; };
+    $('fsv_sbp').addEventListener('input', updMap); $('fsv_dbp').addEventListener('input', updMap);
+    const fill = $('fsv_fill'); if (fill) fill.addEventListener('click', () => { fillFromMonitor(); updMap(); });
     $('fsv_save').addEventListener('click', saveVitals);
     dlg.showModal();
   }
@@ -420,8 +443,10 @@
     if (!cur) { msg.textContent = 'The monitor has no reading yet.'; msg.className = 'import-message error'; return; }
     const v = setValues(cur), num = s => { const m = String(s || '').match(/-?\d+(\.\d+)?/); return m ? m[0] : ''; };
     $('fsv_temp').value = num(valText(v.TEMP)); $('fsv_tunit').value = /°?\s*C\b/.test(valText(v.TEMP)) ? 'C' : 'F';
-    $('fsv_hr').value = num(valText(v.HR)); $('fsv_rr').value = num(valText(v.RR)); $('fsv_spo2').value = num(valText(v.SPO2)); $('fsv_pain').value = num(valText(v.PAIN));
+    $('fsv_hr').value = num(valText(v.HR)); $('fsv_pr').value = num(v.PR); $('fsv_rr').value = num(valText(v.RR)); $('fsv_spo2').value = num(valText(v.SPO2)); $('fsv_pain').value = num(valText(v.PAIN));
     const bp = valText(v.BP).match(/(\d+)\s*\/\s*(\d+)/); $('fsv_sbp').value = bp ? bp[1] : ''; $('fsv_dbp').value = bp ? bp[2] : '';
+    const pick = (id, list, val) => { $(id).value = list.includes(val) ? val : ''; };
+    pick('fsv_tsrc', TEMP_SOURCES, v.TEMPSRC); pick('fsv_hrsrc', HR_SOURCES, v.HRSRC); pick('fsv_bploc', BP_LOCS, v.BPLOC); pick('fsv_bpmeth', BP_METHODS, v.BPMETH); pick('fsv_rrsrc', RR_SOURCES, v.RRSRC);
     const o2 = String(v.O2 || ''), hit = O2_DEVICES.find(d => o2.toLowerCase().includes(d.toLowerCase().split(' ')[0]) && (d !== 'Room air' || /room|\bra\b/i.test(o2)));
     $('fsv_o2').value = /room air|\bra\b/i.test(o2) ? 'Room air' : (hit || ''); const fl = o2.match(/(\d+(?:\.\d+)?)\s*l/i); $('fsv_flow').value = fl && $('fsv_o2').value !== 'Room air' ? fl[1] : '';
     setTime('fsv_time', simulationTime);
@@ -432,14 +457,20 @@
     const err = text => { msg.textContent = text; msg.className = 'import-message error'; };
     const g = id => $(id).value.trim(), out = [];
     const num = (id, lo, hi, name) => { const s = g(id); if (s === '') return null; const v = parseFloat(s); if (!(v >= lo && v <= hi)) { err(`${name} should be between ${lo} and ${hi}.`); return NaN; } return v; };
+    const src = (code, label, id) => { const v = g(id); if (v) out.push([code, label, v, '', false]); };
     const temp = num('fsv_temp', 25, 110, 'Temperature'); if (Number.isNaN(temp)) return;
-    if (temp != null) { const unit = $('fsv_tunit').value, f = unit === 'C' ? temp * 9 / 5 + 32 : temp; if (f < 85 || f > 110) return err('Temperature looks out of range for the unit chosen.'); out.push(['TEMP', 'Temperature', `${temp.toFixed(1)} °${unit}`, '', vitalFlag('TEMP', f)]); }
-    const hr = num('fsv_hr', 20, 300, 'Heart rate'); if (Number.isNaN(hr)) return; if (hr != null) out.push(['HR', 'Heart Rate', String(Math.round(hr)), 'bpm', vitalFlag('HR', hr)]);
+    if (temp != null) { const unit = $('fsv_tunit').value, f = unit === 'C' ? temp * 9 / 5 + 32 : temp; if (f < 85 || f > 110) return err('Temperature looks out of range for the unit chosen.'); out.push(['TEMP', 'Temperature', `${temp.toFixed(1)} °${unit}`, '', vitalFlag('TEMP', f)]); src('TEMPSRC', 'Temp Source', 'fsv_tsrc'); }
+    else if (g('fsv_tsrc')) return err('Enter the temperature that goes with the source, or clear the source.');
+    const hr = num('fsv_hr', 20, 300, 'Heart rate'); if (Number.isNaN(hr)) return; if (hr != null) { out.push(['HR', 'Heart Rate', String(Math.round(hr)), 'bpm', vitalFlag('HR', hr)]); src('HRSRC', 'HR Source', 'fsv_hrsrc'); }
+    else if (g('fsv_hrsrc')) return err('Enter the heart rate that goes with the source, or clear the source.');
+    const pr = num('fsv_pr', 20, 300, 'Pulse rate from SpO2'); if (Number.isNaN(pr)) return; if (pr != null) out.push(['SPO2HR', 'Pulse Rate from SpO2', String(Math.round(pr)), 'bpm', vitalFlag('HR', pr)]);
     const sbp = num('fsv_sbp', 40, 300, 'Systolic pressure'); if (Number.isNaN(sbp)) return;
     const dbp = num('fsv_dbp', 20, 200, 'Diastolic pressure'); if (Number.isNaN(dbp)) return;
     if ((sbp == null) !== (dbp == null)) return err('Enter both numbers of the blood pressure.');
-    if (sbp != null) { if (sbp <= dbp) return err('Systolic pressure should be higher than diastolic.'); out.push(['BP', 'Blood Pressure', `${Math.round(sbp)}/${Math.round(dbp)}`, '', vitalFlag('SBP', sbp)]); }
-    const rr = num('fsv_rr', 4, 70, 'Respiratory rate'); if (Number.isNaN(rr)) return; if (rr != null) out.push(['RR', 'Respiratory Rate', String(Math.round(rr)), '/min', vitalFlag('RR', rr)]);
+    if (sbp != null) { if (sbp <= dbp) return err('Systolic pressure should be higher than diastolic.'); out.push(['BP', 'Blood Pressure', `${Math.round(sbp)}/${Math.round(dbp)}`, '', vitalFlag('SBP', sbp)]); src('BPLOC', 'BP Location', 'fsv_bploc'); src('BPMETH', 'BP Method', 'fsv_bpmeth'); }
+    else if (g('fsv_bploc') || g('fsv_bpmeth')) return err('Enter the blood pressure that goes with the location / method, or clear them.');
+    const rr = num('fsv_rr', 4, 70, 'Respiratory rate'); if (Number.isNaN(rr)) return; if (rr != null) { out.push(['RR', 'Respiratory Rate', String(Math.round(rr)), '/min', vitalFlag('RR', rr)]); src('RRSRC', 'RR Source', 'fsv_rrsrc'); }
+    else if (g('fsv_rrsrc')) return err('Enter the respiratory rate that goes with the source, or clear the source.');
     const sp = num('fsv_spo2', 50, 100, 'SpO2'); if (Number.isNaN(sp)) return; if (sp != null) out.push(['SPO2', 'SpO2', String(Math.round(sp)), '%', vitalFlag('SPO2', sp)]);
     const pn = num('fsv_pain', 0, 10, 'Pain'); if (Number.isNaN(pn)) return; if (pn != null) out.push(['PAIN', 'Pain', `${Math.round(pn)}/10`, '', false]);
     const dev = $('fsv_o2').value, flow = g('fsv_flow');

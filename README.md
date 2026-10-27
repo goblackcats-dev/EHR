@@ -680,3 +680,12 @@ Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
 
 ## v53 - Pre-Built Patients
 **Pre-Built Patients** (button in the top bar of the EHR and the Case Builder): a separate library of ready-made patients: **LPN Med Pass** (5 patients, one PO + one SubQ + one IM medication each) and **Case Study Patients** (5). Pick one, change only name, MRN, room, code status and allergies, then open it. Built by `node tools/make-prebuilt.js` into `prebuilt/` (re-run after changing an LPN profile or adding a case study).
+
+## New in v60: one flowsheet at a time, student charting, bedside monitor
+
+- **Flowsheets** now lists five flowsheets: Vital Signs, Adult Assessment (all body systems as sub-headers), Pain / Safety, Lines / Drains / Airways, Intake / Output. Clicking one shows only that flowsheet; the choice is remembered. Code: `flowsheet-charting.js` (page, forms, monitor) plus `buildFlowsheetRecords` in `app.js`.
+- Students chart everything themselves at a chosen time (default the current patient time): a vitals form (with sources, MAP calculated live), the assessment dialog, an intake/output form, and devices (add at an Avatar site, assess, remove). Tapping an empty cell opens the entry for that row and time. All entries are `studentEntered:true`, so **Reset simulation** removes them (devices a student removed come back).
+- Student I&O is stored in `ioEvents` and flows into the flowsheet totals (shift / 24 h / stay) and the Summary page totals, table and chart. Student devices appear on the Avatar at their `siteMarker`; removed devices leave the Avatar and show greyed in the device list.
+- **Bedside monitor** panel (top of Vital Signs): what the monitor reads now, the suggested next case vital set with a countdown, and "Fill from monitor" in the vitals form. Instructors always see it; students only when `canonical.practice.showMonitor` is on (instructor checkbox "Show monitor to students").
+- Case vital sets without source information show default sources (Oral, Telemetry or Pulse ox, Left arm, Automatic cuff, Monitor) at display time; MAP = round((SBP + 2 x DBP) / 3).
+- Case Builder now plans vital signs every 2 hours through the rest of the shift (they appear in the chart as the clock reaches them); the flowsheet **Bedside monitor** panel shows the current reading and the suggested next set.

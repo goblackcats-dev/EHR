@@ -27,6 +27,7 @@
   const CHART_LABEL = { 'Vital Signs': 'Chart vitals', 'Adult Assessment': 'Chart assessment', 'Pain / Safety': 'Chart pain / safety', 'Lines / Drains / Airways': 'Add device', 'Intake / Output': 'Chart intake / output' };
   const VITAL_ROWS = ['Temperature', 'Temp Source', 'Heart Rate', 'HR Source', 'Pulse Rate from SpO2', 'Blood Pressure', 'MAP', 'BP Location', 'BP Method', 'Respiratory Rate', 'RR Source', 'SpO2', 'O2 Device'];
   const SUB_ROWS = ['Temp Source', 'HR Source', 'MAP', 'BP Location', 'BP Method', 'RR Source'];
+  const SHORT = { 'Telemetry/ECG monitor': 'Telemetry', 'Pulse oximeter': 'Pulse ox', 'Palpated radial': 'Radial', 'Apical stethoscope': 'Apical', 'Monitor/capnography': 'Monitor', 'Counted manually': 'Manual count', 'Automatic cuff': 'Auto cuff' };
   const TEMP_SOURCES = ['Oral', 'Temporal', 'Axillary', 'Tympanic', 'Rectal', 'Bladder/core'];
   const HR_SOURCES = ['Telemetry/ECG monitor', 'Pulse oximeter', 'Palpated radial', 'Apical stethoscope'];
   const BP_LOCS = ['Left arm', 'Right arm', 'Left leg', 'Right leg', 'Left wrist', 'Right wrist'];
@@ -182,7 +183,7 @@
       nextHtml = `<div class="fs-mon-next-head"><b>Suggested next set</b><span class="fs-mon-count">${esc(hhmm(next.time))} (${esc(epicDate(next.time).split(' ')[0])}) &nbsp; in ${mins} min</span></div><div class="fs-mon-next-vals">${bits.map(([k, t]) => `<span><em>${k}</em> ${esc(t)}</span>`).join('')}</div>`;
     } else nextHtml = `<div class="fs-mon-next-head"><b>Suggested next set</b><span class="fs-mon-count">No further sets planned</span></div>`;
     box.innerHTML = `<div class="fs-mon-head"><b>Bedside monitor</b><span>${cur ? `Reading from ${esc(hhmm(cur.time))} (${agoText})` : 'No monitor reading yet'}</span>${isInstructor() ? `<label class="fs-mon-share"><input type="checkbox" id="fsMonShow"${practice().showMonitor ? ' checked' : ''}> Show monitor to students</label>` : ''}</div>
-      <div class="fs-mon-grid">${tile('HR', 'bpm', 'HR', v && valText(v.HR).replace(/\s*bpm$/i, ''), v && flag(v.HR), v && v.HRSRC)}${tile('BP', v && v.MAP != null ? `MAP ${v.MAP} mmHg` : 'mmHg', 'BP', v && valText(v.BP), v && flag(v.BP), v && v.BP ? `${v.BPLOC}, ${v.BPMETH}` : '')}${tile('RR', '/min', 'RR', v && valText(v.RR).replace(/\s*\/min$/i, ''), v && flag(v.RR), v && v.RRSRC)}${tile('SpO2', '%', 'SPO2', v && valText(v.SPO2).replace(/\s*%$/, ''), v && flag(v.SPO2), v && v.PR ? `Pulse rate ${v.PR.replace(/\s*bpm$/i, '')} bpm` : '')}${tile('Temp', v && /°\s*[CF]/.test(valText(v.TEMP)) ? valText(v.TEMP).replace(/^.*?(°\s*[CF]).*$/, '$1') : '', 'TEMP', v && valText(v.TEMP).replace(/\s*°\s*[CF]\s*$/, ''), v && flag(v.TEMP), v && v.TEMPSRC)}${tile('Pain', '0 to 10', 'PAIN', v && valText(v.PAIN).replace(/\/10$/, ''), false)}${tile('O2 device', '', 'O2', v && v.O2, false)}</div>
+      <div class="fs-mon-grid">${tile('HR', 'bpm', 'HR', v && valText(v.HR).replace(/\s*bpm$/i, ''), v && flag(v.HR), v && (SHORT[v.HRSRC] || v.HRSRC))}${tile('BP', v && v.MAP != null ? `MAP ${v.MAP} mmHg` : 'mmHg', 'BP', v && valText(v.BP), v && flag(v.BP), v && v.BP ? `${v.BPLOC}, ${SHORT[v.BPMETH] || v.BPMETH}` : '')}${tile('RR', '/min', 'RR', v && valText(v.RR).replace(/\s*\/min$/i, ''), v && flag(v.RR), v && (SHORT[v.RRSRC] || v.RRSRC))}${tile('SpO2', '%', 'SPO2', v && valText(v.SPO2).replace(/\s*%$/, ''), v && flag(v.SPO2), v && v.PR ? `PR ${v.PR.replace(/\s*bpm$/i, '')} bpm` : '')}${tile('Temp', v && /°\s*[CF]/.test(valText(v.TEMP)) ? valText(v.TEMP).replace(/^.*?(°\s*[CF]).*$/, '$1') : '', 'TEMP', v && valText(v.TEMP).replace(/\s*°\s*[CF]\s*$/, ''), v && flag(v.TEMP), v && v.TEMPSRC)}${tile('Pain', '0 to 10', 'PAIN', v && valText(v.PAIN).replace(/\/10$/, ''), false)}${tile('O2 device', '', 'O2', v && v.O2, false)}</div>
       <div class="fs-mon-next">${nextHtml}</div>`;
     const cb = $('fsMonShow');
     if (cb) cb.addEventListener('change', () => { practice().showMonitor = cb.checked; try { persistCase(); } catch (e) { /* best effort */ } });
@@ -273,7 +274,8 @@
           if (rec.abnormal) td.classList.add('flowsheet-abnormal');
           if (rec.studentEntered) td.classList.add('fs-student');
           if (currentFlowsheetSelection === rec.id) td.classList.add('selected');
-          td.textContent = safe(rec.value);
+          td.textContent = rw.sub ? (SHORT[rec.value] || rec.value) : safe(rec.value);
+          if (rw.sub && SHORT[rec.value]) td.title = rec.value;
           if (inCell.length > 1) td.title = inCell.map(r => `${epicDate(r.collected)}  ${r.value}`).join('\n');
           td.addEventListener('click', () => { currentFlowsheetSelection = rec.id; lastCell = inCell; renderFlowsheetsPage(currentPatientData); });
         }
