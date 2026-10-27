@@ -3,13 +3,13 @@
   {
    "id": "lpn",
    "title": "LPN Med Pass",
-   "note": "First-semester LPN medication pass: scan the patient and each medication. One PO, one SubQ and one IM medication each.",
+   "note": "First-semester LPN medication pass: scan the patient and each medication. One PO (lisinopril or acetaminophen), one SubQ (insulin lispro sliding scale) and one IM (ceftriaxone or vitamin B12) each.",
    "patients": [
     {
      "id": "lpn_htn",
      "name": "Harold Bennett",
      "title": "Hypertension follow-up (PO + SubQ + IM)",
-     "desc": "PO lisinopril, SubQ enoxaparin, IM influenza vaccine",
+     "desc": "PO lisinopril, SubQ insulin lispro (low scale, glucose 177 = 2 units), IM vitamin B12 1,000 mcg",
      "file": "prebuilt/lpn_htn.json",
      "age": 62,
      "sex": "Male"
@@ -17,8 +17,8 @@
     {
      "id": "lpn_cellulitis",
      "name": "Maria Santos",
-     "title": "Cellulitis, antibiotic (PO + SubQ + IM)",
-     "desc": "PO acetaminophen, SubQ enoxaparin, IM ceftriaxone",
+     "title": "Cellulitis (PO + SubQ + IM)",
+     "desc": "PO acetaminophen, SubQ insulin lispro (high scale, glucose 261 = 12 units), IM ceftriaxone 1 g",
      "file": "prebuilt/lpn_cellulitis.json",
      "age": 55,
      "sex": "Female"
@@ -26,8 +26,8 @@
     {
      "id": "lpn_fall",
      "name": "Dorothy Hughes",
-     "title": "Fall with limited mobility (PO + SubQ + IM)",
-     "desc": "PO acetaminophen, SubQ enoxaparin, IM Tdap vaccine",
+     "title": "Fall with urinary tract infection (PO + SubQ + IM)",
+     "desc": "PO acetaminophen, SubQ insulin lispro (low scale, glucose 216 = 4 units), IM ceftriaxone 500 mg",
      "file": "prebuilt/lpn_fall.json",
      "age": 78,
      "sex": "Female"
@@ -36,7 +36,7 @@
      "id": "lpn_diabetes",
      "name": "Calvin Reed",
      "title": "Type 2 diabetes, high blood sugar (PO + SubQ + IM)",
-     "desc": "PO metformin, SubQ insulin lispro, IM pneumococcal vaccine",
+     "desc": "PO lisinopril, SubQ insulin lispro (high scale, glucose 341 = 16 units), IM vitamin B12 500 mcg",
      "file": "prebuilt/lpn_diabetes.json",
      "age": 58,
      "sex": "Male"
@@ -45,7 +45,7 @@
      "id": "lpn_b12",
      "name": "Linda Park",
      "title": "Vitamin B12 deficiency anemia (PO + SubQ + IM)",
-     "desc": "PO folic acid, SubQ heparin, IM vitamin B12",
+     "desc": "PO acetaminophen, SubQ insulin lispro (low scale, glucose 166 = 2 units), IM vitamin B12 1,000 mcg",
      "file": "prebuilt/lpn_b12.json",
      "age": 66,
      "sex": "Female"

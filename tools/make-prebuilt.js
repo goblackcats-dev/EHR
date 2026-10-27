@@ -13,13 +13,13 @@ if (fs.existsSync(arch)) fs.readdirSync(arch).filter(f => /^primary_.*\.js$/.tes
 const base = o => Object.assign({ name: 'Patient', age: 60, sex: 'Female', mrn: 'SIM-0', unit: 'Medical-Surgical 2 East', room: '', heightCm: 170, weightKg: 80, primary: 'lpn_htn', hospitalDay: 1, simDate: '2026-10-20', startTime: '08:45', hx: [], surg: [], surgText: '', allergies: [], codeStatus: 'Full Code',
   social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' }, studentLevel: 'First-semester LPN', complexity: 'simple', facultyNotes: '' }, o);
 const LPN = [
-  { id: 'lpn_htn', name: 'Harold Bennett', age: 62, sex: 'Male', mrn: 'SIM-30411', room: '204-1', weightKg: 92, heightCm: 178, primary: 'lpn_htn', desc: 'PO lisinopril, SubQ enoxaparin, IM influenza vaccine' },
-  { id: 'lpn_cellulitis', name: 'Maria Santos', age: 55, sex: 'Female', mrn: 'SIM-30412', room: '206-2', weightKg: 78, heightCm: 160, primary: 'lpn_cellulitis', desc: 'PO acetaminophen, SubQ enoxaparin, IM ceftriaxone' },
-  { id: 'lpn_fall', name: 'Dorothy Hughes', age: 78, sex: 'Female', mrn: 'SIM-30413', room: '208-1', weightKg: 64, heightCm: 158, primary: 'lpn_fall', desc: 'PO acetaminophen, SubQ enoxaparin, IM Tdap vaccine' },
-  { id: 'lpn_diabetes', name: 'Calvin Reed', age: 58, sex: 'Male', mrn: 'SIM-30414', room: '210-2', weightKg: 101, heightCm: 180, primary: 'lpn_diabetes', desc: 'PO metformin, SubQ insulin lispro, IM pneumococcal vaccine' },
-  { id: 'lpn_b12', name: 'Linda Park', age: 66, sex: 'Female', mrn: 'SIM-30415', room: '212-1', weightKg: 62, heightCm: 163, primary: 'lpn_b12', desc: 'PO folic acid, SubQ heparin, IM vitamin B12' }
+  { id: 'lpn_htn', name: 'Harold Bennett', age: 62, sex: 'Male', mrn: 'SIM-30411', room: '204-1', weightKg: 92, heightCm: 178, primary: 'lpn_htn', desc: 'PO lisinopril, SubQ insulin lispro (low scale, glucose 177 = 2 units), IM vitamin B12 1,000 mcg' },
+  { id: 'lpn_cellulitis', name: 'Maria Santos', age: 55, sex: 'Female', mrn: 'SIM-30412', room: '206-2', weightKg: 78, heightCm: 160, primary: 'lpn_cellulitis', desc: 'PO acetaminophen, SubQ insulin lispro (high scale, glucose 261 = 12 units), IM ceftriaxone 1 g' },
+  { id: 'lpn_fall', name: 'Dorothy Hughes', age: 78, sex: 'Female', mrn: 'SIM-30413', room: '208-1', weightKg: 64, heightCm: 158, primary: 'lpn_fall', desc: 'PO acetaminophen, SubQ insulin lispro (low scale, glucose 216 = 4 units), IM ceftriaxone 500 mg' },
+  { id: 'lpn_diabetes', name: 'Calvin Reed', age: 58, sex: 'Male', mrn: 'SIM-30414', room: '210-2', weightKg: 101, heightCm: 180, primary: 'lpn_diabetes', desc: 'PO lisinopril, SubQ insulin lispro (high scale, glucose 341 = 16 units), IM vitamin B12 500 mcg' },
+  { id: 'lpn_b12', name: 'Linda Park', age: 66, sex: 'Female', mrn: 'SIM-30415', room: '212-1', weightKg: 62, heightCm: 163, primary: 'lpn_b12', desc: 'PO acetaminophen, SubQ insulin lispro (low scale, glucose 166 = 2 units), IM vitamin B12 1,000 mcg' }
 ];
-const groups = [{ id: 'lpn', title: 'LPN Med Pass', note: 'First-semester LPN medication pass: scan the patient and each medication. One PO, one SubQ and one IM medication each.', patients: [] },
+const groups = [{ id: 'lpn', title: 'LPN Med Pass', note: 'First-semester LPN medication pass: scan the patient and each medication. One PO (lisinopril or acetaminophen), one SubQ (insulin lispro sliding scale) and one IM (ceftriaxone or vitamin B12) each.', patients: [] },
   { id: 'casestudy', title: 'Case Study Patients', note: 'Patients with a built care-plan case study (see Case Studies).', patients: [] }];
 LPN.forEach(d => {
   const r = NS.buildCase(base(d)); const file = `lpn_${d.id.replace(/^lpn_/, '')}.json`;
