@@ -1,4 +1,4 @@
-/* NursingSim - report from the off-going nurse (v31). No AI and no internet needed.
+/* NursingSim - report from the off-going nurse (v32: optional natural voice from a local OpenAI-compatible TTS server, saved in cc.offgoingAudio and kept in the student file). No AI and no internet needed.
    Writes the bedside report the night nurse would give at the start of the shift, from the chart as it stands at the shift start time
    (nothing that happens later in the shift is included). It uses the same five parts as the handoff practice: who and how sick, why they are here,
    assessment, medications and orders, and what to watch for with if-then plans. Instructors can edit the text and it is saved with the patient;
@@ -117,30 +117,119 @@
     dlg = document.createElement('dialog'); dlg.id = 'ogDialog'; dlg.className = 'quiz-dialog';
     document.body.appendChild(dlg); return dlg;
   }
+  // ---- local AI voice settings (instructor only; saved in this browser)
+  const VKEY = 'nursingsim.aiVoice';
+  const vget = () => { let o = {}; try { o = JSON.parse(localStorage.getItem(VKEY) || '{}') || {}; } catch (e) { /* ignore */ } return { base: o.base || 'http://localhost:8880', model: o.model || 'kokoro', voice: o.voice || 'af_heart' }; };
+  const vput = o => { try { localStorage.setItem(VKEY, JSON.stringify(o)); } catch (e) { /* ignore */ } };
+  const hashText = t => { let h = 5381; for (let i = 0; i < t.length; i++) h = ((h * 33) ^ t.charCodeAt(i)) >>> 0; return h.toString(36) + '-' + t.length; };
+  const reportText = cc => (cc.offgoingReport && cc.offgoingReport.text) || build(cc).text;
+  const spoken = t => t.replace(/^\d\.\s+/gm, '').replace(/\b(\d+)\/10\b/g, '$1 out of 10').replace(/[ \t]+/g, ' ');
+  const audioState = cc => { const a = cc.offgoingAudio; if (!a || !a.parts || !a.parts.length) return null; return Object.assign({ stale: a.hash !== hashText(reportText(cc)) }, a); };
+  function chunkText(text) { // by section, then sentences, each under ~700 characters
+    const out = [];
+    spoken(text).split(/\n\s*\n/).forEach(sec => {
+      const lines = sec.split('\n'), title = lines.shift(), body = lines.join(' ');
+      let cur = title + '. ';
+      (body.match(/[^.!?]+[.!?]+["')]*\s*|[^.!?]+$/g) || []).forEach(sn => { if (cur.length + sn.length > 700 && cur.trim()) { out.push(cur.trim()); cur = ''; } cur += sn; });
+      if (cur.trim()) out.push(cur.trim());
+    });
+    return out;
+  }
+  function friendly(e, base) {
+    if (e && e.http) return 'The voice server answered with an error (' + e.http + '). Check the Model and Voice names. ' + (e.detail || '');
+    return 'Could not reach the voice server at ' + base + '. The voice server must be running, and it must allow requests from this page (CORS). Start it, allow this website in its CORS settings, then try again.';
+  }
+  async function synth(cfg, input) {
+    let r; const base = cfg.base.replace(/\/+$/, '').replace(/\/v1\/audio\/speech$/, '');
+    try { r = await fetch(base + '/v1/audio/speech', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: cfg.model, input, voice: cfg.voice, response_format: 'mp3', speed: 1 }) }); } catch (e) { throw friendly(null, cfg.base); }
+    if (!r.ok) { let d = ''; try { d = (await r.text()).slice(0, 160); } catch (e) { /* ignore */ } throw friendly({ http: r.status, detail: d }, cfg.base); }
+    const blob = await r.blob(); if (!blob.size) throw 'The voice server sent back empty audio.';
+    return new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res({ url: fr.result, mime: blob.type || 'audio/mpeg' }); fr.onerror = () => rej('Could not read the audio.'); fr.readAsDataURL(blob); });
+  }
+  function readCfg() { const g = id => ($(id) ? $(id).value.trim() : ''); const c = { base: g('ogBase') || 'http://localhost:8880', model: g('ogModel') || 'kokoro', voice: g('ogVoice') || 'af_heart' }; vput(c); return c; }
+  let testAudio = null;
+  async function testVoice() {
+    const st = $('ogVStatus'); st.textContent = 'Asking the voice server...';
+    try { const cfg = readCfg(), r = await synth(cfg, 'Good morning. I am the night nurse, and this is how I will sound when I give you report.'); st.textContent = 'Playing the test sentence.'; if (testAudio) testAudio.pause(); testAudio = new Audio(r.url); await testAudio.play(); }
+    catch (e) { st.textContent = typeof e === 'string' ? e : 'The test sentence could not be played: ' + (e && e.message); }
+  }
+  async function generate() {
+    const cc = currentCanonicalCase, st = $('ogVStatus'), btn = $('ogGen'); btn.disabled = true;
+    try {
+      const cfg = readCfg(), text = reportText(cc), chunks = chunkText(text), parts = []; let mime = 'audio/mpeg';
+      for (let i = 0; i < chunks.length; i++) { st.textContent = 'Making voice ' + (i + 1) + ' of ' + chunks.length + '...'; const r = await synth(cfg, chunks[i]); parts.push(r.url); mime = r.mime; }
+      cc.offgoingAudio = { mime, parts, hash: hashText(text), voice: cfg.voice, model: cfg.model, made: new Date().toISOString() };
+      try { persistCase(); } catch (e) { /* best effort */ }
+      render(); const mb = parts.reduce((s, p) => s + p.length, 0) * 0.75 / 1048576, s2 = $('ogVStatus');
+      s2.textContent = 'Saved with this patient (' + mb.toFixed(1) + ' MB).' + (mb > 6 ? ' Warning: this is large (over 6 MB). The student link and file will be slow to load; consider a shorter report.' : '') + ' Save the patient to your library to keep it.';
+    } catch (e) { st.textContent = typeof e === 'string' ? e : 'Error: ' + (e && e.message); btn.disabled = false; }
+  }
+  function voiceSection(cc) {
+    const v = vget(), a = audioState(cc), inp = (id, l, val) => '<label class="input-label" for="' + id + '">' + l + '</label><input id="' + id + '" value="' + esc(val) + '" style="width:100%;box-sizing:border-box;padding:6px;font-size:14px" />';
+    return '<details class="og-voice" style="margin:10px 0;border:1px solid #c8d0d8;border-radius:6px;padding:8px"' + (a && !a.stale ? '' : ' open') + '><summary><b>Voice (local AI)</b> ' + (a ? (a.stale ? '<span style="color:#b00020">- saved voice is out of date, please regenerate</span>' : '- saved voice: ' + esc(a.voice)) : '- none saved yet') + '</summary>' +
+      '<p style="font-size:13px;margin:6px 0">Optional. Run a local text-to-speech server (OpenAI-compatible, e.g. Kokoro-FastAPI) on this computer. The voice is saved with the patient, so students hear it without needing your server.</p>' +
+      inp('ogBase', 'Server address', v.base) + inp('ogModel', 'Model', v.model) + inp('ogVoice', 'Voice', v.voice) +
+      '<div class="ho-actions"><button id="ogTest" class="secondary-button">Test voice</button> <button id="ogGen" class="primary-button">Generate voice with local AI</button>' + (a ? ' <button id="ogDelAudio" class="secondary-button">Remove saved voice</button>' : '') + '</div><div id="ogVStatus" role="status" style="font-size:13px;margin-top:4px"></div></details>';
+  }
   function render() {
-    const cc = currentCanonicalCase, r = build(cc), dlg = ensureDialog(), custom = cc.offgoingReport && cc.offgoingReport.text;
-    const body = custom ? `<div class="og-text">${esc(custom).replace(/\n/g, '<br>')}</div>` : r.sections.map(s => `<h3 class="ho-sec">${esc(s.title)}</h3><p class="og-p">${s.lines.map(esc).join(' ')}</p>`).join('');
-    dlg.innerHTML = `<div class="dialog-header"><div><h2>Report from the night nurse</h2><p>As it was given at ${esc(epicDate(r.at))}${custom ? ' (edited by your instructor)' : ''}. Take notes: you will give report at the end of your shift.</p></div><button id="ogClose" class="icon-button" aria-label="Close">×</button></div>
-      <div class="dialog-body"><div class="ho-actions"><button id="ogSpeak" class="primary-button">▶ Read aloud</button> <button id="ogPrint" class="secondary-button">Print</button>${isInstructor ? ' <button id="ogEdit" class="secondary-button">Edit text</button>' + (custom ? ' <button id="ogReset" class="secondary-button">Back to generated report</button>' : '') : ''}</div>
-      <div id="ogBody">${body}</div></div>`;
+    const cc = currentCanonicalCase, r = build(cc), dlg = ensureDialog(), custom = cc.offgoingReport && cc.offgoingReport.text, au = audioState(cc), useAudio = au && !au.stale;
+    const body = custom ? '<div class="og-text">' + esc(custom).replace(/\n/g, '<br>') + '</div>' : r.sections.map(s => '<h3 class="ho-sec">' + esc(s.title) + '</h3><p class="og-p">' + s.lines.map(esc).join(' ') + '</p>').join('');
+    dlg.innerHTML = '<div class="dialog-header"><div><h2>Report from the night nurse</h2><p>As it was given at ' + esc(epicDate(r.at)) + (custom ? ' (edited by your instructor)' : '') + '. Take notes: you will give report at the end of your shift.</p></div><button id="ogClose" class="icon-button" aria-label="Close">×</button></div>' +
+      '<div class="dialog-body"><div class="ho-actions"><button id="ogSpeak" class="primary-button">▶ Read aloud</button> <button id="ogPause" class="secondary-button" hidden>Pause</button> <label id="ogRateL" style="font-size:13px" hidden>Speed <select id="ogRate"><option value="0.85">Slower</option><option value="1" selected>Normal</option><option value="1.2">Faster</option></select></label> <button id="ogPrint" class="secondary-button">Print</button>' + (isInstructor ? ' <button id="ogEdit" class="secondary-button">Edit text</button>' + (custom ? ' <button id="ogReset" class="secondary-button">Back to generated report</button>' : '') : '') + '</div>' +
+      (isInstructor ? voiceSection(cc) : '') + '<div id="ogBody">' + body + '</div></div>';
+    void useAudio;
     $('ogClose').addEventListener('click', () => { stopSpeak(); dlg.close(); });
     $('ogSpeak').addEventListener('click', toggleSpeak);
-    $('ogPrint').addEventListener('click', () => NSWristband.showDialog('Report from the night nurse', esc(safe(cc.patient.name)), `<div class="og-text">${esc(custom || r.text).replace(/\n/g, '<br>')}</div>`));
+    $('ogPause').addEventListener('click', () => { const a = player; if (!a) return; if (a.paused) { a.play(); $('ogPause').textContent = 'Pause'; } else { a.pause(); $('ogPause').textContent = 'Resume'; } });
+    $('ogRate').addEventListener('change', () => { if (player) player.playbackRate = parseFloat($('ogRate').value); });
+    $('ogPrint').addEventListener('click', () => NSWristband.showDialog('Report from the night nurse', esc(safe(cc.patient.name)), '<div class="og-text">' + esc(custom || r.text).replace(/\n/g, '<br>') + '</div>'));
     if (isInstructor) {
+      $('ogTest').addEventListener('click', testVoice); $('ogGen').addEventListener('click', generate);
+      const da = $('ogDelAudio'); if (da) da.addEventListener('click', () => { delete cc.offgoingAudio; try { persistCase(); } catch (e) { /* best effort */ } render(); });
       $('ogEdit').addEventListener('click', () => {
-        $('ogBody').innerHTML = `<textarea id="ogTa" rows="16" style="width:100%;box-sizing:border-box;font-size:15px">${esc(custom || r.text)}</textarea><div class="ho-actions"><button id="ogSave" class="primary-button">Save text with this patient</button></div>`;
-        $('ogSave').addEventListener('click', () => { cc.offgoingReport = { text: $('ogTa').value, edited: true }; try { persistCase(); } catch (e) { /* best effort */ } render(); });
+        $('ogBody').innerHTML = '<textarea id="ogTa" rows="16" style="width:100%;box-sizing:border-box;font-size:15px">' + esc(custom || r.text) + '</textarea><div class="ho-actions"><button id="ogSave" class="primary-button">Save text with this patient</button></div>';
+        $('ogSave').addEventListener('click', () => { cc.offgoingReport = { text: $('ogTa').value, edited: true }; try { persistCase(); } catch (e) { /* best effort */ } render(); if (cc.offgoingAudio && $('ogVStatus')) $('ogVStatus').textContent = 'The report text changed, so the saved voice is out of date. Press "Generate voice with local AI" to make a new one.'; });
       });
       const rs = $('ogReset'); if (rs) rs.addEventListener('click', () => { delete cc.offgoingReport; try { persistCase(); } catch (e) { /* best effort */ } render(); });
     }
   }
-  function stopSpeak() { try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) { /* ignore */ } const b = $('ogSpeak'); if (b) b.textContent = '▶ Read aloud'; }
+
+  // ---- playback: saved natural voice if present, otherwise the best system voice
+  let player = null, speaking = false, queueId = 0;
+  function stopSpeak() {
+    queueId++; speaking = false;
+    if (player) { try { player.pause(); } catch (e) { /* ignore */ } player = null; }
+    try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) { /* ignore */ }
+    const b = $('ogSpeak'); if (b) b.textContent = '▶ Read aloud'; const p = $('ogPause'); if (p) { p.hidden = true; p.textContent = 'Pause'; }
+  }
+  function pickVoice() {
+    let vs = []; try { vs = speechSynthesis.getVoices() || []; } catch (e) { /* ignore */ }
+    const en = vs.filter(v => /^en([-_]|$)/i.test(v.lang || '')); if (!en.length) return null;
+    const score = v => { let s = 0; const n = v.name || ''; if (/enhanced|premium|neural|natural|online/i.test(n)) s += 10; if (/samantha|ava|allison|google us english|aria|jenny/i.test(n)) s += 5; if (/^en[-_]US/i.test(v.lang)) s += 3; if (v.localService) s += 1; if (/compact|espeak|fred|albert|bad news|whisper|zarvox|trinoids|bubbles|boing|cellos|jester|organ|bells|hysterical|superstar/i.test(n)) s -= 20; return s; };
+    return en.slice().sort((a, b) => score(b) - score(a))[0];
+  }
   function toggleSpeak() {
+    if (speaking) { stopSpeak(); return; }
+    const cc = currentCanonicalCase, au = audioState(cc), btn = $('ogSpeak');
+    if (au && !au.stale) {
+      const parts = au.parts; let i = 0; const my = ++queueId; speaking = true; btn.textContent = '■ Stop';
+      const el = player = new Audio(); el.playbackRate = parseFloat(($('ogRate') || {}).value || 1);
+      el.onended = () => { if (my !== queueId) return; if (++i < parts.length) { el.src = parts[i]; el.playbackRate = parseFloat(($('ogRate') || {}).value || 1); el.play().catch(fail); } else stopSpeak(); };
+      const fail = () => { if (my === queueId) { stopSpeak(); alert('The saved voice could not be played on this device.'); } };
+      el.src = parts[0]; $('ogPause').hidden = false; $('ogRateL').hidden = false;
+      el.play().catch(fail); return;
+    }
     if (!window.speechSynthesis) { alert('This device cannot read aloud.'); return; }
-    if (speechSynthesis.speaking) { stopSpeak(); return; }
-    const cc = currentCanonicalCase, text = (cc.offgoingReport && cc.offgoingReport.text) || build(cc).text;
-    const u = new SpeechSynthesisUtterance(text.replace(/\n+/g, '. ').replace(/\b(\d+)\/10\b/g, '$1 out of 10')); u.rate = 0.95; u.onend = () => stopSpeak();
-    $('ogSpeak').textContent = '■ Stop'; speechSynthesis.speak(u);
+    const text = spoken(reportText(cc)), my = ++queueId, voice = pickVoice(), secs = text.split(/\n\s*\n/);
+    const queue = []; secs.forEach(sec => { const lines = sec.split('\n'), title = lines.shift(); queue.push({ t: title + '.', gap: 350 }); const sn = (lines.join(' ').match(/[^.!?]+[.!?]+["')]*\s*|[^.!?]+$/g) || []); sn.forEach((x, k) => queue.push({ t: x.trim(), gap: k === sn.length - 1 ? 900 : 180 })); });
+    speaking = true; btn.textContent = '■ Stop'; let qi = 0;
+    const next = () => {
+      if (my !== queueId) return; if (qi >= queue.length) { stopSpeak(); return; }
+      const q = queue[qi++]; if (!q.t) { next(); return; }
+      const u = new SpeechSynthesisUtterance(q.t); u.rate = 0.9; u.pitch = 1; if (voice) { u.voice = voice; u.lang = voice.lang; }
+      u.onend = () => setTimeout(next, q.gap); u.onerror = () => { if (my === queueId) setTimeout(next, 0); }; speechSynthesis.speak(u);
+    };
+    next();
   }
 
   function open() { if (!currentCanonicalCase) { alert('Load a patient first.'); return; } const dlg = ensureDialog(); render(); if (!dlg.open) dlg.showModal(); }

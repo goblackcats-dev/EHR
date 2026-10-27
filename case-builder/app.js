@@ -16,6 +16,7 @@
     social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' },
     medEdits: { removed: [], changed: {}, added: [] },
     hxCustom: [], surgYears: {}, surgCustom: [],
+    suggest: { on: false, dx: '', unchecked: [], addedHx: [], addedSurg: [] },
     trigger: { mode: 'off', key: '', atMin: 90, severity: 'moderate' }
   });
 
@@ -36,6 +37,7 @@
       // medication edits belong to one diagnosis; picking a different diagnosis starts the medication list fresh
       medEdits: (input.primary === v('primary') && input.medEdits) ? input.medEdits : { removed: [], changed: {}, added: [] },
       hxCustom: (input.hxCustom || []).slice(), surgYears: Object.assign({}, input.surgYears), surgCustom: (input.surgCustom || []).slice(),
+      suggest: Object.assign({ on: false, dx: '', unchecked: [], addedHx: [], addedSurg: [] }, input.suggest || {}),
       trigger: readTrigger(v('primary'))
     };
     const other = v('allergyOther').trim();
@@ -106,7 +108,7 @@
         if (input.hx.includes(k) && CKD_CHAIN.includes(k)) input.hx = input.hx.filter(x => x === k || !CKD_CHAIN.includes(x));
       },
       custom: { noun: 'condition', list: () => input.hxCustom, add: text => { if (!input.hxCustom.some(c => c.text.toLowerCase() === text.toLowerCase())) input.hxCustom.push({ text }); }, remove: i => input.hxCustom.splice(i, 1) },
-      onChange: () => { renderEffects(); changed(); }
+      onChange: () => { pruneSuggest(); renderEffects(); renderSuggest(); changed(); }
     });
     surgPicker = NS.Picker.create({
       root: $('surgPicker'), title: 'Choose surgical history', years: true,
@@ -118,7 +120,7 @@
       toggle: k => { if (input.surg.includes(k)) { input.surg = input.surg.filter(x => x !== k); delete input.surgYears[k]; } else { input.surg.push(k); if (!input.surgYears[k]) input.surgYears[k] = String(simYear() - 8); } },
       getYear: k => input.surgYears[k] || '', setYear: (k, y) => { input.surgYears[k] = y; },
       custom: { noun: 'surgery', list: () => input.surgCustom, add: (text, year) => input.surgCustom.push({ name: text, year: year || String(simYear() - 8) }), remove: i => input.surgCustom.splice(i, 1) },
-      onChange: () => changed()
+      onChange: () => { pruneSuggest(); renderSuggest(); changed(); }
     });
   }
   function renderEffects() {
@@ -137,6 +139,48 @@
       renderChips(); changed();
     })));
   }
+
+  // ------------------------------------------------------------------ suggested history for the diagnosis
+  // input.suggest = { on, dx, unchecked[], addedHx[], addedSurg[] }; added* lists only what the suggestion put in
+  // (items the instructor picked by hand are never touched, and unticking removes only items the suggestion added).
+  function sg() { if (!input.suggest) input.suggest = { on: false, dx: '', unchecked: [], addedHx: [], addedSurg: [] }; return input.suggest; }
+  function pruneSuggest() { const s = sg(); s.addedHx = s.addedHx.filter(k => input.hx.includes(k)); s.addedSurg = s.addedSurg.filter(k => input.surg.includes(k)); }
+  function applySuggest() {
+    const s = sg(), sug = NS.suggestFor ? NS.suggestFor($('primary').value) : { hx: [], surg: [] };
+    if (s.dx !== $('primary').value) { s.dx = $('primary').value; s.unchecked = []; }   // a new diagnosis starts with every item ticked
+    pruneSuggest();
+    const wantHx = s.on ? sug.hx.filter(k => !s.unchecked.includes('h:' + k)) : [], wantSurg = s.on ? sug.surg.filter(k => !s.unchecked.includes('s:' + k)) : [];
+    s.addedHx.filter(k => !wantHx.includes(k)).forEach(k => { input.hx = input.hx.filter(x => x !== k); });
+    s.addedSurg.filter(k => !wantSurg.includes(k)).forEach(k => { input.surg = input.surg.filter(x => x !== k); delete input.surgYears[k]; });
+    s.addedHx = s.addedHx.filter(k => wantHx.includes(k)); s.addedSurg = s.addedSurg.filter(k => wantSurg.includes(k));
+    wantHx.forEach(k => {
+      if (input.hx.includes(k)) return;
+      if (CKD_CHAIN.includes(k) && input.hx.some(x => CKD_CHAIN.includes(x))) return;   // keep the instructor's own kidney stage
+      input.hx.push(k); s.addedHx.push(k);
+    });
+    wantSurg.forEach(k => { if (input.surg.includes(k)) return; input.surg.push(k); if (!input.surgYears[k]) input.surgYears[k] = String(simYear() - 8); s.addedSurg.push(k); });
+  }
+  function renderSuggest() {
+    const root = $('suggestBox'); if (!root) return;
+    const s = sg(), sug = NS.suggestFor ? NS.suggestFor($('primary').value) : { hx: [], surg: [], note: '' };
+    const label = k => (NS.HX.M[k] || {}).label || k, slabel = k => (NS.HX.SURGERIES.find(t => t[0] === k) || [k, k])[1];
+    const row = (pre, k, text) => `<label class="sug-item"><input type="checkbox" data-sug="${pre}:${esc(k)}"${s.unchecked.includes(pre + ':' + k) ? '' : ' checked'} /><span>${esc(text)}</span></label>`;
+    let body = '';
+    if (!s.on) body = '';
+    else if (!sug.hx.length && !sug.surg.length) body = '<div class="hint">No history is suggested for this diagnosis.</div>';
+    else body = `<details class="sug-details" ${s.open === false ? '' : 'open'}><summary>Suggested history for this diagnosis (${sug.hx.length + sug.surg.length})</summary>` +
+      (sug.note ? `<div class="hint">${esc(sug.note)}</div>` : '') +
+      (sug.hx.length ? `<div class="sug-h">Medical history</div>${sug.hx.map(k => row('h', k, label(k))).join('')}` : '') +
+      (sug.surg.length ? `<div class="sug-h">Surgical history</div>${sug.surg.map(k => row('s', k, slabel(k))).join('')}` : '') + '</details>';
+    root.innerHTML = body;
+    const det = root.querySelector('details'); if (det) det.addEventListener('toggle', () => { s.open = det.open; });
+    root.querySelectorAll('input[data-sug]').forEach(cb => cb.addEventListener('change', () => {
+      const id = cb.dataset.sug; s.unchecked = s.unchecked.filter(x => x !== id); if (!cb.checked) s.unchecked.push(id);
+      applySuggest(); renderChips(); changed();
+    }));
+    if ($('suggestOn')) $('suggestOn').checked = !!s.on;
+  }
+  function suggestRefresh() { applySuggest(); renderChips(); renderSuggest(); changed(); }
   const toggle = (arr, k) => { const i = arr.indexOf(k); if (i >= 0) arr.splice(i, 1); else arr.push(k); };
 
   // ------------------------------------------------------------------ preview strip
@@ -307,7 +351,7 @@
     const order = id && medOrders().find(o => o.id === id);
     if (k === 'add') openMedEdit(null);
     else if (k === 'edit') openMedEdit(order);
-    else if (k === 'label') NSMedLabel.openSheet(result.canonical, [order], { simDate: simDay() });
+    else if (k === 'label') NSMedLabel.openSheet(result.canonical, [order], { simDate: simDay(), preselect: ['ml-' + order.id + '-'] });
     else if (k === 'labels') NSMedLabel.openSheet(result.canonical, medOrders().filter(o => o.status === 'Active'), { simDate: simDay() });
     else if (k === 'decoys') NSMedLabel.openSheet(result.canonical, medOrders().filter(o => o.status === 'Active'), { simDate: simDay(), decoys: true });
     else if (k === 'remove' && order) {
@@ -521,7 +565,7 @@
     const saved = row.canonical.facultyBuilder && row.canonical.facultyBuilder.inputs;
     if (!saved || !NS.PRIMARY[saved.primary]) { lmsg('This patient was not made by the builder, so it cannot be edited here. Use Open in EHR.', 'error'); return; }
     input = Object.assign(DEFAULTS(), saved, { social: Object.assign(DEFAULTS().social, saved.social || {}) });
-    writeForm(); renderChips(); build();
+    writeForm(); renderChips(); renderSuggest(); build();
     const byId = new Map(row.canonical.notes.map(n => [n.id, n]));
     result.canonical.notes.forEach(n => { const s = byId.get(n.id); if (s) { n.body = s.body; if (s.enhanced) n.enhanced = true; } });
     renderNotes();
@@ -553,7 +597,9 @@
     document.querySelectorAll('.card input:not(#apiKey):not(#rememberKey), .card select:not(#aiModel), .card textarea:not(#noteEdit):not(#jsonOut)').forEach(el => { el.addEventListener('input', changed); el.addEventListener('change', changed); });
     $('dayMinus').addEventListener('click', () => { $('hospitalDay').value = Math.max(1, (parseInt($('hospitalDay').value, 10) || 1) - 1); changed(); });
     $('dayPlus').addEventListener('click', () => { $('hospitalDay').value = Math.min(21, (parseInt($('hospitalDay').value, 10) || 1) + 1); changed(); });
-    $('clearHx').addEventListener('click', () => { input.hx = []; input.hxCustom = []; renderChips(); changed(); });
+    $('clearHx').addEventListener('click', () => { input.hx = []; input.hxCustom = []; pruneSuggest(); renderChips(); renderSuggest(); changed(); });
+    $('suggestOn').addEventListener('change', () => { sg().on = $('suggestOn').checked; suggestRefresh(); });
+    $('primary').addEventListener('change', () => { if (sg().on || sg().addedHx.length || sg().addedSurg.length) suggestRefresh(); else renderSuggest(); });
     // drag the divider to make the note list narrower or wider (remembered on this device)
     (() => {
       const lay = document.querySelector('.notes-layout'); if (!lay) return;
@@ -566,15 +612,15 @@
       grip.addEventListener('pointerup', stop); grip.addEventListener('pointercancel', stop);
       grip.addEventListener('dblclick', () => { lay.style.removeProperty('--nl-left'); safeSet('ns_builder_notes_w', ''); });
     })();
-    makePickers(); renderChips();
+    makePickers(); renderChips(); renderSuggest();
     document.querySelectorAll('#trigMode button').forEach(b => b.addEventListener('click', () => { input.trigger = readTrigger($('primary').value); input.trigger.mode = b.dataset.v; renderTrigger(); changed(); }));
     $('primary').addEventListener('change', () => { input.trigger = readTrigger($('primary').value); renderTrigger(); });
     ['trigKey', 'trigMin', 'trigSev'].forEach(id => $(id).addEventListener('change', () => { input.trigger = readTrigger($('primary').value); renderTrigger(); changed(); }));
     $('buildBtn').addEventListener('click', build);
-    $('resetBtn').addEventListener('click', () => { if (confirm('Reset every field to the starting example?')) { input = DEFAULTS(); writeForm(); renderChips(); changed(); build(); } });
+    $('resetBtn').addEventListener('click', () => { if (confirm('Reset every field to the starting example?')) { input = DEFAULTS(); writeForm(); renderChips(); renderSuggest(); changed(); build(); } });
     $('openEhrBtn').addEventListener('click', openInEhr);
     $('tab-meds').addEventListener('click', medAction);
-    $('wristbandBtn').addEventListener('click', () => { if (result) NSWristband.open(result.canonical); });
+    $('wristbandBtn').addEventListener('click', () => { if (result) NSMedLabel.openSheet(result.canonical, medOrders().filter(o => o.status === 'Active'), { simDate: simDay() }); });
     $('downloadBtn').addEventListener('click', download);
     $('copyBtn').addEventListener('click', copyJson);
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));

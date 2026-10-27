@@ -479,15 +479,14 @@
         <div id="mpTrapMsg" class="lib-message"></div>
         <div id="mpTrapList"></div>
         <h3>Props</h3>
-        <button id="mpPrintBtn" class="secondary-button">Print wristband</button> <button id="mpLabelBtn" class="secondary-button">Print labels for the medications due now</button> <button id="mpDebriefBtn" class="secondary-button">Med-pass debrief report</button>
+        <button id="mpPrintBtn" class="secondary-button">Print wristband and labels</button> <button id="mpDebriefBtn" class="secondary-button">Med-pass debrief report</button>
       </div>`;
     document.body.appendChild(dlg);
     $('mpSetupClose').addEventListener('click', () => dlg.close());
     $('mpOptScan').addEventListener('change', e => { cfg().scanRequired = e.target.checked; updateToolbar(); });
     $('mpOptDecoys').addEventListener('change', e => { cfg().decoys = e.target.checked; });
     $('mpTrapAdd').addEventListener('click', addTrap);
-    $('mpPrintBtn').addEventListener('click', () => NSWristband.open(currentCanonicalCase));
-    $('mpLabelBtn').addEventListener('click', openPrint);
+    $('mpPrintBtn').addEventListener('click', openPrint);
     $('mpDebriefBtn').addEventListener('click', openDebrief);
     $('mpTrapList').addEventListener('click', e => { const b = e.target.closest('[data-undo]'); if (b) { undoTrap(parseInt(b.dataset.undo, 10)); } });
     return dlg;

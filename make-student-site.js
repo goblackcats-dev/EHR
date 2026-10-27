@@ -11,7 +11,7 @@ let h = fs.readFileSync('student.html', 'utf8');
 h = h.replace(/<dialog id="libraryDialog"[\s\S]*?<\/dialog>\s*/, '').replace(/<dialog id="importDialog"[\s\S]*?<\/dialog>\s*/, '');
 h = h.replace(/<button id="openStudentViewBtn"[^>]*>[^<]*<\/button>\s*/, '').replace(/<button id="openLibraryBtn"[^>]*>[^<]*<\/button>\s*/, '').replace(/<button id="openImportBtn"[^>]*>[^<]*<\/button>\s*/, '');
 h = h.replace(/\s*<script src="student-link\.js"><\/script>/, '');
-const csp = "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; media-src 'self' blob:; worker-src 'self' blob:; base-uri 'none'; form-action 'none'";
+const csp = "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; media-src 'self' blob: data:; worker-src 'self' blob:; base-uri 'none'; form-action 'none'";
 h = h.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />\n  <meta http-equiv="Content-Security-Policy" content="' + csp + '" />\n  <meta name="referrer" content="no-referrer" />\n  <meta name="robots" content="noindex, nofollow" />');
 const scripts = [...h.matchAll(/<script src="([^"]+)"/g)].map(m => m[1]);
 const bad = ['quiz.js', 'student-link.js', 'make-student.js'];

@@ -73,6 +73,8 @@
 
       <div class="card">
         <div class="card-head"><h2>3. Medical history</h2><button class="link-btn" id="clearHx">Clear</button></div>
+        <label class="sug-toggle"><input type="checkbox" id="suggestOn" /><span>Suggest history for this diagnosis</span></label>
+        <div id="suggestBox" class="sug-box"></div>
         <div id="hxPicker"></div>
         <div id="hxEffects" class="effects"></div>
       </div>
@@ -134,7 +136,7 @@
         <div class="result-actions">
           <button id="openEhrBtn" class="primary-button">Open in EHR</button>
           <button id="saveLibBtn" class="secondary-button">Save to library</button>
-          <button id="wristbandBtn" class="secondary-button">Print wristband</button>
+          <button id="wristbandBtn" class="secondary-button">Print wristband and labels</button>
           <button id="downloadBtn" class="secondary-button">Download JSON</button>
           <button id="copyBtn" class="secondary-button">Copy JSON</button>
         </div>
@@ -233,10 +235,12 @@
   <script src="primary_ortho4.js?v=50"></script>
   <script src="primary_derm3.js?v=50"></script>
   <script src="primary_lpn.js?v=50"></script>
+  <script src="suggest.js?v=51"></script>
   <script type="module" src="ai.js"></script>
   <script src="../qrcode.js"></script>
   <script src="../wristband.js"></script>
   <script src="../medlabel.js"></script>
+  <script src="../printsheet.js"></script>
   <script src="app.js?v=50"></script>
 </body>
 </html>

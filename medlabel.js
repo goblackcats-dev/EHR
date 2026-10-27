@@ -64,8 +64,10 @@
 
   const SIZES = {
     vial: { w: '2in', h: '0.9in', qr: '0.66in', name: '8pt', rest: '7pt', small: '5.5pt', label: 'Vial or syringe (2 x 0.9 in)' },
-    mini: { w: '1.5in', h: '0.7in', qr: '0.5in', name: '6.5pt', rest: '5.5pt', small: '4.5pt', label: 'Mini (1.5 x 0.7 in)' },
-    bag: { w: '3.2in', h: '1.5in', qr: '1in', name: '12pt', rest: '9pt', small: '7pt', label: 'Bottle or IV bag (3.2 x 1.5 in)' }
+    mini: { w: '1.5in', h: '0.7in', qr: '0.5in', name: '6.5pt', rest: '5.5pt', small: '4.5pt', label: 'Small (1.5 x 0.7 in)' },
+    bag: { w: '3.2in', h: '1.5in', qr: '1in', name: '12pt', rest: '9pt', small: '7pt', label: 'Bottle or IV bag (3.2 x 1.5 in)' },
+    std: { w: '3in', h: '2in', qr: '1.3in', name: '15pt', rest: '10.5pt', small: '8pt', label: 'Standard (3 x 2 in)' },
+    iv: { w: '4in', h: '3in', qr: '1.9in', name: '20pt', rest: '14pt', small: '10pt', label: 'Large IV bag (4 x 3 in)' }
   };
 
   // item: { pkg, order }, o: { size, showQr, patient (canonical.patient or null) }
@@ -99,33 +101,29 @@
 
   const KIND = { correct: 'Correct package', strength: 'Decoy: wrong strength', lasa: 'Decoy: look-alike / sound-alike drug', expired: 'Decoy: expired package' };
 
-  // Print dialog for one or more medications.
-  //   orders: medication orders; canon: the patient (for the optional name on the label); opts: { simDate, decoys }
+  const defaultSize = (order, pkg) => {
+    const r = String((order.medication && order.medication.route) || '').toLowerCase();
+    return /\b(iv|intravenous)\b/.test(r) && /IVPB|infusion|bag|mL\/h/i.test(order.name + ' ' + ((order.medication && order.medication.dose) || '')) ? 'bag' : 'vial';
+  };
+  // Items for NSPrint: one per package (decoys optional). o: { simDate, decoys, size, patient (canonical.patient or null) }
+  function printItems(canon, orders, o) {
+    o = o || {}; const simDate = o.simDate || (canon.timeline && canon.timeline.simulationStart) || '', items = [];
+    orders.forEach(order => packages(order, { decoys: !!o.decoys, simDate }).filter(p => o.decoys || p.correct).forEach(pkg => {
+      items.push({
+        id: 'ml-' + order.id + '-' + pkg.code, group: 'Medication labels', title: pkg.label + (pkg.strength ? ' ' + pkg.strength : ''),
+        sub: (o.decoys ? KIND[pkg.kind] + ' · ' : '') + 'EXP ' + us(pkg.expires),
+        sizes: Object.entries(SIZES).map(([k, v]) => ({ key: k, label: v.label })), size: o.size || defaultSize(order, pkg), checked: true,
+        html: size => labelHtml({ pkg, order }, { size, showQr: true, patient: o.patient ? canon.patient : null })
+      });
+    }));
+    return items;
+  }
+  // Opens the shared print dialog with the wristband plus these medication labels.
   function openSheet(canon, orders, opts) {
     opts = opts || {}; ensureStyle();
-    const simDate = opts.simDate || (canon.timeline && canon.timeline.simulationStart) || '';
-    const st = { size: opts.size || 'vial', copies: 1, showQr: true, patient: false, decoys: !!opts.decoys };
-    const controls = () => `<label>Label size <select id="mlSize">${Object.entries(SIZES).map(([k, v]) => `<option value="${k}" ${st.size === k ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select></label>
-      <label>Copies of each <input id="mlCopies" type="number" min="1" max="6" value="${st.copies}" style="width:60px" /></label>
-      <label><input type="checkbox" id="mlQr" ${st.showQr ? 'checked' : ''}/> Show QR code</label>
-      <label><input type="checkbox" id="mlPt" ${st.patient ? 'checked' : ''}/> Patient name on label</label>
-      <label><input type="checkbox" id="mlDecoy" ${st.decoys ? 'checked' : ''}/> Also print decoy packages</label>`;
-    const body = () => {
-      const out = [];
-      orders.forEach(order => packages(order, { decoys: st.decoys, simDate }).filter(p => st.decoys || p.correct).forEach(pkg => {
-        const html = labelHtml({ pkg, order }, { size: st.size, showQr: st.showQr, patient: st.patient ? canon.patient : null });
-        for (let i = 0; i < st.copies; i++) out.push(`<div>${st.decoys ? `<div class="ml-kind">${esc(KIND[pkg.kind])}</div>` : ''}${html}</div>`);
-      }));
-      const linked = orders.filter(o => o.medication && o.medication.barcode).length;
-      return `<div class="ml-grid">${out.join('') || '<div>No medications selected.</div>'}</div>${linked ? `<p class="wb-noprint" style="font-size:13px;color:#55657a">${linked} medication(s) are linked to an existing barcode, so the QR on those labels holds that barcode value.</p>` : ''}`;
-    };
-    const dlg = W.showDialog(orders.length === 1 ? `Label: ${orders[0].name}` : 'Medication labels', 'Print on plain paper at 100% scale and cut along the dotted lines. Tape a label to each vial, bag or syringe. The QR code is what the EHR scanner reads.', body(), controls());
-    const redraw = () => { dlg.querySelector('.wb-body').innerHTML = body(); };
-    dlg.querySelector('.wb-controls').addEventListener('change', e => {
-      st.size = dlg.querySelector('#mlSize').value; st.copies = Math.max(1, Math.min(6, parseInt(dlg.querySelector('#mlCopies').value, 10) || 1));
-      st.showQr = dlg.querySelector('#mlQr').checked; st.patient = dlg.querySelector('#mlPt').checked; st.decoys = dlg.querySelector('#mlDecoy').checked; redraw();
-    });
+    const items = (opts.wristband === false ? [] : W.printItems(canon)).concat(printItems(canon, orders, opts));
+    window.NSPrint.open({ title: 'Print wristband and labels', items, preselect: opts.preselect });
   }
 
-  window.NSMedLabel = { packages, matches, medCode, genCode, expiryOf, defaultExpiry, isExpired, parseDay, addDays, us, lotOf, openSheet, labelHtml, LASA, splitName };
+  window.NSMedLabel = { packages, matches, medCode, genCode, expiryOf, defaultExpiry, isExpired, parseDay, addDays, us, lotOf, openSheet, printItems, ensureStyle, SIZES, labelHtml, LASA, splitName };
 })();

@@ -27,10 +27,11 @@
   const allergiesOf = p => (p.allergies || []).filter(a => a && a.substance && !/^(nkda|none)/i.test(a.substance));
 
   // The wristband: about 7.5 x 1.15 inches. Fits across letter paper with 0.5 inch margins.
-  function bandHtml(canon) {
+  function bandHtml(canon, part) {
     const p = canon.patient || {}, e = canon.encounter || {}, code = patientCode(p), al = allergiesOf(p);
+    const main = part !== 'allergy', alg = part !== 'main';
     return `<div class="wb-sheet">
-      <div class="wb-band">
+      ${main ? `<div class="wb-band">
         <div class="wb-info">
           <div class="wb-name">${esc(p.name)}</div>
           <div class="wb-line"><b>DOB</b> ${esc(dobText(p.dob))} &nbsp; ${esc(p.age != null ? p.age + ' y.o.' : '')} ${esc(p.sex || '')}</div>
@@ -39,8 +40,8 @@
         </div>
         <div class="wb-qrbox">${qrSvg(code)}<div class="wb-code">${esc(code)}</div></div>
         <div class="wb-tail"><span>Cut out. Wrap around wrist and tape here.</span></div>
-      </div>
-      ${al.length ? `<div class="wb-band wb-allergy"><div class="wb-info"><div class="wb-name">ALLERGY</div><div class="wb-line">${esc(al.map(a => a.substance + (a.reaction ? ' (' + a.reaction + ')' : '')).join('; '))}</div></div><div class="wb-tail"><span>Cut out. Wrap around wrist and tape here.</span></div></div>` : ''}
+      </div>` : ''}
+      ${alg && al.length ? `<div class="wb-band wb-allergy"><div class="wb-info"><div class="wb-name">ALLERGY</div><div class="wb-line">${esc(al.map(a => a.substance + (a.reaction ? ' (' + a.reaction + ')' : '')).join('; '))}</div></div><div class="wb-tail"><span>Cut out. Wrap around wrist and tape here.</span></div></div>` : ''}
     </div>`;
   }
 
@@ -70,6 +71,7 @@
   .wb-h3 { margin: 18px 0 6px; font-size: 15px; }
   @media print {
     @page { size: letter portrait; margin: .5in; }
+    html, body { height: auto !important; overflow: visible !important; }
     body.wb-printing > *:not(#wbDialog) { display: none !important; }
     body.wb-printing #wbDialog { position: static !important; display: block !important; width: auto !important; box-shadow: none !important; border: 0 !important; margin: 0 !important; max-width: none !important; }
     body.wb-printing #wbDialog::backdrop { display: none; }
@@ -99,7 +101,14 @@
     return dlg;
   }
 
-  // opts.labels: [{ title, line, code }] extra QR labels (medication packages) to print under the wristband.
+  // Print items for NSPrint: the wristband, plus a separate allergy band when the patient has allergies.
+  function printItems(canon) {
+    const p = canon.patient || {}, items = [{ id: 'wb-main', group: 'Wristband', title: `Wristband: ${p.name || ''}`, sub: 'About 7.5 x 1.15 in', html: () => bandHtml(canon, 'main'), checked: true }];
+    if (allergiesOf(p).length) items.push({ id: 'wb-allergy', group: 'Wristband', title: 'Allergy band', sub: 'About 7.5 x 0.7 in, red', html: () => bandHtml(canon, 'allergy'), checked: true });
+    return items;
+  }
+  function open(canon) { if (canon && canon.patient) window.NSPrint.open({ title: 'Print wristband and labels', items: printItems(canon) }); }
+  function openOld(canon, opts) { [{ title, line, code }] extra QR labels (medication packages) to print under the wristband.
   function open(canon, opts) {
     if (!canon || !canon.patient) return;
     opts = opts || {};
@@ -108,5 +117,5 @@
       `${bandHtml(canon)}${opts.labels ? `<div class="wb-h3">Medication labels</div><div class="wb-labels">${labels || '<div>No medications are due at the current simulation time.</div>'}</div>` : ''}`);
   }
 
-  window.NSWristband = { patientCode, qrSvg, bandHtml, open, dobText, showDialog, hash };
+  window.NSWristband = { printItems, ensureStyle, patientCode, qrSvg, bandHtml, open, dobText, showDialog, hash };
 })();

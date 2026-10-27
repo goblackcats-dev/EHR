@@ -92,3 +92,25 @@ dialog { border-radius: var(--radius); }
 .storyboard { border-radius: var(--radius); border-color: var(--border); }
 dialog, dialog[class] { border-radius: 4px !important; }
 .sidebar-section-title { font-size: 10px; }
+
+/* ---- patient clock: big time + arrows around a pause button (v52) ---- */
+.topbar { grid-template-columns: auto 1fr auto; grid-template-areas: "brand clock actions" "banner banner banner"; }
+.brand-block { padding: 6px 12px; }
+.simulation-clock { gap: 14px; justify-content: center; flex-wrap: wrap; padding: 6px 0; }
+.sim-time-wrap { display: flex; flex-direction: column; align-items: flex-end; line-height: 1; }
+.simulation-clock-label { display: block; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #b9cde4; margin-bottom: 2px; }
+.simulation-clock-time { font-size: 32px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.sim-seconds { font-size: 18px; font-weight: 500; color: #b9cde4; }
+.simulation-clock-controls { gap: 4px; align-items: center; flex-wrap: wrap; }
+.simulation-clock-controls .clock-button { min-height: 36px; min-width: 40px; padding: 0 8px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.simulation-clock-controls .clock-pause { min-width: 52px; font-size: 18px; background: #fff; color: var(--appbar); border-color: #fff; }
+.simulation-clock-controls .clock-pause.paused { background: #f2b705; border-color: #f2b705; color: #3a2a00; }
+.top-actions { padding: 6px 12px 6px 0; }
+@media (max-width: 1000px) { .topbar { grid-template-columns: auto 1fr; grid-template-areas: "brand actions" "clock clock" "banner banner"; } .simulation-clock { justify-content: flex-start; padding: 4px 12px; } }
+
+/* ---- summary cards: a card is only as tall as its content ---- */
+.summary-grid { align-items: start; }
+.summary-grid > .card { align-self: start; height: auto; }
+.sticky-notes { min-height: 0; }
+.list-block.empty, .device-list.empty { padding: 8px 14px; min-height: 0; }
+.card-header + .list-block, .card-header + div:empty { min-height: 0; }

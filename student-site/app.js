@@ -1745,7 +1745,10 @@ function initializeSimulationState(canonical) {
 
 function renderSimulationClock() {
   if (!elements.simulationClockDisplay) return;
-  elements.simulationClockDisplay.textContent = simulationTime ? epicDate(simulationTime) : 'No simulation time';
+  if (!simulationTime) { elements.simulationClockDisplay.textContent = 'No patient'; const d0 = document.getElementById('simDateText'); if (d0) d0.textContent = ''; return; }
+  const hhmm = simulationTime.slice(11, 16), sec = String(typeof simClock !== 'undefined' ? simClock.seconds : 0).padStart(2, '0');
+  elements.simulationClockDisplay.innerHTML = `${hhmm}<span class="sim-seconds">:${sec}</span>`;
+  const d = document.getElementById('simDateText'); if (d) d.textContent = epicDate(simulationTime).split(' ')[0];
 }
 
 function refreshSimulationView(preserveSection = true) {
@@ -1805,6 +1808,10 @@ function advanceSimulation(minutes) {
   const oldTime = simulationTime;
   let next = addSimMinutes(simulationTime, minutes);
 
+  if (minutes < 0 && simulationStartTime) {
+    const back = parseSimDate(next), startD = parseSimDate(simulationStartTime);
+    if (back && startD && back < startD) next = simulationStartTime;
+  }
   if (simulationEndTime) {
     const nextDate = parseSimDate(next);
     const endDate = parseSimDate(simulationEndTime);
@@ -2268,8 +2275,6 @@ const elements = {
   flowsheetChartBtn: document.getElementById('flowsheetChartBtn'),
   simulationClockDisplay: document.getElementById('simulationClockDisplay'),
   simulationResetBtn: document.getElementById('simulationResetBtn'),
-  simulationAdvance30Btn: document.getElementById('simulationAdvance30Btn'),
-  simulationAdvance60Btn: document.getElementById('simulationAdvance60Btn'),
   simulationNextEventBtn: document.getElementById('simulationNextEventBtn'),
   badgeBrain: document.getElementById('badgeBrain'),
   badgeChartReview: document.getElementById('badgeChartReview'),
@@ -3464,9 +3469,31 @@ elements.flowsheetCollapseAll.addEventListener('click', () => { const canonical=
 elements.flowsheetLatestOnly.addEventListener('click', () => { flowsheetLatestOnlyMode=!flowsheetLatestOnlyMode; renderFlowsheetsPage(currentPatientData); });
 
 elements.flowsheetChartBtn.addEventListener('click', () => openFlowsheetChartDialog());
-elements.simulationAdvance30Btn.addEventListener('click', () => advanceSimulation(30));
-elements.simulationAdvance60Btn.addEventListener('click', () => advanceSimulation(60));
 elements.simulationNextEventBtn.addEventListener('click', advanceToNextSimulationEvent);
+// ---- patient clock: runs in real time from the scenario start; arrows move it, the center button pauses ----
+var simClock = { seconds: 0, paused: false, pending: 0 };
+function simClockBusy() { const a = document.activeElement; return !!document.querySelector('dialog[open]') || !!(a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)); }
+function simJump(minutes) { if (!simulationTime) return; simClock.seconds = 0; advanceSimulation(minutes); }
+function simEndOfShift() {
+  if (!simulationTime || !simulationEndTime) return;
+  const a = parseSimDate(simulationTime), b = parseSimDate(simulationEndTime); if (!a || !b || b <= a) return;
+  simClock.seconds = 0; advanceSimulation(Math.round((b - a) / 60000));
+}
+function simSetPaused(p) {
+  simClock.paused = p; const btn = document.getElementById('simPauseBtn');
+  if (btn) { btn.textContent = p ? '▶' : '⏸'; btn.setAttribute('aria-pressed', String(p)); btn.classList.toggle('paused', p); btn.title = p ? 'Resume the clock' : 'Pause the clock'; }
+}
+[['simBack6Btn', -360], ['simBack4Btn', -240], ['simBack1Btn', -60], ['simFwd1Btn', 60], ['simFwd4Btn', 240], ['simFwd6Btn', 360]].forEach(([id, m]) => elOrStub(id).addEventListener('click', () => simJump(m)));
+elOrStub('simEndShiftBtn').addEventListener('click', simEndOfShift);
+elOrStub('simPauseBtn').addEventListener('click', () => simSetPaused(!simClock.paused));
+setInterval(() => {
+  if (!simulationTime || simClock.paused) return;
+  const end = simulationEndTime && simulationTime >= simulationEndTime;
+  simClock.seconds += 1;
+  if (simClock.seconds >= 60) { simClock.seconds = 0; if (!end) simClock.pending += 1; }
+  if (simClock.pending > 0 && !simClockBusy()) { const m = simClock.pending; simClock.pending = 0; advanceSimulation(m); }
+  else renderSimulationClock();
+}, 1000);
 elements.simulationResetBtn.addEventListener('click', resetSimulation);
 
 elements.brainFilterBtns.forEach(btn => btn.addEventListener('click', () => {

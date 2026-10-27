@@ -32,14 +32,22 @@
         <div class="patient-alerts" id="patientAlerts"></div>
       </div>
 
-      <div class="simulation-clock">
-        <div class="simulation-clock-label">Simulation Time</div>
-        <div id="simulationClockDisplay" class="simulation-clock-time">—</div>
-        <div class="simulation-clock-controls">
-          <button id="simulationResetBtn" class="clock-button" title="Reset simulation">↺</button>
-          <button id="simulationAdvance30Btn" class="clock-button">+30m</button>
-          <button id="simulationAdvance60Btn" class="clock-button">+1h</button>
-          <button id="simulationNextEventBtn" class="clock-button">Next</button>
+      <div class="simulation-clock" id="simClock">
+        <div class="sim-time-wrap" title="Patient time (runs in real time; pause with the center button)">
+          <div class="simulation-clock-label">Patient time <span id="simDateText"></span></div>
+          <div id="simulationClockDisplay" class="simulation-clock-time">—</div>
+        </div>
+        <div class="simulation-clock-controls" role="group" aria-label="Patient clock">
+          <button id="simBack6Btn" class="clock-button" title="Back 6 hours">◀◀ 6h</button>
+          <button id="simBack4Btn" class="clock-button" title="Back 4 hours">◀ 4h</button>
+          <button id="simBack1Btn" class="clock-button" title="Back 1 hour">◀ 1h</button>
+          <button id="simPauseBtn" class="clock-button clock-pause" title="Pause or resume the clock" aria-pressed="false">❚❚</button>
+          <button id="simFwd1Btn" class="clock-button" title="Forward 1 hour">1h ▶</button>
+          <button id="simFwd4Btn" class="clock-button" title="Forward 4 hours">4h ▶</button>
+          <button id="simFwd6Btn" class="clock-button" title="Forward 6 hours">6h ▶▶</button>
+          <button id="simEndShiftBtn" class="clock-button" title="Jump to the end of the shift">End of shift </button>
+          <button id="simulationNextEventBtn" class="clock-button" title="Jump to the next chart event">Next event</button>
+          <button id="simulationResetBtn" class="clock-button" title="Reset simulation to the start">↺</button>
         </div>
       </div>
 
@@ -676,6 +684,7 @@
   <script src="qrcode.js"></script>
   <script src="wristband.js"></script>
   <script src="medlabel.js"></script>
+  <script src="printsheet.js"></script>
   <script src="medpass.js"></script>
   <script src="mar-rights.js"></script>
   <script src="brain-timeline.js"></script>
