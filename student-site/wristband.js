@@ -108,14 +108,6 @@
     return items;
   }
   function open(canon) { if (canon && canon.patient) window.NSPrint.open({ title: 'Print wristband and labels', items: printItems(canon) }); }
-  function openOld(canon, opts) { [{ title, line, code }] extra QR labels (medication packages) to print under the wristband.
-  function open(canon, opts) {
-    if (!canon || !canon.patient) return;
-    opts = opts || {};
-    const labels = (opts.labels || []).map(l => `<div class="wb-label">${qrSvg(l.code)}<div><b>${esc(l.title)}</b>${esc(l.line || '')}<br><small>${esc(l.code)}</small></div></div>`).join('');
-    showDialog(`Print wristband${opts.labels ? ' and medication labels' : ''}`, 'Print on plain letter paper (portrait, 100% scale). Cut out each band, wrap it around the wrist and tape it. Scanning the QR code in the EHR confirms the patient.',
-      `${bandHtml(canon)}${opts.labels ? `<div class="wb-h3">Medication labels</div><div class="wb-labels">${labels || '<div>No medications are due at the current simulation time.</div>'}</div>` : ''}`);
-  }
 
   window.NSWristband = { printItems, ensureStyle, patientCode, qrSvg, bandHtml, open, dobText, showDialog, hash };
 })();

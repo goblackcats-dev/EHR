@@ -670,3 +670,10 @@ Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
 - **Instructor tools > Case Studies** lists every patient with a built case study: student packet (PDF/Word), answer key + score sheet (PDF/Word), and **Copy student link**. The list comes from `casestudy/index.json` (run `python3 casestudy/make_index.py` after building a case study).
 - `node make-student-site.js` copies only the student PDFs into `student-site/casestudies/` with an unguessable file name (the answer key is never copied). Link: `<student site>/casestudies/<code>-<token>.pdf`.
 - Grading: photograph every page of a student's packet, upload the photos to Claude and say "Grade this student's case study with CS-xxx"; Claude scores it against the key's rubric and returns a score sheet (see `casestudy/BLUEPRINT.md`).
+
+## v52 - Clock, printing, histories, voice
+- **Patient clock:** large time with seconds that runs in real time from the scenario start; arrows move it back or forward 1, 4 or 6 hours around a pause button, plus End of shift, Next event and Reset. It waits while a window is open or you are typing. Going back stops at the scenario start.
+- **Summary cards** shrink to fit their content.
+- **Print dialog** (`printsheet.js`) for wristbands and medication labels: tick items, choose each label's size and copies, shared pages, nothing cut off.
+- **Case Builder:** "Suggest history for this diagnosis" lists suggested medical and surgical history (all pre-ticked) to untick, per diagnosis (`case-builder/suggest.js`).
+- **Natural voice for the off-going report** from a local text-to-speech server (OpenAI-compatible `/v1/audio/speech`), saved into the patient so students hear it too.

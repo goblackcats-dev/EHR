@@ -3481,7 +3481,7 @@ function simEndOfShift() {
 }
 function simSetPaused(p) {
   simClock.paused = p; const btn = document.getElementById('simPauseBtn');
-  if (btn) { btn.textContent = p ? '▶' : '⏸'; btn.setAttribute('aria-pressed', String(p)); btn.classList.toggle('paused', p); btn.title = p ? 'Resume the clock' : 'Pause the clock'; }
+  if (btn) { btn.textContent = p ? '▶' : '❚❚'; btn.setAttribute('aria-pressed', String(p)); btn.classList.toggle('paused', p); btn.title = p ? 'Resume the clock' : 'Pause the clock'; }
 }
 [['simBack6Btn', -360], ['simBack4Btn', -240], ['simBack1Btn', -60], ['simFwd1Btn', 60], ['simFwd4Btn', 240], ['simFwd6Btn', 360]].forEach(([id, m]) => elOrStub(id).addEventListener('click', () => simJump(m)));
 elOrStub('simEndShiftBtn').addEventListener('click', simEndOfShift);
