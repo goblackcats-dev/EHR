@@ -37,9 +37,12 @@
   .nsp-item .wb-sheet { margin: 0; } .nsp-item .wb-band { margin: 0; }
   .nsp-item .ml-label { page-break-inside: avoid; }
   #nsPrintArea { display: none; }
+  .nsp-band { box-sizing: border-box; flex: 0 0 100%; width: 100%; height: .55in; padding-top: .2in; border-bottom: 1px solid #c5d0de; font: 600 10px Arial, sans-serif; letter-spacing: .04em; color: #6a7686; text-transform: uppercase; }
+  .nsp-pages { width: 100%; border-collapse: collapse; } .nsp-pages thead { display: table-header-group; } .nsp-pages td, .nsp-pages th { padding: 0; font-weight: normal; text-align: left; }
+  .nsp-pages .nsp-band { margin-bottom: .12in; }
   @media (max-width: 760px) { .nsp-main { flex-direction: column; } .nsp-list { flex: none; } .nsp-prev { align-self: stretch; } }
   @media print {
-    @page { size: letter portrait; margin: .4in; }
+    @page { size: letter portrait; margin: .5in .4in .4in .4in; }
     html, body { height: auto !important; min-height: 0 !important; overflow: visible !important; display: block !important; background: #fff !important; margin: 0 !important; padding: 0 !important; }
     body.nsp-printing > *:not(#nsPrintArea) { display: none !important; }
     body.nsp-printing #nsPrintArea { display: block !important; position: static !important; width: auto !important; }
@@ -70,11 +73,12 @@
         <div class="nsp-prev"><div class="nsp-prevcap" id="nspCap"></div><div class="nsp-scale" id="nspScale"><div class="nsp-sheet" id="nspSheet"></div></div></div></div>
       <div class="nsp-foot"><span id="nspCount"></span><span><button class="nsp-btn sec" data-a="close">Cancel</button> <button class="nsp-btn" data-a="print" id="nspPrint">Print</button></span></div>`;
 
+    const BAND = '<div class="nsp-band">NursingSim simulation labels &middot; not for real patient use &middot; cut along the dashed borders</div>';
     const sheetInner = () => items.filter(it => it.checked).map(it => { let h = ''; for (let c = 0; c < it.copies; c++) h += `<div class="nsp-item">${it.html(it.size)}</div>`; return h; }).join('');
     const count = () => items.filter(it => it.checked).reduce((n, it) => n + it.copies, 0);
     function preview() {
       const sheet = dlg.querySelector('#nspSheet'), box = dlg.querySelector('#nspScale'), n = count();
-      sheet.innerHTML = sheetInner();
+      sheet.innerHTML = BAND + sheetInner();
       dlg.querySelector('#nspPrint').disabled = !n;
       dlg.querySelector('#nspCount').textContent = n ? `${n} item${n === 1 ? '' : 's'} selected` : 'Nothing selected';
       const avail = box.parentNode.clientWidth - 20, full = sheet.offsetWidth || 740, k = Math.min(1, Math.max(.2, avail / full));
@@ -102,7 +106,8 @@
       if (!count()) return;
       let area = document.getElementById('nsPrintArea');
       if (!area) { area = document.createElement('div'); area.id = 'nsPrintArea'; document.body.appendChild(area); }
-      area.innerHTML = `<div class="nsp-sheet">${sheetInner()}</div>`;
+      // the header band repeats at the top of every printed page (thead), so printers that clip the first part of the page clip the header, not a label
+      area.innerHTML = `<table class="nsp-pages"><thead><tr><th>${BAND}</th></tr></thead><tbody><tr><td><div class="nsp-sheet">${sheetInner()}</div></td></tr></tbody></table>`;
       document.body.classList.add('nsp-printing');
       setTimeout(() => window.print(), 50);
     }
