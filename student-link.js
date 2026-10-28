@@ -16,7 +16,7 @@
     dlg.innerHTML = `<div class="dialog-header"><div><h2>Student link</h2><p>Makes a private link for the patient you have open. The patient is locked; only people with the whole link can open it. The answer key is never included.</p></div><button id="slClose" class="icon-button" aria-label="Close">×</button></div>
       <div class="dialog-body"><label for="slBase" class="input-label">Your student site address (the https:// address where students go)</label>
       <input id="slBase" style="width:100%;padding:8px;font-size:15px" placeholder="https://yourname.github.io/EHR-student/" />
-      <details id="slAuto" style="margin-top:10px"><summary><b>Automatic upload to GitHub (optional, saves step 2)</b></summary>
+      <details id="slAuto" style="margin-top:10px"><summary><b>Automatic upload to GitHub (set up once, then no more manual uploading)</b></summary>
         <p style="margin:6px 0">Paste a GitHub token once and the locked patient file is uploaded for you each time. Make the token at GitHub &rarr; Settings &rarr; Developer settings &rarr; Fine-grained tokens: only this repository, permission <b>Contents: Read and write</b>. It is stored only in this browser and is sent only to github.com.</p>
         <label class="input-label" for="slToken">GitHub token</label><input id="slToken" type="password" autocomplete="off" style="width:100%;padding:8px" placeholder="github_pat_..." />
         <label class="input-label" for="slRepo">Where to upload (owner/repo@branch:folder)</label><input id="slRepo" style="width:100%;padding:8px" />
@@ -66,7 +66,7 @@
       const body = `Open this link on your iPad (Safari) to start the simulated patient:\n\n${link}\n\nThis link is only for you. Please do not share it.`;
       out.innerHTML = (uploaded ? `<h3>Done. The patient was uploaded to GitHub</h3><p>Wait about 1 to 2 minutes for the site to update, then email this link to your students:</p>`
         : `<h3>Done. ${token ? 'The automatic upload did not work' : 'Two steps left'}</h3>${upErr ? `<p style="color:#b00020">${esc(upErr)}</p>` : ''}
-        <ol><li>Upload <b>${esc(id)}.enc.json</b> (just downloaded) into the <b>cases</b> folder of your student site, then wait about a minute.</li>
+        <ol><li>Upload <b>${esc(id)}.enc.json</b> (just downloaded) into the <b>cases</b> folder of your student site, then wait about a minute. <i>To skip this step every time, paste a GitHub token under &ldquo;Automatic upload&rdquo; above and press Make link again.</i></li>
         <li>Email this link to your students:</li></ol>`) + `
         <textarea id="slLink" rows="3" readonly style="width:100%;min-height:80px">${esc(link)}</textarea>
         <div class="dialog-actions"><button id="slCopy" class="primary-button">Copy link</button> <a class="secondary-button" id="slMail" href="mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">Start an email</a></div>`;
@@ -77,7 +77,7 @@
   if (actions && !window.NS_STUDENT) {
     const b = document.createElement('button'); b.className = 'top-link top-button'; b.id = 'openStudentLinkBtn'; b.textContent = 'Student Link';
     b.title = 'Make a private emailable link to this patient';
-    b.addEventListener('click', () => { if (!currentCanonicalCase) { alert('Open a patient first.'); return; } const d = ensure(); d.querySelector('#slBase').value = get(); d.querySelector('#slRepo').value = lsGet(REPO_KEY) || DEFAULT_REPO; d.querySelector('#slToken').placeholder = lsGet(TOKEN_KEY) ? 'A token is saved on this device (leave blank to keep using it)' : 'github_pat_...'; d.querySelector('#slOut').innerHTML = ''; d.showModal(); });
+    b.addEventListener('click', () => { if (!currentCanonicalCase) { alert('Open a patient first.'); return; } const d = ensure(); d.querySelector('#slBase').value = get(); d.querySelector('#slAuto').open = !lsGet(TOKEN_KEY); d.querySelector('#slRepo').value = lsGet(REPO_KEY) || DEFAULT_REPO; d.querySelector('#slToken').placeholder = lsGet(TOKEN_KEY) ? 'A token is saved on this device (leave blank to keep using it)' : 'github_pat_...'; d.querySelector('#slOut').innerHTML = ''; d.showModal(); });
     const sv = document.getElementById('openStudentViewBtn'); actions.insertBefore(b, sv ? sv.nextSibling : null);
   }
 })();
