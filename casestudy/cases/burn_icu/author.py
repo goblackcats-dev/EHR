@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Authors content.json for the Burn ICU case study (Marcus Delaney), built shift by shift.
-Only SHIFT 1 (Mon 11/02 0700-1900) is written so far; Shifts 2-6 are added one at a time after review.
+Only SHIFTS 1-2 (Mon 11/02 0700 to Tue 0700) are written so far; Shifts 2-6 are added one at a time after review.
 Usage (from this folder):  python3 author.py content.json  &&  python3 ../../build_casestudy.py content.json patient.json out/"""
 import json, sys
 
@@ -44,7 +44,7 @@ keyIntro = [
     {'h': 'About this patient', 'lines': [
         'Marcus Delaney, 34, 82 kg, 180 cm. House fire at 0130 Monday. Flame burn 22% TBSA (right arm circumferential, anterior chest, face and neck; about 8% full thickness) with smoke inhalation (COHb 14.2%), intubated at 0250, right forearm/hand escharotomy at 0315, Burn ICU arrival 0400.',
         'Parkland: 4 mL x 82 kg x 22% = 7,216 mL lactated Ringer\'s in 24 hours from the time of injury. Day 2 (Tuesday) he develops burn wound sepsis (MSSA), needs norepinephrine, and improves overnight; he is extubated Wednesday 1045 and transfers Thursday 0700.',
-        'Only Shift 1 has been written so far. The point total of the finished packet will be 100: Shift 1 = 20 (it includes the admission picture and the handoff), Shifts 2 to 6 = 16 each.']},
+        'Shifts 1 and 2 have been written so far. The point total of the finished packet will be 100: Shift 1 = 20 (it includes the admission picture and the handoff), Shifts 2 to 6 = 16 each.']},
 ]
 
 # --------------------------------------------------------------------------- SHIFT 1
@@ -177,6 +177,8 @@ parts = [{'id': '1', 'title': 'Shift 1: Monday 11/02, 0700 to 1900 (day shift)',
           'intro': 'Set the simulation clock to 0700 on Monday 11/02/26 and move it forward as you work. Marcus arrived in the ICU at 0400; you take report from the night nurse and care for him until you hand off at 1900. You can read everything charted before 0700, and the chart fills in as the clock moves forward.',
           'keyNote': 'Shift 1 is mostly chart reading and the safety reasoning behind burn resuscitation. A careful student should earn about 16 of the 20 points. The hardest items are 1.2 (the Parkland math with the EMS bolus) and 1.10 (the fluid totals).',
           'items': items}]
+
+exec(open('shift2_items.py').read())   # Shift 2 (night) is kept in its own file
 
 content = {'meta': meta, 'studentIntro': studentIntro, 'studentRules': studentRules, 'keyIntro': keyIntro, 'parts': parts}
 if __name__ == '__main__':
