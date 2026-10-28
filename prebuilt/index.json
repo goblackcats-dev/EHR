@@ -74,6 +74,15 @@
      "file": "casestudy/cases/burn_icu/patient.json",
      "age": 34,
      "sex": "Male"
+    },
+    {
+     "id": "hip_orif",
+     "name": "Doris Kowalczyk",
+     "title": "Step-Down: right hip fracture ORIF (POD 2) with a catheter-associated UTI",
+     "desc": "3 shifts on the Step-Down Unit (Tue 0700 to Wed 1500): post-operative care after hip ORIF, a catheter-associated UTI recognized by new confusion and fever, treated with ceftriaxone, then transfer to a skilled nursing facility.",
+     "file": "casestudy/cases/hip_orif/patient.json",
+     "age": 82,
+     "sex": "Female"
     }
    ]
   }
