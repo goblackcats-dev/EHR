@@ -18,7 +18,7 @@
      "id": "lpn_cellulitis",
      "name": "Maria Santos",
      "title": "Cellulitis (PO + SubQ + IM)",
-     "desc": "PO acetaminophen, SubQ insulin lispro (high scale, glucose 261 = 12 units), IM ceftriaxone 1 g",
+     "desc": "PO acetaminophen, SubQ insulin lispro (high scale, glucose 261 = 12 units), IM ceftriaxone 1.5 g = 3 mL",
      "file": "prebuilt/lpn_cellulitis.json",
      "age": 55,
      "sex": "Female"
@@ -27,7 +27,7 @@
      "id": "lpn_fall",
      "name": "Dorothy Hughes",
      "title": "Fall with urinary tract infection (PO + SubQ + IM)",
-     "desc": "PO acetaminophen, SubQ insulin lispro (low scale, glucose 216 = 4 units), IM ceftriaxone 500 mg",
+     "desc": "PO acetaminophen, SubQ insulin lispro (low scale, glucose 216 = 4 units), IM ceftriaxone 1.5 g = 3 mL",
      "file": "prebuilt/lpn_fall.json",
      "age": 78,
      "sex": "Female"

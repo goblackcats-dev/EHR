@@ -71,7 +71,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ---------------------------------------------------------------- 2. CELLULITIS (PO acetaminophen + SubQ lispro high scale + IM ceftriaxone 1 g)
   prof('lpn_cellulitis', 'Cellulitis (PO + SubQ + IM)',
-    'Leg cellulitis in a patient with diabetes. Acetaminophen 650 mg PO, insulin lispro SubQ on the HIGH-dose sliding scale (glucose 261 = 12 units), ceftriaxone 1 g IM (2.9 mL; clindamycin IM if penicillin-allergic).',
+    'Leg cellulitis in a patient with diabetes. Acetaminophen 650 mg PO, insulin lispro SubQ on the HIGH-dose sliding scale (glucose 261 = 12 units), ceftriaxone 1.5 g IM (3 mL; clindamycin IM if penicillin-allergic).',
     ctx => Object.assign({
       problem: 'Cellulitis of the right lower leg', details: 'Warm, red, tender area on the right lower leg without an abscess; low-grade fever; intramuscular antibiotic once a day; type 2 diabetes with high glucose on a high-dose sliding scale.',
       chief: 'Red, warm, painful right lower leg',
@@ -79,7 +79,7 @@ NS.PRIMARY = NS.PRIMARY || {};
       ros: 'Positive for leg pain, redness and warmth and a low-grade fever. Negative for chest pain, shortness of breath, vomiting, diarrhea and numbness.',
       vitals: [norm({ h: 0, temp: 100.4, hr: 94, pain: 5 }), norm({ h: 8, temp: 99.6, hr: 86, pain: 4 }), norm({ h: 24, temp: 98.8, hr: 80, pain: 3 }), norm({ h: 48, temp: 98.5, hr: 76, pain: 2 })], fall: 1,
       diet: 'Consistent carbohydrate diet', activity: 'Up with assistance; right leg elevated when sitting', activityNote: 'Elevate the right leg on pillows when resting.',
-      meds: [ACETAMINOPHEN('Pain and fever from cellulitis'), SSI('high'), CEFTRIAXONE('1 g', CLINDA)],
+      meds: [ACETAMINOPHEN('Pain and fever from cellulitis'), SSI('high'), CEFTRIAXONE('1.5 g', CLINDA)],
       orders: [
         { name: 'Mark the edge of the redness with a skin marker', category: 'Nursing', frequency: 'On arrival and every shift', startH: 3, instructions: 'Outline the red area, date and time it. Report redness spreading past the line, fever above 101, or increasing pain.' },
         { name: 'Elevate right leg when in bed or chair', category: 'Nursing', frequency: 'Continuous', startH: 3, instructions: 'Pillows under the calf and foot to reduce swelling.' }, GLU_ORDER
@@ -90,7 +90,7 @@ NS.PRIMARY = NS.PRIMARY || {};
 
   // ---------------------------------------------------------------- 3. FALL WITH URINARY TRACT INFECTION (PO acetaminophen + SubQ lispro low scale + IM ceftriaxone 500 mg)
   prof('lpn_fall', 'Fall with urinary tract infection (PO + SubQ + IM)',
-    'Older adult admitted after a fall with a urinary tract infection. Acetaminophen 650 mg PO, insulin lispro SubQ on the LOW-dose sliding scale (glucose 216 = 4 units), ceftriaxone 500 mg IM (1.4 mL; clindamycin IM if penicillin-allergic).',
+    'Older adult admitted after a fall with a urinary tract infection. Acetaminophen 650 mg PO, insulin lispro SubQ on the LOW-dose sliding scale (glucose 216 = 4 units), ceftriaxone 1.5 g IM (3 mL; clindamycin IM if penicillin-allergic).',
     ctx => Object.assign({
       problem: 'Fall with urinary tract infection', details: 'Fall at home with a bruised right hip (x-ray without fracture) and a urinary tract infection; intramuscular antibiotic; diabetes on sliding-scale insulin.',
       chief: 'Fall at home and burning with urination',
@@ -98,7 +98,7 @@ NS.PRIMARY = NS.PRIMARY || {};
       ros: 'Positive for burning with urination, urgency, right hip pain and bruising. Negative for head strike, loss of consciousness, chest pain, shortness of breath, vomiting and flank pain.',
       vitals: [norm({ h: 0, temp: 99.8, pain: 5, hr: 88 }), norm({ h: 12, pain: 4 }), norm({ h: 36, pain: 3 }), norm({ h: 60, pain: 2 })], fall: 2,
       diet: 'Consistent carbohydrate diet', activity: 'Up with walker and assistance of one', activityNote: 'Gait belt and non-skid socks. Call, do not fall.',
-      meds: [ACETAMINOPHEN('Pain from hip contusion'), SSI('low'), CEFTRIAXONE('500 mg', CLINDA)],
+      meds: [ACETAMINOPHEN('Pain from hip contusion'), SSI('low'), CEFTRIAXONE('1.5 g', CLINDA)],
       orders: [{ name: 'Urine output and appearance', category: 'Nursing', frequency: 'Every shift', startH: 3, instructions: 'Document color, odor and burning with urination; push oral fluids.' }, GLU_ORDER],
       assessments: [{ fromH: 0, items: [['Skin', 'Skin', 'Right lateral hip: 10 x 8 cm bruise, tender, no open wounds'], ['GU', 'Urinary Elimination', 'Voiding small amounts, burning and urgency; urine cloudy'], ['Pain', 'Pain Location', 'Right hip, aching, 5/10 with movement'], ['Musculoskeletal / Mobility', 'Mobility', 'Walks 10 feet with walker and assist of one'], ['Safety', 'Fall Precautions', 'High risk: bed alarm on, call light in reach, non-skid socks']] }],
       objectives: [OBJ, 'Verify allergies before giving an antibiotic and identify when a drug must be questioned.', 'Read the low-dose sliding scale to find the correct insulin dose for the glucose result.']

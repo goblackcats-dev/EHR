@@ -14,8 +14,8 @@ const base = o => Object.assign({ name: 'Patient', age: 60, sex: 'Female', mrn: 
   social: { tobacco: 'Never', alcohol: 'None', drugs: 'None', living: 'Lives with spouse/partner', function: 'Independent', other: '' }, studentLevel: 'First-semester LPN', complexity: 'simple', facultyNotes: '' }, o);
 const LPN = [
   { id: 'lpn_htn', name: 'Harold Bennett', age: 62, sex: 'Male', mrn: 'SIM-30411', room: '204-1', weightKg: 92, heightCm: 178, primary: 'lpn_htn', desc: 'PO lisinopril, SubQ insulin lispro (low scale, glucose 177 = 2 units), IM vitamin B12 1,000 mcg' },
-  { id: 'lpn_cellulitis', name: 'Maria Santos', age: 55, sex: 'Female', mrn: 'SIM-30412', room: '206-2', weightKg: 78, heightCm: 160, primary: 'lpn_cellulitis', desc: 'PO acetaminophen, SubQ insulin lispro (high scale, glucose 261 = 12 units), IM ceftriaxone 1 g' },
-  { id: 'lpn_fall', name: 'Dorothy Hughes', age: 78, sex: 'Female', mrn: 'SIM-30413', room: '208-1', weightKg: 64, heightCm: 158, primary: 'lpn_fall', desc: 'PO acetaminophen, SubQ insulin lispro (low scale, glucose 216 = 4 units), IM ceftriaxone 500 mg' },
+  { id: 'lpn_cellulitis', name: 'Maria Santos', age: 55, sex: 'Female', mrn: 'SIM-30412', room: '206-2', weightKg: 78, heightCm: 160, primary: 'lpn_cellulitis', desc: 'PO acetaminophen, SubQ insulin lispro (high scale, glucose 261 = 12 units), IM ceftriaxone 1.5 g = 3 mL' },
+  { id: 'lpn_fall', name: 'Dorothy Hughes', age: 78, sex: 'Female', mrn: 'SIM-30413', room: '208-1', weightKg: 64, heightCm: 158, primary: 'lpn_fall', desc: 'PO acetaminophen, SubQ insulin lispro (low scale, glucose 216 = 4 units), IM ceftriaxone 1.5 g = 3 mL' },
   { id: 'lpn_diabetes', name: 'Calvin Reed', age: 58, sex: 'Male', mrn: 'SIM-30414', room: '210-2', weightKg: 101, heightCm: 180, primary: 'lpn_diabetes', desc: 'PO lisinopril, SubQ insulin lispro (high scale, glucose 341 = 16 units), IM vitamin B12 500 mcg' },
   { id: 'lpn_b12', name: 'Linda Park', age: 66, sex: 'Female', mrn: 'SIM-30415', room: '212-1', weightKg: 62, heightCm: 163, primary: 'lpn_b12', desc: 'PO acetaminophen, SubQ insulin lispro (low scale, glucose 166 = 2 units), IM vitamin B12 1,000 mcg' }
 ];

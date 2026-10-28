@@ -652,12 +652,12 @@ The next major item should be built separately: a **Faculty Case Builder** that 
 Added: **Total hip arthroplasty**, **Lumbar spinal fusion**, **Femoral shaft fracture**, **Septic arthritis** (Orthopedic / Trauma); **Necrotizing fasciitis**, **Erythrodermic psoriasis** (Dermatologic / Wound). Known limit: the shared rules add enoxaparin 40 mg daily in CKD3, which triggers the generic "renally-avoided drug" warning; trauma patients may need 30 mg twice daily instead.
 
 ## v49 - LPN Med Pass cases
-Pre-built LPN Med Pass patients (diagnosis profiles are in `case-builder/primary-archive/primary_lpn.js`; the patients are static files in `prebuilt/`, rebuilt with `node tools/make-prebuilt.js`). Every patient has exactly three medications and three doses at 0900, and only five drugs are used in total, so a lab only stocks: **lisinopril 10 mg and acetaminophen 650 mg (PO)**, **insulin lispro on a sliding scale (SubQ; low-dose or high-dose scale, with a glucose result to read)**, **ceftriaxone (500 mg/mL; 1 g = 2 mL, 500 mg = 1 mL) and vitamin B12 (1,000 mcg/mL; 1,000 mcg = 1 mL, 500 mcg = 0.5 mL) (IM, never over 3 mL)**.
+Pre-built LPN Med Pass patients (diagnosis profiles are in `case-builder/primary-archive/primary_lpn.js`; the patients are static files in `prebuilt/`, rebuilt with `node tools/make-prebuilt.js`). Every patient has exactly three medications and three doses at 0900, and only five drugs are used in total, so a lab only stocks: **lisinopril 10 mg and acetaminophen 650 mg (PO)**, **insulin lispro on a sliding scale (SubQ; low-dose or high-dose scale, with a glucose result to read)**, **ceftriaxone (500 mg/mL; 1.5 g = 3 mL) and vitamin B12 (1,000 mcg/mL; 1,000 mcg = 1 mL, 500 mcg = 0.5 mL) (IM, never over 3 mL)**.
 | Patient | PO | Glucose / scale / expected insulin | IM |
 |---|---|---|---|
 | Harold Bennett, hypertension | lisinopril | 177, low, 2 units | vitamin B12 1,000 mcg |
-| Maria Santos, cellulitis | acetaminophen | 261, high, 12 units | ceftriaxone 1 g |
-| Dorothy Hughes, fall and UTI | acetaminophen | 216, low, 4 units | ceftriaxone 500 mg |
+| Maria Santos, cellulitis | acetaminophen | 261, high, 12 units | ceftriaxone 1.5 g (3 mL) |
+| Dorothy Hughes, fall and UTI | acetaminophen | 216, low, 4 units | ceftriaxone 1.5 g (3 mL) |
 | Calvin Reed, type 2 diabetes | lisinopril | 341, high, 16 units | vitamin B12 500 mcg |
 | Linda Park, B12 deficiency | acetaminophen | 166, low, 2 units | vitamin B12 1,000 mcg |
 Tip: set the simulation start time to about 0845 so the 0900 doses are due now.
@@ -703,3 +703,4 @@ Charting no longer uses pop-up boxes. Template tabs run across the top, a Table 
 - v58: every LPN Med Pass patient has exactly 3 medications and exactly 3 doses (one PO, one SubQ, one IM, all due at 0900): the repeat doses are gone (acetaminophen, metformin and insulin are once-daily, and vitamin B12 patient's SubQ med is enoxaparin).
 - v59: LPN Med Pass drugs limited to lisinopril, acetaminophen (PO), insulin lispro sliding scale (SubQ), ceftriaxone and vitamin B12 (IM, 3 mL or less).
 - v60: ceftriaxone IM is drawn up at 500 mg/mL (1 g = 2 mL, 500 mg = 1 mL) so the volumes are whole numbers for beginner LPN students.
+- v61: Maria Santos and Dorothy Hughes each get ceftriaxone 1.5 g = 3 mL IM (the other two IM patients get vitamin B12 1 mL and 0.5 mL, and Harold Bennett and Linda Park 1 mL).
