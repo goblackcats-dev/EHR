@@ -57,7 +57,7 @@ items.append({'id': '1.1', 'type': 'box', 'points': 2.5, 'lines': 21, 'pageBreak
                   E('Mechanism and burn: house fire about 0130 Mon, flame burns 22% TBSA (right arm circumferential, anterior chest, face/neck), about 8% full thickness (right forearm and hand).', 0.5, 'ED note, Burn H&P'),
                   E('Inhalation injury and carbon monoxide: hoarse voice, stridor, soot, singed nasal hairs; COHb 14.2% at 0250; intubated 0250; bronchoscopy shows grade 2 inhalation injury.', 0.5, 'ED note, bronchoscopy note'),
                   E('Right forearm/hand escharotomy at 0315 (tense forearm, no Doppler signal) with pulses returned.', 0.5, 'Escharotomy note'),
-                  E('Burn shock resuscitation: Parkland lactated Ringer\'s running at 450 mL/h and titrated to urine output; lactate 5.8 down to 2.2 by 0800 (3.4 at 0415).', 0.5, 'Orders, labs'),
+                  E('Burn shock resuscitation: Parkland lactated Ringer\'s started at 450 mL/h and titrated to urine output (raised to 540 mL/h at 0600 for urine output of 25 and 26 mL/h); lactate 5.8 at 0250 down to 3.4 at 0415 (the 0800 result comes later).', 0.5, 'Orders, labs, nursing note 0605'),
                   E('Ventilated and sedated (propofol, fentanyl); lines/tubes: left IJ central line, left radial arterial line, OG tube, Foley with temperature probe.', 0.25, 'Flowsheets'),
                   E('Three priorities that make sense, for example: (1) airway/ventilation and carbon monoxide; (2) fluid resuscitation titrated to urine output; (3) circulation to the right hand after escharotomy (also acceptable: pain/sedation, infection prevention).', 0.25, '')]}})
 
@@ -78,7 +78,7 @@ items.append({'id': '1.3', 'type': 'vitals', 'points': 1.5, 'title': 'Vital Sign
               'times_label': ['Mon 0700', 'Mon 1100', 'Mon 1500', 'Mon 1900'],
               'rowsLabels': ['Temperature', 'Heart rate', 'Blood pressure', 'Respiratory rate', 'SpO2 (%)', 'Pain (CPOT)'],
               'codes': ['TEMP', 'HR', 'BP', 'RR', 'SPO2', 'PAIN'],
-              'key': {'rules': 'Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The trend sentence is worth 0.5: heart rate starts high (111) and falls to 97 as the resuscitation works; blood pressure is low-normal (99/57 to 109/63, MAP about 71 to 78); temperature rises from 98.2 F to 99.2 F (he arrived cold at 96.8 F); CPOT stays 1 because he is sedated. The value NOT to trust fully is the SpO2 of 99-100%: carbon monoxide on the hemoglobin makes the pulse oximeter read falsely normal. Allow +/- 2 for rates and +/- 0.2 F.'}})
+              'key': {'rules': 'Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The trend sentence is worth 0.5: heart rate starts high (111) and falls to 97 as the resuscitation works; blood pressure is low-normal (99/57 to 109/63, MAP about 71 to 78); temperature rises from 98.2 F to 99.2 F (he arrived cold at 96.8 F); CPOT stays 1 because he is sedated. The value NOT to trust fully is the SpO2 of 98-99%: carbon monoxide on the hemoglobin makes the pulse oximeter read falsely normal. Allow +/- 2 for rates and +/- 0.2 F. Abnormal values to circle: heart rate above 100 (111, 104, 102), and temperature, blood pressure and CPOT may be circled or not if the student explains why (accept reasonable choices).'}})
 
 items.append({'id': '1.3b', 'type': 'box', 'points': 0, 'lines': 7, 'title': 'Trend (scored with 1.3)', 'prompt': 'Describe the trend over the shift and name the value you do NOT fully trust and why.', 'key': {'answer': 'Scored with item 1.3.'}})
 
@@ -88,8 +88,8 @@ items.append({'id': '1.4', 'type': 'box', 'points': 1.5, 'lines': 13, 'title': '
               'key': {'elements': [
                   E('A pulse oximeter cannot tell carboxyhemoglobin from oxyhemoglobin, so it reads normal even though the blood carries much less oxygen.', 0.5, ''),
                   E('Carboxyhemoglobin (co-oximetry on the arterial blood gas): 14.2% at 0250, 6.4% at 0415, 3.1% at 0800.', 0.25, 'Lab Results'),
-                  E('100% oxygen (FiO2 1.0 through the ventilator) shortens the half-life of carbon monoxide; FiO2 was lowered to 0.60 at 0600 once the level was below about 5%.', 0.5, 'Flowsheets, MAR/orders'),
-                  E('A smoker normally has a baseline COHb of about 3 to 5%, so a level around 3% is his baseline and not further poisoning.', 0.25, '')]}})
+                  E('100% oxygen (FiO2 1.0 through the ventilator) shortens the half-life of carbon monoxide; FiO2 was weaned from 1.0 to 0.60 at 0600 as the level fell (6.4% at 0415), with a repeat level at 0800 before weaning further (FiO2 0.50 at 1400).', 0.5, 'Flowsheets, MAR/orders'),
+                  E('A heavy smoker normally runs a COHb of roughly 3 to 10% (accept 3 to 5% or higher), so a level around 3% is at his baseline and not further poisoning; the level is heading down to his smoker baseline, not to zero.', 0.25, '')]}})
 
 items.append({'id': '1.5', 'type': 'box', 'points': 1.5, 'lines': 11, 'title': 'Titrating the Fluids',
               'prompt': 'Open the lactated Ringer\'s order, the MAR and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) At 0930 the rate was changed: from what to what, and why? (c) Using the graph, write the urine outputs for 1200-1300 and 1300-1400, say what the order tells you to do, and what the new rate becomes at 1400. (d) Name two things you check when you change the rate and one danger of giving too much fluid.',
@@ -108,7 +108,7 @@ items.append({'id': '1.6', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': '
               'key': {'elements': [
                   E('Situation: identify yourself, the patient and room; urine output 28 mL/h and 28 mL/h for two hours (about 0.34 mL/kg/h, less than the goal of 0.5) on lactated Ringer\'s 225 mL/h.', 0.375, ''),
                   E('Background: 34-year-old, 82 kg, 22% TBSA flame burn with inhalation injury, intubated and sedated, on the Parkland resuscitation since 0230, EMS 500 mL, escharotomy right arm.', 0.375, ''),
-                  E('Assessment: current vitals (T 99.0, HR 103, BP 105/61, SpO2 99%), lungs/peak pressures, right hand Doppler pulses, lactate normal at 1.8 (1200), CK 1,120, and your concern that he is behind on fluid.', 0.375, ''),
+                  E('Assessment: current vitals at 1400 (T 99.0, HR 102, BP 108/63 with MAP 78, SpO2 99%; accept the 1300 values HR 103, BP 105/61), lungs/peak pressures (PIP 27, Pplat 20), bladder pressure 12 mmHg, right hand Doppler pulses, lactate normal at 1.8 (1200), CK 1,120, and your concern that he is behind on fluid.', 0.375, ''),
                   E('Recommendation: ask to increase the rate by 20% per the order (to 270 mL/h) and what urine output you should call about next; read the order back and document the time and name.', 0.375, '')]}})
 
 items.append({'id': '1.7', 'type': 'table', 'points': 1.5, 'title': 'Lines, Tubes and Airway',
@@ -142,10 +142,10 @@ items.append({'id': '1.9', 'type': 'table', 'points': 1.5, 'title': 'Reading the
                           E('Lactate 5.8 -> 3.4 -> 2.2 -> 1.8 -> 1.6 (critical to normal): poor tissue perfusion early; falling means the fluid resuscitation is working. Keep trending; a rise means shock or sepsis, notify.', 0.375, ''),
                           E('Hemoglobin 17.2 -> 13.6 (and hematocrit 51 -> 41): hemoconcentration from plasma leak on arrival, then dilution as fluid is given. Watch for bleeding and new drops.', 0.375, ''),
                           E('CK 480 -> 1,120: muscle and tissue injury; protect the kidneys with adequate urine output and watch for dark urine (myoglobin); report the trend.', 0.375, ''),
-                          E('Potassium 4.3 -> 4.5 -> 4.9 -> 5.0: cells release potassium after burn injury; monitor the ECG and recheck; do not replace it, and report a value of 5.1 or higher.', 0.375, ''),
+                          E('Potassium 4.3 -> 4.5 -> 4.9 -> 5.0: cells release potassium after burn injury; monitor the ECG and recheck; do not replace it, and report the rising trend to the provider (no call value is written in the orders, so accept asking the provider for one).', 0.375, ''),
                           E('WBC 12.8 -> 16.1 (1200): stress response to a major burn, NOT an infection yet; use it as a baseline for comparison later.', 0.375, ''),
                           E('Glucose 143 -> 156 -> 172 -> 188 (serum): stress hyperglycemia that keeps rising; check glucose per order and know the call parameters, because an insulin infusion is likely if it stays above 180.', 0.375, ''),
-                          E('pH 7.29 -> 7.39 and bicarbonate 18 -> 24 (arterial gas): metabolic acidosis from poor perfusion corrected with resuscitation.', 0.375, ''),
+                          E('pH 7.29 -> 7.39 (7.40 at 1600) and bicarbonate 18 -> 24 (arterial gas): metabolic acidosis from poor perfusion corrected with resuscitation.', 0.375, ''),
                           E('Carboxyhemoglobin 14.2 -> 3.0 (also accept if not used in 1.4).', 0.375, '')]}})
 
 items.append({'id': '1.10', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': 'Adding Up Your 12 Hours',
@@ -153,9 +153,9 @@ items.append({'id': '1.10', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': 
               'where': 'Flowsheets > Intake/Output (Totals at the bottom); MAR (lactated Ringer\'s); EMS Handoff and ED notes',
               'images': [{'path': 'figs/shot_io_totals_s1.png', 'caption': 'EHR screenshot: the Totals section at the bottom of the Intake/Output flowsheet, at 1900 on Monday.', 'width': 6.0}],
               'key': {'elements': [
-                  E('Day shift 0700-1900 as the flowsheet shows it: intake 4,720 mL, output 447 mL, net +4,273 mL (a large positive balance is expected in burn resuscitation).', 0.5, 'Flowsheets > Intake/Output > Totals'),
-                  E('Average urine output 447 / 12 = about 37 mL/h = about 0.45 mL/kg/h (just under the 0.5 goal, inside 30-50 mL/h most of the shift).', 0.25, ''),
-                  E('Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid from the MAR: EMS 500 + ED 675 + ICU (450 x 2 h + 540 x 3.5 h + 225 x 4.5 h + 270 x 5 h = 5,153) = about 6,330 mL.', 0.5, 'MAR rates'),
+                  E('Day shift 0700-1900 as the flowsheet shows it: intake 4,720 mL, output 447 mL, net +4,273 mL (a large positive balance is expected in burn resuscitation). Use the displayed totals; a student who adds the hourly columns by hand may get slightly different numbers (accept if the method is sound).', 0.5, 'Flowsheets > Intake/Output > Totals'),
+                  E('Average urine output 447 / 12 = about 37 mL/h = about 0.45 mL/kg/h (accept 37-38 mL/h and 0.45-0.47; just under the 0.5 goal, inside 30-50 mL/h most of the shift).', 0.25, ''),
+                  E('Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid from the MAR: EMS 500 + ED 675 + ICU (450 x 2 h + 540 x 3.5 h + 225 x 4.5 h + 270 x 5 h = 5,153) = about 6,330 mL (accept 6,200-6,350; the progress notes quote about 6,190 at 1800 and 6,280 at 1850 with their own rounding).', 0.5, 'MAR rates'),
                   E('He is about 580 mL (10%) over the Parkland estimate: acceptable because the order is to titrate to urine output, but a reminder to watch for fluid creep (edema, airway pressures, bladder pressure) and not to chase a single low urine output.', 0.25, '')]}})
 
 items.append({'id': '1.11', 'type': 'box', 'points': 1.5, 'lines': 9, 'title': 'The 1400 Dressing Change',
@@ -168,13 +168,13 @@ items.append({'id': '1.11', 'type': 'box', 'points': 1.5, 'lines': 9, 'title': '
                   E('Any two: sterile technique, gown/gloves/mask and contact precautions, hand hygiene, dedicated equipment, cleansing the old cream, covering the wound promptly.', 0.25, '')]}})
 
 items.append({'id': '1.12', 'type': 'box', 'points': 2, 'lines': 11, 'title': 'Handoff at 1900',
-              'prompt': 'It is 1850. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers and name what the night nurse must watch for and do in the first part of the night, including anything coming up in the next few hours.',
+              'prompt': 'It is 1900. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers and name what the night nurse must watch for and do in the first part of the night, including anything coming up in the next few hours.',
               'where': 'Everything you have charted and read this shift; Orders; Lab Results; MAR; Flowsheets',
               'key': {'elements': [
-                  E('Situation: patient, room, full code, 22% TBSA burn with inhalation injury, intubated and sedated (propofol and fentanyl), current vitals (HR about 97, BP 109/63, T 99.2, SpO2 98%), resuscitation going as planned.', 0.5, ''),
-                  E('Background: house fire 0130, escharotomy right arm 0315, Parkland (LR 7,216 mL goal in 24 h), lines (central line, arterial line, OG with feeds started at 1000, Foley), COHb now at his smoker baseline.', 0.5, ''),
+                  E('Situation: patient, room, full code, 22% TBSA burn with inhalation injury, intubated and sedated (propofol and fentanyl), current vitals at 1900 (HR 97, BP 109/63, T 99.2, SpO2 98%; accept the 1800 values HR 98, BP 108/61, T 99.1, SpO2 99%), resuscitation going as planned.', 0.5, ''),
+                  E('Background: house fire 0130, escharotomy right arm 0315, Parkland (LR 7,216 mL goal in 24 h), lines (central line, arterial line, OG with feeds started at 1000, Foley), COHb down to 3.0% at 1200 (his smoker baseline).', 0.5, ''),
                   E('Assessment: urine output was 28 mL/h around 1200-1400 and corrected after the rate went to 270 mL/h (now 42-46 mL/h); net about +4 L; lactate 1.6; potassium 5.0 and glucose 188 are climbing; right hand Doppler pulses steady; pain controlled; wound care done at 1400.', 0.5, ''),
-                  E('Recommendation / to do: hourly urine output with titration per order; hourly right hand checks; the Parkland 24 hours ends at 0130 Tuesday and the order changes then; 0000 labs (glucose may need an insulin infusion; recheck potassium); sedation goal and restraint checks; turning and skin care; family visiting; call the burn team for UOP under 20 mL/h.', 0.5, '')]}})
+                  E('Recommendation / to do: hourly urine output with titration per order; hourly right hand checks; the Parkland 24 hours ends at 0130 Tuesday and the order changes then; 2000 ABG and 0000 labs and CK (glucose may need an insulin infusion if still over 180; recheck potassium); sedation goal and restraint checks; turning and skin care; family visiting; call the burn team for UOP under 20 mL/h.', 0.5, '')]}})
 
 parts = [{'id': '1', 'title': 'Shift 1: Monday 11/02, 0700 to 1900 (day shift)', 'step': 'Day 1 of the stay', 'minutes': 60,
           'intro': 'Set the simulation clock to 0700 on Monday 11/02/26 and move it forward as you work. Marcus arrived in the ICU at 0400; you take report from the night nurse and care for him until you hand off at 1900. You can read everything charted before 0700, and the chart fills in as the clock moves forward.',
