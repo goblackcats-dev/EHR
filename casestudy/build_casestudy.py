@@ -153,6 +153,7 @@ def ruled_box(d, lines, width=7.0, line_h=0.3, label=None):
         c = r.cells[0]
         set_cell_border(c, left=THICK, right=THICK, top=THICK if i == 0 else THIN, bottom=THICK if i == lines - 1 else THIN)
         c.paragraphs[0].paragraph_format.space_after = Pt(0)
+        if i < lines - 1: c.paragraphs[0].paragraph_format.keep_with_next = True   # keep the whole writing box on one page
     if label: cell_text(t.rows[0].cells[0], label, size=8, italic=True, color='888888')
     para(d, '', after=2)
 

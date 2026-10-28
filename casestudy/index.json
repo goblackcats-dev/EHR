@@ -1,3 +1,22 @@
 {
- "cases": []
+ "cases": [
+  {
+   "id": "burn_icu",
+   "caseCode": "CS-BURN-ICU-1",
+   "title": "Burn ICU Case Study: Marcus Delaney, a Three-Day ICU Stay, Shift by Shift",
+   "patient": "Marcus Delaney",
+   "age": 34,
+   "sex": "Male",
+   "diagnosis": "Thermal burns 22% TBSA (flame) with smoke inhalation injury and carbon monoxide poisoning; acute respiratory failure on mechanical ventilation",
+   "room": "BICU-6",
+   "passPct": 78,
+   "token": "ebf7d86898",
+   "files": {
+    "studentPdf": "cases/burn_icu/out/CS-BURN-ICU-1_STUDENT.pdf",
+    "studentDocx": "cases/burn_icu/out/CS-BURN-ICU-1_STUDENT.docx",
+    "keyPdf": "cases/burn_icu/out/CS-BURN-ICU-1_KEY.pdf",
+    "keyDocx": "cases/burn_icu/out/CS-BURN-ICU-1_KEY.docx"
+   }
+  }
+ ]
 }

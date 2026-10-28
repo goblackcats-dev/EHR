@@ -77,3 +77,6 @@ Days: Mon 11-02 = ICU day 1, Tue 11-03 = ICU day 2, Wed 11-04 = ICU day 3, Thu 1
 - Sedation: propofol on 02:55 Mon (20 then 30 mcg/kg/min), 35 at 16:00 Mon, 30 at 04:00 Tue, SAT Tue 08:00-08:35 (wakes, follows commands, restarted at 20 then 30 at 09:30), 40 from 18:00 Tue, 30 from 04:00 Wed, off 08:00 Wed. Fentanyl 100 mcg/h, 150 mcg/h from 18:00 Tue to 04:00 Wed, off 10:45 Wed. Dexmedetomidine 0.4 mcg/kg/h 11:00 Wed to 03:00 Thu.
 - Insulin infusion 00:30 Tue to 12:00 Wed; then lispro correction scale.
 - Monday 04:00 ICU arrival; the patient arrives with both IJ central line and ETT in place; left radial A-line placed 04:30 by Dr. Brandt.
+
+## Case study packet
+`author.py` writes `content.json` (6 shifts of 12 hours, Mon 04:00 to Thu 07:00; only Shift 1 is written so far) and `../../build_casestudy.py content.json patient.json out/` writes the student packet and faculty key (.docx; PDFs via LibreOffice). Planned points: Shift 1 = 18, Shifts 2, 3, 5, 6 = 16 each, Shift 4 (infection) = 18.
