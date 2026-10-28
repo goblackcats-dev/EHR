@@ -1,0 +1,8 @@
+Tue 0800: flowsheet CAM-ICU says "Unable to assess (RASS -3)" and RASS -2, but the 0850 nursing note says RASS 0 and CAM-ICU negative during the SAT (item 3.1 uses the note).
+SAT order says fentanyl continues "at half dose" but MAR/notes show fentanyl stayed at 100 mcg/h.
+Vancomycin load 1,750 mg is 21.3 mg/kg for 82 kg (20 mg/kg = 1,640 mg); notes call it "20 mg/kg" (item 3.8 treats it as a rounded dose).
+KCl order rationale says "Potassium 3.5" (lab is 3.6); Mg order rationale says Mg 1.6 (noon Mg is 1.7); phosphate order rationale says Phos 1.9 (noon lab is 2.1).
+Pip-tazo order says it is Y-site incompatible with vancomycin (real references list them as compatible in many concentrations); item 3.8 only asks what the order says.
+SBAR at 1540: no 1540 vital set; the 1530 values (T 101.1, HR 113) are used, not T 101.0 / HR 112.
+Mafenide order starts 1700 but it was applied at 1730 (MAR and notes); the Okafor note says 1730.
+Insulin infusion order lines: nursing note 1550 says raised to 1.5 units/h at 1500 (MAR agrees); 1200 reduced to 1 unit/h.
