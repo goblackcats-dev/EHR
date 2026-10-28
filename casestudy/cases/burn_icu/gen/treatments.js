@@ -7,8 +7,9 @@ const WHO = { ed: 'M. Castellano, MD', burn: 'R. Okafor, MD', icu: 'L. Brandt, M
 const RN = { ed: 'A. Torres, RN', day: 'J. Morales, RN', night: 'E. Haddad, RN' };
 const rnAt = h => (h < 0 ? RN.ed : (h % 24 >= 3 && h % 24 < 15 ? RN.day : RN.night));   // 07:00-19:00 day (h%24 = 3..14 from the 04:00 base)
 const epic = t => `${t.slice(5, 7)}/${t.slice(8, 10)}/${t.slice(2, 4)} ${t.slice(11, 13)}${t.slice(14, 16)}`;
-const slot = h => (h < 0 ? -1 : Math.floor(h + 1e-6));
-const N = 76;     // MAR columns: Mon 04:00 .. Thu 07:00 (clock hours)
+const T0H = 3;    // the simulation (the student's first shift) starts Mon 07:00, three hours after ICU arrival at 04:00
+const slot = h => (h < T0H ? -1 : Math.floor(h - T0H + 1e-6));
+const N = 72;     // MAR columns: Mon 07:00 .. Thu 06:00 (clock hours)
 
 const orders = [], admins = [];
 let seq = 0;
@@ -45,6 +46,11 @@ function med(c) {
   };
   (c.times || []).forEach((t, i) => give(t, 'given', `${hhmm(hOfStamp(t))} Given ${(c.doses && c.doses[i]) || dose}`, (c.doses && c.doses[i]) || dose));
   (c.events || []).forEach(([t, label, d]) => give(t, 'given', `${hhmm(hOfStamp(t))} ${label}`, d));
+  if (c.kind === 'cont' && c.events && c.events.length && startH < T0H && (!endStamp || hOfStamp(endStamp) > T0H)) {
+    // an infusion already running when the student's shift starts: show it as running in the first column
+    const prior = c.events.filter(([t]) => hOfStamp(t) <= T0H).pop();
+    if (prior && hOfStamp(prior[0]) < T0H) give(H(T0H), 'given', `0700 Running ${prior[2]}`, prior[2]);
+  }
   (c.held || []).forEach(([t, why]) => give(t, 'held', `${hhmm(hOfStamp(t))} Held`, dose, { holdReason: why, note: why }));
   (c.due || []).forEach(t => admins.push({ id: `admin_${id}_${admins.length}`, orderId: id, slotIndex: slot(hOfStamp(t)), time: hhmm(hOfStamp(t)), state: 'due', label: `${hhmm(hOfStamp(t))} Due`, dose, route }));
   if (endStamp && c.kind === 'cont') {

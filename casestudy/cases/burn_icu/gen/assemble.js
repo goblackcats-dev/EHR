@@ -10,8 +10,8 @@ let notes = [];
 noteFiles.forEach(f => { try { notes = notes.concat(JSON.parse(fs.readFileSync(path.join(dir, 'notes', f), 'utf8'))); } catch (e) { console.error('note file failed to parse:', f, e.message); } });
 const seen = new Set(); notes = notes.filter(n => { if (!n.id || seen.has(n.id)) return false; seen.add(n.id); return true; }).sort((a, b) => a.datetime.localeCompare(b.datetime));
 
-const START = at('Mon', '04:00'), END = at('Thu', '07:00');
-const slots = []; for (let i = 0; i < 76; i++) slots.push(H(i).slice(11, 13) + '00');
+const START = at('Mon', '07:00'), END = at('Thu', '07:00');   // the student takes over at the 0700 shift change; Marcus arrived in the ICU at 0400
+const slots = []; for (let i = 0; i < 72; i++) slots.push(H(3 + i).slice(11, 13) + '00');
 
 const canonical = {
   schemaVersion: '2.0',

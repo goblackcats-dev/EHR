@@ -10,15 +10,15 @@
   {
    "h": "Your patient",
    "lines": [
-    "You are the Burn ICU nurse for Marcus Delaney, a 34-year-old man in room BICU-6 with burns from a house fire. Open the patient in the student EHR (Student View, or the patient file from your instructor). The chart covers three days, from Monday 11/02/26 at 0400 until his transfer to a medical-surgical unit on Thursday 11/05/26 at 0700.",
+    "You are the Burn ICU nurse for Marcus Delaney, a 34-year-old man in room BICU-6 with burns from a house fire. Open the patient in the student EHR (Student View, or the patient file from your instructor). He arrived in the ICU at 0400 on Monday 11/02/26 and the night nurse has cared for him since. You take over at the 0700 shift change, and the chart runs until his transfer to a medical-surgical unit on Thursday 11/05/26 at 0700.",
     "You will work through his stay one 12-hour shift at a time. At the start of each shift, set the simulation clock to the time written at the top of that shift and read the chart up to that moment. You may not need to look past the end of the shift you are working on. Each question tells you where to look in the EHR."
    ]
   },
   {
    "h": "The six shifts",
    "lines": [
-    "Shift 1: Monday 11/02, 0400 to 1600.   Shift 2: Monday 1600 to Tuesday 11/03 0400.   Shift 3: Tuesday 0400 to 1600.",
-    "Shift 4: Tuesday 1600 to Wednesday 11/04 0400.   Shift 5: Wednesday 0400 to 1600.   Shift 6: Wednesday 1600 to Thursday 11/05 0700 (transfer)."
+    "Shift 1: Monday 11/02, 0700 to 1900 (day).   Shift 2: Monday 1900 to Tuesday 11/03 0700 (night).   Shift 3: Tuesday 0700 to 1900 (day).",
+    "Shift 4: Tuesday 1900 to Wednesday 11/04 0700 (night).   Shift 5: Wednesday 0700 to 1900 (day).   Shift 6: Wednesday 1900 to Thursday 11/05 0700 (night, ends with transfer to Med-Surg)."
    ]
   },
   {
@@ -63,26 +63,26 @@
    "lines": [
     "Marcus Delaney, 34, 82 kg, 180 cm. House fire at 0130 Monday. Flame burn 22% TBSA (right arm circumferential, anterior chest, face and neck; about 8% full thickness) with smoke inhalation (COHb 14.2%), intubated at 0250, right forearm/hand escharotomy at 0315, Burn ICU arrival 0400.",
     "Parkland: 4 mL x 82 kg x 22% = 7,216 mL lactated Ringer's in 24 hours from the time of injury. Day 2 (Tuesday) he develops burn wound sepsis (MSSA), needs norepinephrine, and improves overnight; he is extubated Wednesday 1045 and transfers Thursday 0700.",
-    "Only Shift 1 has been written so far. The point total of the finished packet will be 100: Shift 1 = 18, Shifts 2, 3, 5 and 6 = 16 each, Shift 4 (the infection) = 18."
+    "Only Shift 1 has been written so far. The point total of the finished packet will be 100: Shift 1 = 20 (it includes the admission picture and the handoff), Shifts 2 to 6 = 16 each."
    ]
   }
  ],
  "parts": [
   {
    "id": "1",
-   "title": "Shift 1: Monday 11/02, 0400 to 1600 (admission to the Burn ICU)",
+   "title": "Shift 1: Monday 11/02, 0700 to 1900 (day shift)",
    "step": "Day 1 of the stay",
    "minutes": 60,
-   "intro": "Set the simulation clock to 0400 on Monday 11/02/26 and move it forward as you work. You are the nurse receiving Marcus from the ED.",
-   "keyNote": "Shift 1 is mostly chart reading and the safety reasoning behind burn resuscitation. A careful student should earn about 14 of the 18 points. The hardest items are 1.2 (the Parkland math with the EMS bolus) and 1.10 (the fluid totals).",
+   "intro": "Set the simulation clock to 0700 on Monday 11/02/26 and move it forward as you work. Marcus arrived in the ICU at 0400; you take report from the night nurse and care for him until you hand off at 1900. You can read everything charted before 0700, and the chart fills in as the clock moves forward.",
+   "keyNote": "Shift 1 is mostly chart reading and the safety reasoning behind burn resuscitation. A careful student should earn about 16 of the 20 points. The hardest items are 1.2 (the Parkland math with the EMS bolus) and 1.10 (the fluid totals).",
    "items": [
     {
      "id": "1.1",
      "type": "box",
      "points": 2.5,
      "lines": 9,
-     "title": "Why Is He Here? Your Picture of Marcus at 0400",
-     "prompt": "Set the clock to 0400. Read the ED Provider Note, the Burn Surgery and Critical Care H&Ps, the Nursing Admission Note and the Patient Summary. In your own words, explain what happened to Marcus, what injuries he has and what has already been done, then name the THREE most urgent problems you must manage over the next 12 hours.",
+     "title": "Why Is He Here? Your Picture of Marcus at 0700",
+     "prompt": "Set the clock to 0700. You are taking report from the night nurse. Read the ED Provider Note, the Burn Surgery and Critical Care H&Ps, the nursing notes from 0425 to 0650 and the Patient Summary. In your own words, explain what happened to Marcus, what injuries he has and what has already been done, then name the THREE most urgent problems you must manage over the next 12 hours.",
      "where": "Patient Summary; Chart Review > Notes (ED Provider Note, Burn Surgery H&P, Critical Care H&P, Nursing Admission Note)",
      "key": {
       "elements": [
@@ -102,7 +102,7 @@
         "src": "Escharotomy note"
        },
        {
-        "t": "Burn shock resuscitation: Parkland lactated Ringer's running at 450 mL/h and titrated to urine output; lactate 5.8 down to 3.4.",
+        "t": "Burn shock resuscitation: Parkland lactated Ringer's running at 450 mL/h and titrated to urine output; lactate 5.8 down to 2.2 by 0800 (3.4 at 0415).",
         "pts": 0.5,
         "src": "Orders, labs"
        },
@@ -165,16 +165,16 @@
      "where": "Flowsheets > Vital Signs",
      "prompt": "Copy the vital signs at each time (he has an arterial line, so use the blood pressure shown). Circle every abnormal value. Then, in one or two sentences, describe the trend over the shift and say which value on the flowsheet you do NOT fully trust and why.",
      "times": [
-      "2026-11-02 04:00",
-      "2026-11-02 08:00",
-      "2026-11-02 12:00",
-      "2026-11-02 16:00"
+      "2026-11-02 07:00",
+      "2026-11-02 11:00",
+      "2026-11-02 15:00",
+      "2026-11-02 19:00"
      ],
      "times_label": [
-      "Mon 0400",
-      "Mon 0800",
-      "Mon 1200",
-      "Mon 1600"
+      "Mon 0700",
+      "Mon 1100",
+      "Mon 1500",
+      "Mon 1900"
      ],
      "rowsLabels": [
       "Temperature",
@@ -193,7 +193,7 @@
       "PAIN"
      ],
      "key": {
-      "rules": "Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The trend sentence is worth 0.5: heart rate stays above 100 (106 to 112, then 101) and slowly improves with resuscitation; blood pressure is low-normal (100-107/58-63, MAP about 72-77); temperature rises from 97.4 F (cold on arrival) to 99.0 F; CPOT stays 1 because he is sedated. The value NOT to trust fully is the SpO2 of 99-100%: carbon monoxide on the hemoglobin makes the pulse oximeter read falsely normal. Allow +/- 2 for rates and +/- 0.2 F."
+      "rules": "Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The trend sentence is worth 0.5: heart rate starts high (111) and falls to 97 as the resuscitation works; blood pressure is low-normal (99/57 to 109/63, MAP about 71 to 78); temperature rises from 98.2 F to 99.2 F (he arrived cold at 96.8 F); CPOT stays 1 because he is sedated. The value NOT to trust fully is the SpO2 of 99-100%: carbon monoxide on the hemoglobin makes the pulse oximeter read falsely normal. Allow +/- 2 for rates and +/- 0.2 F."
      }
     },
     {
@@ -213,7 +213,7 @@
      "points": 1.5,
      "lines": 9,
      "title": "The Pulse Oximeter Says 100%",
-     "prompt": "Marcus's SpO2 reads 99 to 100% all morning. (a) Explain why this number can be falsely reassuring in this patient. (b) Which lab results show how much carbon monoxide is on his hemoglobin, and what were the values at 0250, 0415 and 0800? (c) What treatment lowers it and how did the plan change at 0600? (d) He smokes a pack a day: what does that tell you about the value he is heading toward?",
+     "prompt": "Marcus's SpO2 reads 99 to 100% all morning. (a) Explain why this number can be falsely reassuring in this patient. (b) Which lab results show how much carbon monoxide is on his hemoglobin, and what were the values at 0250, 0415 and 0800? (c) What treatment lowers it, and what did the night team change at 0600 (read their notes)? (d) He smokes a pack a day: what does that tell you about the value he is heading toward?",
      "where": "Lab Results > Blood Gas (Carboxyhemoglobin, PaO2); Orders (ventilator); Flowsheets > Respiratory",
      "key": {
       "elements": [
@@ -244,10 +244,10 @@
      "id": "1.5",
      "type": "box",
      "points": 1.5,
-     "lines": 10,
-     "title": "Titrating the Fluids: What Happened at 0600?",
-     "prompt": "Open the lactated Ringer's order and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) Write the urine outputs for 0400-0500 and 0500-0600 and say what the order tells you to do. (c) What rate was he running at 0700 and what percent change is that? (d) Name two things you check before and after increasing the rate and one danger of giving too much fluid.",
-     "where": "Orders > lactated Ringer's (burn resuscitation); Flowsheets > Intake/Output; MAR (rate changes)",
+     "lines": 11,
+     "title": "Titrating the Fluids",
+     "prompt": "Open the lactated Ringer's order, the MAR and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) At 0930 the rate was changed: from what to what, and why? (c) Write the urine outputs for 1200-1300 and 1300-1400, say what the order tells you to do, and what the new rate becomes at 1400. (d) Name two things you check when you change the rate and one danger of giving too much fluid.",
+     "where": "Orders > lactated Ringer's (burn resuscitation); MAR (rate changes); Flowsheets > Intake/Output",
      "key": {
       "elements": [
        {
@@ -256,22 +256,22 @@
         "src": "Order instructions"
        },
        {
-        "t": "Urine output 25 mL and 26 mL: below 30 mL/h for two hours in a row, so increase the rate by 20 to 25% and notify the burn team.",
-        "pts": 0.5,
-        "src": "I&O, order"
-       },
-       {
-        "t": "The rate went from 450 to 540 mL/h at 0600 (an increase of 20%).",
+        "t": "At 0930 (8 hours after the injury) the first half of the Parkland fluid is done, so the rate dropped from 540 to 225 mL/h for the second 16 hours.",
         "pts": 0.25,
         "src": "MAR"
        },
        {
-        "t": "Two checks: lung sounds / peak airway pressures, abdominal distention or bladder pressure, right hand pulses and tension, edema, blood pressure and heart rate (any two).",
-        "pts": 0.25,
-        "src": ""
+        "t": "Urine output 28 mL and 28 mL: below 30 mL/h for two hours in a row, so increase the rate by 20 to 25% and notify the burn team.",
+        "pts": 0.5,
+        "src": "I&O, order"
        },
        {
-        "t": "A danger of too much fluid (\"fluid creep\"): pulmonary edema, abdominal or limb compartment syndrome, more ventilator days, worse swelling or airway edema (any one).",
+        "t": "225 mL/h x 1.2 = 270 mL/h at 1400.",
+        "pts": 0.25,
+        "src": "MAR"
+       },
+       {
+        "t": "Two checks (lung sounds / peak airway pressures, abdomen or bladder pressure, right hand pulses and tension, edema, blood pressure, heart rate) AND a danger of too much fluid (\"fluid creep\": pulmonary edema, compartment syndrome, more ventilator days, worse swelling).",
         "pts": 0.25,
         "src": ""
        }
@@ -284,12 +284,12 @@
      "points": 1.5,
      "lines": 12,
      "title": "Calling the Burn Surgeon",
-     "prompt": "It is 0600 and you have just seen the second low urine output. Write the SBAR you give Dr. Okafor on the phone. Use real numbers from the chart. End with what you are asking him to do and how you will confirm the order.",
-     "where": "Flowsheets (vital signs, I&O, neurovascular); Lab Results (lactate); Orders",
+     "prompt": "It is 1400 and you have just seen the second low urine output. Write the SBAR you give Dr. Okafor on the phone. Use real numbers from the chart. End with what you are asking him to do and how you will confirm the order.",
+     "where": "Flowsheets (vital signs, I&O, neurovascular); Lab Results (lactate, potassium, CK); Orders",
      "key": {
       "elements": [
        {
-        "t": "Situation: identify yourself, patient and room; urine output 25 and 26 mL/h for two hours (less than 0.5 mL/kg/h) on lactated Ringer's 450 mL/h.",
+        "t": "Situation: identify yourself, the patient and room; urine output 28 mL/h and 28 mL/h for two hours (about 0.34 mL/kg/h, less than the goal of 0.5) on lactated Ringer's 225 mL/h.",
         "pts": 0.375,
         "src": ""
        },
@@ -299,12 +299,12 @@
         "src": ""
        },
        {
-        "t": "Assessment: current vitals (HR about 109, BP 99/55 with MAP 70), lungs/peak pressures, right hand Doppler pulses, lactate improving (3.4 at 0415), and your concern that he is under-resuscitated.",
+        "t": "Assessment: current vitals (T 99.0, HR 103, BP 105/61, SpO2 99%), lungs/peak pressures, right hand Doppler pulses, lactate normal at 1.8 (1200), CK 1,120, and your concern that he is behind on fluid.",
         "pts": 0.375,
         "src": ""
        },
        {
-        "t": "Recommendation: ask to increase the rate by 20% per the order (to 540 mL/h) and what urine output you should call about next; read the order back and document the time and name.",
+        "t": "Recommendation: ask to increase the rate by 20% per the order (to 270 mL/h) and what urine output you should call about next; read the order back and document the time and name.",
         "pts": 0.375,
         "src": ""
        }
@@ -316,7 +316,7 @@
      "type": "table",
      "points": 1.5,
      "title": "Lines, Tubes and Airway",
-     "prompt": "List SIX lines, tubes or devices Marcus has at 0400 (not counting the ventilator). For each, write the site and what you check every shift, and one complication you are watching for.",
+     "prompt": "List SIX lines, tubes or devices Marcus has at 0700 (not counting the ventilator). For each, write the site and what you check every shift, and one complication you are watching for.",
      "where": "Avatar (IVs, drains and tubes); Flowsheets > Lines / Drains / Airways; Nursing Admission Note",
      "cols": [
       "Device and site",
@@ -373,7 +373,7 @@
      "points": 1.5,
      "lines": 11,
      "title": "The Ventilator and Sedation",
-     "prompt": "Open Flowsheets > Respiratory at 0400. (a) Calculate his ideal body weight (male: 50 kg + 2.3 kg for every inch over 5 feet; 1 inch = 2.54 cm) and the tidal volume at 6 mL/kg. Does this match the set tidal volume? (b) List FOUR actions in the ventilator-associated pneumonia (VAP) bundle that you do this shift. (c) What is the RASS goal on Monday, and why is he sedated more deeply on the first day?",
+     "prompt": "Open Flowsheets > Respiratory at 0700. (a) Calculate his ideal body weight (male: 50 kg + 2.3 kg for every inch over 5 feet; 1 inch = 2.54 cm) and the tidal volume at 6 mL/kg. Does this match the set tidal volume? (b) List FOUR actions in the ventilator-associated pneumonia (VAP) bundle that you do this shift. (c) What is the RASS goal on Monday, and why is he sedated more deeply on the first day?",
      "where": "Flowsheets > Respiratory (vent settings, pressures); Orders (mechanical ventilation; sedation); Orders > Nursing",
      "key": {
       "elements": [
@@ -400,7 +400,7 @@
      "type": "table",
      "points": 1.5,
      "title": "Reading the Labs",
-     "prompt": "Open Lab Results and compare the first draws (about 0240-0250) with the 0800 or 1200 draws. Choose FOUR labs or lab groups that changed or matter. For each, write the values, why this happens in a burn patient, and what you do about it.",
+     "prompt": "Open Lab Results and compare the first draws (about 0240-0250) with the 1200 and 1800 draws. Choose FOUR labs or lab groups that changed or matter. For each, write the values, why this happens in a burn patient, and what you do about it.",
      "where": "Lab Results (Chemistry, CBC, Blood Gas)",
      "cols": [
       "Lab and values (first draw to latest)",
@@ -419,7 +419,7 @@
       "bank": true,
       "elements": [
        {
-        "t": "Lactate 5.8 -> 3.4 -> 2.2 -> 1.8 (critical to normal): poor tissue perfusion early; falling means the fluid resuscitation is working. Keep trending; a rise means shock or sepsis, notify.",
+        "t": "Lactate 5.8 -> 3.4 -> 2.2 -> 1.8 -> 1.6 (critical to normal): poor tissue perfusion early; falling means the fluid resuscitation is working. Keep trending; a rise means shock or sepsis, notify.",
         "pts": 0.375,
         "src": ""
        },
@@ -434,17 +434,17 @@
         "src": ""
        },
        {
-        "t": "Potassium 4.3 -> 4.9: cells release potassium after burn injury; monitor the ECG and recheck; replace nothing now.",
+        "t": "Potassium 4.3 -> 4.5 -> 4.9 -> 5.0: cells release potassium after burn injury; monitor the ECG and recheck; do not replace it, and report a value of 5.1 or higher.",
         "pts": 0.375,
         "src": ""
        },
        {
-        "t": "WBC 12.8 -> 16.1: stress response to a major burn, NOT an infection yet; use it as a baseline for comparison later.",
+        "t": "WBC 12.8 -> 16.1 (1200): stress response to a major burn, NOT an infection yet; use it as a baseline for comparison later.",
         "pts": 0.375,
         "src": ""
        },
        {
-        "t": "Glucose 143 -> 156 -> 172: stress hyperglycemia; check glucose per order and know the call parameters for insulin.",
+        "t": "Glucose 143 -> 156 -> 172 -> 188 (serum): stress hyperglycemia that keeps rising; check glucose per order and know the call parameters, because an insulin infusion is likely if it stays above 180.",
         "pts": 0.375,
         "src": ""
        },
@@ -466,28 +466,28 @@
      "type": "box",
      "points": 1.5,
      "lines": 10,
-     "title": "Adding Up the First 12 Hours",
-     "prompt": "Open Flowsheets > Intake/Output and add the hourly rows from 0400 to 1600 (12 rows). (a) What are his total intake, total output and net balance? (b) What was his average urine output in mL/h and in mL/kg/h? (c) Using the Parkland rates, how much lactated Ringer's should he have received BY 1600 counting from injury (EMS 500 mL and the ED 675 mL before 0400 count), and how much did he actually receive? (d) What does that tell you?",
+     "title": "Adding Up Your 12 Hours",
+     "prompt": "Open Flowsheets > Intake/Output and add the hourly rows from 0700 to 1900 (12 rows). (a) What are his total intake, total output and net balance for your shift? (b) What was his average urine output in mL/h and in mL/kg/h? (c) Using the Parkland rates, how much lactated Ringer's should he have received BY 1900 counting from the injury (the EMS 500 mL and the ED 675 mL before the ICU count), and how much did he actually receive in all? (d) What does that tell you?",
      "where": "Flowsheets > Intake/Output; Orders (lactated Ringer's); EMS Handoff and ED notes",
      "key": {
       "elements": [
        {
-        "t": "Intake about 5,116 mL, output about 413 mL, net about +4,700 mL (accept totals within 50 mL; a large positive balance is expected in burn resuscitation).",
+        "t": "Intake about 4,490 mL, output about 460 mL, net about +4,030 mL (accept totals within 50 mL; a large positive balance is expected in burn resuscitation).",
         "pts": 0.5,
         "src": "I&O"
        },
        {
-        "t": "Average urine output about 34 mL/h = about 0.42 mL/kg/h (a little below the 0.5 goal, within the 30-50 range most of the time).",
+        "t": "Average urine output about 38 mL/h = about 0.47 mL/kg/h (just under the 0.5 goal, inside 30-50 mL/h most of the shift).",
         "pts": 0.25,
         "src": ""
        },
        {
-        "t": "Expected by 1600: first 8 h = 3,608 mL plus 6.5 h x 225 = about 1,460 mL, about 5,070 mL. Actual crystalloid: EMS 500 + ED 675 + ICU LR 4,343 = about 5,520 mL.",
+        "t": "Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid: EMS 500 + ED 675 + ICU LR 5,153 = about 6,330 mL.",
         "pts": 0.5,
         "src": ""
        },
        {
-        "t": "He is about 450 mL (9%) over the Parkland estimate: acceptable because the order is to titrate to urine output, but a reminder to watch for fluid creep (edema, pressures) and avoid chasing a single low urine output.",
+        "t": "He is about 580 mL (10%) over the Parkland estimate: acceptable because the order is to titrate to urine output, but a reminder to watch for fluid creep (edema, airway pressures, bladder pressure) and not to chase a single low urine output.",
         "pts": 0.25,
         "src": ""
        }
@@ -522,6 +522,39 @@
        {
         "t": "Any two: sterile technique, gown/gloves/mask and contact precautions, hand hygiene, dedicated equipment, cleansing the old cream, covering the wound promptly.",
         "pts": 0.25,
+        "src": ""
+       }
+      ]
+     }
+    },
+    {
+     "id": "1.12",
+     "type": "box",
+     "points": 2,
+     "lines": 14,
+     "title": "Handoff at 1900",
+     "prompt": "It is 1850. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers and name what the night nurse must watch for and do in the first part of the night, including anything coming up in the next few hours.",
+     "where": "Everything you have charted and read this shift; Orders; Lab Results; MAR; Flowsheets",
+     "key": {
+      "elements": [
+       {
+        "t": "Situation: patient, room, full code, 22% TBSA burn with inhalation injury, intubated and sedated (propofol and fentanyl), current vitals (HR about 97, BP 109/63, T 99.2, SpO2 98%), resuscitation going as planned.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Background: house fire 0130, escharotomy right arm 0315, Parkland (LR 7,216 mL goal in 24 h), lines (central line, arterial line, OG with feeds started at 1000, Foley), COHb now at his smoker baseline.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Assessment: urine output was 28 mL/h around 1200-1400 and corrected after the rate went to 270 mL/h (now 42-46 mL/h); net about +4 L; lactate 1.6; potassium 5.0 and glucose 188 are climbing; right hand Doppler pulses steady; pain controlled; wound care done at 1400.",
+        "pts": 0.5,
+        "src": ""
+       },
+       {
+        "t": "Recommendation / to do: hourly urine output with titration per order; hourly right hand checks; the Parkland 24 hours ends at 0130 Tuesday and the order changes then; 0000 labs (glucose may need an insulin infusion; recheck potassium); sedation goal and restraint checks; turning and skin care; family visiting; call the burn team for UOP under 20 mL/h.",
+        "pts": 0.5,
         "src": ""
        }
       ]

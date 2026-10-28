@@ -18,7 +18,7 @@
 11-02 11:00 | HR 104 | BP 105/62 (76) | RR 18 | SpO2 99 | 98.9 °F | Ventilator | RASS -3 | pain CPOT 1/8 | PIP 27/Pplat 20 FiO2 0.6 PEEP 5 setRR 16 | prop 30 | fent 100 | NE 0 | ins 0 | LR 225 feeds 20 | IO block 1000-1100: in 282 out 36
 11-02 12:00 | HR 105 | BP 106/61 (76) | RR 17 | SpO2 99 | 98.9 °F | Ventilator | RASS -3 | pain CPOT 1/8 | PIP 27/Pplat 20 FiO2 0.6 PEEP 5 setRR 16 | prop 30 | fent 100 | NE 0 | ins 0 | LR 225 feeds 20 | IO block 1100-1200: in 312 out 32
 11-02 13:00 | HR 103 | BP 105/61 (76) | RR 17 | SpO2 99 | 99.0 °F | Ventilator | RASS -3 | pain CPOT 1/8 | PIP 27/Pplat 20 FiO2 0.6 PEEP 5 setRR 16 | prop 30 | fent 100 | NE 0 | ins 0 | LR 225 feeds 20 | IO block 1200-1300: in 282 out 28
-11-02 14:00 | HR 102 | BP 108/63 (78) | RR 18 | SpO2 99 | 99.0 °F | Ventilator | RASS -3 | pain CPOT 4/8 | PIP 27/Pplat 20 FiO2 0.5 PEEP 5 setRR 16 | prop 30 | fent 100 | NE 0 | ins 0 | LR 270 feeds 30 | IO block 1300-1400: in 282 out 31
+11-02 14:00 | HR 102 | BP 108/63 (78) | RR 18 | SpO2 99 | 99.0 °F | Ventilator | RASS -3 | pain CPOT 4/8 | PIP 27/Pplat 20 FiO2 0.5 PEEP 5 setRR 16 | prop 30 | fent 100 | NE 0 | ins 0 | LR 270 feeds 30 | IO block 1300-1400: in 282 out 28
 11-02 15:00 | HR 102 | BP 107/62 (77) | RR 17 | SpO2 99 | 99.1 °F | Ventilator | RASS -3 | pain CPOT 1/8 | PIP 27/Pplat 20 FiO2 0.5 PEEP 5 setRR 16 | prop 30 | fent 100 | NE 0 | ins 0 | LR 270 feeds 30 | IO block 1400-1500: in 337 out 37
 11-02 16:00 | HR 101 | BP 107/63 (78) | RR 18 | SpO2 99 | 99.0 °F | Ventilator | RASS -3 | pain CPOT 1/8 | PIP 27/Pplat 20 FiO2 0.5 PEEP 5 setRR 16 | prop 35 | fent 100 | NE 0 | ins 0 | LR 270 feeds 30 | IO block 1500-1600: in 367 out 38
 11-02 17:00 | HR 98 | BP 110/65 (80) | RR 17 | SpO2 99 | 99.2 °F | Ventilator | RASS -3 | pain CPOT 1/8 | PIP 27/Pplat 20 FiO2 0.5 PEEP 5 setRR 16 | prop 35 | fent 100 | NE 0 | ins 0 | LR 270 feeds 30 | IO block 1600-1700: in 339 out 42
@@ -669,6 +669,9 @@
 2026-11-02 06:00 | lactated Ringer's 1,000 mL (burn resuscitation, Parkland) | 0600 Rate 540 mL/h (E. Haddad, RN)
 2026-11-02 06:00 | heparin injection (VTE prophylaxis) | 0600 Given 5,000 units (E. Haddad, RN)
 2026-11-02 06:00 | acetaminophen (OFIRMEV) IV | 0600 Given 1,000 mg (E. Haddad, RN)
+2026-11-02 07:00 | lactated Ringer's 1,000 mL (burn resuscitation, Parkland) | 0700 Running 540 mL/h (J. Morales, RN)
+2026-11-02 07:00 | propofol (DIPRIVAN) infusion 10 mg/mL | 0700 Running 20 mcg/kg/min (J. Morales, RN)
+2026-11-02 07:00 | fentanyl infusion 10 mcg/mL | 0700 Running 100 mcg/h (J. Morales, RN)
 2026-11-02 07:00 | heparin 5,000 units nebulized (inhalation injury protocol) | 0700 Given 5,000 units in 3 mL saline (J. Morales, RN)
 2026-11-02 08:00 | albuterol nebulizer (inhalation injury protocol) | 0800 Given 2.5 mg (J. Morales, RN)
 2026-11-02 09:00 | pantoprazole (PROTONIX) injection | 0900 Given 40 mg (J. Morales, RN)

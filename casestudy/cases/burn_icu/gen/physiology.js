@@ -268,7 +268,8 @@ function buildIO() {
     const iv = Math.round(lr + alb + kvo + bol + pb + prop + fent + nor + dex + ins + 12);   // 12 mL/h carrier and flushes
     const feedMl = Math.round(feed + flush);
     const po = h >= hOf('Wed', '18:00') ? (b <= hOf('Wed', '20:00') ? 240 : (b > hOf('Wed', '20:00') && a < hOf('Thu', '06:00') && (a % 6 === 0) ? 120 : 0)) : 0;
-    const urine = Math.round((h >= last ? 2 : 1) * interp(C.uop, mid) + jit(1.5));
+    let urine = Math.round((h >= last ? 2 : 1) * interp(C.uop, mid) + jit(1.5));
+    if (a === 9) urine = 28;      // Mon 13:00-14:00: second hour in a row under 30 mL/h, so the 14:00 rate increase follows the order
     const stool = (a <= hOf('Wed', '02:00') && b > hOf('Wed', '02:00')) ? 220 : 0;
     const intake = iv + feedMl + po, output = urine + stool;
     const t1 = H(a), t2 = H(b);

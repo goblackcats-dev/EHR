@@ -80,3 +80,6 @@ Days: Mon 11-02 = ICU day 1, Tue 11-03 = ICU day 2, Wed 11-04 = ICU day 3, Thu 1
 
 ## Case study packet
 `author.py` writes `content.json` (6 shifts of 12 hours, Mon 04:00 to Thu 07:00; only Shift 1 is written so far) and `../../build_casestudy.py content.json patient.json out/` writes the student packet and faculty key (.docx; PDFs via LibreOffice). Planned points: Shift 1 = 18, Shifts 2, 3, 5, 6 = 16 each, Shift 4 (infection) = 18.
+
+## Shift timing (updated)
+Marcus arrives in the ICU at Mon 04:00, but the **simulation starts at Mon 07:00** (the student takes over at the day-shift change) and ends Thu 07:00 (72 hours = six 0700/1900 shifts). Everything charted before 07:00 is history the student can read. The MAR grid starts at the 0700 column; infusions already running show "Running" in it. Case study shifts: 1 Mon 0700-1900, 2 Mon 1900-Tue 0700, 3 Tue 0700-1900, 4 Tue 1900-Wed 0700, 5 Wed 0700-1900, 6 Wed 1900-Thu 0700.
