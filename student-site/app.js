@@ -1678,9 +1678,13 @@ function getVisibleCanonicalCase(canonical) {
   visible.observations = (canonical.observations || []).filter(item => availableAtSimulationTime(item));
   visible.notes = (canonical.notes || []).filter(item => availableAtSimulationTime(item));
   visible.orders = (canonical.orders || []).filter(item => availableAtSimulationTime(item, canonical.encounter?.admitDate));
+  visible.problems = (canonical.problems || []).filter(item => availableAtSimulationTime(item));        // a problem that appears later in the stay (for example a new infection) has an availableAt time
+  visible.stickyNotes = (canonical.stickyNotes || []).filter(item => availableAtSimulationTime(item));
   // an order that has been placed but does not start yet is "Pending" until its start time, not "Active"
   visible.orders.forEach(order => {
     if (/^active$/i.test(safe(order.status)) && order.start && String(order.start) > String(simulationTime)) order.status = 'Pending';
+    // an order with an end time that the clock has passed shows as Completed (or Discontinued when it was stopped early)
+    if (/^active$/i.test(safe(order.status)) && order.end && String(order.end) <= String(simulationTime)) order.status = order.stoppedEarly ? 'Discontinued' : 'Completed';
   });
   // A device that has been placed is "active" until its removal time; removed devices are kept apart so the Avatar can drop them.
   const placedDevices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
@@ -1694,7 +1698,7 @@ function getVisibleCanonicalCase(canonical) {
   });
 
   const visibleOrderIds = new Set(visible.orders.map(order => order.id));
-  visible.administrations = (canonical.administrations || []).filter(admin => visibleOrderIds.has(admin.orderId));
+  visible.administrations = (canonical.administrations || []).filter(admin => visibleOrderIds.has(admin.orderId) && (!admin.availableAt || availableAtSimulationTime({ availableAt: admin.availableAt })));   // a dose charted as given later in the stay stays hidden until the clock reaches it
 
   return visible;
 }
@@ -2799,12 +2803,23 @@ function getFilteredMARMeds(marData, completed = false) {
   return meds;
 }
 
+// Which MAR column holds the current patient time (columns are clock hours starting at the hour of simulationStart).
+function marNowIndex() {
+  const start = parseSimDate(safe(currentCanonicalCase?.timeline?.simulationStart, '')), now = parseSimDate(simulationTime);
+  if (!start || !now) return null;
+  const base = new Date(start.getTime()); base.setMinutes(0, 0, 0);
+  return Math.floor((now - base) / 3600000);
+}
 function renderMARTimelineHeader(timeSlots) {
   clearChildren(elements.marTimelineHeader);
-  (timeSlots || []).forEach(slot => {
+  const nowIdx = marNowIndex();
+  const start = parseSimDate(safe(currentCanonicalCase?.timeline?.simulationStart, ''));
+  (timeSlots || []).forEach((slot, idx) => {
     const cell = document.createElement('div');
-    cell.className = 'mar-hour-header';
-    cell.textContent = safe(slot);
+    cell.className = 'mar-hour-header' + (idx === nowIdx ? ' now' : '');
+    let day = '';
+    if (start && (idx === 0 || safe(slot) === '0000')) { const d = new Date(start.getTime() + idx * 3600000); day = `<small>${d.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' })}</small>`; }
+    cell.innerHTML = `${escapeHtml(safe(slot))}${day}`;
     elements.marTimelineHeader.appendChild(cell);
   });
 }
@@ -2818,7 +2833,7 @@ function createMAREventPill(event) {
   else if (state === 'held') cls = 'mar-event-held';
   else if (state === 'refused') cls = 'mar-event-refused';
   else if (state === 'notgiven') cls = 'mar-event-notgiven';
-  return `<div class="mar-event-pill ${cls}" data-mar-state="${escapeHtml(state)}">${escapeHtml(safe(event.label))}</div>`;
+  return `<div class="mar-event-pill ${cls}" data-mar-state="${escapeHtml(state)}" title="${escapeHtml(safe(event.label))}">${escapeHtml(safe(event.label))}</div>`;
 }
 
 function renderMARDetail(med) {
@@ -2910,14 +2925,17 @@ function renderMARRow(med, timeSlots) {
     if (typeof med.discontinuedIndex === 'number' && idx >= med.discontinuedIndex) classes.push('mar-discontinued');
     cell.className = classes.join(' ');
 
-    const event = events.find(ev => Number(ev.slotIndex) === idx);
-    let html = event ? createMAREventPill(event) : '';
+    const here = events.filter(ev => Number(ev.slotIndex) === idx);
+    const event = here.find(ev => safe(ev.state).toLowerCase() === 'due') || here[0];
+    if (idx === marNowIndex()) classes.push('now-col');
+    cell.className = classes.join(' ');
+    let html = here.map(createMAREventPill).join('');
     if (idx === (timeSlots || []).length - 1 || event) {
       html += `<div class="mar-admin-line">${escapeHtml(safe(slot))}</div>`;
     }
     cell.innerHTML = html;
 
-    const eventPill = cell.querySelector('.mar-event-pill');
+    const eventPill = cell.querySelector('.mar-event-pill.actionable') || cell.querySelector('.mar-event-pill');
     if (eventPill && event && safe(event.state).toLowerCase() === 'due') {
       eventPill.addEventListener('click', clickEvent => {
         clickEvent.stopPropagation();
@@ -2976,7 +2994,16 @@ function renderMARPage(data) {
 
   const selected = allVisibleMeds.find(m => getMARRowKey(m) === currentMARSelectedKey) || allVisibleMeds[0] || null;
   renderMARDetail(selected);
+  // a long stay has one column per clock hour: widen the grid and bring the current hour into view when the patient time changes
+  const inner = document.querySelector('.mar-scroll-inner');
+  if (inner) inner.style.minWidth = Math.max(1040, 400 + timeSlots.length * 96) + 'px';
+  if (timeSlots.length > 12 && currentMainSection === 'mar' && window.__marScrolledTo !== simulationTime) { window.__marScrolledTo = simulationTime; setTimeout(marScrollToNow, 30); }
 }
+function marScrollToNow() {
+  const sc = document.querySelector('.mar-scroll'), idx = marNowIndex();
+  if (sc && idx !== null) sc.scrollLeft = Math.max(0, idx * 96 - 192);
+}
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.mar-subtoolbar .small-tool-button'); if (b && /go to now/i.test(b.textContent)) marScrollToNow(); });
 
 
 function getVisibleMedicationOrder(orderId) {
@@ -3000,6 +3027,11 @@ function openMARActionDialog(med, event) {
   elements.marActionTitle.textContent = safe(med.name);
   elements.marActionSubtitle.textContent = `${doseDisplay(med)} | ${safe(med.route)} | Scheduled ${safe(event.time)}`;
   elements.marActionReason.value = '';
+  // Administration details default to the patient clock; the nurse can change the date and time the dose was actually given
+  const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+  setVal('marActionDate', String(simulationTime).slice(0, 10)); setVal('marActionTime', String(simulationTime).slice(11, 16));
+  setVal('marActionRoute', safe(med.route)); setVal('marActionSite', ''); setVal('marActionDose', safe(med.adminDose) || safe(med.dose));
+  const msg0 = document.getElementById('marActionMsg'); if (msg0) msg0.textContent = '';
 
   const visibleCanonical = getVisibleCanonicalCase(currentCanonicalCase);
   const monitoring = (order.medication?.monitoringRules || [])
@@ -3026,6 +3058,20 @@ function openMARActionDialog(med, event) {
   elements.marActionDialog.showModal();
 }
 
+// The date and time the nurse entered for the dose ('YYYY-MM-DD HH:MM'), or the patient clock when the fields are not on the page.
+function marActionChosenTime() {
+  const d = document.getElementById('marActionDate'), t = document.getElementById('marActionTime');
+  if (!d || !t || !d.value || !t.value) return String(simulationTime);
+  return `${d.value} ${t.value}`;
+}
+// A problem with the entered time (future time, or before the simulation started), or '' when it is fine.
+function marActionTimeProblem() {
+  const chosen = parseSimDate(marActionChosenTime()), now = parseSimDate(simulationTime), start = parseSimDate(simulationStartTime);
+  if (!chosen) return 'Enter the date and time the medication was given.';
+  if (now && chosen > now) return 'The time given cannot be later than the current patient time.';
+  if (start && chosen < start) return 'The time given is before this patient\'s simulation started.';
+  return '';
+}
 function applyMARAction(action) {
   if (!activeMARAction || !currentCanonicalCase) return;
 
@@ -3052,13 +3098,20 @@ function applyMARAction(action) {
     admin.studentModified = true;
   }
 
+  const bad = marActionTimeProblem();
+  if (bad) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = bad; return; }
+  const givenAt = marActionChosenTime();
   admin.state = action;
-  admin.administeredAt = simulationTime;
+  admin.administeredAt = givenAt;
+  admin.administeredTime = epicDate(givenAt);
+  const siteEl = document.getElementById('marActionSite'), doseEl = document.getElementById('marActionDose');
+  if (siteEl && siteEl.value.trim()) admin.site = siteEl.value.trim();
+  if (doseEl && doseEl.value.trim() && action === 'given') admin.dose = doseEl.value.trim();
   admin.administeredBy = window.NSUser ? window.NSUser.label() : admin.administeredBy;   // the signed-in nurse
   admin.comment = elements.marActionReason.value.trim();
 
   const labelMap = {
-    given: `${activeMARAction.time} Given ${activeMARAction.dose}`,
+    given: `${givenAt.slice(11, 13)}${givenAt.slice(14, 16)} Given ${admin.dose || activeMARAction.dose}`,
     held: `${activeMARAction.time} Held`,
     refused: `${activeMARAction.time} Refused`,
     notgiven: `${activeMARAction.time} Not Given`
@@ -3416,7 +3469,7 @@ function flowsheetIoParts(io) {
   const d = io.detail || {};
   const add = (kind, label, ml) => { if (ml > 0) parts.push({ kind, label, ml }); };
   if (io.intake !== undefined) {
-    if (io.detail) { add('intake', 'Oral', n(d.po)); add('intake', 'IV', n(d.iv)); add('intake', 'Other', n(io.intake) - n(d.po) - n(d.iv)); }
+    if (io.detail) { add('intake', 'Oral', n(d.po)); add('intake', 'IV', n(d.iv)); add('intake', safe(d.intakeOtherLabel, 'Other'), n(io.intake) - n(d.po) - n(d.iv)); }
     else add('intake', 'Total', n(io.intake));
   }
   if (io.output !== undefined) {

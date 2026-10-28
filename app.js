@@ -3027,6 +3027,11 @@ function openMARActionDialog(med, event) {
   elements.marActionTitle.textContent = safe(med.name);
   elements.marActionSubtitle.textContent = `${doseDisplay(med)} | ${safe(med.route)} | Scheduled ${safe(event.time)}`;
   elements.marActionReason.value = '';
+  // Administration details default to the patient clock; the nurse can change the date and time the dose was actually given
+  const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+  setVal('marActionDate', String(simulationTime).slice(0, 10)); setVal('marActionTime', String(simulationTime).slice(11, 16));
+  setVal('marActionRoute', safe(med.route)); setVal('marActionSite', ''); setVal('marActionDose', safe(med.adminDose) || safe(med.dose));
+  const msg0 = document.getElementById('marActionMsg'); if (msg0) msg0.textContent = '';
 
   const visibleCanonical = getVisibleCanonicalCase(currentCanonicalCase);
   const monitoring = (order.medication?.monitoringRules || [])
@@ -3053,6 +3058,20 @@ function openMARActionDialog(med, event) {
   elements.marActionDialog.showModal();
 }
 
+// The date and time the nurse entered for the dose ('YYYY-MM-DD HH:MM'), or the patient clock when the fields are not on the page.
+function marActionChosenTime() {
+  const d = document.getElementById('marActionDate'), t = document.getElementById('marActionTime');
+  if (!d || !t || !d.value || !t.value) return String(simulationTime);
+  return `${d.value} ${t.value}`;
+}
+// A problem with the entered time (future time, or before the simulation started), or '' when it is fine.
+function marActionTimeProblem() {
+  const chosen = parseSimDate(marActionChosenTime()), now = parseSimDate(simulationTime), start = parseSimDate(simulationStartTime);
+  if (!chosen) return 'Enter the date and time the medication was given.';
+  if (now && chosen > now) return 'The time given cannot be later than the current patient time.';
+  if (start && chosen < start) return 'The time given is before this patient\'s simulation started.';
+  return '';
+}
 function applyMARAction(action) {
   if (!activeMARAction || !currentCanonicalCase) return;
 
@@ -3079,13 +3098,20 @@ function applyMARAction(action) {
     admin.studentModified = true;
   }
 
+  const bad = marActionTimeProblem();
+  if (bad) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = bad; return; }
+  const givenAt = marActionChosenTime();
   admin.state = action;
-  admin.administeredAt = simulationTime;
+  admin.administeredAt = givenAt;
+  admin.administeredTime = epicDate(givenAt);
+  const siteEl = document.getElementById('marActionSite'), doseEl = document.getElementById('marActionDose');
+  if (siteEl && siteEl.value.trim()) admin.site = siteEl.value.trim();
+  if (doseEl && doseEl.value.trim() && action === 'given') admin.dose = doseEl.value.trim();
   admin.administeredBy = window.NSUser ? window.NSUser.label() : admin.administeredBy;   // the signed-in nurse
   admin.comment = elements.marActionReason.value.trim();
 
   const labelMap = {
-    given: `${activeMARAction.time} Given ${activeMARAction.dose}`,
+    given: `${givenAt.slice(11, 13)}${givenAt.slice(14, 16)} Given ${admin.dose || activeMARAction.dose}`,
     held: `${activeMARAction.time} Held`,
     refused: `${activeMARAction.time} Refused`,
     notgiven: `${activeMARAction.time} Not Given`

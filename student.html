@@ -615,6 +615,18 @@
     </div>
     <div class="dialog-body">
       <div id="marActionMonitoring" class="mar-action-monitoring"></div>
+      <div class="mar-admin-details">
+        <h3 class="mar-admin-h">Administration Details</h3>
+        <div class="mar-admin-grid">
+          <label>Date<input type="date" id="marActionDate" /></label>
+          <label>Time<input type="time" id="marActionTime" /></label>
+          <label>Route<input type="text" id="marActionRoute" readonly /></label>
+          <label>Site<input type="text" id="marActionSite" list="marSiteList" placeholder="Site (injections, topical)" /></label>
+          <label>Dose<input type="text" id="marActionDose" /></label>
+        </div>
+        <datalist id="marSiteList"><option>Left deltoid</option><option>Right deltoid</option><option>Left ventrogluteal</option><option>Right ventrogluteal</option><option>Left vastus lateralis</option><option>Right vastus lateralis</option><option>Abdomen, left</option><option>Abdomen, right</option><option>Left upper arm</option><option>Right upper arm</option><option>Left thigh</option><option>Right thigh</option></datalist>
+        <div id="marActionMsg" class="mr-msg"></div>
+      </div>
       <label class="input-label" for="marActionReason">Comment / Reason</label>
       <textarea id="marActionReason" class="small-textarea" placeholder="Comment if patient refuses, or med is held/not given"></textarea>
       <div class="mar-action-buttons">

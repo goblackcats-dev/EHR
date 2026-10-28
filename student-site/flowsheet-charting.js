@@ -33,9 +33,9 @@
   const SHORT = { 'Telemetry/ECG monitor': 'Telemetry', 'Pulse oximeter': 'Pulse ox', 'Palpated radial': 'Radial', 'Apical stethoscope': 'Apical', 'Monitor/capnography': 'Monitor', 'Counted manually': 'Manual count', 'Automatic cuff': 'Auto cuff' };
   const TEMP_SOURCES = ['Oral', 'Temporal', 'Axillary', 'Tympanic', 'Rectal', 'Bladder/core'];
   const HR_SOURCES = ['Telemetry/ECG monitor', 'Pulse oximeter', 'Palpated radial', 'Apical stethoscope'];
-  const BP_LOCS = ['Left arm', 'Right arm', 'Left leg', 'Right leg', 'Left wrist', 'Right wrist'];
-  const BP_METHODS = ['Automatic cuff', 'Manual'];
-  const RR_SOURCES = ['Monitor/capnography', 'Counted manually'];
+  const BP_LOCS = ['Left arm', 'Right arm', 'Left leg', 'Right leg', 'Left wrist', 'Right wrist', 'Left radial arterial line', 'Right radial arterial line', 'Femoral arterial line'];
+  const BP_METHODS = ['Automatic cuff', 'Manual', 'Arterial line'];
+  const RR_SOURCES = ['Monitor/capnography', 'Counted manually', 'Ventilator'];
   const DEVICE_STATUS = ['Patent', 'Infusing', 'Saline lock', 'Draining', 'Active', 'In place', 'Secured', 'To suction', 'Clamped'];
   const DEVICE_ASSESS = ['Site clean, dry, intact', 'Dressing clean, dry, intact', 'Flushes without resistance', 'Redness or swelling noted', 'Drainage present', 'Dressing changed'];
 

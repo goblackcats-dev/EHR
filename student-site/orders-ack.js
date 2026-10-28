@@ -31,13 +31,23 @@
         if (sameSet >= 3 && !cell.querySelector('.oa-set')) cell.insertAdjacentHTML('beforeend', ` <span class="oa-chip oa-set" title="Written together by ${esc(safe(o.provider))}">Order set (${sameSet})</span>`);
         const a = acks()[o.id];
         if (pending(o.id)) {
-          cell.insertAdjacentHTML('beforeend', ' <span class="oa-chip oa-new">NEW</span> <button class="small-tool-button oa-btn" type="button">Acknowledge</button>');
-          cell.querySelector('.oa-btn').addEventListener('click', ev => { ev.stopPropagation(); review(o); });
+          cell.insertAdjacentHTML('beforeend', ' <span class="oa-chip oa-new">NEW</span> <button class="small-tool-button oa-btn" type="button">Acknowledge</button> <button class="small-tool-button oa-clarbtn" type="button" title="Review the order or ask the provider to clarify">Clarify</button>');
+          cell.querySelector('.oa-btn').addEventListener('click', ev => { ev.stopPropagation(); finishAck(o, false, null); });
+          cell.querySelector('.oa-clarbtn').addEventListener('click', ev => { ev.stopPropagation(); review(o); });
         } else if (a) cell.insertAdjacentHTML('beforeend', ` <span class="oa-chip ${a.clarify ? 'oa-clar' : 'oa-done'}">${a.clarify ? 'Clarification needed' : 'Acknowledged ' + esc(String(a.at).slice(11))}</span>`);
       });
     } catch (e) { /* optional */ }
     return r;
   };
+
+  // one click acknowledges; the review dialog is only for 'Clarify'
+  function finishAck(o, clar, dlg) {
+      acks()[o.id] = { at: String(simulationTime), clarify: !!clar };
+      simulationUnacknowledged.orders.delete(o.id); completedBrainTaskIds.add(`neworder_${o.id}`);
+      if (clar) { if (!Array.isArray(currentCanonicalCase.simulationTasks)) currentCanonicalCase.simulationTasks = []; currentCanonicalCase.simulationTasks.push({ id: `clarify_${o.id}`, type: 'care', title: `Call provider to clarify: ${safe(o.name)}`, detail: `${safe(o.provider)}`, dueAt: String(simulationTime), target: 'orders', priority: 'due' }); }
+      try { persistCase(); } catch (e) { /* best effort */ }
+      if (dlg) dlg.close(); updateNavigationBadges(); renderOrdersPage(currentPatientData);
+    }
 
   function review(o) {
     let dlg = $('oaDialog'); if (!dlg) { dlg = document.createElement('dialog'); dlg.id = 'oaDialog'; dlg.className = 'quiz-dialog'; document.body.appendChild(dlg); }
@@ -50,13 +60,7 @@
         <div id="oaMsg" class="mr-msg"></div>
         <div class="ho-actions"><button id="oaDo" class="primary-button">Acknowledge order</button> <button id="oaClar" class="secondary-button">Needs clarification (call provider)</button></div></div>`;
     $('oaClose').addEventListener('click', () => dlg.close());
-    const finish = clar => {
-      acks()[o.id] = { at: String(simulationTime), clarify: !!clar };
-      simulationUnacknowledged.orders.delete(o.id); completedBrainTaskIds.add(`neworder_${o.id}`);
-      if (clar) { if (!Array.isArray(currentCanonicalCase.simulationTasks)) currentCanonicalCase.simulationTasks = []; currentCanonicalCase.simulationTasks.push({ id: `clarify_${o.id}`, type: 'care', title: `Call provider to clarify: ${safe(o.name)}`, detail: `${safe(o.provider)}`, dueAt: String(simulationTime), target: 'orders', priority: 'due' }); }
-      try { persistCase(); } catch (e) { /* best effort */ }
-      dlg.close(); updateNavigationBadges(); renderOrdersPage(currentPatientData);
-    };
+    const finish = clar => finishAck(o, clar, dlg);
     $('oaDo').addEventListener('click', () => { if (!$('oaOk').checked) { $('oaMsg').textContent = 'Check the box to confirm you reviewed the order.'; return; } finish(false); });
     $('oaClar').addEventListener('click', () => finish(true));
     dlg.showModal();

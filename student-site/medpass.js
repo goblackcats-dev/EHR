@@ -108,11 +108,11 @@
     return [];
   }
   function timeCheck(sched) {
-    const due = combineSimDateAndClock(sched), a = parseSimDate(due), b = parseSimDate(simulationTime);
+    const due = combineSimDateAndClock(sched), a = parseSimDate(due), b = parseSimDate(typeof marActionChosenTime === 'function' ? marActionChosenTime() : simulationTime);
     if (!a || !b) return [];
     const diff = Math.round((b - a) / 60000);
-    if (diff > 60) return [{ level: 'soft', code: 'time', text: `LATE DOSE: scheduled ${sched}, now ${epicDate(simulationTime)} (${diff} minutes late). Give only if policy allows and notify the provider if required.` }];
-    if (diff < -60) return [{ level: 'soft', code: 'time', text: `EARLY DOSE: scheduled ${sched}, now ${epicDate(simulationTime)} (${-diff} minutes early). Outside the 60-minute window.` }];
+    if (diff > 60) return [{ level: 'soft', code: 'time', text: `LATE DOSE: scheduled ${sched}, given ${epicDate(typeof marActionChosenTime === 'function' ? marActionChosenTime() : simulationTime)} (${diff} minutes late). Give only if policy allows and notify the provider if required.` }];
+    if (diff < -60) return [{ level: 'soft', code: 'time', text: `EARLY DOSE: scheduled ${sched}, given ${epicDate(typeof marActionChosenTime === 'function' ? marActionChosenTime() : simulationTime)} (${-diff} minutes early). Outside the 60-minute window.` }];
     return [];
   }
 
@@ -171,7 +171,7 @@
   function startState(med, event) {
     const order = getVisibleMedicationOrder(med.orderId);
     if (!order) { state = null; return; }
-    state = { orderId: med.orderId, order, packages: packagesFor(order), medScan: null, ids: false, warnOverride: null, double: '', sched: safe(event.time) };
+    state = { orderId: med.orderId, order, packages: packagesFor(order), medScan: null, ids: false, warnOverride: null, double: '', sched: safe(event.time), extras: [] };
     state.warnings = [...allergyChecks(order), ...holdChecks(order), ...recentDoseCheck(order), ...timeCheck(safe(event.time))];
     log('open', `Opened ${order.name} (scheduled ${state.sched})`, med.orderId);
   }
@@ -187,6 +187,8 @@
         if (k === 'patient') openScanner('patient');
         else if (k === 'med') openScanner('med');
         else if (k === 'clear') clearPatientScan();
+        else if (k === 'more') openScanner('med');
+        else if (k === 'rm-extra') { state.extras = state.extras.filter(x => x.order.id !== b.dataset.id); state.warnings = state.warnings.filter(w => w.extra !== b.dataset.id); refresh(); }
         else if (k === 'ovr-patient') openOverride('patient');
         else if (k === 'ovr-med') openOverride('med');
         else if (k === 'ovr-warn') openOverride(state.warnings.some(w => w.level === 'hard') ? 'allergy' : 'warning');
@@ -216,7 +218,7 @@
     if (!medOk(s)) return { ok: false, why: 'Scan the medication package; it must match the order (or use Override and give a reason).' };
     if (hard.length && !s.warnOverride) return { ok: false, why: 'A safety stop applies (see above). Hold the medication and notify the provider, or override with a documented reason.' };
     if (soft.length && !s.warnOverride) return { ok: false, why: 'There are warnings. Hold the medication, or override and document why you are giving it.' };
-    if (s.order.medication && s.order.medication.highAlert && s.double.trim().length < 2) return { ok: false, why: 'High-alert medication: an independent double check by a second nurse is required (enter their initials).' };
+    if (((s.order.medication && s.order.medication.highAlert) || (s.extras || []).some(x => x.order.medication && x.order.medication.highAlert)) && s.double.trim().length < 2) return { ok: false, why: 'High-alert medication: an independent double check by a second nurse is required (enter their initials).' };
     return { ok: true, why: '' };
   }
 
@@ -233,7 +235,7 @@
       return;
     }
     if (rebuild) {
-      const pt = patientStatus(), md = s.medScan, needsDouble = !!(s.order.medication && s.order.medication.highAlert);
+      const pt = patientStatus(), md = s.medScan, needsDouble = !!((s.order.medication && s.order.medication.highAlert) || (s.extras || []).some(x => x.order.medication && x.order.medication.highAlert));
       const ptBar = !pt
         ? `<div class="mp-ptbar not"><div class="mp-ptbar-text"><b>PATIENT NOT SCANNED</b><span>Scan the wristband once. It stays scanned for all of this patient's medications.</span></div><div class="mp-ptbar-btns"><button class="primary-button" data-mp="patient">Scan wristband</button><button class="secondary-button" data-mp="ovr-patient">Override</button></div></div>`
         : pt.mode === 'override'
@@ -247,6 +249,7 @@
         <div class="mp-head">Barcode medication administration ${needsDouble ? '<span class="mp-pill alert">HIGH-ALERT</span>' : ''}</div>
         ${ptBar}
         <div class="mp-steps">${medStep}</div>
+        ${md && md.ok ? `<div class="mp-extra"><b>Additional medications for this visit</b>${s.extras.length ? s.extras.map(x => `<div class="mp-extra-row"><span>${esc(safe(x.order.name))}</span><button class="secondary-button" data-mp="rm-extra" data-id="${esc(x.order.id)}">Remove</button></div>`).join('') : '<div class="mp-sub">None. Scan another due medication to give it at the same time; it is documented with this one.</div>'}<div><button class="secondary-button" data-mp="more">Scan another medication</button></div></div>` : ''}
         ${s.warnings.length ? `<div class="mp-warn-list">${s.warnings.map(w => `<div class="mp-warn ${w.level}">${esc(w.text)}</div>`).join('')}${wo ? `<div class="mp-warn ovr"><b>Override recorded:</b> ${esc(wo.reason)}${wo.detail ? ' - ' + esc(wo.detail) : ''} <button class="secondary-button" data-mp="ovr-undo-warn">Remove</button></div>` : '<button class="secondary-button" data-mp="ovr-warn">Override warnings and give anyway...</button>'}</div>` : ''}
         ${needsDouble ? `<label class="input-label" for="mpDouble">Independent double check: second nurse initials</label><input id="mpDouble" class="mp-initials" value="${esc(s.double)}" maxlength="6" />` : ''}
         <div class="mp-rights" id="mpRights"></div>
@@ -340,6 +343,24 @@
   }
   function closeScannerSoon() { setTimeout(() => { const d = $('scannerDialog'); if (d && d.open) d.close(); }, 650); }
 
+  // More than one medication can be scanned for the same visit: a package that matches ANOTHER due medication is added to this one and documented with it.
+  function tryExtra(up) {
+    if (!state || !state.medScan || !state.medScan.ok) return null;          // scan the first medication properly first
+    const others = dueMeds().filter(d => d.order.id !== state.orderId && !state.extras.some(x => x.order.id === d.order.id));
+    for (const d of others) {
+      const pk = packagesFor(d.order).find(k => NSMedLabel.matches(k, up)); if (!pk) continue;
+      if (!pk.correct) { scanFeedback(`${pk.kind === 'strength' ? 'WRONG STRENGTH' : 'WRONG DRUG'}: the package reads ${pk.label} ${pk.strength}; the order is ${safe(d.order.name)}.`, false); log('scan_med_wrong', `extra ${pk.kind}: ${pk.label}`, d.order.id); return { ok: false }; }
+      if (pk.kind === 'expired' || NSMedLabel.isExpired(pk.expires, simDay())) { scanFeedback(`EXPIRED: ${pk.label} expired ${NSMedLabel.us(pk.expires)}. Do not use it.`, false); return { ok: false }; }
+      const warns = [...allergyChecks(d.order), ...holdChecks(d.order), ...recentDoseCheck(d.order)].map(w => Object.assign({}, w, { text: `${safe(d.order.name)}: ${w.text}`, extra: d.order.id }));
+      state.extras.push({ order: d.order, time: d.time, label: pk.label });
+      state.warnings.push(...warns);
+      log('scan_med_extra', `${d.order.name} scanned with ${state.order.name}`, d.order.id);
+      scanFeedback(`Added: ${safe(d.order.name)}. Scan another medication, or close this window and press Give to document them all.`, true);
+      refresh(); return { ok: true };
+    }
+    return null;
+  }
+
   // Any scan, from anywhere: handleScan('PT-...') or handleScan('MED-...'). A handheld scanner, the on-screen tiles
   // and MedPass.scan(code) all end up here.
   function handleScan(raw) {
@@ -355,6 +376,7 @@
     }
     if (!state) { scanFeedback('Open a due dose on the MAR before scanning a medication.', false); return false; }
     const pkg = state.packages.find(k => NSMedLabel.matches(k, up));
+    if (!pkg) { const ex = tryExtra(up); if (ex) return ex.ok; }
     if (!pkg) { state.medScan = { ok: false, msg: 'Unrecognized medication barcode' }; log('scan_med_unknown', code, state.orderId); }
     else if (pkg.kind === 'expired' || NSMedLabel.isExpired(pkg.expires, simDay())) { state.medScan = { ok: false, msg: `EXPIRED: this package expired ${NSMedLabel.us(pkg.expires)}. Do not use it; return it to pharmacy and get a new one.` }; log('scan_med_expired', `${pkg.label} exp ${pkg.expires}`, state.orderId); }
     else if (pkg.correct) { state.medScan = { ok: true, msg: `Matches order: ${pkg.label} ${pkg.strength} ${pkg.route}` }; log('scan_med', 'Correct medication', state.orderId); }
@@ -362,7 +384,7 @@
       const why = pkg.kind === 'strength' ? `WRONG STRENGTH: package is ${pkg.strength}, order is ${safe(state.order.medication.dose)}` : `WRONG DRUG: package reads ${pkg.label}, order is ${safe(state.order.name)}`;
       state.medScan = { ok: false, msg: why }; log('scan_med_wrong', `${pkg.kind}: ${pkg.label} ${pkg.strength}`, state.orderId);
     }
-    scanFeedback(state.medScan.msg, state.medScan.ok); if (state.medScan.ok) closeScannerSoon();
+    scanFeedback(state.medScan.ok ? `${state.medScan.msg}. Scan another due medication to give it together, or close this window.` : state.medScan.msg, state.medScan.ok);
     refresh(); return state.medScan.ok;
   }
 
@@ -423,14 +445,19 @@
   setMainSection = function () { const r = originalSetMain.apply(null, arguments); updatePill(); return r; };
   const originalOpen = openMARActionDialog, originalApply = applyMARAction, originalRefresh = refreshSimulationView;
   openMARActionDialog = function (med, event) { originalOpen(med, event); startState(med, event); refresh(); };
+  ['marActionDate', 'marActionTime'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', () => { if (!state) return; state.warnings = state.warnings.filter(w => w.code !== 'time').concat(timeCheck(state.sched)); refresh(); }); });
   refreshSimulationView = function () { const r = originalRefresh.apply(null, arguments); updatePill(); return r; };
   applyMARAction = function (action) {
     if (state && action === 'given') {
       const g = gate(); if (!g.ok) { refresh(); return; }
     }
     const act = typeof activeMARAction !== 'undefined' ? activeMARAction : null, snap = state, pt = patientStatus();
+    const badTime = typeof marActionTimeProblem === 'function' ? marActionTimeProblem() : '';
+    if (badTime) { const m = $('marActionMsg'); if (m) m.textContent = badTime; return; }
+    const givenAt = typeof marActionChosenTime === 'function' ? marActionChosenTime() : String(simulationTime), comment = ($('marActionReason') && $('marActionReason').value.trim()) || '';
     originalApply(action);
     if (!act || !snap) return;
+    if (action === 'given' && snap.extras && snap.extras.length) documentExtras(snap, act, givenAt);
     const admin = (currentCanonicalCase.administrations || []).find(a => a.orderId === act.orderId && Number(a.slotIndex) === Number(act.slotIndex) && safe(a.time) === safe(act.time));
     if (admin) {
       const md = snap.medScan;
@@ -444,6 +471,26 @@
     log(`action_${action}`, `${safe(snap.order.name)}: ${action}${ov.length ? ' (' + ov.join(', ') + ')' : ''}`, act.orderId);
     state = null;
   };
+
+  // The extra medications scanned with the main one are charted as given at the same time, and listed under the main medication.
+  function documentExtras(snap, act, givenAt) {
+    const cc = currentCanonicalCase, main = (cc.administrations || []).find(a => a.orderId === act.orderId && Number(a.slotIndex) === Number(act.slotIndex) && safe(a.time) === safe(act.time));
+    const who = window.NSUser ? NSUser.label() : '';
+    const also = [];
+    snap.extras.forEach(x => {
+      const due = (cc.administrations || []).find(a => a.orderId === x.order.id && safe(a.state).toLowerCase() === 'due'); if (!due) return;
+      due.originalState = due.state; due.originalLabel = due.label; due.studentModified = true;
+      due.state = 'given'; due.administeredAt = givenAt; due.administeredTime = epicDate(givenAt); due.administeredBy = who;
+      due.label = `${givenAt.slice(11, 13)}${givenAt.slice(14, 16)} Given ${safe(due.dose, safe(x.order.medication && x.order.medication.dose))}`;
+      due.comment = `Scanned and given with ${safe(snap.order.name)}`; due.givenWith = act.orderId;
+      due.scan = { patient: true, medication: true, medicationMode: 'scanned', warnings: [], extra: true };
+      completedBrainTaskIds.add(`mar_${due.id}`);
+      also.push({ orderId: x.order.id, name: safe(x.order.name), dose: safe(due.dose) });
+      log('action_given', `${safe(x.order.name)}: given with ${safe(snap.order.name)}`, x.order.id);
+    });
+    if (main && also.length) { main.alsoGiven = also; main.comment = [main.comment, `Also given: ${also.map(a => a.name).join('; ')}`].filter(Boolean).join(' | '); }
+    refreshSimulationView();
+  }
 
   // ------------------------------------------------------------------ MAR toolbar buttons + faculty setup
   function updateToolbar() {
