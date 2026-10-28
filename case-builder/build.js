@@ -7,7 +7,7 @@ NS.build = (() => {
   // Every IM and IV medication states how many mL are drawn up / hung and the strength per mL, e.g. clindamycin 600 mg = 4 mL (150 mg/mL).
   // perMl = strength of the vial / syringe; bag = fixed piggyback volume in mL; text = shown instead of a strength when the dose is already a volume.
   const INJ = [
-    [/ceftriaxone.*injection/i, { perMl: [350, 'mg'] }], [/clindamycin.*injection/i, { perMl: [150, 'mg'] }], [/cyanocobalamin/i, { perMl: [1000, 'mcg'] }], [/glucagon/i, { perMl: [1, 'mg'] }],
+    [/ceftriaxone.*injection/i, { perMl: [500, 'mg'] }], [/clindamycin.*injection/i, { perMl: [150, 'mg'] }], [/cyanocobalamin/i, { perMl: [1000, 'mcg'] }], [/glucagon/i, { perMl: [1, 'mg'] }],
     [/enoxaparin/i, { perMl: [100, 'mg'] }], [/heparin injection \((ACS|STEMI|VTE) bolus\)/i, { perMl: [1000, 'units'] }], [/heparin injection/i, { perMl: [5000, 'units'] }],
     [/insulin (glargine|lispro|regular).*(injection|correction)/i, { perMl: [100, 'units'], noVol: true }],
     [/furosemide/i, { perMl: [10, 'mg'] }], [/hydromorphone.*injection/i, { perMl: [1, 'mg'] }], [/morphine injection/i, { perMl: [2, 'mg'] }], [/ondansetron/i, { perMl: [2, 'mg'] }],
