@@ -1678,9 +1678,13 @@ function getVisibleCanonicalCase(canonical) {
   visible.observations = (canonical.observations || []).filter(item => availableAtSimulationTime(item));
   visible.notes = (canonical.notes || []).filter(item => availableAtSimulationTime(item));
   visible.orders = (canonical.orders || []).filter(item => availableAtSimulationTime(item, canonical.encounter?.admitDate));
+  visible.problems = (canonical.problems || []).filter(item => availableAtSimulationTime(item));        // a problem that appears later in the stay (for example a new infection) has an availableAt time
+  visible.stickyNotes = (canonical.stickyNotes || []).filter(item => availableAtSimulationTime(item));
   // an order that has been placed but does not start yet is "Pending" until its start time, not "Active"
   visible.orders.forEach(order => {
     if (/^active$/i.test(safe(order.status)) && order.start && String(order.start) > String(simulationTime)) order.status = 'Pending';
+    // an order with an end time that the clock has passed shows as Completed (or Discontinued when it was stopped early)
+    if (/^active$/i.test(safe(order.status)) && order.end && String(order.end) <= String(simulationTime)) order.status = order.stoppedEarly ? 'Discontinued' : 'Completed';
   });
   // A device that has been placed is "active" until its removal time; removed devices are kept apart so the Avatar can drop them.
   const placedDevices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
@@ -1694,7 +1698,7 @@ function getVisibleCanonicalCase(canonical) {
   });
 
   const visibleOrderIds = new Set(visible.orders.map(order => order.id));
-  visible.administrations = (canonical.administrations || []).filter(admin => visibleOrderIds.has(admin.orderId));
+  visible.administrations = (canonical.administrations || []).filter(admin => visibleOrderIds.has(admin.orderId) && (!admin.availableAt || availableAtSimulationTime({ availableAt: admin.availableAt })));   // a dose charted as given later in the stay stays hidden until the clock reaches it
 
   return visible;
 }
@@ -2799,12 +2803,23 @@ function getFilteredMARMeds(marData, completed = false) {
   return meds;
 }
 
+// Which MAR column holds the current patient time (columns are clock hours starting at the hour of simulationStart).
+function marNowIndex() {
+  const start = parseSimDate(safe(currentCanonicalCase?.timeline?.simulationStart, '')), now = parseSimDate(simulationTime);
+  if (!start || !now) return null;
+  const base = new Date(start.getTime()); base.setMinutes(0, 0, 0);
+  return Math.floor((now - base) / 3600000);
+}
 function renderMARTimelineHeader(timeSlots) {
   clearChildren(elements.marTimelineHeader);
-  (timeSlots || []).forEach(slot => {
+  const nowIdx = marNowIndex();
+  const start = parseSimDate(safe(currentCanonicalCase?.timeline?.simulationStart, ''));
+  (timeSlots || []).forEach((slot, idx) => {
     const cell = document.createElement('div');
-    cell.className = 'mar-hour-header';
-    cell.textContent = safe(slot);
+    cell.className = 'mar-hour-header' + (idx === nowIdx ? ' now' : '');
+    let day = '';
+    if (start && (idx === 0 || safe(slot) === '0000')) { const d = new Date(start.getTime() + idx * 3600000); day = `<small>${d.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' })}</small>`; }
+    cell.innerHTML = `${escapeHtml(safe(slot))}${day}`;
     elements.marTimelineHeader.appendChild(cell);
   });
 }
@@ -2818,7 +2833,7 @@ function createMAREventPill(event) {
   else if (state === 'held') cls = 'mar-event-held';
   else if (state === 'refused') cls = 'mar-event-refused';
   else if (state === 'notgiven') cls = 'mar-event-notgiven';
-  return `<div class="mar-event-pill ${cls}" data-mar-state="${escapeHtml(state)}">${escapeHtml(safe(event.label))}</div>`;
+  return `<div class="mar-event-pill ${cls}" data-mar-state="${escapeHtml(state)}" title="${escapeHtml(safe(event.label))}">${escapeHtml(safe(event.label))}</div>`;
 }
 
 function renderMARDetail(med) {
@@ -2910,14 +2925,17 @@ function renderMARRow(med, timeSlots) {
     if (typeof med.discontinuedIndex === 'number' && idx >= med.discontinuedIndex) classes.push('mar-discontinued');
     cell.className = classes.join(' ');
 
-    const event = events.find(ev => Number(ev.slotIndex) === idx);
-    let html = event ? createMAREventPill(event) : '';
+    const here = events.filter(ev => Number(ev.slotIndex) === idx);
+    const event = here.find(ev => safe(ev.state).toLowerCase() === 'due') || here[0];
+    if (idx === marNowIndex()) classes.push('now-col');
+    cell.className = classes.join(' ');
+    let html = here.map(createMAREventPill).join('');
     if (idx === (timeSlots || []).length - 1 || event) {
       html += `<div class="mar-admin-line">${escapeHtml(safe(slot))}</div>`;
     }
     cell.innerHTML = html;
 
-    const eventPill = cell.querySelector('.mar-event-pill');
+    const eventPill = cell.querySelector('.mar-event-pill.actionable') || cell.querySelector('.mar-event-pill');
     if (eventPill && event && safe(event.state).toLowerCase() === 'due') {
       eventPill.addEventListener('click', clickEvent => {
         clickEvent.stopPropagation();
@@ -2976,7 +2994,16 @@ function renderMARPage(data) {
 
   const selected = allVisibleMeds.find(m => getMARRowKey(m) === currentMARSelectedKey) || allVisibleMeds[0] || null;
   renderMARDetail(selected);
+  // a long stay has one column per clock hour: widen the grid and bring the current hour into view when the patient time changes
+  const inner = document.querySelector('.mar-scroll-inner');
+  if (inner) inner.style.minWidth = Math.max(1040, 400 + timeSlots.length * 96) + 'px';
+  if (timeSlots.length > 12 && currentMainSection === 'mar' && window.__marScrolledTo !== simulationTime) { window.__marScrolledTo = simulationTime; setTimeout(marScrollToNow, 30); }
 }
+function marScrollToNow() {
+  const sc = document.querySelector('.mar-scroll'), idx = marNowIndex();
+  if (sc && idx !== null) sc.scrollLeft = Math.max(0, idx * 96 - 192);
+}
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.mar-subtoolbar .small-tool-button'); if (b && /go to now/i.test(b.textContent)) marScrollToNow(); });
 
 
 function getVisibleMedicationOrder(orderId) {
@@ -3416,7 +3443,7 @@ function flowsheetIoParts(io) {
   const d = io.detail || {};
   const add = (kind, label, ml) => { if (ml > 0) parts.push({ kind, label, ml }); };
   if (io.intake !== undefined) {
-    if (io.detail) { add('intake', 'Oral', n(d.po)); add('intake', 'IV', n(d.iv)); add('intake', 'Other', n(io.intake) - n(d.po) - n(d.iv)); }
+    if (io.detail) { add('intake', 'Oral', n(d.po)); add('intake', 'IV', n(d.iv)); add('intake', safe(d.intakeOtherLabel, 'Other'), n(io.intake) - n(d.po) - n(d.iv)); }
     else add('intake', 'Total', n(io.intake));
   }
   if (io.output !== undefined) {

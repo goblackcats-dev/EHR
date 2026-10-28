@@ -301,3 +301,10 @@ th.fs-col-sel { background: #dff1ff !important; }
 .flowsheet-grid th.fs-now-col { z-index: 4; }
 .flowsheet-grid .flowsheet-time-col { width: var(--fs-colw, 100px); min-width: var(--fs-colw, 100px); max-width: var(--fs-colw, 100px); }
 .flowsheet-grid { min-width: 0; }
+
+/* MAR for long stays: several events per hour, a highlighted "now" column, day markers in the header */
+.mar-cell { display: flex; flex-direction: column; gap: 3px; padding: 4px; }
+.mar-cell .mar-event-pill { position: static; white-space: normal; font-size: 11px; line-height: 1.2; padding: 3px 4px; overflow-wrap: anywhere; }
+.mar-hour-header small { display: block; font-size: 10px; font-weight: 600; color: #6b7f95; }
+.mar-hour-header.now { background: #fff1c2; color: #7a4a00; box-shadow: inset 0 -3px 0 #e0a800; }
+.mar-cell.now-col { box-shadow: inset 2px 0 0 #e0a800, inset -2px 0 0 #e0a800; }

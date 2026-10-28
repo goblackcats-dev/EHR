@@ -1,0 +1,3 @@
+{ "id": "burn_icu", "caseCode": "CS-BURN-ICU-1", "title": "Burn ICU: 22% TBSA flame burn with smoke inhalation and burn wound sepsis", "patient": "Marcus Delaney", "age": 34, "sex": "Male",
+  "diagnosis": "Thermal burn 22% TBSA, inhalation injury, ventilator, burn wound sepsis (3-day ICU stay, then Med-Surg)", "room": "BICU-6",
+  "desc": "3-day Burn ICU stay (Mon 04:00 to Thu 07:00): Parkland resuscitation, intubation and sedation, escharotomy, day-2 burn wound infection with sepsis and norepinephrine, extubation on day 3, transfer to Med-Surg." }

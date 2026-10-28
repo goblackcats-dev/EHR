@@ -30,7 +30,13 @@ LPN.forEach(d => {
   fs.writeFileSync(path.join(root, 'prebuilt', file), JSON.stringify({ format: 'nursingsim-case', version: 1, name: `${d.name}, ${NS.PRIMARY[d.primary].label.replace('LPN Med Pass: ', '')}`, source: 'prebuilt', canonical: r.canonical }));
   groups[0].patients.push({ id: d.id, name: d.name, title: NS.PRIMARY[d.primary].label.replace('LPN Med Pass: ', ''), desc: d.desc, file: 'prebuilt/' + file, age: d.age, sex: d.sex });
 });
-const cs = JSON.parse(fs.readFileSync(path.join(root, 'casestudy', 'index.json'), 'utf8')).cases;
-cs.forEach(c => groups[1].patients.push({ id: c.id, name: c.patient, title: c.title, desc: `${c.caseCode} · ${c.diagnosis}`, file: `casestudy/cases/${c.id}/patient.json`, age: c.age, sex: c.sex }));
+// Case study patients: every casestudy/cases/<id>/ folder with a patient.json. A meta.json (id, caseCode, title, patient, age, sex, diagnosis, desc) describes it for the list.
+const csDir = path.join(root, 'casestudy', 'cases');
+if (fs.existsSync(csDir)) fs.readdirSync(csDir).sort().forEach(id => {
+  const pf = path.join(csDir, id, 'patient.json'), mf = path.join(csDir, id, 'meta.json');
+  if (!fs.existsSync(pf)) return;
+  const m = fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')) : {};
+  groups[1].patients.push({ id, name: m.patient || id, title: m.title || id, desc: m.desc || `${m.caseCode || ''} ${m.diagnosis || ''}`.trim(), file: `casestudy/cases/${id}/patient.json`, age: m.age, sex: m.sex });
+});
 fs.writeFileSync(path.join(root, 'prebuilt', 'index.json'), JSON.stringify({ groups }, null, 1));
 console.log('pre-built library:', groups.map(g => `${g.title} ${g.patients.length}`).join(', '));

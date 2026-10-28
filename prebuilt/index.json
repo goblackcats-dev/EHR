@@ -65,7 +65,17 @@
    "id": "casestudy",
    "title": "Case Study Patients",
    "note": "Patients with a built care-plan case study (see Case Studies).",
-   "patients": []
+   "patients": [
+    {
+     "id": "burn_icu",
+     "name": "Marcus Delaney",
+     "title": "Burn ICU: 22% TBSA flame burn with smoke inhalation and burn wound sepsis",
+     "desc": "3-day Burn ICU stay (Mon 04:00 to Thu 07:00): Parkland resuscitation, intubation and sedation, escharotomy, day-2 burn wound infection with sepsis and norepinephrine, extubation on day 3, transfer to Med-Surg.",
+     "file": "casestudy/cases/burn_icu/patient.json",
+     "age": 34,
+     "sex": "Male"
+    }
+   ]
   }
  ]
 }
