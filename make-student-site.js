@@ -5,7 +5,10 @@
 const fs = require('fs'), path = require('path');
 require('./make-student.js');
 const out = 'student-site';
+// keep the locked patient files the instructor already uploaded (student-site/cases/*.enc.json); everything else is rebuilt
+const keep = fs.existsSync(out + '/cases') ? fs.readdirSync(out + '/cases').filter(f => f.endsWith('.enc.json')).map(f => [f, fs.readFileSync(out + '/cases/' + f)]) : [];
 fs.rmSync(out, { recursive: true, force: true }); fs.mkdirSync(out + '/cases', { recursive: true });
+keep.forEach(([f, data]) => fs.writeFileSync(out + '/cases/' + f, data));
 let h = fs.readFileSync('student.html', 'utf8');
 // drop the instructor-only dialogs and buttons entirely (app.js tolerates their absence)
 h = h.replace(/<dialog id="libraryDialog"[\s\S]*?<\/dialog>\s*/, '').replace(/<dialog id="importDialog"[\s\S]*?<\/dialog>\s*/, '');
