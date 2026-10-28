@@ -105,9 +105,9 @@
         "src": "Escharotomy note"
        },
        {
-        "t": "Burn shock resuscitation: Parkland lactated Ringer's running at 450 mL/h and titrated to urine output; lactate 5.8 down to 2.2 by 0800 (3.4 at 0415).",
+        "t": "Burn shock resuscitation: Parkland lactated Ringer's started at 450 mL/h and titrated to urine output (raised to 540 mL/h at 0600 for urine output of 25 and 26 mL/h); lactate 5.8 at 0250 down to 3.4 at 0415 (the 0800 result comes later).",
         "pts": 0.5,
-        "src": "Orders, labs"
+        "src": "Orders, labs, nursing note 0605"
        },
        {
         "t": "Ventilated and sedated (propofol, fentanyl); lines/tubes: left IJ central line, left radial arterial line, OG tube, Foley with temperature probe.",
@@ -196,7 +196,7 @@
       "PAIN"
      ],
      "key": {
-      "rules": "Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The trend sentence is worth 0.5: heart rate starts high (111) and falls to 97 as the resuscitation works; blood pressure is low-normal (99/57 to 109/63, MAP about 71 to 78); temperature rises from 98.2 F to 99.2 F (he arrived cold at 96.8 F); CPOT stays 1 because he is sedated. The value NOT to trust fully is the SpO2 of 99-100%: carbon monoxide on the hemoglobin makes the pulse oximeter read falsely normal. Allow +/- 2 for rates and +/- 0.2 F."
+      "rules": "Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The trend sentence is worth 0.5: heart rate starts high (111) and falls to 97 as the resuscitation works; blood pressure is low-normal (99/57 to 109/63, MAP about 71 to 78); temperature rises from 98.2 F to 99.2 F (he arrived cold at 96.8 F); CPOT stays 1 because he is sedated. The value NOT to trust fully is the SpO2 of 98-99%: carbon monoxide on the hemoglobin makes the pulse oximeter read falsely normal. Allow +/- 2 for rates and +/- 0.2 F. Abnormal values to circle: heart rate above 100 (111, 104, 102), and temperature, blood pressure and CPOT may be circled or not if the student explains why (accept reasonable choices)."
      }
     },
     {
@@ -231,12 +231,12 @@
         "src": "Lab Results"
        },
        {
-        "t": "100% oxygen (FiO2 1.0 through the ventilator) shortens the half-life of carbon monoxide; FiO2 was lowered to 0.60 at 0600 once the level was below about 5%.",
+        "t": "100% oxygen (FiO2 1.0 through the ventilator) shortens the half-life of carbon monoxide; FiO2 was weaned from 1.0 to 0.60 at 0600 as the level fell (6.4% at 0415), with a repeat level at 0800 before weaning further (FiO2 0.50 at 1400).",
         "pts": 0.5,
         "src": "Flowsheets, MAR/orders"
        },
        {
-        "t": "A smoker normally has a baseline COHb of about 3 to 5%, so a level around 3% is his baseline and not further poisoning.",
+        "t": "A heavy smoker normally runs a COHb of roughly 3 to 10% (accept 3 to 5% or higher), so a level around 3% is at his baseline and not further poisoning; the level is heading down to his smoker baseline, not to zero.",
         "pts": 0.25,
         "src": ""
        }
@@ -247,7 +247,7 @@
      "id": "1.5",
      "type": "box",
      "points": 1.5,
-     "lines": 11,
+     "lines": 9,
      "title": "Titrating the Fluids",
      "prompt": "Open the lactated Ringer's order, the MAR and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) At 0930 the rate was changed: from what to what, and why? (c) Using the graph, write the urine outputs for 1200-1300 and 1300-1400, say what the order tells you to do, and what the new rate becomes at 1400. (d) Name two things you check when you change the rate and one danger of giving too much fluid.",
      "where": "Orders > lactated Ringer's (burn resuscitation); MAR (rate changes); Flowsheets > Intake/Output",
@@ -302,7 +302,7 @@
      "id": "1.6",
      "type": "box",
      "points": 1.5,
-     "lines": 13,
+     "lines": 17,
      "title": "Calling the Burn Surgeon",
      "prompt": "It is 1400 and you have just seen the second low urine output. Write the SBAR you give Dr. Okafor on the phone. Use real numbers from the chart. End with what you are asking him to do and how you will confirm the order.",
      "where": "Flowsheets (vital signs, I&O, neurovascular); Lab Results (lactate, potassium, CK); Orders",
@@ -319,7 +319,7 @@
         "src": ""
        },
        {
-        "t": "Assessment: current vitals (T 99.0, HR 103, BP 105/61, SpO2 99%), lungs/peak pressures, right hand Doppler pulses, lactate normal at 1.8 (1200), CK 1,120, and your concern that he is behind on fluid.",
+        "t": "Assessment: current vitals at 1400 (T 99.0, HR 102, BP 108/63 with MAP 78, SpO2 99%; accept the 1300 values HR 103, BP 105/61), lungs/peak pressures (PIP 27, Pplat 20), bladder pressure 12 mmHg, right hand Doppler pulses, lactate normal at 1.8 (1200), CK 1,120, and your concern that he is behind on fluid.",
         "pts": 0.375,
         "src": ""
        },
@@ -356,7 +356,7 @@
       2.3
      ],
      "rows": 6,
-     "rowH": 1.25,
+     "rowH": 0.62,
      "key": {
       "answer": "Each device row is worth 0.25: the device and site are right AND the check/complication fit that device.",
       "bank": true,
@@ -398,7 +398,7 @@
      "id": "1.8",
      "type": "box",
      "points": 1.5,
-     "lines": 15,
+     "lines": 24,
      "title": "The Ventilator and Sedation",
      "prompt": "Open Flowsheets > Respiratory at 0700. (a) Calculate his ideal body weight (male: 50 kg + 2.3 kg for every inch over 5 feet; 1 inch = 2.54 cm) and the tidal volume at 6 mL/kg. Does this match the set tidal volume? (b) List FOUR actions in the ventilator-associated pneumonia (VAP) bundle that you do this shift. (c) What is the RASS goal on Monday, and why is he sedated more deeply on the first day?",
      "where": "Flowsheets > Respiratory (vent settings, pressures); Orders (mechanical ventilation; sedation); Orders > Nursing",
@@ -440,7 +440,7 @@
       2.4
      ],
      "rows": 4,
-     "rowH": 1.85,
+     "rowH": 1.55,
      "key": {
       "answer": "Any 4 of the labs below; each row 0.375: values correct (0.125), reason correct (0.125), nursing action reasonable (0.125).",
       "bank": true,
@@ -461,7 +461,7 @@
         "src": ""
        },
        {
-        "t": "Potassium 4.3 -> 4.5 -> 4.9 -> 5.0: cells release potassium after burn injury; monitor the ECG and recheck; do not replace it, and report a value of 5.1 or higher.",
+        "t": "Potassium 4.3 -> 4.5 -> 4.9 -> 5.0: cells release potassium after burn injury; monitor the ECG and recheck; do not replace it, and report the rising trend to the provider (no call value is written in the orders, so accept asking the provider for one).",
         "pts": 0.375,
         "src": ""
        },
@@ -476,7 +476,7 @@
         "src": ""
        },
        {
-        "t": "pH 7.29 -> 7.39 and bicarbonate 18 -> 24 (arterial gas): metabolic acidosis from poor perfusion corrected with resuscitation.",
+        "t": "pH 7.29 -> 7.39 (7.40 at 1600) and bicarbonate 18 -> 24 (arterial gas): metabolic acidosis from poor perfusion corrected with resuscitation.",
         "pts": 0.375,
         "src": ""
        },
@@ -506,17 +506,17 @@
      "key": {
       "elements": [
        {
-        "t": "Day shift 0700-1900 as the flowsheet shows it: intake 4,720 mL, output 447 mL, net +4,273 mL (a large positive balance is expected in burn resuscitation).",
+        "t": "Day shift 0700-1900 as the flowsheet shows it: intake 4,720 mL, output 447 mL, net +4,273 mL (a large positive balance is expected in burn resuscitation). Use the displayed totals; a student who adds the hourly columns by hand may get slightly different numbers (accept if the method is sound).",
         "pts": 0.5,
         "src": "Flowsheets > Intake/Output > Totals"
        },
        {
-        "t": "Average urine output 447 / 12 = about 37 mL/h = about 0.45 mL/kg/h (just under the 0.5 goal, inside 30-50 mL/h most of the shift).",
+        "t": "Average urine output 447 / 12 = about 37 mL/h = about 0.45 mL/kg/h (accept 37-38 mL/h and 0.45-0.47; just under the 0.5 goal, inside 30-50 mL/h most of the shift).",
         "pts": 0.25,
         "src": ""
        },
        {
-        "t": "Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid from the MAR: EMS 500 + ED 675 + ICU (450 x 2 h + 540 x 3.5 h + 225 x 4.5 h + 270 x 5 h = 5,153) = about 6,330 mL.",
+        "t": "Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid from the MAR: EMS 500 + ED 675 + ICU (450 x 2 h + 540 x 3.5 h + 225 x 4.5 h + 270 x 5 h = 5,153) = about 6,330 mL (accept 6,200-6,350; the progress notes quote about 6,190 at 1800 and 6,280 at 1850 with their own rounding).",
         "pts": 0.5,
         "src": "MAR rates"
        },
@@ -567,17 +567,17 @@
      "points": 2,
      "lines": 11,
      "title": "Handoff at 1900",
-     "prompt": "It is 1850. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers and name what the night nurse must watch for and do in the first part of the night, including anything coming up in the next few hours.",
+     "prompt": "It is 1900. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers and name what the night nurse must watch for and do in the first part of the night, including anything coming up in the next few hours.",
      "where": "Everything you have charted and read this shift; Orders; Lab Results; MAR; Flowsheets",
      "key": {
       "elements": [
        {
-        "t": "Situation: patient, room, full code, 22% TBSA burn with inhalation injury, intubated and sedated (propofol and fentanyl), current vitals (HR about 97, BP 109/63, T 99.2, SpO2 98%), resuscitation going as planned.",
+        "t": "Situation: patient, room, full code, 22% TBSA burn with inhalation injury, intubated and sedated (propofol and fentanyl), current vitals at 1900 (HR 97, BP 109/63, T 99.2, SpO2 98%; accept the 1800 values HR 98, BP 108/61, T 99.1, SpO2 99%), resuscitation going as planned.",
         "pts": 0.5,
         "src": ""
        },
        {
-        "t": "Background: house fire 0130, escharotomy right arm 0315, Parkland (LR 7,216 mL goal in 24 h), lines (central line, arterial line, OG with feeds started at 1000, Foley), COHb now at his smoker baseline.",
+        "t": "Background: house fire 0130, escharotomy right arm 0315, Parkland (LR 7,216 mL goal in 24 h), lines (central line, arterial line, OG with feeds started at 1000, Foley), COHb down to 3.0% at 1200 (his smoker baseline).",
         "pts": 0.5,
         "src": ""
        },
@@ -587,7 +587,7 @@
         "src": ""
        },
        {
-        "t": "Recommendation / to do: hourly urine output with titration per order; hourly right hand checks; the Parkland 24 hours ends at 0130 Tuesday and the order changes then; 0000 labs (glucose may need an insulin infusion; recheck potassium); sedation goal and restraint checks; turning and skin care; family visiting; call the burn team for UOP under 20 mL/h.",
+        "t": "Recommendation / to do: hourly urine output with titration per order; hourly right hand checks; the Parkland 24 hours ends at 0130 Tuesday and the order changes then; 2000 ABG and 0000 labs and CK (glucose may need an insulin infusion if still over 180; recheck potassium); sedation goal and restraint checks; turning and skin care; family visiting; call the burn team for UOP under 20 mL/h.",
         "pts": 0.5,
         "src": ""
        }
@@ -640,7 +640,7 @@
       "PAIN"
      ],
      "key": {
-      "rules": "Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The two sentences are worth 0.5: (1) a quiet night: heart rate 93-97 (borderline-high at 97, better than yesterday), BP about 109-111/62-64 (MAP about 78), temperature 99.2-99.4 F, SpO2 98-99%, CPOT 1; (2) the hourly flowsheet does not show the 0245 agitation: the vital signs at 0300 (HR 93, BP 109/64, RASS back to -3 after lorazepam) look normal, so an event can happen between hourly sets and only the nursing note and the RASS record it. Allow +/- 2 for rates and +/- 0.2 F."
+      "rules": "Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The two sentences are worth 0.5: (1) a quiet night: heart rate 93-97 (upper normal, never over 100), BP about 109-111/62-64 (MAP 78-80), temperature 99.2-99.4 F, SpO2 98-99%, CPOT 1; (2) the hourly flowsheet does not show the 0245 agitation: the vital signs at 0300 (HR 93, BP 109/64, SpO2 98%, CPOT 1) look normal and RASS is charted only every 4 hours (-3 at 0000, -2 at 0400), so an event between hourly sets (RASS +1 at 0245, back to -3 by 0315, lorazepam 1 mg at 0300) is recorded only in the nursing note and the MAR. Allow +/- 2 for rates and +/- 0.2 F."
      }
     },
     {
@@ -679,7 +679,7 @@
         "src": "Order"
        },
        {
-        "t": "Any two safety actions: independent double check of the insulin bag and rate (high-alert drug); do not change the rate without the protocol; if feeds are stopped or interrupted, call the provider and recheck the glucose because hypoglycemia is likely (treat glucose under 70 per protocol); dedicated line/label; check glucose after any rate change. AND one lab watched: potassium (insulin moves potassium into cells; K 4.5 -> 3.9 overnight).",
+        "t": "Any two safety actions: independent double check of the insulin bag and rate (high-alert drug); do not change the rate without the protocol; if feeds are stopped or interrupted, call the provider and recheck the glucose because hypoglycemia is likely (treat glucose under 70 per protocol); dedicated line/label; check glucose after any rate change. AND one lab watched: potassium (insulin moves potassium into cells; K 5.0 at 1800, 4.5 at 0000, 3.9 at 0600).",
         "pts": 0.5,
         "src": ""
        }
@@ -730,7 +730,7 @@
      "key": {
       "elements": [
        {
-        "t": "Withdrawal can begin 6 to 24 hours after the last drink; seizures 12 to 48 hours; delirium tremens 48 to 96 hours, so the highest risk for him is Wednesday to Thursday.",
+        "t": "Withdrawal can begin 6 to 24 hours after the last drink; seizures 12 to 48 hours; delirium tremens 48 to 96 hours, so counting from the last drink (about the time of the fire, Monday 0130) the highest risk for him is Wednesday to Friday.",
         "pts": 0.25,
         "src": ""
        },
@@ -758,7 +758,7 @@
      "points": 2,
      "lines": 23,
      "title": "The Agitation Event at 0245",
-     "prompt": "Read the 0320 nursing note. Marcus (RASS -3 earlier) becomes restless, thrashes his head, bites the endotracheal tube and the ventilator pressure alarms sound. (a) In order, what do you check and do FIRST, before any medication, and why? (b) The provider orders lorazepam 1 mg IV. Name one concern about giving a benzodiazepine to this patient and one question you could ask the provider. (c) What are the rules for the soft wrist restraint you are using? (d) Besides the 0300 recheck, what do you document and who do you notify?",
+     "prompt": "Read the 0320 nursing note. Marcus (RASS -3 earlier) becomes restless, thrashes his head, bites the endotracheal tube and the ventilator pressure alarms sound. (a) In order, what do you check and do FIRST, before any medication, and why? (b) The provider orders lorazepam 1 mg IV. Name one concern about giving a benzodiazepine to this patient and one question you could ask the provider. (c) What are the rules for the soft wrist restraint you are using? (d) Besides rechecking RASS, CPOT and vital signs after the dose, what do you document and who do you notify?",
      "where": "Chart Review > Notes (Nursing Note 0320); Orders (soft wrist restraint, lorazepam); Flowsheets (RASS, CPOT, ventilator); MAR",
      "key": {
       "elements": [
@@ -773,12 +773,12 @@
         "src": ""
        },
        {
-        "t": "Restraint rules: provider order that is renewed every calendar day, least restrictive method, check skin/circulation and release at least every 2 hours, assess the continuing need, document, remove at extubation, family informed.",
+        "t": "Restraint rules (per the order and hospital policy): provider order that is renewed every calendar day, least restrictive method, check circulation and skin at least every 2 hours (the order says q2h; many policies also require release and range of motion), assess the continuing need, document, remove at extubation, family informed.",
         "pts": 0.5,
         "src": "Order"
        },
        {
-        "t": "Document the event (time, behavior, cause search, response, RASS/CPOT before and after, lorazepam 1 mg IV at 0300 with the reason), notify Dr. Brandt (SBAR) and the charge nurse, and update the family when they call.",
+        "t": "Document the event (time, behavior, cause search, response, RASS/CPOT before and after, lorazepam 1 mg IV at 0300 with the reason), notify Dr. Brandt (on-call intensivist, SBAR; done at 0255) and the charge nurse (B. Sutton), and update Jenna at the morning call.",
         "pts": 0.25,
         "src": ""
        }
@@ -809,7 +809,7 @@
       "bank": true,
       "elements": [
        {
-        "t": "Pain: out of proportion, with passive stretch; cannot be reported while sedated, so look for grimace/CPOT rise and a tense forearm. Chart: CPOT 1.",
+        "t": "Pain: out of proportion, with passive stretch; cannot be reported while sedated, so look for grimace/CPOT rise and a tense forearm. Chart: CPOT 1 (forearm soft).",
         "pts": 0.2,
         "src": ""
        },
@@ -824,7 +824,7 @@
         "src": ""
        },
        {
-        "t": "Paresthesia: cannot be asked; sensation is not assessable while sedated. Chart: not testable.",
+        "t": "Paresthesia: cannot be asked; sensation is not assessable while sedated. Chart: left hand not testable (sedated); right hand decreased in the burned area.",
         "pts": 0.2,
         "src": ""
        },
@@ -834,7 +834,7 @@
         "src": ""
        },
        {
-        "t": "Poikilothermia / tension: skin temperature compared with the left hand, and firmness of the forearm compartments. Chart: forearm soft and compressible.",
+        "t": "Poikilothermia / tension: skin temperature compared with the left hand, and firmness of the forearm compartments. Chart: fingers warm; forearm compartments soft and compressible, swelling stable.",
         "pts": 0.2,
         "src": ""
        },
@@ -850,7 +850,7 @@
      "id": "2.7",
      "type": "box",
      "points": 1.5,
-     "lines": 9,
+     "lines": 24,
      "title": "Tube Feeding and Calories",
      "prompt": "Open the tube feeding order and the flowsheet. (a) Write the advancing schedule from 1000 Monday and the rate at 0600 on Tuesday. (b) The formula is Osmolite 1.5, which has 1.5 kcal per mL and 62.7 g of protein per liter: how many calories and grams of protein will he receive in 24 hours at 70 mL/h? (c) Give two reasons burn patients are fed early through the gut. (d) What do you check before advancing, and what do you do for a residual over 500 mL?",
      "where": "Orders (Osmolite 1.5); Flowsheets > GI (Diet / Feeding); Intake/Output; Chart Review (Nutrition Assessment)",
@@ -903,17 +903,17 @@
       "bank": true,
       "elements": [
        {
-        "t": "Phosphorus 3.4 -> 2.4 -> 2.1 (low): burn losses, insulin and feeding drive phosphate into cells (refeeding), dilution. Report to the provider; replacement is usually ordered; low phosphorus weakens breathing muscles and the heart.",
+        "t": "Phosphorus 3.0 (1200) -> 2.8 (1800) -> 2.4 (0000) -> 2.1 (0600) (low): burn losses, insulin and feeding drive phosphate into cells (refeeding), dilution. Report to the provider; replacement is usually ordered; low phosphorus weakens breathing muscles and the heart.",
         "pts": 0.375,
         "src": ""
        },
        {
-        "t": "Magnesium 1.7 -> 1.6 (low): dilution and losses; report for replacement; check before the potassium.",
+        "t": "Magnesium 1.8 (1800) -> 1.7 -> 1.6 (low): dilution and losses; report for replacement (low magnesium makes low potassium hard to correct, so replace magnesium along with potassium).",
         "pts": 0.375,
         "src": ""
        },
        {
-        "t": "Potassium 4.5 -> 3.9: the insulin infusion and feeds move potassium into cells; keep it 4.0 or higher; notify the provider and recheck with the next draw.",
+        "t": "Potassium 4.5 -> 3.9: the insulin infusion and feeds move potassium into cells; many protocols aim for 4.0 or higher; notify the provider and recheck with the next draw (K 5.0 at 1800).",
         "pts": 0.375,
         "src": ""
        },
@@ -923,7 +923,7 @@
         "src": ""
        },
        {
-        "t": "Triglycerides 168 (high): propofol is a lipid emulsion (1.1 kcal/mL); report it, count the calories, and a level over 400 means ask to change the sedative.",
+        "t": "Triglycerides 168 (high; baseline at about 48 h of propofol): propofol is a lipid emulsion (1.1 kcal/mL); report it, count the calories, and a level over about 400 means ask whether to change the sedative.",
         "pts": 0.375,
         "src": ""
        },
@@ -982,29 +982,29 @@
      "id": "2.10",
      "type": "box",
      "points": 2,
-     "lines": 9,
+     "lines": 24,
      "title": "Handoff at 0650",
      "prompt": "It is 0650 on Tuesday. Write your SBAR handoff for J. Morales, RN, the day nurse. Use real numbers, include the events of the night, what is happening in the next few hours (look at the orders and MAR), and anything you would like the day team to follow up.",
      "where": "Everything you read and charted this night; Orders; MAR; Lab Results; Flowsheets",
      "key": {
       "elements": [
        {
-        "t": "Situation: patient/room, full code, burn 22% with inhalation injury, intubated; stable night: HR 96, BP 111/64, T 99.4, SpO2 98%, RASS -3, CPOT 1; urine output 41-47 mL/h.",
+        "t": "Situation: patient/room, full code, burn 22% with inhalation injury, intubated; stable night: HR 96, BP 111/64, T 99.4, SpO2 98%, RASS -2 (goal -1 to -2 today), CPOT 1; urine output 37-47 mL/h (0.45-0.57 mL/kg/h).",
         "pts": 0.5,
         "src": ""
        },
        {
-        "t": "Background: the first 24 hours of Parkland finished at 0130 (about 8,080 mL), LR now 125 mL/h (about to drop to 75 when the albumin starts at 0600); insulin infusion since 0030; feeds at goal 70 mL/h; weight 89.6 kg; the flowsheet shows the night shift (1900-0700) intake 3,748 mL, output 496 mL, net +3,252 mL.",
+        "t": "Background: the first 24 hours of Parkland finished at 0130 (about 8,080 mL), LR 125 mL/h from 0130, then 75 mL/h since 0600 while albumin 5% runs; insulin infusion since 0030; feeds at goal 70 mL/h; weight 89.6 kg; the flowsheet shows the night shift (1900-0700) intake 3,748 mL, output 496 mL, net +3,252 mL.",
         "pts": 0.5,
         "src": "Flowsheets > Intake/Output > Totals"
        },
        {
-        "t": "Assessment: agitation at 0245 treated with lorazepam 1 mg (calm since); glucose 179-182 on the infusion (1.5 units/h from 0600); phosphorus 2.1, magnesium 1.6 and potassium 3.9 low, reported to Dr. Brandt, replacement not yet given; right hand signals steady; bladder pressure 12; triglycerides 168; skin and turns done.",
+        "t": "Assessment: agitation at 0245 treated with lorazepam 1 mg (calm since); glucose 179-191 on the infusion (1.5 units/h since 0600); phosphorus 2.1 and magnesium 1.6 low and potassium down from 5.0 to 3.9, reported to Dr. Brandt, replacement planned after the noon labs and not given overnight; right hand signals steady; bladder pressure 12; triglycerides 168; skin and turns done.",
         "pts": 0.5,
         "src": ""
        },
        {
-        "t": "Recommendation / to do: sedation interruption at 0800; replace phosphorus, magnesium and potassium when ordered and recheck; hourly glucose; albumin 5% 500 mL running 0600-1000; dressing change and silver sulfadiazine at 1400 with hydromorphone beforehand; restraint order renewal; update Jenna and Linda; chest x-ray read; watch for alcohol withdrawal.",
+        "t": "Recommendation / to do: sedation interruption at 0800; noon labs and replace phosphorus, magnesium and potassium as ordered; hourly glucose; albumin 5% 500 mL running 0600-1000; dressing change and silver sulfadiazine at 1400 with hydromorphone beforehand; restraint order renewal; update Jenna and Linda; chest x-ray (0515: small new right lower lobe atelectasis, lines in place) so chest PT and turning; watch for alcohol withdrawal.",
         "pts": 0.5,
         "src": ""
        }
@@ -1025,7 +1025,7 @@
      "id": "3.1",
      "type": "box",
      "points": 1,
-     "lines": 11,
+     "lines": 20,
      "title": "The 0800 Sedation Interruption",
      "prompt": "Set the clock to 0700 and read the 0850 nursing note and the 0845 respiratory therapy note. (a) What was done at 0800 and what was the order for the sedatives? (b) How did Marcus respond (RASS, commands, CAM-ICU, his mother)? (c) Name two findings that would make you stop the interruption early and restart the sedation. (d) Why is he NOT having a breathing trial (SBT) today even though FiO2 is 0.40 and PEEP is 5?",
      "where": "Chart Review > Notes (Nursing Note 0850, Respiratory Therapy Note 0845, ICU Progress Note 0715); Orders (SAT); MAR (propofol)",
@@ -1058,7 +1058,7 @@
      "id": "3.2",
      "type": "box",
      "points": 1,
-     "lines": 10,
+     "lines": 24,
      "title": "Albumin and the Feeds",
      "prompt": "Albumin 5% 500 mL runs from 0600 to 1000. (a) Calculate the pump rate in mL/h. (b) Why is albumin given to Marcus now (use a lab value), and what two things do you assess during the infusion? (c) What did the LR rate change to at 1000? (d) The dietitian wrote about the tube feeding and the 1400 dressing change: what did she recommend about holding the feeding?",
      "where": "MAR (albumin 5%, lactated Ringer's); Lab Results (Albumin); Nursing Note 1030; Nutrition Follow-Up Note 1045; Flowsheets > Intake/Output",
@@ -1115,7 +1115,7 @@
        "Phosphorus"
       ]
      ],
-     "rowH": 1.0,
+     "rowH": 2.07,
      "key": {
       "answer": "Rows 0.4 each (value 0.1, order and time 0.15, safety 0.15) = 1.2; the two sentences below the table 0.3.",
       "bank": true,
@@ -1147,14 +1147,14 @@
      "id": "3.4",
      "type": "box",
      "points": 1,
-     "lines": 11,
+     "lines": 24,
      "title": "The 1400 Dressing Change",
      "prompt": "You and N. Ibarra, RN (burn nurse specialist) change the dressings. Read the 1425 and 1455 notes. (a) List the four NEW findings that told you this is not a normal burn wound. (b) What pain medicine was given, when, and how did CPOT change? (c) What did you do to the edge of the red area at 1430 and why? (d) Which finding at the right chest border is the most worrisome for tissue death?",
      "where": "Chart Review > Notes (Nursing Note 1425, Wound Care Specialist Note 1455); MAR (hydromorphone); Flowsheets (CPOT)",
      "key": {
       "elements": [
        {
-        "t": "New since Monday: purulent drainage (thick yellow-green) on the chest/arm dressings; foul odor; erythema spreading beyond the burn margin (about 2-3 cm, warm, indurated); eschar separating with a dark violaceous area. (Any four of these, including increased pain with cleansing.)",
+        "t": "New since Monday: purulent drainage (thick yellow-green) on the chest/arm dressings; foul odor; erythema spreading beyond the burn margin (about 2-3 cm in the notes, 4 cm on the 1430 flowsheet entry; warm, indurated); eschar separating with a dark violaceous area. (Any four of these, including increased pain with cleansing.)",
         "pts": 0.5,
         "src": "Notes"
        },
@@ -1180,7 +1180,7 @@
      "id": "3.5",
      "type": "box",
      "points": 1.5,
-     "lines": 14,
+     "lines": 10,
      "title": "Analyze the Graph: Temperature, Heart Rate and MAP",
      "prompt": "Study the figure (it is drawn from the flowsheet for 0700 to 1900). (a) At about what time did the change begin and which of the three values moved first? (b) Describe the pattern at 1400, 1700 and 1900 in your own words and say what it means for Marcus. (c) After the norepinephrine starts at 1730 the MAP climbs back up: what does the graph tell you about whether he is getting better? (d) Burn patients often have a fast heart rate and a temperature near 100 F even when they are well: why are the usual SIRS criteria unreliable for him, and name two signs you use instead.",
      "where": "Flowsheets > Vital Signs (Tuesday 0700-1900); Notes (Critical Care Event Note 1755); the figure below",
@@ -1199,7 +1199,7 @@
         "src": "Graph, vitals"
        },
        {
-        "t": "Steady rise of temperature (100.4 at 1400, 101.6 at 1700, 102.3 at 1900) and HR (105, 122, 130) with falling MAP (72, 66, then 63 at 1715-1725, below the goal of 65): the picture of evolving sepsis from the wound infection, going into septic shock (vasodilation and low perfusion); it is a trend, not a single value.",
+        "t": "Steady rise of temperature (100.4 at 1400, 101.6 at 1700, 102.3 at 1900) and HR (105, 122, 130) with falling MAP (72, 66, then 63 at 1715, below the goal of 65): the picture of evolving sepsis from the wound infection, going into septic shock (vasodilation and low perfusion); it is a trend, not a single value.",
         "pts": 0.5,
         "src": "Graph"
        },
@@ -1220,7 +1220,7 @@
      "id": "3.6",
      "type": "box",
      "points": 1.5,
-     "lines": 13,
+     "lines": 24,
      "title": "The SBAR Call at 1540",
      "prompt": "It is 1540. You are going to call Dr. Okafor and Dr. Brandt. Write what you say (S, B, A, R) using the chart numbers at 1530 and the trend since 1300. End with what you ask them for: name at least three orders or decisions you request.",
      "where": "Flowsheets > Vital Signs, Intake/Output, Lab Results; Notes (Nursing Note 1550 Sepsis SBAR)",
@@ -1253,7 +1253,7 @@
      "id": "3.7",
      "type": "box",
      "points": 1.5,
-     "lines": 13,
+     "lines": 24,
      "title": "The Sepsis Bundle: Cultures and Lactate",
      "prompt": "Open the 1655 nursing note and Lab Results. (a) List the four culture sites (five specimens) and the time collected, and which two blood sites. (b) Why must the cultures be drawn BEFORE the antibiotics, and when is it OK to give antibiotics without waiting? (c) Write the lactate values and times from 1555 to 1700 and what they mean. (d) What is the goal for giving antibiotics after recognizing sepsis, and what were Marcus's actual times?",
      "where": "Chart Review > Notes (Nursing Note 1655, Burn Surgery Event Note 1645); Lab Results (Microbiology, Lactate, Procalcitonin); MAR",
@@ -1270,7 +1270,7 @@
         "src": ""
        },
        {
-        "t": "Lactate 2.9 at 1555 (high), 3.8 at 1700 (rising): tissue hypoperfusion (anaerobic metabolism); the rise after fluids means he is getting worse, repeat in 2 hours (goal clearance 10-20% every 2 hours). Also WBC 18.4, procalcitonin 4.8 at 1555.",
+        "t": "Lactate 2.9 at 1555 (high), 3.8 at 1700 (rising): tissue hypoperfusion (anaerobic metabolism); the rise despite maintenance fluids (the first bolus did not start until 1700) means he is getting worse, repeat in 2 hours (goal clearance 10-20% every 2 hours). Also WBC 18.4, procalcitonin 4.8 at 1555.",
         "pts": 0.25,
         "src": "Labs"
        },
@@ -1286,14 +1286,14 @@
      "id": "3.8",
      "type": "box",
      "points": 1.5,
-     "lines": 14,
+     "lines": 23,
      "title": "Checking the Antibiotic Orders",
      "prompt": "Before you hang the antibiotics you check the orders with pharmacy (A. Chen, PharmD). Marcus weighs 82 kg. (a) The vancomycin load is 20 mg/kg: calculate the dose and compare it with the 1,750 mg on the MAR, then give the pump rate in mg/h for the 2-hour infusion and the order's maximum rate. (b) The piperacillin-tazobactam 4.5 g in 100 mL is an extended infusion: over how long, at what mL/h, and why is it given this way? (c) What does the pip-tazo order say about running it with the vancomycin, and what will you do with the lumens of the left IJ? (d) Name two lab values you follow with this combination and why.",
      "where": "Orders (piperacillin-tazobactam, vancomycin); MAR; Lab Results (Creatinine); Nursing Note 1655",
      "key": {
       "elements": [
        {
-        "t": "20 mg/kg x 82 kg = 1,640 mg; the 1,750 mg is about 21 mg/kg (a rounded dose, within about 10%, pharmacy verified). 1,750 mg / 2 h = 875 mg/h, under the order maximum of 1 g/h (slow the rate if red man syndrome).",
+        "t": "20 mg/kg x 82 kg = 1,640 mg; the 1,750 mg is 21.3 mg/kg, about 7% above 1,640 mg (the order says \"about 20 mg/kg, rounded to 1,750 mg\", the nearest 250 mg; pharmacy verified). 1,750 mg / 2 h = 875 mg/h, under the order maximum of 1 g/h (slow the rate if red man syndrome).",
         "pts": 0.5,
         "src": "Orders, note"
        },
@@ -1303,7 +1303,7 @@
         "src": "Order"
        },
        {
-        "t": "The order says do not infuse with vancomycin in the same lumen (Y-site compatibility concern, with a link to kidney injury); run them on separate lumens/pumps of the left IJ (the norepinephrine later gets its own lumen too, never shared), and ask pharmacy if lumens run short.",
+        "t": "The order says to give pip-tazo through its own lumen when possible, separate from vancomycin, and that the combination is associated with kidney injury (pharmacy also advises no co-infusion because compatibility depends on the concentration); run them on separate lumens/pumps of the left IJ (the norepinephrine later gets its own lumen too, never shared), and ask pharmacy if lumens run short.",
         "pts": 0.375,
         "src": "Order, note"
        },
@@ -1319,7 +1319,7 @@
      "id": "3.9",
      "type": "box",
      "points": 1.5,
-     "lines": 15,
+     "lines": 24,
      "title": "Low MAP and Norepinephrine",
      "prompt": "At 1715 the BP is 101/44 (MAP 63-64) after the 1700 LR bolus; the second bolus is given at 1745 and norepinephrine 16 mcg/mL is started at 1730 at 0.05 mcg/kg/min. (a) Calculate the pump rate in mL/h for 0.05 mcg/kg/min (82 kg), and the rate at 0.10 mcg/kg/min that you reached at 1830. (b) Where must it run and why (name the complication and one sign)? (c) How and how fast do you titrate, and what is the MAP goal and how is the MAP measured? (d) Why do the providers want to limit more fluid boluses?",
      "where": "Orders (norepinephrine, LR bolus); MAR; Nursing Note 1755; Critical Care Event Note 1755; Flowsheets > Vital Signs",
@@ -1331,7 +1331,7 @@
         "src": "Order"
        },
        {
-        "t": "Central line only, on a dedicated lumen with nothing else in it (never a PIV): extravasation causes tissue necrosis; check the site and the hand/extremity every hour (pain, blanching, swelling, cool skin, loss of blood return); if suspected stop the drip, notify the provider (phentolamine per order).",
+        "t": "Central line only, on a dedicated lumen with nothing else in it (never a PIV): extravasation causes tissue necrosis; check the site and the hand/extremity every hour (pain, blanching, swelling, cool skin, loss of blood return); if suspected stop the drip and notify the provider at once (the provider may order phentolamine; follow the unit extravasation protocol).",
         "pts": 0.375,
         "src": "Order"
        },
@@ -1383,12 +1383,12 @@
      "points": 1,
      "title": "Falling Urine Output",
      "prompt": "The urine output was 45, 41, 36, 28, 24 and 20 mL per hour from 1200 to 1800 (his goal is 0.5 mL/kg/h = 41 mL/h, and Foley care is done). At 1800 the output is 20 mL (0.24 mL/kg/h). Which actions are correct for you now?",
-     "where": "Flowsheets > Intake/Output and Vital Signs; Orders (potassium chloride); MAR; Lab Results (Creatinine); Notes 1755",
+     "where": "Flowsheets > Intake/Output and Vital Signs; Nursing Note 1240 (potassium plan); MAR; Lab Results (Creatinine); Notes 1755",
      "options": [
       "Report it to Dr. Brandt and Dr. Okafor now (it is below the 30 mL/h call limit) and tie it to the MAP and lactate.",
       "Check the Foley for kinks, a full bag tubing loop or sediment, and the bladder pressure (last 12 mmHg).",
       "Ask the provider whether to give a third 500 mL LR bolus because he is oliguric, without looking at his lungs or total fluid balance.",
-      "Hold the next potassium and tell the provider (the potassium order holds for urine output under 30 mL/h for 2 hours).",
+      "Hold any further potassium replacement and tell the provider (your 1240 plan was to hold potassium for urine output under 30 mL/h for 2 hours; it has been under 30 since 1500).",
       "Ask about the doses of nephrotoxic drugs (vancomycin, pip-tazo) with pharmacy and follow the creatinine.",
       "Stop the norepinephrine to see if the urine improves.",
       "Keep recording hourly urine output and total I&O; remember he is also getting feeds and fluids, so urine output is the better marker.",
@@ -1398,7 +1398,7 @@
       "answer": [
        "Report it to Dr. Brandt and Dr. Okafor now...",
        "Check the Foley for kinks...",
-       "Hold the next potassium and tell the provider...",
+       "Hold any further potassium replacement and tell the provider...",
        "Ask about the doses of nephrotoxic drugs...",
        "Keep recording hourly urine output and total I&O..."
       ],
@@ -1410,7 +1410,7 @@
      "id": "3.12",
      "type": "box",
      "points": 2,
-     "lines": 16,
+     "lines": 24,
      "title": "Handoff at 1850",
      "prompt": "It is 1850. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers from your shift, say what is changing, and list what the night nurse must do or follow up in the next hours (look at the orders, MAR and labs).",
      "where": "Everything charted this shift; Orders; MAR; Lab Results; Flowsheets (Vital Signs, Intake/Output); Nursing Note 1850",
@@ -1483,14 +1483,14 @@
       "SPO2"
      ],
      "key": {
-      "rules": "Cells 0.75 x (cells correct / 20), rounded to the nearest 0.25; the two answers are 0.25 together (0.125 each). Allow +/- 2 for rates and +/- 0.2 F. Values: 1930: T 102.4, HR 133, BP 107/50, RR 30, SpO2 92; 2300: T 101.4, HR 117, BP 111/55, RR 26, SpO2 96; 0300: T 100.5, HR 108, BP 111/60, RR 20, SpO2 98; 0600: T 100.2, HR 101, BP 110/59, RR 19, SpO2 97. (a) MAP = (107 + 2 x 50) / 3 = 69 mmHg, which matches the monitor (69). (b) The MAP of 69 is only being kept above the goal of 65 by norepinephrine (0.10 then 0.12 mcg/kg/min that evening), with fever 102.4, HR 133, RR 30 and lactate 4.1: he is in septic shock and the pressure would fall without the drug. The diastolic of 50 shows vasodilation."
+      "rules": "Cells 0.75 x (cells correct / 20), rounded to the nearest 0.25; the two answers are 0.25 together (0.125 each). Allow +/- 2 for rates and +/- 0.2 F. Values: 1930: T 102.4, HR 133, BP 107/50, RR 30, SpO2 92; 2300: T 101.4, HR 117, BP 111/55, RR 26, SpO2 96; 0300: T 100.5, HR 108, BP 111/60, RR 20, SpO2 98; 0600: T 100.2, HR 101, BP 110/59, RR 19, SpO2 97. (a) MAP = (107 + 2 x 50) / 3 = 69 mmHg, which matches the monitor (69). (b) The MAP of 69 is only being kept above the goal of 65 by norepinephrine (0.10 at 1900, 0.12 at 1930, 0.14 from 2030), with fever 102.4, HR 133, RR 30 and lactate 4.1: he is in septic shock and the pressure would fall without the drug. The diastolic of 50 shows vasodilation."
      }
     },
     {
      "id": "4.1b",
      "type": "box",
      "points": 0,
-     "lines": 6,
+     "lines": 9,
      "title": "MAP calculation and why 69 is not reassuring (scored with 4.1)",
      "key": {
       "answer": "Scored with item 4.1."
@@ -1503,7 +1503,7 @@
      "lines": 8,
      "title": "The 1845 Blood Gas",
      "prompt": "Open Lab Results (Blood Gas) and the ventilator settings for 1845. (a) Interpret the ABG in one sentence (acid-base disorder and what the body is doing about it) and name the lab drawn at 1900 that explains it. (b) Calculate the PaO2/FiO2 ratio and say what the chest x-ray at 1840 adds.",
-     "where": "Lab Results (Blood Gas, Lactate); Flowsheets > Respiratory; Chart Review > Imaging (Chest X-Ray 1840)",
+     "where": "Lab Results (Blood Gas, Lactate); Chart Review > Notes (Dr. Brandt 1755, Nursing Note 1850 for the ventilator change); Chart Review > Imaging (Chest X-Ray 1840)",
      "key": {
       "elements": [
        {
@@ -1512,7 +1512,7 @@
         "src": "ABG 1845, lactate 1900"
        },
        {
-        "t": "PaO2 92 / FiO2 0.50 = 184 (accept 180-190): a P/F under 200 on PEEP 8 is in the moderate ARDS range; the x-ray shows new bilateral perihilar/interstitial opacities, no consolidation = early ARDS physiology (capillary leak of sepsis), so the vent was changed to PEEP 8 and FiO2 0.50 at 1800.",
+        "t": "PaO2 92 / FiO2 0.50 = 184 (accept 180-190): a P/F under 200 on PEEP 8 is in the moderate ARDS range; the x-ray shows new bilateral perihilar/interstitial opacities, no consolidation = early ARDS physiology (capillary leak of sepsis), which is why the vent was changed to PEEP 8 and FiO2 0.50 at 1800 (set RR 18).",
         "pts": 0.25,
         "src": "Vent, CXR"
        }
@@ -1526,7 +1526,7 @@
      "lines": 11,
      "title": "Norepinephrine: Rate and Safety",
      "prompt": "Open the MAR and the Orders. Norepinephrine 16 mcg/mL was 0.10 mcg/kg/min at 1900, 0.12 at 1930 and 0.14 at 2030. His dosing weight is 82 kg. (a) Calculate the pump rate in mL/h at 0.14 mcg/kg/min. (b) What MAP are you titrating to, and why is the arterial line and a central lumen used? (c) Give two safety checks for a vasopressor infusion.",
-     "where": "MAR (norepinephrine); Orders; Chart Review > Notes (Nursing Note 1755, Dr. Brandt 2345)",
+     "where": "MAR (norepinephrine); Orders; Chart Review > Notes (Nursing Note 1755, Dr. Brandt 1755)",
      "key": {
       "elements": [
        {
@@ -1535,7 +1535,7 @@
         "src": "MAR"
        },
        {
-        "t": "MAP 65 mmHg or higher (provider order: titrate 0.02-0.03 mcg/kg/min every 5-10 minutes). A-line gives beat-to-beat pressure while the dose is changing; vasopressors are given through a central, dedicated lumen because they cause severe vasoconstriction and tissue injury if they leak into the skin.",
+        "t": "MAP 65 mmHg or higher (order: titrate by 0.02 mcg/kg/min every 5 minutes; the notes allow 0.02-0.04 every 5-10 minutes; accept either). A-line gives beat-to-beat pressure while the dose is changing; vasopressors are given through a central, dedicated lumen because they cause severe vasoconstriction and tissue injury if they leak into the skin.",
         "pts": 0.25,
         "src": "Note 1755"
        },
@@ -1551,24 +1551,24 @@
      "id": "4.4",
      "type": "box",
      "points": 2.0,
-     "lines": 16,
+     "lines": 23,
      "title": "Hydrocortisone, Glucose and the Insulin Infusion",
      "prompt": "Open the MAR, the Orders, Lab Results (point-of-care glucose and potassium) and the pharmacy note of 1930. (a) Hydrocortisone 50 mg IV q6h started at 2030: why would Dr. Brandt order a stress dose, and how many doses did you give this shift? (b) List the glucose values at 1930, 2130 and 0230 and the insulin rate changes between 1900 and 0300, and explain why the glucose rose after the steroid. (c) Why were the insulin rates lowered, and what is the hypoglycemia risk in Marcus? (d) Which electrolyte do you watch with insulin, and what were his values?",
      "where": "MAR (hydrocortisone, insulin infusion); Lab Results (Glucose, Potassium); Chart Review > Notes (Pharmacy 1930, Dr. Brandt 2345)",
      "key": {
       "elements": [
        {
-        "t": "Septic shock that still needs norepinephrine at 0.1 or higher (0.14 at 2030): critical illness can cause a relative adrenal insufficiency; hydrocortisone helps the vessels respond to norepinephrine and shortens time on the pressor. Two doses given by the night nurse: 2030 and 0230 (next 0830); it is tapered once off pressors, not stopped abruptly.",
+        "t": "Septic shock that still needs norepinephrine at 0.1 or higher (0.14 at 2030): critical illness can cause a relative adrenal insufficiency; hydrocortisone helps the vessels respond to norepinephrine and shortens time on the pressor. Two doses given by the night nurse: 2030 and 0230 (next 0830); the order is 50 mg q6h for 3 doses (third due 0830), then 25 mg q6h until the ICU team stops it; pharmacy plans a taper once off pressors, so never stop it abruptly.",
         "pts": 0.5,
         "src": "MAR, pharmacy note"
        },
        {
-        "t": "Glucose 246 (1930), 251 (2030), 266 (2130, peak), then 257, 241, 225, 212, 197 (0230). Insulin 4 units/h at 1900, 5 at 2100, 3 at 0000, 1.5 at 0300. Hydrocortisone (a glucocorticoid) and sepsis stress hormones cause insulin resistance and more glucose release from the liver; the peak came about one hour after the first dose.",
+        "t": "Glucose 246 (1930), 251 (2030), 266 (2130, peak), then 257, 241, 225, 212, 197 (0230). Insulin 4 units/h (running since 1800), raised to 5 at 2100, 3 at 0000, 1.5 at 0300. Hydrocortisone (a glucocorticoid) and sepsis stress hormones cause insulin resistance and more glucose release from the liver; the glucose was already rising with the sepsis (227 at 1730) and the peak came about one hour after the first dose.",
         "pts": 0.5,
         "src": "Labs, MAR"
        },
        {
-        "t": "Rates are lowered as the glucose falls toward the goal 140-180 mg/dL and as the sepsis improves (less insulin resistance). Risk of hypoglycemia: insulin requirement falls quickly while the feeding is constant at 70 mL/h; if the tube feeding is held or stops (OR, residual, tube problem) the glucose can drop fast; check hourly and after every rate change; glucose under 70 = stop the infusion and give D50 per protocol, recheck.",
+        "t": "Rates are lowered as the glucose falls toward the goal 140-180 mg/dL and as the sepsis improves (less insulin resistance). Risk of hypoglycemia: insulin requirement falls quickly while the feeding is constant at 70 mL/h; if the tube feeding is held or stops (OR, residual, tube problem) the glucose can drop fast; check hourly and after every rate change; per the order: glucose under 100 or tube feeding held = hold the infusion and call the provider; glucose under 70 = notify and give D50 per protocol, recheck.",
         "pts": 0.5,
         "src": "Order"
        },
@@ -1584,7 +1584,7 @@
      "id": "4.5",
      "type": "box",
      "points": 1.0,
-     "lines": 13,
+     "lines": 24,
      "title": "The 2100 Labs and the 2130 Gram Stain",
      "prompt": "Open the CBC at 2100 (compare with 1555 and with admission) and the wound Gram stain at 2130. (a) What do a WBC of 21.8 with 14% bands tell you? (b) Platelets fell from 171 to 142 (and were 288 on admission) while he receives heparin 5,000 units SQ: what percent fall from admission is that, and what do you ask or check before you decide to hold the heparin? (c) What does \"Gram-positive cocci in clusters\" most likely mean, and do the antibiotics already cover it? (d) What does contact precautions mean for you today?",
      "where": "Lab Results (CBC with differential, Microbiology); Chart Review > Notes (Result Notification 2140); Orders (Precautions)",
@@ -1601,12 +1601,12 @@
         "src": "Platelets, pharmacy note"
        },
        {
-        "t": "Gram-positive cocci in clusters = Staphylococcus, most likely S. aureus (suspected MSSA; MRSA not excluded until the culture finishes); a Gram stain is preliminary and does not give the antibiotic susceptibility. Vancomycin plus pip-tazo already cover it, so no change was ordered; wait for the final culture and sensitivities. Lab called the result at 2130 and he called Dr. Brandt with read-back; Dr. Okafor to be told.",
+        "t": "Gram-positive cocci in clusters = Staphylococcus, most likely S. aureus (suspected MSSA; MRSA not excluded until the culture finishes); a Gram stain is preliminary and does not give the antibiotic susceptibility. Vancomycin plus pip-tazo already cover it, so no change was ordered; wait for the final culture and sensitivities. The lab called the result at 2130 and the nurse called Dr. Brandt with read-back; Dr. Okafor to be told.",
         "pts": 0.25,
         "src": "Gram stain 2130, note 2140"
        },
        {
-        "t": "Contact precautions (burn unit): single room, gown and gloves for room entry and all wound care (plus mask for dressing changes), dedicated equipment (stethoscope, cuff), hand hygiene before and after, clean/dirty zones, sign on the door; the family and staff are taught the same. S. aureus spreads by hands and equipment.",
+        "t": "Contact precautions (burn unit): single room, gown and gloves for room entry and all wound care (plus mask for dressing changes), dedicated equipment (stethoscope, cuff), hand hygiene before and after, clean/dirty zones, sign on the door; accept equivalent items (the order says gown and gloves for all wound care and room entry, dedicated equipment). S. aureus spreads by hands and equipment.",
         "pts": 0.25,
         "src": "Orders"
        }
@@ -1629,7 +1629,7 @@
         "src": "Vitals, MAR"
        },
        {
-        "t": "Acetaminophen lowers the temperature and can mask the true fever curve; record the temperature before the dose so the team sees the real trend. The fever was already falling before the first dose (102.4 -> 101.9 at 2100) and kept falling as the antibiotics, steroids and source control worked, so the fall is partly acetaminophen and partly a real response. (AST 96/ALT 84 at 0500: keep to 3 g/day.)",
+        "t": "Acetaminophen lowers the temperature and can mask the true fever curve; record the temperature before the dose so the team sees the real trend. The fever was already falling before the 2200 dose (102.4 at 1930 -> 101.9 at 2100) and kept falling as the antibiotics, steroids and source control worked, so the fall is partly acetaminophen and partly a real response. (AST 96/ALT 84 at 0500: keep to 3 g/day.)",
         "pts": 0.25,
         "src": ""
        },
@@ -1652,12 +1652,12 @@
      "key": {
       "elements": [
        {
-        "t": "Mafenide penetrates eschar but causes burning pain on application; premedicate with the ordered analgesic about 15 minutes before the soak (hydromorphone 0.5 mg IV was given at 1915 for wound care discomfort) and score pain with the CPOT because he cannot report pain (CPOT 1/8 hourly).",
+        "t": "Mafenide penetrates eschar but causes burning pain on application; premedicate with the ordered analgesic 15 minutes before the soak (order: hydromorphone 15 minutes before dressing changes; the MAR shows 0.5 mg at 1915 for wound care discomfort, and none is charted before the 0130 soak, so a good answer notes the 0130 soak should be premedicated) and score pain with the CPOT because he is intubated and cannot report pain (CPOT 1/8 hourly after 1930).",
         "pts": 0.25,
         "src": "MAR, CPOT"
        },
        {
-        "t": "It inhibits carbonic anhydrase and can cause a metabolic acidosis (hyperchloremic): check ABG pH/HCO3 and the BMP bicarbonate and chloride (HCO3 18 at 1845, 20 at 2230, 22 at 0400; CO2 21-22 on the BMPs); report a falling bicarbonate or rising chloride.",
+        "t": "It inhibits carbonic anhydrase and can cause a metabolic acidosis (hyperchloremic): check ABG pH/HCO3 and the BMP bicarbonate and chloride (HCO3 18 at 1845, 20 at 2230, 22 at 0400; CO2 22, 21, 22 and chloride 107, 106, 106 on the BMPs, so no worsening acidosis); report a falling bicarbonate or rising chloride.",
         "pts": 0.25,
         "src": "Labs"
        }
@@ -1670,12 +1670,12 @@
      "points": 0.5,
      "lines": 9,
      "title": "Sedation and Delirium Risk",
-     "prompt": "Open the Orders (RASS goal), the flowsheet and the MAR. (a) What is the RASS goal for Tuesday, what was his RASS from 1900 to 0300 on propofol 40 mcg/kg/min and fentanyl 150 mcg/h, and why did Dr. Brandt accept the deeper sedation tonight? (b) Name two delirium risk factors he has and two things you do about them.",
+     "prompt": "Open the Orders (RASS goal), the flowsheet and the MAR. (a) What is the RASS goal for Tuesday, what was his RASS (charted 2000, 0000 and 0400) on propofol 40 mcg/kg/min and fentanyl 150 mcg/h, and why did Dr. Brandt accept the deeper sedation tonight? (b) Name two delirium risk factors he has and two things you do about them.",
      "where": "Orders (Sedation and pain scales); Flowsheets (RASS, CAM-ICU, Respiratory); MAR (propofol, fentanyl); Chart Review > Notes (Dr. Brandt 2345)",
      "key": {
       "elements": [
        {
-        "t": "Goal -1 to -2 on Tuesday; his RASS was -3 (deeper than the goal) because he was triggering the ventilator (RR 30) in septic shock with early ARDS (PEEP 8, FiO2 0.50) and needed comfort and synchrony; no SAT tonight (Dr. Brandt). When he improved, propofol was lowered to 30 and fentanyl to 100 at 0400 and RASS became -2.",
+        "t": "Goal -1 to -2 on Tuesday; his RASS was -3 at 2000 and 0000 (deeper than the goal) because he was triggering the ventilator (RR 30) in septic shock with early ARDS (PEEP 8, FiO2 0.50) and needed comfort and synchrony; no SAT tonight (Dr. Brandt). When he improved, propofol was lowered to 30 and fentanyl to 100 at 0400 and RASS became -2.",
         "pts": 0.25,
         "src": "Order, vitals, note"
        },
@@ -1722,7 +1722,7 @@
      "id": "4.10",
      "type": "box",
      "points": 2.0,
-     "lines": 16,
+     "lines": 22,
      "title": "The Critical Result at 0240",
      "prompt": "Open Lab Results (Microbiology) and the nursing note of 0300. At 0240 the microbiology lab calls you. (a) What do you do during the call (what do you say and write down)? (b) Who do you notify, and in what time frame? (c) Write the SBAR you give with the real values. (d) Which line is involved, and what do you assess at the bedside?",
      "where": "Lab Results (Blood culture 0240); Chart Review > Notes (Critical Result Call 0300, Pharmacy 1930); Flowsheets; Orders (central line care)",
@@ -1734,17 +1734,17 @@
         "src": "Note 0300"
        },
        {
-        "t": "Dr. Brandt (intensivist) was called at 0245; also tell the charge nurse (B. Sutton) and make sure Dr. Okafor (burn surgeon) and pharmacy (A. Chen) are aware; critical results go to a provider immediately (within the policy time, usually 15-30 minutes at most) and the response and any order are documented.",
+        "t": "Dr. Brandt (intensivist) was called at 0245; also tell the charge nurse and make sure Dr. Okafor (burn surgeon) and pharmacy (A. Chen) are aware; critical results go to a provider immediately (within the policy time, usually 15-30 minutes at most) and the response and any order are documented.",
         "pts": 0.5,
         "src": "Note 0300"
        },
        {
-        "t": "S: critical blood culture, 1 of 4 bottles, central line set, GPC in clusters. B: burn wound sepsis, cultures drawn 1550 before antibiotics, vancomycin and pip-tazo since the evening, wound Gram stain also GPC in clusters at 2130, left IJ line day 3. A: T 100.5, HR 108, BP 111/60 (MAP 77), lactate 1.8, norepinephrine 0.08, improving; line site clean. R: ask whether to continue vancomycin and pip-tazo (next vancomycin 0430), when to repeat blood cultures, and who decides about the line once the organism is identified (ID consult).",
+        "t": "S: critical blood culture, 1 of 4 bottles, central line set, GPC in clusters. B: burn wound sepsis, cultures drawn 1550 before antibiotics, vancomycin and pip-tazo since the evening, wound Gram stain also GPC in clusters at 2130, left IJ line day 3. A: about 0200-0300 T 100.5-100.7, HR 107-108, BP 109-111/55-60 (MAP 73-77), lactate 1.8 (0200), norepinephrine 0.08, improving; line site clean. R: ask whether to continue vancomycin and pip-tazo (next vancomycin 0430), when to repeat blood cultures, and who decides about the line once the organism is identified (ID consult).",
         "pts": 0.5,
         "src": ""
        },
        {
-        "t": "Left IJ triple lumen (placed Monday 0345): dressing dry, intact and dated; look and feel for erythema, drainage, tenderness and neck swelling; flush each lumen and check blood return; hub scrub 15 seconds; review whether it is still needed (norepinephrine and antibiotics): it stays until the team decides; do not remove it on your own. One bottle can be a contaminant, but with a matching wound stain and S. aureus the likely cause, treat it as real until the identification returns.",
+        "t": "Left IJ triple lumen (placed Monday 0345): dressing dry, intact and dated; look and feel for erythema, drainage, tenderness and neck swelling; flush each lumen and check blood return; hub scrub 15 seconds; review whether it is still needed (norepinephrine and antibiotics): it stays until the team decides; do not remove it on your own. One positive bottle can be a contaminant, but with a matching wound Gram stain and S. aureus likely, treat it as real until the identification returns.",
         "pts": 0.5,
         "src": "Note 0300"
        }
@@ -1755,7 +1755,7 @@
      "id": "4.11",
      "type": "box",
      "points": 2.0,
-     "lines": 17,
+     "lines": 11,
      "title": "Reading the Pressor Graph",
      "prompt": "Study the graph of MAP, norepinephrine dose and lactate for this shift. (a) What happened to the MAP while the dose was raised from 0.10 to 0.14 and then lowered to zero? (b) How did the lactate change, and what does that mean? (c) What did you need to see before it was safe to wean, and who sets the criteria? (d) After the pressor is off, what do you watch, and what would make you call the provider?",
      "where": "Flowsheets > Vital Signs (MAP); MAR (norepinephrine); Lab Results (Lactate); Chart Review > Notes (Dr. Brandt 2345, Nursing Note 0450)",
@@ -1769,7 +1769,7 @@
      "key": {
       "elements": [
        {
-        "t": "From 1900 to about 2130 the MAP stayed flat at 69-71 even though the dose was raised 0.10 -> 0.12 (1930) -> 0.14 (2030): more drug was needed just to hold above 65 (worst of the sepsis). By 2300-0000 the MAP climbed to 73-75 on the same 0.14 (antibiotics, steroid and albumin working). From 0000 the dose was stepped down (0.12, 0.08 at 0200, 0.04 at 0400, off 0430) and the MAP stayed 73-77, never below 65: no fall off the pressor.",
+        "t": "From 1900 to about 2130 the MAP stayed flat at 69-71 even though the dose was raised 0.10 -> 0.12 (1930) -> 0.14 (2030): more drug was needed just to hold above 65 (worst of the sepsis). By 2300-0000 the MAP climbed to 73-75 on the same 0.14 (antibiotics, steroid and albumin working). From 0000 the dose was stepped down (0.12, 0.08 at 0200, 0.04 at 0400, off 0430) and the MAP stayed 73-78, never below 65: no fall off the pressor.",
         "pts": 0.5,
         "src": "Graph"
        },
@@ -1779,7 +1779,7 @@
         "src": "Labs"
        },
        {
-        "t": "MAP at or above goal (65, here 73-77) on a stable, low dose; lactate falling or normal; urine output at least 0.5 mL/kg/h (63-68 mL/h); warm skin, brisk capillary refill, heart rate coming down (133 to 108), no new fluid bolus, infection treated. Dr. Brandt's plan: wean by 0.02 mcg/kg/min every 15-30 minutes once MAP 70 or higher and lactate falling; the nurse weans only per the provider's order and parameters, one small step at a time, and stops and calls if the MAP drops under 65.",
+        "t": "MAP at or above goal (65, here 73-77) on a stable, low dose; lactate falling or normal; urine output at least 0.5 mL/kg/h (41 mL/h for 82 kg; he made 51-68 mL/h); warm skin, brisk capillary refill, heart rate coming down (133 to 108), no new fluid bolus, infection treated. The criteria come from the provider: the order says wean by 0.02 mcg/kg/min every 15-30 minutes when MAP is over 75, and Dr. Brandt's plan (2345) says once MAP is 70 or higher and lactate under 2. The first step down at 0000 was made with MAP 74-75 and lactate 2.6 (falling; 1.8 at 0200); accept any answer that names a MAP above goal with a falling lactate. The nurse weans only per the provider's order, one small step at a time, and stops and calls if the MAP drops under 65.",
         "pts": 0.5,
         "src": "Note 2345"
        },
@@ -1795,14 +1795,14 @@
      "id": "4.12",
      "type": "box",
      "points": 1.0,
-     "lines": 12,
+     "lines": 24,
      "title": "The Kidneys, the Vancomycin Level and Procalcitonin",
      "prompt": "Open Lab Results (Creatinine, Vancomycin level, Procalcitonin) and the pharmacy note. (a) Write the creatinine at 1700, 2300 and 0500 and say what change this is (and whether his urine output agrees). (b) Why does the combination of vancomycin and piperacillin-tazobactam worry the pharmacist? (c) The vancomycin level of 11.6 was drawn at 0415: why is it drawn before the 0430 dose, and what question do you ask? (d) What does procalcitonin 9.6 add?",
      "where": "Lab Results (Chemistry, Drug levels, Procalcitonin); Chart Review > Notes (Pharmacy 1930, Nursing Notes 0300 and 0450); Intake/Output",
      "key": {
       "elements": [
        {
-        "t": "Creatinine 1.1 (1700) -> 1.3 (2300) -> 1.4 (0500; baseline about 1.0): a rise of 0.3 mg/dL in 12 hours = acute kidney injury, stage 1 (KDIGO); BUN 27 -> 30. Urine output actually improved (0.34 mL/kg/h at 1900 to 0.8 at 0500), so it is a non-oliguric injury; likely sepsis/hypoperfusion plus nephrotoxic drugs.",
+        "t": "Creatinine 1.1 (1700) -> 1.3 (2300) -> 1.4 (0500; baseline about 1.0): a rise of 0.3 mg/dL in 12 hours = acute kidney injury, stage 1 (KDIGO); BUN 27 -> 30. Urine output actually improved (0.34 mL/kg/h at 1900-2000 to 0.79 at 0500-0600), so it is a non-oliguric injury; likely sepsis/hypoperfusion plus nephrotoxic drugs.",
         "pts": 0.25,
         "src": "Labs"
        },
@@ -1828,9 +1828,9 @@
      "id": "4.13",
      "type": "box",
      "points": 0.75,
-     "lines": 11,
+     "lines": 24,
      "title": "The Night Shift Intake and Output",
-     "prompt": "Open the Intake/Output flowsheet (Totals) and the albumin order. (a) Write the totals for \"Night shift 11/03 1900 to 11/04 0700\" and the net balance, and compare the weight at 0400 (91.2 kg) with the admission weight (82 kg). (b) The output for 0200-0300 is 280 mL: how much is urine and what is the rest? (c) Albumin 5% 500 mL ran 2200 to 0200: what mL/h is that, why was it given, and what do you watch for?",
+     "prompt": "Open the Intake/Output flowsheet (Totals) and the albumin order. (a) Write the totals for \"Night shift 11/03 1900 to 11/04 0700\" and the net balance, and (use the printed shift total, not your own sum of the hourly rows; ignore the later day-shift row) and compare the weight at 0400 (91.2 kg) with the admission weight (82 kg). (b) The output for 0200-0300 is 280 mL: how much is urine and what is the rest? (c) Albumin 5% 500 mL ran 2200 to 0200: what mL/h is that, why was it given, and what do you watch for?",
      "where": "Flowsheets > Intake/Output (shift totals, hourly rows); Flowsheets (Daily weight, Bowel); MAR (albumin); Orders",
      "key": {
       "elements": [
@@ -1856,7 +1856,7 @@
      "id": "4.14",
      "type": "box",
      "points": 2.0,
-     "lines": 18,
+     "lines": 24,
      "title": "Handoff at 0650",
      "prompt": "It is 0650 on Wednesday. Write your SBAR handoff for J. Morales, RN, the day nurse. Use real numbers, the events of the night, what is due in the next hours (look at the MAR and Orders), and anything you want the day team to follow up.",
      "where": "Everything you read and charted this night; Orders; MAR; Lab Results; Flowsheets",
@@ -1873,7 +1873,7 @@
         "src": ""
        },
        {
-        "t": "Assessment: T 100.2 (from 102.4), HR 101, BP 110/59 (MAP 76), RR 19, SpO2 97%; vent AC/VC 450, RR 16, PEEP 5, FiO2 0.40 since 0600; lactate 4.1 -> 1.5; WBC 19.2 (bands 9%), platelets 128, creatinine 1.4 (peak), PCT 9.6, vancomycin level 11.6; UOP 65-68 mL/h; glucose 175 on insulin 1.5 units/h; propofol 30, fentanyl 100, RASS -2, CPOT 1; I&O +3,357; weight 91.2 kg.",
+        "t": "Assessment: T 100.2 (from 102.4), HR 101, BP 110/59 (MAP 76), RR 19, SpO2 97%; vent AC/VC 450, RR 16, PEEP 5, FiO2 0.40 since 0600; lactate 4.1 -> 1.5; WBC 19.2 (bands 9%), platelets 128, creatinine 1.4 (peak), PCT 9.6, vancomycin level 11.6; UOP 65 mL/h (0.79 mL/kg/h); glucose 175 on insulin 1.5 units/h; propofol 30, fentanyl 100, RASS -2, CPOT 1; I&O +3,357; weight 91.2 kg.",
         "pts": 0.5,
         "src": ""
        },
@@ -1893,13 +1893,13 @@
    "step": "Recovery and extubation day",
    "minutes": 60,
    "intro": "Set the simulation clock to 0700 on Wednesday 11/04/26. You are J. Morales, RN, the day nurse: Marcus is recovering from the burn-wound sepsis, off norepinephrine since 0430, and is due for the sedation break and breathing trial. Keep reading forward in the chart as the clock moves; do not look past 1900 for this shift.",
-   "keyNote": "Shift 5 is the recovery day: weaning from the ventilator, the first hours after extubation, reading microbiology and narrowing antibiotics, moving from IV infusions to oral care, and a handoff. A careful student should earn about 12 of the 16 points. Notes on chart quirks: the culture results sit under the 11/03 1550 collection column; the I&O day-shift totals are those shown in the EHR (1,823 / 836 / +987).",
+   "keyNote": "Shift 5 is the recovery day: weaning from the ventilator, the first hours after extubation, reading microbiology and narrowing antibiotics, moving from IV infusions to oral care, and a handoff. A careful student should earn about 12 of the 16 points. Notes on chart quirks: the microbiology results are filed in the Lab Results grid under the time each became available (MSSA at 1500, urine and repeat cultures at 1600); the I&O day-shift totals are those shown in the EHR (1,823 / 836 / +987).",
    "items": [
     {
      "id": "5.1",
      "type": "box",
      "points": 1.5,
-     "lines": 13,
+     "lines": 19,
      "title": "The 0800 Sedation Break and the 0930 Breathing Trial",
      "prompt": "Read the 0820 nursing note, the 0955 respiratory therapy note and the SBT order. (a) What does a PASSED daily sedation interruption (SAT) look like, and what did Marcus show (RASS, CAM-ICU, pain, vital signs)? Which sedative was turned off and which continued? What would a FAILED SAT look like and what do you do? (b) Describe the spontaneous breathing trial (settings and length), then CALCULATE the RSBI from the respiratory rate and the exhaled tidal volume in the RT note and compare it with the pass value. (c) What did the cuff-leak test show and why is it done in a patient with an inhalation injury?",
      "where": "Chart Review > Notes (0820 Nursing Note, 0955 RT Note); Orders (SBT, SAT); Flowsheets (RASS, CPOT, ventilator)",
@@ -1932,10 +1932,10 @@
      "id": "5.2",
      "type": "box",
      "points": 1.5,
-     "lines": 14,
+     "lines": 11,
      "title": "Reading the Breathing Graph Before and After Extubation",
      "prompt": "The graph shows respiratory rate, SpO2 and heart rate from the flowsheet, Wednesday 0400 to 1200 (the dotted line is 30 breaths/min). He was extubated at 1045. (a) Looking only at 0600 to 1000, what does the graph show about his readiness to come off the ventilator? Use numbers. (b) What changes on the graph after 1045, give the values, and explain why this is or is not worrying. (c) Which graph changes would make you call the provider and RT, and what would you do at the bedside while waiting?",
-     "where": "Flowsheets > Vital Signs (RR, SpO2, HR); Chart Review > Extubation Procedure Note and 1230 Nursing Note (ABG 1200)",
+     "where": "Flowsheets > Vital Signs (RR, SpO2, HR); Chart Review > Extubation Procedure Note and 1250 Nursing Note (ABG 1200)",
      "images": [
       {
        "path": "figs/fig_s5_breathing.png",
@@ -1946,12 +1946,12 @@
      "key": {
       "elements": [
        {
-        "t": "Ready: from 0600 to 1000 the respiratory rate is steady and low (17-19), well under the 30 line; SpO2 is 97-99% on FiO2 0.40 then 0.35; heart rate is falling and settled (101 -> 93). No tachypnea, desaturation or tachycardia, even at the 0930 breathing trial, so he is stable on minimal support (consistent with passing the SBT).",
+        "t": "Ready: from 0600 to 1000 the respiratory rate is steady and low (17-19), well under the 30 line; SpO2 is 97-99% on FiO2 0.40 then 0.35; heart rate is falling and settled (101 -> 93). No tachypnea, desaturation or tachycardia (the breathing trial was at 0925-0955, between the 0900 and 1000 points), so he is stable on minimal support (consistent with passing the SBT).",
         "pts": 0.5,
         "src": "Graph, flowsheet"
        },
        {
-        "t": "After 1045: RR rises from 18 to 20, 22 and 23 (plateau 23 at 1115-1200), SpO2 falls from 99% to 96-97%, HR 95 -> 91 (not rising). Expected and acceptable: he now breathes without ventilator pressure support or PEEP, has a sore, hoarse throat and is anxious, and gets 4 L nasal cannula (about 0.36 FiO2). It plateaued (RR still under 30, SpO2 at or above 92%, HR not rising), the ABG at 1200 was pH 7.39, PaCO2 41, PaO2 88, and there is no stridor or accessory muscle use. Keep trending.",
+        "t": "After 1045: RR rises from 18 to 20, 22 and 23 (plateau 23 at 1115-1200), SpO2 falls from 99% to 96-97%, HR 95 -> 91 (not rising). Expected and acceptable: he now breathes without ventilator pressure support or PEEP, has a sore, hoarse throat and is anxious, and gets 4 L nasal cannula (about 0.36 FiO2). It plateaued (RR still under 30, SpO2 at or above 92%, HR not rising), the ABG at 1200 was pH 7.39, PaCO2 41, PaO2 88, and there was no stridor or accessory muscle use at 1100 (the 1200 flowsheet notes only mild increased effort, hoarse voice, no stridor). Keep trending.",
         "pts": 0.5,
         "src": "Graph, ABG 1200"
        },
@@ -1967,7 +1967,7 @@
      "id": "5.3",
      "type": "box",
      "points": 1.25,
-     "lines": 12,
+     "lines": 24,
      "title": "Right After the Tube Comes Out (1045)",
      "prompt": "Open the 1100 Extubation Procedure Note and your 1130 nursing note. (a) List FOUR things you assess in the first hour after extubation (and how often) and what you found at 1050-1115. Why is he at higher risk for airway swelling than another patient? (b) If STRIDOR develops, what do you do and what does the provider plan say to give? (c) Why must the airway watch continue even though he looks well at 1100?",
      "where": "Chart Review > Notes (1100 Extubation Procedure Note, 1130 Nursing Note, 0955 RT Note); Orders; MAR",
@@ -2007,7 +2007,7 @@
         "src": "Order"
        },
        {
-        "t": "Hold and notify for HR under 50 or SBP under 90 (as written in the order; the 1130 nursing note lists HR under 50 or MAP under 65: confirm against the order). Titrate 0.1 mcg/kg/h to RASS 0 to -1. Expected effects are bradycardia and hypotension: HR stayed 91-94, MAP 78-79.",
+        "t": "Hold and notify for HR under 50 or SBP under 90 (as written in the order; the 1130 nursing note lists HR under 50 or MAP under 65: confirm against the order). Titrate 0.1 mcg/kg/h to RASS 0 to -1. Expected effects are bradycardia and hypotension: HR stayed 88-94 and MAP 78-81 for the rest of the shift.",
         "pts": 0.25,
         "src": "Order"
        },
@@ -2102,7 +2102,7 @@
      "id": "5.8",
      "type": "box",
      "points": 1.0,
-     "lines": 12,
+     "lines": 24,
      "title": "The 1400 Dressing Change with Mafenide",
      "prompt": "Read the 1430 nursing note and the MAR. (a) When and what did you give before the dressing change, and why that timing? He still reported 6/10: what else do you do? (b) Why is mafenide used for this wound, and what two problems do you watch for with mafenide (find the numbers that show whether the second one is happening)? (c) Name four things you assess and document about the wound at this change, using what the note found (and why the marker line matters). (d) What precautions apply?",
      "where": "MAR (hydromorphone 1345, mafenide, acetaminophen); Orders (burn wound care); Lab Results (CO2/bicarbonate, ABG 1200); Chart Review > 1430 Nursing Note",
@@ -2124,7 +2124,7 @@
         "src": "Note"
        },
        {
-        "t": "Contact precautions with the burn nurse (N. Ibarra): gown, gloves, mask, sterile technique; splint reapplied after.",
+        "t": "Contact precautions with the burn nurse (N. Ibarra): gown and gloves for all wound care (per the order; add mask or eye protection if splash is likely, per unit policy), clean or sterile technique per unit policy; splint reapplied after.",
         "pts": 0.125,
         "src": "Order"
        }
@@ -2135,36 +2135,36 @@
      "id": "5.9",
      "type": "box",
      "points": 1.25,
-     "lines": 13,
+     "lines": 7,
      "title": "Reading the Culture Results in the Lab Section",
-     "prompt": "The picture shows the Microbiology rows of Lab Results at 1630 Wednesday. (a) The blood, wound and tracheal-aspirate rows look EMPTY in the Wednesday columns. Where in the grid do the results of cultures drawn Tuesday at 1550 appear and why? (b) Open that column and write what the blood cultures, the wound culture, the tracheal aspirate and the urine culture show. (c) The lab called at 1500: what does \"MSSA in 2 of 4 bottles\" tell you (true infection or contaminant?) and what does it NOT yet tell you? (d) What does \"no growth to date\" on the repeat blood cultures mean at 1630?",
-     "where": "Lab Results > Microbiology (scroll left to the 11/03 1550 column); Chart Review > 1540 Pharmacy Note",
+     "prompt": "The picture shows the Microbiology rows of Lab Results at 1630 Wednesday (cultures were drawn Tuesday at 1550). (a) For the wound culture, the blood cultures (4 bottles), the tracheal aspirate, the urine culture and the repeat blood cultures, write what each shows and the time column it appears under. Is any result still not final? (b) The rows for blood culture set 1, set 2 and the wound Gram stain look empty: why, and where would you scroll to find their results? (c) The lab called at 1500: what does \"MSSA in 2 of 4 bottles\" tell you (true infection or contaminant?) and what does it NOT yet tell you? (d) What does \"no growth to date\" on the repeat blood cultures mean at 1630?",
+     "where": "Lab Results > Microbiology (newest columns at the right; scroll left for the 11/03 1550 and 11/04 0240 entries); Chart Review > 1540 Pharmacy Note",
      "images": [
       {
        "path": "figs/shot_s5_micro.png",
-       "caption": "Figure: Lab Results review, Microbiology and Bedside Testing rows, 11/04/26 at 1630 (columns 0730 to 1600).",
+       "caption": "Figure: Lab Results review, Microbiology and Bedside Testing rows, 11/04/26 at 1630 (columns 0930 to 1600).",
        "width": 6.4
       }
      ],
      "key": {
       "elements": [
        {
-        "t": "The grid files a culture under the time it was COLLECTED, not the time it resulted, so the Tuesday sets are in the 11/03 1550 column (scroll left); the Wednesday columns only show things collected Wednesday (the repeat cultures at 1600).",
-        "pts": 0.25,
+        "t": "1500 column: wound culture = Staphylococcus aureus (MSSA) identified, susceptibilities to follow (NOT final); blood cultures (4 bottles) = MSSA in 2 of 4 bottles (one peripheral, one central line), preliminary; tracheal aspirate = normal respiratory flora, few WBC. 1600 column: urine culture = no growth at 24 hours (preliminary); repeat blood cultures = collected, no growth to date. Still pending: wound susceptibilities (and the final blood culture panel).",
+        "pts": 0.5,
         "src": "Screenshot, lab grid"
        },
        {
-        "t": "Blood cultures (4 bottles): Staphylococcus aureus (MSSA) in 2 of 4 bottles (one peripheral set, one central line set), preliminary. Earlier: central line bottle GPC in clusters flagged 0240. Tracheal aspirate: normal respiratory flora, few WBC. Urine: no growth at 24 hours (preliminary). Wound culture: not final yet (susceptibilities pending; the Tuesday 2130 Gram stain showed GPC in clusters).",
-        "pts": 0.5,
-        "src": "Lab Results"
+        "t": "The grid files each result under the time it became available. Set 1, set 2 and the Gram stain only have entries earlier: the Tuesday 1550 columns (collected, in process), Tuesday 2130 (wound Gram stain: many WBC, GPC in clusters) and Wednesday 0240 (set 2 central line bottle 1 of 4 positive at 10 hours, GPC in clusters, critical call). Scroll left to see them. The four-bottle result replaces them at 1500.",
+        "pts": 0.25,
+        "src": "Lab grid"
        },
        {
-        "t": "S. aureus in blood from two sets (one peripheral) is a true bacteremia, never treated as a contaminant; the wound is the likely source (clean line site). \"Methicillin-sensitive\" means beta-lactams work. It does not yet give the final susceptibility panel (which antibiotics, wound culture still pending) and does not show clearance or whether the line is infected.",
+        "t": "S. aureus in blood from two sets (one peripheral) is a true bacteremia, never treated as a contaminant; the wound is the likely source (clean line site). \"Methicillin-sensitive\" means beta-lactams work. It does not yet give the final susceptibility panel (which antibiotics; wound culture susceptibilities still pending) and does not show clearance or whether the line is infected.",
         "pts": 0.25,
         "src": "ID/Pharmacy notes"
        },
        {
-        "t": "\"Collected, no growth to date\" 30 minutes after collection only means nothing has grown YET (cultures take 24-48 hours to call; 24-hour no-growth result is expected Thursday); it is not proof of clearance.",
+        "t": "\"Collected, no growth to date\" 30 minutes after collection only means nothing has grown YET (cultures take 24-48 hours to call; a 24-hour no-growth result would be expected Thursday afternoon); it is not proof of clearance.",
         "pts": 0.25,
         "src": "Lab grid"
        }
@@ -2175,7 +2175,7 @@
      "id": "5.10",
      "type": "box",
      "points": 1.5,
-     "lines": 14,
+     "lines": 23,
      "title": "MSSA: Narrowing the Antibiotics, Repeat Cultures and the Central Line",
      "prompt": "Read the 1145 ID consult, the 1540 pharmacy note, the Orders and the 1645 nursing note. (a) Vancomycin was stopped at 1530: why, and which antibiotic is better for MSSA? (b) Why does narrowing antibiotics matter, and why is pip-tazo still running? (c) What did ID ask for about repeat blood cultures: how many, from where, when (you drew them at 1600 before the 1630 pip-tazo), and for how long will he need antibiotics? (d) What is the decision about the left IJ central line and what would change it? What do you do for the line meanwhile?",
      "where": "Chart Review > Notes (1145 ID Consultation, 1540 Pharmacy Stewardship Note, 1645 Nursing Note); Orders (vancomycin, cefazolin, pip-tazo, repeat blood cultures); MAR",
@@ -2304,12 +2304,12 @@
         "src": "I&O"
        },
        {
-        "t": "Capillary leak is closing and the shocked kidneys have recovered: the fluid that went into the tissues (edema; whole-stay net +17,807 mL) moves back into the vessels and is excreted (mobilization phase); less LR and normal kidney perfusion allow diuresis. Net is still positive because intake (IV carrier, LR, feeds until 1030, first oral intake at 1800-1900) still exceeds output, and insensible losses and the open burn wounds are not measured. The net is much smaller than the +3,357 on the night shift.",
+        "t": "Capillary leak is closing and the shocked kidneys have recovered: the fluid that went into the tissues (edema; the stay so far is about +17 liters) moves back into the vessels and is excreted (mobilization phase); less LR and normal kidney perfusion allow diuresis. Net is still positive because intake (IV carrier, LR, feeds until 1030, first oral intake at 1800-1900) still exceeds output, and insensible losses and the open burn wounds are not measured. The net is much smaller than the +3,357 on the night shift.",
         "pts": 0.25,
         "src": "I&O, orders"
        },
        {
-        "t": "Watch: urine hourly with the Foley (still needed), daily weight (not rechecked today), lung sounds and oxygen need, edema, creatinine/BMP, potassium and magnesium (loss with diuresis), blood pressure; ask whether the Foley is still needed and whether any fluid is wanted once he eats and drinks. Call for a drop below 0.5 mL/kg/h (about 41 mL/h) or a rise in creatinine.",
+        "t": "Watch: urine hourly with the Foley (still needed), daily weight (91.2 kg by bed scale at 0400, up from 82 kg on admission; not rechecked on the day shift), lung sounds and oxygen need, edema, creatinine/BMP, potassium and magnesium (loss with diuresis), blood pressure; ask whether the Foley is still needed and whether any fluid is wanted once he eats and drinks. Call for a drop below 0.5 mL/kg/h (about 41 mL/h) or a rise in creatinine.",
         "pts": 0.25,
         "src": "Orders"
        }
@@ -2320,7 +2320,7 @@
      "id": "5.15",
      "type": "box",
      "points": 2,
-     "lines": 14,
+     "lines": 24,
      "title": "Handoff at 1850",
      "prompt": "It is 1850 on Wednesday. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers from the chart, include what happened today, what the night nurse must do or watch in the next hours (look at the MAR and orders), and the things still pending.",
      "where": "Everything you read and charted this shift; Orders; MAR; Lab Results; Flowsheets; Intake/Output",
@@ -2395,7 +2395,7 @@
       "PAIN"
      ],
      "key": {
-      "rules": "Score 0.75 x (cells correct / 24), rounded to the nearest 0.25. The two sentences are worth 0.25 (item 6.1b): (1) oxygen was 2 L/min nasal cannula until it was weaned to room air at 0300 (SpO2 stays 96%); pain fell from 4/10 (1900) to 3/10 (2300 on) on oxycodone, gabapentin and acetaminophen; (2) vital signs cannot show what the wound looks like (purulent drainage, odor, spreading erythema), the white count and procalcitonin, or whether the blood cultures are clearing; a normal temperature can also be masked by scheduled acetaminophen. Chart values: T 99.0, 98.9, 98.7, 98.8; HR 89, 87, 84, 82; BP 110/63, 113/64, 114/66, 112/64; RR 20, 19, 19, 18; SpO2 95, 96, 96, 96; pain 4, 3, 3, 3. Everything is in the normal range except the pain score and the low-grade temperature of 99.0 (accept \"no abnormal values\" with pain circled). Allow +/- 2 for rates and +/- 0.2 F."
+      "rules": "Score 0.75 x (cells correct / 24), rounded to the nearest 0.25. The two sentences are worth 0.25 (item 6.1b): (1) oxygen was 2 L/min nasal cannula until it was weaned to room air at 0300 (SpO2 95-96% throughout); pain fell from 4/10 (1900) to 3/10 (2100 on) on oxycodone, gabapentin and acetaminophen; (2) vital signs cannot show what the wound looks like (purulent drainage, odor, spreading erythema), the white count and procalcitonin, or whether the blood cultures are clearing; a normal temperature can also be masked by scheduled acetaminophen. Chart values: T 99.0, 98.9, 98.7, 98.8; HR 89, 87, 84, 82; BP 110/63, 113/64, 114/66, 112/64; RR 20, 19, 19, 18; SpO2 95, 96, 96, 96; pain 4, 3, 3, 3. Everything is in the normal range except the pain score and the low-grade temperature of 99.0 (accept \"no abnormal values\" with pain circled). Allow +/- 2 for rates and +/- 0.2 F."
      }
     },
     {
@@ -2420,7 +2420,7 @@
      "id": "6.2",
      "type": "box",
      "points": 0.75,
-     "lines": 9,
+     "lines": 24,
      "title": "Soft Diet and the Correction Scale",
      "prompt": "Marcus eats a soft diet with shakes and the insulin infusion is off. (a) Read the dinner intake in the 2000 flowsheet and the glucose values at 1800, 0000 and 0600; using the lispro correction scale order, how many units were due for each? (b) The last hydrocortisone dose was at 0230: how will that change his glucose, and why is the risk of low glucose still small on this scale? (c) He eats only about half of each tray: name two actions for his nutrition before Friday's surgery.",
      "where": "Flowsheets > GI (Diet / Feeding); Lab Results (Glucose, point of care); Orders (insulin lispro correction scale, soft diet); Intake/Output",
@@ -2448,7 +2448,7 @@
      "id": "6.3",
      "type": "box",
      "points": 1.25,
-     "lines": 13,
+     "lines": 22,
      "title": "Pain and Sleep Now That He Is Awake",
      "prompt": "Open the 2230 and 0315 nursing notes, the pain flowsheet and the MAR. (a) Which pain scale do you use now, and why is the CPOT no longer the right tool? Give his scores at rest and with turning or the soaks. (b) List the doses of oxycodone, gabapentin and acetaminophen he received overnight with times. At 0130 mafenide soaks hurt (5/10) and the oxycodone was given at 0215: what would you do differently for the next soak at 0930? (c) At 0615 you are about to give the acetaminophen tablet: what must you check on the MAR and the order before giving it, and what is his daily limit? (d) Name two ways you protected his sleep and one safety check you make after giving oxycodone with gabapentin.",
      "where": "Chart Review > Notes (Nursing Note 2230, 0315); Flowsheets > Pain; MAR; Orders (acetaminophen, oxycodone, gabapentin)",
@@ -2481,14 +2481,14 @@
      "id": "6.4",
      "type": "box",
      "points": 1.25,
-     "lines": 13,
+     "lines": 23,
      "title": "Delirium and Alcohol Withdrawal Watch",
      "prompt": "His drinking history and an ethanol level of 42 mg/dL at 0240 on Monday were charted. Sedation is off, so days 2 to 4 after the last drink are the highest-risk window. (a) Name the four features of the CAM-ICU and say what makes it positive; what are his CAM-ICU and RASS results on this shift? (b) List four signs of alcohol withdrawal or delirium tremens you would look for and which vital signs would change first. (c) Three non-drug actions that prevent delirium tonight. (d) If he became agitated and tremulous at 0400, what would you do first and what would you ask the provider (look at what he was told to avoid)?",
      "where": "Flowsheets > Neuro (CAM-ICU, RASS); Chart Review > H&P (social history) and Notes; Lab Results (Toxicology); MAR (thiamine and folic acid); Pharmacy Transfer Medication Reconciliation",
      "key": {
       "elements": [
        {
-        "t": "CAM-ICU: (1) acute onset or fluctuating mental status, (2) inattention, (3) altered level of consciousness (RASS not 0), (4) disorganized thinking. Positive = features 1 AND 2 plus either 3 or 4. His CAM-ICU is negative at 2000, 0000 and 0400 with RASS 0 (alert and calm), and negative at 1200 Wednesday.",
+        "t": "CAM-ICU: (1) acute onset or fluctuating mental status, (2) inattention, (3) altered level of consciousness (RASS not 0), (4) disorganized thinking. Positive = features 1 AND 2 plus either 3 or 4. His CAM-ICU is negative at 2000, 0000 and 0400 with RASS 0 (alert and calm), and negative at 1200 and 1600 Wednesday.",
         "pts": 0.5,
         "src": "Flowsheet"
        },
@@ -2514,7 +2514,7 @@
      "id": "6.5",
      "type": "box",
      "points": 1.25,
-     "lines": 13,
+     "lines": 23,
      "title": "Pip-Tazo to Cefazolin",
      "prompt": "The last pip-tazo dose is given at 0030 and cefazolin 2 g IV is given at 0610. (a) Compare the two drugs for this patient: what did the blood and wound cultures grow, which drug is the best choice for it, and give TWO reasons for de-escalating from pip-tazo (look at the pharmacy and ID notes and the allergy list). (b) Pip-tazo is an extended infusion: how long does the 0030 dose run? How long is the cefazolin infusion on the order, and what rate in mL/h gives 2 g in 100 mL over that time? (c) Write the next two cefazolin times, and name two things you check before and after the first dose.",
      "where": "Orders (cefazolin, piperacillin-tazobactam); MAR; Lab Results (Microbiology); Chart Review > Notes (Pharmacy Stewardship Note, Burn Surgery Note); Allergies",
@@ -2561,13 +2561,13 @@
       3.1
      ],
      "rows": 3,
-     "rowH": 1.35,
+     "rowH": 2.07,
      "key": {
       "answer": "Rows worth 0.5 (hydrocortisone), 0.5 (dexmedetomidine), 0.25 (oxygen).",
       "bank": true,
       "elements": [
        {
-        "t": "Hydrocortisone: 50 mg q6h from Tue 2030 (3 doses), 25 mg q6h from Wed 1430; the 2030 and 0230 25 mg doses were the last; order ended at 0600 (no further dose). Afterward BP 114/66 (MAP 82) and 112/64 at 0500, HR 82. Watch for low blood pressure, weakness, fever returning, and glucose falling (less insulin resistance).",
+        "t": "Hydrocortisone: 50 mg q6h from Tue 2030 (3 doses: 2030, 0230, 0830), then 25 mg q6h from Wed 1430 (1430, 2030, 0230); the 0230 dose was the last and the order ended at 0600 (no further dose). Afterward BP 114/66 (MAP 82) and 112/64 at 0500, HR 82. Watch for low blood pressure, weakness, fever returning, and glucose falling (less insulin resistance).",
         "pts": 0.5,
         "src": "MAR, orders, notes"
        },
@@ -2588,7 +2588,7 @@
      "id": "6.7",
      "type": "box",
      "points": 2.0,
-     "lines": 16,
+     "lines": 7,
      "title": "The Three-Day Trend Graph",
      "prompt": "Study the graph of temperature, WBC, procalcitonin and creatinine for the whole stay (from the chart). Use the 0430 values on Thursday (WBC 11.2, creatinine 1.0, procalcitonin 2.1). (a) For each of the four lines, state the peak value and when it happened, and the latest value. (b) What does the graph show about the infection and about his kidneys? (c) At what time did he turn the corner, and why do the lab lines peak AFTER the temperature does? (d) What must the Med-Surg team keep watching? Give three things from the graph and the chart.",
      "where": "Figure below; Lab Results (WBC, Procalcitonin, Creatinine); Flowsheets > Vital Signs (Temperature); Notes (ICU Transfer Summary)",
@@ -2602,7 +2602,7 @@
      "key": {
       "elements": [
        {
-        "t": "Temperature peak 102.4 F at Tue 1930 (then falls below 100.4 by Wed 0400-0500, 98.5-98.8 now). WBC peak 21.8 at Tue 2100 (now 11.2). Procalcitonin 4.8 (Tue 1600), peak 9.6 at Wed 0400, 6.1, now 2.1 at Thu 0430. Creatinine 1.1 baseline, 1.3 Tue 2300, peak 1.4 Wed 0500, 1.2, now 1.0 (admission 0.9). (Accept +/- a few hours.)",
+        "t": "Temperature peak 102.4 F at Tue 1930 (then falls to 100.4 by Wed 0400 and below it from 0500, 98.8 at Thu 0500; the last point on the graph is 98.5 at Thu 0700, accept 98.5-98.8). WBC peak 21.8 at Tue 2100 (now 11.2). Procalcitonin 4.8 (Tue 1600), peak 9.6 at Wed 0400, 6.1, now 2.1 at Thu 0430. Creatinine 1.1 baseline, 1.3 Tue 2300, peak 1.4 Wed 0500, 1.2, now 1.0 (admission 0.9). (Accept +/- a few hours.)",
         "pts": 0.5,
         "src": "Graph, labs"
        },
@@ -2612,7 +2612,7 @@
         "src": "Graph"
        },
        {
-        "t": "Turning point: the temperature peaked about Tuesday 1930 and the WBC at 2100, about 3-4 hours after antibiotics (pip-tazo 1630, vancomycin 1645), fluids and norepinephrine (1730); lactate fell 4.1 to 2.6 (2230); norepinephrine was off at Wed 0430. Procalcitonin and creatinine lag behind: PCT rises for 12-24 hours and falls slowly, and the creatinine reflects kidney damage that heals over a day or two; so they peak on Wednesday morning even though the patient was already improving.",
+        "t": "Turning point: the temperature peaked about Tuesday 1930 and the WBC at 2100, about 3 to 4.5 hours after antibiotics (pip-tazo 1630, vancomycin 1645), fluids and norepinephrine (1730); lactate fell 4.1 to 2.6 (2230); norepinephrine was off at Wed 0430. Procalcitonin and creatinine lag behind: PCT rises for 12-24 hours and falls slowly, and the creatinine reflects kidney damage that heals over a day or two; so they peak on Wednesday morning even though the patient was already improving.",
         "pts": 0.5,
         "src": "Graph, MAR"
        },
@@ -2628,7 +2628,7 @@
      "id": "6.8",
      "type": "box",
      "points": 1.25,
-     "lines": 13,
+     "lines": 23,
      "title": "The Arterial Line and the Foley Come Out at 0500",
      "prompt": "Read the 0520 nursing note. (a) Describe how you remove the left radial arterial line, how long you hold pressure (and why that could be longer in some patients), and what you check in the left hand and the site afterward and when. Which arm is used for the blood pressure now? (b) The Foley comes out at 0500: what is the target time for the first void, what do you do if he does not void, and what is his urine output goal in mL/h (0.5 mL/kg/h at 82 kg)? (c) Give two CAUTI prevention measures for the catheter days and one reason this one was removed now.",
      "where": "Chart Review > Notes (Nursing Note 0520); Orders (Foley care and necessity review); Devices; Lab Results (platelets, INR)",
@@ -2645,7 +2645,7 @@
         "src": "Note 0520"
        },
        {
-        "t": "Void within 6 hours of removal (by 1100); if no void by then or if he has suprapubic fullness/discomfort, do a bladder scan and call the provider for straight cath/orders; encourage fluids, urinal at bedside, record every void; goal 0.5 mL/kg/h x 82 kg = 41 mL/h (Dr. Okafor asks for a call if UOP is under 30 mL/h).",
+        "t": "Void within 6 hours of removal (by 1100); if no void by then or if he has suprapubic fullness/discomfort, do a bladder scan and call the provider for straight cath/orders; encourage fluids, urinal at bedside, record every void; goal 0.5 mL/kg/h x 82 kg = 41 mL/h (accept 30-41 mL/h with the reasoning; the burn surgery note asks for a call if UOP is under 30 mL/h).",
         "pts": 0.25,
         "src": "Note 0520, orders"
        },
@@ -2661,14 +2661,14 @@
      "id": "6.9",
      "type": "box",
      "points": 0.75,
-     "lines": 9,
+     "lines": 24,
      "title": "The Central Line on Line Day 4",
      "prompt": "The left IJ central line stays after the arterial line, the PIV and the Foley are gone. (a) Count the line day (look at the Devices page) and explain why ID allowed it to stay even though he had bacteremia. (b) Give three CLABSI-prevention actions you do on this line every shift. (c) What is the one question you would ask the provider to get the line out sooner?",
      "where": "Flowsheets > Devices and Lines; Orders (Central line care); Notes (Nursing Note 0520, ICU Transfer Summary)",
      "key": {
       "elements": [
        {
-        "t": "Placed Mon 11/02 0345: Mon = day 1, so Thursday is line day 4. It stays because the repeat blood cultures (Wed 1600) show no growth so far (no growth at 24 hours, preliminary); ID says remove it only if they turn positive; it is also his only IV access now.",
+        "t": "Placed Mon 11/02 0345: Mon = day 1, so Thursday is line day 4. It stays because the repeat blood cultures (Wed 1600) show no growth so far (no growth to date at about 12 hours, preliminary); ID says remove it only if they turn positive; it is also his only IV access now.",
         "pts": 0.25,
         "src": "Devices, notes"
        },
@@ -2717,12 +2717,12 @@
         "src": "Devices"
        },
        {
-        "t": "Urine output adequate: 52-65 mL/h overnight (0.63-0.79 mL/kg/h) against the 41 mL/h goal.",
+        "t": "Urine output adequate: 52-63 mL/h each hour from 1900 to 0500 (0.63-0.77 mL/kg/h) against the 41 mL/h goal.",
         "pts": 0.125,
         "src": "Flowsheet"
        },
        {
-        "t": "Hemodynamics stable: HR 81-89, BP 110-116/63-68, MAP 79-84, no pressors, lactate 1.5 (Wed 0500), afebrile 98.5-99.0 F.",
+        "t": "Hemodynamics stable: HR 82-89, BP 110-114/63-66, MAP 79-82 (1900 to 0500), no pressors, lactate 1.5 (Wed 0500), afebrile 98.7-99.0 F.",
         "pts": 0.125,
         "src": "Vitals"
        },
@@ -2732,7 +2732,7 @@
         "src": "MAR"
        },
        {
-        "t": "Room air: since 0300, SpO2 95-96%, RR 17-19; chest x-ray clear.",
+        "t": "Room air: since 0300, SpO2 96% (0300 and 0500), RR 18-19; chest x-ray (0520) clear.",
         "pts": 0.125,
         "src": "Flowsheet"
        },
@@ -2764,7 +2764,7 @@
       "Let him walk to the bathroom alone now that the lines are out, because he is alert and oriented.",
       "Hold the oxycodone and gabapentin all day so that he is less sleepy.",
       "Turn the bed alarm off because he is oriented x4 and CAM-ICU negative.",
-      "Teach him to call before getting up, and have him dangle at the edge of the bed before standing (he was dizzy for 2 minutes when he dangled).",
+      "Teach him to call before getting up, and have him dangle at the edge of the bed before standing (he had mild dizziness when he first dangled at the edge of the bed on Wednesday).",
       "Apply a soft wrist restraint to keep him in bed.",
       "Hand off the fall risk and the PT/OT plan to the Med-Surg nurse."
      ],
@@ -2783,7 +2783,7 @@
      "id": "6.12",
      "type": "box",
      "points": 0.75,
-     "lines": 9,
+     "lines": 11,
      "title": "Night I&O Totals",
      "prompt": "Open Intake/Output and read the line \"Night shift 11/04 1900 to 11/05 0700\". (a) Write the intake, output and net. Compute his average urine output in mL/h and in mL/kg/h (82 kg) over the 12 hours. (b) Compare this night with the night before (11/03 1900 to 11/04 0700) and say what the change means for his fluid status. (c) His weight is 89.8 kg this morning and 82 kg on admission: what does that tell you, and how will you track output now that the Foley is out?",
      "where": "Flowsheets > Intake/Output (shift totals); Flowsheets > Cardiac (daily weight)",
@@ -2797,12 +2797,12 @@
      "key": {
       "elements": [
        {
-        "t": "Night shift: intake 1,257 mL, output 638 mL, net +619 mL (as the flowsheet shows). 638 / 12 = about 53 mL/h; 53 / 82 = about 0.65 mL/kg/h (accept 0.6-0.7), above the 0.5 mL/kg/h (41 mL/h) goal.",
+        "t": "Night shift: intake 1,257 mL, output 638 mL, net +619 mL (as the flowsheet shows). 638 / 12 = about 53 mL/h; 53 / 82 = about 0.65 mL/kg/h (accept 0.6-0.7), above the 0.5 mL/kg/h (41 mL/h) goal. Accept 53-58 mL/h (0.65-0.71 mL/kg/h) if the student divides by the 11 hourly rows or uses the hourly values.",
         "pts": 0.25,
         "src": "I&O totals"
        },
        {
-        "t": "Previous night: 4,160 in, 803 out, +3,357. The net fell from +3,357 to +619 because the resuscitation fluids and albumin are finished (IV carrier 20 mL/h, oral intake); the capillary leak is over and the body is now holding less fluid; he is turning from fluid loading to fluid shifting back (edema 1-2+ and decreasing).",
+        "t": "Previous night: 4,160 in, 803 out, +3,357. The net fell from +3,357 to +619 because the resuscitation fluids and albumin are finished (only the saline carrier and oral intake now); the capillary leak is over and the body is now holding less fluid; he is turning from fluid loading to fluid shifting back (edema 1-2+ and decreasing).",
         "pts": 0.25,
         "src": "I&O totals"
        },
@@ -2840,7 +2840,7 @@
         "src": "Labs, flowsheet"
        },
        {
-        "t": "Recommendations: watch for burn wound infection (purulent drainage, foul odor, spreading erythema past the marker, new dark/violaceous areas or eschar change, more pain) and sepsis (T 101.5 F or higher, HR over 120, MAP under 65, UOP under 30 mL/h) and call Dr. Okafor; cefazolin 2 g IV q8h next at 1410 and 2210 (over 30 min); pending: final blood culture susceptibilities, repeat blood cultures from Wed 1600 (final at 5 days; NG at 24 h so far), wound biopsy histology and quantitative culture (the wound culture final resulted at 0600: MSSA, cefazolin-susceptible); pain: acetaminophen 1 g q8h (max 3 g/day), gabapentin 300 mg q8h, oxycodone 5-10 mg q4h PRN 30-45 min before soaks, hydromorphone 0.5 mg IV only for severe pain; mobility: assist x2, chair with PT/OT, right arm elevated and splinted, fall precautions and bed alarm; OR Friday 11/06 for excision and autografting: NPO after midnight Thursday night, consent with the patient and Jenna Whitaker, repeat type and screen this morning; family: Jenna Whitaker (partner, health care proxy, asked to be called at any hour), Linda Delaney (mother), daughter Ava age 6, K. Abara LCSW and child life.",
+        "t": "Recommendations: watch for burn wound infection (purulent drainage, foul odor, spreading erythema past the marker, new dark/violaceous areas or eschar change, more pain) and sepsis (T 101.5 F or higher, HR over 120, MAP under 65, UOP under 30 mL/h) and call Dr. Okafor; cefazolin 2 g IV q8h next at 1410 and 2210 (over 30 min); pending: final blood culture susceptibilities, repeat blood cultures from Wed 1600 (final at 5 days; no growth to date at about 12 h), wound biopsy histology and quantitative culture (the wound culture final resulted at 0600: MSSA, cefazolin-susceptible); pain: acetaminophen 1 g q8h (max 3 g/day), gabapentin 300 mg q8h, oxycodone 5-10 mg q4h PRN 30-45 min before soaks, hydromorphone 0.5 mg IV only for severe pain; mobility: assist x2, chair with PT/OT, right arm elevated and splinted, fall precautions and bed alarm; OR Friday 11/06 for excision and autografting: NPO after midnight Thursday night, consent with the patient and Jenna Whitaker, repeat type and screen this morning; family: Jenna Whitaker (partner, health care proxy, asked to be called at any hour), Linda Delaney (mother), daughter Ava age 6, K. Abara LCSW and child life.",
         "pts": 1.0,
         "src": "Notes, orders"
        }

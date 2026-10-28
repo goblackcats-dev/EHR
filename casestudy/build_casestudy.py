@@ -185,8 +185,11 @@ def render_table(d, it):
         for j in range(len(cols)):
             if not isinstance(rows, int) and j < len(rows[i]) and rows[i][j]:
                 cell_text(r.cells[j], str(rows[i][j]), size=10, bold=bool(it.get('boldPre', True)))
-    for r in t.rows:
-        for c in r.cells: set_cell_border(c, top=THICK, bottom=THICK, left=THICK, right=THICK)
+    for ri, r in enumerate(t.rows):
+        for c in r.cells:
+            set_cell_border(c, top=THICK, bottom=THICK, left=THICK, right=THICK)
+            if ri < len(t.rows) - 1:
+                for pp in c.paragraphs: pp.paragraph_format.keep_with_next = True      # keep the whole table on one page
     para(d, '', after=2)
 
 
@@ -287,7 +290,9 @@ def render_images(d, it):
     """Pictures printed under the question (a graph or an EHR screenshot): it['images'] = [{'path','caption','width'}]; paths are relative to the folder the builder runs in."""
     for im in it.get('images', []):
         p = d.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.space_after = Pt(2); p.paragraph_format.keep_with_next = True
-        p.add_run().add_picture(im['path'], width=Inches(im.get('width', 6.6)))
+        w = im.get('width', 6.6)
+        if 'fig_' in im['path']: w = min(w, 4.7)      # graphs are printed smaller so the writing box can share the page
+        p.add_run().add_picture(im['path'], width=Inches(w))
         if im.get('caption'): para(d, im['caption'], italic=True, size=9, color='555555', align='center', after=4, keep=True)
 
 

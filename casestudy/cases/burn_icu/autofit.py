@@ -28,8 +28,17 @@ def pages():
 def items():
     c = json.load(open('content.json')); return {i['id']: i for p in c['parts'] for i in p['items']}
 lay = json.load(open('layout.json')) if os.path.exists('layout.json') else {}
+subprocess.run(['python3', 'author.py', 'content.json'], check=True, stdout=subprocess.DEVNULL)
+for _iid, _o in items().items():          # items with a picture start with a short box so the picture and its box can share a page
+    if _o['type'] == 'box' and _o.get('images') and _iid not in lay: lay[_iid] = {'lines': min(_o.get('lines', 8), 7)}
+json.dump(lay, open('layout.json', 'w'), indent=1)
+MAXLINES = 24; MAXTABLE = 6.6          # a box or table taller than this would not fit on one page
+prev_pages = None; prev_lay = None
 for it in range(8):
     build(); pg = pages(); its = items(); changed = False
+    if prev_pages is not None and len(pg) > prev_pages:      # the last round made something spill onto an extra page: undo it and stop
+        lay = prev_lay; json.dump(lay, open('layout.json', 'w'), indent=1); print('overflow, reverted'); break
+    prev_pages = len(pg); prev_lay = json.loads(json.dumps(lay))
     print('iteration', it, [(p['page'], round(p['free'], 1)) for p in pg])
     for p in pg:
         if p['free'] < SLACK + 0.35 or not p['ids']: continue
@@ -37,12 +46,15 @@ for it in range(8):
         for iid in reversed(p['ids']):
             o = its[iid]
             if o['type'] == 'box' and not o.get('noFlex'):
-                add = int(extra / LINE)
+                add = min(int(extra / LINE), MAXLINES - o.get('lines', 4))
                 if add > 0: lay[iid] = {'lines': o.get('lines', 4) + add}; changed = True
                 break
+            if o['type'] == 'table' and (o.get('noFlex') or o.get('images')): break
             if o['type'] == 'table':
-                add = extra / max(o.get('rows', 1), 1)
-                if add > 0.04: lay[iid] = {'rowH': round(o.get('rowH', 0.6) + add * 0.9, 2)}; changed = True
+                _r = o.get('rows', 1); _r = len(_r) if isinstance(_r, list) else _r
+                add = extra / max(_r, 1)
+                newh = min(o.get('rowH', 0.6) + add * 0.8, (MAXTABLE - 0.4) / max(_r, 1))
+                if newh - o.get('rowH', 0.6) > 0.04: lay[iid] = {'rowH': round(newh, 2)}; changed = True
                 break
     json.dump(lay, open('layout.json', 'w'), indent=1)
     if not changed: break

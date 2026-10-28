@@ -115,7 +115,7 @@ items.append({'id': '1.7', 'type': 'table', 'points': 1.5, 'title': 'Lines, Tube
               'prompt': 'List SIX lines, tubes or devices Marcus has at 0700 (not counting the ventilator). For each, write the site and what you check every shift, and one complication you are watching for.',
               'where': 'Avatar (IVs, drains and tubes); Flowsheets > Lines / Drains / Airways; Nursing Admission Note',
               'images': [{'path': 'figs/shot_s1_avatar.png', 'caption': 'EHR screenshot: the Patient Summary page, Avatar and Active Devices list at 0700 (scroll the list to see every device).', 'width': 5.8}],
-              'cols': ['Device and site', 'What you check or do every shift', 'A complication you watch for'], 'widths': [1.9, 2.8, 2.3], 'rows': 6, 'rowH': 1.25,
+              'cols': ['Device and site', 'What you check or do every shift', 'A complication you watch for'], 'widths': [1.9, 2.8, 2.3], 'rows': 6, 'rowH': 0.62,
               'key': {'answer': 'Each device row is worth 0.25: the device and site are right AND the check/complication fit that device.', 'bank': True,
                       'elements': [
                           E('Endotracheal tube, 8.0 oral, 24 cm at the teeth: confirm depth and securement, cuff pressure (about 24), HOB 30, oral care, suction as needed. Complications: accidental extubation, VAP, pressure injury to the lips, tube obstruction.', 0.25, ''),
