@@ -27,12 +27,13 @@ studentIntro = [
 studentRules = [
     {'h': 'Scoring', 'lines': ['The whole case study is worth 100 points. A score of 78 or higher is passing.',
                                'Each numbered question shows its point value. Points are given only for what is written in the box.']},
-    {'h': 'Writing so your pages can be scored from photos', 'lines': [
+    {'h': 'Writing and turning it in (your pages will be scanned)', 'lines': [
         'Write in dark pen or very dark pencil, print clearly, and stay inside the box. Write the answer in the box with the same number as the question.',
         'Write your name and date at the top of every page (the header prints a line for it).',
         'If you need more room, write "continued on the back" and put the question number on the back.',
         'Spell out drug names. Show your math: write the formula, the numbers and the units.',
-        'When you finish: photograph EVERY page, one page per photo, on a flat surface in good light with all four corners and the page number in view.']},
+        'Do not take photos of your work. Your instructor will scan it.',
+        'TURN-IN: put ALL the pages in order and fasten them with a PAPERCLIP. Do NOT staple (the pages must come apart to be scanned). Leave the packet in the instructor\'s cubby at office G218i.']},
 ]
 keyIntro = [
     {'h': 'How to score (applies to every item)', 'lines': [
@@ -49,7 +50,7 @@ keyIntro = [
 # --------------------------------------------------------------------------- SHIFT 1
 items = []
 
-items.append({'id': '1.1', 'type': 'box', 'points': 2.5, 'lines': 9, 'title': 'Why Is He Here? Your Picture of Marcus at 0700',
+items.append({'id': '1.1', 'type': 'box', 'points': 2.5, 'lines': 21, 'pageBreak': True, 'title': 'Why Is He Here? Your Picture of Marcus at 0700',
               'prompt': 'Set the clock to 0700. You are taking report from the night nurse. Read the ED Provider Note, the Burn Surgery and Critical Care H&Ps, the nursing notes from 0425 to 0650 and the Patient Summary. In your own words, explain what happened to Marcus, what injuries he has and what has already been done, then name the THREE most urgent problems you must manage over the next 12 hours.',
               'where': 'Patient Summary; Chart Review > Notes (ED Provider Note, Burn Surgery H&P, Critical Care H&P, Nursing Admission Note)',
               'key': {'elements': [

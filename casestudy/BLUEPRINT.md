@@ -51,3 +51,6 @@ types: fields (label/answer/pts), table (cols,widths,rows,rowH), boxes (subs:[{l
 4. Anything that is illegible, cut off, or ambiguous is scored 0 for that element and **listed for faculty review** (it is never guessed).
 5. Claude returns the completed score sheet: points per item and part, total, PASS/NOT PASS at 78, strengths, the items missed with the missing elements, and the review list. Possible integrity flags (identical wording between students) are noted.
 6. The instructor makes the final grade. Handwriting photos work best with dark pen, one page per photo, flat, good light, all four corners visible.
+
+## Turn-in (instructor's choice for the burn case study)
+Students do not photograph their work. They put the pages in order, fasten them with a paperclip (no staples, so the pages can be scanned) and leave the packet in the instructor's cubby at office G218i. The instructor scans the pages. An item may set `"pageBreak": true` so a large writing box fills its page.

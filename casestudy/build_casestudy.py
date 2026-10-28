@@ -311,8 +311,12 @@ def render_item(d, it, patient):
         ruled_box(d, 1, 7.0, 0.35, 'Item numbers that need follow-up:')
     else: raise SystemExit(f"unknown item type {t}")
 
+    if it.get('pageBreak'): page_break(d)       # this item fills its page; the next one starts on a new page
+
 
 # ---------------------------------------------------------------- key side
+
+
 def key_item(d, it, patient):
     t = it['type']
     if t in ('text', 'sealed'): return
@@ -406,7 +410,7 @@ def build(content, patient, outdir):
     para(d, f"{meta['course']}   |   Individual take-home clinical care-plan case study   |   Open book", size=11, align='center', after=8)
     for blk in content.get('studentIntro', []):
         if blk.get('h'): para(d, blk['h'], bold=True, size=12.5, before=6, after=2)
-        for ln in blk.get('lines', []): para(d, ln, size=11, after=3)
+        for ln in blk.get('lines', []): para(d, ln, size=10, after=2)
     # time budget table
     tb = d.add_table(rows=1, cols=3); set_col_widths(tb, [0.8, 4.9, 1.3])
     for j, h in enumerate(['Part', 'Nursing process step', 'Estimated time']): c = tb.rows[0].cells[j]; cell_text(c, h, bold=True, size=10); shade(c, 'D9D9D9')
@@ -420,9 +424,9 @@ def build(content, patient, outdir):
     para(d, '', after=4)
     for blk in content.get('studentRules', []):
         if blk.get('h'): para(d, blk['h'], bold=True, size=12.5, before=6, after=2)
-        for ln in blk.get('lines', []): para(d, '- ' + ln, size=11, after=2)
-    para(d, 'Honor statement: I completed this work myself, using only my textbooks, notes, drug references and the patient chart.', italic=True, size=10.5, before=8)
-    para(d, 'Signature: ______________________________   Date: ______________', size=11, before=6)
+        for ln in blk.get('lines', []): para(d, '- ' + ln, size=10, after=1)
+    para(d, 'Honor statement: I completed this work myself, using only my textbooks, notes, drug references and the patient chart.', italic=True, size=10, before=4)
+    para(d, 'Signature: ______________________________   Date: ______________', size=10.5, before=4)
     for part in content['parts']:
         items = part['items']
         page_break(d)
