@@ -707,3 +707,4 @@ Charting no longer uses pop-up boxes. Template tabs run across the top, a Table 
 - v62: a student who opens a personal link keeps their own saved copy of that patient on their own device (time, flowsheet charting, everything). Opening the same link again resumes it ('Start over' resets). Other students and the original file are never affected.
 - v63: the LPN check-off patients no longer show 'Important Nursing Information' (it gave away technique); a new practice patient, Sam Practice, in the LPN Med Pass list keeps it for learning.
 - v64: the Brain timeline now runs left to right (one column per hour, scrolls sideways, current hour in view, red 'now' line).
+- v65: Student Link pre-fills the student site address (https://goblackcats-dev.github.io/EHR/student-site/) and can upload the locked patient file to GitHub automatically (optional fine-grained token with Contents: read and write, stored only in the instructor's browser).
