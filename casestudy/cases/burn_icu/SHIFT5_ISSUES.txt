@@ -1,0 +1,9 @@
+Dexmedetomidine hold parameters differ: order says hold for HR under 50 or SBP under 90 and notify; the 1130 nursing note says HR under 50 or MAP under 65. Item 5.4 uses the order.
+Gabapentin: order is 300 mg TID starting 1700 Wed, but the first MAR dose is 2200 (handoff note says gabapentin at 2200) and DESIGN.md says from 1400. No question built on the timing.
+I&O day shift 11/04: EHR totals show 1823 in / 836 out / +987, but the hourly entries 0700-1900 sum to 1857 in / 833 out, and the 1850 handoff note quotes 1,577 in / 768 out through 1800 (matches the hourly entries). Items use the EHR totals.
+Mobilization time: the 1430 nursing note and the PT note say the chair transfer was about 1430 to 1505 (30 min in chair); the 1645 nursing note and the task say OOB at 1520 for 20 minutes. Items refer to the "1520 PT note" only.
+Microbiology screenshot (figs/shot_s5_micro.png) shows the culture rows blank because results file under the collection time (11/03 1550) off-screen; the MSSA result is not visible in the picture. Item 5.9 is written as a "where is it" question.
+Wound culture: pharmacy (1540) and nursing (1645) notes say MSSA grew from the wound at 1500, but the Lab Results wound culture row has MSSA with susceptibilities only at Thu 0600 (before that it is "Collected, in process"). Key says wound culture not final.
+Nursing note 0745 lists POC glucose 175 (0630) and 169 (0730), but Lab Results show POC glucose on Wednesday beginning 0930 (162). Item 5.6 uses 0930 onward.
+ID consult: order dated 0800 Wed and the 0715 ICU note says ID already consulted, but the consult note is timed 1145 (exam 1100) and the 1645 nursing note says seen at 1100. Not used.
+shot_io_totals_s5.png includes the night shift 11/04 1900 row (future data, 280/65/+215) so it must NOT be given to students; not used.

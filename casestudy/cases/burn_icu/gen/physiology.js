@@ -209,11 +209,13 @@ function buildLabs() {
   pt.forEach(([d, t]) => { const h = hOf(d, t); poc.push([D(d, t), Math.round(interp(C.glu, h) + jit(6))]); });
   add(lab('Bedside Testing', 'Glucose (point of care)', 'mg/dL', '70-110', 70, 110, poc, { specimen: 'Capillary/arterial blood', crit: [50, 400] }));
   // ---- microbiology (collected Tue 15:50; results released later with availableAt)
-  const micro = (label, collected, value, status, availableAt, specimen) => ({ id: `lab_${slug(label)}_${slug(value).slice(0, 18)}_${(availableAt || collected).replace(/[- :]/g, '_')}`, type: 'lab', category: 'Microbiology', code: label, label, value, units: '', flag: /pending|in process/i.test(status) ? '' : (/no growth|normal flora|negative/i.test(value) ? '' : 'Abnormal'), reference: '', specimen, status, collected, availableAt });
+  // a result is filed under the time it became available (its column on the Results grid); the specimen collection time is kept in the specimen text
+  const micro = (label, collected, value, status, availableAt, specimen) => { const t = availableAt || collected; return { id: `lab_${slug(label)}_${slug(value).slice(0, 18)}_${t.replace(/[- :]/g, '_')}`, type: 'lab', category: 'Microbiology', code: label, label, value, units: '', flag: /pending|in process|collected/i.test(status + value) ? '' : (/no growth|normal flora|negative/i.test(value) ? '' : 'Abnormal'), reference: '', specimen: `${specimen} (collected ${collected.slice(11)})`, status, collected: t, availableAt: t }; };
   const T0 = at('Tue', '15:50');
   add([
     micro('Wound culture (right arm and chest)', T0, 'Collected, in process', 'In process', T0, 'Wound swab, right arm and chest eschar edge'),
     micro('Wound Gram stain', T0, 'Many WBC. Moderate Gram-positive cocci in clusters.', 'Preliminary', at('Tue', '21:30'), 'Wound swab'),
+    micro('Wound culture (right arm and chest)', T0, 'Staphylococcus aureus (MSSA) identified. Susceptibilities to follow.', 'Preliminary', at('Wed', '15:00'), 'Wound swab, right arm and chest eschar edge'),
     micro('Wound culture (right arm and chest)', T0, 'Heavy growth Staphylococcus aureus (MSSA). Susceptible: cefazolin, nafcillin, clindamycin, TMP-SMX. Resistant: penicillin.', 'Final', at('Thu', '06:00'), 'Wound swab, right arm and chest eschar edge'),
     micro('Blood culture set 1 (peripheral)', T0, 'Collected, in process', 'In process', T0, 'Blood, peripheral venipuncture (left hand)'),
     micro('Blood culture set 2 (central line)', T0, 'Collected, in process', 'In process', T0, 'Blood, left IJ central line'),
@@ -224,7 +226,7 @@ function buildLabs() {
     micro('Urine culture (Foley)', T0, 'Collected, in process', 'In process', T0, 'Urine from Foley sampling port'),
     micro('Urine culture (Foley)', T0, 'No growth at 24 hours.', 'Preliminary', at('Wed', '16:00'), 'Urine'),
     micro('Repeat blood cultures', at('Wed', '16:00'), 'Collected, no growth to date', 'In process', at('Wed', '16:00'), 'Blood, peripheral + central line'),
-    micro('Repeat blood cultures', at('Wed', '16:00'), 'No growth at 24 hours.', 'Preliminary', at('Thu', '04:30'), 'Blood')
+    micro('Repeat blood cultures', at('Wed', '16:00'), 'No growth to date (about 12 hours).', 'Preliminary', at('Thu', '04:30'), 'Blood')
   ]);
   // lab entries in 'out' that are arrays
   return out.flat();

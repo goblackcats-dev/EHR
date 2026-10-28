@@ -1,0 +1,9 @@
+Intake/Output: the hourly rows 1900-0700 in ioEvents add to 3,695 mL in and 851 mL out, but the shift total printed in ehr_io_totals.txt is 4,160 in, 803 out, +3,357 (key uses the printed totals).
+The shot_io_totals_s4.png screenshot also shows the later day-shift row (11/04 0700-1900, 246 in / 68 out) and "Last 24 hours", which are charted after 0700, so it was not used.
+Hourly I&O 0200-0300 shows output 280 mL, but only 60 mL is urine (220 mL is a loose stool charted at 0200); the key teaches this.
+Dr. Brandt's plan (2345) says begin weaning norepinephrine when MAP is 70 or higher and lactate is under 2, but the wean began at 0000 when the last lactate was 2.6 (lactate 1.8 only at 0200); the key says "lactate falling".
+DESIGN.md says HR 132 at 1930, the chart (vitals, notes) says 133; the glucose range in the task brief (246-262) is 246-266 in the chart (266 at 2130).
+Vancomycin level at 0415 is called a "trough" in the nursing/RN notes but pharmacy uses AUC dosing (no trough-only targeting); the 0430 dose was 1,250 mg although the 0500 creatinine (1.4) was not yet back.
+Platelets 142 at 2100 is already a 51% fall from the admission 288; pharmacy's HIT rule (drop over 50%) is met, though Dr. Brandt documents HIT unlikely (key uses this as a question to ask).
+Mafenide soak 0130 has no analgesic premedication on the MAR (hydromorphone only at 1915 and 0745), although the order/notes say to premedicate.
+The figure plots the lactate of 2230 at about 2250 and the first MAP at about 69.7 (chart MAP 70 at 1900).

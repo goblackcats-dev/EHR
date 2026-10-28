@@ -581,6 +581,7 @@
 - O2 saturation (blood gas): 96 % 
 
 **2026-11-04 15:00**
+- Wound culture (right arm and chest): Staphylococcus aureus (MSSA) identified. Susceptibilities to follow.  [Abnormal] (Preliminary)
 - Blood cultures (4 bottles): Staphylococcus aureus (MSSA) in 2 of 4 bottles (one peripheral, one central line).  [Abnormal] (Preliminary)
 - Tracheal aspirate culture: Normal respiratory flora. Few WBC.  [Abnormal]
 
@@ -641,7 +642,7 @@
 - aPTT: 32 sec 
 - Fibrinogen: 390 mg/dL 
 - Procalcitonin: 2.1 ng/mL [High]
-- Repeat blood cultures: No growth at 24 hours.   (Preliminary)
+- Repeat blood cultures: No growth to date (about 12 hours).   (Preliminary)
 
 **2026-11-05 06:00**
 - Glucose (point of care): 141 mg/dL [High]
