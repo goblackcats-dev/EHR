@@ -708,3 +708,4 @@ Charting no longer uses pop-up boxes. Template tabs run across the top, a Table 
 - v63: the LPN check-off patients no longer show 'Important Nursing Information' (it gave away technique); a new practice patient, Sam Practice, in the LPN Med Pass list keeps it for learning.
 - v64: the Brain timeline now runs left to right (one column per hour, scrolls sideways, current hour in view, red 'now' line).
 - v65: Student Link pre-fills the student site address (https://goblackcats-dev.github.io/EHR/student-site/) and can upload the locked patient file to GitHub automatically (optional fine-grained token with Contents: read and write, stored only in the instructor's browser).
+- v67: fixed the MAR column bug when a shift starts off the hour (an 0845 start put the 0900 doses under 0800). Doses now sit in their clock-hour column. The pre-built LPN patients were rebuilt.

@@ -192,6 +192,8 @@ NS.build = (() => {
 
   function buildMedicationOrders(ctx, spec, prepared) {
     const orders = [], admins = [];
+    // MAR columns are CLOCK hours starting at the hour of the shift start (0845 start -> first column 0800), so a dose's column is its clock hour minus that first hour
+    const slotBase = U.parse(String(ctx.start).slice(0, 13) + ':00'), slotOf = h => Math.floor((U.parse(ctx.ts(h)) - slotBase) / 3600000 + 1e-6);
     const slotHours = Math.max(8, Math.ceil(ctx.windowEnd - ctx.nowH - 1e-6));   // 8 hours, longer when a late scenario trigger extends the shift
     prepared.forEach((med, idx) => {
       const orderId = `order_med_${U.slug(med.key || med.name)}_${med._idx !== undefined ? med._idx : idx}`;
@@ -219,7 +221,7 @@ NS.build = (() => {
       if (!isPrn && med.freq !== 'continuous') {
         hours.filter(h => h > ctx.nowH && h <= ctx.nowH + slotHours).forEach((h, i) => {
           const stamp = ctx.ts(h);
-          const slot = Math.floor(h - ctx.nowH + 1e-6);
+          const slot = slotOf(h);
           admins.push({
             id: `admin_${U.slug(orderId)}_d${i}`, orderId, slotIndex: Math.min(slot, slotHours - 1), time: U.hhmm(stamp), state: 'due',
             label: `${U.hhmm(stamp)} Due`, dose: med.dose, route: med.route
@@ -230,7 +232,7 @@ NS.build = (() => {
         // an infusion ordered during the shift: the nurse starts it from the MAR
         const stamp = ctx.ts(med.startH);
         admins.push({
-          id: `admin_${U.slug(orderId)}_start`, orderId, slotIndex: Math.min(slotHours - 1, Math.floor(med.startH - ctx.nowH + 1e-6)), time: U.hhmm(stamp), state: 'due',
+          id: `admin_${U.slug(orderId)}_start`, orderId, slotIndex: Math.max(0, Math.min(slotHours - 1, slotOf(med.startH))), time: U.hhmm(stamp), state: 'due',
           label: `${U.hhmm(stamp)} Start ${med.rate || ''}`.trim(), dose: med.rate || med.dose, route: med.route
         });
       }
@@ -244,7 +246,7 @@ NS.build = (() => {
       }
 
       const mar = {
-        category, orderStartIndex: future ? Math.max(0, Math.min(slotHours - 1, Math.floor(med.startH - ctx.nowH))) : 0,
+        category, orderStartIndex: future ? Math.max(0, Math.min(slotHours - 1, slotOf(med.startH))) : 0,
         adminDose: med.adminDose || med.dose, dispenseLocation: med.dispense || (med.route === 'IV' ? 'Central Pharmacy (IV room)' : 'Pharmacy to load in ADS'),
         completed: ended, lastAdmin: last ? `${U.epic(last)} (Given)` : ''
       };
