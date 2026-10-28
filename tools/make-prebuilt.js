@@ -19,10 +19,14 @@ const LPN = [
   { id: 'lpn_diabetes', name: 'Calvin Reed', age: 58, sex: 'Male', mrn: 'SIM-30414', room: '210-2', weightKg: 101, heightCm: 180, primary: 'lpn_diabetes', desc: 'PO lisinopril, SubQ insulin lispro (high scale, glucose 341 = 16 units), IM vitamin B12 500 mcg' },
   { id: 'lpn_b12', name: 'Linda Park', age: 66, sex: 'Female', mrn: 'SIM-30415', room: '212-1', weightKg: 62, heightCm: 163, primary: 'lpn_b12', desc: 'PO acetaminophen, SubQ insulin lispro (low scale, glucose 166 = 2 units), IM vitamin B12 1,000 mcg' }
 ];
+// Check-off patients carry NO "Important Nursing Information" (it would give away the technique), only the practice patient keeps it.
+const PRACTICE = { id: 'lpn_practice', name: 'Sam Practice', age: 60, sex: 'Male', mrn: 'SIM-30400', room: '200-1', weightKg: 85, heightCm: 175, primary: 'lpn_htn', keepInfo: true, desc: 'PRACTICE patient with the nursing information shown (lisinopril PO, insulin lispro SubQ low scale, vitamin B12 IM). Use it to learn before the check-off.' };
 const groups = [{ id: 'lpn', title: 'LPN Med Pass', note: 'First-semester LPN medication pass: scan the patient and each medication. One PO (lisinopril or acetaminophen), one SubQ (insulin lispro sliding scale) and one IM (ceftriaxone or vitamin B12) each.', patients: [] },
   { id: 'casestudy', title: 'Case Study Patients', note: 'Patients with a built care-plan case study (see Case Studies).', patients: [] }];
+LPN.unshift(PRACTICE);
 LPN.forEach(d => {
-  const r = NS.buildCase(base(d)); const file = `lpn_${d.id.replace(/^lpn_/, '')}.json`;
+  const r = NS.buildCase(base(d));
+  if (!d.keepInfo) r.canonical.orders.forEach(o => { if (o.medication) o.medication.importantInfo = ''; }); const file = `lpn_${d.id.replace(/^lpn_/, '')}.json`;
   fs.writeFileSync(path.join(root, 'prebuilt', file), JSON.stringify({ format: 'nursingsim-case', version: 1, name: `${d.name}, ${NS.PRIMARY[d.primary].label.replace('LPN Med Pass: ', '')}`, source: 'prebuilt', canonical: r.canonical }));
   groups[0].patients.push({ id: d.id, name: d.name, title: NS.PRIMARY[d.primary].label.replace('LPN Med Pass: ', ''), desc: d.desc, file: 'prebuilt/' + file, age: d.age, sex: d.sex });
 });

@@ -6,6 +6,15 @@
    "note": "First-semester LPN medication pass: scan the patient and each medication. One PO (lisinopril or acetaminophen), one SubQ (insulin lispro sliding scale) and one IM (ceftriaxone or vitamin B12) each.",
    "patients": [
     {
+     "id": "lpn_practice",
+     "name": "Sam Practice",
+     "title": "Hypertension follow-up (PO + SubQ + IM)",
+     "desc": "PRACTICE patient with the nursing information shown (lisinopril PO, insulin lispro SubQ low scale, vitamin B12 IM). Use it to learn before the check-off.",
+     "file": "prebuilt/lpn_practice.json",
+     "age": 60,
+     "sex": "Male"
+    },
+    {
      "id": "lpn_htn",
      "name": "Harold Bennett",
      "title": "Hypertension follow-up (PO + SubQ + IM)",
