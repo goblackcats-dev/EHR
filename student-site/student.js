@@ -52,7 +52,19 @@
       const canon = file && file.canonical ? file.canonical : file;
       const report = validateCaseInput(canon);
       if (report.errors > 0) throw new Error('invalid');
-      renderPatient(report.canonical); wait.remove();
+      window.NS_CASE_ID = id;   // from now on this device saves this student's work for this patient (and only on this device)
+      const progKey = 'nursingsim.student.link.' + id; let saved = null;
+      try { saved = JSON.parse(localStorage.getItem(progKey) || 'null'); } catch (e2) { saved = null; }
+      const fresh = JSON.parse(JSON.stringify(report.canonical));
+      if (saved && saved.canonical && saved.canonical.patient) {
+        renderPatient(saved.canonical); if (saved.simulationTime) { simulationTime = saved.simulationTime; refreshSimulationView(); }
+        wait.remove();
+        const bar = document.createElement('div'); bar.style.cssText = 'position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9999;background:#0b3d73;color:#fff;padding:10px 14px;border-radius:4px;font:14px system-ui;display:flex;gap:12px;align-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)';
+        bar.innerHTML = '<span>Welcome back. Your saved work was restored.</span><button id="stuRestart" style="min-height:36px;padding:0 12px">Start over</button><button id="stuBarX" aria-label="Close" style="min-height:36px;padding:0 10px">×</button>';
+        document.body.appendChild(bar);
+        bar.querySelector('#stuBarX').addEventListener('click', () => bar.remove());
+        bar.querySelector('#stuRestart').addEventListener('click', () => { if (confirm('Start this patient over? Everything you charted will be erased on this device.')) { try { localStorage.removeItem(progKey); } catch (e3) { /* ignore */ } renderPatient(JSON.parse(JSON.stringify(fresh))); bar.remove(); } });
+      } else { renderPatient(report.canonical); wait.remove(); }
     } catch (e) {
       wait.textContent = e.message === 'missing' ? 'This patient is not available yet. Please try again in a few minutes, or ask your instructor.'
         : 'This link did not work. Open the full link from your instructor’s email again (copy the whole thing, including everything after the #).';

@@ -1813,6 +1813,8 @@ function persistCase() {
   // Autosave so a refresh (or iPad Safari reloading the tab) does not lose the patient.
   try {
     localStorage.setItem(SAVED_CASE_KEY, JSON.stringify({ canonical: currentCanonicalCase, simulationTime }));
+    // a student who opened a personal link keeps their own copy of THAT patient on this device; it is never shared with anyone else
+    if (window.NS_CASE_ID) localStorage.setItem('nursingsim.student.link.' + window.NS_CASE_ID, JSON.stringify({ canonical: currentCanonicalCase, simulationTime, savedAt: new Date().toISOString() }));
   } catch (error) { /* storage full or blocked (private browsing): carry on without saving */ }
 }
 
