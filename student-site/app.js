@@ -3054,6 +3054,7 @@ function applyMARAction(action) {
 
   admin.state = action;
   admin.administeredAt = simulationTime;
+  admin.administeredBy = window.NSUser ? window.NSUser.label() : admin.administeredBy;   // the signed-in nurse
   admin.comment = elements.marActionReason.value.trim();
 
   const labelMap = {

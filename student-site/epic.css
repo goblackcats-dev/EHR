@@ -168,7 +168,6 @@ dialog, dialog[class] { border-radius: 4px !important; }
   .flowsheet-layout { grid-template-columns: 180px minmax(0, 1fr); }
   .flowsheet-detail-panel { grid-column: 1 / -1; border-top: 1px solid var(--border); }
 }
-@media (max-width: 900px) { .fs-mon-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 760px) {
   .flowsheet-layout { grid-template-columns: 1fr; }
   .flowsheet-section-nav { display: flex; overflow-x: auto; gap: 4px; max-height: none; }
@@ -300,3 +299,5 @@ th.fs-col-sel { background: #dff1ff !important; }
 .flowsheet-grid-scroll { scroll-padding-left: 150px; scroll-snap-type: x proximity; }
 .flowsheet-grid .flowsheet-time-col, .flowsheet-grid td.flowsheet-cell { scroll-snap-align: start; scroll-margin-left: 150px; }
 .flowsheet-grid th.fs-now-col { z-index: 4; }
+.flowsheet-grid .flowsheet-time-col { width: var(--fs-colw, 100px); min-width: var(--fs-colw, 100px); max-width: var(--fs-colw, 100px); }
+.flowsheet-grid { min-width: 0; }

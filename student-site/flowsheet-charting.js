@@ -92,6 +92,7 @@
   let query = '';
   let stickRight = true;
   let lastNow = '';
+  let stuck = false;
   let sel = null;            // { rowKey, col }
   let draft = null;          // { text, aux, comment, time }
   let initialText = '';
@@ -361,8 +362,14 @@
       });
     });
     if (!any) { const tr = document.createElement('tr'); tr.innerHTML = `<td class="empty-cell" colspan="${times.length + 1}">${groups.length ? 'No rows shown. Use the Table of Contents to show a group.' : (sheet === 'Lines / Drains / Airways' ? 'No lines, drains or airways yet. Use Add line / drain to place one.' : 'Nothing to show.')}</td>`; body.appendChild(tr); }
+    if (scroller && scroller.clientWidth > 150) {
+      // whole columns only: pick a column width so the visible area is an exact number of columns beside the sticky label column
+      const n = Math.max(2, Math.floor((scroller.clientWidth - 150) / 100)), w = (scroller.clientWidth - 150) / n;
+      scroller.style.setProperty('--fs-colw', w + 'px');
+      const tbl = $('flowsheetGrid'); if (tbl) tbl.style.width = (150 + times.length * w) + 'px';
+    }
     if (scroller) {
-      if (scroller.clientWidth > 0) { scroller.scrollLeft = stickRight ? scroller.scrollWidth : prevLeft; stickRight = false; }   // while the page is hidden there is nothing to scroll yet
+      if (scroller.clientWidth > 0) { scroller.scrollLeft = stickRight ? scroller.scrollWidth : prevLeft; stuck = stickRight; stickRight = false; }   // while the page is hidden there is nothing to scroll yet
       scroller.scrollTop = prevTop;
     }
   }
@@ -449,6 +456,13 @@
     if (sel && !view.rows.has(sel.rowKey)) { sel = null; draft = null; editing = false; }
     if (sel && !draft) resetDraft();
     renderSide();
+    // the sidebar may have changed the grid width: re-fit whole columns
+    const sc = document.querySelector('#flowsheetsSection .flowsheet-grid-scroll');
+    if (sc && sc.clientWidth > 150) {
+      const n = Math.max(2, Math.floor((sc.clientWidth - 150) / 100)), w = (sc.clientWidth - 150) / n, tbl = $('flowsheetGrid');
+      sc.style.setProperty('--fs-colw', w + 'px'); if (tbl) tbl.style.width = (150 + times.length * w) + 'px';
+      if (stuck) sc.scrollLeft = sc.scrollWidth;
+    }
     if (sel && editing) startInline(false);
   }
 

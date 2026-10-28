@@ -299,3 +299,5 @@ th.fs-col-sel { background: #dff1ff !important; }
 .flowsheet-grid-scroll { scroll-padding-left: 150px; scroll-snap-type: x proximity; }
 .flowsheet-grid .flowsheet-time-col, .flowsheet-grid td.flowsheet-cell { scroll-snap-align: start; scroll-margin-left: 150px; }
 .flowsheet-grid th.fs-now-col { z-index: 4; }
+.flowsheet-grid .flowsheet-time-col { width: var(--fs-colw, 100px); min-width: var(--fs-colw, 100px); max-width: var(--fs-colw, 100px); }
+.flowsheet-grid { min-width: 0; }
