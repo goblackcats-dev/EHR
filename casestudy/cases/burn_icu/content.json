@@ -249,8 +249,25 @@
      "points": 1.5,
      "lines": 11,
      "title": "Titrating the Fluids",
-     "prompt": "Open the lactated Ringer's order, the MAR and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) At 0930 the rate was changed: from what to what, and why? (c) Write the urine outputs for 1200-1300 and 1300-1400, say what the order tells you to do, and what the new rate becomes at 1400. (d) Name two things you check when you change the rate and one danger of giving too much fluid.",
+     "prompt": "Open the lactated Ringer's order, the MAR and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) At 0930 the rate was changed: from what to what, and why? (c) Using the graph, write the urine outputs for 1200-1300 and 1300-1400, say what the order tells you to do, and what the new rate becomes at 1400. (d) Name two things you check when you change the rate and one danger of giving too much fluid.",
      "where": "Orders > lactated Ringer's (burn resuscitation); MAR (rate changes); Flowsheets > Intake/Output",
+     "images": [
+      {
+       "path": "figs/shot_s1_lr_order.png",
+       "caption": "EHR screenshot: Orders, order detail for the lactated Ringer's (click the order to open this panel).",
+       "width": 6.3
+      },
+      {
+       "path": "figs/shot_s1_mar_lr.png",
+       "caption": "EHR screenshot: the MAR row for the lactated Ringer's on Monday (rate changes are shown in the hour they happened).",
+       "width": 6.3
+      },
+      {
+       "path": "figs/fig_s1_uop_lr.png",
+       "caption": "Graph from the chart: hourly urine output (bars, shaded band is the goal) and the lactated Ringer's rate (line), Monday 0400 to 1900.",
+       "width": 5.4
+      }
+     ],
      "key": {
       "elements": [
        {
@@ -285,7 +302,7 @@
      "id": "1.6",
      "type": "box",
      "points": 1.5,
-     "lines": 10,
+     "lines": 13,
      "title": "Calling the Burn Surgeon",
      "prompt": "It is 1400 and you have just seen the second low urine output. Write the SBAR you give Dr. Okafor on the phone. Use real numbers from the chart. End with what you are asking him to do and how you will confirm the order.",
      "where": "Flowsheets (vital signs, I&O, neurovascular); Lab Results (lactate, potassium, CK); Orders",
@@ -321,6 +338,13 @@
      "title": "Lines, Tubes and Airway",
      "prompt": "List SIX lines, tubes or devices Marcus has at 0700 (not counting the ventilator). For each, write the site and what you check every shift, and one complication you are watching for.",
      "where": "Avatar (IVs, drains and tubes); Flowsheets > Lines / Drains / Airways; Nursing Admission Note",
+     "images": [
+      {
+       "path": "figs/shot_s1_avatar.png",
+       "caption": "EHR screenshot: the Patient Summary page, Avatar and Active Devices list at 0700 (scroll the list to see every device).",
+       "width": 5.8
+      }
+     ],
      "cols": [
       "Device and site",
       "What you check or do every shift",
@@ -374,7 +398,7 @@
      "id": "1.8",
      "type": "box",
      "points": 1.5,
-     "lines": 11,
+     "lines": 15,
      "title": "The Ventilator and Sedation",
      "prompt": "Open Flowsheets > Respiratory at 0700. (a) Calculate his ideal body weight (male: 50 kg + 2.3 kg for every inch over 5 feet; 1 inch = 2.54 cm) and the tidal volume at 6 mL/kg. Does this match the set tidal volume? (b) List FOUR actions in the ventilator-associated pneumonia (VAP) bundle that you do this shift. (c) What is the RASS goal on Monday, and why is he sedated more deeply on the first day?",
      "where": "Flowsheets > Respiratory (vent settings, pressures); Orders (mechanical ventilation; sedation); Orders > Nursing",
@@ -416,7 +440,7 @@
       2.4
      ],
      "rows": 4,
-     "rowH": 0.85,
+     "rowH": 1.85,
      "key": {
       "answer": "Any 4 of the labs below; each row 0.375: values correct (0.125), reason correct (0.125), nursing action reasonable (0.125).",
       "bank": true,
@@ -468,26 +492,33 @@
      "id": "1.10",
      "type": "box",
      "points": 1.5,
-     "lines": 21,
+     "lines": 17,
      "title": "Adding Up Your 12 Hours",
-     "prompt": "Open Flowsheets > Intake/Output and add the hourly rows from 0700 to 1900 (12 rows). (a) What are his total intake, total output and net balance for your shift? (b) What was his average urine output in mL/h and in mL/kg/h? (c) Using the Parkland rates, how much lactated Ringer's should he have received BY 1900 counting from the injury (the EMS 500 mL and the ED 675 mL before the ICU count), and how much did he actually receive in all? (d) What does that tell you?",
-     "where": "Flowsheets > Intake/Output; Orders (lactated Ringer's); EMS Handoff and ED notes",
+     "prompt": "Open Flowsheets > Intake/Output and find the Totals section at the bottom (the screenshot shows where). (a) For the DAY SHIFT 0700 to 1900, what are his total intake, total output and net balance? (b) What was his average urine output in mL/h and in mL/kg/h (82 kg)? (c) Using the Parkland rates, how much lactated Ringer's should he have received BY 1900 counting from the injury (the EMS 500 mL and the ED 675 mL before the ICU count), and how much did he actually receive in all (add up the rates and times on the MAR)? (d) What does that tell you?",
+     "where": "Flowsheets > Intake/Output (Totals at the bottom); MAR (lactated Ringer's); EMS Handoff and ED notes",
+     "images": [
+      {
+       "path": "figs/shot_io_totals_s1.png",
+       "caption": "EHR screenshot: the Totals section at the bottom of the Intake/Output flowsheet, at 1900 on Monday.",
+       "width": 6.0
+      }
+     ],
      "key": {
       "elements": [
        {
-        "t": "Intake about 4,490 mL, output about 460 mL, net about +4,030 mL (accept totals within 50 mL; a large positive balance is expected in burn resuscitation).",
+        "t": "Day shift 0700-1900 as the flowsheet shows it: intake 4,720 mL, output 447 mL, net +4,273 mL (a large positive balance is expected in burn resuscitation).",
         "pts": 0.5,
-        "src": "I&O"
+        "src": "Flowsheets > Intake/Output > Totals"
        },
        {
-        "t": "Average urine output about 38 mL/h = about 0.47 mL/kg/h (just under the 0.5 goal, inside 30-50 mL/h most of the shift).",
+        "t": "Average urine output 447 / 12 = about 37 mL/h = about 0.45 mL/kg/h (just under the 0.5 goal, inside 30-50 mL/h most of the shift).",
         "pts": 0.25,
         "src": ""
        },
        {
-        "t": "Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid: EMS 500 + ED 675 + ICU LR 5,153 = about 6,330 mL.",
+        "t": "Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid from the MAR: EMS 500 + ED 675 + ICU (450 x 2 h + 540 x 3.5 h + 225 x 4.5 h + 270 x 5 h = 5,153) = about 6,330 mL.",
         "pts": 0.5,
-        "src": ""
+        "src": "MAR rates"
        },
        {
         "t": "He is about 580 mL (10%) over the Parkland estimate: acceptable because the order is to titrate to urine output, but a reminder to watch for fluid creep (edema, airway pressures, bladder pressure) and not to chase a single low urine output.",
@@ -963,9 +994,9 @@
         "src": ""
        },
        {
-        "t": "Background: the first 24 hours of Parkland finished at 0130 (about 8,080 mL), LR now 125 mL/h (about to drop to 75 when the albumin starts at 0600); insulin infusion since 0030; feeds at goal 70 mL/h; weight 89.6 kg.",
+        "t": "Background: the first 24 hours of Parkland finished at 0130 (about 8,080 mL), LR now 125 mL/h (about to drop to 75 when the albumin starts at 0600); insulin infusion since 0030; feeds at goal 70 mL/h; weight 89.6 kg; the flowsheet shows the night shift (1900-0700) intake 3,748 mL, output 496 mL, net +3,252 mL.",
         "pts": 0.5,
-        "src": ""
+        "src": "Flowsheets > Intake/Output > Totals"
        },
        {
         "t": "Assessment: agitation at 0245 treated with lorazepam 1 mg (calm since); glucose 179-182 on the infusion (1.5 units/h from 0600); phosphorus 2.1, magnesium 1.6 and potassium 3.9 low, reported to Dr. Brandt, replacement not yet given; right hand signals steady; bladder pressure 12; triglycerides 168; skin and turns done.",

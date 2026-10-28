@@ -92,8 +92,9 @@ items.append({'id': '1.4', 'type': 'box', 'points': 1.5, 'lines': 13, 'title': '
                   E('A smoker normally has a baseline COHb of about 3 to 5%, so a level around 3% is his baseline and not further poisoning.', 0.25, '')]}})
 
 items.append({'id': '1.5', 'type': 'box', 'points': 1.5, 'lines': 11, 'title': 'Titrating the Fluids',
-              'prompt': 'Open the lactated Ringer\'s order, the MAR and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) At 0930 the rate was changed: from what to what, and why? (c) Write the urine outputs for 1200-1300 and 1300-1400, say what the order tells you to do, and what the new rate becomes at 1400. (d) Name two things you check when you change the rate and one danger of giving too much fluid.',
+              'prompt': 'Open the lactated Ringer\'s order, the MAR and the hourly urine output. (a) What is the urine output goal in mL/h and in mL/kg/h? (b) At 0930 the rate was changed: from what to what, and why? (c) Using the graph, write the urine outputs for 1200-1300 and 1300-1400, say what the order tells you to do, and what the new rate becomes at 1400. (d) Name two things you check when you change the rate and one danger of giving too much fluid.',
               'where': 'Orders > lactated Ringer\'s (burn resuscitation); MAR (rate changes); Flowsheets > Intake/Output',
+              'images': [{'path': 'figs/shot_s1_lr_order.png', 'caption': 'EHR screenshot: Orders, order detail for the lactated Ringer\'s (click the order to open this panel).', 'width': 6.3}, {'path': 'figs/shot_s1_mar_lr.png', 'caption': 'EHR screenshot: the MAR row for the lactated Ringer\'s on Monday (rate changes are shown in the hour they happened).', 'width': 6.3}, {'path': 'figs/fig_s1_uop_lr.png', 'caption': 'Graph from the chart: hourly urine output (bars, shaded band is the goal) and the lactated Ringer\'s rate (line), Monday 0400 to 1900.', 'width': 5.4}],
               'key': {'elements': [
                   E('Goal 30 to 50 mL/h, which is 0.5 mL/kg/h (about 41 mL/h for 82 kg).', 0.25, 'Order instructions'),
                   E('At 0930 (8 hours after the injury) the first half of the Parkland fluid is done, so the rate dropped from 540 to 225 mL/h for the second 16 hours.', 0.25, 'MAR'),
@@ -113,6 +114,7 @@ items.append({'id': '1.6', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': '
 items.append({'id': '1.7', 'type': 'table', 'points': 1.5, 'title': 'Lines, Tubes and Airway',
               'prompt': 'List SIX lines, tubes or devices Marcus has at 0700 (not counting the ventilator). For each, write the site and what you check every shift, and one complication you are watching for.',
               'where': 'Avatar (IVs, drains and tubes); Flowsheets > Lines / Drains / Airways; Nursing Admission Note',
+              'images': [{'path': 'figs/shot_s1_avatar.png', 'caption': 'EHR screenshot: the Patient Summary page, Avatar and Active Devices list at 0700 (scroll the list to see every device).', 'width': 5.8}],
               'cols': ['Device and site', 'What you check or do every shift', 'A complication you watch for'], 'widths': [1.9, 2.8, 2.3], 'rows': 6, 'rowH': 1.25,
               'key': {'answer': 'Each device row is worth 0.25: the device and site are right AND the check/complication fit that device.', 'bank': True,
                       'elements': [
@@ -146,13 +148,14 @@ items.append({'id': '1.9', 'type': 'table', 'points': 1.5, 'title': 'Reading the
                           E('pH 7.29 -> 7.39 and bicarbonate 18 -> 24 (arterial gas): metabolic acidosis from poor perfusion corrected with resuscitation.', 0.375, ''),
                           E('Carboxyhemoglobin 14.2 -> 3.0 (also accept if not used in 1.4).', 0.375, '')]}})
 
-items.append({'id': '1.10', 'type': 'box', 'points': 1.5, 'lines': 21, 'title': 'Adding Up Your 12 Hours',
-              'prompt': 'Open Flowsheets > Intake/Output and add the hourly rows from 0700 to 1900 (12 rows). (a) What are his total intake, total output and net balance for your shift? (b) What was his average urine output in mL/h and in mL/kg/h? (c) Using the Parkland rates, how much lactated Ringer\'s should he have received BY 1900 counting from the injury (the EMS 500 mL and the ED 675 mL before the ICU count), and how much did he actually receive in all? (d) What does that tell you?',
-              'where': 'Flowsheets > Intake/Output; Orders (lactated Ringer\'s); EMS Handoff and ED notes',
+items.append({'id': '1.10', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': 'Adding Up Your 12 Hours',
+              'prompt': 'Open Flowsheets > Intake/Output and find the Totals section at the bottom (the screenshot shows where). (a) For the DAY SHIFT 0700 to 1900, what are his total intake, total output and net balance? (b) What was his average urine output in mL/h and in mL/kg/h (82 kg)? (c) Using the Parkland rates, how much lactated Ringer\'s should he have received BY 1900 counting from the injury (the EMS 500 mL and the ED 675 mL before the ICU count), and how much did he actually receive in all (add up the rates and times on the MAR)? (d) What does that tell you?',
+              'where': 'Flowsheets > Intake/Output (Totals at the bottom); MAR (lactated Ringer\'s); EMS Handoff and ED notes',
+              'images': [{'path': 'figs/shot_io_totals_s1.png', 'caption': 'EHR screenshot: the Totals section at the bottom of the Intake/Output flowsheet, at 1900 on Monday.', 'width': 6.0}],
               'key': {'elements': [
-                  E('Intake about 4,490 mL, output about 460 mL, net about +4,030 mL (accept totals within 50 mL; a large positive balance is expected in burn resuscitation).', 0.5, 'I&O'),
-                  E('Average urine output about 38 mL/h = about 0.47 mL/kg/h (just under the 0.5 goal, inside 30-50 mL/h most of the shift).', 0.25, ''),
-                  E('Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid: EMS 500 + ED 675 + ICU LR 5,153 = about 6,330 mL.', 0.5, ''),
+                  E('Day shift 0700-1900 as the flowsheet shows it: intake 4,720 mL, output 447 mL, net +4,273 mL (a large positive balance is expected in burn resuscitation).', 0.5, 'Flowsheets > Intake/Output > Totals'),
+                  E('Average urine output 447 / 12 = about 37 mL/h = about 0.45 mL/kg/h (just under the 0.5 goal, inside 30-50 mL/h most of the shift).', 0.25, ''),
+                  E('Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid from the MAR: EMS 500 + ED 675 + ICU (450 x 2 h + 540 x 3.5 h + 225 x 4.5 h + 270 x 5 h = 5,153) = about 6,330 mL.', 0.5, 'MAR rates'),
                   E('He is about 580 mL (10%) over the Parkland estimate: acceptable because the order is to titrate to urine output, but a reminder to watch for fluid creep (edema, airway pressures, bladder pressure) and not to chase a single low urine output.', 0.25, '')]}})
 
 items.append({'id': '1.11', 'type': 'box', 'points': 1.5, 'lines': 9, 'title': 'The 1400 Dressing Change',
@@ -181,6 +184,15 @@ parts = [{'id': '1', 'title': 'Shift 1: Monday 11/02, 0700 to 1900 (day shift)',
 exec(open('shift2_items.py').read())   # Shift 2 (night) is kept in its own file
 
 content = {'meta': meta, 'studentIntro': studentIntro, 'studentRules': studentRules, 'keyIntro': keyIntro, 'parts': parts}
+# page-fit tuning written by autofit.py: {item id: {'lines': n} or {'rowH': x}}
+import os
+if os.path.exists('layout.json'):
+    _lay = json.load(open('layout.json'))
+    for _p in parts:
+        for _i in _p['items']:
+            _o = _lay.get(_i['id'])
+            if _o: _i.update(_o)
+
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else 'content.json'
     json.dump(content, open(out, 'w'), indent=1)

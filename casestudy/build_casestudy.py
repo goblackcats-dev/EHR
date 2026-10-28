@@ -283,6 +283,14 @@ def vitals_key(patient, times, codes):
     return [[V.get(t, {}).get(c, '?') for t in times] for c in codes]
 
 
+def render_images(d, it):
+    """Pictures printed under the question (a graph or an EHR screenshot): it['images'] = [{'path','caption','width'}]; paths are relative to the folder the builder runs in."""
+    for im in it.get('images', []):
+        p = d.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.space_after = Pt(2); p.paragraph_format.keep_with_next = True
+        p.add_run().add_picture(im['path'], width=Inches(im.get('width', 6.6)))
+        if im.get('caption'): para(d, im['caption'], italic=True, size=9, color='555555', align='center', after=4, keep=True)
+
+
 def render_item(d, it, patient):
     t = it['type']
     if t == 'text':
@@ -291,6 +299,7 @@ def render_item(d, it, patient):
         return
     if t == 'sealed': page_break(d); shift_update(d, it, patient); return
     item_head(d, it, None)
+    render_images(d, it)
     if t == 'fields': render_fields(d, it)
     elif t == 'box': ruled_box(d, it.get('lines', 4), it.get('width', 7.0))
     elif t == 'boxes':

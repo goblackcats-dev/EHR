@@ -1,0 +1,48 @@
+== 2026-11-02 19:00
+  Night shift 11/01 1900 to 11/02 0700 2349 246 +2103
+  Day shift 11/02 0700 to 11/02 1900 4720 447 +4273
+  Night shift 11/02 1900 to 11/03 0700 349 44 +305
+  Last 24 hours (to now) 7418 737 +6681
+  Whole stay (matches the Summary page) 7418 737 +6681
+== 2026-11-03 07:00
+  Night shift 11/01 1900 to 11/02 0700 2349 246 +2103
+  Day shift 11/02 0700 to 11/02 1900 4720 447 +4273
+  Night shift 11/02 1900 to 11/03 0700 3748 496 +3252
+  Day shift 11/03 0700 to 11/03 1900 308 47 +261
+  Last 24 hours (to now) 8199 957 +7242
+  Whole stay (matches the Summary page) 11125 1236 +9889
+== 2026-11-03 19:00
+  Night shift 11/01 1900 to 11/02 0700 2349 246 +2103
+  Day shift 11/02 0700 to 11/02 1900 4720 447 +4273
+  Night shift 11/02 1900 to 11/03 0700 3748 496 +3252
+  Day shift 11/03 0700 to 11/03 1900 4094 474 +3620
+  Night shift 11/03 1900 to 11/04 0700 711 20 +691
+  Last 24 hours (to now) 8204 946 +7258
+  Whole stay (matches the Summary page) 15622 1683 +13939
+== 2026-11-04 07:00
+  Night shift 11/01 1900 to 11/02 0700 2349 246 +2103
+  Day shift 11/02 0700 to 11/02 1900 4720 447 +4273
+  Night shift 11/02 1900 to 11/03 0700 3748 496 +3252
+  Day shift 11/03 0700 to 11/03 1900 4094 474 +3620
+  Night shift 11/03 1900 to 11/04 0700 4160 803 +3357
+  Day shift 11/04 0700 to 11/04 1900 246 68 +178
+  Last 24 hours (to now) 8192 1298 +6894
+  Whole stay (matches the Summary page) 19317 2534 +16783
+== 2026-11-04 19:00
+  Day shift 11/02 0700 to 11/02 1900 4720 447 +4273
+  Night shift 11/02 1900 to 11/03 0700 3748 496 +3252
+  Day shift 11/03 0700 to 11/03 1900 4094 474 +3620
+  Night shift 11/03 1900 to 11/04 0700 4160 803 +3357
+  Day shift 11/04 0700 to 11/04 1900 1823 836 +987
+  Night shift 11/04 1900 to 11/05 0700 280 65 +215
+  Last 24 hours (to now) 5552 1684 +3868
+  Whole stay (matches the Summary page) 21174 3367 +17807
+== 2026-11-05 07:00
+  Night shift 11/02 1900 to 11/03 0700 3748 496 +3252
+  Day shift 11/03 0700 to 11/03 1900 4094 474 +3620
+  Night shift 11/03 1900 to 11/04 0700 4160 803 +3357
+  Day shift 11/04 0700 to 11/04 1900 1823 836 +987
+  Night shift 11/04 1900 to 11/05 0700 1257 638 +619
+  Day shift 11/05 0700 to 11/05 1900 102 100 +2
+  Last 24 hours (to now) 2936 1506 +1430
+  Whole stay (matches the Summary page) 22253 4040 +18213
