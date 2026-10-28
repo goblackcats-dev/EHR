@@ -7,7 +7,7 @@ import json, sys
 E = lambda t, pts, src='': {'t': t, 'pts': pts, 'src': src}
 
 meta = {'title': 'Burn ICU Case Study: Marcus Delaney, a Three-Day ICU Stay, Shift by Shift',
-        'course': 'Critical Care / Advanced Med-Surg', 'caseCode': 'CS-BURN-ICU-1', 'passPct': 78,
+        'course': 'Critical Care / Advanced Med-Surg', 'caseCode': 'CS-BURN-ICU-1', 'passPct': 78, 'noTimeTable': True,
         'footer': 'Write one answer per numbered box, inside the box, in dark pen, neatly. Open book, individual work.'}
 
 studentIntro = [
@@ -80,9 +80,9 @@ items.append({'id': '1.3', 'type': 'vitals', 'points': 1.5, 'title': 'Vital Sign
               'codes': ['TEMP', 'HR', 'BP', 'RR', 'SPO2', 'PAIN'],
               'key': {'rules': 'Score 1.0 x (cells correct / 24), rounded to the nearest 0.5. The trend sentence is worth 0.5: heart rate starts high (111) and falls to 97 as the resuscitation works; blood pressure is low-normal (99/57 to 109/63, MAP about 71 to 78); temperature rises from 98.2 F to 99.2 F (he arrived cold at 96.8 F); CPOT stays 1 because he is sedated. The value NOT to trust fully is the SpO2 of 99-100%: carbon monoxide on the hemoglobin makes the pulse oximeter read falsely normal. Allow +/- 2 for rates and +/- 0.2 F.'}})
 
-items.append({'id': '1.3b', 'type': 'box', 'points': 0, 'lines': 4, 'title': 'Trend (scored with 1.3)', 'prompt': 'Describe the trend over the shift and name the value you do NOT fully trust and why.', 'key': {'answer': 'Scored with item 1.3.'}})
+items.append({'id': '1.3b', 'type': 'box', 'points': 0, 'lines': 7, 'title': 'Trend (scored with 1.3)', 'prompt': 'Describe the trend over the shift and name the value you do NOT fully trust and why.', 'key': {'answer': 'Scored with item 1.3.'}})
 
-items.append({'id': '1.4', 'type': 'box', 'points': 1.5, 'lines': 9, 'title': 'The Pulse Oximeter Says 100%',
+items.append({'id': '1.4', 'type': 'box', 'points': 1.5, 'lines': 13, 'title': 'The Pulse Oximeter Says 100%',
               'prompt': 'Marcus\'s SpO2 reads 99 to 100% all morning. (a) Explain why this number can be falsely reassuring in this patient. (b) Which lab results show how much carbon monoxide is on his hemoglobin, and what were the values at 0250, 0415 and 0800? (c) What treatment lowers it, and what did the night team change at 0600 (read their notes)? (d) He smokes a pack a day: what does that tell you about the value he is heading toward?',
               'where': 'Lab Results > Blood Gas (Carboxyhemoglobin, PaO2); Orders (ventilator); Flowsheets > Respiratory',
               'key': {'elements': [
@@ -101,7 +101,7 @@ items.append({'id': '1.5', 'type': 'box', 'points': 1.5, 'lines': 11, 'title': '
                   E('225 mL/h x 1.2 = 270 mL/h at 1400.', 0.25, 'MAR'),
                   E('Two checks (lung sounds / peak airway pressures, abdomen or bladder pressure, right hand pulses and tension, edema, blood pressure, heart rate) AND a danger of too much fluid ("fluid creep": pulmonary edema, compartment syndrome, more ventilator days, worse swelling).', 0.25, '')]}})
 
-items.append({'id': '1.6', 'type': 'box', 'points': 1.5, 'lines': 12, 'title': 'Calling the Burn Surgeon',
+items.append({'id': '1.6', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': 'Calling the Burn Surgeon',
               'prompt': 'It is 1400 and you have just seen the second low urine output. Write the SBAR you give Dr. Okafor on the phone. Use real numbers from the chart. End with what you are asking him to do and how you will confirm the order.',
               'where': 'Flowsheets (vital signs, I&O, neurovascular); Lab Results (lactate, potassium, CK); Orders',
               'key': {'elements': [
@@ -113,7 +113,7 @@ items.append({'id': '1.6', 'type': 'box', 'points': 1.5, 'lines': 12, 'title': '
 items.append({'id': '1.7', 'type': 'table', 'points': 1.5, 'title': 'Lines, Tubes and Airway',
               'prompt': 'List SIX lines, tubes or devices Marcus has at 0700 (not counting the ventilator). For each, write the site and what you check every shift, and one complication you are watching for.',
               'where': 'Avatar (IVs, drains and tubes); Flowsheets > Lines / Drains / Airways; Nursing Admission Note',
-              'cols': ['Device and site', 'What you check or do every shift', 'A complication you watch for'], 'widths': [1.9, 2.8, 2.3], 'rows': 6, 'rowH': 0.62,
+              'cols': ['Device and site', 'What you check or do every shift', 'A complication you watch for'], 'widths': [1.9, 2.8, 2.3], 'rows': 6, 'rowH': 1.25,
               'key': {'answer': 'Each device row is worth 0.25: the device and site are right AND the check/complication fit that device.', 'bank': True,
                       'elements': [
                           E('Endotracheal tube, 8.0 oral, 24 cm at the teeth: confirm depth and securement, cuff pressure (about 24), HOB 30, oral care, suction as needed. Complications: accidental extubation, VAP, pressure injury to the lips, tube obstruction.', 0.25, ''),
@@ -146,7 +146,7 @@ items.append({'id': '1.9', 'type': 'table', 'points': 1.5, 'title': 'Reading the
                           E('pH 7.29 -> 7.39 and bicarbonate 18 -> 24 (arterial gas): metabolic acidosis from poor perfusion corrected with resuscitation.', 0.375, ''),
                           E('Carboxyhemoglobin 14.2 -> 3.0 (also accept if not used in 1.4).', 0.375, '')]}})
 
-items.append({'id': '1.10', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': 'Adding Up Your 12 Hours',
+items.append({'id': '1.10', 'type': 'box', 'points': 1.5, 'lines': 21, 'title': 'Adding Up Your 12 Hours',
               'prompt': 'Open Flowsheets > Intake/Output and add the hourly rows from 0700 to 1900 (12 rows). (a) What are his total intake, total output and net balance for your shift? (b) What was his average urine output in mL/h and in mL/kg/h? (c) Using the Parkland rates, how much lactated Ringer\'s should he have received BY 1900 counting from the injury (the EMS 500 mL and the ED 675 mL before the ICU count), and how much did he actually receive in all? (d) What does that tell you?',
               'where': 'Flowsheets > Intake/Output; Orders (lactated Ringer\'s); EMS Handoff and ED notes',
               'key': {'elements': [
@@ -155,7 +155,7 @@ items.append({'id': '1.10', 'type': 'box', 'points': 1.5, 'lines': 10, 'title': 
                   E('Expected by 1900: first 8 h = 3,608 mL plus 9.5 h x 225 = about 2,140 mL, about 5,750 mL. Actual crystalloid: EMS 500 + ED 675 + ICU LR 5,153 = about 6,330 mL.', 0.5, ''),
                   E('He is about 580 mL (10%) over the Parkland estimate: acceptable because the order is to titrate to urine output, but a reminder to watch for fluid creep (edema, airway pressures, bladder pressure) and not to chase a single low urine output.', 0.25, '')]}})
 
-items.append({'id': '1.11', 'type': 'box', 'points': 1.5, 'lines': 11, 'title': 'The 1400 Dressing Change',
+items.append({'id': '1.11', 'type': 'box', 'points': 1.5, 'lines': 9, 'title': 'The 1400 Dressing Change',
               'prompt': 'Read the Burn Wound Assessment note and the 1520 nursing note. (a) Why was hydromorphone given at 1345 and what tool measures pain in an intubated, sedated patient (name its four parts)? (b) Which topical drugs were applied and where? (c) What do you assess at every dressing change? (d) Name two ways you protect him and yourself from infection.',
               'where': 'Chart Review > Notes (Burn Wound Assessment; Nursing Note 1520); MAR (hydromorphone, silver sulfadiazine, bacitracin)',
               'key': {'elements': [
@@ -164,7 +164,7 @@ items.append({'id': '1.11', 'type': 'box', 'points': 1.5, 'lines': 11, 'title': 
                   E('Wound color, depth, drainage amount and odor, eschar, blisters, edges and any redness beyond the burn margin (mark and time it), skin around the wound, right hand pulses and capillary refill, and pain response.', 0.5, ''),
                   E('Any two: sterile technique, gown/gloves/mask and contact precautions, hand hygiene, dedicated equipment, cleansing the old cream, covering the wound promptly.', 0.25, '')]}})
 
-items.append({'id': '1.12', 'type': 'box', 'points': 2, 'lines': 14, 'title': 'Handoff at 1900',
+items.append({'id': '1.12', 'type': 'box', 'points': 2, 'lines': 11, 'title': 'Handoff at 1900',
               'prompt': 'It is 1850. Write your SBAR handoff for E. Haddad, RN, the night nurse. Use real numbers and name what the night nurse must watch for and do in the first part of the night, including anything coming up in the next few hours.',
               'where': 'Everything you have charted and read this shift; Orders; Lab Results; MAR; Flowsheets',
               'key': {'elements': [

@@ -411,17 +411,18 @@ def build(content, patient, outdir):
     for blk in content.get('studentIntro', []):
         if blk.get('h'): para(d, blk['h'], bold=True, size=12.5, before=6, after=2)
         for ln in blk.get('lines', []): para(d, ln, size=10, after=2)
-    # time budget table
-    tb = d.add_table(rows=1, cols=3); set_col_widths(tb, [0.8, 4.9, 1.3])
-    for j, h in enumerate(['Part', 'Nursing process step', 'Estimated time']): c = tb.rows[0].cells[j]; cell_text(c, h, bold=True, size=10); shade(c, 'D9D9D9')
-    total = 0
-    for part in content['parts']:
-        r = tb.add_row(); cell_text(r.cells[0], part['id'], size=10); cell_text(r.cells[1], f"{part['title']}   ({part['step']})", size=10); cell_text(r.cells[2], f"{part['minutes']} min", size=10); total += part['minutes']
-    r = tb.add_row(); cell_text(r.cells[1], 'Estimated total', bold=True, size=10); cell_text(r.cells[2], f"{total // 60} h {total % 60} min", bold=True, size=10)
-    set_col_widths(tb, [0.8, 4.9, 1.3])
-    for r in tb.rows:
-        for c in r.cells: set_cell_border(c, top=THIN, bottom=THIN, left=THIN, right=THIN)
-    para(d, '', after=4)
+    if not meta.get('noTimeTable'):
+        # time budget table
+        tb = d.add_table(rows=1, cols=3); set_col_widths(tb, [0.8, 4.9, 1.3])
+        for j, h in enumerate(['Part', 'Nursing process step', 'Estimated time']): c = tb.rows[0].cells[j]; cell_text(c, h, bold=True, size=10); shade(c, 'D9D9D9')
+        total = 0
+        for part in content['parts']:
+            r = tb.add_row(); cell_text(r.cells[0], part['id'], size=10); cell_text(r.cells[1], f"{part['title']}   ({part['step']})", size=10); cell_text(r.cells[2], f"{part['minutes']} min", size=10); total += part['minutes']
+        r = tb.add_row(); cell_text(r.cells[1], 'Estimated total', bold=True, size=10); cell_text(r.cells[2], f"{total // 60} h {total % 60} min", bold=True, size=10)
+        set_col_widths(tb, [0.8, 4.9, 1.3])
+        for r in tb.rows:
+            for c in r.cells: set_cell_border(c, top=THIN, bottom=THIN, left=THIN, right=THIN)
+        para(d, '', after=4)
     for blk in content.get('studentRules', []):
         if blk.get('h'): para(d, blk['h'], bold=True, size=12.5, before=6, after=2)
         for ln in blk.get('lines', []): para(d, '- ' + ln, size=10, after=1)
