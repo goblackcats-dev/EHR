@@ -2,7 +2,7 @@
 const { H, hOf, at, hOfStamp, hhmm, slug } = require('./lib');
 const WHO = { ed: 'M. Castellano, MD', ortho: 'A. Reyes, MD', hosp: 'S. Patel, MD', night: 'N. Ahmed, MD', anes: 'K. Lindqvist, MD', pharm: 'A. Chen, PharmD' };
 const RN = { day: 'L. Okoye, RN', night: 'P. Dalton, RN', ed: 'A. Torres, RN', pacu: 'R. Vega, RN' };
-const rnAt = h => (h < -42 ? RN.ed : ((h % 24) >= 0 && (h % 24) < 12 ? RN.day : RN.night));   // 07:00-19:00 day from the 07:00 base
+const rnAt = h => { if (h < -40) return RN.ed; const hr = +H(h).slice(11, 13); return hr >= 7 && hr < 19 ? RN.day : RN.night; };   // 07:00-19:00 day shift
 const epic = t => `${t.slice(5, 7)}/${t.slice(8, 10)}/${t.slice(2, 4)} ${t.slice(11, 13)}${t.slice(14, 16)}`;
 const N = 32;                          // MAR columns Tue 07:00 .. Wed 14:00
 const slot = h => (h < 0 ? -1 : Math.floor(h + 1e-6));
@@ -75,7 +75,7 @@ plain('Nursing', 'Foley catheter care every shift and daily review of need', T('
 plain('Nursing', 'Confusion screen (CAM) every shift and with any change in behavior', T('Mon', '08:00'), { provider: WHO.hosp, frequency: 'Every shift', instructions: 'New confusion in an older adult is a sign of illness until proved otherwise: check temperature, glucose, oxygen, pain, bladder and medications; call the provider.' });
 plain('Nursing', 'Bladder scan after catheter removal and as needed', T('Tue', '21:50'), { provider: WHO.night, frequency: 'After removal, then if no void in 6 hours', instructions: 'If post-void residual is over 300 mL or no void in 6 hours, call the provider.' });
 plain('Nursing', 'Toileting every 2 hours while awake and fall precautions', T('Tue', '21:50'), { provider: WHO.night, frequency: 'Every 2 hours while awake' });
-plain('Nursing', 'Telemetry monitoring', T('Sun', '18:30'), { provider: WHO.hosp, frequency: 'Continuous', end: T('Wed', '07:00'), instructions: 'Discontinue when the provider rounds Wednesday morning if no arrhythmia.' });
+plain('Nursing', 'Telemetry monitoring', T('Sun', '18:30'), { provider: WHO.hosp, frequency: 'Continuous', end: T('Wed', '07:30'), instructions: 'Discontinue when the provider rounds Wednesday morning if no arrhythmia.' });
 plain('Lab / Bedside Testing', 'Point-of-care glucose before meals and at bedtime', T('Sun', '17:00'), { provider: WHO.hosp, frequency: 'Before meals and at bedtime' });
 plain('Lab / Bedside Testing', 'CBC and BMP every morning', T('Sun', '17:00'), { provider: WHO.hosp, frequency: 'Daily at 0500' });
 plain('Lab / Bedside Testing', 'Urinalysis with culture (catheter sampling port), blood cultures x2, CBC, BMP and lactate', T('Tue', '21:15'), { provider: WHO.night, frequency: 'Once, now', end: T('Tue', '22:00'), instructions: 'Cultures BEFORE antibiotics. Urine from the catheter sampling port after cleaning it with an alcohol pad (never from the bag).' });
@@ -89,7 +89,7 @@ plain('Code Status', 'Full Code', T('Sat', '22:30'), { provider: WHO.ed });
 // ---------------- devices
 const dev = (deviceType, type, location, siteMarker, placed, o = {}) => ({ id: `device_${slug(type)}_${slug(location)}_${slug(placed)}`, deviceType, type, location, siteMarker, placementDate: placed, status: o.status || 'Patent', lastAssessment: `${placed} - ${o.assess || 'site clean, dry, intact'}`, ...(o.gauge ? { gauge: o.gauge } : {}), ...(o.infusing ? { infusing: o.infusing } : {}), ...(o.drainage ? { drainage: o.drainage } : {}), ...(o.removedAt ? { removedAt: o.removedAt, removedNote: o.removedNote || '' } : {}) });
 const devices = [
-  dev('IV', 'Peripheral IV', 'Left forearm', 'leftForearm', T('Mon', '06:00'), { gauge: '20 gauge', infusing: 'Saline lock after the lactated Ringer\'s stops at 0900 Tuesday', assess: 'clean, dry, intact, flushes easily', removedAt: T('Wed', '14:15'), removedNote: 'Removed before transfer, catheter intact, site clean' }),
+  dev('IV', 'Peripheral IV', 'Left forearm', 'leftForearm', T('Sat', '23:00'), { gauge: '20 gauge', infusing: 'Saline lock after the lactated Ringer\'s stops at 0900 Tuesday', assess: 'clean, dry, intact, flushes easily', removedAt: T('Wed', '14:15'), removedNote: 'Removed before transfer, catheter intact, site clean' }),
   dev('Tube', 'Foley catheter', 'Urethral, 16 Fr', 'pelvis', T('Sat', '23:30'), { gauge: '16 Fr', status: 'Draining', assess: 'secured to the thigh, bag below the bladder, clear yellow urine', drainage: 'Urine', removedAt: T('Tue', '22:00'), removedNote: 'Removed after the urine specimen; bladder scan after the first void' }),
   dev('Tube', 'Oxygen device (cannula / mask)', 'Nares', 'nares', T('Sun', '18:30'), { gauge: '2 L/min', status: 'In place', assess: 'nasal cannula 2 L/min, SpO2 95%', removedAt: T('Tue', '14:00'), removedNote: 'Room air, SpO2 94%' })
 ];

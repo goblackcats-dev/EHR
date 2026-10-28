@@ -168,6 +168,12 @@
 - Glucose (point of care): 188 mg/dL [High]
 
 **2026-11-10 21:45**
+- Urine culture (catheter sampling port): Collected, in process   (In process)
+
+**2026-11-10 21:50**
+- Blood cultures x2 (peripheral): Collected, in process   (In process)
+
+**2026-11-10 22:20**
 - WBC: 14.6 K/uL [High]
 - Hemoglobin: 9.0 g/dL [Low]
 - Hematocrit: 27.0 % [Low]
@@ -181,10 +187,6 @@
 - Glucose (serum): 188 mg/dL [High]
 - Calcium: 8.4 mg/dL [Low]
 - Lactate: 1.5 mmol/L 
-- Urine culture (catheter sampling port): Collected, in process   (In process)
-
-**2026-11-10 21:50**
-- Blood cultures x2 (peripheral): Collected, in process   (In process)
 
 **2026-11-10 22:30**
 - UA appearance: Cloudy, dark yellow  [Abnormal]
@@ -246,14 +248,14 @@
 2026-11-10 09:00 | lactated Ringer's 1,000 mL | 0900 Discontinued - stopped, drinking well
 2026-11-10 14:00 | oxygen by nasal cannula | 1400 Discontinued - room air, SpO2 94%
 2026-11-07 22:35 | fentanyl injection | 2235 Given 25 mcg (A. Torres, RN)
-2026-11-08 14:00 | cefazolin (ANCEF) injection | 1400 Given 2 g (P. Dalton, RN)
-2026-11-08 18:30 | oxygen by nasal cannula | 1830 Started 2 L/min (P. Dalton, RN)
+2026-11-08 14:00 | cefazolin (ANCEF) injection | 1400 Given 2 g (A. Torres, RN)
+2026-11-08 18:30 | oxygen by nasal cannula | 1830 Started 2 L/min (L. Okoye, RN)
 2026-11-08 19:30 | packed red blood cells (1 unit) | 1930 Given 1 unit over 3.5 hours (P. Dalton, RN)
 2026-11-08 22:00 | cefazolin (ANCEF) injection | 2200 Given 2 g (P. Dalton, RN)
 2026-11-09 06:00 | cefazolin (ANCEF) injection | 0600 Given 2 g (P. Dalton, RN)
 2026-11-09 06:00 | lactated Ringer's 1,000 mL | 0600 Started 75 mL/h (P. Dalton, RN)
-2026-11-09 09:00 | enoxaparin (LOVENOX) injection | 0900 Given 40 mg (P. Dalton, RN)
-2026-11-09 14:00 | acetaminophen (TYLENOL) tablet | 1400 Given 1,000 mg (P. Dalton, RN)
+2026-11-09 09:00 | enoxaparin (LOVENOX) injection | 0900 Given 40 mg (L. Okoye, RN)
+2026-11-09 14:00 | acetaminophen (TYLENOL) tablet | 1400 Given 1,000 mg (L. Okoye, RN)
 2026-11-09 22:00 | acetaminophen (TYLENOL) tablet | 2200 Given 1,000 mg (P. Dalton, RN)
 2026-11-10 06:00 | acetaminophen (TYLENOL) tablet | 0600 Given 1,000 mg (P. Dalton, RN)
 2026-11-10 06:00 | levothyroxine (SYNTHROID) tablet | 0600 Given 75 mcg (P. Dalton, RN)
@@ -289,7 +291,7 @@
 
 ## Devices
 
-- Peripheral IV Left forearm (20 gauge): placed 2026-11-09 06:00, removed 2026-11-11 14:15
+- Peripheral IV Left forearm (20 gauge): placed 2026-11-07 23:00, removed 2026-11-11 14:15
 - Foley catheter Urethral, 16 Fr (16 Fr): placed 2026-11-07 23:30, removed 2026-11-10 22:00
 - Oxygen device (cannula / mask) Nares (2 L/min): placed 2026-11-08 18:30, removed 2026-11-10 14:00
 
@@ -306,7 +308,7 @@
 - [Nursing] Confusion screen (CAM) every shift and with any change in behavior (from 2026-11-09 08:00): New confusion in an older adult is a sign of illness until proved otherwise: check temperature, glucose, oxygen, pain, bladder and medications; call the provider.
 - [Nursing] Bladder scan after catheter removal and as needed (from 2026-11-10 21:50): If post-void residual is over 300 mL or no void in 6 hours, call the provider.
 - [Nursing] Toileting every 2 hours while awake and fall precautions (from 2026-11-10 21:50): 
-- [Nursing] Telemetry monitoring (from 2026-11-08 18:30 to 2026-11-11 07:00): Discontinue when the provider rounds Wednesday morning if no arrhythmia.
+- [Nursing] Telemetry monitoring (from 2026-11-08 18:30 to 2026-11-11 07:30): Discontinue when the provider rounds Wednesday morning if no arrhythmia.
 - [Lab / Bedside Testing] Point-of-care glucose before meals and at bedtime (from 2026-11-08 17:00): 
 - [Lab / Bedside Testing] CBC and BMP every morning (from 2026-11-08 17:00): 
 - [Lab / Bedside Testing] Urinalysis with culture (catheter sampling port), blood cultures x2, CBC, BMP and lactate (from 2026-11-10 21:15 to 2026-11-10 22:00): Cultures BEFORE antibiotics. Urine from the catheter sampling port after cleaning it with an alcohol pad (never from the bag).

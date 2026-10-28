@@ -89,6 +89,7 @@ function buildLabs() {
     micro('Urine culture (catheter sampling port)', C0, 'Gram-negative rods, more than 100,000 CFU/mL. Identification and susceptibilities to follow.', 'Preliminary', T('Wed', '09:30'), 'Urine'),
     micro('Blood cultures x2 (peripheral)', T('Tue', '21:50'), 'Collected, in process', 'In process', T('Tue', '21:50'), 'Blood'),
     micro('Blood cultures x2 (peripheral)', T('Tue', '21:50'), 'No growth to date (about 10 hours).', 'Preliminary', T('Wed', '08:00'), 'Blood'));
+  out.filter(l => l.collected === at('Tue', '21:45') && l.category !== 'Microbiology').forEach(l => { l.availableAt = at('Tue', '22:20'); });   // blood work drawn at 2145 results about 35 minutes later
   return out;
 }
 
