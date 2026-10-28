@@ -132,7 +132,7 @@ dialog, dialog[class] { border-radius: 4px !important; }
 .flowsheet-grid td.fs-student { box-shadow: inset 3px 0 0 #1f5fa8; }
 .flowsheet-grid th.fs-now-col, .flowsheet-grid td.fs-now-col { background: #fffbe8; }
 .flowsheet-grid td.fs-now-col.selected { background: #dff1ff; }
-.fs-now-tag { display: inline-block; background: #d93025; color: #fff; border-radius: 2px; padding: 0 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+
 .fs-time-click { cursor: pointer; } .fs-time-click:hover { background: #e7f1ff !important; }
 .flowsheet-cell.empty-cell-value { cursor: pointer; }
 .flowsheet-cell.empty-cell-value:hover { background: #f1f7ff; }
@@ -149,27 +149,6 @@ dialog, dialog[class] { border-radius: 4px !important; }
 .fs-io-table th:first-child { text-align: left; font-weight: 600; }
 .fs-io-table thead th { background: #f1f6fb; position: sticky; top: 0; font-size: 12px; }
 .fs-io-strong th, .fs-io-strong td { font-weight: 700; background: #f4f8fc; }
-/* bedside monitor */
-.fs-monitor { background: #0d1b2a; color: #e6eef7; padding: 8px 12px 10px; border-bottom: 2px solid #1b3550; }
-.fs-monitor.hidden { display: none; }
-.fs-mon-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 12px; margin-bottom: 6px; }
-.fs-mon-head b { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: #9fc3ea; }
-.fs-mon-head span { color: #9db2c9; }
-.fs-mon-share { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; color: #e6eef7; font-size: 13px; cursor: pointer; }
-.fs-mon-share input { width: 22px; height: 22px; }
-.fs-mon-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
-.fs-mon-tile { background: #060f19; border: 1px solid #1f3a57; border-radius: 3px; padding: 4px 8px 6px; display: flex; flex-direction: column; min-width: 0; }
-.fs-mon-label { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #8fb0d2; }
-.fs-mon-tile b { font-size: 26px; line-height: 1.1; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.fs-mon-unit { font-size: 11px; color: #7f97b0; min-height: 13px; }
-.fs-mon-HR b { color: #3ddc84; } .fs-mon-BP b { color: #ff6b6b; } .fs-mon-RR b { color: #ffd54a; } .fs-mon-SPO2 b { color: #4fd8ff; } .fs-mon-TEMP b { color: #f2f2f2; } .fs-mon-PAIN b { color: #ff9f43; } .fs-mon-O2 b { color: #c7d6e6; font-size: 16px; line-height: 1.35; padding-top: 6px; white-space: normal; }
-.fs-mon-tile.abn { border-color: #ff5252; box-shadow: inset 0 0 0 1px #ff5252; }
-.fs-mon-next { margin-top: 8px; border-top: 1px dashed #2c4a6a; padding-top: 6px; font-size: 13px; }
-.fs-mon-next-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
-.fs-mon-next-head b { color: #9fc3ea; text-transform: uppercase; letter-spacing: .05em; font-size: 12px; }
-.fs-mon-count { font-size: 15px; font-weight: 700; color: #ffd54a; }
-.fs-mon-next-vals { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 3px; color: #cfe0f2; font-variant-numeric: tabular-nums; }
-.fs-mon-next-vals em { font-style: normal; color: #7f97b0; font-size: 11px; text-transform: uppercase; margin-right: 3px; }
 /* charting forms */
 .fs-form { width: min(680px, calc(100vw - 24px)); }
 .fs-form .dialog-body { padding: 14px 16px 16px; max-height: calc(100vh - 120px); overflow: auto; }
@@ -199,7 +178,6 @@ dialog, dialog[class] { border-radius: 4px !important; }
 .flowsheet-grid thead th.flowsheet-label-col { z-index: 7; }
 .flowsheet-grid tbody td.flowsheet-label-col { z-index: 6; }
 .flowsheet-grid { table-layout: fixed; }
-.fs-mon-O2 b { white-space: normal !important; font-size: 16px !important; }
 /* vital sign source rows + wide vitals form */
 .fs-form-wide { width: min(860px, calc(100vw - 24px)); }
 .fs-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -207,8 +185,6 @@ dialog, dialog[class] { border-radius: 4px !important; }
 .fs-map { display: flex; align-items: center; min-height: 44px; padding: 0 10px; border: 1px solid var(--border); border-radius: 4px; background: #f1f6fb; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .flowsheet-grid tr.fs-subrow td { height: 30px !important; padding-top: 2px; padding-bottom: 2px; font-size: 11.5px; color: #55657a; }
 .flowsheet-grid tr.fs-subrow td.flowsheet-label-col { padding-left: 18px; font-weight: 400; font-size: 11.5px; color: #55657a; }
-.fs-mon-sub { font-size: 11px; color: #9db2c9; min-height: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.fs-mon-tile .fs-mon-unit { color: #b6c9de; }
 .flowsheet-grid tr.fs-subrow td.flowsheet-cell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .flowsheet-grid td.flowsheet-cell { height: 36px; }
 
@@ -284,8 +260,6 @@ th.fs-col-sel { background: #dff1ff !important; }
   .flowsheet-layout, .flowsheet-layout.fs-side-open { grid-template-columns: 1fr; }
   .fs-toc { max-height: 150px; }
 }
-.flowsheet-layout.fs-side-open .fs-mon-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.flowsheet-layout.fs-side-open .fs-mon-tile b { font-size: 22px; }
 
 /* ---- Brain timeline runs left to right (one column per hour) ---- */
 .brain-timeline { display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; border-radius: var(--radius); }
@@ -298,3 +272,31 @@ th.fs-col-sel { background: #dff1ff !important; }
 .bt-extra { flex-basis: 250px; }
 .bt-nowline { top: 38px; bottom: 0; left: 0; right: auto; height: auto; width: 0; border-top: 0; border-left: 2px solid #d93025; }
 .bt-nowline::before { left: -6px; top: -5px; }
+
+/* ---- sign-in (v68) ---- */
+#signInOverlay { position: fixed; inset: 0; z-index: 100000; background: rgba(11, 61, 115, .96); display: flex; align-items: center; justify-content: center; padding: 20px; }
+#signInOverlay .si-card { background: #fff; border-radius: 6px; padding: 26px 28px; width: min(380px, 100%); display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+#signInOverlay .si-logo { width: 44px; height: 44px; border-radius: 8px; background: var(--appbar); color: #fff; display: grid; place-items: center; font-weight: 700; }
+#signInOverlay h1 { margin: 0; font-size: 22px; } #signInOverlay p { margin: 0 0 4px; color: var(--muted); }
+#signInOverlay label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 13px; }
+#signInOverlay input, #signInOverlay select { min-height: 44px; padding: 8px 10px; font-size: 16px; border: 1px solid var(--border-dark); border-radius: 4px; font-weight: 400; }
+#signInOverlay .primary-button { min-height: 46px; font-size: 16px; } .si-err { color: #b00020; min-height: 18px; font-size: 13px; }
+#userChip { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-size: 12px; margin-right: 4px; }
+#userChip .user-name { font-weight: 700; } #userChip .user-role { color: #b9cde4; } #userChip .user-out { min-height: 28px; padding: 0 8px; font-size: 12px; background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: var(--radius); cursor: pointer; }
+
+/* v62: current-time column, slim suggested-vitals bar, opaque sticky label column */
+.fs-suggest { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 6px 10px; background: #eef5fc; border-bottom: 1px solid #c9dbee; font-size: 13px; }
+.fs-suggest.hidden { display: none; }
+.fs-suggest small { color: var(--muted); font-size: 11px; }
+.fs-suggest button { min-height: 40px; }
+.flowsheet-grid thead th.fs-now-col { background: #cfe3f8 !important; color: #0f3b6b; font-weight: 800; }
+.flowsheet-grid td.fs-now-col { background: #eaf3fc; }
+.flowsheet-grid td.fs-now-col.selected { background: #dff1ff; }
+.flowsheet-grid { border-collapse: separate; border-spacing: 0; }
+.flowsheet-grid .flowsheet-label-col { background: #fff !important; position: sticky; left: 0; z-index: 6; box-shadow: 2px 0 0 #c7d7ea; border-right: 2px solid #c7d7ea !important; box-sizing: border-box; }
+.flowsheet-grid thead .flowsheet-label-col { background: #f8fbff !important; z-index: 8; }
+.flowsheet-grid tr.flowsheet-section-row .flowsheet-label-col { background: #e8f1fa !important; }
+.flowsheet-grid tr.fs-total-row .flowsheet-label-col { background: #f4f8fc !important; }
+.flowsheet-grid-scroll { scroll-padding-left: 150px; scroll-snap-type: x proximity; }
+.flowsheet-grid .flowsheet-time-col, .flowsheet-grid td.flowsheet-cell { scroll-snap-align: start; scroll-margin-left: 150px; }
+.flowsheet-grid th.fs-now-col { z-index: 4; }

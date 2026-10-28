@@ -16,7 +16,7 @@
   }
   function log(type, detail, orderId) {
     const c = cfg(); if (!c) return;
-    c.log.push({ at: simulationTime, type, detail, orderId: orderId || (state && state.orderId) || '' });
+    c.log.push({ at: simulationTime, type, detail, orderId: orderId || (state && state.orderId) || '', by: window.NSUser ? NSUser.label() : '' });
     if (c.log.length > 400) c.log.shift();
   }
 

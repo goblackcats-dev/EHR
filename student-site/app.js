@@ -1916,6 +1916,7 @@ function resetSimulation() {
   });
   currentCanonicalCase.ioEvents = (currentCanonicalCase.ioEvents || []).filter(item => !item.studentEntered);
   currentCanonicalCase.flowsheetComments = (currentCanonicalCase.flowsheetComments || []).filter(item => !item.studentEntered);
+  currentCanonicalCase.notes = (currentCanonicalCase.notes || []).filter(item => !item.studentEntered);
 
   refreshSimulationView();
 }
@@ -3132,6 +3133,7 @@ function saveFlowsheetAssessment() {
     source: 'Student charting',
     abnormal: elements.chartAssessmentAbnormal.checked,
     comment: (window.FlowsheetCharting && window.FlowsheetCharting.takeComment()) || undefined,
+    enteredBy: window.NSUser ? window.NSUser.label() : undefined,
     studentEntered: true
   });
 
@@ -3426,7 +3428,7 @@ function buildFlowsheetRecords(canonical) {
   const records = [];
   const hasVital = new Set((canonical.observations || []).filter(o => o.type === 'vital').map(o => `${safe(o.code).toUpperCase()}|${safe(o.collected)}`));
   (canonical.observations || []).forEach(obs => {
-    const mine = { studentEntered: !!obs.studentEntered, src: 'obs', comment: safe(obs.comment, '') };
+    const mine = { studentEntered: !!obs.studentEntered, src: 'obs', comment: safe(obs.comment, ''), enteredBy: obs.enteredBy || '' };
     if (obs.type === 'assessment') {
       records.push({ id: obs.id, section: safe(obs.section,'Other'), field: safe(obs.label || obs.code), value: `${safe(obs.value)}${obs.units ? ' ' + obs.units : ''}`.trim(), collected: safe(obs.collected), source: safe(obs.source,'Nursing assessment'), details: safe(obs.details,''), abnormal: !!obs.abnormal || !!safe(obs.flag,''), ...mine });
       // the oxygen device is also shown on the Vital Signs flowsheet
@@ -3457,19 +3459,19 @@ function buildFlowsheetRecords(canonical) {
   [...(canonical.devices || []).map(d => [d, false]), ...(canonical.removedDevices || []).map(d => [d, true])].forEach(([device, removed]) => {
     const stampRe = /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2})(?:\s*[-:]\s*)?([\s\S]*)$/, la = safe(device.lastAssessment, '').match(stampRe);
     const collected = la ? la[1] : safe(device.placementDate), assessText = la ? la[2].trim() : safe(device.lastAssessment, '');
-    const f = flowsheetDeviceField(device), mine = { studentEntered: !!device.studentEntered, src: 'device', deviceId: device.id, comment: safe(device.comment, '') };
+    const f = flowsheetDeviceField(device), mine = { studentEntered: !!device.studentEntered, src: 'device', deviceId: device.id, comment: safe(device.comment, ''), enteredBy: device.enteredBy || '' };
     const rec = (suffix, field, value, when, extra) => records.push({ id: `${device.id}${suffix}`, section: 'Lines / Drains / Airways', field: `${f} | ${field}`, value, collected: when, source: 'Device record', details: safe(device.lastAssessment, ''), abnormal: false, ...mine, ...(extra || {}) });
     rec('', 'Site', safe(device.location, '--'), safe(device.placementDate));
     rec('_status', 'Status', safe(removed ? device.priorStatus : device.status, 'In place'), collected);
     if (assessText) rec('_assess', 'Assessment', assessText, collected);
     const out = [device.infusing, device.drainage].filter(Boolean).join('; ');
     if (out) rec('_output', 'Drainage / output', out, collected);
-    if (removed) records.push({ id: `${device.id}_removed`, section: 'Lines / Drains / Airways', field: `${f} | Status`, value: 'Removed', collected: safe(device.removedAt), source: 'Device removal', details: safe(device.removedNote, ''), abnormal: false, studentEntered: !!device.removedByStudent, src: 'deviceRemoval', deviceId: device.id });
+    if (removed) records.push({ id: `${device.id}_removed`, section: 'Lines / Drains / Airways', field: `${f} | Status`, value: 'Removed', collected: safe(device.removedAt), source: 'Device removal', details: safe(device.removedNote, ''), abnormal: false, studentEntered: !!device.removedByStudent, src: 'deviceRemoval', deviceId: device.id, enteredBy: device.removedBy || '' });
   });
   (canonical.ioEvents || []).forEach((io, idx) => {
     const base = io.id || `io_${idx}`;
     const collected = io.collected || (io.date ? `${io.date} ${safe(io.time)}` : safe(io.time));
-    flowsheetIoParts(io).forEach((p, i) => records.push({ id: `${base}_${p.kind}${i}`, section: 'Intake / Output', field: `${p.kind === 'intake' ? 'Intake' : 'Output'}: ${p.label}`, value: `${p.ml} mL`, ml: p.ml, ioKind: p.kind, collected, source: 'I&O record', abnormal: false, studentEntered: !!io.studentEntered, src: 'io', ioId: io.id, comment: safe(io.comment || io.note, '') }));
+    flowsheetIoParts(io).forEach((p, i) => records.push({ id: `${base}_${p.kind}${i}`, section: 'Intake / Output', field: `${p.kind === 'intake' ? 'Intake' : 'Output'}: ${p.label}`, value: `${p.ml} mL`, ml: p.ml, ioKind: p.kind, collected, source: 'I&O record', abnormal: false, studentEntered: !!io.studentEntered, src: 'io', ioId: io.id, comment: safe(io.comment || io.note, ''), enteredBy: io.enteredBy || '' }));
   });
   // comments a student attached to case-built values
   const cm = new Map((canonical.flowsheetComments || []).map(c => [c.recordId, c.comment]));

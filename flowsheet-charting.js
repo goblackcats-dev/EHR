@@ -6,8 +6,8 @@
      BP with live MAP), a Comment, File / Cancel, Value Information, Min/Max and Last Filed Values (24 hours).
      Case-built values are read-only (a comment can still be added).
    - Every student entry is studentEntered:true, so "Reset simulation" removes it and it never mixes with case data.
-   - Bedside monitor panel (top of Vital Signs): what the monitor reads NOW and the SUGGESTED NEXT SET of case vitals.
-     Instructors always see it; students only when canonical.practice.showMonitor is on.
+   - Instructors only: a slim 'Suggested vitals' bar above the Vital Signs grid (the case's vitals for the current time) with a fill button.
+   - The current-time column is always present and the grid scrolls to it.
    Depends on app.js globals (currentCanonicalCase, simulationTime, buildFlowsheetRecords, flowsheetSheets, ...) and flowsheet-practice.js. */
 (function () {
   'use strict';
@@ -91,6 +91,7 @@
   const hiddenBySheet = {};
   let query = '';
   let stickRight = true;
+  let lastNow = '';
   let sel = null;            // { rowKey, col }
   let draft = null;          // { text, aux, comment, time }
   let initialText = '';
@@ -104,7 +105,8 @@
 
   const practice = () => { if (!currentCanonicalCase) return {}; if (!currentCanonicalCase.practice) currentCanonicalCase.practice = { enabled: false }; return currentCanonicalCase.practice; };
   const isInstructor = () => !window.NS_STUDENT;
-  const monitorVisible = () => isInstructor() || !!practice().showMonitor;
+  const monitorVisible = () => isInstructor();
+  const who = () => (window.NSUser ? window.NSUser.label() : (window.NS_STUDENT ? 'Student' : 'Instructor'));
   const canon = () => currentCanonicalCase;
   const bank = () => (window.FlowsheetPractice && window.FlowsheetPractice.BANK) || {};
 
@@ -204,7 +206,7 @@
     // right: sidebar
     const side = card.querySelector('.flowsheet-detail-panel'); side.innerHTML = '<div id="fsSide" class="fs-side"></div>'; side.id = 'fsSidePanel';
     const bar = document.createElement('div'); bar.id = 'fsSheetBar'; bar.className = 'fs-sheetbar';
-    const mon = document.createElement('div'); mon.id = 'fsMonitorPanel'; mon.className = 'fs-monitor hidden';
+    const mon = document.createElement('div'); mon.id = 'fsMonitorPanel'; mon.className = 'fs-suggest hidden';
     const io = document.createElement('div'); io.id = 'fsIoTotals'; io.className = 'fs-io-totals hidden';
     const scroll = main.querySelector('.flowsheet-grid-scroll');
     main.insertBefore(bar, scroll); main.insertBefore(mon, scroll); scroll.insertAdjacentElement('afterend', io);
@@ -237,31 +239,19 @@
     const acts = bar.querySelector('.fs-sheetbar-actions');
     const add = (text, fn, cls) => { const b = document.createElement('button'); b.type = 'button'; b.className = cls || 'small-tool-button'; b.textContent = text; b.addEventListener('click', fn); acts.appendChild(b); };
     if (sheet === 'Lines / Drains / Airways') add('Add line / drain', () => { fileIfDirty(); sel = null; draft = null; editing = false; addDevMode = true; rerender(); }, 'primary-button compact-primary');
-    if (sheet === 'Vital Signs' && monitorVisible()) add('Fill column from monitor', fillColumn);
   }
 
   // ------------------------------------------------------------ monitor panel
   function renderMonitor() {
     const box = $('fsMonitorPanel'); if (!box) return;
-    if (sheet !== 'Vital Signs' || !monitorVisible() || !canon()) { box.className = 'fs-monitor hidden'; box.innerHTML = ''; return; }
-    box.className = 'fs-monitor';
+    if (sheet !== 'Vital Signs' || !monitorVisible() || !canon()) { box.className = 'fs-suggest hidden'; box.innerHTML = ''; return; }
+    box.className = 'fs-suggest';
     const { cur, next } = monitorState();
     const v = cur ? setValues(cur) : null;
-    const tile = (label, unit, code, text, flagged, sub) => `<div class="fs-mon-tile fs-mon-${code}${flagged ? ' abn' : ''}"><span class="fs-mon-label">${label}</span><b>${esc(text || '--')}</b><span class="fs-mon-unit">${unit}</span><span class="fs-mon-sub">${esc(sub || '')}</span></div>`;
-    const flag = o => !!(o && safe(o.flag, ''));
-    const ago = cur ? Math.max(0, simMinutesBetween(cur.time, simulationTime)) : 0;
-    const agoText = ago < 1 ? 'now' : ago < 60 ? `${ago} min ago` : `${Math.floor(ago / 60)} h ${ago % 60} min ago`;
-    let nextHtml;
-    if (next) {
-      const nv = setValues(next), mins = simMinutesBetween(simulationTime, next.time);
-      const bits = [['HR', valText(nv.HR)], ['BP', valText(nv.BP)], ['MAP', nv.MAP != null ? `${nv.MAP} mmHg` : ''], ['RR', valText(nv.RR)], ['SpO2', valText(nv.SPO2)], ['Temp', valText(nv.TEMP)], ['Pain', valText(nv.PAIN)], ['O2', nv.O2]].filter(x => x[1]);
-      nextHtml = `<div class="fs-mon-next-head"><b>Suggested next set</b><span class="fs-mon-count">${esc(hhmm(next.time))} (${esc(epicDate(next.time).split(' ')[0])}) &nbsp; in ${mins} min</span></div><div class="fs-mon-next-vals">${bits.map(([k, t]) => `<span><em>${k}</em> ${esc(t)}</span>`).join('')}</div>`;
-    } else nextHtml = `<div class="fs-mon-next-head"><b>Suggested next set</b><span class="fs-mon-count">No further sets planned</span></div>`;
-    box.innerHTML = `<div class="fs-mon-head"><b>Bedside monitor</b><span>${cur ? `Reading from ${esc(hhmm(cur.time))} (${agoText})` : 'No monitor reading yet'}</span>${isInstructor() ? `<label class="fs-mon-share"><input type="checkbox" id="fsMonShow"${practice().showMonitor ? ' checked' : ''}> Show monitor to students</label>` : ''}</div>
-      <div class="fs-mon-grid">${tile('HR', 'bpm', 'HR', v && valText(v.HR).replace(/\s*bpm$/i, ''), v && flag(v.HR), v && (SHORT[v.HRSRC] || v.HRSRC))}${tile('BP', v && v.MAP != null ? `MAP ${v.MAP} mmHg` : 'mmHg', 'BP', v && valText(v.BP), v && flag(v.BP), v && v.BP ? `${v.BPLOC}, ${SHORT[v.BPMETH] || v.BPMETH}` : '')}${tile('RR', '/min', 'RR', v && valText(v.RR).replace(/\s*\/min$/i, ''), v && flag(v.RR), v && (SHORT[v.RRSRC] || v.RRSRC))}${tile('SpO2', '%', 'SPO2', v && valText(v.SPO2).replace(/\s*%$/, ''), v && flag(v.SPO2), v && v.PR ? `PR ${v.PR.replace(/\s*bpm$/i, '')} bpm` : '')}${tile('Temp', v && /°\s*[CF]/.test(valText(v.TEMP)) ? valText(v.TEMP).replace(/^.*?(°\s*[CF]).*$/, '$1') : '', 'TEMP', v && valText(v.TEMP).replace(/\s*°\s*[CF]\s*$/, ''), v && flag(v.TEMP), v && v.TEMPSRC)}${tile('Pain', '0 to 10', 'PAIN', v && valText(v.PAIN).replace(/\/10$/, ''), false)}${tile('O2 device', '', 'O2', v && v.O2, false)}</div>
-      <div class="fs-mon-next">${nextHtml}</div>`;
-    const cb = $('fsMonShow');
-    if (cb) cb.addEventListener('change', () => { practice().showMonitor = cb.checked; try { persistCase(); } catch (e) { /* best effort */ } });
+    const bits = v ? [['HR', valText(v.HR).replace(/\s*bpm$/i, '')], ['BP', valText(v.BP) + (v.MAP != null ? ` (MAP ${v.MAP})` : '')], ['RR', valText(v.RR).replace(/\s*\/min$/i, '')], ['SpO2', valText(v.SPO2).replace(/\s*%$/, '') + '%'], ['Temp', valText(v.TEMP).replace('°F', 'F')], ['Pain', valText(v.PAIN).replace(/\/10$/, '')]].filter(x => x[1] && x[1] !== '%') : [];
+    const nextTxt = next ? `next set ${hhmm(next.time)} (in ${simMinutesBetween(simulationTime, next.time)} min)` : 'no further sets planned';
+    box.innerHTML = `<span class="fs-suggest-text"><b>Suggested vitals for ${esc(hhmm(simulationTime))}:</b> ${bits.length ? bits.map(([k, t]) => `${k} ${esc(t)}`).join(' | ') : 'none yet'} <small>(${nextTxt})</small></span><button type="button" class="secondary-button" id="fsFillSug">Fill column with suggested vitals</button>`;
+    $('fsFillSug').addEventListener('click', () => { sel = null; fillColumn(); });
   }
 
   // ------------------------------------------------------------ rows
@@ -342,7 +332,7 @@
     const lab = document.createElement('th'); lab.className = 'flowsheet-label-col'; lab.textContent = sheet === 'Intake / Output' ? 'Intake / output' : sheet === 'Lines / Drains / Airways' ? 'Device' : 'Row'; hr.appendChild(lab);
     times.forEach(t => {
       const th = document.createElement('th'); th.className = 'flowsheet-time-col' + (t === nowKey ? ' fs-now-col' : '') + (sel && sel.col === t ? ' fs-col-sel' : '');
-      const st = epicDate(t).split(' '); th.innerHTML = st.length > 1 ? `${esc(st[0])}<br><span class="flowsheet-muted">${esc(st[1])}</span>${t === nowKey ? '<br><span class="fs-now-tag">now</span>' : ''}` : esc(t);
+      const st = epicDate(t).split(' '); th.innerHTML = st.length > 1 ? `${esc(st[0])}<br><span class="flowsheet-muted">${esc(st[1])}</span>` : esc(t);
       hr.appendChild(th);
     });
     head.appendChild(hr);
@@ -442,7 +432,8 @@
     all.forEach(r => bySheet[flowsheetSheetOf(r.section)].push(r));
     const records = bySheet[sheet]; view.records = records;
     const doc = Array.from(new Set(records.filter(r => !r.practiceHidden).map(r => safe(r.col || r.collected)).filter(Boolean))).sort();
-    const nk = nowCol(), set = new Set(flowsheetLatestOnlyMode && doc.length ? [doc[doc.length - 1]] : doc);
+    const nk = nowCol(); if (nk !== lastNow) { lastNow = nk; stickRight = true; }
+    const set = new Set(flowsheetLatestOnlyMode && doc.length ? [doc[doc.length - 1]] : doc);
     if (nk) set.add(nk);
     extraCols.forEach(k => { if (!flowsheetLatestOnlyMode) set.add(k); });
     if (sel && sel.col) set.add(sel.col);
@@ -575,7 +566,7 @@
   }
   function pushVital(v, t, comment, tag) {
     const [code, label, value, units, abn] = v;
-    canon().observations.push({ id: `student_vital_${code.toLowerCase()}_${tag}`, type: 'vital', code, label, value, units, flag: abn ? 'Abnormal' : '', collected: t, source: 'Student charting', comment: comment || undefined, studentEntered: true });
+    canon().observations.push({ id: `student_vital_${code.toLowerCase()}_${tag}`, type: 'vital', code, label, value, units, flag: abn ? 'Abnormal' : '', collected: t, source: 'Student charting', comment: comment || undefined, enteredBy: who(), studentEntered: true });
   }
   function dropStudent(recs) {
     const ids = new Set(recs.filter(r => r.studentEntered && r.src === 'obs').map(r => r.cloneOf || r.id));
@@ -595,7 +586,7 @@
     const detail = { po: 0, iv: 0, urine: 0, other: 0, otherLabel: '' };
     if (kind === 'intake') { if (type === 'Oral') detail.po = ml; else if (/^IV/.test(type)) detail.iv = ml; else { detail.otherIntake = ml; detail.otherIntakeLabel = type; } }
     else if (type === 'Urine') detail.urine = ml; else { detail.other = ml; detail.otherLabel = type; }
-    c.ioEvents.push({ id: `io_student_${stampDigits(t)}_${kind}_${uid()}`, date: t.slice(0, 10), time: t.slice(11, 13) + t.slice(14, 16), collected: t, intake: kind === 'intake' ? ml : 0, output: kind === 'output' ? ml : 0, detail, ioKind: kind, ioType: type, comment: String(d.comment || '').trim() || undefined, studentEntered: true });
+    c.ioEvents.push({ id: `io_student_${stampDigits(t)}_${kind}_${uid()}`, date: t.slice(0, 10), time: t.slice(11, 13) + t.slice(14, 16), collected: t, intake: kind === 'intake' ? ml : 0, output: kind === 'output' ? ml : 0, detail, ioKind: kind, ioType: type, comment: String(d.comment || '').trim() || undefined, enteredBy: who(), studentEntered: true });
     return '';
   }
   // assessments go through the existing save routine so practice-mode feedback still works
@@ -620,11 +611,11 @@
   }
   function fileComment(rec, text) {
     const c = canon(), src = rec.studentEntered ? findSource(rec) : null;
-    if (src) { src.comment = text; return; }
+    if (src) { src.comment = text; src.commentBy = who(); return; }
     if (!Array.isArray(c.flowsheetComments)) c.flowsheetComments = [];
     const key = rec.cloneOf || rec.id;
     c.flowsheetComments = c.flowsheetComments.filter(x => x.recordId !== key);
-    c.flowsheetComments.push({ id: `fscomment_${uid()}`, recordId: key, comment: text, collected: simulationTime, studentEntered: true });
+    c.flowsheetComments.push({ id: `fscomment_${uid()}`, recordId: key, comment: text, collected: simulationTime, enteredBy: who(), studentEntered: true });
   }
   function deleteEntry(rec) {
     const c = canon(); if (!c || !window.confirm(rec.src === 'deviceRemoval' ? 'Put this device back in service?' : 'Delete this student entry?')) return;
@@ -701,7 +692,7 @@
     const dev = row.deviceId ? activeDeviceById(row.deviceId) : null;
     const hist = rowRecs(row).filter(r => { const tm = ms(r.collected); return isFinite(tm) ? (tm <= ms(entryTime(sel.col)) + 59000 && tm >= ms(entryTime(sel.col)) - 24 * 3600000) : false; }).sort((a, b) => String(b.collected).localeCompare(String(a.collected))).slice(0, 12);
     const nums = hist.map(r => parseFloat(String(r.value))).filter(x => isFinite(x));
-    const monBtn = row.vital && row.vital.code && monitorVisible() && edit ? '<button type="button" class="secondary-button" id="fsS_fill">Fill from monitor</button>' : '';
+    const monBtn = row.vital && row.vital.code && monitorVisible() && edit ? '<button type="button" class="secondary-button" id="fsS_fill">Use suggested value</button>' : '';
     const readOnlyNote = row.kind === 'total' || row.readonly ? 'Calculated automatically.' : (!edit ? (row.removed ? 'This device has been removed.' : 'Case data is read-only. You can add a comment.') : '');
     const canComment = row.kind !== 'total' && !row.readonly;
     side.innerHTML = `<div class="fs-side-head"><div><b>${esc(row.label)}</b><span>${esc(row.group)} &middot; ${esc(epicDate(entryTime(sel.col)))}</span></div><button type="button" class="icon-button" id="fsS_close" aria-label="Close sidebar">×</button></div>
@@ -712,7 +703,7 @@
         ${canComment ? `<div class="fs-side-actions"><button type="button" class="primary-button" id="fsS_file">${edit ? 'File' : 'File comment'}</button>${monBtn}<button type="button" class="secondary-button" id="fsS_cancel">Cancel</button></div>` : ''}
         <div id="fsS_msg" class="import-message ${msgText ? 'error' : ''}">${esc(msgText)}</div>
         <h4 class="fs-side-h">Value Information</h4>
-        ${last ? `<dl class="fs-info"><dt>Value</dt><dd class="${last.abnormal ? 'flowsheet-abnormal' : ''}">${esc(last.value)}</dd><dt>Collected</dt><dd>${esc(safe(last.collected))}</dd><dt>Source</dt><dd>${esc(sourceOf(last))}${last.derived ? ' (default)' : ''}</dd><dt>Recorded by</dt><dd>${last.studentEntered ? 'Student' : 'Case record'}</dd>${last.comment ? `<dt>Comment</dt><dd>${esc(last.comment)}</dd>` : ''}${last.details && row.section !== 'Intake / Output' ? `<dt>Detail</dt><dd>${esc(last.details)}</dd>` : ''}</dl>` : '<div class="fs-side-empty">No value filed for this time.</div>'}
+        ${last ? `<dl class="fs-info"><dt>Value</dt><dd class="${last.abnormal ? 'flowsheet-abnormal' : ''}">${esc(last.value)}</dd><dt>Collected</dt><dd>${esc(safe(last.collected))}</dd><dt>Source</dt><dd>${esc(sourceOf(last))}${last.derived ? ' (default)' : ''}</dd><dt>Recorded by</dt><dd>${last.studentEntered ? esc(last.enteredBy || 'Student') : 'Case record'}</dd>${last.comment ? `<dt>Comment</dt><dd>${esc(last.comment)}</dd>` : ''}${last.details && row.section !== 'Intake / Output' ? `<dt>Detail</dt><dd>${esc(last.details)}</dd>` : ''}</dl>` : '<div class="fs-side-empty">No value filed for this time.</div>'}
         ${recs.filter(r => r.studentEntered).map((r, i) => `<div class="fs-entry-line">${esc(epicDate(r.collected))} <b>${esc(r.value)}</b> <button type="button" class="secondary-button fs-del" data-i="${i}">${r.src === 'deviceRemoval' ? 'Undo removal' : 'Delete'}</button></div>`).join('')}
         ${nums.length >= 1 && row.kind !== 'io' ? `<h4 class="fs-side-h">Min / Max (24 hours)</h4><dl class="fs-info"><dt>Min</dt><dd>${Math.min(...nums)}</dd><dt>Max</dt><dd>${Math.max(...nums)}</dd></dl>` : ''}
         <h4 class="fs-side-h">Last Filed Values (24 hours)</h4>
@@ -736,7 +727,7 @@
     const c = canon(), real = (c.devices || []).find(x => x.id === dev.id); if (!real) return err('Device not found.');
     if (parseSimDate(real.placementDate) && ms(t) < ms(real.placementDate)) return err(`The device was placed at ${epicDate(real.placementDate)}; it cannot be removed before that.`);
     if (real.originalStatus === undefined) real.originalStatus = real.status;
-    real.removedAt = t; real.removedNote = $('fsR_note').value.trim(); real.removedByStudent = true;
+    real.removedAt = t; real.removedNote = $('fsR_note').value.trim(); real.removedByStudent = true; real.removedBy = who();
     sel = null; draft = null; editing = false; msgText = '';
     refreshSimulationView();
   }
@@ -778,7 +769,7 @@
     if (!type) return err('Name the device.');
     const site = SITES.find(s => s[0] === $('fsd_site').value); if (!site) return err('Choose a location.');
     const status = $('fsd_status').value.trim() || 'In place', assess = $('fsd_assess').value.trim() || 'Placed; site assessed', size = $('fsd_size').value.trim(), extra = $('fsd_inf').value.trim();
-    const dev = { id: `device_student_${makeStableId('d', type, site[1]).slice(2)}_${uid()}`, deviceType: d[1], type, location: site[1], siteMarker: site[0], placementDate: t, lastAssessment: `${t} - ${assess}`, status, studentEntered: true };
+    const dev = { id: `device_student_${makeStableId('d', type, site[1]).slice(2)}_${uid()}`, deviceType: d[1], type, location: site[1], siteMarker: site[0], placementDate: t, lastAssessment: `${t} - ${assess}`, status, enteredBy: who(), studentEntered: true };
     if (size) dev.gauge = size;
     if (extra) { if (d[1] === 'IV') dev.infusing = extra; else dev.drainage = extra; }
     canon().devices.push(dev);

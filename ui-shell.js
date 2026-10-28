@@ -3,7 +3,7 @@
 (() => {
   'use strict';
   const bar = document.querySelector('.top-actions'); if (!bar) return;
-  const KEEP = new Set(['stuOpenBtn', 'stuResultsBtn', 'openPrebuiltBtn']);
+  const KEEP = new Set(['stuOpenBtn', 'stuResultsBtn', 'openPrebuiltBtn', 'userChip']);
   const wrap = document.createElement('div'); wrap.className = 'tools-menu';
   const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'tools-btn'; btn.id = 'toolsMenuBtn'; btn.textContent = window.NS_STUDENT ? 'Practice tools ▾' : 'Instructor tools ▾'; btn.setAttribute('aria-haspopup', 'true'); btn.setAttribute('aria-expanded', 'false');
   const pop = document.createElement('div'); pop.className = 'tools-pop hidden'; pop.id = 'toolsPop';
