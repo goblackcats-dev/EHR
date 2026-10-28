@@ -62,10 +62,11 @@
       row.innerHTML = `<div class="bt-time">${pad(r.getHours())}00${isNow ? `<span>now ${pad(now.getHours())}${pad(now.getMinutes())}</span>` : ''}</div><div class="bt-slot"></div>`;
       const slot = row.querySelector('.bt-slot');
       list.sort((a, b) => safe(a.dueAt).localeCompare(safe(b.dueAt))).forEach(t => slot.appendChild(renderBrainTask(t)));
-      if (isNow) { const m = document.createElement('div'); m.className = 'bt-nowline'; m.style.top = `${Math.round(now.getMinutes() / 60 * 100)}%`; row.appendChild(m); }
+      if (isNow) { const m = document.createElement('div'); m.className = 'bt-nowline'; m.style.left = `${Math.round(now.getMinutes() / 60 * 100)}%`; row.appendChild(m); }
       box.appendChild(row);
     });
     section('Later<br><span>after this shift</span>', later, 'bt-later');
+    const nowCol = box.querySelector('.bt-now'); if (nowCol && box.scrollWidth > box.clientWidth) box.scrollLeft = Math.max(0, nowCol.offsetLeft - box.offsetLeft - 8);
   }
 
   // Tasks that come from what has just happened in the chart (abnormal vital signs, critical results), not only from the order schedule.

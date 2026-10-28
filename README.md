@@ -706,3 +706,4 @@ Charting no longer uses pop-up boxes. Template tabs run across the top, a Table 
 - v61: Maria Santos and Dorothy Hughes each get ceftriaxone 1.5 g = 3 mL IM (the other two IM patients get vitamin B12 1 mL and 0.5 mL, and Harold Bennett and Linda Park 1 mL).
 - v62: a student who opens a personal link keeps their own saved copy of that patient on their own device (time, flowsheet charting, everything). Opening the same link again resumes it ('Start over' resets). Other students and the original file are never affected.
 - v63: the LPN check-off patients no longer show 'Important Nursing Information' (it gave away technique); a new practice patient, Sam Practice, in the LPN Med Pass list keeps it for learning.
+- v64: the Brain timeline now runs left to right (one column per hour, scrolls sideways, current hour in view, red 'now' line).

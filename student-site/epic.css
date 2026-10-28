@@ -286,3 +286,15 @@ th.fs-col-sel { background: #dff1ff !important; }
 }
 .flowsheet-layout.fs-side-open .fs-mon-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .flowsheet-layout.fs-side-open .fs-mon-tile b { font-size: 22px; }
+
+/* ---- Brain timeline runs left to right (one column per hour) ---- */
+.brain-timeline { display: flex; flex-direction: row; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; border-radius: var(--radius); }
+.bt-row { flex: 0 0 290px; min-width: 290px; width: 290px; flex-direction: column; min-height: 0; border-bottom: 0; border-right: 1px solid #dfe7f0; }
+.bt-row:last-child { border-right: 0; }
+.bt-time { flex: none; width: 100%; padding: 8px 10px; border-right: 0; border-bottom: 1px solid #dfe7f0; display: flex; justify-content: space-between; align-items: baseline; position: sticky; top: 0; }
+.bt-time span { margin-top: 0; }
+.bt-slot { flex: 1; flex-direction: column; flex-wrap: nowrap; align-content: stretch; min-height: 140px; }
+.bt-slot .brain-task { flex: none; max-width: none; width: 100%; }
+.bt-extra { flex-basis: 250px; }
+.bt-nowline { top: 38px; bottom: 0; left: 0; right: auto; height: auto; width: 0; border-top: 0; border-left: 2px solid #d93025; }
+.bt-nowline::before { left: -6px; top: -5px; }
