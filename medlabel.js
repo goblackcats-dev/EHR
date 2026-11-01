@@ -102,9 +102,12 @@
 
   const KIND = { correct: 'Correct package', strength: 'Decoy: wrong strength', lasa: 'Decoy: look-alike / sound-alike drug', expired: 'Decoy: expired package' };
 
+  // pills and capsules print as the small label; injections default to the vial/syringe label; IV bags and bottles keep the bag size
   const defaultSize = (order, pkg) => {
-    const r = String((order.medication && order.medication.route) || '').toLowerCase();
-    return /\b(iv|intravenous)\b/.test(r) && /IVPB|infusion|bag|mL\/h/i.test(order.name + ' ' + ((order.medication && order.medication.dose) || '')) ? 'bag' : 'vial';
+    const med = order.medication || {}, r = String(med.route || '').toLowerCase(), nm = String(order.name || '');
+    if (/\b(iv|intravenous)\b/.test(r) && /IVPB|infusion|bag|mL\/h/i.test(nm + ' ' + (med.dose || ''))) return 'bag';
+    if (/\b(oral|po|sublingual|buccal)\b/.test(r) || /\b(tablet|capsule|caplet)\b/i.test(nm)) return 'mini';
+    return 'vial';
   };
   // Items for NSPrint: one per package (decoys optional). o: { simDate, decoys, size, patient (canonical.patient or null) }
   function printItems(canon, orders, o) {
