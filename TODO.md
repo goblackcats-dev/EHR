@@ -4,6 +4,7 @@
 - Saving: save student work somewhere safer than one browser (carry work between devices, backup file / send to instructor). Today each student's work is saved on their own device only.
 - Add more to the flowsheets as the need comes up (more rows, templates, groups).
 - Rebuild the Case Builder's primary diagnoses one patient at a time, very thoroughly (the old profiles are in `case-builder/primary-archive/`).
+- Lab cart: the PO pills have no labels. Make printable PO labels that match the cart's hand-labeled drawers (see `reference/LAB_CART.md` and the photo `reference/lab-cart-po-drawers.jpg`): full generic and brand name plus strength, in drawer order, with a copies box for each.
 - Printing labels: print several copies of the same medication label on one page (for example many PO labels, since they are used most often), with a number-of-copies box for each medication.
 - Case studies: write the printable packet (student questions and answer key) for the burn ICU patient; then build the next patient one at a time.
 - Go through each pre-built patient (LPN Med Pass and Case Study patients) one by one.
