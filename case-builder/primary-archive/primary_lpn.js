@@ -36,6 +36,8 @@ NS.PRIMARY = NS.PRIMARY || {};
     info: 'Maximum 3 g per 24 hours from all sources. Check the temperature and pain score before giving.', monitor: ['Temp'] });
   const SCALES = {
     low: { label: 'low-dose', text: 'LOW-DOSE sliding scale (glucose mg/dL: 150-199 = 2 units; 200-249 = 4 units; 250-299 = 6 units; 300-349 = 8 units; 350 or higher = 10 units and call the provider; below 150 = no insulin).' },
+    sens: { label: 'sensitive (very low-dose)', text: 'SENSITIVE sliding scale (glucose mg/dL: 150-199 = 1 unit; 200-249 = 2 units; 250-299 = 3 units; 300-349 = 4 units; 350 or higher = 5 units and call the provider; below 150 = no insulin).' },
+    mid: { label: 'moderate-dose', text: 'MODERATE-DOSE sliding scale (glucose mg/dL: 150-199 = 3 units; 200-249 = 6 units; 250-299 = 9 units; 300-349 = 12 units; 350 or higher = 15 units and call the provider; below 150 = no insulin).' },
     high: { label: 'high-dose', text: 'HIGH-DOSE sliding scale (glucose mg/dL: 150-199 = 4 units; 200-249 = 8 units; 250-299 = 12 units; 300-349 = 16 units; 350 or higher = 20 units and call the provider; below 150 = no insulin).' }
   };
   const SSI = scale => ({ key: 'insulin_lispro_ssi', name: 'insulin lispro (HUMALOG) injection', dose: `Per ${SCALES[scale].label} sliding scale`, route: 'Subcutaneous', freq: 'daily', startH: 1.0, cls: 'Rapid-acting insulin', monitor: ['Glucose'], by: 'hospitalist', highAlert: true,
@@ -137,4 +139,80 @@ NS.PRIMARY = NS.PRIMARY || {};
       assessments: [{ fromH: 0, items: [['Skin', 'Skin', 'Pale, warm and dry; mildly jaundiced sclera'], ['Neurologic', 'Level of Consciousness', 'Alert and oriented x4'], ['Neurologic', 'Sensation', 'Decreased light touch in both fingertips and toes'], ['Musculoskeletal / Mobility', 'Mobility', 'Steady but slow gait']] }],
       objectives: [OBJ, 'Select an appropriate IM site, needle size and technique, and rotate sites between doses.', 'Read the low-dose sliding scale to find the correct insulin dose for the glucose result.']
     }, (() => { const g = glucoseLab(ctx, 163); g.labs.Hemoglobin = { abs: [[0, 9.4], [48, 9.6]] }; g.labSchedule.push({ h: 0.5, codes: ['Hemoglobin'] }); return g; })()));
+
+  // ---------------------------------------------------------------- the four "lab cart" patients: one PO from the cart drawers, SubQ insulin lispro (a different scale each), IM vitamin B12 or promethazine
+  const FUROSEMIDE = { key: 'furosemide_po', name: 'furosemide (LASIX) tablet', dose: '20 mg', route: 'Oral', freq: 'daily', startH: 1.0, cls: 'Loop diuretic', monitor: ['BP', 'HR', 'K'], by: 'hospitalist',
+    hold: 'Hold and notify the provider if SBP is below 90, the patient is dizzy, or potassium is below 3.5.', indication: 'Heart failure with fluid overload',
+    info: 'Check blood pressure and heart rate BEFORE giving, and the morning weight. Give in the morning. Watch urine output, dizziness and muscle cramps (low potassium). Teach to rise slowly and to weigh daily.' };
+  const FERROUS = { key: 'ferrous_sulfate', name: 'ferrous sulfate (iron) tablet', dose: '325 mg (65 mg elemental iron)', route: 'Oral', freq: 'daily', startH: 1.0, cls: 'Iron supplement', monitor: ['Hgb'], by: 'hospitalist',
+    indication: 'Iron deficiency anemia', info: 'Give with a vitamin C source or juice if tolerated and NOT with milk, antacids or calcium. Stools turn dark green or black (expected). Can cause constipation and stomach upset. Keep out of reach of children (iron overdose is dangerous).' };
+  const CEPHALEXIN = { key: 'cephalexin', name: 'cephalexin (KEFLEX) capsule', dose: '250 mg', route: 'Oral', freq: 'daily', startH: 1.0, cls: 'Cephalosporin antibiotic', monitor: ['Temp'], by: 'hospitalist', avoid: ['cephalosporin', 'penicillin'],
+    indication: 'Skin infection (cellulitis)', info: 'Check the allergy list BEFORE giving (penicillin and cephalosporin allergy). Give with food if upset stomach. Watch for rash, diarrhea and nausea. Finish the whole course.' };
+  const POTASSIUM = { key: 'potassium_chloride_er', name: 'potassium chloride (K-DUR) extended-release tablet', dose: '20 mEq', route: 'Oral', freq: 'daily', startH: 1.0, cls: 'Electrolyte supplement', monitor: ['K'], by: 'hospitalist', highAlert: true,
+    hold: 'Hold and notify the provider if the potassium is above 5.0 or the patient cannot swallow the tablet whole.', indication: 'Low potassium (hypokalemia)',
+    info: 'Very large tablet: swallow WHOLE with a full glass of water and food, upright for 30 minutes; do NOT crush or chew (extended-release). Check the latest potassium first. Report nausea, stomach pain or black stools.' };
+  const PROMETHAZINE = { key: 'promethazine_im', name: 'promethazine (PHENERGAN) injection', dose: '12.5 mg', route: 'Intramuscular', freq: 'daily', startH: 1.0, cls: 'Antiemetic / phenothiazine antihistamine', monitor: ['RR', 'BP'], by: 'hospitalist',
+    hold: 'Hold and notify the provider if the patient is very drowsy or the respiratory rate is below 12.', indication: 'Nausea',
+    info: 'Concentration 25 mg/mL, so 12.5 mg = 0.5 mL. Give DEEP IM ONLY into a large muscle (never subcutaneous and never into an artery: severe tissue injury). Causes drowsiness and dizziness: keep the bed low and call light in reach; fall precautions. Ask about sedation and breathing before giving.' };
+  const onePass = 'Complete a medication pass with one oral, one subcutaneous and one intramuscular medication, scanning the patient and every medication.';
+
+  prof('lpn_lasix', 'Heart failure with fluid overload (Lasix + SubQ + IM B12)',
+    'Mild fluid overload in a patient with heart failure and diabetes. Furosemide (Lasix) 20 mg PO (hold if SBP below 90), insulin lispro SubQ on the SENSITIVE scale (glucose 229 = 2 units), vitamin B12 1,000 mcg IM (1 mL).',
+    ctx => Object.assign({
+      problem: 'Heart failure with mild fluid overload', details: 'Weight up 4 pounds in 3 days with ankle swelling and shortness of breath with exertion; oral diuretic; type 2 diabetes on a sensitive sliding scale; vitamin B12 for a low level from long-term metformin.',
+      chief: 'Leg swelling and shortness of breath with walking',
+      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with heart failure and type 2 diabetes who gained 4 pounds over 3 days with swollen ankles and mild shortness of breath on exertion. Oxygen saturation normal on room air. Admitted for an oral diuretic, a low-sodium diet, sliding-scale insulin and vitamin B12 for a low level.`,
+      ros: 'Positive for ankle swelling and shortness of breath with exertion. Negative for chest pain at rest, fever, cough with fever, nausea and palpitations.',
+      vitals: [norm({ h: 0, sbp: 138, dbp: 82, hr: 84 }), norm({ h: 24, sbp: 130, dbp: 78, hr: 78 }), norm({ h: 48, sbp: 126, dbp: 76, hr: 76 })], fall: 1,
+      diet: 'Consistent carbohydrate, 2 g sodium diet', dietNote: 'Fluid limit 1,500 mL per day.', activity: 'Up with assistance as needed', activityNote: 'Rise slowly; call for help.',
+      meds: [FUROSEMIDE, SSI('sens'), B12('1,000 mcg')],
+      orders: [{ name: 'Daily weight and blood pressure before the diuretic', category: 'Nursing', frequency: 'Daily before the 0900 dose', startH: 3, instructions: 'Weigh at the same time each morning. Check BP and HR before furosemide; hold and notify for SBP below 90 or dizziness.' }, GLU_ORDER],
+      assessments: [{ fromH: 0, items: [['Cardiac', 'Edema', '2+ pitting edema of both ankles'], ['Respiratory', 'Breath Sounds', 'Clear bilaterally, mild bibasilar crackles'], ['Musculoskeletal / Mobility', 'Mobility', 'Independent']] }],
+      objectives: [onePass, 'Check blood pressure and weight before a diuretic and apply the hold parameter.', 'Read the sensitive sliding scale to find the correct insulin dose for the glucose result.']
+    }, glucoseLab(ctx, 227)));
+
+  prof('lpn_iron', 'Iron deficiency anemia (iron + SubQ + IM B12)',
+    'Anemia from low iron and low vitamin B12 in a patient with diabetes. Ferrous sulfate (iron) 325 mg PO, insulin lispro SubQ on the LOW-dose scale (glucose 194 = 2 units), vitamin B12 1,000 mcg IM (1 mL).',
+    ctx => Object.assign({
+      problem: 'Iron deficiency anemia', details: 'Fatigue and a hemoglobin of 8.8 from slow blood loss and low iron; oral iron; vitamin B12 also low; type 2 diabetes on a low-dose sliding scale.',
+      chief: 'Tiredness and pale skin',
+      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with type 2 diabetes and 3 months of tiredness, pale skin and lightheadedness on standing. Hemoglobin 8.8 g/dL with low iron stores and a low vitamin B12. No black stools or vomiting blood. Admitted to start oral iron, vitamin B12 injections and sliding-scale insulin.`,
+      ros: 'Positive for fatigue, pale skin and lightheadedness. Negative for chest pain, shortness of breath at rest, vomiting blood and fever.',
+      keyLabs: ['Hemoglobin', 'Glucose'], vitals: [norm({ h: 0, hr: 96 }), norm({ h: 24, hr: 88 }), norm({ h: 48, hr: 82 })], fall: 1,
+      diet: 'Consistent carbohydrate diet', dietNote: 'Iron-rich foods; vitamin C with iron doses.', activity: 'Up with assistance as needed', activityNote: 'Rise slowly: lightheadedness.',
+      meds: [FERROUS, SSI('low'), B12('1,000 mcg')],
+      orders: [{ name: 'Stool color and bowel pattern', category: 'Nursing', frequency: 'Every shift', startH: 3, instructions: 'Document stool color. Dark green or black stools are expected with iron; report red blood or tarry sticky stools.' }, GLU_ORDER],
+      assessments: [{ fromH: 0, items: [['Skin', 'Skin', 'Pale, warm and dry'], ['Neurologic', 'Level of Consciousness', 'Alert and oriented x4'], ['Musculoskeletal / Mobility', 'Mobility', 'Steady but tires easily']] }],
+      objectives: [onePass, 'Give oral iron correctly (with vitamin C, not with milk or antacids) and teach about dark stools.', 'Read the low-dose sliding scale and select an appropriate IM site for vitamin B12.']
+    }, (() => { const g = glucoseLab(ctx, 188); g.labs.Hemoglobin = { abs: [[0, 8.9], [48, 9.1]] }; g.labSchedule.push({ h: 0.5, codes: ['Hemoglobin'] }); return g; })()));
+
+  prof('lpn_cephalexin', 'Cellulitis with nausea (cephalexin + SubQ + IM Phenergan)',
+    'Mild cellulitis with nausea in a patient with diabetes. Cephalexin 250 mg PO (check allergies), insulin lispro SubQ on the MODERATE scale (glucose 280 = 9 units), promethazine (Phenergan) 12.5 mg IM (0.5 mL).',
+    ctx => Object.assign({
+      problem: 'Cellulitis of the left forearm with nausea', details: 'Red, warm, tender left forearm after an insect bite; low-grade fever; oral antibiotic; nausea treated with an intramuscular antiemetic; type 2 diabetes on a moderate sliding scale.',
+      chief: 'Red, painful left forearm and nausea',
+      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with type 2 diabetes and a red, warm, tender left forearm for 2 days after an insect bite. Low-grade fever and nausea at home. No pus. Admitted for an oral antibiotic, an antinausea injection and sliding-scale insulin.`,
+      ros: 'Positive for arm redness, warmth, pain, nausea and a low-grade fever. Negative for vomiting, chest pain, shortness of breath and diarrhea.',
+      vitals: [norm({ h: 0, temp: 100.2, hr: 92, pain: 4 }), norm({ h: 24, temp: 99.0, hr: 82, pain: 2 }), norm({ h: 48, temp: 98.5, hr: 78, pain: 1 })], fall: 1,
+      diet: 'Consistent carbohydrate diet', activity: 'Up with assistance as needed', activityNote: 'Antinausea medicine causes drowsiness: call, do not fall.',
+      meds: [CEPHALEXIN, SSI('mid'), PROMETHAZINE],
+      orders: [{ name: 'Mark the edge of the redness with a skin marker', category: 'Nursing', frequency: 'On arrival and every shift', startH: 3, instructions: 'Outline the red area, date and time it. Report spreading redness, fever above 101, or pus.' }, GLU_ORDER],
+      assessments: [{ fromH: 0, items: [['Skin', 'Skin', 'Left forearm: red, warm, tender area about 7 x 5 cm, border outlined; no drainage'], ['GI', 'Nausea / Vomiting', 'Nauseated, no vomiting'], ['Pain', 'Pain Location', 'Left forearm, aching, 4/10']] }],
+      objectives: [onePass, 'Verify allergies before giving an antibiotic, and check sedation before an IM antiemetic.', 'Read the moderate sliding scale to find the correct insulin dose.']
+    }, glucoseLab(ctx, 284)));
+
+  prof('lpn_potassium', 'Low potassium after vomiting and diarrhea (potassium + SubQ + IM Phenergan)',
+    'Low potassium after a stomach virus in a patient with diabetes. Potassium chloride ER 20 mEq PO (very large tablet, swallow whole), insulin lispro SubQ on the HIGH-dose scale (glucose 316 = 16 units), promethazine (Phenergan) 12.5 mg IM (0.5 mL).',
+    ctx => Object.assign({
+      problem: 'Hypokalemia after gastroenteritis', details: 'Two days of vomiting and diarrhea with muscle weakness and a potassium of 3.3; oral potassium; antinausea injection; type 2 diabetes with high glucose on a high-dose sliding scale.',
+      chief: 'Vomiting, diarrhea and muscle weakness',
+      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with type 2 diabetes and 2 days of vomiting, watery diarrhea and weak, crampy legs. Potassium 3.3 mmol/L (low) and glucose high. Admitted for oral potassium, an antinausea injection and sliding-scale insulin.`,
+      ros: 'Positive for nausea, vomiting, diarrhea and leg cramps. Negative for chest pain, fever, blood in stool and shortness of breath.',
+      keyLabs: ['Potassium', 'Glucose'], vitals: [norm({ h: 0, hr: 96, sbp: 112, dbp: 68 }), norm({ h: 24, hr: 86, sbp: 120, dbp: 72 }), norm({ h: 48, hr: 80, sbp: 124, dbp: 74 })], fall: 2,
+      diet: 'Consistent carbohydrate diet, advance as tolerated', activity: 'Up with assistance', activityNote: 'Weak legs and a sedating antinausea medicine: assist with walking.',
+      meds: [POTASSIUM, SSI('high'), PROMETHAZINE],
+      orders: [{ name: 'Check the potassium result before each potassium dose', category: 'Nursing', frequency: 'Daily before the 0900 dose', startH: 3, instructions: 'Review the latest potassium. Hold and notify the provider if above 5.0 or the patient cannot swallow the tablet whole.' }, GLU_ORDER],
+      assessments: [{ fromH: 0, items: [['GI', 'Nausea / Vomiting', 'Nauseated, vomited twice yesterday'], ['Musculoskeletal / Mobility', 'Mobility', 'Weak legs, walks with assistance'], ['Neurologic', 'Level of Consciousness', 'Alert and oriented x4']] }],
+      objectives: [onePass, 'Review the potassium level before an oral potassium dose and give a very large extended-release tablet safely (whole, with water, upright).', 'Read the high-dose sliding scale and give a deep IM antiemetic safely.']
+    }, (() => { const g = glucoseLab(ctx, 322); g.labs.Potassium = { abs: [[0, 3.2], [48, 3.9]] }; g.labSchedule.push({ h: 0.5, codes: ['Potassium'] }); return g; })()));
 })();

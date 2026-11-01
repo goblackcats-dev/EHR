@@ -3,7 +3,7 @@
   {
    "id": "lpn",
    "title": "LPN Med Pass",
-   "note": "First-semester LPN medication pass: scan the patient and each medication. One PO (lisinopril or acetaminophen), one SubQ (insulin lispro sliding scale) and one IM (ceftriaxone or vitamin B12) each.",
+   "note": "First-semester LPN medication pass: scan the patient and each medication. One PO (lisinopril, acetaminophen, Lasix, iron, cephalexin or potassium), one SubQ (insulin lispro, a different sliding scale for each patient) and one IM (ceftriaxone, vitamin B12 or Phenergan) each.",
    "patients": [
     {
      "id": "lpn_practice",
@@ -49,6 +49,42 @@
      "file": "prebuilt/lpn_diabetes.json",
      "age": 58,
      "sex": "Male"
+    },
+    {
+     "id": "lpn_lasix",
+     "name": "Frank Delgado",
+     "title": "Heart failure with fluid overload (Lasix + SubQ + IM B12)",
+     "desc": "PO furosemide (Lasix) 20 mg, SubQ insulin lispro (sensitive scale, glucose 229 = 2 units), IM vitamin B12 1,000 mcg",
+     "file": "prebuilt/lpn_lasix.json",
+     "age": 69,
+     "sex": "Male"
+    },
+    {
+     "id": "lpn_iron",
+     "name": "Patricia Nguyen",
+     "title": "Iron deficiency anemia (iron + SubQ + IM B12)",
+     "desc": "PO ferrous sulfate (iron) 325 mg, SubQ insulin lispro (low scale, glucose 194 = 2 units), IM vitamin B12 1,000 mcg",
+     "file": "prebuilt/lpn_iron.json",
+     "age": 58,
+     "sex": "Female"
+    },
+    {
+     "id": "lpn_cephalexin",
+     "name": "Raymond Cho",
+     "title": "Cellulitis with nausea (cephalexin + SubQ + IM Phenergan)",
+     "desc": "PO cephalexin 250 mg, SubQ insulin lispro (moderate scale, glucose 280 = 9 units), IM promethazine (Phenergan) 12.5 mg = 0.5 mL",
+     "file": "prebuilt/lpn_cephalexin.json",
+     "age": 63,
+     "sex": "Male"
+    },
+    {
+     "id": "lpn_potassium",
+     "name": "Beverly Hayes",
+     "title": "Low potassium after vomiting and diarrhea (potassium + SubQ + IM Phenergan)",
+     "desc": "PO potassium chloride ER 20 mEq (very large tablet), SubQ insulin lispro (high scale, glucose 316 = 16 units), IM promethazine (Phenergan) 12.5 mg = 0.5 mL",
+     "file": "prebuilt/lpn_potassium.json",
+     "age": 74,
+     "sex": "Female"
     },
     {
      "id": "lpn_b12",

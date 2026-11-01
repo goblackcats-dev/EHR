@@ -13,7 +13,7 @@
     hydralazine: 'hydrOXYzine', hydroxyzine: 'hydrALAZINE', lorazepam: 'ALPRAZolam', alprazolam: 'LORazepam', morphine: 'HYDROmorphone', hydromorphone: 'MORphine',
     carvedilol: 'captopril', metoprolol: 'metoprolol succinate ER (extended-release)', ceftriaxone: 'cefazolin', cefepime: 'cefoxitin', celecoxib: 'CeleXA (citalopram)',
     lisinopril: 'lisinopril/hydrochlorothiazide combination', sertraline: 'sertraline 100 mg (double strength)', heparin: 'heparin 10,000 units/mL (high concentration)',
-    insulin: 'insulin glargine (long-acting; wrong insulin)'
+    insulin: 'insulin glargine (long-acting; wrong insulin)', furosemide: 'torsemide', promethazine: 'prochlorperazine', cephalexin: 'cefadroxil', potassium: 'potassium chloride 40 mEq (double strength)', ferrous: 'ferrous gluconate'
   };
   const unitOf = dose => { const m = String(dose).match(/^([\d,.]+)\s*(mg|mcg|g|units|unit|mEq|mL)\b/i); return m ? { v: parseFloat(m[1].replace(/,/g, '')), u: m[2] } : null; };
   const fmtNum = n => (Number.isInteger(n) ? n.toLocaleString('en-US') : String(n));
