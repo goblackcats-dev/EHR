@@ -355,7 +355,7 @@
       state.extras.push({ order: d.order, time: d.time, label: pk.label });
       state.warnings.push(...warns);
       log('scan_med_extra', `${d.order.name} scanned with ${state.order.name}`, d.order.id);
-      scanFeedback(`Added: ${safe(d.order.name)}. Scan another medication, or close this window and press Give to document them all.`, true);
+      scanFeedback(`Added: ${safe(d.order.name)}`, true); closeScannerSoon();
       refresh(); return { ok: true };
     }
     return null;
@@ -384,7 +384,7 @@
       const why = pkg.kind === 'strength' ? `WRONG STRENGTH: package is ${pkg.strength}, order is ${safe(state.order.medication.dose)}` : `WRONG DRUG: package reads ${pkg.label}, order is ${safe(state.order.name)}`;
       state.medScan = { ok: false, msg: why }; log('scan_med_wrong', `${pkg.kind}: ${pkg.label} ${pkg.strength}`, state.orderId);
     }
-    scanFeedback(state.medScan.ok ? `${state.medScan.msg}. Scan another due medication to give it together, or close this window.` : state.medScan.msg, state.medScan.ok);
+    scanFeedback(state.medScan.msg, state.medScan.ok); if (state.medScan.ok) closeScannerSoon();   // back to the administration window
     refresh(); return state.medScan.ok;
   }
 

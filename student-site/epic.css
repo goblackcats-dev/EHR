@@ -328,3 +328,6 @@ th.fs-col-sel { background: #dff1ff !important; }
 .mar-order-params strong { display: block; margin-bottom: 3px; color: #1a5a96; }
 .mar-admin-grid label:has(#marActionDose) { grid-column: span 2; }
 .mar-dose-row #marActionDose { min-width: 120px; }
+
+.mar-admin-grid label:has(#marActionVol) { grid-column: span 2; }
+.mar-admin-grid label.hidden { display: none; }

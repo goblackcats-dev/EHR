@@ -3038,15 +3038,19 @@ function openMARActionDialog(med, event) {
   const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
   setVal('marActionDate', String(simulationTime).slice(0, 10)); setVal('marActionTime', String(simulationTime).slice(11, 16));
   setVal('marActionRoute', safe(med.route)); setVal('marActionSite', '');
-  // insulin: the student types the number of units (a grayed-out units box sits to the right); other drugs keep the ordered amount
-  const doseEl0 = document.getElementById('marActionDose'), unitEl0 = document.getElementById('marActionUnit');
-  if (isSubQInsulin(med)) {
-    if (doseEl0) { doseEl0.type = 'number'; doseEl0.min = '0'; doseEl0.step = '1'; doseEl0.inputMode = 'numeric'; doseEl0.value = ''; doseEl0.placeholder = 'Enter units'; setTimeout(() => doseEl0.focus(), 80); }
-    if (unitEl0) unitEl0.classList.remove('hidden');
+  // The dose is two boxes (like Epic): the amount with a fixed unit beside it, and for injections a volume in mL with a fixed "mL" beside it.
+  // Insulin sliding scale: the student types the units from the scale. Otherwise the ordered amount is filled in and can be changed.
+  const doseEl0 = document.getElementById('marActionDose'), unitEl0 = document.getElementById('marActionUnit'), volEl0 = document.getElementById('marActionVol'), volLab0 = document.getElementById('marVolLabel');
+  const ordered = safe(med.adminDose) || safe(med.dose), parsed = ordered.match(/^\s*([\d,]*\.?\d+)\s*(mg|mcg|g|units?|mEq|tablets?|capsules?|mL)\b/i), volM = ordered.match(/=\s*([\d,]*\.?\d+)\s*mL/i);
+  const slidingScale = isSubQInsulin(med) && !parsed;
+  if (slidingScale || parsed) {
+    if (doseEl0) { doseEl0.type = 'number'; doseEl0.min = '0'; doseEl0.step = 'any'; doseEl0.inputMode = 'decimal'; doseEl0.value = slidingScale ? '' : parsed[1].replace(/,/g, ''); doseEl0.placeholder = slidingScale ? 'Enter units' : ''; if (slidingScale) setTimeout(() => doseEl0.focus(), 80); }
+    if (unitEl0) { unitEl0.classList.remove('hidden'); unitEl0.value = slidingScale ? 'units' : parsed[2].toLowerCase().replace(/^unit$/, 'units'); }
   } else {
-    if (doseEl0) { doseEl0.type = 'text'; doseEl0.removeAttribute('min'); doseEl0.placeholder = ''; doseEl0.value = safe(med.adminDose) || safe(med.dose); }
-    if (unitEl0) unitEl0.classList.add('hidden');
+    if (doseEl0) { doseEl0.type = 'text'; doseEl0.removeAttribute('min'); doseEl0.placeholder = ''; doseEl0.value = ordered; }
+    if (unitEl0) { unitEl0.classList.add('hidden'); unitEl0.value = ''; }
   }
+  if (volLab0) { const showVol = !!volM && !slidingScale; volLab0.classList.toggle('hidden', !showVol); if (volEl0) volEl0.value = showVol ? volM[1].replace(/,/g, '') : ''; }
   const msg0 = document.getElementById('marActionMsg'); if (msg0) msg0.textContent = '';
 
   const visibleCanonical = getVisibleCanonicalCase(currentCanonicalCase);
@@ -3121,6 +3125,10 @@ function applyMARAction(action) {
   const bad = marActionTimeProblem();
   if (bad) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = bad; return; }
   const givenAt = marActionChosenTime();
+  const doseBox = document.getElementById('marActionDose');
+  if (action === 'given' && doseBox && doseBox.type === 'number' && !/insulin/i.test(safe(activeMARAction.medName))) {
+    if (doseBox.value === '' || isNaN(Number(doseBox.value)) || Number(doseBox.value) <= 0) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = 'Enter the dose you are giving.'; return; }
+  }
   if (action === 'given' && /insulin/i.test(safe(activeMARAction.medName)) && /^sub/i.test(safe(activeMARAction.route))) {
     const n = (document.getElementById('marActionDose') || {}).value;
     if (n === '' || isNaN(Number(n)) || Number(n) < 0) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = 'Enter the number of units you are giving (0 if the scale says none).'; return; }
@@ -3131,12 +3139,17 @@ function applyMARAction(action) {
   admin.administeredTime = epicDate(givenAt);
   const siteEl = document.getElementById('marActionSite'), doseEl = document.getElementById('marActionDose');
   if (siteEl && siteEl.value.trim()) admin.site = siteEl.value.trim();
-  if (doseEl && doseEl.value.trim() && action === 'given') admin.dose = activeMARAction.insulinUnits !== undefined ? `${activeMARAction.insulinUnits} units` : doseEl.value.trim();
+  if (doseEl && doseEl.value.trim() && action === 'given') {
+    const unitEl = document.getElementById('marActionUnit'), volEl = document.getElementById('marActionVol'), volLab = document.getElementById('marVolLabel');
+    const unit = unitEl && !unitEl.classList.contains('hidden') ? unitEl.value.trim() : '';
+    admin.dose = `${doseEl.value.trim()}${unit ? ' ' + unit : ''}`;
+    if (volEl && volLab && !volLab.classList.contains('hidden') && volEl.value.trim()) admin.volume = `${volEl.value.trim()} mL`;
+  }
   admin.administeredBy = window.NSUser ? window.NSUser.label() : admin.administeredBy;   // the signed-in nurse
   admin.comment = elements.marActionReason.value.trim();
 
   const labelMap = {
-    given: `${givenAt.slice(11, 13)}${givenAt.slice(14, 16)} Given ${admin.dose || activeMARAction.dose}`,
+    given: `${givenAt.slice(11, 13)}${givenAt.slice(14, 16)} Given ${admin.dose || activeMARAction.dose}${admin.volume ? ' (' + admin.volume + ')' : ''}`,
     held: `${activeMARAction.time} Held`,
     refused: `${activeMARAction.time} Refused`,
     notgiven: `${activeMARAction.time} Not Given`
