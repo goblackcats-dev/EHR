@@ -20,3 +20,7 @@ Notes for later work:
 - Print PO labels that match these drawer names and strengths, with a copies box per medication so one page can hold many labels of the PO meds used most often (see TODO.md).
 - The drawer labels use abbreviations (Perco, Lasi, Lipator, Eryth, Wellb, Digo). Students should learn the full generic and brand names, so the printed labels should show the full name with the strength.
 - Some drawers hold two meds with a divider; the label sheet could be laid out the same way (two labels per drawer).
+
+## Instructor notes added by phone (2026-11-01)
+- These drawers hold **plenty** of pills: **Lasix (furosemide), iron, cephalexin, potassium**. They are the PO meds used most often in the lab, so they are the best candidates for printing many copies of a label on one page.
+- The **potassium** pill is very large, which is realistic (potassium chloride ER tablets are big). It can be used for teaching that large pills may be hard to swallow and must not be crushed.
