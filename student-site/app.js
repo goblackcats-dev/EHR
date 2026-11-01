@@ -3010,6 +3010,13 @@ function getVisibleMedicationOrder(orderId) {
   return (getVisibleCanonicalCase(currentCanonicalCase).orders || []).find(order => order.id === orderId) || null;
 }
 
+// Subcutaneous insulin (the LPN sliding-scale doses) needs no independent double check; IV insulin and other high-alert drugs still do.
+function needsDoubleCheck(order) {
+  const m = (order && order.medication) || {};
+  if (!m.highAlert) return false;
+  return !(/insulin/i.test(safe(order.name)) && /^sub/i.test(safe(m.route)));
+}
+function isSubQInsulin(med) { return /insulin/i.test(safe(med && med.name)) && /^sub/i.test(safe(med && med.route)); }
 function openMARActionDialog(med, event) {
   const order = getVisibleMedicationOrder(med.orderId);
   if (!order) return;
@@ -3030,7 +3037,16 @@ function openMARActionDialog(med, event) {
   // Administration details default to the patient clock; the nurse can change the date and time the dose was actually given
   const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
   setVal('marActionDate', String(simulationTime).slice(0, 10)); setVal('marActionTime', String(simulationTime).slice(11, 16));
-  setVal('marActionRoute', safe(med.route)); setVal('marActionSite', ''); setVal('marActionDose', safe(med.adminDose) || safe(med.dose));
+  setVal('marActionRoute', safe(med.route)); setVal('marActionSite', '');
+  // insulin: the student types the number of units (a grayed-out units box sits to the right); other drugs keep the ordered amount
+  const doseEl0 = document.getElementById('marActionDose'), unitEl0 = document.getElementById('marActionUnit');
+  if (isSubQInsulin(med)) {
+    if (doseEl0) { doseEl0.type = 'number'; doseEl0.min = '0'; doseEl0.step = '1'; doseEl0.inputMode = 'numeric'; doseEl0.value = ''; doseEl0.placeholder = 'Enter units'; setTimeout(() => doseEl0.focus(), 80); }
+    if (unitEl0) unitEl0.classList.remove('hidden');
+  } else {
+    if (doseEl0) { doseEl0.type = 'text'; doseEl0.removeAttribute('min'); doseEl0.placeholder = ''; doseEl0.value = safe(med.adminDose) || safe(med.dose); }
+    if (unitEl0) unitEl0.classList.add('hidden');
+  }
   const msg0 = document.getElementById('marActionMsg'); if (msg0) msg0.textContent = '';
 
   const visibleCanonical = getVisibleCanonicalCase(currentCanonicalCase);
@@ -3055,6 +3071,10 @@ function openMARActionDialog(med, event) {
     elements.marActionMonitoring.innerHTML = '<div class="empty-state">No linked pre-administration monitoring is configured for this medication.</div>';
   }
 
+  // the order's own parameters (for a sliding scale: the whole scale), so the nurse does not have to close this window to find the order
+  if (/scale/i.test(safe(order.instructions))) {
+    elements.marActionMonitoring.insertAdjacentHTML('beforeend', `<div class="mar-order-params"><strong>Order parameters</strong>${escapeHtml(safe(order.instructions))}</div>`);
+  }
   elements.marActionDialog.showModal();
 }
 
@@ -3101,12 +3121,17 @@ function applyMARAction(action) {
   const bad = marActionTimeProblem();
   if (bad) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = bad; return; }
   const givenAt = marActionChosenTime();
+  if (action === 'given' && /insulin/i.test(safe(activeMARAction.medName)) && /^sub/i.test(safe(activeMARAction.route))) {
+    const n = (document.getElementById('marActionDose') || {}).value;
+    if (n === '' || isNaN(Number(n)) || Number(n) < 0) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = 'Enter the number of units you are giving (0 if the scale says none).'; return; }
+    activeMARAction.insulinUnits = Number(n);
+  }
   admin.state = action;
   admin.administeredAt = givenAt;
   admin.administeredTime = epicDate(givenAt);
   const siteEl = document.getElementById('marActionSite'), doseEl = document.getElementById('marActionDose');
   if (siteEl && siteEl.value.trim()) admin.site = siteEl.value.trim();
-  if (doseEl && doseEl.value.trim() && action === 'given') admin.dose = doseEl.value.trim();
+  if (doseEl && doseEl.value.trim() && action === 'given') admin.dose = activeMARAction.insulinUnits !== undefined ? `${activeMARAction.insulinUnits} units` : doseEl.value.trim();
   admin.administeredBy = window.NSUser ? window.NSUser.label() : admin.administeredBy;   // the signed-in nurse
   admin.comment = elements.marActionReason.value.trim();
 

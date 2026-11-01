@@ -53,10 +53,10 @@
     let dlg = $('oaDialog'); if (!dlg) { dlg = document.createElement('dialog'); dlg.id = 'oaDialog'; dlg.className = 'quiz-dialog'; document.body.appendChild(dlg); }
     const m = o.medication || {};
     dlg.innerHTML = `<div class="dialog-header"><div><h2>Review new order</h2><p>${esc(safe(o.provider))} · ordered ${esc(safe(o.orderedAt || o.start))}</p></div><button id="oaClose" class="icon-button" aria-label="Close">×</button></div>
-      <div class="dialog-body"><div class="tc-card"><b>${esc(safe(o.name))}</b>${m.highAlert ? ' <span class="oa-chip oa-clar">HIGH-ALERT</span>' : ''}<br>${esc(safe(o.category))} · ${esc(safe(o.frequency))} · starts ${esc(safe(o.start))}${m.dose ? `<br>Dose: ${esc(safe(m.dose))} ${esc(safe(m.route, ''))}` : ''}</div>
+      <div class="dialog-body"><div class="tc-card"><b>${esc(safe(o.name))}</b>${needsDoubleCheck(o) ? ' <span class="oa-chip oa-clar">HIGH-ALERT</span>' : ''}<br>${esc(safe(o.category))} · ${esc(safe(o.frequency))} · starts ${esc(safe(o.start))}${m.dose ? `<br>Dose: ${esc(safe(m.dose))} ${esc(safe(m.route, ''))}` : ''}</div>
         ${o.instructions ? `<p><b>Instructions:</b> ${esc(o.instructions)}</p>` : ''}${o.rationale ? `<p><b>Reason:</b> ${esc(o.rationale)}</p>` : ''}
         ${(o.nursingConsiderations || []).length ? `<p><b>Nursing considerations</b></p><ul>${o.nursingConsiderations.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
-        <label class="qz-choice"><input type="checkbox" id="oaOk"> <span>I read the whole order, it is complete and makes sense for this patient, and I will carry it out${m.highAlert ? ' (with an independent double check)' : ''}.</span></label>
+        <label class="qz-choice"><input type="checkbox" id="oaOk"> <span>I read the whole order, it is complete and makes sense for this patient, and I will carry it out${needsDoubleCheck(o) ? ' (with an independent double check)' : ''}.</span></label>
         <div id="oaMsg" class="mr-msg"></div>
         <div class="ho-actions"><button id="oaDo" class="primary-button">Acknowledge order</button> <button id="oaClar" class="secondary-button">Needs clarification (call provider)</button></div></div>`;
     $('oaClose').addEventListener('click', () => dlg.close());

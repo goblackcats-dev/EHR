@@ -318,3 +318,13 @@ th.fs-col-sel { background: #dff1ff !important; }
 .mar-admin-grid input[readonly] { background: #e9f0f7; }
 .mp-extra { margin-top: 8px; padding: 8px 10px; border: 1px solid #b7d2ec; border-radius: 6px; background: #eef6fd; font-size: 13px; }
 .mp-extra .mp-extra-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 3px 0; }
+
+/* dose box with a fixed, grayed-out unit box for insulin */
+.mar-dose-row { display: flex; gap: 6px; align-items: stretch; }
+.mar-dose-row input { flex: 1; min-width: 0; }
+.mar-dose-row .mar-unit-box { flex: 0 0 76px; text-align: center; background: #e3e8ee; color: #6b7a8c; border-color: #c5ced9; cursor: not-allowed; }
+.mar-dose-row .mar-unit-box.hidden { display: none; }
+.mar-order-params { margin-top: 8px; padding: 8px 10px; border: 1px solid #cfe0f1; border-radius: 6px; background: #f1f7fd; font-size: 13px; line-height: 1.4; }
+.mar-order-params strong { display: block; margin-bottom: 3px; color: #1a5a96; }
+.mar-admin-grid label:has(#marActionDose) { grid-column: span 2; }
+.mar-dose-row #marActionDose { min-width: 120px; }

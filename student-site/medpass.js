@@ -218,7 +218,7 @@
     if (!medOk(s)) return { ok: false, why: 'Scan the medication package; it must match the order (or use Override and give a reason).' };
     if (hard.length && !s.warnOverride) return { ok: false, why: 'A safety stop applies (see above). Hold the medication and notify the provider, or override with a documented reason.' };
     if (soft.length && !s.warnOverride) return { ok: false, why: 'There are warnings. Hold the medication, or override and document why you are giving it.' };
-    if (((s.order.medication && s.order.medication.highAlert) || (s.extras || []).some(x => x.order.medication && x.order.medication.highAlert)) && s.double.trim().length < 2) return { ok: false, why: 'High-alert medication: an independent double check by a second nurse is required (enter their initials).' };
+    if ((needsDoubleCheck(s.order) || (s.extras || []).some(x => needsDoubleCheck(x.order))) && s.double.trim().length < 2) return { ok: false, why: 'High-alert medication: an independent double check by a second nurse is required (enter their initials).' };
     return { ok: true, why: '' };
   }
 
@@ -235,7 +235,7 @@
       return;
     }
     if (rebuild) {
-      const pt = patientStatus(), md = s.medScan, needsDouble = !!((s.order.medication && s.order.medication.highAlert) || (s.extras || []).some(x => x.order.medication && x.order.medication.highAlert));
+      const pt = patientStatus(), md = s.medScan, needsDouble = !!(needsDoubleCheck(s.order) || (s.extras || []).some(x => needsDoubleCheck(x.order)));
       const ptBar = !pt
         ? `<div class="mp-ptbar not"><div class="mp-ptbar-text"><b>PATIENT NOT SCANNED</b><span>Scan the wristband once. It stays scanned for all of this patient's medications.</span></div><div class="mp-ptbar-btns"><button class="primary-button" data-mp="patient">Scan wristband</button><button class="secondary-button" data-mp="ovr-patient">Override</button></div></div>`
         : pt.mode === 'override'
