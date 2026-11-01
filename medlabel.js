@@ -49,9 +49,9 @@
       const u = unitOf(dose);
       if (u) pkgs.push({ code: `MED-${hex(hash(order.id + ':strength'))}`, alt: [], label: name, strength: `${fmtNum(u.v * 2)} ${u.u}`, route, correct: false, kind: 'strength', expires: exp, lot: lotOf(order) + 'S' });
       const first = name.toLowerCase().split(/[\s(]/)[0];
-      if (LASA[first]) pkgs.push({ code: `MED-${hex(hash(order.id + ':lasa'))}`, alt: [], label: LASA[first], strength: dose, route, correct: false, kind: 'lasa', expires: exp, lot: lotOf(order) + 'L' });
+      if (LASA[first]) pkgs.push({ code: `MED-${hex(hash(order.id + ':lasa'))}`, alt: [], label: LASA[first], strength: slidingScale ? '' : dose, route, correct: false, kind: 'lasa', expires: exp, lot: lotOf(order) + 'L' });
     }
-    if (med.expiredDecoy) pkgs.push({ code: `MED-${hex(hash(order.id + ':expired'))}`, alt: [], label: name, strength: dose, route, correct: false, kind: 'expired', expires: addDays(opts.simDate, -45), lot: lotOf(order) + 'X' });
+    if (med.expiredDecoy) pkgs.push({ code: `MED-${hex(hash(order.id + ':expired'))}`, alt: [], label: name, strength: slidingScale ? '' : dose, route, correct: false, kind: 'expired', expires: addDays(opts.simDate, -45), lot: lotOf(order) + 'X' });
     return pkgs.sort((a, b) => hash(order.id + a.code) - hash(order.id + b.code));
   }
   const matches = (pkg, code) => { const c = String(code).trim().toUpperCase(); return pkg.code.toUpperCase() === c || (pkg.alt || []).some(a => a.toUpperCase() === c); };

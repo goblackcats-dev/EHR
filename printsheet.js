@@ -47,6 +47,11 @@
     body.nsp-printing > *:not(#nsPrintArea) { display: none !important; }
     body.nsp-printing #nsPrintArea { display: block !important; position: static !important; width: auto !important; }
     body.nsp-printing .nsp-sheet { width: 100% !important; padding: 0; transform: none !important; }
+    /* Safari and AirPrint do not split a flex container across pages (the last row was cut off at the paper edge), so print as ordinary blocks */
+    body.nsp-printing .nsp-sheet { display: block !important; }
+    body.nsp-printing .nsp-item { display: inline-block !important; vertical-align: top; margin: 0 .12in .12in 0 !important; break-inside: avoid; page-break-inside: avoid; }
+    body.nsp-printing .nsp-item .wb-sheet, body.nsp-printing .nsp-item .wb-band { display: block; }
+    body.nsp-printing .nsp-pages tr, body.nsp-printing .nsp-pages td { break-inside: auto; page-break-inside: auto; }
     body.nsp-printing .nsp-item .ml-label, body.nsp-printing .nsp-item .wb-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }`;
   function ensureStyle() {
