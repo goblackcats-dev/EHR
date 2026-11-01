@@ -43,7 +43,8 @@
     opts = opts || {};
     const med = order.medication || {}, dose = String(med.dose == null ? '' : med.dose), route = String(med.route || ''), name = String(order.name || '');
     const exp = expiryOf(order, opts.simDate);
-    const pkgs = [{ code: medCode(order), alt: med.barcode ? [genCode(order)] : [], label: name, strength: dose, route, correct: true, kind: 'correct', expires: exp, lot: lotOf(order) }];
+    const slidingScale = /^per\b/i.test(dose);    // an insulin sliding scale is not a strength: the label shows only the drug name
+    const pkgs = [{ code: medCode(order), alt: med.barcode ? [genCode(order)] : [], label: name, strength: slidingScale ? '' : dose, route, correct: true, kind: 'correct', expires: exp, lot: lotOf(order) }];
     if (opts.decoys) {
       const u = unitOf(dose);
       if (u) pkgs.push({ code: `MED-${hex(hash(order.id + ':strength'))}`, alt: [], label: name, strength: `${fmtNum(u.v * 2)} ${u.u}`, route, correct: false, kind: 'strength', expires: exp, lot: lotOf(order) + 'S' });
@@ -78,7 +79,7 @@
     return `<div class="ml-label" style="width:${sz.w};height:${sz.h};--qr:${sz.qr};--fn:${sz.name};--fr:${sz.rest};--fs:${sz.small}">
       <div class="ml-text">
         <div class="ml-name">${esc(base)}</div>
-        <div class="ml-dose">${esc(pkg.strength)} · ${esc(pkg.route)}${form ? ' · ' + esc(form) : ''}</div>
+        ${pkg.strength ? `<div class="ml-dose">${esc(pkg.strength)} · ${esc(pkg.route)}${form ? ' · ' + esc(form) : ''}</div>` : ''}
         ${pt}
         <div class="ml-exp"><b>EXP ${esc(us(pkg.expires))}</b> · ${esc(pkg.lot)}</div>
         <div class="ml-sim">${high ? 'HIGH-ALERT · ' : ''}SIMULATION ONLY</div>
