@@ -45,7 +45,7 @@ NS.PRIMARY = NS.PRIMARY || {};
     hold: 'Hold and notify the provider if glucose is below 70 mg/dL or the patient is not eating.', indication: 'Hyperglycemia (sliding-scale insulin)',
     info: `HIGH-ALERT. ${SCALES[scale].text} Check the glucose BEFORE giving, find the dose on the scale, and have a second nurse verify the dose per policy. Give within 15 minutes of a meal. Rotate sites (abdomen, thigh, upper arm). Watch for hypoglycemia: sweating, shakiness, confusion.` });
   const CEFTRIAXONE = (dose, alt) => ({ key: 'ceftriaxone_im', name: 'ceftriaxone (ROCEPHIN) injection', dose, route: 'Intramuscular', freq: 'daily', startH: 1.0, cls: 'Cephalosporin antibiotic', monitor: ['Temp'], by: 'hospitalist', indication: 'Bacterial infection',
-    info: 'Mixed with 1% lidocaine to reduce pain (500 mg per mL for this exercise): ask about lidocaine allergy. Deep IM in the ventrogluteal site; rotate sites; never more than 3 mL in one site. Verify the allergy list before every dose. Watch for rash and diarrhea.', avoid: ['cephalosporin', 'ceftriaxone', 'penicillin'], alt });
+    info: 'Mixed with 1% lidocaine to reduce pain (500 mg per mL for this exercise): ask about lidocaine allergy. 1.5 g is 3 mL: give it in the VENTROGLUTEAL or the VASTUS LATERALIS (the deltoid holds only 1 mL, so it is not appropriate); rotate sites; never more than 3 mL in one site. Verify the allergy list before every dose. Watch for rash and diarrhea.', avoid: ['cephalosporin', 'ceftriaxone', 'penicillin'], alt });
   const B12 = dose => ({ key: 'cyanocobalamin', name: 'cyanocobalamin (VITAMIN B12) injection', dose, route: 'Intramuscular', freq: 'daily', startH: 1.0, cls: 'Vitamin B12', by: 'hospitalist',
     indication: 'Vitamin B12 deficiency', info: 'Give deep IM in the ventrogluteal or deltoid site (1,000 mcg/mL); use a 1-1.5 inch needle (22-25 gauge), rotate sites and aspirate per policy. Check for allergy to cobalt/B12. Teach about monthly injections after the first week.' });
   const CLINDA = { key: 'clindamycin_im', name: 'clindamycin injection', dose: '600 mg', route: 'Intramuscular', freq: 'q8h', cls: 'Lincosamide antibiotic', info: 'Used because of the penicillin/cephalosporin allergy. Deep IM, no more than 600 mg in one site. Watch for diarrhea (C. difficile).', monitor: ['Temp'] };
@@ -156,19 +156,19 @@ NS.PRIMARY = NS.PRIMARY || {};
     info: 'Concentration 25 mg/mL, so 12.5 mg = 0.5 mL. Give DEEP IM ONLY into a large muscle (never subcutaneous and never into an artery: severe tissue injury). Causes drowsiness and dizziness: keep the bed low and call light in reach; fall precautions. Ask about sedation and breathing before giving.' };
   const onePass = 'Complete a medication pass with one oral, one subcutaneous and one intramuscular medication, scanning the patient and every medication.';
 
-  prof('lpn_lasix', 'Heart failure with fluid overload (Lasix + SubQ + IM B12)',
-    'Mild fluid overload in a patient with heart failure and diabetes. Furosemide (Lasix) 20 mg PO (hold if SBP below 90), insulin lispro SubQ on the SENSITIVE scale (glucose 229 = 2 units), vitamin B12 1,000 mcg IM (1 mL).',
+  prof('lpn_lasix', 'Heart failure with pneumonia (Lasix + SubQ + IM ceftriaxone 3 mL)',
+    'Mild fluid overload from a chest infection in a patient with heart failure and diabetes. Furosemide (Lasix) 20 mg PO (hold if SBP below 90), insulin lispro SubQ on the SENSITIVE scale (glucose 229 = 2 units), ceftriaxone 1.5 g IM = 3 mL (give in the ventrogluteal or vastus lateralis).',
     ctx => Object.assign({
-      problem: 'Heart failure with mild fluid overload', details: 'Weight up 4 pounds in 3 days with ankle swelling and shortness of breath with exertion; oral diuretic; type 2 diabetes on a sensitive sliding scale; vitamin B12 for a low level from long-term metformin.',
-      chief: 'Leg swelling and shortness of breath with walking',
-      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with heart failure and type 2 diabetes who gained 4 pounds over 3 days with swollen ankles and mild shortness of breath on exertion. Oxygen saturation normal on room air. Admitted for an oral diuretic, a low-sodium diet, sliding-scale insulin and vitamin B12 for a low level.`,
-      ros: 'Positive for ankle swelling and shortness of breath with exertion. Negative for chest pain at rest, fever, cough with fever, nausea and palpitations.',
-      vitals: [norm({ h: 0, sbp: 138, dbp: 82, hr: 84 }), norm({ h: 24, sbp: 130, dbp: 78, hr: 78 }), norm({ h: 48, sbp: 126, dbp: 76, hr: 76 })], fall: 1,
+      problem: 'Heart failure with mild fluid overload and pneumonia', details: 'Weight up 4 pounds in 3 days with ankle swelling after a chest infection; oral diuretic; intramuscular antibiotic once a day (3 mL); type 2 diabetes on a sensitive sliding scale.',
+      chief: 'Cough, leg swelling and shortness of breath with walking',
+      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with heart failure and type 2 diabetes who has had a productive cough and low-grade fever for 4 days, then gained 4 pounds over 3 days with swollen ankles and mild shortness of breath on exertion. Chest x-ray shows a small right lower lobe pneumonia. Admitted for an oral diuretic, an intramuscular antibiotic, a low-sodium diet and sliding-scale insulin.`,
+      ros: 'Positive for cough, low-grade fever, ankle swelling and shortness of breath with exertion. Negative for chest pain at rest, nausea and palpitations.',
+      vitals: [norm({ h: 0, temp: 100.0, sbp: 138, dbp: 82, hr: 88 }), norm({ h: 24, temp: 99.0, sbp: 130, dbp: 78, hr: 80 }), norm({ h: 48, sbp: 126, dbp: 76, hr: 76 })], fall: 1,
       diet: 'Consistent carbohydrate, 2 g sodium diet', dietNote: 'Fluid limit 1,500 mL per day.', activity: 'Up with assistance as needed', activityNote: 'Rise slowly; call for help.',
-      meds: [FUROSEMIDE, SSI('sens'), B12('1,000 mcg')],
+      meds: [FUROSEMIDE, SSI('sens'), CEFTRIAXONE('1.5 g', CLINDA)],
       orders: [{ name: 'Daily weight and blood pressure before the diuretic', category: 'Nursing', frequency: 'Daily before the 0900 dose', startH: 3, instructions: 'Weigh at the same time each morning. Check BP and HR before furosemide; hold and notify for SBP below 90 or dizziness.' }, GLU_ORDER],
-      assessments: [{ fromH: 0, items: [['Cardiac', 'Edema', '2+ pitting edema of both ankles'], ['Respiratory', 'Breath Sounds', 'Clear bilaterally, mild bibasilar crackles'], ['Musculoskeletal / Mobility', 'Mobility', 'Independent']] }],
-      objectives: [onePass, 'Check blood pressure and weight before a diuretic and apply the hold parameter.', 'Read the sensitive sliding scale to find the correct insulin dose for the glucose result.']
+      assessments: [{ fromH: 0, items: [['Cardiac', 'Edema', '2+ pitting edema of both ankles'], ['Respiratory', 'Breath Sounds', 'Crackles at the right base and mild bibasilar crackles'], ['Skin', 'Skin', 'Both hips and thighs intact, no bruising or redness; both buttocks intact'], ['Musculoskeletal / Mobility', 'Mobility', 'Independent']] }],
+      objectives: [onePass, 'Check blood pressure and weight before a diuretic and apply the hold parameter.', 'Choose a safe site (ventrogluteal or vastus lateralis) for a 3 mL intramuscular injection, and verify allergies before an antibiotic.']
     }, glucoseLab(ctx, 227)));
 
   prof('lpn_iron', 'Iron deficiency anemia (iron + SubQ + IM B12)',
@@ -201,18 +201,18 @@ NS.PRIMARY = NS.PRIMARY || {};
       objectives: [onePass, 'Verify allergies before giving an antibiotic, and check sedation before an IM antiemetic.', 'Read the moderate sliding scale to find the correct insulin dose.']
     }, glucoseLab(ctx, 284)));
 
-  prof('lpn_potassium', 'Low potassium after vomiting and diarrhea (potassium + SubQ + IM Phenergan)',
-    'Low potassium after a stomach virus in a patient with diabetes. Potassium chloride ER 20 mEq PO (very large tablet, swallow whole), insulin lispro SubQ on the HIGH-dose scale (glucose 316 = 16 units), promethazine (Phenergan) 12.5 mg IM (0.5 mL).',
+  prof('lpn_potassium', 'Low potassium after infectious diarrhea (potassium + SubQ + IM ceftriaxone 3 mL)',
+    'Low potassium after bacterial diarrhea in a patient with diabetes. Potassium chloride ER 20 mEq PO (very large tablet, swallow whole), insulin lispro SubQ on the HIGH-dose scale (glucose 316 = 16 units), ceftriaxone 1.5 g IM = 3 mL (right hip is bruised: choose the left side).',
     ctx => Object.assign({
-      problem: 'Hypokalemia after gastroenteritis', details: 'Two days of vomiting and diarrhea with muscle weakness and a potassium of 3.3; oral potassium; antinausea injection; type 2 diabetes with high glucose on a high-dose sliding scale.',
-      chief: 'Vomiting, diarrhea and muscle weakness',
-      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with type 2 diabetes and 2 days of vomiting, watery diarrhea and weak, crampy legs. Potassium 3.3 mmol/L (low) and glucose high. Admitted for oral potassium, an antinausea injection and sliding-scale insulin.`,
-      ros: 'Positive for nausea, vomiting, diarrhea and leg cramps. Negative for chest pain, fever, blood in stool and shortness of breath.',
-      keyLabs: ['Potassium', 'Glucose'], vitals: [norm({ h: 0, hr: 96, sbp: 112, dbp: 68 }), norm({ h: 24, hr: 86, sbp: 120, dbp: 72 }), norm({ h: 48, hr: 80, sbp: 124, dbp: 74 })], fall: 2,
-      diet: 'Consistent carbohydrate diet, advance as tolerated', activity: 'Up with assistance', activityNote: 'Weak legs and a sedating antinausea medicine: assist with walking.',
-      meds: [POTASSIUM, SSI('high'), PROMETHAZINE],
+      problem: 'Hypokalemia after infectious diarrhea', details: 'Three days of watery diarrhea, fever and vomiting from a bacterial stomach infection with leg cramps and a potassium of 3.3; oral potassium; intramuscular antibiotic (3 mL); type 2 diabetes with high glucose on a high-dose sliding scale.',
+      chief: 'Diarrhea, fever and muscle cramps',
+      hpi: `${ctx.age}-year-old ${ctx.sex.toLowerCase()} with type 2 diabetes and 3 days of watery diarrhea, fever and vomiting after a restaurant meal, with weak, crampy legs. Potassium 3.3 mmol/L (low), glucose high, stool culture pending. Admitted for oral potassium, an intramuscular antibiotic and sliding-scale insulin. She bruised her right hip in a fall in the bathroom last night.`,
+      ros: 'Positive for diarrhea, nausea, vomiting, fever, leg cramps and a bruised right hip. Negative for chest pain, blood in stool and shortness of breath.',
+      keyLabs: ['Potassium', 'Glucose'], vitals: [norm({ h: 0, temp: 100.6, hr: 96, sbp: 112, dbp: 68 }), norm({ h: 24, temp: 99.2, hr: 86, sbp: 120, dbp: 72 }), norm({ h: 48, hr: 80, sbp: 124, dbp: 74 })], fall: 2,
+      diet: 'Consistent carbohydrate diet, advance as tolerated', activity: 'Up with assistance', activityNote: 'Weak legs and a bruised right hip: assist with walking.',
+      meds: [POTASSIUM, SSI('high'), CEFTRIAXONE('1.5 g', CLINDA)],
       orders: [{ name: 'Check the potassium result before each potassium dose', category: 'Nursing', frequency: 'Daily before the 0900 dose', startH: 3, instructions: 'Review the latest potassium. Hold and notify the provider if above 5.0 or the patient cannot swallow the tablet whole.' }, GLU_ORDER],
-      assessments: [{ fromH: 0, items: [['GI', 'Nausea / Vomiting', 'Nauseated, vomited twice yesterday'], ['Musculoskeletal / Mobility', 'Mobility', 'Weak legs, walks with assistance'], ['Neurologic', 'Level of Consciousness', 'Alert and oriented x4']] }],
-      objectives: [onePass, 'Review the potassium level before an oral potassium dose and give a very large extended-release tablet safely (whole, with water, upright).', 'Read the high-dose sliding scale and give a deep IM antiemetic safely.']
+      assessments: [{ fromH: 0, items: [['GI', 'Nausea / Vomiting', 'Nauseated, vomited twice yesterday; watery stools x6 today'], ['Skin', 'Skin', 'Right lateral hip: 8 x 6 cm purple bruise, tender; left hip and both thighs intact'], ['Musculoskeletal / Mobility', 'Mobility', 'Weak legs, walks with assistance'], ['Neurologic', 'Level of Consciousness', 'Alert and oriented x4']] }],
+      objectives: [onePass, 'Review the potassium level before an oral potassium dose and give a very large extended-release tablet safely (whole, with water, upright).', 'Choose a safe site for a 3 mL intramuscular injection (avoid the bruised right hip), and read the high-dose sliding scale.']
     }, (() => { const g = glucoseLab(ctx, 322); g.labs.Potassium = { abs: [[0, 3.2], [48, 3.9]] }; g.labSchedule.push({ h: 0.5, codes: ['Potassium'] }); return g; })()));
 })();

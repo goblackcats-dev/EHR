@@ -53,8 +53,8 @@
     {
      "id": "lpn_lasix",
      "name": "Frank Delgado",
-     "title": "Heart failure with fluid overload (Lasix + SubQ + IM B12)",
-     "desc": "PO furosemide (Lasix) 20 mg, SubQ insulin lispro (sensitive scale, glucose 229 = 2 units), IM vitamin B12 1,000 mcg",
+     "title": "Heart failure with pneumonia (Lasix + SubQ + IM ceftriaxone 3 mL)",
+     "desc": "PO furosemide (Lasix) 20 mg, SubQ insulin lispro (sensitive scale, glucose 229 = 2 units), IM ceftriaxone 1.5 g = 3 mL (ventrogluteal or vastus lateralis)",
      "file": "prebuilt/lpn_lasix.json",
      "age": 69,
      "sex": "Male"
@@ -80,8 +80,8 @@
     {
      "id": "lpn_potassium",
      "name": "Beverly Hayes",
-     "title": "Low potassium after vomiting and diarrhea (potassium + SubQ + IM Phenergan)",
-     "desc": "PO potassium chloride ER 20 mEq (very large tablet), SubQ insulin lispro (high scale, glucose 316 = 16 units), IM promethazine (Phenergan) 12.5 mg = 0.5 mL",
+     "title": "Low potassium after infectious diarrhea (potassium + SubQ + IM ceftriaxone 3 mL)",
+     "desc": "PO potassium chloride ER 20 mEq (very large tablet), SubQ insulin lispro (high scale, glucose 316 = 16 units), IM ceftriaxone 1.5 g = 3 mL (bruised right hip: choose another site)",
      "file": "prebuilt/lpn_potassium.json",
      "age": 74,
      "sex": "Female"
