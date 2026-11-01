@@ -41,13 +41,18 @@
   .nsp-pages { width: 100%; border-collapse: collapse; } .nsp-pages thead { display: table-header-group; } .nsp-pages td, .nsp-pages th { padding: 0; font-weight: normal; text-align: left; }
   .nsp-pages .nsp-band { margin-bottom: .12in; }
   @media (max-width: 760px) { .nsp-main { flex-direction: column; } .nsp-list { flex: none; } .nsp-prev { align-self: stretch; } }
+  .nsp-pg { width: 7.7in; height: 9.6in; overflow: hidden; box-sizing: border-box; background: #fff; }
+  .nsp-pg .nsp-body { display: block; font-size: 0; line-height: 0; }
+  .nsp-pg .nsp-item { display: inline-block; vertical-align: top; margin: 0 .12in .12in 0; break-inside: avoid; page-break-inside: avoid; font-size: 12px; line-height: normal; }
   @media print {
     @page { size: letter portrait; margin: .5in .4in .4in .4in; }
     html, body { height: auto !important; min-height: 0 !important; overflow: visible !important; display: block !important; background: #fff !important; margin: 0 !important; padding: 0 !important; }
     body.nsp-printing > *:not(#nsPrintArea) { display: none !important; }
     body.nsp-printing #nsPrintArea { display: block !important; position: static !important; width: auto !important; }
     body.nsp-printing .nsp-sheet { width: 100% !important; padding: 0; transform: none !important; }
-    body.nsp-printing .nsp-item .ml-label, body.nsp-printing .nsp-item .wb-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body.nsp-printing .nsp-pg .ml-label, body.nsp-printing .nsp-pg .wb-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body.nsp-printing .nsp-pg { break-after: page; page-break-after: always; }
+    body.nsp-printing .nsp-pg:last-child { break-after: auto; page-break-after: auto; }
   }`;
   function ensureStyle() {
     if (!document.getElementById('nspStyle')) { const s = document.createElement('style'); s.id = 'nspStyle'; s.textContent = CSS; document.head.appendChild(s); }
@@ -102,14 +107,27 @@
     const onResize = () => preview();
     window.addEventListener('resize', onResize);
     dlg.addEventListener('close', () => { window.removeEventListener('resize', onResize); clearPrinting(); dlg.remove(); });
+    // Pages are built here, one fixed-size block per sheet of paper, so the browser never has to split a label across pages
+    // (Safari and AirPrint cut the last row off when they had to do the splitting themselves).
     function print() {
       if (!count()) return;
       let area = document.getElementById('nsPrintArea');
       if (!area) { area = document.createElement('div'); area.id = 'nsPrintArea'; document.body.appendChild(area); }
-      // the header band repeats at the top of every printed page (thead), so printers that clip the first part of the page clip the header, not a label
-      area.innerHTML = `<table class="nsp-pages"><thead><tr><th>${BAND}</th></tr></thead><tbody><tr><td><div class="nsp-sheet">${sheetInner()}</div></td></tr></tbody></table>`;
+      area.innerHTML = '';
+      const probe = document.createElement('div'); probe.style.cssText = 'position:absolute;left:-9999px;top:0;width:7.7in;visibility:hidden'; document.body.appendChild(probe);
+      const LIMIT = 8.7 * 96, pages = [];
+      const newPage = () => { const pg = document.createElement('div'); pg.className = 'nsp-pg'; pg.innerHTML = BAND + '<div class="nsp-body"></div>'; probe.appendChild(pg); pages.push(pg); return pg.querySelector('.nsp-body'); };
+      let body = newPage();
+      items.filter(it => it.checked).forEach(it => {
+        for (let c = 0; c < it.copies; c++) {
+          const el = document.createElement('div'); el.className = 'nsp-item'; el.innerHTML = it.html(it.size);
+          body.appendChild(el);
+          if (body.offsetHeight > LIMIT && body.children.length > 1) { body.removeChild(el); body = newPage(); body.appendChild(el); }
+        }
+      });
+      pages.forEach(pg => area.appendChild(pg)); probe.remove();
       document.body.classList.add('nsp-printing');
-      setTimeout(() => window.print(), 50);
+      setTimeout(() => window.print(), 80);
     }
     dlg.showModal(); preview();
     return dlg;
