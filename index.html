@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icon-180.png" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <title>NursingSim EHR - Prototype v79</title>
+  <title>NursingSim EHR - Prototype v80</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="epic.css" />
 </head>
@@ -622,11 +622,10 @@
           <label>Date<input type="date" id="marActionDate" /></label>
           <label>Time<input type="time" id="marActionTime" /></label>
           <label>Route<input type="text" id="marActionRoute" readonly /></label>
-          <label>Site<input type="text" id="marActionSite" list="marSiteList" placeholder="Site (injections, topical)" /></label>
+          <label id="marSiteLabel">Site<select id="marActionSite"></select></label>
           <label>Dose<span class="mar-dose-row"><input type="text" id="marActionDose" /><input type="text" id="marActionUnit" class="mar-unit-box" value="" disabled aria-label="Dose unit" /></span></label>
           <label id="marVolLabel" class="hidden">Volume (injection)<span class="mar-dose-row"><input type="number" step="any" min="0" id="marActionVol" placeholder="mL" /><input type="text" id="marActionVolUnit" class="mar-unit-box" value="mL" disabled aria-label="Volume unit (mL)" /></span></label>
         </div>
-        <datalist id="marSiteList"><option>Left deltoid</option><option>Right deltoid</option><option>Left ventrogluteal</option><option>Right ventrogluteal</option><option>Left vastus lateralis</option><option>Right vastus lateralis</option><option>Abdomen, left</option><option>Abdomen, right</option><option>Left upper arm</option><option>Right upper arm</option><option>Left thigh</option><option>Right thigh</option></datalist>
         <div id="marActionMsg" class="mr-msg"></div>
       </div>
       <label class="input-label" for="marActionReason">Comment / Reason</label>
@@ -727,6 +726,6 @@
   <script src="flowsheet-charting.js"></script>
   <script src="nursing-notes.js"></script>
   <script src="ui-shell.js"></script>
-  <script src="watch.js?v=79"></script>
+  <script src="watch.js?v=80"></script>
 </body>
 </html>

@@ -3037,7 +3037,16 @@ function openMARActionDialog(med, event) {
   // Administration details default to the patient clock; the nurse can change the date and time the dose was actually given
   const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
   setVal('marActionDate', String(simulationTime).slice(0, 10)); setVal('marActionTime', String(simulationTime).slice(11, 16));
-  setVal('marActionRoute', safe(med.route)); setVal('marActionSite', '');
+  setVal('marActionRoute', safe(med.route));
+  // injection site: a drop-down for subcutaneous and intramuscular doses (hidden for other routes)
+  const SITES = {
+    sub: ['Abdomen, right (2 inches from the navel)', 'Abdomen, left (2 inches from the navel)', 'Right upper arm (back)', 'Left upper arm (back)', 'Right thigh (front)', 'Left thigh (front)', 'Right upper back', 'Left upper back'],
+    im: ['Right deltoid', 'Left deltoid', 'Right ventrogluteal', 'Left ventrogluteal', 'Right vastus lateralis', 'Left vastus lateralis', 'Right dorsogluteal', 'Left dorsogluteal']
+  };
+  const siteSel = document.getElementById('marActionSite'), siteLab = document.getElementById('marSiteLabel');
+  const kind = /^sub/i.test(safe(med.route)) ? 'sub' : /^intramus|^im$/i.test(safe(med.route)) ? 'im' : '';
+  if (siteSel) { siteSel.innerHTML = kind ? '<option value="">Select the injection site</option>' + SITES[kind].map(x => `<option>${escapeHtml(x)}</option>`).join('') : ''; siteSel.value = ''; }
+  if (siteLab) siteLab.classList.toggle('hidden', !kind);
   // The dose is two boxes (like Epic): the amount with a fixed unit beside it, and for injections a volume in mL with a fixed "mL" beside it.
   // Insulin sliding scale: the student types the units from the scale. Otherwise the ordered amount is filled in and can be changed.
   const doseEl0 = document.getElementById('marActionDose'), unitEl0 = document.getElementById('marActionUnit'), volEl0 = document.getElementById('marActionVol'), volLab0 = document.getElementById('marVolLabel');
@@ -3096,6 +3105,18 @@ function marActionTimeProblem() {
   if (start && chosen < start) return 'The time given is before this patient\'s simulation started.';
   return '';
 }
+// Problems with the give window's fields (site, dose) that must be fixed before a dose can be charted as given; '' when fine.
+function marActionFormProblem(action) {
+  if (action !== 'given' || !activeMARAction) return '';
+  const siteBox = document.getElementById('marActionSite'), siteLabel = document.getElementById('marSiteLabel'), doseBox = document.getElementById('marActionDose');
+  if (siteBox && siteLabel && !siteLabel.classList.contains('hidden') && !siteBox.value) return 'Select the injection site before giving.';
+  const insulin = /insulin/i.test(safe(activeMARAction.medName)) && /^sub/i.test(safe(activeMARAction.route));
+  if (doseBox && doseBox.type === 'number') {
+    const bad = doseBox.value === '' || isNaN(Number(doseBox.value)) || Number(doseBox.value) < 0 || (!insulin && Number(doseBox.value) <= 0);
+    if (bad) return insulin ? 'Enter the number of units you are giving (0 if the scale says none).' : 'Enter the dose you are giving.';
+  }
+  return '';
+}
 function applyMARAction(action) {
   if (!activeMARAction || !currentCanonicalCase) return;
 
@@ -3125,6 +3146,8 @@ function applyMARAction(action) {
   const bad = marActionTimeProblem();
   if (bad) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = bad; return; }
   const givenAt = marActionChosenTime();
+  const siteBox = document.getElementById('marActionSite'), siteLabel = document.getElementById('marSiteLabel');
+  if (action === 'given' && siteBox && siteLabel && !siteLabel.classList.contains('hidden') && !siteBox.value) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = 'Select the injection site before giving.'; return; }
   const doseBox = document.getElementById('marActionDose');
   if (action === 'given' && doseBox && doseBox.type === 'number' && !/insulin/i.test(safe(activeMARAction.medName))) {
     if (doseBox.value === '' || isNaN(Number(doseBox.value)) || Number(doseBox.value) <= 0) { const m = document.getElementById('marActionMsg'); if (m) m.textContent = 'Enter the dose you are giving.'; return; }

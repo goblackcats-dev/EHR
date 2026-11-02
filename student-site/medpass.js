@@ -452,7 +452,7 @@
       const g = gate(); if (!g.ok) { refresh(); return; }
     }
     const act = typeof activeMARAction !== 'undefined' ? activeMARAction : null, snap = state, pt = patientStatus();
-    const badTime = typeof marActionTimeProblem === 'function' ? marActionTimeProblem() : '';
+    const badTime = (typeof marActionTimeProblem === 'function' ? marActionTimeProblem() : '') || (typeof marActionFormProblem === 'function' ? marActionFormProblem(action) : '');
     if (badTime) { const m = $('marActionMsg'); if (m) m.textContent = badTime; return; }
     const givenAt = typeof marActionChosenTime === 'function' ? marActionChosenTime() : String(simulationTime), comment = ($('marActionReason') && $('marActionReason').value.trim()) || '';
     originalApply(action);
