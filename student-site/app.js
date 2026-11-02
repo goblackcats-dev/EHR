@@ -3026,6 +3026,7 @@ function getVisibleMedicationOrder(orderId) {
 function needsDoubleCheck(order) {
   const m = (order && order.medication) || {};
   if (!m.highAlert) return false;
+  if (/^(oral|po|sl|sublingual|buccal)/i.test(safe(m.route))) return false;   // pills never need an independent double check
   return !(/insulin/i.test(safe(order.name)) && /^sub/i.test(safe(m.route)));
 }
 function isSubQInsulin(med) { return /insulin/i.test(safe(med && med.name)) && /^sub/i.test(safe(med && med.route)); }
