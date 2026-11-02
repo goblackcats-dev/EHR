@@ -1806,6 +1806,18 @@ function doseDisplay(med) {
   return dose + extra + (cc ? ` (${cc})` : '');
 }
 
+// strength of what is being given: injections show the vial/bag concentration (e.g. "1,000 mcg/mL"); pills show the strength of one tablet
+function doseConcentration(med) {
+  if (med.concentration) return String(med.concentration);
+  const a = String(med.adminDose || med.dose || ''), route = String(med.route || '');
+  if (/sliding scale/i.test(a)) return isSubQInsulin(med) ? '100 units/mL' : '';
+  if (!/^(oral|po|sl|sublingual|buccal)/i.test(route)) return '';
+  const x = a.match(/(\d+)\s*[×x]\s*([\d,.]+\s*(?:mg|mcg|g|mEq|units?))\s*(tablet|capsule)/i);
+  if (x) return `${x[2]} per ${x[3].toLowerCase()}`;
+  const m = a.match(/^\s*([\d,.]+\s*(?:mg|mcg|g|mEq))\b/i);
+  return m ? `${m[1]} per tablet` : '';
+}
+
 function elOrStub(id) {
   const e = document.getElementById(id); if (e) return e;
   const noop = () => {};
@@ -2910,7 +2922,7 @@ function renderMARRow(med, timeSlots) {
   left.innerHTML = `
     <div class="mar-med-name">${escapeHtml(safe(med.name))} ${med.dose ? `<span style="font-weight:400;color:#44576c;">• Dose ${escapeHtml(safe(med.dose))}</span>` : ''}</div>
     <div class="mar-med-meta">${escapeHtml(metaBits)}</div>
-    <div class="mar-med-subtext">Ordered Admin Amount: ${escapeHtml(safe(med.adminDose, '—'))}${med.concentration ? `<br>Concentration: ${escapeHtml(safe(med.concentration))}` : ''}<br>Last Admin: ${escapeHtml(safe(med.lastAdmin, '—'))}<br>Dispense Location: ${escapeHtml(safe(med.dispenseLocation, '—'))}</div>
+    <div class="mar-med-subtext">Ordered Admin Amount: ${escapeHtml(safe(med.adminDose, '—'))}${doseConcentration(med) ? `<br>Concentration: ${escapeHtml(doseConcentration(med))}` : ''}<br>Last Admin: ${escapeHtml(safe(med.lastAdmin, '—'))}<br>Dispense Location: ${escapeHtml(safe(med.dispenseLocation, '—'))}</div>
     ${hasDetail ? '<span class="mar-hint">Click row for medication details</span>' : ''}
   `;
 
@@ -3060,6 +3072,9 @@ function openMARActionDialog(med, event) {
     if (unitEl0) { unitEl0.classList.add('hidden'); unitEl0.value = ''; }
   }
   if (volLab0) { const showVol = !!volM && !slidingScale; volLab0.classList.toggle('hidden', !showVol); if (volEl0) volEl0.value = showVol ? volM[1].replace(/,/g, '') : ''; }
+  let concEl = document.getElementById('marConc');
+  if (!concEl && volLab0) { concEl = document.createElement('div'); concEl.id = 'marConc'; concEl.className = 'mar-conc'; volLab0.insertAdjacentElement('afterend', concEl); }
+  if (concEl) { const cc = doseConcentration(med); concEl.textContent = cc ? `Concentration: ${cc}` : ''; concEl.classList.toggle('hidden', !cc); }
   const msg0 = document.getElementById('marActionMsg'); if (msg0) msg0.textContent = '';
   // last administration of this medication (time and site) so the nurse can rotate injection sites
   (() => {
