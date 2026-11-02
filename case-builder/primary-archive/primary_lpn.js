@@ -40,7 +40,7 @@ NS.PRIMARY = NS.PRIMARY || {};
     mid: { label: 'moderate-dose', text: 'MODERATE-DOSE sliding scale (glucose mg/dL: 150-199 = 3 units; 200-249 = 6 units; 250-299 = 9 units; 300-349 = 12 units; 350 or higher = 15 units and call the provider; below 150 = no insulin).' },
     high: { label: 'high-dose', text: 'HIGH-DOSE sliding scale (glucose mg/dL: 150-199 = 4 units; 200-249 = 8 units; 250-299 = 12 units; 300-349 = 16 units; 350 or higher = 20 units and call the provider; below 150 = no insulin).' }
   };
-  const SSI = scale => ({ key: 'insulin_lispro_ssi', name: 'insulin lispro (HUMALOG) injection', dose: `Per ${SCALES[scale].label} sliding scale`, route: 'Subcutaneous', freq: 'daily', startH: 1.0, cls: 'Rapid-acting insulin', monitor: ['Glucose'], by: 'hospitalist',
+  const SSI = scale => ({ key: 'insulin_lispro_ssi', name: 'insulin lispro (HUMALOG) injection', dose: `Per ${SCALES[scale].label} sliding scale`, route: 'Subcutaneous', freq: 'ACHS', startH: 1.0, cls: 'Rapid-acting insulin', monitor: ['Glucose'], by: 'hospitalist',
     instructions: `Check the blood glucose, then give insulin lispro SubQ by the ${SCALES[scale].text}`,
     hold: 'Hold and notify the provider if glucose is below 70 mg/dL or the patient is not eating.', indication: 'Hyperglycemia (sliding-scale insulin)',
     info: `${SCALES[scale].text} Check the glucose BEFORE giving, find the dose on the scale and type the number of units you give. Give within 15 minutes of a meal. Rotate sites (abdomen, thigh, upper arm). Watch for hypoglycemia: sweating, shakiness, confusion.` });
