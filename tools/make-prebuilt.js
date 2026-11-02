@@ -31,6 +31,15 @@ LPN.unshift(PRACTICE);
 LPN.forEach(d => {
   const r = NS.buildCase(base(d));
   if (!d.keepInfo) r.canonical.orders.forEach(o => { if (o.medication) o.medication.importantInfo = ''; });
+  // the LPN check-off is one 0900 pass: the sliding-scale insulin (ACHS order) has just its 0900 dose, no other slots
+  (function () {
+    const ssi = r.canonical.orders.find(o => o.medication && /lispro/i.test(o.name || '') && /^sub/i.test(o.medication.route || '')); if (!ssi) return;
+    const ref = r.canonical.administrations.find(a => a.time === '0900' && a.slotIndex >= 0); if (!ref) return;
+    const mine = r.canonical.administrations.filter(a => a.orderId === ssi.id && !/_prev$/.test(a.id));
+    const keep = mine.find(a => a.slotIndex >= 0) || mine[0];
+    r.canonical.administrations = r.canonical.administrations.filter(a => a.orderId !== ssi.id || /_prev$/.test(a.id));
+    if (keep) r.canonical.administrations.push(Object.assign({}, keep, { id: `admin_${ssi.id}_d0`, slotIndex: ref.slotIndex, time: '0900', state: 'due', label: '0900 Due' }));
+  })();
   // yesterday's dose of each injection, with its site, so the student can rotate sites (shown under "Last admin" in the give window)
   const LAST_SQ = { htn: 'Left upper abdomen', cellulitis: 'Right upper abdomen', fall: 'Left upper arm (back)', diabetes: 'Right thigh (front)', b12: 'Left upper abdomen', practice: 'Right upper abdomen', lasix: 'Left upper abdomen', iron: 'Right upper arm (back)', cephalexin: 'Right upper abdomen', potassium: 'Left thigh (front)' };
   const LAST_IM = { htn: 'Right ventrogluteal', cellulitis: 'Left vastus lateralis', fall: 'Right ventrogluteal', diabetes: 'Left deltoid', b12: 'Right deltoid', practice: 'Left deltoid', lasix: 'Right vastus lateralis', iron: 'Left ventrogluteal', cephalexin: 'Right ventrogluteal', potassium: 'Left ventrogluteal' };
