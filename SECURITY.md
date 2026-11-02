@@ -12,3 +12,10 @@
 
 ## Setup
 See `student-site/README.md`. Re-run `node make-student-site.js` after any change to the app, then re-upload the folder.
+
+## Live student view (optional, v79)
+- A student only shares their screen when they choose Tools > Share my screen and type the instructor's 6-character class code. A banner stays on screen while sharing and a "Stop sharing" button ends it.
+- The screen data goes browser to browser (WebRTC data channel, encrypted by the browser). The free PeerJS cloud server (0.peerjs.com) is only the introducer: it sees the class code and the connection setup, not the screen. Nothing is stored.
+- The instructor's code is random and lasts only while the "Live student view" window is open (End session closes it). Anyone with the code could share a screen into the instructor's view, so the code should only be given to the class. The replay runs inside a sandboxed frame without scripts.
+- The student site allows connections to 0.peerjs.com only for this feature (see the content security policy in `make-student-site.js`).
+- It needs internet on both devices; some school Wi-Fi blocks direct connections (then the student will see a connection error).

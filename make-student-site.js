@@ -14,17 +14,17 @@ let h = fs.readFileSync('student.html', 'utf8');
 h = h.replace(/<dialog id="libraryDialog"[\s\S]*?<\/dialog>\s*/, '').replace(/<dialog id="importDialog"[\s\S]*?<\/dialog>\s*/, '');
 h = h.replace(/<button id="openStudentViewBtn"[^>]*>[^<]*<\/button>\s*/, '').replace(/<button id="openLibraryBtn"[^>]*>[^<]*<\/button>\s*/, '').replace(/<button id="openImportBtn"[^>]*>[^<]*<\/button>\s*/, '');
 h = h.replace(/\s*<script src="student-link\.js"><\/script>/, '');
-const csp = "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; media-src 'self' blob: data:; worker-src 'self' blob:; base-uri 'none'; form-action 'none'";
+const csp = "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' wss://0.peerjs.com https://0.peerjs.com; manifest-src 'self'; media-src 'self' blob: data:; worker-src 'self' blob:; base-uri 'none'; form-action 'none'";
 h = h.replace('<meta charset="UTF-8" />', '<meta charset="UTF-8" />\n  <meta http-equiv="Content-Security-Policy" content="' + csp + '" />\n  <meta name="referrer" content="no-referrer" />\n  <meta name="robots" content="noindex, nofollow" />');
 const scripts = [...h.matchAll(/<script src="([^"]+)"/g)].map(m => m[1]);
 const bad = ['quiz.js', 'student-link.js', 'make-student.js'];
 if (scripts.some(s => bad.includes(s))) { console.error('instructor script present in student page'); process.exit(1); }
 if (/case-builder|casestudy|openLibraryBtn|openImportBtn|libraryDialog|importDialog/.test(h.replace(/<script src[^>]*>/g, ''))) { console.error('instructor markup still present'); process.exit(1); }
 fs.writeFileSync(out + '/index.html', h);
-const files = new Set(scripts.concat(['manifest-student.webmanifest','styles.css', 'epic.css', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png']));
+const files = new Set(scripts.map(x => x.split('?')[0]).concat(['vendor/peerjs.min.js', 'vendor/rrweb.umd.min.js', 'vendor/rrweb.min.css', 'manifest-student.webmanifest','styles.css', 'epic.css', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png']));
 files.delete('manifest-student.webmanifest');
 fs.writeFileSync(out + '/manifest-student.webmanifest', fs.readFileSync('manifest-student.webmanifest', 'utf8').replace('./student.html', './'));
-files.forEach(f => { if (!fs.existsSync(f)) { console.error('missing ' + f); process.exit(1); } fs.copyFileSync(f, path.join(out, f)); });
+files.forEach(f => { if (!fs.existsSync(f)) { console.error('missing ' + f); process.exit(1); } fs.mkdirSync(path.dirname(path.join(out, f)), { recursive: true }); fs.copyFileSync(f, path.join(out, f)); });
 // student case-study PDFs (student packet only, never the key); the file name carries a random token so it cannot be guessed
 try {
   const idx = JSON.parse(fs.readFileSync('casestudy/index.json', 'utf8')); fs.mkdirSync(out + '/casestudies', { recursive: true });

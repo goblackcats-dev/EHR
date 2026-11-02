@@ -339,3 +339,27 @@ dialog { max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); }
 #marActionDialog .dialog-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0; }
 #marActionDialog .mar-action-buttons { position: sticky; bottom: 0; z-index: 2; background: #fff; margin: 8px -18px 0; padding: 10px 18px 12px; border-top: 1px solid #dde7f1; }
 #marActionDialog #closeMarActionBtn { min-width: 44px; min-height: 44px; }
+
+/* Live student view */
+.lv-dialog { width: min(1240px, calc(100vw - 20px)); border: 1px solid var(--border-dark, #aab); border-radius: 14px; padding: 0; }
+.lv-dialog.lv-small { width: min(520px, calc(100vw - 20px)); }
+.lv-dialog[open] { display: flex; flex-direction: column; }
+.lv-dialog .dialog-body { overflow: auto; min-height: 0; flex: 1; }
+.lv-head-r { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.lv-codebox { font-size: 11px; color: #55657a; text-align: center; } .lv-codebox div { font-size: 30px; font-weight: 800; letter-spacing: .12em; color: #0d56c6; font-family: ui-monospace, Menlo, monospace; }
+.lv-count { font-size: 13px; color: #55657a; margin-bottom: 8px; }
+.lv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; align-items: start; }
+.lv-tile { border: 1px solid #c5d0de; border-radius: 8px; background: #fff; overflow: hidden; }
+.lv-tile.lv-large { grid-column: 1 / -1; }
+.lv-tile.lv-idle { opacity: .55; } .lv-tile.lv-idle .lv-dot { background: #b0b8c4; }
+.lv-head { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: #f1f5fa; border-bottom: 1px solid #dde5ef; font-size: 13px; }
+.lv-head .lv-role { color: #6a7686; font-size: 12px; flex: 1; } .lv-head button { font-size: 12px; padding: 3px 8px; }
+.lv-dot { width: 9px; height: 9px; border-radius: 50%; background: #1fa35a; display: inline-block; flex: none; }
+.lv-view { position: relative; overflow: hidden; background: #e8edf3; min-height: 120px; }
+.lv-view .replayer-wrapper { position: relative; } .lv-view iframe { border: 0; background: #fff; pointer-events: none; }
+.lv-note { font-size: 12px; color: #6a7686; margin-top: 12px; }
+.lv-banner { position: fixed; left: 10px; bottom: 10px; z-index: 99999; display: flex; align-items: center; gap: 8px; background: #123b6d; color: #fff; padding: 8px 12px; border-radius: 22px; font-size: 13px; box-shadow: 0 2px 10px rgba(0,0,0,.3); }
+.lv-banner button { background: #fff; color: #123b6d; border: 0; border-radius: 14px; padding: 4px 10px; font-weight: 700; cursor: pointer; }
+.lv-code-in { font-size: 26px; letter-spacing: .15em; text-transform: uppercase; text-align: center; width: 100%; box-sizing: border-box; padding: 10px; font-family: ui-monospace, Menlo, monospace; }
+.lv-msg { min-height: 20px; margin: 10px 0; font-size: 14px; color: #1a5a96; } .lv-msg.bad { color: #b3261e; }
+.lv-actions { display: flex; gap: 10px; }
