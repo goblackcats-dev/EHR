@@ -304,7 +304,7 @@
     dlg.innerHTML = `<div class="dialog-header"><div><h2 id="scanTitle">Scan</h2><p id="scanSub"></p></div><button id="scanClose" class="icon-button" aria-label="Close scanner">×</button></div>
       <div class="dialog-body"><div id="scanMsg" class="scan-msg"></div><div id="scanTiles" class="scan-tiles"></div>
       <div class="scan-manual"><input id="scanInput" placeholder="Or scan with a handheld scanner / type a code, then press Enter" autocomplete="off" autocapitalize="off" /><button id="scanGo" class="primary-button">Enter</button></div>
-      <div id="scanCamBox" class="scan-cam hidden"><video id="scanVideo" playsinline muted></video><div class="scan-cam-hint">Point the camera at the QR code on the wristband or package.</div><button id="scanCamStop" class="secondary-button">Stop camera</button></div>
+      <div id="scanCamBox" class="scan-cam hidden"><div class="scan-vwrap"><video id="scanVideo" playsinline muted></video><div class="scan-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div><div class="scan-cam-hint">Hold the QR code <b>inside the white box</b>, about 6 inches (15 cm) from the camera. Keep it flat, steady and well lit; on a curved bottle, turn the label so the code faces the camera.</div><button id="scanCamStop" class="secondary-button">Stop camera</button></div>
       <div class="scan-foot"><button id="scanCam" class="secondary-button">Scan with camera</button> <button id="scanOvr" class="secondary-button">Can't scan? Override...</button></div></div>`;
     document.body.appendChild(dlg);
     $('scanClose').addEventListener('click', () => dlg.close());
@@ -404,8 +404,9 @@
     const msg = $('scanMsg');
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = 'This browser cannot use the camera here (it needs the secure https page). Tap a wristband or type the code instead.'; msg.className = 'scan-msg bad'; return; }
     try {
-      camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+      camStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false });
     } catch (e) { msg.textContent = 'The camera could not be opened. Allow camera access for this site, or tap a wristband instead.'; msg.className = 'scan-msg bad'; return; }
+    try { const tr = camStream.getVideoTracks()[0], caps = tr.getCapabilities ? tr.getCapabilities() : {}; if (caps.focusMode && caps.focusMode.includes('continuous')) await tr.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }); } catch (e) { /* not supported */ }
     const v = $('scanVideo'); v.srcObject = camStream; $('scanCamBox').classList.remove('hidden'); try { await v.play(); } catch (e) { /* autoplay rules */ }
     const detector = window.BarcodeDetector ? new BarcodeDetector({ formats: ['qr_code'] }) : null;
     const ok = detector || await loadJsQR();
@@ -417,7 +418,14 @@
       try {
         let text = '';
         if (detector) { const r = await detector.detect(v); if (r.length) text = r[0].rawValue; }
-        else { canvas.width = v.videoWidth; canvas.height = v.videoHeight; g.drawImage(v, 0, 0); const img = g.getImageData(0, 0, canvas.width, canvas.height), r = window.jsQR(img.data, img.width, img.height); if (r) text = r.data; }
+        else {
+          // look inside the white box first (a small code on a pill bottle reads better when cropped and enlarged), then the whole picture
+          const W = v.videoWidth, H = v.videoHeight, side = Math.round(Math.min(W, H) * 0.6), sx = Math.round((W - side) / 2), sy = Math.round((H - side) / 2);
+          canvas.width = canvas.height = Math.min(side, 800); g.drawImage(v, sx, sy, side, side, 0, 0, canvas.width, canvas.height);
+          let r = window.jsQR(g.getImageData(0, 0, canvas.width, canvas.height).data, canvas.width, canvas.height, { inversionAttempts: 'attemptBoth' });
+          if (!r) { canvas.width = W; canvas.height = H; g.drawImage(v, 0, 0); r = window.jsQR(g.getImageData(0, 0, W, H).data, W, H); }
+          if (r) text = r.data;
+        }
         if (text) { stopCamera(); handleScan(text); }
       } catch (e) { /* keep trying */ } finally { busy = false; }
     }, 200);
