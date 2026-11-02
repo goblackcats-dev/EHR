@@ -3040,7 +3040,7 @@ function openMARActionDialog(med, event) {
   setVal('marActionRoute', safe(med.route));
   // injection site: a drop-down for subcutaneous and intramuscular doses (hidden for other routes)
   const SITES = {
-    sub: ['Abdomen, right (2 inches from the navel)', 'Abdomen, left (2 inches from the navel)', 'Right upper arm (back)', 'Left upper arm (back)', 'Right thigh (front)', 'Left thigh (front)', 'Right upper back', 'Left upper back'],
+    sub: ['Right upper abdomen', 'Left upper abdomen', 'Right upper arm (back)', 'Left upper arm (back)', 'Right thigh (front)', 'Left thigh (front)', 'Right upper back', 'Left upper back'],
     im: ['Right deltoid', 'Left deltoid', 'Right ventrogluteal', 'Left ventrogluteal', 'Right vastus lateralis', 'Left vastus lateralis', 'Right dorsogluteal', 'Left dorsogluteal']
   };
   const siteSel = document.getElementById('marActionSite'), siteLab = document.getElementById('marSiteLabel');
