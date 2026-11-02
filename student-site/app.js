@@ -3061,6 +3061,20 @@ function openMARActionDialog(med, event) {
   }
   if (volLab0) { const showVol = !!volM && !slidingScale; volLab0.classList.toggle('hidden', !showVol); if (volEl0) volEl0.value = showVol ? volM[1].replace(/,/g, '') : ''; }
   const msg0 = document.getElementById('marActionMsg'); if (msg0) msg0.textContent = '';
+  // last administration of this medication (time and site) so the nurse can rotate injection sites
+  (() => {
+    const btn = document.getElementById('marLastAdminBtn'), pop = document.getElementById('marLastAdminPop'); if (!btn || !pop) return;
+    const nowD = parseSimDate(simulationTime);
+    const given = (currentCanonicalCase.administrations || []).filter(a => a.orderId === med.orderId && safe(a.state).toLowerCase() === 'given' && a.administeredAt && parseSimDate(a.administeredAt) && (!nowD || parseSimDate(a.administeredAt) <= nowD))
+      .sort((a, b) => safe(b.administeredAt).localeCompare(safe(a.administeredAt)));
+    const fmt = a => epicDate(a.administeredAt);
+    btn.textContent = given.length ? `Last admin: ${fmt(given[0])}` : 'Last admin: none this stay';
+    btn.setAttribute('aria-expanded', 'false'); pop.classList.add('hidden');
+    pop.innerHTML = given.length
+      ? `<h4>Last administrations of ${escapeHtml(safe(med.name))}</h4><table><thead><tr><th>Time</th><th>Site</th><th>Dose</th><th>By</th></tr></thead><tbody>${given.slice(0, 3).map(a => `<tr><td>${escapeHtml(fmt(a))}</td><td>${escapeHtml(safe(a.site, 'Not documented'))}</td><td>${escapeHtml(safe(a.dose, ''))}</td><td>${escapeHtml(safe(a.administeredBy, ''))}</td></tr>`).join('')}</tbody></table>`
+      : '<h4>Last administration</h4>No earlier dose of this medication is charted.';
+    btn.onclick = e => { e.stopPropagation(); const open = pop.classList.toggle('hidden') === false; btn.setAttribute('aria-expanded', String(open)); };
+  })();
 
   const visibleCanonical = getVisibleCanonicalCase(currentCanonicalCase);
   const monitoring = (order.medication?.monitoringRules || [])

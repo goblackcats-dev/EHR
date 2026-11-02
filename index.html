@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" href="icon-180.png" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <title>NursingSim EHR - Prototype v81</title>
+  <title>NursingSim EHR - Prototype v82</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="epic.css" />
 </head>
@@ -630,11 +630,14 @@
       </div>
       <label class="input-label" for="marActionReason">Comment / Reason</label>
       <textarea id="marActionReason" class="small-textarea" placeholder="Comment if patient refuses, or med is held/not given"></textarea>
-      <div class="mar-action-buttons">
-        <button class="mar-action-choice mar-action-give" data-mar-action="given">Give</button>
-        <button class="mar-action-choice mar-action-hold" data-mar-action="held">Hold</button>
-        <button class="mar-action-choice mar-action-refuse" data-mar-action="refused">Refused</button>
-        <button class="mar-action-choice mar-action-notgiven" data-mar-action="notgiven">Not Given</button>
+      <div class="mar-footer">
+        <div class="mar-lastadmin"><button type="button" id="marLastAdminBtn" class="mar-lastadmin-btn" aria-expanded="false">Last admin: none</button><div id="marLastAdminPop" class="mar-lastadmin-pop hidden"></div></div>
+        <div class="mar-action-buttons">
+          <button class="mar-action-choice mar-action-give" data-mar-action="given">Give</button>
+          <button class="mar-action-choice mar-action-hold" data-mar-action="held">Hold</button>
+          <button class="mar-action-choice mar-action-refuse" data-mar-action="refused">Refused</button>
+          <button class="mar-action-choice mar-action-notgiven" data-mar-action="notgiven">Not Given</button>
+        </div>
       </div>
     </div>
   </dialog>
@@ -726,6 +729,6 @@
   <script src="flowsheet-charting.js"></script>
   <script src="nursing-notes.js"></script>
   <script src="ui-shell.js"></script>
-  <script src="watch.js?v=81"></script>
+  <script src="watch.js?v=82"></script>
 </body>
 </html>

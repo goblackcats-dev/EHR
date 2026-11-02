@@ -58,7 +58,7 @@
     const list = rightsList(med, event, order);
     const box = document.createElement('div'); box.id = 'mrRights'; box.className = 'mr-rights';
     box.innerHTML = '<strong>Rights of medication administration</strong><div class="mr-grid">' + list.map(r => `<div class="mr-item${r.warn ? ' warn' : ''}"><b>${esc(r.t)}</b><span>${esc(r.d)}</span></div>`).join('') + '</div>';
-    const btns = dlg.querySelector('.mar-action-buttons'); btns.parentNode.insertBefore(box, btns);
+    const btns = dlg.querySelector('.mar-footer') || dlg.querySelector('.mar-action-buttons'); btns.parentNode.insertBefore(box, btns);
   }
 
   const origOpen = openMARActionDialog;

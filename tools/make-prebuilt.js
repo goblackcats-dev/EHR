@@ -30,7 +30,18 @@ const groups = [{ id: 'lpn', title: 'LPN Med Pass', note: 'First-semester LPN me
 LPN.unshift(PRACTICE);
 LPN.forEach(d => {
   const r = NS.buildCase(base(d));
-  if (!d.keepInfo) r.canonical.orders.forEach(o => { if (o.medication) o.medication.importantInfo = ''; }); const file = `lpn_${d.id.replace(/^lpn_/, '')}.json`;
+  if (!d.keepInfo) r.canonical.orders.forEach(o => { if (o.medication) o.medication.importantInfo = ''; });
+  // yesterday's dose of each injection, with its site, so the student can rotate sites (shown under "Last admin" in the give window)
+  const LAST_SQ = { htn: 'Left upper abdomen', cellulitis: 'Right upper abdomen', fall: 'Left upper arm (back)', diabetes: 'Right thigh (front)', b12: 'Left upper abdomen', practice: 'Right upper abdomen', lasix: 'Left upper abdomen', iron: 'Right upper arm (back)', cephalexin: 'Right upper abdomen', potassium: 'Left thigh (front)' };
+  const LAST_IM = { htn: 'Right ventrogluteal', cellulitis: 'Left vastus lateralis', fall: 'Right ventrogluteal', diabetes: 'Left deltoid', b12: 'Right deltoid', practice: 'Left deltoid', lasix: 'Right vastus lateralis', iron: 'Left ventrogluteal', cephalexin: 'Right ventrogluteal', potassium: 'Left ventrogluteal' };
+  const short = d.id.replace(/^lpn_/, ''), prevDay = '2026-10-19';
+  r.canonical.orders.filter(o => o.category === 'Medication' && o.medication).forEach(o => {
+    const rt = String(o.medication.route || ''), sq = /^sub/i.test(rt), im = /^intramus/i.test(rt); if (!sq && !im) return;
+    const at = sq ? prevDay + ' 21:00' : prevDay + ' 09:00', hhmm = at.slice(11, 13) + at.slice(14, 16), us = `${at.slice(5, 7)}/${at.slice(8, 10)}/${at.slice(2, 4)} ${hhmm}`;
+    const dose = sq ? '4 units' : (o.mar && o.mar.adminDose) || o.medication.dose;
+    (r.canonical.administrations = r.canonical.administrations || []).push({ id: `admin_${o.id}_prev`, orderId: o.id, slotIndex: -1, time: hhmm, state: 'given', label: `${hhmm} Given ${dose}`, dose, route: rt, administeredTime: us, administeredAt: at, administeredBy: 'Night shift RN', site: (sq ? LAST_SQ : LAST_IM)[short] });
+    if (o.mar) o.mar.lastAdmin = `${us} (Given)`;
+  }); const file = `lpn_${d.id.replace(/^lpn_/, '')}.json`;
   fs.writeFileSync(path.join(root, 'prebuilt', file), JSON.stringify({ format: 'nursingsim-case', version: 1, name: `${d.name}, ${NS.PRIMARY[d.primary].label.replace('LPN Med Pass: ', '')}`, source: 'prebuilt', canonical: r.canonical }));
   groups[0].patients.push({ id: d.id, name: d.name, title: NS.PRIMARY[d.primary].label.replace('LPN Med Pass: ', ''), desc: d.desc, file: 'prebuilt/' + file, age: d.age, sex: d.sex });
 });
