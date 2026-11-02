@@ -331,3 +331,11 @@ th.fs-col-sel { background: #dff1ff !important; }
 
 .mar-admin-grid label:has(#marActionVol) { grid-column: span 2; }
 .mar-admin-grid label.hidden { display: none; }
+
+/* iPad: dialogs fit the visible screen (dvh excludes the browser toolbars); the title bar with the X and the Give/Hold buttons stay in view and only the middle scrolls */
+dialog { max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); }
+#marActionDialog[open] { display: flex; flex-direction: column; overflow: hidden; }
+#marActionDialog .dialog-header { flex: none; position: relative; z-index: 3; }
+#marActionDialog .dialog-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0; }
+#marActionDialog .mar-action-buttons { position: sticky; bottom: 0; z-index: 2; background: #fff; margin: 8px -18px 0; padding: 10px 18px 12px; border-top: 1px solid #dde7f1; }
+#marActionDialog #closeMarActionBtn { min-width: 44px; min-height: 44px; }
