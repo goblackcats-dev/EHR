@@ -15,42 +15,6 @@
      "sex": "Male"
     },
     {
-     "id": "lpn_htn",
-     "name": "Harold Bennett",
-     "title": "Hypertension follow-up (PO + SubQ + IM)",
-     "desc": "PO lisinopril, SubQ insulin lispro (low scale, glucose 177 = 2 units), IM vitamin B12 1,000 mcg",
-     "file": "prebuilt/lpn_htn.json",
-     "age": 62,
-     "sex": "Male"
-    },
-    {
-     "id": "lpn_cellulitis",
-     "name": "Maria Santos",
-     "title": "Cellulitis (PO + SubQ + IM)",
-     "desc": "PO acetaminophen, SubQ insulin lispro (high scale, glucose 261 = 12 units), IM ceftriaxone 1.5 g = 3 mL",
-     "file": "prebuilt/lpn_cellulitis.json",
-     "age": 55,
-     "sex": "Female"
-    },
-    {
-     "id": "lpn_fall",
-     "name": "Dorothy Hughes",
-     "title": "Fall with urinary tract infection (PO + SubQ + IM)",
-     "desc": "PO acetaminophen, SubQ insulin lispro (low scale, glucose 216 = 4 units), IM ceftriaxone 1.5 g = 3 mL",
-     "file": "prebuilt/lpn_fall.json",
-     "age": 78,
-     "sex": "Female"
-    },
-    {
-     "id": "lpn_diabetes",
-     "name": "Calvin Reed",
-     "title": "Type 2 diabetes, high blood sugar (PO + SubQ + IM)",
-     "desc": "PO lisinopril, SubQ insulin lispro (high scale, glucose 341 = 16 units), IM vitamin B12 500 mcg",
-     "file": "prebuilt/lpn_diabetes.json",
-     "age": 58,
-     "sex": "Male"
-    },
-    {
      "id": "lpn_lasix",
      "name": "Frank Delgado",
      "title": "Heart failure with pneumonia (Lasix + SubQ + IM ceftriaxone 3 mL)",
