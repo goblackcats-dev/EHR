@@ -18,6 +18,8 @@
   // direct (WebRTC) connections: Google STUN servers plus a free public TURN relay as a fallback for school Wi-Fi that blocks direct paths.
   // (the relay only passes encrypted traffic). A different TURN server can be put in localStorage 'nursingsim.turn' as a JSON list of iceServers.
   const iceServers = () => {
+    // a relay put in the link by the instructor (students), or saved in the Class session window (instructor)
+    try { const j = JSON.parse(sessionStorage.getItem('nursingsim.iceJoin') || 'null'); if (Array.isArray(j) && j.length) return j; } catch (e) { /* ignore */ }
     try { const o = JSON.parse(localStorage.getItem('nursingsim.turn') || 'null'); if (Array.isArray(o) && o.length) return o; } catch (e) { /* default */ }
     return [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' },
       { urls: ['turn:openrelay.metered.ca:80', 'turn:openrelay.metered.ca:443', 'turn:openrelay.metered.ca:443?transport=tcp'], username: 'openrelayproject', credential: 'openrelayproject' }];
@@ -62,7 +64,7 @@
       clearTimeout(sh.t1); setMsg('Step 2 of 2: connecting to your instructor...');
       const conn = sh.peer.connect(PREFIX + sh.code, { reliable: true });
       sh.conn = conn;
-      clearTimeout(sh.t2); sh.t2 = setTimeout(() => { if (sh.want && sh.conn === conn && !conn.open) { setMsg('Found the class, but your device could not connect directly to your instructor. The network may block direct connections (try a phone hotspot or ask your instructor to use the same Wi-Fi). Retrying...', true); scheduleRetry(); } }, 20000);
+      clearTimeout(sh.t2); sh.t2 = setTimeout(() => { if (sh.want && sh.conn === conn && !conn.open) { setMsg('Found the class, but your device could not connect directly to your instructor. The network may block direct connections (try a phone hotspot, or your instructor can add a relay server). Retrying...', true); scheduleRetry(); } }, 20000);
       conn.on('open', () => {
         clearTimeout(sh.t2);
         sessionStorage.setItem('nursingsim.liveCode', sh.code);
@@ -194,6 +196,10 @@
     const msg = { t: 'st', quick: !!(window.NSQuick && NSQuick.local()), time: typeof simulationTime === 'undefined' ? null : simulationTime, paused: typeof simClock !== 'undefined' && !!simClock.paused, sec: typeof simClock !== 'undefined' ? simClock.seconds : 0 };
     host.students.forEach(s => { if (s.conn && s.conn.open) { try { s.conn.send(msg); } catch (e) { /* ignore */ } } });
   }
+  // the relay the instructor saved (JSON list of iceServers, or a simple turn: line) goes into the student link so every student uses it
+  const savedRelay = () => { try { const o = JSON.parse(localStorage.getItem('nursingsim.turn') || 'null'); return Array.isArray(o) && o.length ? o : null; } catch (e) { return null; } };
+  const b64u = str => btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const joinLink = () => studentBase() + '#join=' + host.code + (savedRelay() ? '&ice=' + b64u(JSON.stringify(savedRelay())) : '');
   const studentBase = () => { try { return localStorage.getItem('nursingsim.studentSiteUrl') || 'https://goblackcats-dev.github.io/EHR/student-site/'; } catch (e) { return 'https://goblackcats-dev.github.io/EHR/student-site/'; } };
   function updateCount() {
     const live = [...host.students.values()].filter(s => Date.now() - s.last < 20000).length;
@@ -216,17 +222,20 @@
     if (host.dlg) { host.dlg.showModal(); host.students.forEach(fit); return; }
     const dlg = document.createElement('dialog'); dlg.id = 'lvWatch'; dlg.className = 'lv-dialog';
     dlg.innerHTML = `<div class="dialog-header"><div><h2>Class session</h2><p id="lvStatus">Starting...</p></div><div class="lv-head-r"><div class="lv-codebox">Class code<div id="lvCodeBig">------</div></div><button class="secondary-button" id="lvMin">Hide window</button> <button class="secondary-button" id="lvEnd">End session</button></div></div>
-      <div class="dialog-body"><div class="lv-sync"><label><input type="checkbox" id="lvSyncOn" checked> <b>Run the class together</b>: students see this patient and this patient time (use the clock buttons, pause and the Monitor as usual; student clocks follow yours)</label><div><label><input type="checkbox" id="lvQuick"> <b>Quick give</b>: students tap a due dose to give it at once (they say they gave it; no scanning)</label></div><div class="lv-link">Link for students (send once): <input id="lvLink" readonly onclick="this.select()"> <button class="secondary-button" id="lvCopy">Copy link</button></div><div class="lv-actions"><button class="secondary-button" id="lvResend">Send my patient to everyone again</button> <button class="secondary-button" id="lvSay">Message to class...</button></div></div><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students open the student site, choose <b>Join class</b> and type the code (or open the link above). The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
+      <div class="dialog-body"><div class="lv-sync"><label><input type="checkbox" id="lvSyncOn" checked> <b>Run the class together</b>: students see this patient and this patient time (use the clock buttons, pause and the Monitor as usual; student clocks follow yours)</label><div><label><input type="checkbox" id="lvQuick"> <b>Quick give</b>: students tap a due dose to give it at once (they say they gave it; no scanning)</label></div><div class="lv-link">Link for students (send once): <input id="lvLink" readonly onclick="this.select()"> <button class="secondary-button" id="lvCopy">Copy link</button></div><details class="lv-relay"><summary><b>Students cannot connect? Add a relay server (advanced)</b></summary><p style="margin:6px 0;font-size:13px">School Wi-Fi sometimes blocks direct connections. A free relay fixes it: make a free account at <b>metered.ca</b> (TURN server), copy the three values it shows, and paste them here. They are added to the student link automatically.</p><input id="lvTurnUrl" placeholder="Server address, e.g. turn:global.relay.metered.ca:443" style="width:100%;padding:6px;margin:2px 0"><input id="lvTurnUser" placeholder="Username" style="width:49%;padding:6px"> <input id="lvTurnCred" placeholder="Password / credential" style="width:49%;padding:6px"><div class="lv-actions"><button class="secondary-button" id="lvTurnSave">Save relay</button> <button class="secondary-button" id="lvTurnClear">Remove relay</button> <span id="lvTurnMsg" style="font-size:13px"></span></div></details><div class="lv-actions"><button class="secondary-button" id="lvResend">Send my patient to everyone again</button> <button class="secondary-button" id="lvSay">Message to class...</button></div></div><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students open the student site, choose <b>Join class</b> and type the code (or open the link above). The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
     document.body.appendChild(dlg); host.dlg = dlg;
     dlg.querySelector('#lvMin').addEventListener('click', () => dlg.close());
     dlg.querySelector('#lvEnd').addEventListener('click', () => { if (confirm('End the live session? Students will stop sharing.')) endHost(); });
     const q = id => dlg.querySelector('#' + id);
     q('lvSyncOn').addEventListener('change', e => { sync.on = e.target.checked; if (sync.on) { stash(true); host.students.forEach(s => sendCase(s.conn)); } });
     q('lvQuick').checked = !!(window.NSQuick && NSQuick.local()); q('lvQuick').addEventListener('change', e => { if (window.NSQuick) NSQuick.setLocal(e.target.checked); });
+    { const cur = savedRelay(); if (cur && cur[0]) { const r = cur.find(x => x.username) || cur[0]; q('lvTurnUrl').value = [].concat(r.urls || [])[0] || ''; q('lvTurnUser').value = r.username || ''; q('lvTurnCred').value = r.credential || ''; } }
+    q('lvTurnSave').addEventListener('click', () => { const u = q('lvTurnUrl').value.trim(), n = q('lvTurnUser').value.trim(), c = q('lvTurnCred').value.trim(); if (!/^turns?:/i.test(u) || !n || !c) { q('lvTurnMsg').textContent = 'Fill in all three (the address starts with turn:).'; return; } const base = u.replace(/\?.*$/, '').replace(/^turn(s?):/i, 'turn$1:'); const host0 = base.replace(/^turns?:/i, '').replace(/:\d+$/, ''); const urls = [base, `turn:${host0}:80`, `turn:${host0}:443?transport=tcp`, `turns:${host0}:443?transport=tcp`]; try { localStorage.setItem('nursingsim.turn', JSON.stringify([{ urls: 'stun:stun.l.google.com:19302' }, { urls: [...new Set(urls)], username: n, credential: c }])); } catch (e) { /* ignore */ } q('lvTurnMsg').textContent = 'Saved. Click End session, then open Class session again and copy the new link.'; });
+    q('lvTurnClear').addEventListener('click', () => { try { localStorage.removeItem('nursingsim.turn'); } catch (e) { /* ignore */ } q('lvTurnUrl').value = q('lvTurnUser').value = q('lvTurnCred').value = ''; q('lvTurnMsg').textContent = 'Removed. End the session and reopen it.'; });
     q('lvResend').addEventListener('click', () => { if (confirm('Send your open patient to every student again? Their own charting on this patient will be replaced.')) { stash(true); host.students.forEach(s => { sendCase(s.conn); try { s.conn.send({ t: 'chart', p: NSChartSync.full() }); } catch (e) { /* ignore */ } }); } });
     q('lvSay').addEventListener('click', () => { const t = prompt('Message to show on every student screen:'); if (t) host.students.forEach(s => { try { s.conn.send({ t: 'say', text: t }); } catch (e) { /* ignore */ } }); });
     q('lvCopy').addEventListener('click', () => { const t = q('lvLink').value; try { navigator.clipboard.writeText(t); } catch (e) { /* ignore */ } q('lvCopy').textContent = 'Copied'; setTimeout(() => q('lvCopy').textContent = 'Copy link', 1500); });
-    dlg.showModal(); startHost().then(() => { const l = dlg.querySelector('#lvLink'); if (l) l.value = studentBase() + '#join=' + host.code; });
+    dlg.showModal(); startHost().then(() => { const l = dlg.querySelector('#lvLink'); if (l) l.value = joinLink(); });
   }
 
   // ------------------------------------------------------------------ menu buttons
@@ -238,7 +247,8 @@
   }
   window.NSLive = { openWatch, openJoin, startShare, stopShare, isInstructor };
   addButtons();
-  { const m = (location.hash || '').match(/join=([A-Za-z0-9]{6})/); if (m && window.NS_STUDENT) setTimeout(() => { openJoin(); const c = $('lvCode'); if (c) c.value = m[1].toUpperCase(); }, 1200); }
+  { const ice = (location.hash || '').match(/[&#]ice=([A-Za-z0-9_-]+)/); if (ice && window.NS_STUDENT) { try { const j = JSON.parse(atob(ice[1].replace(/-/g, '+').replace(/_/g, '/'))); if (Array.isArray(j)) sessionStorage.setItem('nursingsim.iceJoin', JSON.stringify(j)); } catch (e) { /* ignore a damaged link */ } }
+    const m = (location.hash || '').match(/join=([A-Za-z0-9]{6})/); if (m && window.NS_STUDENT) setTimeout(() => { openJoin(); const c = $('lvCode'); if (c) c.value = m[1].toUpperCase(); }, 1200); }
   // reconnect after a page reload while sharing
   const saved = sessionStorage.getItem('nursingsim.liveCode'); if (saved) setTimeout(() => startShare(saved), 800);
 })();
