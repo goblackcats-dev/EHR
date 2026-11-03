@@ -5,36 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bedside Monitor</title>
 <style>
-  :root { --bg:#000; --grn:#3df06b; --cyn:#35d8ff; --wht:#f2f2f2; --yel:#ffe44d; --red:#ff4545; --dim:#7a7a7a; }
   * { box-sizing: border-box; }
   html, body { margin:0; height:100%; background:var(--bg); color:var(--wht); font-family: "Segoe UI", Arial, sans-serif; overflow:hidden; }
-  #mon { display:grid; grid-template-rows: 44px 1fr; height:100vh; }
-  #top { display:flex; align-items:center; gap:18px; padding:0 16px; background:#14181d; border-bottom:2px solid #2a3038; font-size:20px; }
-  #top .name { font-weight:700; letter-spacing:.5px; }
-  #top .grow { flex:1; }
-  #top .clock { font-variant-numeric: tabular-nums; font-size:22px; }
-  #alarm { min-width:260px; text-align:center; padding:4px 12px; border-radius:4px; font-weight:700; font-size:18px; background:#222; color:#888; }
+  :root { --bg:#000; --grn:#46f070; --cyn:#3cc8ff; --wht:#e9e9e9; --yel:#ffe44d; --red:#ff3b3b; --dim:#8a8f95; --mag:#ff7ad9; }
+  #mon { display:grid; grid-template-rows: 34px 1fr 56px; height:100vh; }
+  #hdr { display:flex; align-items:center; gap:14px; padding:0 8px; background:#0b0b0b; border-bottom:1px solid #2a2a2a; font-size:17px; }
+  #bedTab { background:#f2e300; color:#000; font-weight:700; padding:3px 14px; border-radius:2px; }
+  #hdr .name { font-weight:600; } #hdr .grow { flex:1; } #hdr .sm { color:var(--dim); font-size:15px; }
+  #clock { font-variant-numeric: tabular-nums; font-size:19px; font-weight:600; }
+  #alarm { min-width:300px; text-align:center; padding:3px 12px; font-weight:700; font-size:17px; background:#1a1a1a; color:#777; border-radius:2px; }
   #alarm.on { background:var(--red); color:#fff; animation: flash .8s steps(2) infinite; }
   #alarm.warn { background:var(--yel); color:#000; animation: flash 1.2s steps(2) infinite; }
   @keyframes flash { 50% { opacity:.35; } }
-  #body { display:grid; grid-template-columns: 1fr 330px; min-height:0; }
-  #waves { display:grid; grid-template-rows: 1.25fr 1fr .8fr; border-right:2px solid #2a3038; min-height:0; }
-  .wv { position:relative; border-bottom:1px solid #1b1f24; min-height:0; }
-  .wv canvas { width:100%; height:100%; display:block; }
-  .wv .lab { position:absolute; left:10px; top:6px; font-size:15px; font-weight:700; }
-  .wv .rhy { position:absolute; right:12px; top:6px; font-size:15px; font-weight:700; color:var(--grn); }
-  #nums { display:grid; grid-template-rows: 1.1fr 1fr 1fr .8fr .8fr; min-height:0; }
-  .num { position:relative; padding:6px 14px; border-bottom:1px solid #1b1f24; min-height:0; }
-  .num .t { font-size:15px; font-weight:700; }
-  .num .u { font-size:14px; color:var(--dim); margin-left:6px; font-weight:400; }
-  .num .v { font-weight:700; line-height:1; font-variant-numeric: tabular-nums; position:absolute; right:14px; bottom:4px; }
-  .num .s { position:absolute; left:14px; bottom:6px; font-size:14px; color:var(--dim); }
-  .hr { color:var(--grn); } .hr .v { font-size:clamp(54px, 11vh, 108px); }
-  .sp { color:var(--cyn); } .sp .v { font-size:clamp(48px, 9vh, 92px); }
-  .bp { color:var(--wht); } .bp .v { font-size:clamp(42px, 8vh, 80px); }
-  .rr { color:var(--yel); } .rr .v { font-size:clamp(40px, 7vh, 70px); }
-  .tp { color:var(--wht); } .tp .v { font-size:clamp(34px, 6vh, 56px); }
+  #grid { display:grid; grid-template-rows: 1.25fr 1fr .8fr 1.15fr; min-height:0; }
+  .wrow { display:grid; grid-template-columns: 1fr 17vw 13vw; min-height:0; border-bottom:1px solid #151515; }
+  .wv { position:relative; min-height:0; }
+  .wv canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .wv .lab { position:absolute; left:8px; top:4px; font-size:14px; font-weight:700; z-index:2; }
+  .wv .rhy { position:absolute; left:50%; top:4px; transform:translateX(-50%); font-size:14px; color:var(--dim); z-index:2; }
+  .wv.ple::before { content:""; position:absolute; left:0; right:0; top:14%; border-top:1px dashed #1d4a5a; z-index:1; }
+  .wv.ple::after { content:""; position:absolute; left:0; right:0; top:90%; border-top:1px dashed #1d4a5a; z-index:1; }
+  .n { position:relative; padding:4px 8px; min-height:0; }
+  .n .t { font-size:15px; font-weight:700; position:absolute; left:8px; top:4px; }
+  .n .lim { position:absolute; left:8px; top:24px; font-size:12px; line-height:1.15; color:inherit; opacity:.85; }
+  .n .v { position:absolute; right:10px; bottom:0; font-weight:700; line-height:1; font-variant-numeric: tabular-nums; }
+  .n .s { position:absolute; left:8px; bottom:4px; font-size:13px; color:var(--dim); }
+  .hr { color:var(--grn); } .hr .v { font-size:min(17vh, 9vw); }
+  .pl { color:var(--cyn); } .pl .v { font-size:min(9vh, 5vw); }
+  .sp { color:var(--cyn); } .sp .v { font-size:min(15vh, 8vw); }
+  .tp { color:var(--grn); } .tp .v { font-size:min(8vh, 4.4vw); }
+  .rr { color:var(--wht); } .rr .v { font-size:min(13vh, 7vw); }
+  .co { color:var(--wht); } .co .v { font-size:min(8vh, 4.4vw); }
+  .nbprow { display:grid; grid-template-columns: 1fr 30vw; min-height:0; }
+  .bp { color:var(--mag); position:relative; padding:4px 10px; }
+  .bp .t { position:absolute; left:10px; top:4px; font-size:16px; font-weight:700; }
+  .bp .auto { position:absolute; left:10px; top:26px; font-size:13px; color:#d9a0c8; }
+  .bp .v { position:absolute; left:18%; bottom:8px; font-size:min(21vh, 9.5vw); font-weight:700; line-height:1; white-space:nowrap; font-variant-numeric: tabular-nums; }
+  .bp .v small { font-size:.55em; font-weight:600; margin-left:.25em; }
+  .bp .s { position:absolute; left:auto; bottom:auto; right:10px; top:8px; font-size:14px; color:#d9a0c8; }
+  .trend { color:var(--mag); padding:6px 12px; border-left:1px solid #1b1b1b; font-size:min(3vh, 1.6vw); }
+  .trend h4 { margin:0 0 4px; font-size:13px; color:#d9a0c8; font-weight:600; }
+  .trend div.r { display:flex; justify-content:space-between; font-variant-numeric: tabular-nums; line-height:1.4; }
   .alarmed .v { color:var(--red); animation: flash .8s steps(2) infinite; }
+  #keys { display:flex; gap:4px; padding:4px; background:#0c0c0c; border-top:1px solid #222; }
+  #keys button { flex:1; background:#2b2d30; color:#cfd3d8; border:1px solid #444; border-radius:3px; font-size:13px; line-height:1.15; cursor:default; padding:2px; }
+  #keys button.act { cursor:pointer; } #keys button.act:hover { background:#3a3d41; }
+  #keys button.sil { background:#f2e300; color:#000; font-weight:700; } #keys button.blue { background:#1f5fc4; color:#fff; font-weight:600; }
   #ctl { position:fixed; right:0; top:44px; bottom:0; width:380px; background:#10151a; border-left:2px solid #2a3038; padding:12px 14px; overflow:auto; font-size:14px; display:none; z-index:5; }
   #ctl.open { display:block; }
   #ctl h3 { margin:12px 0 6px; font-size:15px; color:var(--cyn); }
@@ -46,33 +62,45 @@
   #ctl .row { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
   #ctl small { color:#8fa0b0; display:block; margin:4px 0; }
   #ctl textarea { width:100%; height:170px; font-family:Consolas, monospace; font-size:12px; }
-  #gear { position:fixed; left:10px; bottom:8px; z-index:6; background:#1b222a; color:#9fb0c0; border:1px solid #3a4550; border-radius:6px; padding:5px 10px; font-size:13px; cursor:pointer; opacity:.35; }
+  #gear { position:fixed; right:8px; bottom:62px; z-index:6; background:#1b222a; color:#9fb0c0; border:1px solid #3a4550; border-radius:6px; padding:5px 10px; font-size:13px; cursor:pointer; opacity:.35; }
   #gear:hover { opacity:1; }
   #toast { position:fixed; left:50%; bottom:40px; transform:translateX(-50%); background:#223; color:#cfe; padding:8px 16px; border-radius:6px; font-size:15px; display:none; z-index:7; }
 </style>
 </head>
 <body>
 <div id="mon">
-  <div id="top">
-    <span class="name" id="pname">BED 5E-14 &nbsp; KESSLER, RAYMOND &nbsp; 74 M</span>
-    <span id="pextra" style="color:#9aa">Telemetry</span>
+  <div id="hdr">
+    <span id="bedTab">BED 5E-14</span>
+    <span class="name" id="pname">KESSLER, RAYMOND</span><span class="sm">Adult</span>
     <span class="grow"></span>
     <span id="alarm">ALARMS ON</span>
-    <span class="clock" id="clock">--</span>
+    <span class="grow"></span>
+    <span id="clock">--</span><span class="sm">3 Waves</span>
   </div>
-  <div id="body">
-    <div id="waves">
-      <div class="wv"><canvas id="cEcg"></canvas><span class="lab" style="color:var(--grn)">II &nbsp; ECG</span><span class="rhy" id="rhy"></span></div>
-      <div class="wv"><canvas id="cPle"></canvas><span class="lab" style="color:var(--cyn)">PLETH</span></div>
-      <div class="wv"><canvas id="cRes"></canvas><span class="lab" style="color:var(--yel)">RESP</span></div>
+  <div id="grid">
+    <div class="wrow">
+      <div class="wv"><canvas id="cEcg"></canvas><span class="lab" style="color:var(--grn)">II</span><span class="rhy" id="rhy"></span></div>
+      <div class="n hr" id="nHR"><span class="t">HR</span><span class="lim">120<br>50</span><span class="v" id="vHR">--</span></div>
+      <div class="n pl" id="nPL"><span class="t">Pulse</span><span class="v" id="vPL">--</span></div>
     </div>
-    <div id="nums">
-      <div class="num hr" id="nHR"><span class="t">HR<span class="u">bpm</span></span><span class="s" id="sHR"></span><span class="v" id="vHR">--</span></div>
-      <div class="num sp" id="nSP"><span class="t">SpO<sub>2</sub><span class="u">%</span></span><span class="s" id="sSP"></span><span class="v" id="vSP">--</span></div>
-      <div class="num bp" id="nBP"><span class="t">NIBP<span class="u">mmHg</span></span><span class="s" id="sBP"></span><span class="v" id="vBP">--/--</span></div>
-      <div class="num rr" id="nRR"><span class="t">RESP<span class="u">/min</span></span><span class="s" id="sRR"></span><span class="v" id="vRR">--</span></div>
-      <div class="num tp" id="nTP"><span class="t">TEMP<span class="u">&deg;F</span></span><span class="s" id="sTP"></span><span class="v" id="vTP">--</span></div>
+    <div class="wrow">
+      <div class="wv ple"><canvas id="cPle"></canvas><span class="lab" style="color:var(--cyn)">Pleth</span></div>
+      <div class="n sp" id="nSP"><span class="t">SpO<sub>2</sub></span><span class="lim">100<br>90</span><span class="s" id="sSP"></span><span class="v" id="vSP">--</span></div>
+      <div class="n tp" id="nTP"><span class="t">Temp</span><span class="s" id="sTP">&deg;F</span><span class="v" id="vTP">--</span></div>
     </div>
+    <div class="wrow">
+      <div class="wv"><canvas id="cRes"></canvas><span class="lab" style="color:var(--wht)">Resp</span></div>
+      <div class="n rr" id="nRR"><span class="t">awRR</span><span class="lim">30<br>8</span><span class="v" id="vRR">--</span></div>
+      <div class="n co" id="nCO"><span class="t"></span><span class="v" id="vCO"></span></div>
+    </div>
+    <div class="nbprow">
+      <div class="n bp" id="nBP"><span class="t">NBP</span><span class="auto" id="sAuto">Auto 15 min</span><span class="s" id="sBP"></span><span class="v" id="vBP">--/--</span></div>
+      <div class="trend" id="trend"><h4>NBP trend</h4></div>
+    </div>
+  </div>
+  <div id="keys">
+    <button class="sil act" id="kSil">Silence</button><button class="act" id="kAlm">Alarms<br>Off</button><button class="act" id="kNbp">Start/<br>Stop</button>
+    <button>Stop<br>All</button><button>Zero</button><button>Vitals<br>Trend</button><button>Record-<br>ings</button><button>Monitor<br>Standby</button><button>Main<br>Setup</button><button class="blue">Main<br>Screen</button>
   </div>
 </div>
 <button id="gear" title="Instructor controls (press C)">Instructor controls (C)</button>
@@ -146,7 +174,12 @@
   const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const nice = ms => { const d = new Date(ms); return `${DAYS[d.getUTCDay()]} ${pad(d.getUTCMonth() + 1)}/${pad(d.getUTCDate())}/${String(d.getUTCFullYear()).slice(2)} ${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}`; };
   let clock = parse(ls.get('nsmon.time')) || parse(scen[0].t), mode = ls.get('nsmon.mode') || 'ehr';
-  let cur = null, curKey = '', ovr = null, bp = { sys: null, dia: null, at: null, measuring: 0 };
+  let cur = null, curKey = '', ovr = null, bp = { sys: null, dia: null, at: null, measuring: 0 }, bpHist = [], silenceUntil = 0;
+  const mapOf = (s, d) => Math.round((s + 2 * d) / 3);
+  const addHist = (sys, dia, at) => { bpHist = bpHist.filter(h => h.at !== at && h.at <= clock); bpHist.push({ sys, dia, at }); bpHist.sort((a, b) => a.at - b.at); bpHist = bpHist.slice(-5); };
+  // earlier readings so the trend is not empty: the last scenario rows before now
+  function seedHist() { bpHist = scen.filter(r => parse(r.t) != null && parse(r.t) <= clock).slice(-4).map(r => ({ sys: r.sys, dia: r.dia, at: parse(r.t) })); }
+  const clockText = ms => { const d = new Date(ms); return `${DAYS[d.getUTCDay()]} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`; };
   const chan = 'BroadcastChannel' in window ? new BroadcastChannel('nursingsim') : null;
 
   function stepFor(ms) { let r = scen[0]; for (const s of scen) { const t = parse(s.t); if (t != null && t <= ms) r = s; } return r; }
@@ -161,7 +194,7 @@
 
   function setClock(ms, from) {
     if (ms == null) return;
-    clock = ms; ls.set('nsmon.time', fmt(ms)); $('clock').textContent = nice(ms); $('tSet').value = fmt(ms);
+    clock = ms; ls.set('nsmon.time', fmt(ms)); $('clock').textContent = clockText(ms); $('tSet').value = fmt(ms);
     const st = stepFor(ms), key = st.t, tg = targetFor(ms);
     if (key !== curKey) { curKey = key; ovr = null; cur = Object.assign({}, tg); shown = Object.assign({}, tg); startBP(tg.sys, tg.dia, from === 'init'); }
     else { cur = Object.assign({}, tg); if (!bp.measuring && bp.at != null && ms - bp.at >= 15 * 60000) startBP(tg.sys, tg.dia, false); }
@@ -181,37 +214,42 @@
     shown.rhythm = t.rhythm; shown.o2 = t.o2; shown.note = t.note; shown.t = t.t;
   }, 250);
   function startBP(sys, dia, instant) {
-    if (instant) { bp = { sys, dia, at: clock, measuring: 0 }; return; }
+    if (instant) { bp = { sys, dia, at: clock, measuring: 0 }; seedHist(); addHist(sys, dia, clock); return; }
     bp.measuring = Date.now() + 9000; bp.pending = { sys, dia };
   }
   function refreshNums() {
     const v = vals(); if (!v) return;
-    $('vHR').textContent = v.hr; $('vSP').textContent = v.spo2; $('vRR').textContent = v.rr; $('vTP').textContent = Number(v.temp).toFixed(1);
-    $('sHR').textContent = RHY[v.rhythm] ? '' : ''; $('rhy').textContent = RHY[v.rhythm] || '';
-    $('sSP').textContent = v.o2 || ''; $('sTP').textContent = 'Oral'; $('sRR').textContent = '';
+    const arrest = v.rhythm === 'vfib' || v.rhythm === 'asystole';
+    $('vHR').textContent = v.rhythm === 'asystole' ? '0' : v.hr; $('vPL').textContent = arrest ? '---' : v.hr; $('vSP').textContent = arrest ? '---' : v.spo2; $('vRR').textContent = v.rr; $('vTP').textContent = Number(v.temp).toFixed(1);
+    $('rhy').textContent = (RHY[v.rhythm] || '').replace('Normal sinus rhythm', 'Sinus Rhythm');
+    $('sSP').textContent = v.o2 && v.o2 !== 'Room air' ? v.o2 : '';
     const meas = bp.measuring && Date.now() < bp.measuring;
-    if (meas) { $('vBP').textContent = '...'; $('sBP').textContent = 'Cuff inflating'; }
+    $('sAuto').textContent = meas ? 'Measuring...' : 'Auto 15 min';
+    if (meas) { $('vBP').innerHTML = '<small>- - -</small>'; $('sBP').textContent = ''; }
     else {
-      if (bp.measuring && bp.pending) { bp = { sys: bp.pending.sys, dia: bp.pending.dia, at: clock, measuring: 0 }; }
-      if (bp.sys != null) { const map = Math.round((bp.sys + 2 * bp.dia) / 3); $('vBP').textContent = `${bp.sys}/${bp.dia}`; $('sBP').textContent = `(${map})  ${bp.at ? nice(bp.at).slice(-4) : ''}`; }
+      if (bp.measuring && bp.pending) { bp = { sys: bp.pending.sys, dia: bp.pending.dia, at: clock, measuring: 0 }; addHist(bp.sys, bp.dia, bp.at); }
+      if (bp.sys != null) { $('vBP').innerHTML = `${bp.sys}/${bp.dia}<small>(${mapOf(bp.sys, bp.dia)})</small>`; $('sBP').textContent = bp.at ? clockText(bp.at).slice(-5) : ''; }
     }
+    $('trend').innerHTML = '<h4>NBP trend</h4>' + bpHist.slice().reverse().map(h => `<div class="r"><span>${clockText(h.at).slice(-5)}</span><span>${h.sys}/${h.dia} (${mapOf(h.sys, h.dia)})</span></div>`).join('');
     // alarms
     const al = [], on = $('alOn').checked, sys = bp.sys;
     const flag = (id, bad) => { $(id).classList.toggle('alarmed', !!(bad && on)); };
-    flag('nHR', v.hr < 50 || v.hr > 120); flag('nSP', v.spo2 < 92); flag('nRR', v.rr < 10 || v.rr > 24); flag('nTP', v.temp > 100.4); flag('nBP', sys != null && (sys < 90 || sys > 180));
+    flag('nHR', v.hr < 50 || v.hr > 120); flag('nPL', false); flag('nSP', v.spo2 < 90); flag('nRR', v.rr < 10 || v.rr > 24); flag('nTP', v.temp > 100.4); flag('nBP', sys != null && (sys < 90 || sys > 180));
     if (v.hr < 40) al.push('HR LOW'); else if (v.hr < 50) al.push('BRADYCARDIA'); if (v.hr > 120) al.push('HR HIGH');
-    if (v.spo2 < 90) al.push('SpO2 LOW'); else if (v.spo2 < 92) al.push('SpO2 LOW'); if (v.rr < 10) al.push('RESP LOW'); if (v.rr > 24) al.push('RESP HIGH');
+    if (v.spo2 < 90) al.push('SpO2 LOW');  if (v.rr < 10) al.push('RESP LOW'); if (v.rr > 24) al.push('RESP HIGH');
     if (sys != null && sys < 90) al.push('NIBP LOW'); if (v.temp > 100.4) al.push('TEMP HIGH');
     const a = $('alarm'); const crit = v.hr < 40 || v.spo2 < 90 || v.rr < 8 || (sys != null && sys < 80);
-    if (on && al.length) { a.textContent = [...new Set(al)].join('  |  '); a.className = crit ? 'on' : 'warn'; } else { a.textContent = on ? 'ALARMS ON' : 'ALARMS OFF'; a.className = ''; }
-    alarmState = on && al.length ? (crit ? 2 : 1) : 0;
+    const silenced = Date.now() < silenceUntil;
+    if (on && al.length && silenced) { a.textContent = 'ALARMS SILENCED'; a.className = ''; } else if (on && al.length) { a.textContent = [...new Set(al)].join('  |  '); a.className = crit ? 'on' : 'warn'; } else { a.textContent = on ? 'ALARMS ON' : 'ALARMS OFF'; a.className = ''; }
+    alarmState = on && al.length && !silenced ? (crit ? 2 : 1) : 0;
   }
   let alarmState = 0;
   setInterval(refreshNums, 500);
 
   // ---------- waveforms ----------
+  const lastX = { e: 0, p: 0, r: 0 };
   const cv = { e: $('cEcg'), p: $('cPle'), r: $('cRes') }; const ctx = {};
-  function fit() { for (const k in cv) { const c = cv[k], r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1; c.width = Math.max(10, Math.round(r.width * d)); c.height = Math.max(10, Math.round(r.height * d)); ctx[k] = c.getContext('2d'); ctx[k].fillStyle = '#000'; ctx[k].fillRect(0, 0, c.width, c.height); } }
+  function fit() { for (const k in cv) { const c = cv[k], r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1; c.width = Math.max(10, Math.round(r.width * d)); c.height = Math.max(10, Math.round(r.height * d)); ctx[k] = c.getContext('2d'); ctx[k].clearRect(0, 0, c.width, c.height); lastX[k] = 0; } }
   addEventListener('resize', fit); fit();
   const g = (x, mu, sd) => Math.exp(-((x - mu) * (x - mu)) / (2 * sd * sd));
   // one beat of lead II, tau = seconds from the R peak
@@ -228,7 +266,7 @@
     return y;
   }
   function pleBeat(tau, amp) { if (tau < 0 || tau > 1.2) return 0; const rise = tau < 0.16 ? Math.sin(tau / 0.16 * Math.PI / 2) : Math.exp(-(tau - 0.16) / 0.28); return amp * (rise + 0.12 * g(tau, 0.38, 0.05)); }
-  let beats = [], nextBeat = 0, lastX = { e: 0, p: 0, r: 0 }, t0 = performance.now() / 1000;
+  let beats = [], nextBeat = 0, t0 = performance.now() / 1000;
   const SPEED = 130;   // pixels per second (CSS px)
   function frame() {
     const now = performance.now() / 1000, v = vals();
@@ -238,23 +276,25 @@
       while (nextBeat < now + 0.05) { beats.push(nextBeat); const jit = 1 + (Math.random() - 0.5) * (v.rhythm === 'afib' ? 0.5 : 0.03); nextBeat += rr * jit; if (alarmState && !snd.off) beep(false); else if (!snd.off) beep(true, v.spo2); }
       beats = beats.filter(b => b > now - 3);
       const arrest = v.rhythm === 'vfib' || v.rhythm === 'asystole', amp = arrest ? 0 : Math.max(0.25, Math.min(1, (bp.sys == null ? 110 : bp.sys) / 130)) * (v.spo2 < 90 ? 0.8 : 1);
-      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + (Math.random() - 0.5) * 0.02; let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } return y + (Math.random() - 0.5) * 0.015; }, '#3df06b', 0.62, 0.50);
-      drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp); return y; }, '#35d8ff', 0.8, 0.85, true);
+      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + 0.01 * Math.sin(tau * 170); let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } return y + 0.006 * Math.sin(tau * 190); }, '#46f070', 0.62, 0.60);
+      drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp); return y; }, '#3cc8ff', 0.8, 0.85, true);
       const rrate = Math.max(2, v.rr), depth = v.rr <= 10 ? 0.55 : 1;
-      drawChan('r', now, tau => { const ph = (tau * rrate / 60) % 1; return depth * (Math.sin(ph * 2 * Math.PI - Math.PI / 2) * 0.5 + 0.5) * 0.9 + 0.02 * Math.sin(tau * 9); }, '#ffe44d', 0.7, 0.8, true);
+      drawChan('r', now, tau => { const ph = (tau * rrate / 60) % 1; return depth * (Math.sin(ph * 2 * Math.PI - Math.PI / 2) * 0.5 + 0.5) * 0.9 + 0.02 * Math.sin(tau * 9); }, '#d9d9d9', 0.7, 0.8, true);
     }
     requestAnimationFrame(frame);
   }
   function drawChan(k, now, fn, color, scale, base, fromBottom) {
-    const c = cv[k], g2 = ctx[k], d = window.devicePixelRatio || 1, W = c.width, H = c.height, step = SPEED * d / 60 * (1);
-    const speed = SPEED * d; const x = Math.floor(((now - t0) * speed) % W), px = lastX[k];
+    const c = cv[k], g2 = ctx[k], d = window.devicePixelRatio || 1, W = c.width, H = c.height, speed = SPEED * d;
+    const x = Math.floor(((now - t0) * speed) % W), px = lastX[k], lw = 2.4 * d;
     const yOf = tau => { const y = fn(tau); return fromBottom ? H * (0.92 - y * scale * 0.8) : H * (base - y * scale * 0.7); };
-    g2.lineWidth = 2.2 * d; g2.strokeStyle = color; g2.lineJoin = 'round';
-    if (x < px) { lastX[k] = 0; g2.fillStyle = '#000'; g2.fillRect(0, 0, 30 * d, H); lastX[k] = 0; return; }
-    // erase a gap ahead of the trace, then draw the new piece
-    g2.fillStyle = '#000'; g2.fillRect(px, 0, x - px + 26 * d, H);
-    g2.beginPath(); let first = true;
-    for (let xi = px; xi <= x; xi += 2) { const tau = now - (x - xi) / speed, y = yOf(tau); if (first) { g2.moveTo(xi, y); first = false; } else g2.lineTo(xi, y); }
+    if (x < px) { g2.clearRect(px - 2 * lw, 0, W, H); lastX[k] = 0; return; }
+    if (x === px) return;
+    // erase just ahead of the trace (a small gap like a real monitor), then redraw a little BEFORE the old end so the line joins without notches
+    const from = Math.max(0, px - 8 * d);
+    g2.clearRect(px - 2 * lw, 0, x - px + 22 * d + 2 * lw, H);
+    g2.lineWidth = lw; g2.strokeStyle = color; g2.lineJoin = 'round'; g2.lineCap = 'round';
+    g2.beginPath();
+    for (let xi = from; xi <= x; xi += 1) { const tau = now - (x - xi) / speed, y = yOf(tau); if (xi === from) g2.moveTo(xi, y); else g2.lineTo(xi, y); }
     g2.stroke(); lastX[k] = x;
   }
 
@@ -286,6 +326,9 @@
   $('scenText').value = JSON.stringify(scen, null, 1);
   $('scenSave').onclick = () => { try { const s = JSON.parse($('scenText').value); if (!Array.isArray(s) || !s.length || s.some(r => parse(r.t) == null)) throw new Error('bad'); scen = s.sort((a, b) => a.t.localeCompare(b.t)); ls.set('nsmon.scen', JSON.stringify(scen)); curKey = ''; setClock(clock); toast('Scenario saved'); } catch (e) { toast('That scenario text is not valid'); } };
   $('scenReset').onclick = () => { scen = RAY.slice(); ls.set('nsmon.scen', ''); $('scenText').value = JSON.stringify(scen, null, 1); curKey = ''; setClock(clock); toast('Reset to Ray Kessler'); };
+  $('kSil').onclick = () => { silenceUntil = Date.now() + 120000; refreshNums(); };
+  $('kAlm').onclick = () => { $('alOn').checked = !$('alOn').checked; refreshNums(); };
+  $('kNbp').onclick = () => measureBP();
   const panel = $('ctl'); const togglePanel = () => panel.classList.toggle('open'); $('gear').onclick = togglePanel;
   const fs = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); };
   addEventListener('keydown', e => { if (/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) return; const k = e.key.toLowerCase(); if (k === 'c') togglePanel(); else if (k === 'n') measureBP(); else if (k === 'f') fs(); else if (k === 's') toggleSound(); });
