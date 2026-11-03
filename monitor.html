@@ -51,6 +51,20 @@
   #keys button { flex:1; background:#2b2d30; color:#cfd3d8; border:1px solid #444; border-radius:3px; font-size:13px; line-height:1.15; cursor:default; padding:2px; }
   #keys button.act { cursor:pointer; } #keys button.act:hover { background:#3a3d41; }
   #keys button.sil { background:#f2e300; color:#000; font-weight:700; } #keys button.blue { background:#1f5fc4; color:#fff; font-weight:600; }
+  .wv.clickable { cursor: zoom-in; }
+  .wv .hint { position:absolute; right:10px; bottom:4px; font-size:12px; color:#4a6a55; z-index:2; pointer-events:none; }
+  #rev { position:fixed; inset:0; background:#050505; z-index:20; display:none; grid-template-rows: 46px auto 1fr 44px; color:#e9e9e9; font-family: "Segoe UI", Arial, sans-serif; }
+  #rev.open { display:grid; }
+  #rev header { display:flex; align-items:center; gap:14px; padding:0 14px; background:#0b0b0b; border-bottom:1px solid #2a2a2a; font-size:18px; font-weight:600; }
+  #rev header .grow { flex:1; } #rev button { background:#2b2d30; color:#e9e9e9; border:1px solid #555; border-radius:4px; padding:7px 14px; font-size:15px; cursor:pointer; } #rev button:hover { background:#3a3d41; }
+  #revTrend { width:100%; height:190px; display:block; background:#070707; cursor:crosshair; }
+  #revMain { display:grid; grid-template-columns: 300px 1fr; min-height:0; }
+  #revEvents { overflow:auto; border-right:1px solid #222; padding:6px; }
+  #revEvents h4 { margin:6px 8px; font-size:14px; color:#8fb69a; font-weight:600; }
+  #revEvents .e { display:flex; gap:8px; padding:7px 8px; border-radius:4px; cursor:pointer; font-size:14px; } #revEvents .e:hover, #revEvents .e.sel { background:#16301f; }
+  #revEvents .e b { min-width:46px; color:#ffe44d; font-variant-numeric: tabular-nums; } #revEvents .e.vt b, #revEvents .e.vt span { color:#ff6b6b; }
+  #revStripWrap { position:relative; min-height:0; padding:6px 10px; } #revStrip { width:100%; height:100%; display:block; background:#050505; }
+  #revFoot { display:flex; align-items:center; gap:10px; padding:0 14px; background:#0b0b0b; border-top:1px solid #222; font-size:14px; color:#9aa; }
   #ctl { position:fixed; right:0; top:44px; bottom:0; width:380px; background:#10151a; border-left:2px solid #2a3038; padding:12px 14px; overflow:auto; font-size:14px; display:none; z-index:5; }
   #ctl.open { display:block; }
   #ctl h3 { margin:12px 0 6px; font-size:15px; color:var(--cyn); }
@@ -79,7 +93,7 @@
   </div>
   <div id="grid">
     <div class="wrow">
-      <div class="wv"><canvas id="cEcg"></canvas><span class="lab" style="color:var(--grn)">II</span><span class="rhy" id="rhy"></span></div>
+      <div class="wv clickable" id="wvEcg" title="Click to review the last 4 hours of heart activity"><canvas id="cEcg"></canvas><span class="lab" style="color:var(--grn)">II</span><span class="rhy" id="rhy"></span><span class="hint">click to review</span></div>
       <div class="n hr" id="nHR"><span class="t">HR</span><span class="lim">120<br>50</span><span class="v" id="vHR">--</span></div>
       <div class="n pl" id="nPL"><span class="t">Pulse</span><span class="v" id="vPL">--</span></div>
     </div>
@@ -102,6 +116,12 @@
     <button class="sil act" id="kSil">Silence</button><button class="act" id="kAlm">Alarms<br>Off</button><button class="act" id="kNbp">Start/<br>Stop</button>
     <button>Stop<br>All</button><button>Zero</button><button>Vitals<br>Trend</button><button>Record-<br>ings</button><button>Monitor<br>Standby</button><button>Main<br>Setup</button><button class="blue">Main<br>Screen</button>
   </div>
+</div>
+<div id="rev">
+  <header><span>ECG REVIEW</span><span id="revWin" style="font-weight:400;color:#9aa"></span><span class="grow"></span><button id="revEarlier">&#9664; Earlier 4 h</button><button id="revLater">Later &#9654;</button><button id="revNow">Now</button><button id="revClose">Close (Esc)</button></header>
+  <canvas id="revTrend" width="1600" height="190"></canvas>
+  <div id="revMain"><div id="revEvents"></div><div id="revStripWrap"><canvas id="revStrip" width="1600" height="420"></canvas></div></div>
+  <div id="revFoot"><span id="revInfo"></span></div>
 </div>
 <button id="gear" title="Instructor controls (press C)">Instructor controls (C)</button>
 <div id="toast"></div>
@@ -134,6 +154,11 @@
   </div>
   <div class="row"><button id="vApply">Apply to monitor</button><button id="bpMeasure" class="alt">Measure BP (cuff)</button><button id="vReset" class="alt">Back to scenario values</button></div>
   <small>"Apply" changes the numbers and waves at once. The blood pressure changes only when the cuff cycles (like a real monitor): use Measure BP, or it cycles by itself at each new time step.</small>
+
+  <h3>Review and artifact</h3>
+  <div class="row"><label>Ectopy in review <select id="iEct"><option value="none">none (clean)</option><option value="some" selected>some PVCs, rare V-tach</option><option value="more">more</option></select></label><label>Artifact <select id="iArt"><option value="off">off</option><option value="rare" selected>rare</option><option value="some">occasional</option></select></label></div>
+  <div class="row"><button id="artNow" class="alt">Trigger artifact now (A)</button><button id="revOpen" class="alt">Open review (R)</button></div>
+  <small>Click the ECG wave (or press R) to review the last 4 patient-hours: a heart-rate trend, a list of events (PVCs, runs of V-tach, slow rates, artifact) and a 12-second strip for any moment you pick. To plan exact events for a case, add <code>"events": [{"at":"2026-11-17 13:42","type":"nsvt","beats":6,"rate":170}]</code> to a scenario row (types: pvc, couplet, nsvt, artifact).</small>
 
   <h3>Sound and alarms</h3>
   <div class="row"><button id="sndBtn" class="alt">Sound OFF (click to turn on)</button><label><input type="checkbox" id="alOn" checked> Alarms on</label></div>
@@ -316,8 +341,8 @@
       pBeats = pBeats.filter(b => b > now - 3);
       beats = beats.filter(b => b > now - 3);
       const arrest = v.rhythm === 'vfib' || v.rhythm === 'asystole', amp = arrest ? 0 : Math.max(0.25, Math.min(1, (bp.sys == null ? 110 : bp.sys) / 130)) * (v.spo2 < 90 ? 0.8 : 1);
-      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + 0.01 * Math.sin(tau * 170); let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } for (const pb of pBeats) { const x = tau - pb; if (x > -0.2 && x < 0.2) y += pWave(x, 0.22); } if (v.rhythm === 'afib') y += 0.035 * (Math.sin(tau * 41) + 0.8 * Math.sin(tau * 57 + 1.3) + 0.6 * Math.sin(tau * 29 + 2.1)); return y + 0.006 * Math.sin(tau * 190); }, '#46f070', 0.62, 0.60);
-      drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp); return y; }, '#3cc8ff', 0.8, 0.85, true);
+      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + 0.01 * Math.sin(tau * 170); let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } for (const pb of pBeats) { const x = tau - pb; if (x > -0.2 && x < 0.2) y += pWave(x, 0.22); } if (v.rhythm === 'afib') y += 0.035 * (Math.sin(tau * 41) + 0.8 * Math.sin(tau * 57 + 1.3) + 0.6 * Math.sin(tau * 29 + 2.1)); return y + 0.006 * Math.sin(tau * 190) + artVal(tau, 'e'); }, '#46f070', 0.62, 0.60);
+      drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp); return y + artVal(tau, 'p'); }, '#3cc8ff', 0.8, 0.85, true);
       const rrate = Math.max(2, v.rr), depth = v.rr <= 10 ? 0.55 : 1;
       drawChan('r', now, tau => { const ph = (tau * rrate / 60) % 1; return depth * (Math.sin(ph * 2 * Math.PI - Math.PI / 2) * 0.5 + 0.5) * 0.9 + 0.02 * Math.sin(tau * 9); }, '#d9d9d9', 0.7, 0.8, true);
     }
@@ -337,6 +362,110 @@
     for (let xi = from; xi <= x; xi += 1) { const tau = now - (x - xi) / speed, y = yOf(tau); if (xi === from) g2.moveTo(xi, y); else g2.lineTo(xi, y); }
     g2.stroke(); lastX[k] = x;
   }
+
+
+  // ---------- artifact (movement / loose lead): now and then the traces get messy for a few seconds, like a real monitor ----------
+  const art = { from: 0, to: 0, kind: 'motion', next: 0 };
+  const artMode = () => (document.getElementById('iArt') ? document.getElementById('iArt').value : 'rare');
+  function startArtifact() { const t = performance.now() / 1000; art.from = t; art.to = t + 2 + Math.random() * 3.5; art.kind = Math.random() < 0.25 ? 'pleth' : 'motion'; art.seed = Math.random() * 100; }
+  setInterval(() => { const m = artMode(); if (m === 'off') return; const now = performance.now() / 1000; if (!art.next) art.next = now + (m === 'some' ? 60 + Math.random() * 120 : 180 + Math.random() * 300); if (now >= art.next && now > art.to) { startArtifact(); art.next = now + (m === 'some' ? 80 + Math.random() * 160 : 240 + Math.random() * 420); } }, 1000);
+  function artVal(tau, ch) {
+    if (tau < art.from || tau > art.to) return 0;
+    const u = (tau - art.from) / (art.to - art.from), env = Math.min(1, u * 6, (1 - u) * 6);
+    if (ch === 'e') { if (art.kind === 'pleth') return 0; return env * 0.7 * (0.55 * Math.sin(tau * 7.5 + art.seed) + 0.35 * Math.sin(tau * 23 + art.seed * 2) + 0.35 * (Math.sin(tau * 211) * Math.sin(tau * 97 + 1))); }
+    return env * (0.5 * Math.sin(tau * 9 + art.seed) + 0.35 * Math.sin(tau * 31) * Math.sin(tau * 5.3));
+  }
+  $('artNow').onclick = () => startArtifact();
+
+  // ---------- review: heart-rate trend for the last 4 patient-hours, a list of events, and a 12-second strip for any moment ----------
+  const ectMode = () => (document.getElementById('iEct') ? document.getElementById('iEct').value : 'some');
+  function mulberry(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const hh = ms => { const d = new Date(ms); return pad(d.getUTCHours()) + pad(d.getUTCMinutes()); };
+  function eventsBetween(from, to) {
+    const out = [], mode = ectMode();
+    scen.forEach(r => (r.events || []).forEach(e => { const t = parse(e.at); if (t != null && t >= from && t <= to) out.push(Object.assign({}, e, { t })); }));
+    if (mode !== 'none') {
+      const k = mode === 'more' ? 2 : 1;
+      for (let h = Math.floor(from / 3600000); h * 3600000 <= to; h++) {
+        const rnd = mulberry((h * 2654435761) >>> 0), base = h * 3600000, at = () => base + Math.floor(rnd() * 3500000);
+        const nP = Math.floor(rnd() * 4 * k); for (let i = 0; i < nP; i++) out.push({ type: 'pvc', t: at() });
+        if (rnd() < 0.10 * k) out.push({ type: 'couplet', t: at() });
+        if (rnd() < 0.045 * k) out.push({ type: 'nsvt', t: at(), beats: 3 + Math.floor(rnd() * 6), rate: 150 + Math.floor(rnd() * 40) });
+        if (rnd() < 0.12) out.push({ type: 'artifact', t: at() });
+      }
+    }
+    // most 4-hour stretches include a short run of V-tach (3-8 beats) so there is something to find when reviewing
+    if (mode !== 'none') for (let b4 = Math.floor(from / 14400000); b4 * 14400000 <= to; b4++) { const rnd = mulberry((b4 * 40503 + 977) >>> 0); if (rnd() < (mode === 'more' ? 1 : 0.65)) out.push({ type: 'nsvt', t: b4 * 14400000 + Math.floor(rnd() * 14400000), beats: 4 + Math.floor(rnd() * 5), rate: 150 + Math.floor(rnd() * 35) }); }
+    // slow or fast heart rates from the scenario itself
+    let low = false, high = false;
+    for (let t = from; t <= to; t += 300000) { const p = targetFor(t); if (p.hr < 50 && !low) { low = true; out.push({ type: 'brady', t, hr: p.hr }); } if (p.hr >= 50) low = false; if (p.hr > 120 && !high) { high = true; out.push({ type: 'tachy', t, hr: p.hr }); } if (p.hr <= 120) high = false; }
+    return out.filter(e => e.t >= from && e.t <= to).sort((a, b) => a.t - b.t);
+  }
+  const evLabel = e => ({ pvc: 'PVC', couplet: 'PVC couplet', nsvt: `V-tach, ${e.beats || 4} beats (rate ${e.rate || 170})`, artifact: 'Artifact (movement)', brady: `Bradycardia, HR ${e.hr}`, tachy: `Tachycardia, HR ${e.hr}` }[e.type] || e.type);
+  const rev = { sel: null, win: 4 * 3600000, end: null, events: [] };
+  function pvcBeat(tau, big) { return (big || 1.25) * g(tau, 0, 0.045) - 0.55 * g(tau, 0.02, 0.03) - 0.45 * g(tau, 0.17, 0.07); }
+  function vtBeat(tau) { return 0.9 * g(tau, 0, 0.055) - 0.55 * g(tau, 0.07, 0.05); }
+  // build the beats of a strip that starts at msStart and lasts secs seconds
+  function stripBeats(msStart, secs, p, events) {
+    const rnd = mulberry(Math.floor(msStart / 60000)), rr = 60 / Math.max(25, p.hr), list = [];
+    const evs = events.filter(e => e.t >= msStart - 3000 && e.t <= msStart + (secs + 3) * 1000 && e.type !== 'artifact' && e.type !== 'brady' && e.type !== 'tachy').map(e => ({ s: (e.t - msStart) / 1000, e }));
+    let t = rnd() * rr; const norm = [];
+    for (; t < secs + 1; t += rr * (1 + (rnd() - 0.5) * (p.rhythm === 'afib' ? 0.5 : 0.03))) norm.push(t);
+    const ectopic = []; const keep = b => !evs.some(({ s, e }) => { const span = e.type === 'nsvt' ? (e.beats || 4) * 60 / (e.rate || 170) : e.type === 'couplet' ? 0.5 * rr : 0; return b > s - 0.35 * rr && b < s + span + 0.9 * rr; });
+    evs.forEach(({ s, e }) => { if (e.type === 'pvc') ectopic.push({ t: s, k: 'pvc' }); else if (e.type === 'couplet') { ectopic.push({ t: s, k: 'pvc' }); ectopic.push({ t: s + 0.45 * rr, k: 'pvc' }); } else if (e.type === 'nsvt') { const n = e.beats || 4, step = 60 / (e.rate || 170); for (let i = 0; i < n; i++) ectopic.push({ t: s + i * step, k: 'vt' }); } });
+    norm.filter(keep).forEach(b => list.push({ t: b, k: 'n' })); ectopic.forEach(x => list.push(x));
+    return list.sort((a, b) => a.t - b.t);
+  }
+  function drawStrip(cv, msCenter, secs, events) {
+    const c = cv, g2 = c.getContext('2d'), W = c.width, H = c.height; g2.fillStyle = '#050505'; g2.fillRect(0, 0, W, H);
+    const msStart = msCenter - secs * 500, p = Object.assign({}, targetFor(msCenter), { rhythm: (targetFor(msCenter).rhythm === 'mobitz1' || targetFor(msCenter).rhythm === 'mobitz2' || targetFor(msCenter).rhythm === 'chb') ? 'avb1' : targetFor(msCenter).rhythm });
+    // grid: small box every 0.04 s, big box every 0.2 s
+    const px = W / secs; g2.lineWidth = 1; for (let x = 0; x <= secs + 0.001; x += 0.04) { const big = Math.abs(x / 0.2 - Math.round(x / 0.2)) < 1e-6; g2.strokeStyle = big ? '#1d3a26' : '#0f1f15'; g2.beginPath(); g2.moveTo(x * px, 0); g2.lineTo(x * px, H); g2.stroke(); }
+    for (let y = 0; y <= H; y += H / 12) { g2.strokeStyle = '#0f1f15'; g2.beginPath(); g2.moveTo(0, y); g2.lineTo(W, y); g2.stroke(); }
+    const beatsL = stripBeats(msStart, secs, p, events), art = events.find(e => e.type === 'artifact' && Math.abs(e.t - msCenter) < secs * 600);
+    const noP = p.rhythm === 'afib', arrest = p.rhythm === 'asystole' || p.rhythm === 'vfib';
+    const y = tau => { let v = 0; for (const b of beatsL) { const x = tau - b.t; if (x < -0.5 || x > 0.8) continue; if (b.k === 'n') { if (arrest) continue; v += ecgBeat(x, Object.assign({}, p, { rhythm: p.rhythm === 'vtach' ? 'sinus' : p.rhythm })); if (!noP) v += 0.22 * g(x + (p.qrs || 0.1) / 2 + (p.pr || 0.16) - 0.055, 0, 0.032); } else if (b.k === 'pvc') v += pvcBeat(x); else v += vtBeat(x); }
+      if (noP) v += 0.035 * (Math.sin(tau * 41) + 0.8 * Math.sin(tau * 57 + 1.3) + 0.6 * Math.sin(tau * 29 + 2.1));
+      if (art) { const a0 = secs / 2 - 1.5, a1 = secs / 2 + 1.7; if (tau > a0 && tau < a1) { const u = (tau - a0) / (a1 - a0), env = Math.min(1, u * 6, (1 - u) * 6); v += env * (0.5 * Math.sin(tau * 7.5) + 0.35 * Math.sin(tau * 23) + 0.3 * Math.sin(tau * 211) * Math.sin(tau * 97 + 1)); } }
+      return v; };
+    g2.strokeStyle = '#46f070'; g2.lineWidth = 2.2; g2.lineJoin = 'round'; g2.beginPath();
+    for (let xi = 0; xi <= W; xi++) { const tau = xi / px, yy = H * (0.58 - y(tau) * 0.62 * 0.62); if (xi === 0) g2.moveTo(xi, yy); else g2.lineTo(xi, yy); }
+    g2.stroke();
+    g2.fillStyle = '#8fb69a'; g2.font = '15px Segoe UI, Arial'; g2.fillText(`${nice(msCenter)}   12 s strip   25 mm/s`, 12, 20);
+    g2.fillStyle = '#e9e9e9'; g2.fillText(`HR ${p.hr}   ${(RHY[p.rhythm] || '')}`, 12, H - 10);
+    beatsL.filter(b => b.k === 'vt').slice(0, 1).forEach(b => { g2.fillStyle = '#ff6b6b'; g2.font = 'bold 16px Segoe UI, Arial'; g2.fillText('V-TACH', b.t * px - 10, 40); });
+    beatsL.filter(b => b.k === 'pvc').forEach(b => { g2.fillStyle = '#ffe44d'; g2.font = '13px Segoe UI, Arial'; g2.fillText('PVC', b.t * px - 12, 36); });
+  }
+  function drawTrend() {
+    const c = $('revTrend'), g2 = c.getContext('2d'), W = c.width, H = c.height, to = rev.end, from = to - rev.win; g2.fillStyle = '#070707'; g2.fillRect(0, 0, W, H);
+    const X = t => 56 + (t - from) / rev.win * (W - 76), Y = hr => H - 22 - (Math.min(160, Math.max(30, hr)) - 30) / 130 * (H - 40);
+    g2.strokeStyle = '#1a2a20'; g2.fillStyle = '#6f8f7a'; g2.font = '12px Segoe UI, Arial'; g2.lineWidth = 1;
+    [40, 60, 80, 100, 120, 140].forEach(v => { g2.beginPath(); g2.moveTo(56, Y(v)); g2.lineTo(W - 20, Y(v)); g2.stroke(); g2.fillText(String(v), 26, Y(v) + 4); });
+    for (let t = Math.ceil(from / 1800000) * 1800000; t <= to; t += 1800000) { g2.beginPath(); g2.moveTo(X(t), 8); g2.lineTo(X(t), H - 22); g2.stroke(); g2.fillText(hh(t), X(t) - 14, H - 6); }
+    g2.fillText('HR', 6, 16); g2.strokeStyle = '#ff5a5a'; g2.setLineDash([5, 4]); [50, 120].forEach(v => { g2.beginPath(); g2.moveTo(56, Y(v)); g2.lineTo(W - 20, Y(v)); g2.stroke(); }); g2.setLineDash([]);
+    g2.strokeStyle = '#46f070'; g2.lineWidth = 2; g2.beginPath(); const rnd = mulberry(Math.floor(from / 60000));
+    for (let t = from, i = 0; t <= to; t += 120000, i++) { const hr = targetFor(t).hr + (rnd() - 0.5) * 5, x = X(t), y = Y(hr); if (i === 0) g2.moveTo(x, y); else g2.lineTo(x, y); } g2.stroke();
+    rev.events.forEach(e => { const x = X(e.t); g2.fillStyle = e.type === 'nsvt' ? '#ff4d4d' : e.type === 'artifact' ? '#888' : e.type === 'brady' || e.type === 'tachy' ? '#ff9f43' : '#ffe44d'; g2.beginPath(); g2.moveTo(x, 12); g2.lineTo(x - 5, 2); g2.lineTo(x + 5, 2); g2.closePath(); g2.fill(); });
+    if (rev.sel != null) { g2.strokeStyle = '#ffffff'; g2.lineWidth = 1.5; g2.beginPath(); g2.moveTo(X(rev.sel), 4); g2.lineTo(X(rev.sel), H - 22); g2.stroke(); }
+    rev.X = X; rev.from = from; rev.to = to;
+  }
+  function revRender() {
+    rev.events = eventsBetween(rev.end - rev.win, rev.end); if (rev.sel == null || rev.sel > rev.end || rev.sel < rev.end - rev.win) rev.sel = rev.end - 6000;
+    $('revWin').textContent = `${nice(rev.end - rev.win)}  to  ${nice(rev.end)}`;
+    const list = $('revEvents'); list.innerHTML = '<h4>Events (click one)</h4>' + (rev.events.length ? rev.events.slice().reverse().map((e, i) => `<div class="e ${e.type === 'nsvt' ? 'vt' : ''}" data-t="${e.t}"><b>${hh(e.t)}</b><span>${evLabel(e)}</span></div>`).join('') : '<div style="padding:8px;color:#789">No events in this window.</div>');
+    list.querySelectorAll('.e').forEach(el => el.onclick = () => { rev.sel = Number(el.dataset.t); revRender(); });
+    list.querySelectorAll('.e').forEach(el => el.classList.toggle('sel', Number(el.dataset.t) === rev.sel));
+    drawTrend(); drawStrip($('revStrip'), rev.sel, 12, rev.events);
+    $('revInfo').textContent = `Showing ${nice(rev.sel)}. Click the graph or an event to move. Red triangles are V-tach, yellow PVCs, orange slow/fast rates, gray artifact.`;
+  }
+  function openReview() { rev.end = clock; rev.sel = null; $('rev').classList.add('open'); revRender(); }
+  const closeReview = () => $('rev').classList.remove('open');
+  $('wvEcg').onclick = openReview; $('revOpen').onclick = openReview; $('revClose').onclick = closeReview;
+  $('revNow').onclick = () => { rev.end = clock; rev.sel = null; revRender(); };
+  $('revEarlier').onclick = () => { rev.end -= rev.win; rev.sel = null; revRender(); };
+  $('revLater').onclick = () => { rev.end = Math.min(clock, rev.end + rev.win); rev.sel = null; revRender(); };
+  $('revTrend').addEventListener('click', e => { const c = $('revTrend'), r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * c.width; if (!rev.from) return; const t = rev.from + (x - 56) / (c.width - 76) * rev.win; rev.sel = Math.max(rev.from, Math.min(rev.to, t)); const near = rev.events.find(ev => Math.abs(ev.t - rev.sel) < rev.win / 80); if (near) rev.sel = near.t; revRender(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeReview(); });
 
   // ---------- sound ----------
   const snd = { off: true, ac: null }; let lastAlarmBeep = 0;
@@ -391,7 +520,7 @@
   $('kNbp').onclick = () => { if (bp.measuring && Date.now() < bp.measuring) { cancelBP(); refreshNums(); } else measureBP(); };
   const panel = $('ctl'); const togglePanel = () => panel.classList.toggle('open'); $('gear').onclick = togglePanel;
   const fs = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); };
-  addEventListener('keydown', e => { if (/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) return; const k = e.key.toLowerCase(); if (k === 'c') togglePanel(); else if (k === 'n') measureBP(); else if (k === 'f') fs(); else if (k === 's') toggleSound(); });
+  addEventListener('keydown', e => { if (/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) return; const k = e.key.toLowerCase(); if (k === 'c') togglePanel(); else if (k === 'n') measureBP(); else if (k === 'f') fs(); else if (k === 's') toggleSound(); else if (k === 'r') openReview(); else if (k === 'a') startArtifact(); });
 
   // ---------- follow the EHR ----------
   function fromEhr(t, name) { if (mode !== 'ehr') return; const ms = parse(t); if (ms != null && ms !== clock) setClock(ms, 'ehr'); }
