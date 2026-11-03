@@ -15,6 +15,14 @@
     try { const o = JSON.parse(localStorage.getItem('nursingsim.peerHost') || 'null'); if (o && o.host) return o; } catch (e) { /* default */ }
     return { host: '0.peerjs.com', port: 443, secure: true, path: '/' };
   };
+  // direct (WebRTC) connections: Google STUN servers plus a free public TURN relay as a fallback for school Wi-Fi that blocks direct paths.
+  // (the relay only passes encrypted traffic). A different TURN server can be put in localStorage 'nursingsim.turn' as a JSON list of iceServers.
+  const iceServers = () => {
+    try { const o = JSON.parse(localStorage.getItem('nursingsim.turn') || 'null'); if (Array.isArray(o) && o.length) return o; } catch (e) { /* default */ }
+    return [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' },
+      { urls: ['turn:openrelay.metered.ca:80', 'turn:openrelay.metered.ca:443', 'turn:openrelay.metered.ca:443?transport=tcp'], username: 'openrelayproject', credential: 'openrelayproject' }];
+  };
+  const peerOpts = cfg => ({ host: cfg.host, port: cfg.port, secure: cfg.secure, path: cfg.path, debug: 0, config: { iceServers: iceServers(), iceCandidatePoolSize: 4 } });
   const me = () => (window.NSUser && NSUser.current()) || null;
   const label = () => { const u = me(); return u ? `${u.first} ${u.last}` : 'Student'; };
   const isInstructor = () => { const u = me(); return !window.NS_STUDENT && (!u || u.role === 'Instructor'); };
@@ -47,11 +55,16 @@
   function connectShare() {
     if (!sh.want) return;
     const cfg = peerConfig();
-    sh.peer = new window.Peer(undefined, { host: cfg.host, port: cfg.port, secure: cfg.secure, path: cfg.path, debug: 0 });
+    sh.peer = new window.Peer(undefined, peerOpts(cfg));
+    setMsg('Step 1 of 2: reaching the class connection service...');
+    clearTimeout(sh.t1); sh.t1 = setTimeout(() => { if (sh.want && sh.peer && !sh.peer.open) { setMsg('Cannot reach the class connection service. The school network may be blocking it. Try the school Wi-Fi guest network, a phone hotspot, or ask your instructor. (Retrying...)', true); scheduleRetry(); } }, 12000);
     sh.peer.on('open', () => {
+      clearTimeout(sh.t1); setMsg('Step 2 of 2: connecting to your instructor...');
       const conn = sh.peer.connect(PREFIX + sh.code, { reliable: true });
       sh.conn = conn;
+      clearTimeout(sh.t2); sh.t2 = setTimeout(() => { if (sh.want && sh.conn === conn && !conn.open) { setMsg('Found the class, but your device could not connect directly to your instructor. The network may block direct connections (try a phone hotspot or ask your instructor to use the same Wi-Fi). Retrying...', true); scheduleRetry(); } }, 20000);
       conn.on('open', () => {
+        clearTimeout(sh.t2);
         sessionStorage.setItem('nursingsim.liveCode', sh.code);
         conn.send({ t: 'hello', name: label(), role: (me() || {}).role || '', title: document.title, caseKey: (typeof currentCanonicalCase !== 'undefined' && currentCanonicalCase) ? caseKey(currentCanonicalCase) : '' }); enterSync(); if (window.NSChartSync) NSChartSync.start(p => { if (sh.conn && sh.conn.open) sh.conn.send({ t: 'chart', p }); }, false);
         startRecording(); banner('Your screen is shared with your instructor (class simulation)', true); setMsg('Connected. You are in the class simulation.'); setTimeout(() => { const j = $('lvJoin'); if (j && j.open) j.close(); }, 1200);
@@ -67,7 +80,7 @@
     });
   }
   function scheduleRetry() { clearTimeout(sh.retry); sh.retry = setTimeout(() => { try { sh.peer && sh.peer.destroy(); } catch (e) { /* ignore */ } sh.peer = null; sh.conn = null; connectShare(); }, 5000); }
-  function fullStop() { sh.want = false; clearTimeout(sh.retry); stopRecording(); try { sh.conn && sh.conn.close(); } catch (e) { /* ignore */ } try { sh.peer && sh.peer.destroy(); } catch (e) { /* ignore */ } sh.peer = sh.conn = null; banner(''); }
+  function fullStop() { sh.want = false; clearTimeout(sh.retry); clearTimeout(sh.t1); clearTimeout(sh.t2); stopRecording(); try { sh.conn && sh.conn.close(); } catch (e) { /* ignore */ } try { sh.peer && sh.peer.destroy(); } catch (e) { /* ignore */ } sh.peer = sh.conn = null; banner(''); }
   function stopShare() { leaveSync(); fullStop(); sessionStorage.removeItem('nursingsim.liveCode'); setMsg('Sharing stopped.'); }
   async function startShare(code) {
     code = String(code || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
@@ -191,7 +204,7 @@
     await libs();
     host.code = newCode();
     const cfg = peerConfig();
-    host.peer = new window.Peer(PREFIX + host.code, { host: cfg.host, port: cfg.port, secure: cfg.secure, path: cfg.path, debug: 0 });
+    host.peer = new window.Peer(PREFIX + host.code, peerOpts(cfg));
     host.peer.on('open', () => { const c = host.dlg.querySelector('#lvCodeBig'); c.textContent = host.code; host.dlg.querySelector('#lvStatus').textContent = 'Ready. Send students the link below (or tell them the code: they choose Join class).'; });
     host.peer.on('connection', conn => { conn.on('data', d => onData(conn, d)); conn.on('close', () => { const st = host.students.get(conn.peer); if (st) { st.last = 0; updateCount(); } }); });
     host.peer.on('error', err => { if (err && err.type === 'unavailable-id') { host.peer.destroy(); startHost(); } else host.dlg.querySelector('#lvStatus').textContent = 'Could not reach the connection service (' + ((err && err.type) || 'error') + '). Check the internet connection.'; });
