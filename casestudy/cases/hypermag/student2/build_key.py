@@ -48,12 +48,12 @@ def title_page(d):
     banner(d, 'INSTRUCTOR KEY: RAY KESSLER TEAM CASE STUDY', 'about 2 hours', fill=INK, size=14, h=0.45)
     md('# Instructor Key: Ray Kessler Team Case Study'); md()
     H(d, 'What this is', level=2)
-    para(d, 'A simple 2-hour team case study. Each team of 3 to 4 (2 also works) cares for Ray Kessler (74, hypermagnesemia with kidney failure) across 24 hours of patient time. The class advances **4 hours together** (0700, 1100, 1500, 1900, 2300, 0300, then a final check at 0700). Each team fills in **one plain page per checkpoint**. The packet is 12 pages. This key has a run of show, a short model answer for every box, a scoring guide (20 points), a group score sheet and debrief questions.')
+    para(d, 'A simple 2-hour team case study. The whole class (designed for 7 students) works as ONE team and cares for Ray Kessler (74, hypermagnesemia with kidney failure) across 24 hours of patient time. The class advances **4 hours together** (0700, 1100, 1500, 1900, 2300, 0300, then a final check at 0700). Each team fills in **one plain page per checkpoint**. The packet is 12 pages. Smaller groups of 2 to 4 also work (see the cover note). This key has a run of show, a short model answer for every box, a scoring guide (20 points), a group score sheet and debrief questions.')
     H(d, 'Roles (kept deliberately loose)', level=2)
     bl(d, ['**Charge nurse** (rotates every checkpoint, see the rotation table on the cover): coordinates and organizes the team, keeps time, decides who looks at what, leads the huddle, sets the priorities with the team, makes the SBAR call and records the team plan.',
            '**Nurse** (everyone else): looks, reads, thinks and speaks up. The charge nurse and team choose a focus each round (for example, one nurse on meds and treatments, one on results and the monitor). Do not assign tasks for them. If a team asks "what should I do?", say "ask your charge nurse".'])
     H(d, 'Before class', level=2)
-    bl(d, ['Print the 12-page packet single-sided (one per team). Have the key open and the EHR synced to patient time Tue 0700 (5E-14, SIM-40318).',
+    bl(d, ['Print the shared packet single-sided: 2 or 3 copies for the table (or project the pages). Only the current charge nurse writes in the shared boxes while the others advise. **Print 7 copies of page 12** (individual reflection and peer check), one per student. Have the key open and the EHR synced to patient time Tue 0700 (5E-14, SIM-40318).',
            'Have the monitor ready to set to the values in the **Monitor to set** row of each checkpoint. Students read it and chart it in the NOW row.',
            'Show the team strip on page 2. It is empty on purpose: students mark each magnesium result themselves.'])
     H(d, 'Rules that protect the pacing', level=2)
@@ -67,21 +67,21 @@ def run_of_show(d):
     H(d, 'Run of show (about 2 hours)', size=14, before=0, level=2)
     para(d, 'Each checkpoint follows the same 14-minute rhythm (the 1500 gets 17 because it has a second page).')
     table(d, ['Clock', 'Minutes', 'What the instructor does'], [0.9, 1.1, 5.3], [
-        ['Start', '0:00-0:05', 'Welcome. Teams of 3 to 4 sit together and fill in the names. Walk through the cover: roles, rotation table, rubric (page 3) and the Mg strip (page 2). Ask who will be charge nurse at 0700 (letter A).'],
-        ['0700', '0:05-0:19', 'Advance the clock and set the monitor. Read the situation aloud. Let the charge nurse huddle (1-3 min). Teams write (3-10). One charge nurse makes the SBAR call to you (10-13); you answer as the provider. Move to the next clock.'],
+        ['Start', '0:00-0:05', 'Welcome. Everyone sits together as one team; fill in the 7 names and letters. Walk through the cover: roles, rotation table, rubric (page 3) and the Mg strip (page 2). Student A is charge nurse at 0700. Remind the charge nurse to ask every nurse for one thing before deciding.'],
+        ['0700', '0:05-0:19', 'Advance the clock and set the monitor. Read the situation aloud. Let the charge nurse huddle (1-3 min). The charge nurse writes while the others advise (3-10). One charge nurse makes the SBAR call to you (10-13); you answer as the provider. Move to the next clock.'],
         ['1100', '0:19-0:33', 'Same rhythm. New charge nurse (B). Watch for teams that skip the call for help.'],
         ['1500', '0:33-0:50', 'Same rhythm, 17 minutes: the second page covers what must be ready for dialysis, what to watch, and the call numbers. Charge nurse C.'],
-        ['1900', '0:50-1:04', 'Same rhythm. Charge nurse D (or A for a team of 3). Watch for the low glucose.'],
-        ['2300', '1:04-1:18', 'Same rhythm. Charge nurse A (or B). Watch for who thinks of the sleep-aid order.'],
-        ['0300', '1:18-1:32', 'Same rhythm. Charge nurse B (or C). Watch for who refuses the "pink milk".'],
-        ['Final 0700', '1:32-1:44', 'Advance, set the monitor, read the situation. Teams complete the final page (priorities for the day team, a handoff SBAR, teaching tips, the story of the stay).'],
-        ['Reflection', '1:44-1:50', 'Each student completes the reflection and the peer check. Collect the packets (paperclipped).'],
+        ['1900', '0:50-1:04', 'Same rhythm. Charge nurse D. Watch for the low glucose.'],
+        ['2300', '1:04-1:18', 'Same rhythm. Charge nurse E. Watch for who thinks of the sleep-aid order.'],
+        ['0300', '1:18-1:32', 'Same rhythm. Charge nurse F. Watch for who refuses the "pink milk".'],
+        ['Final 0700', '1:32-1:44', 'Advance, set the monitor, read the situation. The team completes the final page (charge nurse G) (priorities for the day team, a handoff SBAR, teaching tips, the story of the stay).'],
+        ['Reflection', '1:44-1:50', 'Each student completes their own reflection and peer check (page 12). Collect the shared packet and the 7 reflections.'],
         ['Debrief', '1:50-2:00', 'Use the debrief questions at the end of this key. Show the finished strips.']], size=8.8, row_h=0.3)
     H(d, 'The same 14 minutes, one checkpoint', size=11, level=3)
     table(d, ['Minute', 'What happens'], [1.0, 6.3], [
         ['+0', 'Advance the clock (the 4h button). Set the monitor. Read the situation aloud. Remind them that the charge nurse changed.'],
-        ['+1 to +3', 'Charge nurse huddle: who looks at what, and how much time we have. (Do not tell them.)'],
-        ['+3 to +10', 'Teams look at the chart and the monitor and write. Walk around. Ask a charge nurse "what is your team deciding?"'],
+        ['+1 to +3', 'Charge nurse huddle: asks every nurse for one thing, then decides who looks at what. (Do not tell them.)'],
+        ['+3 to +10', 'Nurses look at the chart and the monitor and write. Walk around. Ask a charge nurse "what is your team deciding?"'],
         ['+10 to +13', 'Charge nurse makes the SBAR call to you. Answer as the provider with the suggested reply in this key. Keep it short.'],
         ['+13 to +14', 'Check that the magnesium level is on the strip and the prediction is written. Then advance the clock.']], size=8.8, row_h=0.28)
 
@@ -127,7 +127,7 @@ def answers(d, n, cp, mon, label):
 def rubric_guide(d):
     page_top(d)
     H(d, 'Scoring guide (20 points, three levels)', size=14, before=0, level=2)
-    para(d, 'Grade the team packet with the group score sheet on the next page. Be generous: complete and thoughtful earns full credit. Individual reflections and peer checks feed two of the rows.')
+    para(d, 'Give ONE group score from the shared packet (group score sheet, next page) plus an individual check for each of the 7 students. Be generous: complete and thoughtful earns full credit. Individual reflections and peer checks feed two of the rows.')
     rows = [[r['cat'] + f'  ({r["pts"]})', plain(r['full']), plain(r['good']), plain(r['start'])] for r in C.RUBRIC]
     table(d, ['Category', 'Full credit', 'Good', 'Getting there'], [1.6, 2.1, 1.8, 1.8], rows, size=8.4, row_h=0.8, bold_first=True)
     H(d, 'How the points add up', size=11, level=3)
@@ -135,27 +135,27 @@ def rubric_guide(d):
     H(d, 'Reflection and peer check', size=11, level=3)
     bl(d, ['Reflection (3 boxes): full credit for any honest answer with a reason. A blank or one-word box is a partial credit. Use it for the "Individual reflections handed in" point.',
            'Peer check: use it to spot a team where one person did most of the work. Read the comments privately; do not share names.',
-           'If a team did not rotate the charge nurse, cap Teamwork at 3 and ask why in the debrief.'])
+           'If the team did not rotate the charge nurse, cap Teamwork at 3 and ask why in the debrief.'])
 
 
 def score_sheet(d):
     page_top(d)
     H(d, 'GROUP SCORE SHEET', size=14, before=0, level=2)
-    P(d, 'Team name: ______________________________   Members: ______________________________________________   Date: ____________', size=9.4, after=4)
+    P(d, 'Team name: ______________________________   Date: ____________   (one group score, then 7 individual checks)', size=9.4, after=4)
     md('Team name: ____________  Members: ____________  Date: ________'); md()
     H(d, 'Checkpoint check (tick what you see)', size=11, level=3)
     cols = ['Page', 'Charge nurse named', 'Boxes done with numbers', '3 priorities', 'SBAR complete', 'Mg on strip', 'Prediction']
     rows = [[x] + ['☐'] * 6 for x in ('0700', '1100', '1500', '1900', '2300', '0300', 'Final 0700')]
-    table(d, cols, [0.9, 1.2, 1.3, 1.0, 1.0, 0.9, 1.0], rows, size=10, row_h=0.3, center=list(range(7)))
+    table(d, cols, [0.9, 1.2, 1.3, 1.0, 1.0, 0.9, 1.0], rows, size=10, row_h=0.26, center=list(range(7)))
     H(d, 'Rubric', size=11, level=3)
     cols = ['Category', 'Full', 'Good', 'Getting there', 'Points', 'Notes']
     rows = [['Teamwork and charge-nurse rotation (5)', '☐ 5', '☐ 3-4', '☐ 1-2', '/ 5', ''], ['Clinical thinking at each checkpoint (6)', '☐ 6', '☐ 4-5', '☐ 1-3', '/ 6', ''],
             ['Safety, priorities and SBAR (5)', '☐ 5', '☐ 3-4', '☐ 1-2', '/ 5', ''], ['Completeness and reflection (4)', '☐ 4', '☐ 2-3', '☐ 1', '/ 4', ''], ['TOTAL', '', '', '', '/ 20', '']]
     table(d, cols, [2.3, 0.6, 0.7, 0.9, 0.7, 2.1], rows, size=8.8, row_h=0.42, center=[1, 2, 3, 4])
     H(d, 'Individual check', size=11, level=3)
-    table(d, ['Name', 'Was charge nurse', 'Reflection handed in', 'Peer check handed in', 'Comment'], [1.9, 1.2, 1.3, 1.3, 1.6], [['', '☐', '☐', '☐', ''] for _ in range(4)], size=9, row_h=0.34, center=[1, 2, 3])
+    table(d, ['Student (letter)', 'Was charge nurse (1)', 'Reflection (2)', 'Peer check (1)', 'Individual score /4'], [1.9, 1.2, 1.3, 1.3, 1.6], [['', '☐', '☐', '☐', ''] for _ in range(7)], size=9, row_h=0.3, center=[1, 2, 3])
     P(d, 'Comments for the team:', size=9.4, bold=True, after=1, before=3)
-    lines(d, 3)
+    lines(d, 2)
 
 
 def debrief(d):

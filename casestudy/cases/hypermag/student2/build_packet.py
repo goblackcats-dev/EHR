@@ -68,7 +68,7 @@ def charge_bar(d, left, right):
     rowh(t.rows[0], 0.36)
     t.rows[1].cells[0].merge(t.rows[1].cells[1])
     c = t.rows[1].cells[0]; shade(c, 'FFFFFF'); box_borders(c, MED)
-    ctext(c, '**CHARGE NURSE this round:** __________      **Nurse focus:** ☐ meds and treatments  ☐ results and monitor      ☐ huddle done  ☐ SBAR done', size=8.3)
+    ctext(c, '**Charge nurse for this stop:** __________   **Nurse focus:** ☐ meds and treatments  ☐ results and monitor   ☐ everyone heard  ☐ SBAR done', size=8.3)
     rowh(t.rows[1], 0.28)
     spacer(d, 2)
 
@@ -130,7 +130,7 @@ def standard_boxes_bottom(d, n, charge_lines=2):
     box(d, [('Our top 3 priorities', 'in order')], 3, numbered=True)
     sbar_box(d)
     box(d, [('What we will do next', ''), ('Prediction for the next 4 hours', 'what do we think will happen?')], 3)
-    box(d, [('Charge nurse notes', 'who looked at what, what the team decided, time check')], charge_lines)
+    box(d, [('Charge nurse notes', 'ask every nurse for one thing, then decide; note who looked at what')], charge_lines)
     pass
 
 
@@ -141,30 +141,28 @@ def stop(d):
 # ------------------------------------------------------------------ pages
 def cover(d):
     page_top(d); tag(d, 'FRONT', 1, 3)
-    banner(d, 'TEAM CASE STUDY: RAY KESSLER', '5 East, Room 14  |  Tue 0700 to Wed 0700', fill=INK, size=17, sub='You are the nursing team for one patient across 24 hours. The class moves through the time together, 4 hours at a time.', h=0.62)
+    banner(d, 'TEAM CASE STUDY: RAY KESSLER', '5 East, Room 14  |  Tue 0700 to Wed 0700', fill=INK, size=17, sub='The whole class is ONE nursing team for one patient across 24 hours. We move through the time together, 4 hours at a time.', h=0.62)
     P(d, 'Write your team name in the header at the top of this page (it repeats on every page).', size=9, italic=True, color=GRAY, before=2, after=3)
-    grid(d, ['Name (print)', 'Letter', 'Initials'], [4.4, 1.2, 1.7], [['', 'A', ''], ['', 'B', ''], ['', 'C', ''], ['', 'D (if 4)', '']], row_h=0.42, size=10, hsize=9, center=[1, 2])
+    grid(d, ['Name (print)', 'Letter', 'Initials'], [4.4, 1.2, 1.7], [['', L, ''] for L in 'ABCDEFG'], row_h=0.3, size=10, hsize=9, center=[1, 2])
     P(d, 'HOW THE TWO HOURS WORK', size=11, bold=True, color=INK, before=2, after=2, keep=True)
     bullets(d, ['The instructor moves the clock forward **4 hours at a time**: 0700, 1100, 1500, 1900, 2300, 0300, and a final check at 0700.',
-                'At each checkpoint, the instructor reads the situation. Your team looks at Ray, reads the chart, fills in the boxes together, and the **charge nurse** makes one SBAR call.',
-                'You finish each page at the **end** of its time block. **Do not turn the page** until the instructor advances the clock.',
+                'At each checkpoint, the instructor reads the situation. The team looks at Ray and the chart. The **charge nurse asks every nurse for one thing** before deciding, and **only the charge nurse writes** in the shared boxes while the others advise. The charge nurse makes one SBAR call.',
+                'The packet is shared by the table; each student has their own reflection page (last page). You finish each page at the **end** of its time block. **Do not turn the page** until the instructor advances the clock.',
                 'Use the EHR on your own device (vitals, meds, results). Your patient and the time are synced with the instructor. Write in dark pen.'], size=9.6)
     P(d, 'ROLES', size=11, bold=True, color=INK, before=3, after=2, keep=True)
     t = new_table(d, 2, 2, [1.6, W - 1.6], borders=MED)
     rows = [('CHARGE NURSE\n(one person; changes every checkpoint)', 'Coordinates and organizes the team. Keeps time. Decides who looks at what. Leads a quick huddle. Decides the priorities with the team. **Makes the SBAR call and writes down the team plan.**'),
-            ('NURSE\n(everyone else)', 'You are the eyes and the thinking. Look at Ray, the chart and the monitor, share what you find, and speak up. At each checkpoint the charge nurse and the team choose a focus. For example, one nurse looks at meds and treatments and one at results and the monitor. Then everyone writes.')]
+            ('NURSE\n(everyone else)', 'You are the eyes and the thinking. Look at Ray, the chart and the monitor, share what you find, and speak up. At each checkpoint the charge nurse and the team choose a focus. For example, one nurse looks at meds and treatments and one at results and the monitor. Then speak up when the charge nurse asks.')]
     for i, (a, b) in enumerate(rows):
         shade(t.rows[i].cells[0], 'ECE6F7' if i == 0 else 'DDF0E1'); ctext(t.rows[i].cells[0], '**' + a.split('\n')[0] + '**\n' + a.split('\n')[1], size=9)
         ctext(t.rows[i].cells[1], b, size=9.2); rowh(t.rows[i], 0.85)
     spacer(d, 5)
-    P(d, 'CHARGE NURSE ROTATION  (the charge nurse changes every checkpoint; circle the row for your team size)', size=10, bold=True, color=INK, before=2, after=2, keep=True)
-    cols = ['Team size', '0700', '1100', '1500', '1900', '2300', '0300', 'Final 0700']
-    rows = [[f'{k} people'] + list(C.ROT[k]) for k in (4, 3, 2)] + [['Initials']] + [[]]
-    rows = [[f'{k} people'] + list(C.ROT[k]) for k in (4, 3, 2)] + [['Initials (write)'] + [''] * 7]
-    grid(d, cols, [1.3] + [0.857] * 7, rows, row_h=0.34, size=10, hsize=8.6, center=list(range(8)), pre_fill={0: 'F4F4F4'})
-    P(d, 'Letters match the names above. The charge nurse still helps with the thinking: the job is to organize, not to do all the work.', size=8.8, italic=True, color=GRAY, after=3)
+    P(d, 'CHARGE NURSE ROTATION  (each student is charge nurse exactly once)', size=10, bold=True, color=INK, before=2, after=2, keep=True)
+    cols = ['Stop', '0700', '1100', '1500', '1900', '2300', '0300', 'Close 0700']
+    grid(d, cols, [1.3] + [0.857] * 7, [['Student letter'] + list('ABCDEFG'), ['Name / initials'] + [''] * 7], row_h=0.42, size=10, hsize=8.6, center=list(range(8)), pre_fill={0: 'F4F4F4'})
+    P(d, 'Smaller teams: with 4 people the letters go A B C D A B C; with 3, A B C A B C A. The charge nurse organizes; the whole team still does the thinking.', size=8.6, italic=True, color=GRAY, after=3)
     P(d, 'TURN-IN', size=10, bold=True, color=INK, before=2, after=1, keep=True)
-    P(d, 'One packet per team, fastened with a **paperclip (no staples)**. The last page has an individual reflection and a peer check: write your own name on yours.', size=9.4, after=0)
+    P(d, 'One shared packet for the team, fastened with a **paperclip (no staples)**. The last page has an individual reflection and a peer check: write your own name on yours.', size=9.4, after=0)
 
 
 def patient_page(d):
@@ -231,7 +229,7 @@ def checkpoint(d, n):
     if n == 3:
         box(d, [('Our top 3 priorities', 'in order')], 3, numbered=True)
         sbar_box(d)
-        box(d, [('Charge nurse notes', 'who looked at what, what the team decided, time check')], 3)
+        box(d, [('Charge nurse notes', 'ask every nurse for one thing, then decide; note who looked at what')], 3)
         stop_page_note(d)
         page_top(d); tag(d, f'CHECKPOINT {n}', 2, 2)
         banner2(d, '1500  |  Tuesday', 'Checkpoint 3 of 6, page 2', sub='Dialysis is starting. Same team, same charge nurse.')
@@ -272,7 +270,7 @@ def reflection(d):
     box(d, [('2. Something our team did well (and who helped)', '')], 5)
     box(d, [('3. One thing I would do differently as a charge nurse or as a nurse', '')], 5)
     P(d, 'PEER TEAMWORK CHECK', size=11, bold=True, color=INK, before=3, after=2, keep=True)
-    P(d, 'Rate each teammate (not yourself). Mark one box for each.', size=9, italic=True, color=GRAY, after=2, keep=True)
+    P(d, 'Rate up to three teammates (not yourself). Mark one box for each.', size=9, italic=True, color=GRAY, after=2, keep=True)
     opts = '☐ yes   ☐ mostly   ☐ not yet'
     grid(d, ['Teammate'] + C.PEER_CRITERIA + ['One kind, useful comment'], [1.4, 1.45, 1.45, 1.45, 1.55],
          [['', opts, opts, opts, ''], ['', opts, opts, opts, ''], ['', opts, opts, opts, '']], row_h=0.5, size=7.6, hsize=8, center=[1, 2, 3])
