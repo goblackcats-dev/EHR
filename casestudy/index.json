@@ -17,6 +17,24 @@
     "keyPdf": "cases/burn_icu/out/CS-BURN-ICU-1_KEY.pdf",
     "keyDocx": "cases/burn_icu/out/CS-BURN-ICU-1_KEY.docx"
    }
+  },
+  {
+   "id": "hypermag",
+   "caseCode": "CS-HYPERMAG-1",
+   "title": "Telemetry Step-Down: hypermagnesemia from over-the-counter magnesium with acute kidney injury on CKD, emergent hemodialysis (24 h in 4-hour checkpoints)",
+   "patient": "Raymond Kessler",
+   "age": 74,
+   "sex": "Male",
+   "diagnosis": "Hypermagnesemia (Mg 7.8 mg/dL) after over-the-counter magnesium products, acute kidney injury on chronic kidney disease stage 4, bradycardia with first-degree AV block, hypotension, dehydration",
+   "room": "5E-14",
+   "passPct": 70,
+   "token": "614873a4c6",
+   "files": {
+    "studentPdf": "cases/hypermag/CASE_STUDY_PACKET.pdf",
+    "studentDocx": "cases/hypermag/CASE_STUDY_PACKET.docx",
+    "keyPdf": "cases/hypermag/INSTRUCTOR_CASESTUDY_KEY.pdf",
+    "keyDocx": "cases/hypermag/INSTRUCTOR_CASESTUDY_KEY.docx"
+   }
   }
  ]
 }

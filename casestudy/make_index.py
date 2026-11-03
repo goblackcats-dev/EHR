@@ -18,5 +18,13 @@ for cj in sorted(glob.glob(os.path.join(here, 'cases', '*', 'content.json'))):
     cases.append({'id': d, 'caseCode': code, 'title': meta['title'].replace('Clinical Care-Plan Case Study: ', ''), 'patient': p['patient']['name'], 'age': p['patient']['age'], 'sex': p['patient']['sex'],
                   'diagnosis': p['encounter']['diagnosis'], 'room': p['encounter'].get('room', ''), 'passPct': meta.get('passPct', 78),
                   'token': old.get(d) or secrets.token_hex(5), 'files': files})
+# hand-built packets (no content.json): a folder with meta.json + patient.json + CASE_STUDY_PACKET.pdf
+for d in sorted(os.listdir(os.path.join(here, 'cases'))):
+    base = os.path.join(here, 'cases', d)
+    if os.path.exists(os.path.join(base, 'content.json')) or not os.path.exists(os.path.join(base, 'CASE_STUDY_PACKET.pdf')): continue
+    m = json.load(open(os.path.join(base, 'meta.json'))); pj = json.load(open(os.path.join(base, 'patient.json'))); p = pj.get('canonical', pj)
+    files = {k: f'cases/{d}/{f}' for k, f in {'studentPdf': 'CASE_STUDY_PACKET.pdf', 'studentDocx': 'CASE_STUDY_PACKET.docx', 'keyPdf': 'INSTRUCTOR_CASESTUDY_KEY.pdf', 'keyDocx': 'INSTRUCTOR_CASESTUDY_KEY.docx'}.items() if os.path.exists(os.path.join(base, f))}
+    cases.append({'id': d, 'caseCode': m['caseCode'], 'title': m['title'], 'patient': p['patient']['name'], 'age': p['patient']['age'], 'sex': p['patient']['sex'],
+                  'diagnosis': p['encounter']['diagnosis'], 'room': p['encounter'].get('room', ''), 'passPct': 70, 'token': old.get(d) or secrets.token_hex(5), 'files': files})
 json.dump({'cases': cases}, open(os.path.join(here, 'index.json'), 'w'), indent=1)
 print(len(cases), 'case studies indexed')
