@@ -160,7 +160,7 @@
     { t: '2026-11-18 03:00', hr: 56, spo2: 95, sys: 104, dia: 60, rr: 12, temp: 98.0, rhythm: 'avb1', pr: 0.24, qrs: 0.11, tAmp: 0.4, o2: 'Room air', note: 'Magnesium rebound' },
     { t: '2026-11-18 07:00', hr: 68, spo2: 96, sys: 124, dia: 70, rr: 16, temp: 98.0, rhythm: 'sinus', pr: 0.20, qrs: 0.10, tAmp: 0.3, o2: 'Room air', note: 'Recovery' }
   ];
-  const RHY = { sinus: 'Normal sinus rhythm', brady: 'Sinus bradycardia', tachy: 'Sinus tachycardia', avb1: 'Sinus rhythm, 1st degree AV block', widebrady: 'Sinus brady, wide QRS', afib: 'Atrial fibrillation', vtach: 'Ventricular tachycardia', vfib: 'Ventricular fibrillation', asystole: 'Asystole' };
+  const RHY = { sinus: 'Normal sinus rhythm', brady: 'Sinus bradycardia', tachy: 'Sinus tachycardia', avb1: 'Sinus rhythm, 1st degree AV block', widebrady: 'Sinus brady, wide QRS', mobitz1: '2nd degree AV block, Mobitz I (Wenckebach)', mobitz2: '2nd degree AV block, Mobitz II', chb: 'Complete heart block (3rd degree)', afib: 'Atrial fibrillation', vtach: 'Ventricular tachycardia', vfib: 'Ventricular fibrillation', asystole: 'Asystole' };
   const NUMERIC = ['hr', 'spo2', 'sys', 'dia', 'rr', 'temp', 'pr', 'qrs', 'tAmp'];
   const $ = id => document.getElementById(id);
   const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
@@ -284,25 +284,39 @@
     if (p.rhythm === 'vfib') return 0.5 * Math.sin(tau * 21) * Math.sin(tau * 3.1 + 1) + 0.25 * Math.sin(tau * 33);
     if (p.rhythm === 'vtach') return 0.9 * Math.sin(tau * 2 * Math.PI * (p.hr / 60)) * (1 + 0.1 * Math.sin(tau * 5));
     const noP = p.rhythm === 'afib';
-    let y = (noP ? 0.03 * Math.sin(tau * 60) : 0.22 * g(tau, pOn + 0.055, 0.032)) + (-0.12) * g(tau, -0.3 * qrs, 0.012 * k) + 1.0 * g(tau, 0, 0.014 * k) + (-0.22) * g(tau, 0.32 * qrs, 0.014 * k);
+    let y = (-0.12) * g(tau, -0.3 * qrs, 0.012 * k) + 1.0 * g(tau, 0, 0.014 * k) + (-0.22) * g(tau, 0.32 * qrs, 0.014 * k);
     const tc = qrs * 0.5 + 0.12 + 0.13 * Math.min(1.6, 60 / Math.max(35, p.hr)), tAmp = p.tAmp == null ? 0.3 : p.tAmp, tsd = tAmp > 0.6 ? 0.04 : 0.055;
     y += tAmp * g(tau, tc, tsd);
     if (qrs > 0.12) y -= 0.08 * g(tau, qrs * 0.55, 0.03);   // ST drift with the wide QRS
     return y;
   }
   function pleBeat(tau, amp) { if (tau < 0 || tau > 1.2) return 0; const rise = tau < 0.16 ? Math.sin(tau / 0.16 * Math.PI / 2) : Math.exp(-(tau - 0.16) / 0.28); return amp * (rise + 0.12 * g(tau, 0.38, 0.05)); }
-  let beats = [], nextBeat = 0, t0 = performance.now() / 1000;
+  // P waves are drawn on their OWN timeline, so blocks look right: the P comes a PR interval before its QRS (measured from the start of the P to the start of the QRS),
+  // Wenckebach lengthens the PR until a P is not followed by a QRS, Mobitz II drops a QRS with a constant PR, complete block has P waves and QRS complexes that do not match, and A-fib has no P waves at all.
+  const pWave = (tau, amp) => amp * g(tau, 0, 0.032);
+  let beats = [], pBeats = [], nextBeat = 0, nextP = 0, pCount = 0, lastRhy = '', t0 = performance.now() / 1000;
   const SPEED = 130;   // pixels per second (CSS px)
   function frame() {
     const now = performance.now() / 1000, v = vals();
     if (v) {
-      const rr = 60 / Math.max(20, v.hr);
-      if (!nextBeat) nextBeat = now;
-      // beats are planned 0.7 s ahead so the P wave (which comes BEFORE its QRS) can be drawn; the beep waits for the QRS time
-      while (nextBeat < now + 0.7) { const at = nextBeat; beats.push(at); const jit = 1 + (Math.random() - 0.5) * (v.rhythm === 'afib' ? 0.5 : 0.03); nextBeat += rr * jit; setTimeout(() => { if (snd.off) return; if (alarmState) beep(false); else beep(true, vals().spo2); }, Math.max(0, (at - now) * 1000)); }
+      const rr = 60 / Math.max(20, v.hr), rhy = v.rhythm, look = now + 0.7, pr = v.pr || 0.16, qrs = v.qrs || 0.1;
+      if (rhy !== lastRhy) { lastRhy = rhy; beats = []; pBeats = []; nextBeat = 0; nextP = 0; pCount = 0; }
+      const pushQ = at => { beats.push(at); setTimeout(() => { if (snd.off) return; if (alarmState) beep(false); else beep(true, vals().spo2); }, Math.max(0, (at - now) * 1000)); };
+      if (rhy === 'mobitz1' || rhy === 'mobitz2') {
+        const n = rhy === 'mobitz1' ? 4 : 3, A = rr * (n - 1) / n; if (!nextP) nextP = now;
+        while (nextP < look) { const j = pCount % n, conducted = j < n - 1, pri = rhy === 'mobitz1' ? Math.max(0.16, Math.min(pr, 0.2)) + j * 0.1 : pr; pBeats.push(nextP); if (conducted) pushQ(nextP - 0.055 + pri + qrs / 2); nextP += A; pCount++; }
+      } else if (rhy === 'chb') {
+        if (!nextP) nextP = now; if (!nextBeat) nextBeat = now;
+        while (nextP < look) { pBeats.push(nextP); nextP += 60 / 85; }       // the atria keep going at about 85
+        while (nextBeat < look) { pushQ(nextBeat); nextBeat += rr; }          // a slow ventricular escape rhythm, unrelated to the P waves
+      } else {
+        if (!nextBeat) nextBeat = now;
+        while (nextBeat < look) { const at = nextBeat; pushQ(at); if (rhy !== 'afib' && rhy !== 'vtach' && rhy !== 'vfib' && rhy !== 'asystole') pBeats.push(at - qrs / 2 - pr + 0.055); nextBeat += rr * (1 + (Math.random() - 0.5) * (rhy === 'afib' ? 0.5 : 0.03)); }
+      }
+      pBeats = pBeats.filter(b => b > now - 3);
       beats = beats.filter(b => b > now - 3);
       const arrest = v.rhythm === 'vfib' || v.rhythm === 'asystole', amp = arrest ? 0 : Math.max(0.25, Math.min(1, (bp.sys == null ? 110 : bp.sys) / 130)) * (v.spo2 < 90 ? 0.8 : 1);
-      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + 0.01 * Math.sin(tau * 170); let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } return y + 0.006 * Math.sin(tau * 190); }, '#46f070', 0.62, 0.60);
+      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + 0.01 * Math.sin(tau * 170); let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } for (const pb of pBeats) { const x = tau - pb; if (x > -0.2 && x < 0.2) y += pWave(x, 0.22); } if (v.rhythm === 'afib') y += 0.035 * (Math.sin(tau * 41) + 0.8 * Math.sin(tau * 57 + 1.3) + 0.6 * Math.sin(tau * 29 + 2.1)); return y + 0.006 * Math.sin(tau * 190); }, '#46f070', 0.62, 0.60);
       drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp); return y; }, '#3cc8ff', 0.8, 0.85, true);
       const rrate = Math.max(2, v.rr), depth = v.rr <= 10 ? 0.55 : 1;
       drawChan('r', now, tau => { const ph = (tau * rrate / 60) % 1; return depth * (Math.sin(ph * 2 * Math.PI - Math.PI / 2) * 0.5 + 0.5) * 0.9 + 0.02 * Math.sin(tau * 9); }, '#d9d9d9', 0.7, 0.8, true);
@@ -385,7 +399,7 @@
   function applyOverride(o) {
     ovr = Object.assign({}, ovr || {}, o.values || {}); const v = o.values || {};
     if ((v.sys != null && v.sys !== bp.sys) || (v.dia != null && v.dia !== bp.dia)) startBP(v.sys != null ? v.sys : bp.sys, v.dia != null ? v.dia : bp.dia, false, true);
-    if (v.rhythm && o.preset !== false) { const P = { sinus: [0.16, 0.10, 0.3], brady: [0.18, 0.10, 0.3], tachy: [0.14, 0.09, 0.3], avb1: [0.26, 0.12, 0.4], widebrady: [0.20, 0.16, 0.7], afib: [0.16, 0.10, 0.3], vtach: [0.16, 0.20, 0.3] }[v.rhythm]; if (P && v.pr == null) { ovr.pr = P[0]; ovr.qrs = P[1]; ovr.tAmp = P[2]; } }
+    if (v.rhythm && o.preset !== false) { const P = { sinus: [0.16, 0.10, 0.3], brady: [0.18, 0.10, 0.3], tachy: [0.14, 0.09, 0.3], avb1: [0.26, 0.12, 0.4], widebrady: [0.20, 0.16, 0.7], mobitz1: [0.20, 0.10, 0.3], mobitz2: [0.26, 0.12, 0.3], chb: [0.20, 0.14, 0.3], afib: [0.16, 0.10, 0.3], vtach: [0.16, 0.20, 0.3] }[v.rhythm]; if (P && v.pr == null) { ovr.pr = P[0]; ovr.qrs = P[1]; ovr.tAmp = P[2]; } }
     fillInputs(); refreshNums(); broadcastState();
   }
   if (chan) chan.onmessage = e => { const d = e.data || {}; if (d.cmd === 'set') applyOverride(d); else if (d.cmd === 'bp') measureBP(); else if (d.cmd === 'reset') $('vReset').onclick(); else if (d.cmd === 'getState') broadcastState(); if (d.simTime) fromEhr(d.simTime); if (d.name) { $('pname').textContent = d.name; } };

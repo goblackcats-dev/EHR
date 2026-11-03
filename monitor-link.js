@@ -7,7 +7,7 @@
   chan.addEventListener('message', e => { const d = e.data || {}; if (d.monitorState) { state = d.monitorState; if (dlg && dlg.open) fill(false); } });
   const btn = document.createElement('button'); btn.className = 'clock-button'; btn.id = 'monitorBtn'; btn.textContent = 'Monitor'; btn.title = 'Open the bedside monitor and change oxygen, rhythm, heart rate and more (instructor)';
   group.appendChild(btn);
-  const RH = [['sinus', 'Normal sinus rhythm'], ['brady', 'Sinus bradycardia'], ['tachy', 'Sinus tachycardia'], ['avb1', 'Sinus rhythm, 1st degree AV block'], ['widebrady', 'Sinus brady, wide QRS'], ['afib', 'Atrial fibrillation'], ['vtach', 'Ventricular tachycardia'], ['vfib', 'Ventricular fibrillation'], ['asystole', 'Asystole']];
+  const RH = [['sinus', 'Normal sinus rhythm'], ['brady', 'Sinus bradycardia'], ['tachy', 'Sinus tachycardia'], ['avb1', 'Sinus rhythm, 1st degree AV block'], ['mobitz1', '2nd degree AV block, Mobitz I (Wenckebach)'], ['mobitz2', '2nd degree AV block, Mobitz II'], ['chb', 'Complete heart block (3rd degree)'], ['widebrady', 'Sinus brady, wide QRS'], ['afib', 'Atrial fibrillation'], ['vtach', 'Ventricular tachycardia'], ['vfib', 'Ventricular fibrillation'], ['asystole', 'Asystole']];
   const O2 = ['Room air', '2 L nasal cannula', '4 L nasal cannula', '6 L nasal cannula', 'Simple mask 8 L', 'Non-rebreather 15 L', 'High-flow nasal cannula', 'BiPAP', 'Ventilator'];
   function build() {
     dlg = document.createElement('dialog'); dlg.id = 'monitorDialog'; dlg.className = 'action-dialog';
