@@ -1,4 +1,5 @@
-/* NursingSim - Live student view (v79).
+/* NursingSim - Class session (v93): Live student view (v79) plus a SYNCED CLASS SIMULATION. With one class code the instructor sees every student's screen AND everyone shares the same patient and the same patient time (the instructor's clock and Monitor/time buttons drive all student screens).
+   Live student view (v79).
    A student can choose to SHARE THEIR SCREEN with the instructor; the instructor opens "Live student view", gets a 6-character code, and sees a tile for every student
    who joins, updating live (rrweb records what is on the student's page; PeerJS carries it straight from the student's browser to the instructor's browser).
    Nothing is stored anywhere. The free PeerJS cloud server only introduces the two browsers. It needs internet on both devices and a network that allows direct
@@ -30,7 +31,7 @@
     let b = $('lvBanner');
     if (!text) { if (b) b.remove(); return; }
     if (!b) { b = document.createElement('div'); b.id = 'lvBanner'; b.className = 'lv-banner'; document.body.appendChild(b); }
-    b.innerHTML = `<span class="lv-dot"></span><span>${esc(text)}</span>${withStop ? '<button type="button" id="lvStop">Stop sharing</button>' : ''}`;
+    b.innerHTML = `<span class="lv-dot"></span><span>${esc(text)}</span>${withStop ? '<button type="button" id="lvStop">Leave class</button>' : ''}`;
     const st = $('lvStop'); if (st) st.addEventListener('click', stopShare);
   }
   function flush() { if (!sh.conn || !sh.conn.open || !sh.buf.length) return; const batch = sh.buf.splice(0); try { sh.conn.send({ t: 'ev', e: batch }); } catch (e) { /* retried on the next flush */ } }
@@ -52,11 +53,11 @@
       sh.conn = conn;
       conn.on('open', () => {
         sessionStorage.setItem('nursingsim.liveCode', sh.code);
-        conn.send({ t: 'hello', name: label(), role: (me() || {}).role || '', title: document.title });
-        startRecording(); banner('Your screen is being shared with your instructor', true); setMsg('Connected. Your instructor can see your screen.');
+        conn.send({ t: 'hello', name: label(), role: (me() || {}).role || '', title: document.title, caseKey: (typeof currentCanonicalCase !== 'undefined' && currentCanonicalCase) ? caseKey(currentCanonicalCase) : '' }); enterSync();
+        startRecording(); banner('Your screen is shared with your instructor (class simulation)', true); setMsg('Connected. You are in the class simulation.'); setTimeout(() => { const j = $('lvJoin'); if (j && j.open) j.close(); }, 1200);
         try { window.rrweb.record.takeFullSnapshot(true); } catch (e) { /* the instructor asks again if needed */ }
       });
-      conn.on('data', d => { if (d && d.t === 'resync') { try { window.rrweb.record.takeFullSnapshot(true); } catch (e) { /* ignore */ } } if (d && d.t === 'bye') stopShare(); });
+      conn.on('data', d => { if (d && d.t === 'case') loadClassCase(d); if (d && d.t === 'st') onState(d); if (d && d.t === 'say') say(d.text); if (d && d.t === 'resync') { try { window.rrweb.record.takeFullSnapshot(true); } catch (e) { /* ignore */ } } if (d && d.t === 'bye') stopShare(); });
       conn.on('close', () => { if (sh.want) { banner('Reconnecting to your instructor...', true); stopRecording(); scheduleRetry(); } });
       conn.on('error', () => { if (sh.want) scheduleRetry(); });
     });
@@ -67,7 +68,7 @@
   }
   function scheduleRetry() { clearTimeout(sh.retry); sh.retry = setTimeout(() => { try { sh.peer && sh.peer.destroy(); } catch (e) { /* ignore */ } sh.peer = null; sh.conn = null; connectShare(); }, 5000); }
   function fullStop() { sh.want = false; clearTimeout(sh.retry); stopRecording(); try { sh.conn && sh.conn.close(); } catch (e) { /* ignore */ } try { sh.peer && sh.peer.destroy(); } catch (e) { /* ignore */ } sh.peer = sh.conn = null; banner(''); }
-  function stopShare() { fullStop(); sessionStorage.removeItem('nursingsim.liveCode'); setMsg('Sharing stopped.'); }
+  function stopShare() { leaveSync(); fullStop(); sessionStorage.removeItem('nursingsim.liveCode'); setMsg('Sharing stopped.'); }
   async function startShare(code) {
     code = String(code || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (code.length !== 6) { setMsg('Enter the 6-character code from your instructor.', true); return; }
@@ -75,21 +76,58 @@
     try { await libs(); } catch (e) { setMsg('Could not load the sharing tools. Check the connection.', true); sh.want = false; return; }
     connectShare();
   }
+
+  // ------------------------------------------------------------------ synced class simulation (student side)
+  const caseKey = c => c ? ((c.caseMeta && c.caseMeta.caseId) || (c.patient && c.patient.id) || '') : '';
+  const cs = { on: false, target: null, paused: false, sec: 0 };
+  function badge(text) {
+    const grp = document.querySelector('.simulation-clock-controls'); if (!grp) return;
+    let b = $('csBadge'); if (!b) { b = document.createElement('span'); b.id = 'csBadge'; b.className = 'cs-badge'; grp.insertBefore(b, grp.firstChild); }
+    b.textContent = text;
+  }
+  function enterSync() { cs.on = true; document.body.classList.add('class-synced'); try { if (typeof simSetPaused === 'function') simSetPaused(true); } catch (e) { /* ignore */ } badge('Class simulation: time is set by your instructor'); }
+  function leaveSync() { if (!cs.on) return; cs.on = false; document.body.classList.remove('class-synced'); const b = $('csBadge'); if (b) b.remove(); try { if (typeof simSetPaused === 'function') simSetPaused(false); } catch (e) { /* ignore */ } }
+  function say(text) { const t = document.createElement('div'); t.className = 'cs-say'; t.textContent = text; document.body.appendChild(t); setTimeout(() => t.remove(), 9000); t.addEventListener('click', () => t.remove()); }
+  function loadClassCase(d) {
+    try {
+      const canonical = JSON.parse(d.json); if (typeof renderPatient !== 'function') return;
+      renderPatient(canonical); cs.target = d.time || null; applyTarget();
+      say('Your instructor opened the patient: ' + ((canonical.patient && canonical.patient.name) || ''));
+    } catch (e) { say('Could not load the class patient. Ask your instructor to send it again.'); }
+  }
+  function onState(d) {
+    cs.target = d.time || cs.target; cs.paused = !!d.paused; cs.sec = d.sec || 0;
+    const b = $('csBadge'); if (b) b.textContent = cs.paused ? 'Class simulation: PAUSED by your instructor' : 'Class simulation: time is set by your instructor';
+    applyTarget();
+  }
+  function applyTarget() {
+    if (!cs.on || !cs.target || typeof simulationTime === 'undefined' || !simulationTime) return;
+    try {
+      const cur = parseSimDate(simulationTime), tgt = parseSimDate(cs.target);
+      if (cur && tgt && cur.getTime() !== tgt.getTime()) {
+        if (typeof simClockBusy === 'function' && simClockBusy()) return;      // do not redraw the page while the student is typing or has a window open
+        if (tgt > cur) advanceSimulation(Math.round((tgt - cur) / 60000));
+        else { simulationTime = cs.target; refreshSimulationView(); }
+      }
+      if (typeof simClock !== 'undefined') { simClock.seconds = cs.paused ? simClock.seconds : cs.sec; if (typeof renderSimulationClock === 'function') renderSimulationClock(); }
+    } catch (e) { /* try again on the next update */ }
+  }
+  setInterval(() => { if (cs.on) applyTarget(); }, 1500);
   function setMsg(t, bad) { const m = $('lvJoinMsg'); if (m) { m.textContent = t; m.className = 'lv-msg' + (bad ? ' bad' : ''); } }
   function openJoin() {
     let dlg = $('lvJoin');
     if (!dlg) {
       dlg = document.createElement('dialog'); dlg.id = 'lvJoin'; dlg.className = 'lv-dialog lv-small';
-      dlg.innerHTML = `<div class="dialog-header"><div><h2>Share my screen with my instructor</h2><p>Your instructor will give you a 6-character code. While you share, your instructor can see what is on your screen. A banner stays visible, and you can stop at any time.</p></div><button class="icon-button" id="lvJoinX" aria-label="Close">×</button></div>
+      dlg.innerHTML = `<div class="dialog-header"><div><h2>Join the class simulation</h2><p>Your instructor gives you a 6-character code. When you join, you see the same patient and the same patient time as your instructor, and your instructor can see your screen. A banner stays visible, and you can leave at any time.</p></div><button class="icon-button" id="lvJoinX" aria-label="Close">×</button></div>
         <div class="dialog-body"><label class="input-label" for="lvCode">Class code</label><input id="lvCode" class="lv-code-in" maxlength="8" autocomplete="off" autocapitalize="characters" placeholder="ABC123" />
-        <div id="lvJoinMsg" class="lv-msg"></div><div class="lv-actions"><button class="primary-button" id="lvJoinGo">Share my screen</button> <button class="secondary-button" id="lvJoinStop">Stop sharing</button></div></div>`;
+        <div id="lvJoinMsg" class="lv-msg"></div><div class="lv-actions"><button class="primary-button" id="lvJoinGo">Join class</button> <button class="secondary-button" id="lvJoinStop">Leave class</button></div></div>`;
       document.body.appendChild(dlg);
       dlg.querySelector('#lvJoinX').addEventListener('click', () => dlg.close());
       dlg.querySelector('#lvJoinGo').addEventListener('click', () => startShare($('lvCode').value));
       dlg.querySelector('#lvCode').addEventListener('keydown', e => { if (e.key === 'Enter') startShare($('lvCode').value); });
       dlg.querySelector('#lvJoinStop').addEventListener('click', stopShare);
     }
-    const saved = sessionStorage.getItem('nursingsim.liveCode'); if (saved && !$('lvCode').value) $('lvCode').value = saved;
+  const saved = sessionStorage.getItem('nursingsim.liveCode'); if (saved && !$('lvCode').value) $('lvCode').value = saved;
     dlg.showModal(); setTimeout(() => $('lvCode').focus(), 60);
   }
 
@@ -122,13 +160,27 @@
     if (d.t === 'hello') {
       if (st) { st.tile.remove(); }
       if (host.students.size >= 60 && !st) { conn.close(); return; }
-      st = makeTile(conn, d); host.students.set(conn.peer, st); conn.send({ t: 'resync' }); updateCount(); return;
+      st = makeTile(conn, d); host.students.set(conn.peer, st); conn.send({ t: 'resync' }); updateCount();
+      if (sync.on) { stash(false); if (d.caseKey !== sync.key) sendCase(conn); tickSync(); }
+      return;
     }
     if (!st) return;
     st.last = Date.now();
     if (d.t === 'ev') (d.e || []).forEach(e => { try { st.replayer.addEvent(e); } catch (err) { /* a damaged event is skipped */ } });
     if (d.t === 'ping' && d.name) { st.tile.querySelector('b').textContent = d.name; }
   }
+
+  // synced class simulation (instructor side): one connection per student carries the patient, the patient time and the screen
+  const sync = { on: true, key: '', json: '', timer: null };
+  function stash(force) { if (typeof currentCanonicalCase === 'undefined' || !currentCanonicalCase) return false; const k = caseKey(currentCanonicalCase); if (force || k !== sync.key) { sync.key = k; sync.json = JSON.stringify(currentCanonicalCase); return true; } return false; }
+  function sendCase(conn) { if (!sync.on || !sync.json || !conn || !conn.open) return; try { conn.send({ t: 'case', key: sync.key, json: sync.json, time: typeof simulationTime === 'undefined' ? null : simulationTime }); } catch (e) { /* ignore */ } }
+  function tickSync() {
+    if (!sync.on) return;
+    if (stash(false)) host.students.forEach(s => sendCase(s.conn));
+    const msg = { t: 'st', time: typeof simulationTime === 'undefined' ? null : simulationTime, paused: typeof simClock !== 'undefined' && !!simClock.paused, sec: typeof simClock !== 'undefined' ? simClock.seconds : 0 };
+    host.students.forEach(s => { if (s.conn && s.conn.open) { try { s.conn.send(msg); } catch (e) { /* ignore */ } } });
+  }
+  const studentBase = () => { try { return localStorage.getItem('nursingsim.studentSiteUrl') || 'https://goblackcats-dev.github.io/EHR/student-site/'; } catch (e) { return 'https://goblackcats-dev.github.io/EHR/student-site/'; } };
   function updateCount() {
     const live = [...host.students.values()].filter(s => Date.now() - s.last < 20000).length;
     const c = host.dlg && host.dlg.querySelector('#lvCount'); if (c) c.textContent = `${live} sharing now (${host.students.size} joined)`;
@@ -139,32 +191,38 @@
     host.code = newCode();
     const cfg = peerConfig();
     host.peer = new window.Peer(PREFIX + host.code, { host: cfg.host, port: cfg.port, secure: cfg.secure, path: cfg.path, debug: 0 });
-    host.peer.on('open', () => { const c = host.dlg.querySelector('#lvCodeBig'); c.textContent = host.code; host.dlg.querySelector('#lvStatus').textContent = 'Ready. Tell your students this code (they choose Tools > Share my screen).'; });
+    host.peer.on('open', () => { const c = host.dlg.querySelector('#lvCodeBig'); c.textContent = host.code; host.dlg.querySelector('#lvStatus').textContent = 'Ready. Send students the link below (or tell them the code: they choose Join class).'; });
     host.peer.on('connection', conn => { conn.on('data', d => onData(conn, d)); conn.on('close', () => { const st = host.students.get(conn.peer); if (st) { st.last = 0; updateCount(); } }); });
     host.peer.on('error', err => { if (err && err.type === 'unavailable-id') { host.peer.destroy(); startHost(); } else host.dlg.querySelector('#lvStatus').textContent = 'Could not reach the connection service (' + ((err && err.type) || 'error') + '). Check the internet connection.'; });
-    host.timer = setInterval(updateCount, 5000);
+    host.timer = setInterval(updateCount, 5000); sync.timer = setInterval(tickSync, 1000); stash(true);
   }
-  function endHost() { clearInterval(host.timer); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
+  function endHost() { clearInterval(host.timer); clearInterval(sync.timer); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
   function openWatch() {
     if (host.dlg) { host.dlg.showModal(); host.students.forEach(fit); return; }
     const dlg = document.createElement('dialog'); dlg.id = 'lvWatch'; dlg.className = 'lv-dialog';
-    dlg.innerHTML = `<div class="dialog-header"><div><h2>Live student view</h2><p id="lvStatus">Starting...</p></div><div class="lv-head-r"><div class="lv-codebox">Class code<div id="lvCodeBig">------</div></div><button class="secondary-button" id="lvMin">Hide window</button> <button class="secondary-button" id="lvEnd">End session</button></div></div>
-      <div class="dialog-body"><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students join by choosing <b>Tools &gt; Share my screen</b> and typing the code. The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
+    dlg.innerHTML = `<div class="dialog-header"><div><h2>Class session</h2><p id="lvStatus">Starting...</p></div><div class="lv-head-r"><div class="lv-codebox">Class code<div id="lvCodeBig">------</div></div><button class="secondary-button" id="lvMin">Hide window</button> <button class="secondary-button" id="lvEnd">End session</button></div></div>
+      <div class="dialog-body"><div class="lv-sync"><label><input type="checkbox" id="lvSyncOn" checked> <b>Run the class together</b>: students see this patient and this patient time (use the clock buttons, pause and the Monitor as usual; student clocks follow yours)</label><div class="lv-link">Link for students (send once): <input id="lvLink" readonly onclick="this.select()"> <button class="secondary-button" id="lvCopy">Copy link + code</button></div><div class="lv-actions"><button class="secondary-button" id="lvResend">Send my patient to everyone again</button> <button class="secondary-button" id="lvSay">Message to class...</button></div></div><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students open the student site, choose <b>Join class</b> and type the code (or open the link above). The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
     document.body.appendChild(dlg); host.dlg = dlg;
     dlg.querySelector('#lvMin').addEventListener('click', () => dlg.close());
     dlg.querySelector('#lvEnd').addEventListener('click', () => { if (confirm('End the live session? Students will stop sharing.')) endHost(); });
-    dlg.showModal(); startHost();
+    const q = id => dlg.querySelector('#' + id);
+    q('lvSyncOn').addEventListener('change', e => { sync.on = e.target.checked; if (sync.on) { stash(true); host.students.forEach(s => sendCase(s.conn)); } });
+    q('lvResend').addEventListener('click', () => { if (confirm('Send your open patient to every student again? Their own charting on this patient will be replaced.')) { stash(true); host.students.forEach(s => sendCase(s.conn)); } });
+    q('lvSay').addEventListener('click', () => { const t = prompt('Message to show on every student screen:'); if (t) host.students.forEach(s => { try { s.conn.send({ t: 'say', text: t }); } catch (e) { /* ignore */ } }); });
+    q('lvCopy').addEventListener('click', () => { const t = `Join the class simulation: ${q('lvLink').value}\nClass code: ${host.code}`; try { navigator.clipboard.writeText(t); } catch (e) { /* ignore */ } q('lvCopy').textContent = 'Copied'; setTimeout(() => q('lvCopy').textContent = 'Copy link + code', 1500); });
+    dlg.showModal(); startHost().then(() => { const l = dlg.querySelector('#lvLink'); if (l) l.value = studentBase() + '#join=' + host.code; });
   }
 
   // ------------------------------------------------------------------ menu buttons
   function addButtons() {
     const bar = document.querySelector('.top-actions'); if (!bar || $('lvShareBtn')) return;
     const mk = (id, text, fn) => { const b = document.createElement('button'); b.type = 'button'; b.id = id; b.className = 'small-tool-button'; b.textContent = text; b.addEventListener('click', fn); bar.appendChild(b); };
-    if (!window.NS_STUDENT) mk('lvWatchBtn', 'Live student view', openWatch);
-    mk('lvShareBtn', 'Share my screen', openJoin);
+    if (!window.NS_STUDENT) mk('lvWatchBtn', 'Class session', openWatch);
+    else mk('lvShareBtn', 'Join class', openJoin);
   }
   window.NSLive = { openWatch, openJoin, startShare, stopShare, isInstructor };
   addButtons();
+  { const m = (location.hash || '').match(/join=([A-Za-z0-9]{6})/); if (m && window.NS_STUDENT) setTimeout(() => { openJoin(); const c = $('lvCode'); if (c) c.value = m[1].toUpperCase(); }, 1200); }
   // reconnect after a page reload while sharing
   const saved = sessionStorage.getItem('nursingsim.liveCode'); if (saved) setTimeout(() => startShare(saved), 800);
 })();

@@ -381,3 +381,9 @@ dialog { max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); }
 .scan-frame i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0;border-radius:0 0 0 10px}
 .scan-frame i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0;border-radius:0 0 10px 0}
 .scan-cam-hint{line-height:1.35}
+/* synced class simulation */
+body.class-synced .simulation-clock-controls button { display: none; }
+.cs-badge { background: #fff3cd; color: #5c4400; border-radius: 6px; padding: 6px 10px; font-size: 13px; font-weight: 600; }
+.cs-say { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); background: #0b4f8a; color: #fff; padding: 12px 20px; border-radius: 10px; font-size: 18px; z-index: 99999; box-shadow: 0 6px 24px rgba(0,0,0,.35); max-width: 80vw; cursor: pointer; }
+.lv-sync { background: #f4f8fc; border: 1px solid #cfe0f0; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
+.lv-link { margin: 8px 0; font-size: 14px; } .lv-link input { width: min(520px, 90%); padding: 5px; }
