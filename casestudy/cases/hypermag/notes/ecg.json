@@ -1,0 +1,116 @@
+[
+ {
+  "id": "note_ecg_202611170440",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "R. Alvarez, MD",
+  "datetime": "2026-11-17 04:40",
+  "category": "Cardiology",
+  "summary": "Sinus bradycardia 46, first-degree AV block (PR 248 ms), wide QRS 124 ms, QTc 468 ms. No peaked T waves.",
+  "body": "**Measurements**\nVentricular rate 46 bpm. PR 248 ms. QRS 124 ms. QT/QTc 534/468 ms.\n\n**Interpretation**\nSinus bradycardia with first-degree AV block and a wide QRS. No peaked T waves. No dropped beats. Correlate clinically and with electrolytes.",
+  "study": "ECG 12 lead, acquired 04:30",
+  "impression": "Sinus bradycardia 46, first-degree AV block, wide QRS. No peaked T waves.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0430.png",
+    "caption": "12-lead ECG acquired 2026-11-17 04:30 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-17 04:30: Sinus bradycardia 46, first-degree AV block (PR 248 ms), wide QRS 124 ms, QTc 468 ms. No peaked T waves."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611171140",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "D. Okafor, MD",
+  "datetime": "2026-11-17 11:40",
+  "category": "Cardiology",
+  "summary": "Sinus bradycardia 40, first-degree AV block (PR 300 ms), QRS 136 ms (wide), QTc 480 ms. No dropped beats.",
+  "body": "**Measurements**\nVentricular rate 40 bpm. PR 300 ms. QRS 136 ms. QT/QTc 588/480 ms.\n\n**Interpretation**\nSinus bradycardia with marked first-degree AV block (PR longer than at 0430) and a wider QRS. No dropped beats. Compared with the 0430 tracing the rate is slower and the PR and QRS are longer.",
+  "study": "ECG 12 lead, acquired 11:30",
+  "impression": "Sinus bradycardia 40, PR 300 ms, QRS 136 ms. Worse than 0430. No dropped beats.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1130.png",
+    "caption": "12-lead ECG acquired 2026-11-17 11:30 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-17 11:30: Sinus bradycardia 40, first-degree AV block (PR 300 ms), QRS 136 ms (wide), QTc 480 ms. No dropped beats."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611171335",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "P. Raman, MD",
+  "datetime": "2026-11-17 13:35",
+  "category": "Cardiology",
+  "summary": "Sinus bradycardia 38, first-degree AV block (PR 320 ms), QRS 148 ms (very wide), QTc 492 ms, tall peaked T waves.",
+  "body": "**Measurements**\nVentricular rate 38 bpm. PR 320 ms. QRS 148 ms. QT/QTc 618/492 ms.\n\n**Interpretation**\nSinus bradycardia with marked first-degree AV block and a very wide QRS. Tall, narrow, peaked T waves, most obvious in V2 to V4. P waves are small. Worse than 1130. Correlate with potassium and magnesium.",
+  "study": "ECG 12 lead, acquired 13:30",
+  "impression": "Sinus bradycardia 38, PR 320 ms, QRS 148 ms, tall peaked T waves. Worse than 1130.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1330.png",
+    "caption": "12-lead ECG acquired 2026-11-17 13:30 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-17 13:30: Sinus bradycardia 38, first-degree AV block (PR 320 ms), QRS 148 ms (very wide), QTc 492 ms, tall peaked T waves."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611171835",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "D. Okafor, MD",
+  "datetime": "2026-11-17 18:35",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 66, PR 204 ms, QRS 108 ms, QTc 486 ms (prolonged).",
+  "body": "**Measurements**\nVentricular rate 66 bpm. PR 204 ms. QRS 108 ms. QT/QTc 463/486 ms.\n\n**Interpretation**\nSinus rhythm. The PR is at the upper limit and the QRS is nearly normal. No peaked T waves. The QT interval is prolonged. Much improved from 1330. Correlate with calcium.",
+  "study": "ECG 12 lead, acquired 18:30",
+  "impression": "Sinus rhythm 66, PR 204 ms, QRS 108 ms, QTc 486 ms (prolonged). Much improved.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1830.png",
+    "caption": "12-lead ECG acquired 2026-11-17 18:30 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-17 18:30: Sinus rhythm 66, PR 204 ms, QRS 108 ms, QTc 486 ms (prolonged)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611180240",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "J. Lindgren, MD",
+  "datetime": "2026-11-18 02:40",
+  "category": "Cardiology",
+  "summary": "Sinus bradycardia 54, first-degree AV block (PR 236 ms), QRS 114 ms, QTc 478 ms.",
+  "body": "**Measurements**\nVentricular rate 54 bpm. PR 236 ms. QRS 114 ms. QT/QTc 504/478 ms.\n\n**Interpretation**\nSinus bradycardia with first-degree AV block. The rate is slower and the PR longer than at 1830. No peaked T waves. Correlate with magnesium.",
+  "study": "ECG 12 lead, acquired 02:30",
+  "impression": "Sinus bradycardia 54, PR 236 ms, QRS 114 ms. Slower and longer PR than 1830.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0230.png",
+    "caption": "12-lead ECG acquired 2026-11-18 02:30 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-18 02:30: Sinus bradycardia 54, first-degree AV block (PR 236 ms), QRS 114 ms, QTc 478 ms."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611180610",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "J. Lindgren, MD",
+  "datetime": "2026-11-18 06:10",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 66, PR 212 ms, QRS 102 ms, QTc 462 ms. Improved.",
+  "body": "**Measurements**\nVentricular rate 66 bpm. PR 212 ms. QRS 102 ms. QT/QTc 440/462 ms.\n\n**Interpretation**\nSinus rhythm. PR at the upper limit of normal; QRS and QT normal. Improved compared with 0230.",
+  "study": "ECG 12 lead, acquired 06:00",
+  "impression": "Sinus rhythm 66, PR 212 ms, QRS 102 ms, QTc 462 ms. Improved.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0600.png",
+    "caption": "12-lead ECG acquired 2026-11-18 06:00 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-18 06:00: Sinus rhythm 66, PR 212 ms, QRS 102 ms, QTc 462 ms. Improved."
+   }
+  ]
+ }
+]

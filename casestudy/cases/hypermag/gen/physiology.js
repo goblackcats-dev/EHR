@@ -91,8 +91,8 @@ function buildLabs() {
   const ecg = (when, avail, v) => add(lab('Cardiac', 'ECG 12-lead interpretation', '', '', null, null, [[when, v, avail]], { specimen: 'ECG', abn: /./ }));
   ecg(T('Tue', '04:30'), T('Tue', '04:40'), 'Sinus bradycardia 46 bpm, first-degree AV block (PR 248 ms), QRS 124 ms (wide), QTc 468 ms. No peaked T waves.');
   ecg(T('Tue', '11:30'), T('Tue', '11:40'), 'Sinus bradycardia 40 bpm, first-degree AV block (PR 300 ms), QRS 136 ms (wide), QTc 480 ms. No dropped beats.');
-  ecg(T('Tue', '13:30'), T('Tue', '13:35'), 'Sinus bradycardia 38 bpm, first-degree AV block (PR 320 ms), QRS 148 ms (wide), QTc 492 ms, tall peaked T waves (K 5.8).');
-  ecg(T('Tue', '18:30'), T('Tue', '18:35'), 'Sinus rhythm 66 bpm, PR 204 ms, QRS 108 ms, QTc 486 ms (prolonged; calcium 7.7, ionized calcium 1.02).');
+  ecg(T('Tue', '13:30'), T('Tue', '13:35'), 'Sinus bradycardia 38 bpm, first-degree AV block (PR 320 ms), QRS 148 ms (wide), QTc 492 ms, tall peaked T waves (correlate with potassium).');
+  ecg(T('Tue', '18:30'), T('Tue', '18:35'), 'Sinus rhythm 66 bpm, PR 204 ms, QRS 108 ms, QTc 486 ms (prolonged; correlate with calcium).');
   ecg(T('Wed', '02:30'), T('Wed', '02:40'), 'Sinus bradycardia 54 bpm, first-degree AV block (PR 236 ms), QRS 114 ms, QTc 478 ms.');
   ecg(T('Wed', '06:00'), T('Wed', '06:10'), 'Sinus rhythm 66 bpm, PR 212 ms, QRS 102 ms, QTc 462 ms.');
   // point-of-care glucose: ED and arrival only (the rest are done by the students at the bedside)

@@ -4,6 +4,8 @@ const { H, at } = require('./lib'); const P = require('./physiology'), Tx = requ
 const dir = path.join(__dirname, '..');
 let notes = [];
 fs.readdirSync(path.join(dir, 'notes')).filter(f => f.endsWith('.json')).sort().forEach(f => { try { notes = notes.concat(JSON.parse(fs.readFileSync(path.join(dir, 'notes', f), 'utf8'))); } catch (e) { console.error('note file failed:', f, e.message); } });
+// notes may list `imageFiles: [{file, caption, alt}]` (paths relative to gen/); they are embedded here as data URLs in `images` (see gen/ecg/make_ecgs.py)
+notes.forEach(n => { if (n.imageFiles) { n.images = (n.images || []).concat(n.imageFiles.map(f => ({ src: 'data:image/png;base64,' + fs.readFileSync(path.join(__dirname, f.file)).toString('base64'), caption: f.caption, alt: f.alt }))); delete n.imageFiles; } });
 const seen = new Set(); notes = notes.filter(n => { if (!n.id || seen.has(n.id)) return false; seen.add(n.id); return true; }).sort((a, b) => a.datetime.localeCompare(b.datetime));
 const START = at('Tue', '07:00'), END = at('Wed', '07:00');
 const slots = []; for (let i = 0; i < 25; i++) slots.push(H(i).slice(11, 13) + '00');
