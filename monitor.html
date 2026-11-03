@@ -100,6 +100,7 @@
   <div class="row">
     <label>Rhythm <select id="iRhy"></select></label>
   </div>
+  <div class="row"><label>Oxygen <select id="iO2"><option>Room air</option><option>2 L nasal cannula</option><option>4 L nasal cannula</option><option>6 L nasal cannula</option><option>Simple mask 8 L</option><option>Non-rebreather 15 L</option><option>High-flow nasal cannula</option><option>BiPAP</option><option>Ventilator</option></select></label></div>
   <div class="row">
     <label>PR (s) <input type="number" step="0.01" id="iPR"></label><label>QRS (s) <input type="number" step="0.01" id="iQRS"></label><label>T wave <select id="iT"><option value="0.1">flat</option><option value="0.3">normal</option><option value="0.5">slightly tall</option><option value="0.8">tall / peaked</option></select></label>
   </div>
@@ -130,7 +131,8 @@
     { t: '2026-11-18 03:00', hr: 56, spo2: 95, sys: 104, dia: 60, rr: 12, temp: 98.0, rhythm: 'avb1', pr: 0.24, qrs: 0.11, tAmp: 0.4, o2: 'Room air', note: 'Magnesium rebound' },
     { t: '2026-11-18 07:00', hr: 68, spo2: 96, sys: 124, dia: 70, rr: 16, temp: 98.0, rhythm: 'sinus', pr: 0.20, qrs: 0.10, tAmp: 0.3, o2: 'Room air', note: 'Recovery' }
   ];
-  const RHY = { sinus: 'Normal sinus rhythm', brady: 'Sinus bradycardia', avb1: 'Sinus rhythm, 1st degree AV block', widebrady: 'Sinus brady, wide QRS' };
+  const RHY = { sinus: 'Normal sinus rhythm', brady: 'Sinus bradycardia', tachy: 'Sinus tachycardia', avb1: 'Sinus rhythm, 1st degree AV block', widebrady: 'Sinus brady, wide QRS', afib: 'Atrial fibrillation', vtach: 'Ventricular tachycardia', vfib: 'Ventricular fibrillation', asystole: 'Asystole' };
+  const NUMERIC = ['hr', 'spo2', 'sys', 'dia', 'rr', 'temp', 'pr', 'qrs', 'tAmp'];
   const $ = id => document.getElementById(id);
   const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
   let scen = RAY.slice();
@@ -148,18 +150,36 @@
   const chan = 'BroadcastChannel' in window ? new BroadcastChannel('nursingsim') : null;
 
   function stepFor(ms) { let r = scen[0]; for (const s of scen) { const t = parse(s.t); if (t != null && t <= ms) r = s; } return r; }
+  // between two scenario rows the numbers move smoothly with the patient clock (rhythm, oxygen and notes stay as in the earlier row)
+  function targetFor(ms) {
+    const a = stepFor(ms), i = scen.indexOf(a), b = scen[i + 1], r = Object.assign({}, a);
+    if (b) { const ta = parse(a.t), tb = parse(b.t), f = tb > ta ? Math.min(1, Math.max(0, (ms - ta) / (tb - ta))) : 0; NUMERIC.forEach(k => { if (a[k] != null && b[k] != null) r[k] = a[k] + (b[k] - a[k]) * f; }); }
+    NUMERIC.forEach(k => { if (r[k] != null) r[k] = (k === 'temp' || k === 'pr' || k === 'qrs' || k === 'tAmp') ? Math.round(r[k] * 100) / 100 : Math.round(r[k]); });
+    return r;
+  }
   function toast(msg) { const t = $('toast'); t.textContent = msg; t.style.display = 'block'; clearTimeout(toast.h); toast.h = setTimeout(() => t.style.display = 'none', 2600); }
 
   function setClock(ms, from) {
     if (ms == null) return;
     clock = ms; ls.set('nsmon.time', fmt(ms)); $('clock').textContent = nice(ms); $('tSet').value = fmt(ms);
-    const st = stepFor(ms), key = st.t;
-    if (key !== curKey) { curKey = key; ovr = null; cur = Object.assign({}, st); startBP(st.sys, st.dia, from === 'init'); fillInputs(); }
-    refreshNums();
+    const st = stepFor(ms), key = st.t, tg = targetFor(ms);
+    if (key !== curKey) { curKey = key; ovr = null; cur = Object.assign({}, tg); shown = Object.assign({}, tg); startBP(tg.sys, tg.dia, from === 'init'); }
+    else { cur = Object.assign({}, tg); if (!bp.measuring && bp.at != null && ms - bp.at >= 15 * 60000) startBP(tg.sys, tg.dia, false); }
+    fillInputs(); broadcastState(); refreshNums();
   }
 
   // ---------- numbers and alarms ----------
-  function vals() { return Object.assign({}, cur, ovr || {}); }
+  let shown = null;
+  function target() { return Object.assign({}, cur, ovr || {}); }
+  function vals() { return shown || target(); }
+  // the displayed numbers glide to the target (like a real monitor settling), about every quarter second
+  setInterval(() => {
+    const t = target(); if (!shown) { shown = t; return; }
+    ['hr', 'spo2', 'rr'].forEach(k => { const d = t[k] - shown[k]; shown[k] += Math.abs(d) <= 1 ? d : Math.sign(d) * (Math.abs(d) > 12 ? 3 : 1); });
+    { const d = t.temp - shown.temp; shown.temp = Math.abs(d) < 0.11 ? t.temp : shown.temp + Math.sign(d) * 0.1; }
+    ['pr', 'qrs', 'tAmp'].forEach(k => { if (t[k] != null) shown[k] = shown[k] == null ? t[k] : shown[k] + (t[k] - shown[k]) * 0.25; });
+    shown.rhythm = t.rhythm; shown.o2 = t.o2; shown.note = t.note; shown.t = t.t;
+  }, 250);
   function startBP(sys, dia, instant) {
     if (instant) { bp = { sys, dia, at: clock, measuring: 0 }; return; }
     bp.measuring = Date.now() + 9000; bp.pending = { sys, dia };
@@ -197,7 +217,11 @@
   // one beat of lead II, tau = seconds from the R peak
   function ecgBeat(tau, p) {
     const qrs = p.qrs || 0.1, pr = p.pr || 0.16, qOn = -qrs * 0.5, pOn = qOn - pr, k = qrs / 0.1;
-    let y = 0.13 * g(tau, pOn + 0.05, 0.025) + (-0.12) * g(tau, -0.3 * qrs, 0.012 * k) + 1.0 * g(tau, 0, 0.014 * k) + (-0.22) * g(tau, 0.32 * qrs, 0.014 * k);
+    if (p.rhythm === 'asystole') return 0;
+    if (p.rhythm === 'vfib') return 0.5 * Math.sin(tau * 21) * Math.sin(tau * 3.1 + 1) + 0.25 * Math.sin(tau * 33);
+    if (p.rhythm === 'vtach') return 0.9 * Math.sin(tau * 2 * Math.PI * (p.hr / 60)) * (1 + 0.1 * Math.sin(tau * 5));
+    const noP = p.rhythm === 'afib';
+    let y = (noP ? 0.03 * Math.sin(tau * 60) : 0.13 * g(tau, pOn + 0.05, 0.025)) + (-0.12) * g(tau, -0.3 * qrs, 0.012 * k) + 1.0 * g(tau, 0, 0.014 * k) + (-0.22) * g(tau, 0.32 * qrs, 0.014 * k);
     const tc = qrs * 0.5 + 0.12 + 0.13 * Math.min(1.6, 60 / Math.max(35, p.hr)), tAmp = p.tAmp == null ? 0.3 : p.tAmp, tsd = tAmp > 0.6 ? 0.04 : 0.055;
     y += tAmp * g(tau, tc, tsd);
     if (qrs > 0.12) y -= 0.08 * g(tau, qrs * 0.55, 0.03);   // ST drift with the wide QRS
@@ -211,10 +235,10 @@
     if (v) {
       const rr = 60 / Math.max(20, v.hr);
       if (!nextBeat) nextBeat = now;
-      while (nextBeat < now + 0.05) { beats.push(nextBeat); const jit = 1 + (Math.random() - 0.5) * 0.03; nextBeat += rr * jit; if (alarmState && !snd.off) beep(false); else if (!snd.off) beep(true, v.spo2); }
+      while (nextBeat < now + 0.05) { beats.push(nextBeat); const jit = 1 + (Math.random() - 0.5) * (v.rhythm === 'afib' ? 0.5 : 0.03); nextBeat += rr * jit; if (alarmState && !snd.off) beep(false); else if (!snd.off) beep(true, v.spo2); }
       beats = beats.filter(b => b > now - 3);
-      const amp = Math.max(0.25, Math.min(1, (bp.sys == null ? 110 : bp.sys) / 130)) * (v.spo2 < 90 ? 0.8 : 1);
-      drawChan('e', now, tau => { let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } return y + (Math.random() - 0.5) * 0.015; }, '#3df06b', 0.62, 0.50);
+      const arrest = v.rhythm === 'vfib' || v.rhythm === 'asystole', amp = arrest ? 0 : Math.max(0.25, Math.min(1, (bp.sys == null ? 110 : bp.sys) / 130)) * (v.spo2 < 90 ? 0.8 : 1);
+      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + (Math.random() - 0.5) * 0.02; let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } return y + (Math.random() - 0.5) * 0.015; }, '#3df06b', 0.62, 0.50);
       drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp); return y; }, '#35d8ff', 0.8, 0.85, true);
       const rrate = Math.max(2, v.rr), depth = v.rr <= 10 ? 0.55 : 1;
       drawChan('r', now, tau => { const ph = (tau * rrate / 60) % 1; return depth * (Math.sin(ph * 2 * Math.PI - Math.PI / 2) * 0.5 + 0.5) * 0.9 + 0.02 * Math.sin(tau * 9); }, '#ffe44d', 0.7, 0.8, true);
@@ -246,9 +270,9 @@
 
   // ---------- controls ----------
   const RHY_KEYS = Object.keys(RHY); $('iRhy').innerHTML = RHY_KEYS.map(k => `<option value="${k}">${RHY[k]}</option>`).join('');
-  function fillInputs() { const v = vals(); if (!v) return; $('iHR').value = v.hr; $('iSP').value = v.spo2; $('iSys').value = v.sys; $('iDia').value = v.dia; $('iRR').value = v.rr; $('iTP').value = v.temp; $('iRhy').value = v.rhythm; $('iPR').value = v.pr; $('iQRS').value = v.qrs; { const opts = [0.1, 0.3, 0.5, 0.8], ta = Number(v.tAmp), best = opts.reduce((a, b) => Math.abs(b - ta) < Math.abs(a - ta) ? b : a); $('iT').value = String(best); } $('stepNote').textContent = `Scenario row ${v.t.slice(-5)}: ${v.note || ''}`; }
+  function fillInputs() { if (document.activeElement && /INPUT|SELECT/.test(document.activeElement.tagName) && document.getElementById('ctl').contains(document.activeElement)) return; const v = target(); if (!v || v.hr == null) return; $('iHR').value = v.hr; $('iSP').value = v.spo2; $('iSys').value = v.sys; $('iDia').value = v.dia; $('iRR').value = v.rr; $('iTP').value = v.temp; $('iRhy').value = v.rhythm; if (v.o2 && ![...$('iO2').options].some(o => o.value === v.o2)) $('iO2').add(new Option(v.o2)); $('iO2').value = v.o2 || 'Room air'; $('iPR').value = v.pr; $('iQRS').value = v.qrs; { const opts = [0.1, 0.3, 0.5, 0.8], ta = Number(v.tAmp), best = opts.reduce((a, b) => Math.abs(b - ta) < Math.abs(a - ta) ? b : a); $('iT').value = String(best); } $('stepNote').textContent = `Scenario row ${String(v.t).slice(-5)}: ${v.note || ''}`; }
   $('vApply').onclick = () => {
-    const n = id => Number($(id).value); ovr = { hr: n('iHR'), spo2: n('iSP'), rr: n('iRR'), temp: n('iTP'), rhythm: $('iRhy').value, pr: n('iPR'), qrs: n('iQRS'), tAmp: n('iT') };
+    const n = id => Number($(id).value); ovr = { hr: n('iHR'), spo2: n('iSP'), rr: n('iRR'), temp: n('iTP'), rhythm: $('iRhy').value, o2: $('iO2').value, pr: n('iPR'), qrs: n('iQRS'), tAmp: n('iT') };
     const ns = n('iSys'), nd = n('iDia'); if (ns !== bp.sys || nd !== bp.dia) startBP(ns, nd, false);
     toast('Applied'); refreshNums();
   };
@@ -268,7 +292,14 @@
 
   // ---------- follow the EHR ----------
   function fromEhr(t, name) { if (mode !== 'ehr') return; const ms = parse(t); if (ms != null && ms !== clock) setClock(ms, 'ehr'); }
-  if (chan) chan.onmessage = e => { const d = e.data || {}; if (d.simTime) fromEhr(d.simTime); if (d.name) { $('pname').textContent = d.name; } };
+  function broadcastState() { if (!chan) return; const t = target(); chan.postMessage({ monitorState: Object.assign({}, t, { sys: bp.sys == null ? t.sys : bp.sys, dia: bp.dia == null ? t.dia : bp.dia }) }); }
+  function applyOverride(o) {
+    ovr = Object.assign({}, ovr || {}, o.values || {}); const v = o.values || {};
+    if ((v.sys != null && v.sys !== bp.sys) || (v.dia != null && v.dia !== bp.dia)) startBP(v.sys != null ? v.sys : bp.sys, v.dia != null ? v.dia : bp.dia, false);
+    if (v.rhythm && o.preset !== false) { const P = { sinus: [0.16, 0.10, 0.3], brady: [0.18, 0.10, 0.3], tachy: [0.14, 0.09, 0.3], avb1: [0.26, 0.12, 0.4], widebrady: [0.20, 0.16, 0.7], afib: [0.16, 0.10, 0.3], vtach: [0.16, 0.20, 0.3] }[v.rhythm]; if (P && v.pr == null) { ovr.pr = P[0]; ovr.qrs = P[1]; ovr.tAmp = P[2]; } }
+    fillInputs(); refreshNums(); broadcastState();
+  }
+  if (chan) chan.onmessage = e => { const d = e.data || {}; if (d.cmd === 'set') applyOverride(d); else if (d.cmd === 'bp') measureBP(); else if (d.cmd === 'reset') $('vReset').onclick(); else if (d.cmd === 'getState') broadcastState(); if (d.simTime) fromEhr(d.simTime); if (d.name) { $('pname').textContent = d.name; } };
   addEventListener('storage', e => { if (e.key === 'nursingsim.simTime') fromEhr(e.newValue); });
   const saved = ls.get('nursingsim.simTime'); if (mode === 'ehr' && saved && parse(saved)) clock = parse(saved);
   if (chan) chan.postMessage({ hello: 'monitor' });

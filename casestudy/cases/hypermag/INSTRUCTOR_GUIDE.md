@@ -604,3 +604,5 @@ Mg 7.8 mg/dL = 6.4 mEq/L = 3.2 mmol/L (1 mEq/L = 1.22 mg/dL).
 ## Bedside Monitor page (optional, for the projector)
 
 Open `monitor.html` (same web address as the EHR, for example `.../monitor.html`) in a second tab of the same browser and drag it to the projector or HDMI screen. It shows a realistic monitor already loaded with this patient's vitals and rhythm for every checkpoint. When you press 4h in the EHR, the monitor changes to that checkpoint (the blood pressure cuff cycles about 9 seconds later, like a real monitor). Press **C** for instructor controls (change any number, rhythm or time), **N** to measure blood pressure, **F** for full screen and **S** for sound.
+
+In the EHR, the **Monitor** button in the top bar opens the monitor and a small window where you can change oxygen, rhythm, heart rate, SpO2, blood pressure, breathing rate and temperature during the case (for example, put him on 6 L oxygen when students ask for it). Between checkpoints the numbers move gradually as the patient clock moves.
