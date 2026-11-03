@@ -5,6 +5,7 @@ const fs = require('fs');
 let h = fs.readFileSync('index.html', 'utf8');
 const must = (cond, msg) => { if (!cond) { console.error('make-student: ' + msg); process.exit(1); } };
 must(h.includes('<script src="quiz.js"></script>'), 'quiz script tag not found');
+h = h.replace(/\s*<script src="monitor-link.js[^>]*><\/script>/, '');   // instructor-only monitor control
 h = h.replace('<script src="quiz.js"></script>\n', '').replace('<script src="quiz.js"></script>', '');
 h = h.replace(/<a class="top-link" href="case-builder\/index.html">Case Builder<\/a>\s*/, '');
 h = h.replace('<body>', '<body class="student">');
