@@ -598,3 +598,9 @@ Mg 7.8 mg/dL = 6.4 mEq/L = 3.2 mmol/L (1 mEq/L = 1.22 mg/dL).
 - **Print the Student Packet; do not print this guide for students.**
 
 *Source of truth for the chart: casestudy/cases/hypermag/DESIGN.md. If the chart and this guide ever disagree, the chart numbers in DESIGN.md win.*
+
+---
+
+## Bedside Monitor page (optional, for the projector)
+
+Open `monitor.html` (same web address as the EHR, for example `.../monitor.html`) in a second tab of the same browser and drag it to the projector or HDMI screen. It shows a realistic monitor already loaded with this patient's vitals and rhythm for every checkpoint. When you press 4h in the EHR, the monitor changes to that checkpoint (the blood pressure cuff cycles about 9 seconds later, like a real monitor). Press **C** for instructor controls (change any number, rhythm or time), **N** to measure blood pressure, **F** for full screen and **S** for sound.
