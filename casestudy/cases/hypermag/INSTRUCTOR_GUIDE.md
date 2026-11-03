@@ -130,7 +130,7 @@ Each checkpoint has: (A) what happened since the last one (read aloud), (B) **ex
 - Patient (mumbling, slow): *"I... can't... keep my eyes open. Legs feel like lead."*
 - **Deep tendon reflexes ABSENT** (patellar and biceps 0). Can barely lift legs off the bed, grip very weak. Skin flushed, warm.
 - Breathing: shallow, slow, no distress. Lungs clear. Pupils 3 mm, reactive (not an opioid picture; none since Monday).
-- Foley: dark amber, 20 mL in the last hour (hourly 0700-1100: 35, 30, 55, 40 mL; total 160 mL).
+- Foley: dark amber, 40 mL in the last hour (hourly 0700-1100: 35, 30, 55, 40 mL; total 160 mL).
 - Intake since 0700: 800 mL IV.
 
 **(D) Chart appears by now (before 1100):** pharmacy note 0750 (the OTC products), hospitalist notes 0845 and 1030, **0900 labs: Mg 8.7**, K 5.3, creatinine 4.8, BUN 82, Ca 8.7, glucose 122, FENa 0.6% (prerenal), renal ultrasound (no obstruction), 0700-1100 I&O block (in 800 / out 160).
@@ -143,7 +143,7 @@ Each checkpoint has: (A) what happened since the last one (read aloud), (B) **ex
 4. **Calcium gluconate 1 g IV over 10 minutes** per the PRN order / RRT order: right antecubital 18 g, check the IV site and blood return **before** and during, on the monitor, check BP/HR/rhythm every few minutes, do not mix with other drugs in the line.
 5. **Stop** everything that worsens the problem: **no sedatives or opioids**; keep all magnesium out; hold the maintenance saline until the team decides (small 250 mL bolus only, lungs clear).
 6. **SBAR** to the hospitalist/RRT (example in Section 6), stat labs (Mg, BMP, ABG), nephrology urgent call, ICU outreach.
-7. **Vitals q15 minutes**, hourly urine output (20 mL/h is low: call).
+7. **Vitals q15 minutes**, hourly urine output (under 30 mL/h is low: call).
 8. Update the wife and document.
 
 **(F) Prompts if missed.**
@@ -151,7 +151,7 @@ Each checkpoint has: (A) what happened since the last one (read aloud), (B) **ex
 - Only oxygen applied: "SpO2 is 94% on 3 L. His RR is still 10 and EtCO2 is rising. What is the problem?"
 - Calcium given fast or without a monitor: "Which rate? Where is your cardiac monitor? What would you look at on the IV site?"
 - Sedative or opioid considered for "comfort": "He is already 'sedated' by what?" and "Which ordered drugs would worsen breathing?"
-- Wants to run the NS 100 mL/h faster: "He has heart failure and urine of 20 mL/h. Which numbers worry you?"
+- Wants to run the NS 100 mL/h faster: "He has heart failure and low urine (40 mL in the last hour). Which numbers worry you?"
 - If students give calcium and HR/BP improve slightly (HR 48, BP 90/52), tell them it lasts only 30-60 minutes: "What is the plan after that?"
 
 ---
@@ -247,7 +247,7 @@ After first 15 g carbohydrate: **15 minutes: 68**. After the second 15 g: **15 m
 - **Delirium:** awake, restless, confused, picking at the Foley and the neck dressing, tries to get out of bed, thinks it is a work day at the machine shop (CAM positive: acute change, inattention, disorganized thinking, altered level). He can be briefly redirected.
 - Patient: *"I've got to get to the shop. Get these things off me! Where is Eleanor?"*
 - Reflexes 1+ (still diminished). Not in respiratory distress. No pain except "my back."
-- Foley: 55 mL/h (hourly 1900-2300: 45, 50, 55, 60; total 210). Lungs: fine crackles at the bases are clearing.
+- Foley: 60 mL/h in the last hour (hourly 1900-2300: 45, 50, 55, 60; total 210). Lungs: fine crackles at the bases are clearing.
 - Glucose is NOT low (118). Check pain, bladder (Foley kinked? Draining), bowel, oxygen, medications.
 - **The order set has "diphenhydramine 25 mg at bedtime PRN for sleep."** The covering provider (if called) says: *"Is the diphenhydramine order active? Don't give it. Try non-drug measures; I can add melatonin."*
 
@@ -606,3 +606,15 @@ Mg 7.8 mg/dL = 6.4 mEq/L = 3.2 mmol/L (1 mEq/L = 1.22 mg/dL).
 Open `monitor.html` (same web address as the EHR, for example `.../monitor.html`) in a second tab of the same browser and drag it to the projector or HDMI screen. It shows a realistic monitor already loaded with this patient's vitals and rhythm for every checkpoint. When you press 4h in the EHR, the monitor changes to that checkpoint (the blood pressure cuff cycles about 9 seconds later, like a real monitor). Press **C** for instructor controls (change any number, rhythm or time), **N** to measure blood pressure, **F** for full screen and **S** for sound.
 
 In the EHR, the **Monitor** button in the top bar opens the monitor and a small window where you can change oxygen, rhythm, heart rate, SpO2, blood pressure, breathing rate and temperature during the case (for example, put him on 6 L oxygen when students ask for it). Between checkpoints the numbers move gradually as the patient clock moves.
+
+---
+
+## Running this as the 2-hour group case study
+
+For a class sim lab there is a shorter, team-based version of this case: **"The Case of the Silent Mineral"** (printed student packet `CASE_STUDY_PACKET.docx/.pdf`, instructor key `INSTRUCTOR_CASESTUDY_KEY.docx/.pdf/.md`, both in this folder; sources in `student/`).
+
+- **Pacing (about 2 hours):** about 10 minutes opening (roles, ED handoff, patient card), then six checkpoints of about 15 minutes each (0700, 1100, 1500, 1900, 2300, 0300), pressing **4h** at the end of each, then a final 0700 "Case Closed" check and a 15-minute debrief huddle. The key has the minute-by-minute run of show, the monitor settings to use (they are the tables in Section 4 above), when to circulate, and what to skip if you are behind.
+- **Groups and roles:** squads of 2 to 3 share one packet and rotate three jobs at every checkpoint: **A Chart Detective** (orders, MAR, notes: what is active, dangerous, missing, hidden magnesium), **B Lab Interpreter** (new results against the diagnosis and the trend, Mg-o-meter), **C Bedside Nurse** (charts the monitor vitals you set, does the reflex, LOC, breathing and urine assessment). Two-person squads combine A and B.
+- **Each checkpoint** ends with a team huddle (top 3 priorities, one question for the provider, an SBAR call) and a "predict the plot twist" box. Students must not turn the page until you press 4h.
+- **Grading:** 20 points (Teamwork 5, Clinical reasoning 6, Safety/priorities/SBAR 5, Completeness and reflection 4). The key has the rubric guide with examples, a group score sheet and an individual score line.
+- The packet and key use only the numbers in this guide, `DESIGN.md` and `patient.json` (checked by `student/check_facts.py`).
