@@ -1,0 +1,230 @@
+[
+ {
+  "id": "note_cxr_ed_202611170505",
+  "type": "imaging",
+  "title": "XR Chest Single View (portable)",
+  "author": "Radiology Service",
+  "datetime": "2026-11-17 05:05",
+  "category": "Radiology",
+  "summary": "Mild cardiomegaly, no pulmonary edema, effusion or pneumonia.",
+  "body": "**Exam**\nPortable AP chest radiograph, upright, 0450.\n\n**Indication**\nWeakness, lethargy, bradycardia, history of heart failure.\n\n**Comparison**\nChest radiograph 03/2026.\n\n**Findings**\n- Mild cardiomegaly, unchanged. No pulmonary vascular congestion or pulmonary edema.\n- No focal consolidation, pleural effusion or pneumothorax.\n- Mediastinum normal. No acute osseous abnormality.",
+  "study": "Portable chest x-ray, AP",
+  "impression": "Mild stable cardiomegaly. No pulmonary edema, effusion or pneumonia."
+ },
+ {
+  "id": "note_ed_provider_202611170610",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Weakness, Bradycardia, Hypermagnesemia",
+  "author": "R. Alvarez, MD",
+  "datetime": "2026-11-17 06:10",
+  "category": "ED Note",
+  "summary": "74 y/o M with CKD 4, 4 days of vomiting and poor intake, found lethargic and bradycardic; Mg 7.8, creatinine 4.9; calcium gluconate and fluids given.",
+  "body": "**Chief complaint**\nWeakness and sleepiness for 4 days; wife could not wake him easily at 0330. EMS to the ED, arrival 0415.\n\n**HPI**\n74 y/o man with CKD stage 4 (baseline creatinine 2.6, eGFR 25), HFpEF, type 2 diabetes on insulin, hypertension, chronic back pain on oxycodone. Four days of vomiting and poor oral intake (a \"stomach bug\"). Became progressively sleepier, slow to speak and weak. He took more of his stomach medicine for nausea. No chest pain, no fever, no diarrhea, no head injury. Last bowel movement Friday. Wife (Eleanor) states he \"takes his regular pills and some stomach medicine\"; she is bringing the bottles from home. OTC products not yet identified.\n\n**Exam**\nT 97.2 F, HR 46, BP 82/46, RR 14, SpO2 95% RA, POC glucose 148. Drowsy but arouses to voice, slow speech, oriented to person and place. Dry mucous membranes, skin tents, face and chest flushed. Lungs clear. Bradycardic, regular, no JVD. Abdomen soft, mildly distended, hypoactive bowel sounds. Weak grip. Deep tendon reflexes diminished (1+).\n\n**Data**\nECG 0430: sinus bradycardia 46, first-degree AV block (PR 248 ms), QRS 124 ms, QTc 468 ms. Labs: Na 134, K 5.4, CO2 17, BUN 84, creatinine 4.9 (eGFR 12), glucose 148, Ca 8.1 (albumin 3.3), Mg 7.8 (critical), phos 6.2, lactate 1.8, troponin 0.03, BNP 452, WBC 11.8, Hgb 10.4. UA: SG 1.021, 1+ protein, otherwise negative. CXR: mild cardiomegaly, no edema.\n\n**ED course**\nOndansetron 4 mg IV at 0510. Magnesium resulted 0535: critical. Calcium gluconate 1 g IV over 10 min on the monitor 0555-0605 (HR 46 to 50, BP 88/50 to 94/54). Normal saline 500 mL bolus 0605-0635. Foley placed 0610 for hourly urine output. Home lisinopril, metoprolol, furosemide, gabapentin, oxycodone, insulin glargine held.\n\n**Assessment / plan**\n1. Hypermagnesemia with bradycardia, AV block and hypotension, most likely from Mg-containing OTC products with AKI on CKD 4; source being confirmed with the wife.\n2. AKI on CKD 4, prerenal from dehydration plus ACE inhibitor and probably NSAID.\n3. Dehydration with hypotension.\nAdmit to telemetry step-down (hospitalist). Nephrology to be consulted by the admitting team. Wife updated."
+ },
+ {
+  "id": "note_hp_202611170650",
+  "type": "hp",
+  "title": "Hospitalist Admission H&P",
+  "author": "J. Lindgren, MD",
+  "datetime": "2026-11-17 06:50",
+  "category": "H&P",
+  "summary": "Admission H&P: hypermagnesemia and AKI on CKD 4 with bradycardia; plan to stop Mg, calcium, fluids, loop diuretic, q4h Mg, nephrology.",
+  "body": "**Reason for admission**\nHypermagnesemia (Mg 7.8 mg/dL) with AKI on CKD 4, bradycardia, first-degree AV block and hypotension.\n\n**History of present illness**\n74 y/o man, 4 days of vomiting, poor intake and increasing sleepiness. Wife found him hard to wake at 0330. Took lisinopril, furosemide and ibuprofen 600 mg three times daily through the illness. Wife reports \"stomach medicine and a magnesium pill for leg cramps\" for 2-3 weeks; she is bringing the bag of bottles (not yet reviewed). ED treatment: calcium gluconate 1 g, saline 500 mL, ondansetron, Foley.\n\n**Past history**\nCKD stage 4 (creatinine 2.6, eGFR 25 on 10/20; not yet seen by nephrology), HFpEF (EF 55%), type 2 diabetes for 15 years with neuropathy (A1c 7.8%), hypertension, hyperlipidemia, GERD, chronic low back pain, chronic constipation. Former smoker, quit 2005. No alcohol.\n\n**Home medications (ED list; OTC products still being identified)**\nLisinopril 20 mg daily, metoprolol succinate 50 mg daily, furosemide 20 mg daily, insulin glargine 22 units at bedtime (last dose Monday 2100) with lispro 6 units with meals, atorvastatin 40 mg, aspirin 81 mg, pantoprazole 40 mg, gabapentin 300 mg at bedtime, oxycodone 5 mg every 12 hours as needed. OTC: ibuprofen; wife also names antacid and a laxative.\nAllergy: penicillin (childhood rash). Code status: Full Code. Wife Eleanor is the health care proxy.\n\n**Exam (0650)**\nT 97.6 F, HR 52, BP 96/56, RR 14, SpO2 94% RA. Drowsy, wakes to voice, slurred speech. Dry mucosa. Lungs clear, no JVD. Bradycardic, regular. Abdomen mildly distended, hypoactive bowel sounds. Patellar and biceps reflexes 1+. Weight 88.0 kg (dry weight about 90).\n\n**Assessment**\n1. Hypermagnesemia (normal 1.7-2.2), probable exogenous Mg load with GFR about 12: cardiac effects (PR 248, QRS 124), weak reflexes, low BP.\n2. AKI on CKD 4, prerenal plus ACE inhibitor plus NSAID.\n3. T2DM: hold glargine, correction insulin only.\n4. HFpEF: cautious fluids with lung checks.\n5. Chronic opioid constipation.\n\n**Plan**\n- Stop all magnesium sources and avoid magnesium/phosphate products. Hold lisinopril, metoprolol, furosemide PO, gabapentin, oxycodone, NSAIDs.\n- Telemetry. Vitals, level of consciousness, RR and reflexes every 1-2 hours. Pacing pads available if HR falls under 40.\n- Normal saline 500 mL bolus then 100 mL/h; furosemide 80 mg IV after the bolus (hold SBP under 90).\n- Calcium gluconate 1 g IV PRN for HR under 40, wider QRS, RR under 10 or absent reflexes (call).\n- Magnesium and BMP every 4 hours. Hourly urine output. NPO until swallow screen.\n- Nephrology consult in the morning; urgent call if Mg rises or urine output falls."
+ },
+ {
+  "id": "note_pharm_hx_202611170750",
+  "type": "therapyNotes",
+  "title": "Pharmacy Medication History (bag from home reviewed)",
+  "author": "L. Ferreira, PharmD",
+  "datetime": "2026-11-17 07:50",
+  "category": "Pharmacy",
+  "summary": "Wife's bag: milk of magnesia, Maalox-type antacid, magnesium oxide 400 mg, ibuprofen; ~2-3 weeks of use. All stopped.",
+  "body": "**Sources**\nWife (Eleanor) and the bag of bottles she brought from home; outpatient pharmacy list; ED list.\n\n**Over-the-counter products found (not on the ED list)**\n- Milk of magnesia (magnesium hydroxide) 30 mL: wife says 3-4 times daily for about 2 weeks for constipation from oxycodone.\n- Magnesium hydroxide / aluminum hydroxide antacid (Maalox type): after meals and at bedtime, \"extra\" doses over the last 4 days for nausea and heartburn.\n- Magnesium oxide 400 mg: twice daily for 3 weeks for leg cramps (a friend suggested it).\n- Ibuprofen 600 mg: three times daily for 2 weeks for back pain.\nEstimated magnesium intake is far above a safe amount for an eGFR of 12 (the kidneys are the only route of elimination).\n\n**Assessment**\nMagnesium toxicity from chronic OTC magnesium in kidney failure; AKI contributed to by NSAID plus ACE inhibitor plus loop diuretic during volume loss. He did not think these were \"medicines\" and did not tell the clinic.\n\n**Recommendations (discussed with Dr. Okafor)**\n1. Discontinue all four OTC products (orders entered 0750). Add \"no magnesium-containing products\" precaution.\n2. Keep lisinopril, metoprolol, furosemide PO, gabapentin and oxycodone on hold. Gabapentin needs a renal dose later (100-300 mg/day for eGFR 15-29).\n3. Review the nurse-driven bowel protocol: its last step is milk of magnesia and should be removed for this patient.\n4. Pantoprazole IV in place of antacids. For constipation later: polyethylene glycol and senna (no magnesium, no phosphate enemas).\n5. Teaching before discharge: read labels for magnesium; no NSAIDs; sick-day rules."
+ },
+ {
+  "id": "note_hosp_0845_202611170845",
+  "type": "progressNotes",
+  "title": "Hospitalist Progress Note - Day 1 Morning",
+  "author": "D. Okafor, MD",
+  "datetime": "2026-11-17 08:45",
+  "category": "Progress Note",
+  "summary": "Rounding: arousable, bradycardic, hypotensive; Mg source identified; orders for renal US, urine studies, routine nephrology; continue fluids and furosemide.",
+  "body": "**Interval**\nSeen with the night team handoff at 0715. Second bolus running, 100 mL/h to follow. Wife brought a bag of OTC bottles: milk of magnesia, Maalox-type antacid, magnesium oxide, ibuprofen (pharmacy note 0750). All stopped.\n\n**Exam**\nDrowsy, wakes to voice, answers slowly. HR 50s, BP 90s/50s. Lungs clear. Reflexes 1+. Urine output 35 and 30 mL/h in the first two hours.\n\n**Assessment**\nHypermagnesemia and AKI on CKD 4 with a clear exogenous source. Kidneys are the problem: Mg will not fall quickly with urine output of 30-35 mL/h.\n\n**Plan**\n- Furosemide 80 mg IV at 0915 after the bolus. Hourly urine output; call for under 30 mL/h for 2 hours.\n- Mg, BMP, phos at 0900. Urine sodium and creatinine (FENa), CBC, renal ultrasound.\n- Nephrology consult placed (routine); I will call urgently if Mg rises or urine output stays low.\n- Keep NPO until swallow screen; hold sedating medications.\n- Wife updated; daughter Diane en route."
+ },
+ {
+  "id": "note_us_renal_202611171015",
+  "type": "imaging",
+  "title": "Renal Ultrasound",
+  "author": "Radiology Service",
+  "datetime": "2026-11-17 10:15",
+  "category": "Radiology",
+  "summary": "Small echogenic kidneys (chronic disease), no hydronephrosis or stones.",
+  "body": "**Exam**\nRenal and bladder ultrasound, 0945.\n\n**Findings**\n- Right kidney 9.6 cm, left kidney 9.4 cm; increased cortical echogenicity bilaterally, thinned cortex.\n- No hydronephrosis. No stones. No perinephric collection.\n- Bladder contains a Foley catheter balloon and is decompressed.",
+  "study": "Renal ultrasound",
+  "impression": "Chronic medical renal disease. No obstruction."
+ },
+ {
+  "id": "note_hosp_1030_202611171030",
+  "type": "progressNotes",
+  "title": "Hospitalist Progress Note - Labs and Ultrasound Review",
+  "author": "D. Okafor, MD",
+  "datetime": "2026-11-17 10:30",
+  "category": "Progress Note",
+  "summary": "Mg 8.7 and rising despite fluids and furosemide; renal US no obstruction, prerenal pattern; discussing urgent nephrology.",
+  "body": "**Data reviewed**\n- 0900 labs: Mg 8.7 (up from 7.8), K 5.3, creatinine 4.8, BUN 82, Ca 8.7, glucose 122, CO2 18.\n- FENa 0.6% (prerenal pattern). Renal ultrasound: small echogenic kidneys consistent with CKD, no hydronephrosis, no stones.\n- Urine output after furosemide: 55 mL/h from 0900-1000, 40 mL/h since.\n\n**Assessment**\nMagnesium is still rising (gut absorption of recently taken Mg and almost no clearance). Risk of respiratory depression and heart block as the level approaches 10. Hypotension and bradycardia persist.\n\n**Plan**\n- Repeat Mg and ECG with any further drop in RR, HR, BP or reflexes; RN to call at once.\n- If Mg is 9 or higher, or the patient becomes less responsive, I will call nephrology urgently for dialysis.\n- Calcium gluconate 1 g PRN is available. No opioids or sedatives."
+ },
+ {
+  "id": "note_hosp_1155_202611171155",
+  "type": "progressNotes",
+  "title": "Hospitalist Event Note - Rapid Response",
+  "author": "D. Okafor, MD",
+  "datetime": "2026-11-17 11:55",
+  "category": "Progress Note",
+  "summary": "Rapid response 1115 for RR 10, HR 44, BP 84/48, absent reflexes: calcium, O2, bolus, STAT labs, nephrology and ICU outreach called.",
+  "body": "**Event**\nCalled by the RN at 1112 for decreased responsiveness and slow breathing. At the bedside 1120 with the rapid response team.\n\n**Findings**\nDrowsy, rouses to loud voice, speech slurred. RR 10 and shallow, SpO2 91% on room air (94% on 3 L nasal cannula). HR 44 sinus bradycardia, BP 84/48. Patellar and biceps reflexes ABSENT (were 1+ at 0700). Weak, cannot lift legs off the bed. Lungs clear. Urine output 20 mL/h last hour. Last Mg 8.7 (0900).\n\n**Assessment**\nProgressive hypermagnesemia with respiratory depression, AV conduction delay and hypotension. Naloxone not given: no opioid since Monday and pupils are 3 mm reactive.\n\n**Actions**\n- Calcium gluconate 1 g IV over 10 min on the monitor (1120). Oxygen 3 L. NS 250 mL bolus (small because of HFpEF). Pacing pads placed; atropine 1 mg PRN if HR under 40.\n- STAT Mg, BMP, lactate, ABG, 12-lead ECG. Continuous capnography. Vitals every 15 minutes.\n- Urgent phone call to nephrology (Dr. Raman) at 1130 and ICU outreach.\n- Strictly NPO. No sedatives or opioids.\nWife at the bedside, updated; she is the health care proxy."
+ },
+ {
+  "id": "note_neph_consult_202611171240",
+  "type": "progressNotes",
+  "title": "Nephrology Consult Note",
+  "author": "P. Raman, MD",
+  "datetime": "2026-11-17 12:40",
+  "category": "Consult",
+  "summary": "AKI on CKD 4 with Mg 9.5, oliguria, respiratory depression: trial of high-dose furosemide and calcium; prepare for emergent hemodialysis.",
+  "body": "**Reason for consult**\nSevere hypermagnesemia and AKI on CKD 4. Phone call 1130, bedside evaluation 1215.\n\n**History**\n74 y/o man, CKD 4 (creatinine 2.6) with 2-3 weeks of milk of magnesia, Mg/Al antacid and magnesium oxide, then 4 days of vomiting and poor intake on lisinopril, furosemide and ibuprofen. Creatinine 4.8-5.0 with BUN 84. FENa 0.6%. Ultrasound: no obstruction.\n\n**Data**\n1115 STAT: Mg 9.5, K 5.6, creatinine 5.0, BUN 84, CO2 17, Ca 8.5, phos 6.4, lactate 2.0. ABG on 3 L: pH 7.24, PaCO2 46, PaO2 72, HCO3 19 (mixed respiratory and metabolic acidosis). ECG 1130: HR 40, PR 300 ms, QRS 136 ms. Urine output 20-25 mL/h. Weight 88.0 kg; lungs clear.\n\n**Assessment**\nHypermagnesemia (9.5) with respiratory depression, absent reflexes, AV block and hypotension in a patient who cannot excrete magnesium. Saline and loop diuretics rarely work at this GFR with oliguria. Hemodialysis is definitive treatment.\n\n**Plan**\n1. Furosemide 160 mg IV over 40 minutes now (trial; do not wait on it).\n2. Calcium gluconate 2 g IV over 20 minutes now, repeat as needed to hold HR over 40 and RR over 10.\n3. Repeat Mg, BMP and ABG at 1315/1415; ECG 1330.\n4. Prepare for emergent hemodialysis if Mg is 10 or higher, urine output stays under 30 mL/h, or any further drop in respiratory rate or alertness. Dialysis RN notified, consent discussion with the wife.\n5. Strict I&O, hold potassium, no magnesium or phosphate products, no NSAIDs or ACE inhibitor."
+ },
+ {
+  "id": "note_neph_hd_202611171355",
+  "type": "progressNotes",
+  "title": "Nephrology Note - Decision for Emergent Hemodialysis",
+  "author": "P. Raman, MD",
+  "datetime": "2026-11-17 13:55",
+  "category": "Progress Note",
+  "summary": "Mg 10.9, K 5.8, HR 38, QRS 148, urine 10-15 mL/h: emergent HD today; bedside dialysis catheter; wife consents.",
+  "body": "**Data (1315 draw, resulted 1400; ECG 1330)**\nMg 10.9 (critical), K 5.8, creatinine 5.3, BUN 88, CO2 16, Ca 8.3, phos 6.5. ECG 1330: HR 38, PR 320 ms, QRS 148 ms, QTc 492, tall T waves. Urine output 10-25 mL/h over 3 hours despite furosemide 160 mg. RR 9-10 on 4 L, drowsy, reflexes absent.\n\n**Assessment**\nLife-threatening hypermagnesemia (and hyperkalemia 5.8 with acidosis) with respiratory depression and heart block. No response to saline, furosemide and repeated calcium. Emergent hemodialysis indicated.\n\n**Plan**\n- Temporary right IJ non-tunneled dialysis catheter at the bedside now (ultrasound guided), chest x-ray before use.\n- Hemodialysis 3 hours starting about 1500: low-magnesium dialysate, K 3, Ca 2.5, blood flow 300, heparin-free, ultrafiltration as blood pressure tolerates.\n- Calcium gluconate 2 g IV over 20 min now to bridge (1400).\n- Stop the saline maintenance at 1415 (positive fluid balance, HFpEF, oliguria).\n- Consent: wife (health care proxy) by phone at 1350, witnessed by two RNs. Patient unable to consent.\n- Post-dialysis Mg, K, Ca and glucose checks; watch intradialytic hypotension."
+ },
+ {
+  "id": "note_icu_outreach_202611171435",
+  "type": "progressNotes",
+  "title": "ICU Outreach Evaluation",
+  "author": "H. Moreno, MD (Critical Care)",
+  "datetime": "2026-11-17 14:35",
+  "category": "Consult",
+  "summary": "ICU outreach: no intubation now (RR 9, PaCO2 52); stay on 5E with 1:1 RN during bedside HD; intubate for declining GCS, PaCO2 over 60 or RR under 8.",
+  "body": "**Reason**\nRespiratory depression with hypermagnesemia, evaluated 1425 at nephrology request.\n\n**Data**\n1415 ABG on 4 L NC: pH 7.20, PaCO2 52, PaO2 68, HCO3 20, SaO2 91%. RR 9, EtCO2 52. HR 44, BP 86/48. Drowsy, responds to voice, protecting the airway at present.\n\n**Assessment**\nHypoventilation from neuromuscular weakness and central depression. Calcium gluconate buys time. Dialysis will correct the cause. Not intubating at present.\n\n**Recommendations**\n- Stay on 5E for bedside dialysis with a 1:1 RN; ICU outreach RN returns every hour.\n- Intubate and transfer to ICU if: RR under 8, PaCO2 over 60 or pH under 7.15, SpO2 under 90% on 6 L, decline in alertness or loss of airway reflexes. Keep bag-valve-mask, suction, and the airway cart in the room.\n- No BiPAP (aspiration risk with drowsiness and vomiting history).\n- Repeat ABG after dialysis if the respiratory rate or alertness has not improved."
+ },
+ {
+  "id": "note_neph_proc_202611171450",
+  "type": "progressNotes",
+  "title": "Procedure Note - Temporary Hemodialysis Catheter, Right Internal Jugular",
+  "author": "P. Raman, MD",
+  "datetime": "2026-11-17 14:50",
+  "category": "Procedure Note",
+  "summary": "Right IJ 12 Fr dialysis catheter placed 1440, ultrasound guided, no complications; chest x-ray ordered.",
+  "body": "**Indication**\nEmergent hemodialysis for severe hypermagnesemia.\n\n**Consent**\nFrom the wife (health care proxy) by phone 1350, two RN witnesses.\n\n**Procedure**\nTime-out 1415. Patient supine, Trendelenburg, head turned left. Right neck prepped with chlorhexidine, full sterile barrier. Ultrasound confirmed a patent compressible right IJ. 1% lidocaine local. Seldinger technique, 12 Fr 20 cm non-tunneled dual-lumen dialysis catheter placed, both ports aspirated and flushed easily, heparin-locked 1,000 units/mL. Sutured and dressed. EBL under 5 mL. No arrhythmia. Patient remained on the monitor with the RN at the bedside.\n\n**Complications**\nNone apparent. Portable chest x-ray ordered to confirm tip position and exclude pneumothorax before first use."
+ },
+ {
+  "id": "note_cxr_hd_202611171455",
+  "type": "imaging",
+  "title": "XR Chest Single View (post dialysis catheter)",
+  "author": "Radiology Service",
+  "datetime": "2026-11-17 14:55",
+  "category": "Radiology",
+  "summary": "Right IJ dialysis catheter tip at the cavoatrial junction, no pneumothorax; mild interstitial prominence.",
+  "body": "**Exam**\nPortable AP chest radiograph, 1445.\n\n**Findings**\n- Right IJ dialysis catheter with the tip at the cavoatrial junction.\n- No pneumothorax or hemothorax.\n- Mild cardiomegaly. Mild bibasilar interstitial prominence, new since 0450, consistent with early volume overload and low lung volumes.",
+  "study": "Portable chest x-ray, AP, post line placement",
+  "impression": "Right IJ dialysis catheter in good position; no pneumothorax. Mild new interstitial prominence (volume)."
+ },
+ {
+  "id": "note_neph_post_202611171850",
+  "type": "progressNotes",
+  "title": "Nephrology Note - Post Dialysis",
+  "author": "P. Raman, MD",
+  "datetime": "2026-11-17 18:50",
+  "category": "Progress Note",
+  "summary": "Mg 10.9 to 4.6 after 3 h HD; tolerated; expect rebound; keep catheter; second session if Mg over 7 or symptomatic.",
+  "body": "**Course**\nHemodialysis 1500-1800, net UF 500 mL, brief intradialytic hypotension at 1630 (82/46) responded to 250 mL saline and slower UF. Respiratory rate 16, awake, reflexes 1+ and returning, HR 64, sinus rhythm.\n\n**Data**\nMg 7.2 at 1700; post 1800: Mg 4.6, K 3.9, creatinine 3.0, BUN 38, CO2 23, Ca 7.7 (ionized 1.02, low), phos 3.3. ECG 1830: sinus 66, PR 204, QRS 108, QTc 486. Glucose at 1700 was 71 (trending down: 148, 122, 108, 96, 71).\n\n**Assessment**\nHypermagnesemia corrected. Expect rebound (tissue stores and unabsorbed gut magnesium) over 4-8 hours; mild hypocalcemia after magnesium falls (parathyroid suppression); glucose falling (reduced insulin clearance, no basal need, dialysis).\n\n**Plan**\n- Magnesium and BMP at 2100, 0100 and 0500; ionized calcium with each. Repeat dialysis if Mg over 7 or any drop in RR, reflexes or alertness.\n- Keep the dialysis catheter (dialysis staff only). Resume urine output monitoring; furosemide as needed.\n- Watch glucose closely. Bowel regimen without magnesium or phosphate; clear the gut.\n- Calcium gluconate only if symptomatic or QTc over 500."
+ },
+ {
+  "id": "note_hosp_1940_202611171940",
+  "type": "progressNotes",
+  "title": "Hospitalist Event Note - Hypoglycemia",
+  "author": "D. Okafor, MD",
+  "datetime": "2026-11-17 19:40",
+  "category": "Progress Note",
+  "summary": "Glucose 54 at 1905, treated per protocol; start D10W 40 mL/h, glucose hourly x3, renal diet after swallow screen.",
+  "body": "**Event**\nCalled 1915 by the RN: glucose 54 at 1905 (lab 71 at 1700), tremulous, sweaty, anxious, alert and oriented. Swallow screen passed. Treated with 15 g oral carbohydrate (apple juice) x2 per protocol; 68 at 1920, 84 at 1935. No home glargine since Monday night; correction insulin not needed all day.\n\n**Assessment**\nHypoglycemia due to prolonged insulin effect in AKI/CKD 4 (last glargine 22 units Monday 2100), minimal intake for 4 days, and dialysis. Symptoms (tremor, sweating) are partly masked by his bradycardia and beta-blocker history.\n\n**Plan**\n- Dextrose 10% 40 mL/h until 0130; glucose every hour x3 then every 2 hours.\n- No basal insulin tonight. Hold correction insulin if glucose under 100. Recheck all insulin doses before discharge (lower dose).\n- Renal consistent-carbohydrate diet, 1,200 mL fluid restriction, dietitian to see. Apple juice or glucose tablets (not orange juice).\n- Wife and daughter updated."
+ },
+ {
+  "id": "note_hosp_2330_202611172330",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Progress Note",
+  "author": "J. Lindgren, MD",
+  "datetime": "2026-11-17 23:30",
+  "category": "Progress Note",
+  "summary": "Mg 5.6 (rebound beginning), Ca 7.9, restless and confused (CAM positive); delirium precautions, no sedatives, bowel regimen started.",
+  "body": "**Interval**\nSign-out from Dr. Okafor at 1900. Glucose stable on D10W. 2100 labs: Mg 5.6 (post-dialysis 4.6), K 4.3, creatinine 3.4, BUN 40, Ca 7.9 (ionized 1.06), glucose 118. Urine output 45-60 mL/h. Wife went home at 2100.\n\n**Called 2310**\nNew restlessness, picking at the Foley and dialysis dressing, thinks he is at the machine shop, CAM positive. HR 62, BP 112/64, RR 16, SpO2 96% RA.\n\n**Assessment**\nDelirium multifactorial (uremia, hospital night, recent hypoglycemia and magnesium toxicity). Mg rising again (rebound). Not hypoglycemic.\n\n**Plan**\n- Non-drug measures first. No sedatives: no diphenhydramine, benzodiazepines or opioids. Melatonin 3 mg PRN allowed.\n- Bowel regimen: polyethylene glycol and senna started; hold all magnesium and phosphate products.\n- Magnesium at 0100 and 0500; call for RR under 12, HR under 50, reflexes lost, or Mg over 7 (call nephrology)."
+ },
+ {
+  "id": "note_hosp_0320_202611180320",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Event Note - Mg Rebound and Constipation",
+  "author": "J. Lindgren, MD",
+  "datetime": "2026-11-18 03:20",
+  "category": "Progress Note",
+  "summary": "Mg 6.4 at 0100 (rebound), HR 56, RR 12, reflexes 1+, abdomen distended; KUB ordered; bisacodyl, remove milk of magnesia protocol; nephrology called.",
+  "body": "**Data**\n0100: Mg 6.4 (up from 5.6 at 2100, 4.6 post-dialysis), K 4.5, Ca 8.1 (ionized 1.08), creatinine 3.5. ECG 0230: sinus 54, PR 236, QRS 114, QTc 478. Urine output 40-55 mL/h.\n\n**Called 0245 by the RN**\nAbdomen distended, hypoactive bowel sounds, no stool since Friday (and none in the hospital). RN asked about the nurse-driven bowel protocol because its last step is milk of magnesia (contains magnesium); not given. HR 56, BP 104/60, RR 12, drowsy but wakes to voice; reflexes 1+ again.\n\n**Assessment**\nMagnesium rebound with retained gut magnesium (constipation). Level is below the earlier symptomatic range but rising; no new bradycardia or breathing change.\n\n**Plan**\n- Discontinue the bowel protocol (contains milk of magnesia) and the sleep-aid order set item (diphenhydramine).\n- Bisacodyl 10 mg PR now; continue polyethylene glycol; KUB. No Fleet (sodium phosphate) or magnesium enemas.\n- Nephrology (Dr. Raman) updated by phone 0310: no dialysis now; recheck Mg 0500; second session if Mg is over 7 or breathing/reflexes worsen.\n- RN to call for RR under 10, HR under 45, SBP under 90, absent reflexes."
+ },
+ {
+  "id": "note_kub_202611180345",
+  "type": "imaging",
+  "title": "XR Abdomen Single View (KUB)",
+  "author": "Radiology Service",
+  "datetime": "2026-11-18 03:45",
+  "category": "Radiology",
+  "summary": "Moderate to large stool burden, no obstruction.",
+  "body": "**Exam**\nSupine abdomen, 0330.\n\n**Findings**\n- Moderate to large amount of stool throughout the colon and rectum.\n- Non-obstructive bowel gas pattern. No free air.\n- Dialysis catheter tip not in field.",
+  "study": "Abdomen, single view",
+  "impression": "Moderate-large stool burden. No obstruction."
+ },
+ {
+  "id": "note_pharm_teach_202611180640",
+  "type": "therapyNotes",
+  "title": "Pharmacy Discharge Planning and Teaching Plan",
+  "author": "L. Ferreira, PharmD",
+  "datetime": "2026-11-18 06:40",
+  "category": "Pharmacy",
+  "summary": "Medication reconciliation and teaching plan: OTC magnesium avoidance, laxative and heartburn alternatives, NSAID avoidance, sick-day rules.",
+  "body": "**Medication reconciliation (home vs hospital)**\n- STOP permanently: milk of magnesia, Maalox/Mylanta-type antacids, magnesium oxide, ibuprofen and all NSAIDs (naproxen, aspirin at pain doses).\n- HOLD until nephrology clears: lisinopril, metoprolol (restart a lower dose if HR over 60), furosemide PO dose to be reset, gabapentin (renal dose 100-300 mg/day), oxycodone (lowest dose, only with a bowel regimen).\n- CHANGE: insulin glargine from 22 units to a lower dose (about 60-70% reduction) with a morning check; lispro only with meals.\n- CONTINUE: aspirin 81 mg, atorvastatin 40 mg, pantoprazole 40 mg.\n\n**Safe alternatives to teach**\n- Constipation: polyethylene glycol 3350 (MiraLAX) daily, senna, docusate; fluids per the renal diet; fiber as allowed; walk. Not milk of magnesia, magnesium citrate, Epsom salt or Fleet (phosphate).\n- Heartburn: pantoprazole as prescribed; ask before using any antacid (calcium carbonate may be allowed in small amounts).\n- Leg cramps: stretching, hydration, ask the doctor; no magnesium supplement.\n- Pain: acetaminophen up to 3 g/day; topical lidocaine; no ibuprofen/naproxen.\n- Sick-day rule: when vomiting or not drinking, call before taking lisinopril, furosemide or insulin.\n- Read the label: \"magnesium\" in the active ingredients means do not take. Bring all bottles to every visit."
+ },
+ {
+  "id": "note_neph_wed_202611180645",
+  "type": "progressNotes",
+  "title": "Nephrology Progress Note - Day 2 Morning",
+  "author": "P. Raman, MD",
+  "datetime": "2026-11-18 06:45",
+  "category": "Progress Note",
+  "summary": "Mg 5.3, creatinine 3.3, urine output recovering to 80 mL/h; no further dialysis; remove Foley; keep HD catheter 24 h; furosemide for 2 L gain.",
+  "body": "**Data (0500)**\nMg 5.3 (down from 6.4 after a large stool 0345), K 4.3, creatinine 3.3, BUN 42, Ca 8.4, phos 4.3, glucose 128, Hgb 9.6. ECG 0600: sinus 66, PR 212, QRS 102, QTc 462. Weight 90.0 kg (88.0 on admission), fine crackles at both bases, trace ankle edema. Urine output 85 mL/h last hour. Net about +2 L since admission.\n\n**Assessment**\nHypermagnesemia resolving; kidney function recovering toward CKD baseline (creatinine 3.3, baseline 2.6). Rebound has peaked.\n\n**Plan**\n- No further dialysis today. Keep the temporary catheter 24 hours in case of rebound; remove tomorrow if Mg stays under 4.\n- Furosemide 80 mg IV at 0800 for the fluid gain; fluid restriction 1,200 mL.\n- Foley no longer needed (hourly output not required): remove this morning, bladder scan if no void in 6 hours.\n- Mg and BMP every 8 hours today. Restart nothing that contains magnesium; lisinopril and NSAIDs stay off.\n- Outpatient nephrology follow-up arranged."
+ },
+ {
+  "id": "note_rd_wed_202611180655",
+  "type": "therapyNotes",
+  "title": "Nutrition Initial Assessment",
+  "author": "C. Bianchi, RD",
+  "datetime": "2026-11-18 06:55",
+  "category": "Nutrition",
+  "summary": "Renal consistent-carbohydrate diet plan; low potassium and phosphorus; no magnesium supplements; hypoglycemia snacks.",
+  "body": "**Assessment**\n74 y/o M, 88.0 kg, BMI 28.7, 4 days of poor intake, now alert and passing swallow screen. Albumin 3.1. K 4.3, phos 4.3, Mg 5.3, glucose 128.\n\n**Recommendations**\n- Renal consistent-carbohydrate diet: 2 g sodium, potassium about 2 g, phosphorus restricted, fluids 1,200 mL, 1.0-1.2 g/kg protein. Small frequent meals (glucose has dropped).\n- Avoid magnesium-rich foods and supplements in large amounts (nuts, seeds, bran, dark chocolate); avoid salt substitutes (potassium).\n- Bedtime snack with carbohydrate and protein. For low glucose use apple juice or glucose tablets (not orange juice).\n- Teaching with the wife on Thursday."
+ },
+ {
+  "id": "note_cm_wed_202611180658",
+  "type": "caseManagement",
+  "title": "Case Management Initial Assessment",
+  "author": "N. Thompson, RN CM",
+  "datetime": "2026-11-18 06:58",
+  "category": "Case Management",
+  "summary": "Home with wife expected; teaching, outpatient nephrology and PCP follow-up; possible short home health visit.",
+  "body": "**Living situation**\nLives with wife Eleanor (72) in a single-level home; daughter Diane lives 15 minutes away. Independent before illness. Retired machinist. Medicare.\n\n**Plan**\n- Anticipated discharge home in 2-3 days if Mg under 3.5 and stable, off oxygen, voiding after Foley removal, glucose stable.\n- Home health nurse for medication reconciliation and a pill-box setup. Outpatient nephrology within 1 week (first visit), PCP in 1 week.\n- Teach-back with patient and wife about OTC products and constipation; wife to remove magnesium products from the home.\n- PT to evaluate (deconditioned after 4 days in bed)."
+ }
+]

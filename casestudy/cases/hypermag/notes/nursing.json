@@ -1,0 +1,52 @@
+[
+ {
+  "id": "note_rrt_202611171140",
+  "type": "progressNotes",
+  "title": "Rapid Response Team Nursing Note",
+  "author": "S. Nakamura, RN (Rapid Response)",
+  "datetime": "2026-11-17 11:40",
+  "category": "Nursing Note",
+  "summary": "RRT 1115: RR 10, HR 44, BP 84/48, absent DTRs; calcium gluconate and O2; call to hospitalist and nephrology.",
+  "body": "**Situation**\nRRT called 1115 by the unit RN for RR 10 (from 14 at 0700), HR 44 (from 52), BP 84/48 (from 96/56), more sleepy.\n\n**Assessment**\nNeuro: rouses to loud voice and falls back asleep; oriented to self only. DTRs absent bilaterally; grip very weak. Resp: shallow, 10/min, SpO2 91% RA to 94% on 3 L NC; lungs clear. CV: sinus bradycardia 44 with long PR on the monitor; cap refill 3 sec. Foley: 20 mL in the last hour, dark amber.\n\n**Interventions**\nHead of bed 30 degrees, jaw-thrust/suction available, bag-valve-mask at bedside. Pacing pads applied (not paced). Calcium gluconate 1 g IV over 10 min through the right antecubital 18 g (site checked, no infiltration) with monitor; HR 44 to 48, BP 84/48 to 90/52 after. 12-lead ECG done: PR 300 ms, QRS 136 ms. ABG drawn. NS 250 mL over 30 min. Hospitalist at bedside 1120.\n\n**Plan**\nVitals every 15 minutes, continuous SpO2 and EtCO2, hourly urine output, no sedatives. Unit RN keeps the patient on 1:1 observation for now."
+ },
+ {
+  "id": "note_hd_nursing_202611171855",
+  "type": "progressNotes",
+  "title": "Hemodialysis Treatment Note",
+  "author": "D. Whitaker, RN (Dialysis)",
+  "datetime": "2026-11-17 18:55",
+  "category": "Nursing Note",
+  "summary": "HD 1500-1800, net UF 500 mL, intradialytic hypotension at 1630 treated with 250 mL saline; Mg 7.2 at 1700, 4.6 post; tolerated.",
+  "body": "**Pre-dialysis**\nWeight 88.0 kg (bed). Pre-treatment 1500: HR 46, BP 88/50, RR 9, SpO2 92% on 4 L; drowsy. Right IJ catheter flushed, both lumens drew easily. Machine tested, low-magnesium bath (K 3, Ca 2.5), heparin-free. Unit RN at the bedside with the monitor, calcium gluconate on the cart.\n\n**Treatment**\nStarted 1500, blood flow 300 mL/min, goal UF 500 mL. 1530: HR 52, BP 92/54. 1600: HR 56, BP 96/56, RR 11. 1630: BP 82/46, dizzy: UF off, blood flow lowered to 200, NS 250 mL via the circuit, Trendelenburg; BP 94/52 by 1645. 1700: HR 60, BP 96/54, RR 14, mid-treatment Mg 7.2 (drawn from the circuit). Reflexes returning (patellar 1+ at 1700). UF resumed at 1700 at a low rate. Ended 1800 as ordered: 3 hours, net UF 500 mL.\n\n**Post-dialysis**\n1800: HR 64, BP 100/58, RR 16, SpO2 96% RA (nasal cannula off 1830). Post Mg 4.6, K 3.9, Ca 7.7, ionized Ca 1.02 (resulted 1850). Catheter flushed and heparin-locked, dressing dry, no bleeding. Report given to the unit RN: watch glucose (lab glucose 71 at 1700), Mg rebound, BP and calcium."
+ },
+ {
+  "id": "note_ed_triage_202611170435",
+  "type": "progressNotes",
+  "title": "ED Triage Nursing Note",
+  "author": "K. Ortiz, RN",
+  "datetime": "2026-11-17 04:35",
+  "category": "Nursing Note",
+  "summary": "EMS arrival 0415: drowsy, weak, HR 46, BP 82/46; ECG, two IVs and labs sent.",
+  "body": "**Arrival**\nBrought by EMS at 0415. Wife (Eleanor) called 911 at 0335 because she could not wake him easily and he was slurring words. Triage ESI 2.\n\n**Assessment**\nDrowsy, wakes to voice, slow speech, knows his name. Weak grip. Skin warm, flushed, tents slowly; mucous membranes dry. Lungs clear, no distress.\nVitals 0425: T 97.2 F, HR 46, BP 82/46, RR 14, SpO2 95% on room air, glucose 148, pain 2/10 low back (chronic).\n\n**Wife reports**\nVomiting and poor intake for 4 days, sleeping more, no bowel movement since Friday, \"takes his regular pills and some stomach medicine.\" No fever, no fall.\n\n**Actions**\nPlaced on the cardiac monitor: sinus bradycardia. 12-lead ECG at 0430 shown to Dr. Alvarez. 20 g IV left forearm 0435; 18 g right antecubital 0445; labs sent 0440 (including magnesium, added by the physician). Clean-catch urine by urinal 0450 (small amount, dark amber). Fall precautions, bed low, NPO."
+ },
+ {
+  "id": "note_ed_rn_202611170630",
+  "type": "progressNotes",
+  "title": "ED Nursing Note - Treatments",
+  "author": "K. Ortiz, RN",
+  "datetime": "2026-11-17 06:30",
+  "category": "Nursing Note",
+  "summary": "Calcium gluconate 1 g and NS 500 mL given; HR 46 to 50, BP 82/46 to 94/54; Foley placed 0610; vomited once 0510.",
+  "body": "**Course**\n- 0500: HR 48, BP 86/48. 0510: vomited 100 mL clear; ondansetron 4 mg IV; nausea improved. 0535: lab called critical magnesium 7.8; physician notified (aware).\n- 0555-0605: calcium gluconate 1 g in 50 mL NS IV over 10 minutes through the right antecubital 18 g on the cardiac monitor; site checked before and after, no infiltration. Pre: HR 46, BP 88/50. Post (0620): HR 50, BP 94/54, no ectopy.\n- 0605-0635: normal saline 500 mL bolus. Lungs clear before and after, SpO2 95% on room air.\n- 0610: 16 Fr Foley placed (sterile technique) for hourly output in AKI. 90 mL dark amber urine on insertion.\n- Weight 88.0 kg (bed scale, 0600). POC glucose 132 at 0645.\n\n**Neuro / safety**\nDrowsy but arouses to voice; oriented to person and place; reflexes 1+. Bed alarm on. Wife at the bedside; she asked their daughter to bring the bottles from home."
+ },
+ {
+  "id": "note_ed_handoff_202611170655",
+  "type": "progressNotes",
+  "title": "ED to Unit Handoff (SBAR)",
+  "author": "K. Ortiz, RN",
+  "datetime": "2026-11-17 06:55",
+  "category": "Nursing Note",
+  "summary": "SBAR handoff to 5 East: hypermagnesemia 7.8, AKI on CKD 4; calcium and 1 L total saline given; Foley; wife has a bag of home bottles to review.",
+  "body": "**Situation**\nRaymond Kessler, 74 y/o M, arriving at 5E-14 with critical hypermagnesemia (Mg 7.8 mg/dL, normal 1.7-2.2), AKI on CKD 4 (creatinine 4.9), bradycardia and hypotension. Full Code. Allergy: penicillin (rash).\n\n**Background**\n4 days of vomiting and poor intake, then hard to wake. Lisinopril, furosemide, ibuprofen at home. Wife says he takes \"stomach medicine\" and a \"magnesium pill\"; a bag of bottles (delivered 0640) has NOT been reviewed. Last stool Friday. Home meds on hold (ED list: lisinopril, metoprolol, furosemide, glargine, gabapentin, oxycodone, aspirin, atorvastatin, pantoprazole).\n\n**Assessment (0700)**\nT 97.6 F, HR 52 sinus bradycardia with first-degree AV block, BP 96/56, RR 14, SpO2 94% RA, pain 2/10. Drowsy but wakes to voice, slurred speech, patellar and biceps reflexes 1+, weak grip. Skin flushed, dry mucosa. Abdomen mildly distended. NPO. Lines: 20 g left forearm (saline lock, bolus ahead), 18 g right antecubital. Foley 16 Fr placed 0610: 130 mL out since arrival.\nGiven: calcium gluconate 1 g 0555; NS 500 mL 0605-0635; ondansetron 4 mg 0510.\n\n**Recommendation / to do**\nSecond NS 500 mL bolus due 0715 (lung check before and after), then 100 mL/h; furosemide 80 mg IV at 0915; Mg, BMP at 0900 then every 4 hours; pacing pads available; calcium gluconate PRN for HR under 40, wide QRS, RR under 10 or lost reflexes; review the bag of bottles with the wife; hourly urine output."
+ }
+]

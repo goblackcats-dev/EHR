@@ -83,6 +83,15 @@
      "file": "casestudy/cases/hip_orif/patient.json",
      "age": 82,
      "sex": "Female"
+    },
+    {
+     "id": "hypermag",
+     "name": "Raymond Kessler",
+     "title": "Telemetry Step-Down: hypermagnesemia from over-the-counter magnesium with acute kidney injury on CKD, emergent hemodialysis (24 h in 4-hour checkpoints)",
+     "desc": "Tue 0700 to Wed 0700 in seven 4-hour checkpoints: a lethargic, bradycardic man with CKD 4 and AKI who took milk of magnesia, a Mg antacid and magnesium oxide; calcium gluconate, fluids and diuretic, deterioration with respiratory depression, emergent hemodialysis, hypoglycemia after dialysis, magnesium rebound with delirium and constipation, then recovery teaching. Includes an instructor guide with bedside-monitor settings and a debriefing.",
+     "file": "casestudy/cases/hypermag/patient.json",
+     "age": 74,
+     "sex": "Male"
     }
    ]
   }
