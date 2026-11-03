@@ -143,6 +143,7 @@
   <small>One row per time: the monitor shows the latest row at or before the clock. Edit it, then press Save. It is kept in this browser.</small>
   <textarea id="scenText" spellcheck="false"></textarea>
   <div class="row"><button id="scenSave">Save scenario</button><button id="scenReset" class="alt">Reset to Ray Kessler</button></div>
+  <small>Natural variation: every 2-3 seconds the numbers drift a little (HR &plusmn;3, SpO2 &plusmn;1, RR &plusmn;1) and each blood pressure reading differs a little (&plusmn;5 / &plusmn;3), never across an alarm limit. A row can set its own ranges, for example <code>"var": {"hr": 2, "sys": 3}</code>. The cuff takes 45 seconds, with pump and valve sounds when sound is on. Numbers you type yourself (Apply, or the EHR Monitor window) are used exactly.</small>
   <small>Fields per row: t, hr, spo2, sys, dia, rr, temp, rhythm (sinus, brady, avb1, widebrady), pr, qrs, tAmp, o2 (text), note.</small>
   <small>Keys: C = this panel, N = measure BP, F = full screen, S = sound.</small>
 </div>
@@ -176,9 +177,9 @@
   let clock = parse(ls.get('nsmon.time')) || parse(scen[0].t), mode = ls.get('nsmon.mode') || 'ehr';
   let cur = null, curKey = '', ovr = null, bp = { sys: null, dia: null, at: null, measuring: 0 }, bpHist = [], silenceUntil = 0;
   const mapOf = (s, d) => Math.round((s + 2 * d) / 3);
-  const addHist = (sys, dia, at) => { bpHist = bpHist.filter(h => h.at !== at && h.at <= clock); bpHist.push({ sys, dia, at }); bpHist.sort((a, b) => a.at - b.at); bpHist = bpHist.slice(-5); };
+  const addHist = (sys, dia, at) => { bpHist = bpHist.filter(h => h.at <= clock); bpHist.push({ sys, dia, at }); bpHist.sort((a, b) => a.at - b.at); bpHist = bpHist.slice(-5); };
   // earlier readings so the trend is not empty: the last scenario rows before now
-  function seedHist() { bpHist = scen.filter(r => parse(r.t) != null && parse(r.t) <= clock).slice(-4).map(r => ({ sys: r.sys, dia: r.dia, at: parse(r.t) })); }
+  function seedHist() { bpHist = scen.filter(r => parse(r.t) != null && parse(r.t) < clock).slice(-4).map(r => ({ sys: r.sys, dia: r.dia, at: parse(r.t) })); }
   const clockText = ms => { const d = new Date(ms); return `${DAYS[d.getUTCDay()]} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`; };
   const chan = 'BroadcastChannel' in window ? new BroadcastChannel('nursingsim') : null;
 
@@ -204,18 +205,42 @@
   // ---------- numbers and alarms ----------
   let shown = null;
   function target() { return Object.assign({}, cur, ovr || {}); }
+  // ---- natural variation: every 2-3 seconds each number drifts to a new value inside a small range around the scenario value,
+  // and never across an alarm limit (so a "normal" patient stays normal). A row may set its own ranges: "var": {"hr": 2, "sys": 3}
+  const VAR0 = { hr: 3, spo2: 1, rr: 1, sys: 5, dia: 3 }, LIMS = { hr: [50, 120], spo2: [90], rr: [10, 24], sys: [90, 180] };
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const guard = (k, base, v) => { (LIMS[k] || []).forEach(l => { if (base >= l && v < l) v = l; else if (base < l && v >= l) v = l - 1; }); return v; };
+  const vr = k => { const row = stepFor(clock); return row && row.var && row.var[k] != null ? row.var[k] : (VAR0[k] || 0); };
+  const wander = { next: 0, off: {} };
+  function rewander() { ['hr', 'spo2', 'rr'].forEach(k => { const r = vr(k) * (k === 'hr' && (ovr && ovr.rhythm || cur && cur.rhythm) === 'afib' ? 2 : 1); wander.off[k] = Math.round(rnd(-r, r)); }); wander.next = Date.now() + rnd(2000, 3000); }
+  function aim() {
+    const b = target(); if (b.rhythm === 'vfib' || b.rhythm === 'asystole') return b;
+    if (Date.now() > wander.next) rewander();
+    ['hr', 'spo2', 'rr'].forEach(k => { if (b[k] != null) b[k] = Math.max(k === 'hr' ? 0 : 1, guard(k, b[k], b[k] + (wander.off[k] || 0))); });
+    b.spo2 = Math.min(100, b.spo2); return b;
+  }
   function vals() { return shown || target(); }
   // the displayed numbers glide to the target (like a real monitor settling), about every quarter second
   setInterval(() => {
-    const t = target(); if (!shown) { shown = t; return; }
+    const t = aim(); if (!shown) { shown = t; return; }
     ['hr', 'spo2', 'rr'].forEach(k => { const d = t[k] - shown[k]; shown[k] += Math.abs(d) <= 1 ? d : Math.sign(d) * (Math.abs(d) > 12 ? 3 : 1); });
     { const d = t.temp - shown.temp; shown.temp = Math.abs(d) < 0.11 ? t.temp : shown.temp + Math.sign(d) * 0.1; }
     ['pr', 'qrs', 'tAmp'].forEach(k => { if (t[k] != null) shown[k] = shown[k] == null ? t[k] : shown[k] + (t[k] - shown[k]) * 0.25; });
     shown.rhythm = t.rhythm; shown.o2 = t.o2; shown.note = t.note; shown.t = t.t;
   }, 250);
-  function startBP(sys, dia, instant) {
+  const NBP_SECONDS = 45;
+  function startBP(sys, dia, instant, exact) {
+    if (!exact) { sys = Math.round(guard('sys', sys, sys + rnd(-vr('sys'), vr('sys')))); dia = Math.round(dia + rnd(-vr('dia'), vr('dia'))); dia = Math.max(20, Math.min(dia, sys - 18)); }
     if (instant) { bp = { sys, dia, at: clock, measuring: 0 }; seedHist(); addHist(sys, dia, clock); return; }
-    bp.measuring = Date.now() + 9000; bp.pending = { sys, dia };
+    bp.measuring = Date.now() + NBP_SECONDS * 1000; bp.mStart = Date.now(); bp.pending = { sys, dia };
+    nbpStartSound();
+  }
+  function cancelBP() { bp.measuring = 0; bp.pending = null; stopNbpSound(); }
+  // the cuff pressure shown while measuring: pumps up in about 12 s, then steps down slowly until the reading is found
+  function cuffNow() {
+    const e = (Date.now() - bp.mStart) / 1000, P = Math.max(150, Math.min(210, bp.pending.sys + 45)), lo = Math.max(30, bp.pending.dia - 12);
+    if (e < 12) return Math.round(P * Math.min(1, e / 12));
+    return Math.max(lo, Math.round(P - (P - lo) * Math.min(1, (e - 12) / (NBP_SECONDS - 14))));
   }
   function refreshNums() {
     const v = vals(); if (!v) return;
@@ -225,7 +250,7 @@
     $('sSP').textContent = v.o2 && v.o2 !== 'Room air' ? v.o2 : '';
     const meas = bp.measuring && Date.now() < bp.measuring;
     $('sAuto').textContent = meas ? 'Measuring...' : 'Auto 15 min';
-    if (meas) { $('vBP').innerHTML = '<small>- - -</small>'; $('sBP').textContent = ''; }
+    if (meas && bp.pending) { $('vBP').innerHTML = `<span style="opacity:.6">${cuffNow()}</span><small>mmHg</small>`; $('sBP').textContent = 'cuff'; }
     else {
       if (bp.measuring && bp.pending) { bp = { sys: bp.pending.sys, dia: bp.pending.dia, at: clock, measuring: 0 }; addHist(bp.sys, bp.dia, bp.at); }
       if (bp.sys != null) { $('vBP').innerHTML = `${bp.sys}/${bp.dia}<small>(${mapOf(bp.sys, bp.dia)})</small>`; $('sBP').textContent = bp.at ? clockText(bp.at).slice(-5) : ''; }
@@ -305,6 +330,26 @@
     if (qrs === false) { const n = Date.now(); if (n - lastAlarmBeep < (alarmState === 2 ? 900 : 2500)) { return beep(true, vals().spo2); } lastAlarmBeep = n; o.frequency.value = alarmState === 2 ? 980 : 740; o.type = 'square'; gn.gain.setValueAtTime(0.07, t); gn.gain.setTargetAtTime(0, t + 0.18, 0.04); o.connect(gn); gn.connect(a.destination); o.start(t); o.stop(t + 0.3); return; }
     o.frequency.value = 520 + Math.max(0, (spo2 || 95) - 85) * 16; o.type = 'sine'; gn.gain.setValueAtTime(0.06, t); gn.gain.setTargetAtTime(0, t + 0.05, 0.03); o.connect(gn); gn.connect(a.destination); o.start(t); o.stop(t + 0.12);
   }
+  let nbpNodes = [];
+  function stopNbpSound() { nbpNodes.forEach(n => { try { n.stop(); } catch (e) { /* already stopped */ } }); nbpNodes = []; }
+  // the sound of a blood pressure cuff: a motor pumping for about 12 seconds, a soft valve "tss" with each step down, then two beeps when the reading is done
+  function nbpStartSound() {
+    stopNbpSound(); if (snd.off || !snd.ac) return;
+    const a = snd.ac, t0 = a.currentTime, noise = a.createBuffer(1, a.sampleRate * 2, a.sampleRate), d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    const src = a.createBufferSource(); src.buffer = noise; src.loop = true;
+    const bpf = a.createBiquadFilter(); bpf.type = 'bandpass'; bpf.frequency.value = 230; bpf.Q.value = 1.1;
+    const g = a.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(0.18, t0 + 0.4); g.gain.setValueAtTime(0.18, t0 + 11.4); g.gain.linearRampToValueAtTime(0.0001, t0 + 12);
+    const motor = a.createOscillator(); motor.type = 'sawtooth'; motor.frequency.setValueAtTime(70, t0); motor.frequency.linearRampToValueAtTime(115, t0 + 12);
+    const mg = a.createGain(); mg.gain.setValueAtTime(0.035, t0); mg.gain.setValueAtTime(0.035, t0 + 11.5); mg.gain.linearRampToValueAtTime(0.0001, t0 + 12);
+    src.connect(bpf); bpf.connect(g); g.connect(a.destination); motor.connect(mg); mg.connect(a.destination);
+    src.start(t0); src.stop(t0 + 12.1); motor.start(t0); motor.stop(t0 + 12.1); nbpNodes.push(src, motor);
+    for (let k = 0; k < 17; k++) {
+      const t = t0 + 13.2 + k * 1.8, s2 = a.createBufferSource(); s2.buffer = noise; const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2600;
+      const gg = a.createGain(); gg.gain.setValueAtTime(0.0001, t); gg.gain.linearRampToValueAtTime(0.1, t + 0.01); gg.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
+      s2.connect(hp); hp.connect(gg); gg.connect(a.destination); s2.start(t); s2.stop(t + 0.16); nbpNodes.push(s2);
+    }
+    [44.2, 44.5].forEach(dt => { const o = a.createOscillator(), gg = a.createGain(); o.frequency.value = 1000; gg.gain.setValueAtTime(0.08, t0 + dt); gg.gain.setValueAtTime(0.0001, t0 + dt + 0.18); o.connect(gg); gg.connect(a.destination); o.start(t0 + dt); o.stop(t0 + dt + 0.2); nbpNodes.push(o); });
+  }
   function toggleSound() { snd.off = !snd.off; if (!snd.off && !snd.ac) { try { snd.ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} } if (snd.ac && snd.ac.state === 'suspended') snd.ac.resume(); $('sndBtn').textContent = snd.off ? 'Sound OFF (click to turn on)' : 'Sound ON (click to turn off)'; }
   $('sndBtn').onclick = toggleSound;
 
@@ -313,7 +358,7 @@
   function fillInputs() { if (document.activeElement && /INPUT|SELECT/.test(document.activeElement.tagName) && document.getElementById('ctl').contains(document.activeElement)) return; const v = target(); if (!v || v.hr == null) return; $('iHR').value = v.hr; $('iSP').value = v.spo2; $('iSys').value = v.sys; $('iDia').value = v.dia; $('iRR').value = v.rr; $('iTP').value = v.temp; $('iRhy').value = v.rhythm; if (v.o2 && ![...$('iO2').options].some(o => o.value === v.o2)) $('iO2').add(new Option(v.o2)); $('iO2').value = v.o2 || 'Room air'; $('iPR').value = v.pr; $('iQRS').value = v.qrs; { const opts = [0.1, 0.3, 0.5, 0.8], ta = Number(v.tAmp), best = opts.reduce((a, b) => Math.abs(b - ta) < Math.abs(a - ta) ? b : a); $('iT').value = String(best); } $('stepNote').textContent = `Scenario row ${String(v.t).slice(-5)}: ${v.note || ''}`; }
   $('vApply').onclick = () => {
     const n = id => Number($(id).value); ovr = { hr: n('iHR'), spo2: n('iSP'), rr: n('iRR'), temp: n('iTP'), rhythm: $('iRhy').value, o2: $('iO2').value, pr: n('iPR'), qrs: n('iQRS'), tAmp: n('iT') };
-    const ns = n('iSys'), nd = n('iDia'); if (ns !== bp.sys || nd !== bp.dia) startBP(ns, nd, false);
+    const ns = n('iSys'), nd = n('iDia'); if (ns !== bp.sys || nd !== bp.dia) startBP(ns, nd, false, true);
     toast('Applied'); refreshNums();
   };
   $('bpMeasure').onclick = measureBP; function measureBP() { const s = Number($('iSys').value) || cur.sys, d = Number($('iDia').value) || cur.dia; startBP(s, d, false); refreshNums(); }
@@ -328,7 +373,7 @@
   $('scenReset').onclick = () => { scen = RAY.slice(); ls.set('nsmon.scen', ''); $('scenText').value = JSON.stringify(scen, null, 1); curKey = ''; setClock(clock); toast('Reset to Ray Kessler'); };
   $('kSil').onclick = () => { silenceUntil = Date.now() + 120000; refreshNums(); };
   $('kAlm').onclick = () => { $('alOn').checked = !$('alOn').checked; refreshNums(); };
-  $('kNbp').onclick = () => measureBP();
+  $('kNbp').onclick = () => { if (bp.measuring && Date.now() < bp.measuring) { cancelBP(); refreshNums(); } else measureBP(); };
   const panel = $('ctl'); const togglePanel = () => panel.classList.toggle('open'); $('gear').onclick = togglePanel;
   const fs = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); };
   addEventListener('keydown', e => { if (/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) return; const k = e.key.toLowerCase(); if (k === 'c') togglePanel(); else if (k === 'n') measureBP(); else if (k === 'f') fs(); else if (k === 's') toggleSound(); });
@@ -338,7 +383,7 @@
   function broadcastState() { if (!chan) return; const t = target(); chan.postMessage({ monitorState: Object.assign({}, t, { sys: bp.sys == null ? t.sys : bp.sys, dia: bp.dia == null ? t.dia : bp.dia }) }); }
   function applyOverride(o) {
     ovr = Object.assign({}, ovr || {}, o.values || {}); const v = o.values || {};
-    if ((v.sys != null && v.sys !== bp.sys) || (v.dia != null && v.dia !== bp.dia)) startBP(v.sys != null ? v.sys : bp.sys, v.dia != null ? v.dia : bp.dia, false);
+    if ((v.sys != null && v.sys !== bp.sys) || (v.dia != null && v.dia !== bp.dia)) startBP(v.sys != null ? v.sys : bp.sys, v.dia != null ? v.dia : bp.dia, false, true);
     if (v.rhythm && o.preset !== false) { const P = { sinus: [0.16, 0.10, 0.3], brady: [0.18, 0.10, 0.3], tachy: [0.14, 0.09, 0.3], avb1: [0.26, 0.12, 0.4], widebrady: [0.20, 0.16, 0.7], afib: [0.16, 0.10, 0.3], vtach: [0.16, 0.20, 0.3] }[v.rhythm]; if (P && v.pr == null) { ovr.pr = P[0]; ovr.qrs = P[1]; ovr.tAmp = P[2]; } }
     fillInputs(); refreshNums(); broadcastState();
   }
