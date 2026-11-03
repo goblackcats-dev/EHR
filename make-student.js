@@ -4,9 +4,9 @@
 const fs = require('fs');
 let h = fs.readFileSync('index.html', 'utf8');
 const must = (cond, msg) => { if (!cond) { console.error('make-student: ' + msg); process.exit(1); } };
-must(h.includes('<script src="quiz.js"></script>'), 'quiz script tag not found');
+must(/<script src="quiz\.js(\?[^"]*)?"><\/script>/.test(h), 'quiz script tag not found');
 h = h.replace(/\s*<script src="monitor-link.js[^>]*><\/script>/, '');   // instructor-only monitor control
-h = h.replace('<script src="quiz.js"></script>\n', '').replace('<script src="quiz.js"></script>', '');
+h = h.replace(/\s*<script src="quiz\.js(\?[^"]*)?"><\/script>/, '');
 h = h.replace(/<a class="top-link" href="case-builder\/index.html">Case Builder<\/a>\s*/, '');
 h = h.replace('<body>', '<body class="student">');
 h = h.replace(/<title>[^<]*<\/title>/, '<title>NursingSim EHR (Student)</title>');
@@ -16,7 +16,7 @@ h = h.replace('Import simulated patient JSON to begin', 'Tap Open Patient and ch
 const first = h.indexOf('<script src=');
 must(first > 0, 'no script tags');
 h = h.slice(0, first) + '<script src="ns-student.js"></script>\n  ' + h.slice(first);
-must(h.includes('<script src="results.js"></script>'), 'results.js missing from index.html');
+must(/<script src="results\.js(\?[^"]*)?"><\/script>/.test(h), 'results.js missing from index.html');
 h = h.replace('</body>', '  <script src="student.js"></script>\n</body>');
 fs.writeFileSync('ns-student.js', '/* Marks this page as the student version (no instructor tools). */\nwindow.NS_STUDENT = true;\n');
 fs.writeFileSync('student.html', h);
