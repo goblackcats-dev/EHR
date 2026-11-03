@@ -212,7 +212,7 @@
 
   function gate() {
     const s = state, c = cfg();
-    if (!c.scanRequired) return { ok: true, why: '' };
+    if (!c.scanRequired || window.NS_QUICK_GIVE) return { ok: true, why: '' };
     const hard = s.warnings.filter(w => w.level === 'hard'), soft = s.warnings.filter(w => w.level === 'soft');
     if (!patientStatus()) return { ok: false, why: 'Scan the patient wristband first (or use Override and give a reason).' };
     if (!medOk(s)) return { ok: false, why: 'Scan the medication package; it must match the order (or use Override and give a reason).' };

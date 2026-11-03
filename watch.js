@@ -53,11 +53,11 @@
       sh.conn = conn;
       conn.on('open', () => {
         sessionStorage.setItem('nursingsim.liveCode', sh.code);
-        conn.send({ t: 'hello', name: label(), role: (me() || {}).role || '', title: document.title, caseKey: (typeof currentCanonicalCase !== 'undefined' && currentCanonicalCase) ? caseKey(currentCanonicalCase) : '' }); enterSync();
+        conn.send({ t: 'hello', name: label(), role: (me() || {}).role || '', title: document.title, caseKey: (typeof currentCanonicalCase !== 'undefined' && currentCanonicalCase) ? caseKey(currentCanonicalCase) : '' }); enterSync(); if (window.NSChartSync) NSChartSync.start(p => { if (sh.conn && sh.conn.open) sh.conn.send({ t: 'chart', p }); }, false);
         startRecording(); banner('Your screen is shared with your instructor (class simulation)', true); setMsg('Connected. You are in the class simulation.'); setTimeout(() => { const j = $('lvJoin'); if (j && j.open) j.close(); }, 1200);
         try { window.rrweb.record.takeFullSnapshot(true); } catch (e) { /* the instructor asks again if needed */ }
       });
-      conn.on('data', d => { if (d && d.t === 'case') loadClassCase(d); if (d && d.t === 'st') onState(d); if (d && d.t === 'say') say(d.text); if (d && d.t === 'resync') { try { window.rrweb.record.takeFullSnapshot(true); } catch (e) { /* ignore */ } } if (d && d.t === 'bye') stopShare(); });
+      conn.on('data', d => { if (d && d.t === 'case') loadClassCase(d); if (d && d.t === 'st') onState(d); if (d && d.t === 'chart' && window.NSChartSync) NSChartSync.receive(d.p); if (d && d.t === 'say') say(d.text); if (d && d.t === 'resync') { try { window.rrweb.record.takeFullSnapshot(true); } catch (e) { /* ignore */ } } if (d && d.t === 'bye') stopShare(); });
       conn.on('close', () => { if (sh.want) { banner('Reconnecting to your instructor...', true); stopRecording(); scheduleRetry(); } });
       conn.on('error', () => { if (sh.want) scheduleRetry(); });
     });
@@ -86,17 +86,17 @@
     b.textContent = text;
   }
   function enterSync() { cs.on = true; document.body.classList.add('class-synced'); try { if (typeof simSetPaused === 'function') simSetPaused(true); } catch (e) { /* ignore */ } badge('Class simulation: time is set by your instructor'); }
-  function leaveSync() { if (!cs.on) return; cs.on = false; document.body.classList.remove('class-synced'); const b = $('csBadge'); if (b) b.remove(); try { if (typeof simSetPaused === 'function') simSetPaused(false); } catch (e) { /* ignore */ } }
+  function leaveSync() { if (window.NSChartSync) NSChartSync.stop(); if (window.NSQuick) NSQuick.setSession(null); if (!cs.on) return; cs.on = false; document.body.classList.remove('class-synced'); const b = $('csBadge'); if (b) b.remove(); try { if (typeof simSetPaused === 'function') simSetPaused(false); } catch (e) { /* ignore */ } }
   function say(text) { const t = document.createElement('div'); t.className = 'cs-say'; t.textContent = text; document.body.appendChild(t); setTimeout(() => t.remove(), 9000); t.addEventListener('click', () => t.remove()); }
   function loadClassCase(d) {
     try {
       const canonical = JSON.parse(d.json); if (typeof renderPatient !== 'function') return;
-      renderPatient(canonical); cs.target = d.time || null; applyTarget();
+      renderPatient(canonical); if (window.NSChartSync) NSChartSync.baseline(); cs.target = d.time || null; applyTarget();
       say('Your instructor opened the patient: ' + ((canonical.patient && canonical.patient.name) || ''));
     } catch (e) { say('Could not load the class patient. Ask your instructor to send it again.'); }
   }
   function onState(d) {
-    cs.target = d.time || cs.target; cs.paused = !!d.paused; cs.sec = d.sec || 0;
+    cs.target = d.time || cs.target; cs.paused = !!d.paused; cs.sec = d.sec || 0; if (window.NSQuick) NSQuick.setSession(!!d.quick);
     const b = $('csBadge'); if (b) b.textContent = cs.paused ? 'Class simulation: PAUSED by your instructor' : 'Class simulation: time is set by your instructor';
     applyTarget();
   }
@@ -161,11 +161,12 @@
       if (st) { st.tile.remove(); }
       if (host.students.size >= 60 && !st) { conn.close(); return; }
       st = makeTile(conn, d); host.students.set(conn.peer, st); conn.send({ t: 'resync' }); updateCount();
-      if (sync.on) { stash(false); if (d.caseKey !== sync.key) sendCase(conn); tickSync(); }
+      if (sync.on) { stash(false); if (d.caseKey !== sync.key) sendCase(conn); if (window.NSChartSync) { try { conn.send({ t: 'chart', p: NSChartSync.full() }); } catch (e) { /* ignore */ } } tickSync(); }
       return;
     }
     if (!st) return;
     st.last = Date.now();
+    if (d.t === 'chart') { if (sync.on && window.NSChartSync) { NSChartSync.receive(d.p); host.students.forEach(s => { if (s.conn !== conn && s.conn.open) { try { s.conn.send({ t: 'chart', p: d.p }); } catch (e) { /* ignore */ } } }); } return; }
     if (d.t === 'ev') (d.e || []).forEach(e => { try { st.replayer.addEvent(e); } catch (err) { /* a damaged event is skipped */ } });
     if (d.t === 'ping' && d.name) { st.tile.querySelector('b').textContent = d.name; }
   }
@@ -177,7 +178,7 @@
   function tickSync() {
     if (!sync.on) return;
     if (stash(false)) host.students.forEach(s => sendCase(s.conn));
-    const msg = { t: 'st', time: typeof simulationTime === 'undefined' ? null : simulationTime, paused: typeof simClock !== 'undefined' && !!simClock.paused, sec: typeof simClock !== 'undefined' ? simClock.seconds : 0 };
+    const msg = { t: 'st', quick: !!(window.NSQuick && NSQuick.local()), time: typeof simulationTime === 'undefined' ? null : simulationTime, paused: typeof simClock !== 'undefined' && !!simClock.paused, sec: typeof simClock !== 'undefined' ? simClock.seconds : 0 };
     host.students.forEach(s => { if (s.conn && s.conn.open) { try { s.conn.send(msg); } catch (e) { /* ignore */ } } });
   }
   const studentBase = () => { try { return localStorage.getItem('nursingsim.studentSiteUrl') || 'https://goblackcats-dev.github.io/EHR/student-site/'; } catch (e) { return 'https://goblackcats-dev.github.io/EHR/student-site/'; } };
@@ -195,19 +196,21 @@
     host.peer.on('connection', conn => { conn.on('data', d => onData(conn, d)); conn.on('close', () => { const st = host.students.get(conn.peer); if (st) { st.last = 0; updateCount(); } }); });
     host.peer.on('error', err => { if (err && err.type === 'unavailable-id') { host.peer.destroy(); startHost(); } else host.dlg.querySelector('#lvStatus').textContent = 'Could not reach the connection service (' + ((err && err.type) || 'error') + '). Check the internet connection.'; });
     host.timer = setInterval(updateCount, 5000); sync.timer = setInterval(tickSync, 1000); stash(true);
+    if (window.NSChartSync) NSChartSync.start(p => { if (sync.on) host.students.forEach(s => { if (s.conn && s.conn.open) { try { s.conn.send({ t: 'chart', p }); } catch (e) { /* ignore */ } } }); }, true);
   }
-  function endHost() { clearInterval(host.timer); clearInterval(sync.timer); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
+  function endHost() { clearInterval(host.timer); clearInterval(sync.timer); if (window.NSChartSync) NSChartSync.stop(); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
   function openWatch() {
     if (host.dlg) { host.dlg.showModal(); host.students.forEach(fit); return; }
     const dlg = document.createElement('dialog'); dlg.id = 'lvWatch'; dlg.className = 'lv-dialog';
     dlg.innerHTML = `<div class="dialog-header"><div><h2>Class session</h2><p id="lvStatus">Starting...</p></div><div class="lv-head-r"><div class="lv-codebox">Class code<div id="lvCodeBig">------</div></div><button class="secondary-button" id="lvMin">Hide window</button> <button class="secondary-button" id="lvEnd">End session</button></div></div>
-      <div class="dialog-body"><div class="lv-sync"><label><input type="checkbox" id="lvSyncOn" checked> <b>Run the class together</b>: students see this patient and this patient time (use the clock buttons, pause and the Monitor as usual; student clocks follow yours)</label><div class="lv-link">Link for students (send once): <input id="lvLink" readonly onclick="this.select()"> <button class="secondary-button" id="lvCopy">Copy link + code</button></div><div class="lv-actions"><button class="secondary-button" id="lvResend">Send my patient to everyone again</button> <button class="secondary-button" id="lvSay">Message to class...</button></div></div><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students open the student site, choose <b>Join class</b> and type the code (or open the link above). The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
+      <div class="dialog-body"><div class="lv-sync"><label><input type="checkbox" id="lvSyncOn" checked> <b>Run the class together</b>: students see this patient and this patient time (use the clock buttons, pause and the Monitor as usual; student clocks follow yours)</label><div><label><input type="checkbox" id="lvQuick"> <b>Quick give</b>: students tap a due dose to give it at once (they say they gave it; no scanning)</label></div><div class="lv-link">Link for students (send once): <input id="lvLink" readonly onclick="this.select()"> <button class="secondary-button" id="lvCopy">Copy link + code</button></div><div class="lv-actions"><button class="secondary-button" id="lvResend">Send my patient to everyone again</button> <button class="secondary-button" id="lvSay">Message to class...</button></div></div><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students open the student site, choose <b>Join class</b> and type the code (or open the link above). The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
     document.body.appendChild(dlg); host.dlg = dlg;
     dlg.querySelector('#lvMin').addEventListener('click', () => dlg.close());
     dlg.querySelector('#lvEnd').addEventListener('click', () => { if (confirm('End the live session? Students will stop sharing.')) endHost(); });
     const q = id => dlg.querySelector('#' + id);
     q('lvSyncOn').addEventListener('change', e => { sync.on = e.target.checked; if (sync.on) { stash(true); host.students.forEach(s => sendCase(s.conn)); } });
-    q('lvResend').addEventListener('click', () => { if (confirm('Send your open patient to every student again? Their own charting on this patient will be replaced.')) { stash(true); host.students.forEach(s => sendCase(s.conn)); } });
+    q('lvQuick').checked = !!(window.NSQuick && NSQuick.local()); q('lvQuick').addEventListener('change', e => { if (window.NSQuick) NSQuick.setLocal(e.target.checked); });
+    q('lvResend').addEventListener('click', () => { if (confirm('Send your open patient to every student again? Their own charting on this patient will be replaced.')) { stash(true); host.students.forEach(s => { sendCase(s.conn); try { s.conn.send({ t: 'chart', p: NSChartSync.full() }); } catch (e) { /* ignore */ } }); } });
     q('lvSay').addEventListener('click', () => { const t = prompt('Message to show on every student screen:'); if (t) host.students.forEach(s => { try { s.conn.send({ t: 'say', text: t }); } catch (e) { /* ignore */ } }); });
     q('lvCopy').addEventListener('click', () => { const t = `Join the class simulation: ${q('lvLink').value}\nClass code: ${host.code}`; try { navigator.clipboard.writeText(t); } catch (e) { /* ignore */ } q('lvCopy').textContent = 'Copied'; setTimeout(() => q('lvCopy').textContent = 'Copy link + code', 1500); });
     dlg.showModal(); startHost().then(() => { const l = dlg.querySelector('#lvLink'); if (l) l.value = studentBase() + '#join=' + host.code; });

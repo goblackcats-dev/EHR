@@ -1334,7 +1334,8 @@ function canonicalToViewModel(canonical) {
       frequency: safe(order.frequency)
     }));
 
-  medicationOrders.forEach(order => {
+  // oxygen is a nursing order (device, flow rate, SpO2 goal), not a medication-administration row
+  medicationOrders.filter(order => !/^\s*(supplemental\s+)?(oxygen|o2)\b/i.test(safe(order.name)) && !/medical gas/i.test(safe(order.medication && order.medication.drugClass))).forEach(order => {
     const administrations = (canonical.administrations || [])
       .filter(admin => admin.orderId === order.id)
       .sort((a, b) => safe(a.administeredAt || a.time).localeCompare(safe(b.administeredAt || b.time)));
