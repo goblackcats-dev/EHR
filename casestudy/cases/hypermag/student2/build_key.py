@@ -52,7 +52,7 @@ def title_page(d):
     H(d, 'Roles and pairs (7 students, one team)', level=2)
     bl(d, ['**Charge nurse** (rotates; each student has exactly one stop): runs the section, keeps time, **asks each pair what they found and what to do**, decides the priorities, makes the SBAR call and is the only one who writes in the shared boxes.',
            '**Pair 1, Meds & Treatments (A, B):** MAR, orders, notes: what is running, due or should stop; give or hold meds.',
-           '**Pair 2, Assessment & Vitals (C, D):** read your bedside monitor setting, chart the vitals, report the bedside exam (alertness, reflexes, breathing, urine).',
+           '**Pair 2, Vitals & Assessment (C, D):** read your bedside monitor setting, chart the vitals, report the bedside exam (alertness, reflexes, breathing, urine).',
            '**Pair 3, Results & Labs (E, F):** new labs, ECG, trends against the diagnosis, the Mg strip.',
            '**G, float nurse:** helps wherever the charge nurse sends them (for example, runs the clock or marks the strip). G is charge at the final 0700.',
            'Charge order: A (0700), C (1100), E (1500), B (1900), D (2300), F (0300), G (final). The pair job continues when one of the pair is charge: the **partner reports for the pair**.'])
@@ -114,7 +114,7 @@ def answers(d, n, cp, mon, label):
     mg = ' and '.join(cp['mg'])
     H(d, 'New results (chart values)', size=10.5, before=2, level=3)
     lab_table(d, cp['labs'], cp.get('abg'))
-    rows = [['MEDS & TREATMENTS pair', k['meds']], ['ASSESSMENT & VITALS pair', k['noticed']], ['RESULTS & LABS pair: results and meaning', k['results']],
+    rows = [['MEDS & TREATMENTS pair', k['meds']], ['VITALS & ASSESSMENT pair', k['noticed']], ['RESULTS & LABS pair: new results and significance', k['results']],
             ['RESULTS & LABS pair: Mg level and strip', f'Write {mg} mg/dL; mark on the strip in the {cp["zone"]}.'],
             ['TEAM (charge): what changed', k['changed']],
             ['TEAM (charge): top 3 priorities'] + ['1) ' + k['pri'][0] + '  2) ' + k['pri'][1] + '  3) ' + k['pri'][2]],

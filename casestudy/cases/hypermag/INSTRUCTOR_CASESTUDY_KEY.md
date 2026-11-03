@@ -8,7 +8,7 @@ A simple 2-hour team case study. The whole class (designed for 7 students) works
 
 - Charge nurse (rotates; each student has exactly one stop): runs the section, keeps time, asks each pair what they found and what to do, decides the priorities, makes the SBAR call and is the only one who writes in the shared boxes.
 - Pair 1, Meds & Treatments (A, B): MAR, orders, notes: what is running, due or should stop; give or hold meds.
-- Pair 2, Assessment & Vitals (C, D): read your bedside monitor setting, chart the vitals, report the bedside exam (alertness, reflexes, breathing, urine).
+- Pair 2, Vitals & Assessment (C, D): read your bedside monitor setting, chart the vitals, report the bedside exam (alertness, reflexes, breathing, urine).
 - Pair 3, Results & Labs (E, F): new labs, ECG, trends against the diagnosis, the Mg strip.
 - G, float nurse: helps wherever the charge nurse sends them (for example, runs the clock or marks the strip). G is charge at the final 0700.
 - Charge order: A (0700), C (1100), E (1500), B (1900), D (2300), F (0300), G (final). The pair job continues when one of the pair is charge: the partner reports for the pair.
@@ -76,8 +76,8 @@ Urine for the vitals box: 130 mL since the Foley went in at 0610 (ED block 0430-
 | Box | Model answer |
 |---|---|
 | MEDS & TREATMENTS pair | Due: second NS 500 mL bolus at 0715 (listen to the lungs before and after), then NS 100 mL/h; furosemide 80 mg IV at 0915; calcium gluconate if needed. Stop or hold: every magnesium product from the bag (milk of magnesia, Maalox-type antacid, magnesium oxide), ibuprofen and lisinopril. Check that no order or bowel protocol adds magnesium. |
-| ASSESSMENT & VITALS pair | HR 52 with first-degree AV block (PR 0.26 s), BP 96/56, RR 14, SpO2 94% on room air. Drowsy, slurred speech, reflexes only 1+, weak grip, flushed face, dry mouth, skin tents. Urine dark: 130 mL since the Foley (0610). |
-| RESULTS & LABS pair: results and meaning | Magnesium 7.8 (critical; normal 1.7-2.2), potassium 5.4, creatinine 4.9 (usual 2.6), BUN 84, calcium 8.1. The kidneys cannot get rid of magnesium: long-term kidney disease plus a sudden drop from vomiting, dryness and kidney-hurting medicines, plus three magnesium products taken at home. |
+| VITALS & ASSESSMENT pair | HR 52 with first-degree AV block (PR 0.26 s), BP 96/56, RR 14, SpO2 94% on room air. Drowsy, slurred speech, reflexes only 1+, weak grip, flushed face, dry mouth, skin tents. Urine dark: 130 mL since the Foley (0610). |
+| RESULTS & LABS pair: new results and significance | Magnesium 7.8 (critical; normal 1.7-2.2), potassium 5.4, creatinine 4.9 (usual 2.6), BUN 84, calcium 8.1. The kidneys cannot get rid of magnesium: long-term kidney disease plus a sudden drop from vomiting, dryness and kidney-hurting medicines, plus three magnesium products taken at home. |
 | RESULTS & LABS pair: Mg level and strip | Write 7.8 mg/dL; mark on the strip in the Reflexes lost band (7-10). |
 | TEAM (charge): what changed | First checkpoint, so compare with the ED (0425): HR 46 to 52 and BP 82/46 to 96/56, a little better after the bolus. Still drowsy and slow. |
 | TEAM (charge): top 3 priorities | 1) Airway, breathing, circulation and nerve checks: full-minute RR, SpO2, monitor on, head up 30 degrees, suction at the bed, nothing by mouth until a swallow screen.  2) Find and stop every magnesium source: ask Eleanor, review the bag, tell the provider and pharmacy.  3) Safe fluids and kidneys: lung check before and after the bolus, hourly urine, hold the home medicines that hurt the kidneys. |
@@ -106,8 +106,8 @@ Urine for the vitals box: last hour 40 mL (0700-1100 hourly 35, 30, 55, 40 = 160
 | Box | Model answer |
 |---|---|
 | MEDS & TREATMENTS pair | Given since 0700: second bolus, maintenance saline, furosemide 0915. Needed now: calcium gluconate 1 g IV over 10 minutes on the cardiac monitor through a good large vein; oxygen with capnography (oxygen does not fix slow, weak breathing); ask to stop the maintenance saline until reviewed; no sedatives or opioids. |
-| ASSESSMENT & VITALS pair | HR 44, BP 84/48 (MAP 60), RR 10 and shallow, SpO2 91% on room air. Reflexes now absent, only wakes to a loud voice. Urine 40 mL last hour. |
-| RESULTS & LABS pair: results and meaning | Magnesium 8.7 (up from 7.8), potassium 5.3, creatinine 4.8, calcium 8.7. Only magnesium got worse. The kidneys make very little urine (about 30 to 55 mL/h, then 40), so magnesium is not leaving. |
+| VITALS & ASSESSMENT pair | HR 44, BP 84/48 (MAP 60), RR 10 and shallow, SpO2 91% on room air. Reflexes now absent, only wakes to a loud voice. Urine 40 mL last hour. |
+| RESULTS & LABS pair: new results and significance | Magnesium 8.7 (up from 7.8), potassium 5.3, creatinine 4.8, calcium 8.7. Only magnesium got worse. The kidneys make very little urine (about 30 to 55 mL/h, then 40), so magnesium is not leaving. |
 | RESULTS & LABS pair: Mg level and strip | Write 8.7 mg/dL; mark on the strip in the Reflexes lost band (7-10). |
 | TEAM (charge): what changed | Worse: HR 52 to 44, BP 96/56 to 84/48, RR 14 to 10, SpO2 94% to 91%, reflexes 1+ to absent, less alert. Magnesium 7.8 to 8.7. |
 | TEAM (charge): top 3 priorities | 1) Call the rapid response team now (RR 10, HR 44, BP 84/48, reflexes gone, less alert) and stay with Ray.  2) Airway and breathing: head up, stimulate, oxygen with watching of RR and CO2, suction and bag-valve-mask at the bed, strictly nothing by mouth.  3) Heart and antidote: monitor, 12-lead ECG, pacing pads, calcium gluconate 1 g IV over 10 minutes on the monitor. |
@@ -141,8 +141,8 @@ Urine for the vitals box: last hour 10 mL (1100-1500 hourly 20, 25, 15, 10 = 70 
 | Box | Model answer |
 |---|---|
 | MEDS & TREATMENTS pair | Calcium gluconate 1 g at 1120, then 2 g doses (1235 and 1400); NS 100 mL/h stopped at 1415 (fluid overload risk); lisinopril and metoprolol held; no blood pressure medicines during dialysis. Dialysis: 3 hours, low-magnesium bath, no heparin. Stop: any more IV fluid. The neck catheter is for dialysis staff only. |
-| ASSESSMENT & VITALS pair | RR 9 and falling (14, 10, 9), EtCO2 52 (CO2 building up), SpO2 92% on 4 L, HR 46, BP 88/50, only wakes to a loud voice. New crackles in the lungs. Urine 10 mL last hour. |
-| RESULTS & LABS pair: results and meaning | Magnesium 9.5 then 10.9 (the peak, critical). Potassium 5.6 then 5.8, creatinine 5.0 then 5.3, CO2 17 then 16. ABG at 1415: pH 7.20, PaCO2 52, so he is not breathing out enough CO2. ECG 1330: HR 38, PR 320 ms, QRS 148 ms, tall T waves. Oxygen cannot fix this; the magnesium has to come down. |
+| VITALS & ASSESSMENT pair | RR 9 and falling (14, 10, 9), EtCO2 52 (CO2 building up), SpO2 92% on 4 L, HR 46, BP 88/50, only wakes to a loud voice. New crackles in the lungs. Urine 10 mL last hour. |
+| RESULTS & LABS pair: new results and significance | Magnesium 9.5 then 10.9 (the peak, critical). Potassium 5.6 then 5.8, creatinine 5.0 then 5.3, CO2 17 then 16. ABG at 1415: pH 7.20, PaCO2 52, so he is not breathing out enough CO2. ECG 1330: HR 38, PR 320 ms, QRS 148 ms, tall T waves. Oxygen cannot fix this; the magnesium has to come down. |
 | RESULTS & LABS pair: Mg level and strip | Write 9.5 and 10.9 mg/dL; mark on the strip in the Danger band (over 10). |
 | TEAM (charge): what changed | Worse again: RR 10 to 9, HR 44 to 46 (ECG 38), BP 84/48 to 88/50, now on 4 L oxygen, EtCO2 52, QRS wider, magnesium 8.7 to 10.9, urine only 10 mL/h, new crackles. |
 | TEAM (charge): top 3 priorities | 1) Airway and breathing: RR, EtCO2, SpO2, head up, suction, bag-valve-mask and airway cart in the room; know the ICU call numbers.  2) Dialysis safety: consent and ID confirmed, catheter for dialysis staff only, BP and HR every 15 minutes, calcium on the cart, blood pressure medicines held.  3) Heart and fluid: calcium gluconate on the monitor, watch the crackles, no extra fluid, strict intake and output. |
@@ -180,8 +180,8 @@ Urine for the vitals box: last hour 20 mL (1500-1900 hourly 15, 20, 20, 20 = 75 
 | Box | Model answer |
 |---|---|
 | MEDS & TREATMENTS pair | Dialysis done. Glargine held, but the lispro correction scale every 4 hours is still active: ask to hold it. Low sugar: swallow screen, 15 g carbohydrate by mouth (4 oz apple juice, not orange juice because of potassium), recheck in 15 minutes, repeat, then a snack. Ask for D10W, hourly glucose and a diet order. Vitals and glucose every 15 minutes four times, then hourly four times. |
-| ASSESSMENT & VITALS pair | Much better: HR 66, BP 104/60, RR 16, SpO2 96% on room air, normal rhythm. But glucose 54, and he is shaky and sweating (awake, oriented, swallowing safely). Pain 3/10 in the back and neck catheter site. Urine 20 mL last hour. |
-| RESULTS & LABS pair: results and meaning | Magnesium 7.2 (1700) then 4.6 (1800): a big drop, still above normal. Potassium 3.9, creatinine 3.0, calcium 7.7 and ionized calcium 1.02 (both low). ECG 1830: sinus 66, PR 204 ms, QRS 108 ms, QTc 486 (long, from low calcium). Serum glucose was 71 at 1700. |
+| VITALS & ASSESSMENT pair | Much better: HR 66, BP 104/60, RR 16, SpO2 96% on room air, normal rhythm. But glucose 54, and he is shaky and sweating (awake, oriented, swallowing safely). Pain 3/10 in the back and neck catheter site. Urine 20 mL last hour. |
+| RESULTS & LABS pair: new results and significance | Magnesium 7.2 (1700) then 4.6 (1800): a big drop, still above normal. Potassium 3.9, creatinine 3.0, calcium 7.7 and ionized calcium 1.02 (both low). ECG 1830: sinus 66, PR 204 ms, QRS 108 ms, QTc 486 (long, from low calcium). Serum glucose was 71 at 1700. |
 | RESULTS & LABS pair: Mg level and strip | Write 7.2 and 4.6 mg/dL; mark on the strip in the Early band (2.3-5). |
 | TEAM (charge): what changed | Much better: HR 46 to 66, BP 88/50 to 104/60, RR 9 to 16, off oxygen, magnesium 10.9 to 4.6. New problems after dialysis: glucose 88 to 54, and low calcium. |
 | TEAM (charge): top 3 priorities | 1) Treat the low glucose safely (swallow screen, 15 g carbohydrate, recheck in 15 minutes) and call the provider.  2) Post-dialysis checks every 15 minutes: BP, HR, rhythm, RR, reflexes, alertness, catheter dressing, tingling.  3) Hand off to the night team: glucose event, calcium and QTc watch, the dialysis catheter, expect magnesium to creep back up, bowel plan. |
@@ -212,8 +212,8 @@ Urine for the vitals box: last hour 60 mL (1900-2300 hourly 45, 50, 55, 60 = 210
 | Box | Model answer |
 |---|---|
 | MEDS & TREATMENTS pair | D10W 40 mL/h running since 1930. The order set has diphenhydramine 25 mg PRN for sleep: do not give it (sedating, can hide slow breathing); ask to stop it and ask for melatonin. Keep gabapentin and oxycodone held; avoid benzodiazepines and zolpidem. Polyethylene glycol and senna due at 2200 are the right kind of bowel plan. No restraints. |
-| ASSESSMENT & VITALS pair | Newly confused and restless, pulling at lines. Vitals steady: HR 62, BP 112/64, RR 16, SpO2 96% on room air. Glucose 118, so not low. Urine 60 mL last hour. No stool in 4 days. |
-| RESULTS & LABS pair: results and meaning | Magnesium 5.6 (up from 4.6: rebound), creatinine 3.4 (up), BUN 40, calcium 7.9 and ionized calcium 1.06 (low), potassium 4.3. Possible causes of the confusion: a night in hospital, kidney waste (BUN 40), low calcium, rising magnesium. |
+| VITALS & ASSESSMENT pair | Newly confused and restless, pulling at lines. Vitals steady: HR 62, BP 112/64, RR 16, SpO2 96% on room air. Glucose 118, so not low. Urine 60 mL last hour. No stool in 4 days. |
+| RESULTS & LABS pair: new results and significance | Magnesium 5.6 (up from 4.6: rebound), creatinine 3.4 (up), BUN 40, calcium 7.9 and ionized calcium 1.06 (low), potassium 4.3. Possible causes of the confusion: a night in hospital, kidney waste (BUN 40), low calcium, rising magnesium. |
 | RESULTS & LABS pair: Mg level and strip | Write 5.6 mg/dL; mark on the strip in the Flushing band (5-7). |
 | TEAM (charge): what changed | Vitals are steady and better than at 1500. New: confusion, restless. Magnesium 4.6 to 5.6, creatinine 3.0 to 3.4. Glucose is back to normal (54 to 118). |
 | TEAM (charge): top 3 priorities | 1) Safety: protect Ray and his lines (bed alarm, sitter or frequent rounding, secure Foley and neck dressing, quiet room, no restraints).  2) Look for reversible causes and keep NOT giving sedatives; keep RR, reflex and rhythm checks going.  3) Call the night hospitalist (SBAR): stop the sleep-aid order, ask for melatonin, recheck magnesium sooner, bowel plan. |
@@ -243,8 +243,8 @@ Urine for the vitals box: last hour 40 mL (2300-0300 hourly 55, 50, 45, 40 = 190
 | Box | Model answer |
 |---|---|
 | MEDS & TREATMENTS pair | D10W stopped at 0130. The bowel protocol (senna, bisacodyl, then milk of magnesia 30 mL if no stool in 72 hours) ends in a magnesium product and disagrees with the no-magnesium order. Do NOT give the pink milk (milk of magnesia); ask to stop the protocol. Safe: polyethylene glycol, senna, bisacodyl suppository once ordered, KUB. No Fleet enema. Calcium only if symptoms or QTc over 500. |
-| ASSESSMENT & VITALS pair | HR 56, BP 104/60, RR 12, SpO2 95% on room air, reflexes 1+, wakes to voice. PR is longer again (0.24 s). Belly full, pain 4/10 in the abdomen, hypoactive bowel sounds. Urine 40 mL last hour. |
-| RESULTS & LABS pair: results and meaning | Magnesium 6.4 (0100): the third rise in a row (4.6, 5.6, 6.4), a rebound plus magnesium still in the bowel. Potassium 4.5, creatinine 3.5, calcium 8.1, ionized calcium 1.08. ECG: PR 236 ms (long again). |
+| VITALS & ASSESSMENT pair | HR 56, BP 104/60, RR 12, SpO2 95% on room air, reflexes 1+, wakes to voice. PR is longer again (0.24 s). Belly full, pain 4/10 in the abdomen, hypoactive bowel sounds. Urine 40 mL last hour. |
+| RESULTS & LABS pair: new results and significance | Magnesium 6.4 (0100): the third rise in a row (4.6, 5.6, 6.4), a rebound plus magnesium still in the bowel. Potassium 4.5, creatinine 3.5, calcium 8.1, ionized calcium 1.08. ECG: PR 236 ms (long again). |
 | RESULTS & LABS pair: Mg level and strip | Write 6.4 mg/dL; mark on the strip in the Flushing band (5-7), close to 7. |
 | TEAM (charge): what changed | HR 62 to 56, RR 16 to 12, BP 112/64 to 104/60, PR 0.22 to 0.24, magnesium 5.6 to 6.4, new belly pain. Glucose is fine (126). |
 | TEAM (charge): top 3 priorities | 1) Do not give the milk of magnesia; get the bowel protocol stopped and a magnesium-free bowel plan (bisacodyl, polyethylene glycol, KUB; no Fleet).  2) Watch breathing, reflexes and rhythm every hour until the 0500 level; know the call numbers.  3) Call the provider (SBAR) about the rising magnesium and the abdomen; document the stool. |
@@ -273,8 +273,8 @@ Urine for the vitals box: last hour 85 mL (0300-0700 hourly 55, 65, 75, 85 = 280
 | Box | Model answer |
 |---|---|
 | MEDS & TREATMENTS pair | Foley can come out; furosemide due at 0800; dialysis catheter stays 24 hours; no more dialysis for now. Keep the no-magnesium rule on the chart and the bowel protocol stopped. Acetaminophen, not ibuprofen, for pain. |
-| ASSESSMENT & VITALS pair | Alert, reflexes 2+, HR 68, BP 124/70, RR 16, SpO2 96% on room air, pain 2/10 in the back, glucose 112. Urine 85 mL last hour. Large stool at 0345. Weight 90.0 kg. |
-| RESULTS & LABS pair: results and meaning | Magnesium 5.3 (down from 6.4), creatinine 3.3 (peak 5.3), potassium 4.3, calcium 8.4. ECG 0600: PR 212 ms, QRS 102 ms, sinus 66. |
+| VITALS & ASSESSMENT pair | Alert, reflexes 2+, HR 68, BP 124/70, RR 16, SpO2 96% on room air, pain 2/10 in the back, glucose 112. Urine 85 mL last hour. Large stool at 0345. Weight 90.0 kg. |
+| RESULTS & LABS pair: new results and significance | Magnesium 5.3 (down from 6.4), creatinine 3.3 (peak 5.3), potassium 4.3, calcium 8.4. ECG 0600: PR 212 ms, QRS 102 ms, sinus 66. |
 | RESULTS & LABS pair: Mg level and strip | Write 5.3 mg/dL; mark on the strip in the Flushing band (5-7), near the early band. |
 | TEAM (charge): what changed | Since 0300: alert, reflexes back to 2+, HR 56 to 68, BP 104/60 to 124/70, RR 12 to 16, urine 40 to 85 mL/h, stool passed. Since arrival: magnesium 7.8, peak 10.9, now 5.3. |
 | TEAM (charge): top 3 priorities | 1) Keep Ray safe from magnesium: no magnesium products at home or in the hospital, read labels, no ibuprofen.  2) Finish the plan: Foley out, furosemide at 0800, watch the dialysis catheter, recheck magnesium and kidney labs.  3) Teach Ray and Eleanor and hand off clearly to the day team. |

@@ -412,3 +412,17 @@ body.class-synced .simulation-clock-controls button { display: none; }
 .brain-task.completed { background: #f1faf3 !important; border-color: #b9dfc3 !important; opacity: 1 !important; }
 .brain-done { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #1e9e4a; color: #fff; font-weight: 700; font-size: 18px; line-height: 28px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
 .brain-task.completed .brain-task-title { padding-right: 36px; }
+/* images in chart records (ECG tracings etc.) */
+.chart-images { display: flex; flex-wrap: wrap; gap: 14px; }
+.chart-image { margin: 0; max-width: 100%; border: 1px solid #cfd8e3; border-radius: 6px; padding: 6px; background: #fff; }
+.chart-image img { max-width: 100%; height: auto; display: block; cursor: zoom-in; }
+.chart-image figcaption { font-size: 13px; color: #445; padding-top: 4px; }
+.chart-image-dialog { max-width: 96vw; width: 96vw; padding: 0; border: 0; border-radius: 8px; }
+.chart-image-dialog .dialog-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #f4f7fb; }
+.chart-image-body { padding: 8px; overflow: auto; max-height: 86vh; background: #fff; }
+.chart-image-body img { width: 100%; height: auto; display: block; }
+/* Back arrow in the top bar */
+.nav-back-btn { background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.55); border-radius: 8px; font-size: 18px; font-weight: 700; padding: 10px 16px; min-height: 46px; cursor: pointer; margin-right: 12px; white-space: nowrap; }
+.nav-back-btn span { font-size: 22px; margin-right: 4px; }
+.nav-back-btn:hover:not(:disabled) { background: rgba(255,255,255,.3); }
+.nav-back-btn:disabled { opacity: .35; cursor: default; }

@@ -421,3 +421,8 @@ body.class-synced .simulation-clock-controls button { display: none; }
 .chart-image-dialog .dialog-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #f4f7fb; }
 .chart-image-body { padding: 8px; overflow: auto; max-height: 86vh; background: #fff; }
 .chart-image-body img { width: 100%; height: auto; display: block; }
+/* Back arrow in the top bar */
+.nav-back-btn { background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.55); border-radius: 8px; font-size: 18px; font-weight: 700; padding: 10px 16px; min-height: 46px; cursor: pointer; margin-right: 12px; white-space: nowrap; }
+.nav-back-btn span { font-size: 22px; margin-right: 4px; }
+.nav-back-btn:hover:not(:disabled) { background: rgba(255,255,255,.3); }
+.nav-back-btn:disabled { opacity: .35; cursor: default; }
