@@ -407,3 +407,8 @@ body.class-synced .simulation-clock-controls button { display: none; }
 .results-toolbar { justify-content: flex-start !important; gap: 28px; flex-wrap: wrap; }
 .results-toolbar-actions { margin-left: 0 !important; display: flex; gap: 10px; flex-wrap: wrap; }
 .results-toolbar-actions .small-tool-button { font-size: 17px; font-weight: 600; padding: 12px 24px; min-height: 48px; border-radius: 8px; }
+/* Brain: completed tasks show a green circle with a white check; the box can still be clicked */
+.brain-task { position: relative; }
+.brain-task.completed { background: #f1faf3 !important; border-color: #b9dfc3 !important; opacity: 1 !important; }
+.brain-done { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #1e9e4a; color: #fff; font-weight: 700; font-size: 18px; line-height: 28px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+.brain-task.completed .brain-task-title { padding-right: 36px; }

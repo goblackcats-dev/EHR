@@ -33,7 +33,7 @@
     { const pg0 = document.getElementById('brainPager'); if (pg0) pg0.style.display = view === 'timeline' ? '' : 'none'; }
     if (view !== 'timeline') return;
 
-    const tasks = getBrainTasks(true).filter(t => brainFilter === 'all' || !t.completed);
+    const tasks = getBrainTasks(true);   // completed tasks stay in their box, shown with a green check
     const now = parseSimDate(simulationTime), tl = currentCanonicalCase.timeline || {};
     const start = parseSimDate(tl.simulationStart) || now, end = parseSimDate(tl.simulationEnd) || new Date(start.getTime() + 8 * 3600000);
     if (!now || !start) { box.innerHTML = ''; return; }
@@ -88,6 +88,8 @@
     if (!currentCanonicalCase) return tasks;
     const tl = currentCanonicalCase.timeline || {}, since = String(tl.simulationStart || ''), vis = getVisibleCanonicalCase(currentCanonicalCase);
     const add = t => { t.completed = completedBrainTaskIds.has(t.id); if (includeCompleted || !t.completed) tasks.push(t); };
+    // orders the nurse has acknowledged stay on the worklist as completed
+    Object.keys(currentCanonicalCase.orderAck || {}).forEach(id => { const o = (vis.orders || []).find(x => x.id === id); if (o) add({ id: `neworder_${id}`, type: 'order', title: `Review new order: ${safe(o.name)}`, detail: `${safe(o.category)} | ${safe(o.frequency)}`, dueAt: safe(currentCanonicalCase.orderAck[id].at, simulationTime), target: 'orders', priority: 'upcoming', completed: true }); });
     const abn = {};
     (vis.observations || []).filter(o => o.type === 'vital' && o.collected > since && safe(o.flag)).forEach(o => { (abn[o.collected] = abn[o.collected] || []).push(`${safe(o.label)} ${safe(o.value)}${o.units ? ' ' + o.units : ''}`); });
     Object.keys(abn).forEach(stamp => add({ id: `vitals_abnormal_${stamp}`, type: 'care', title: 'Abnormal vital signs: reassess and notify if needed', detail: abn[stamp].join(', '), dueAt: stamp, target: 'flowsheets', priority: 'overdue' }));

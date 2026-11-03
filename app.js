@@ -1983,12 +1983,14 @@ function getBrainTasks(includeCompleted = false) {
   const orderMap = new Map((visible.orders || []).map(order => [order.id, order]));
   (visible.administrations || []).forEach(admin => {
     const state = safe(admin.state).toLowerCase();
-    if (!['due', 'held', 'refused', 'notgiven'].includes(state)) return;
+    if (!['due', 'held', 'refused', 'notgiven', 'given'].includes(state)) return;
 
     const order = orderMap.get(admin.orderId);
     if (!order) return;
 
     const dueAt = combineSimDateAndClock(admin.time);
+    // doses given before the simulation began are history, not worklist items
+    if (state === 'given' && (Number(admin.slotIndex) < 0 || (dueAt && currentCanonicalCase.timeline && dueAt < safe(currentCanonicalCase.timeline.simulationStart)))) return;
     const id = `mar_${admin.id}`;
     const completed = state !== 'due' || completedBrainTaskIds.has(id);
 
@@ -1996,7 +1998,7 @@ function getBrainTasks(includeCompleted = false) {
       id,
       type: 'medication',
       title: `${safe(order.name)} ${safe(order.medication?.dose, '')}`.trim(),
-      detail: state === 'due' ? 'Medication administration due.' : `Medication marked ${state}.`,
+      detail: state === 'due' ? 'Medication administration due.' : (state === 'given' ? 'Medication given.' : `Medication marked ${state}.`),
       dueAt,
       target: 'mar',
       priority: taskTimeStatus(dueAt),
@@ -2134,6 +2136,9 @@ function renderBrainTask(task) {
   if (openBtn) {
     openBtn.addEventListener('click', () => setMainSection(task.target));
   }
+  // the whole box opens its page (completed ones too)
+  if (task.target) { wrapper.style.cursor = 'pointer'; wrapper.addEventListener('click', ev => { if (ev.target.closest('button')) return; setMainSection(task.target); }); }
+  if (task.completed) wrapper.insertAdjacentHTML('afterbegin', '<span class="brain-done" title="Completed" aria-label="Completed">\u2713</span>');
 
   const completeBtn = wrapper.querySelector('[data-action="complete"]');
   if (completeBtn) {
