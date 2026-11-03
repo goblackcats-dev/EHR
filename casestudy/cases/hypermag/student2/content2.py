@@ -8,7 +8,7 @@ NORMAL = {'Magnesium': '1.7-2.2', 'Potassium': '3.5-5.1', 'Creatinine': '0.7-1.3
 
 RUBRIC = [
     dict(cat='Teamwork and charge-nurse rotation', pts=5,
-         full='**5.** Every section has a charge nurse named, everyone was charge nurse at least once, and the team worked together at every checkpoint.',
+         full='**5.** Every section has a charge nurse named, everyone was charge nurse once, and each pair reported its job at every checkpoint.',
          good='**3 to 4.** The rotation was followed most of the time. Most teammates took part.',
          start='**1 to 2.** The rotation was skipped, or one person did most of the work.',
          how='Charge nurse named for all 7 sections = 2.  Everyone had a turn as charge = 1.  Whole team worked at the checkpoints and handed in the peer check = 2.'),

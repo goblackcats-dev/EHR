@@ -8,7 +8,7 @@ from monvals import MON, ED_VITALS
 
 OUT_DOCX = os.path.join(HERE, '..', 'CASE_STUDY_PACKET.docx')
 TAGS = []
-LINE = 0.24     # writing line height (inches)
+LINE = 0.23     # writing line height (inches)
 GREY = 'EDEDED'
 
 
@@ -27,8 +27,9 @@ def box(d, items, n, hint=None, fill=None, gap=0.15, line_h=LINE, numbered=False
     ws = [w] if k == 1 else [(w - gap) / 2, gap, (w - gap) / 2]
     t = new_table(d, n + 1, len(ws), ws, borders=None)
     cols = [0] if k == 1 else [0, 2]
-    for ci, (label, h) in zip(cols, items):
-        c = t.rows[0].cells[ci]; shade(c, GREY); box_borders(c, MED); c.text = ''
+    for ci, it in zip(cols, items):
+        label, h = it[0], it[1]; hf = it[2] if len(it) > 2 else GREY
+        c = t.rows[0].cells[ci]; shade(c, hf); box_borders(c, MED); c.text = ''
         p = first_par(c); rich(p, label, size=9.4, bold=True, color=INK)
         if h: run(p, '  ' + h, size=8, italic=True, color='555555')
         c.paragraphs[0].paragraph_format.keep_with_next = True
@@ -43,7 +44,7 @@ def box(d, items, n, hint=None, fill=None, gap=0.15, line_h=LINE, numbered=False
         if i == 0: rowh(r, 0.25, True)
         else: rowh(r, line_h, True)
         for c in r.cells: c.paragraphs[0].paragraph_format.keep_with_next = i < n
-    spacer(d, 2)
+    spacer(d, 1)
     return t
 
 
@@ -68,7 +69,7 @@ def charge_bar(d, left, right):
     rowh(t.rows[0], 0.36)
     t.rows[1].cells[0].merge(t.rows[1].cells[1])
     c = t.rows[1].cells[0]; shade(c, 'FFFFFF'); box_borders(c, MED)
-    ctext(c, '**Charge nurse for this stop:** __________   **Nurse focus:** ☐ meds and treatments  ☐ results and monitor   ☐ everyone heard  ☐ SBAR done', size=8.3)
+    ctext(c, '**Charge nurse for this stop:** __________   **Partner reporting for their pair:** __________   ☐ every pair heard   ☐ SBAR done', size=8.3)
     rowh(t.rows[1], 0.28)
     spacer(d, 2)
 
@@ -95,7 +96,7 @@ def mg_box(d, labelhint='Write the new level(s), then mark them on the team stri
     spacer(d, 4)
 
 
-def sbar_box(d, lh=0.28):
+def sbar_box(d, lh=0.26):
     t = new_table(d, 5, 2, [0.95, W - 0.95], borders=None)
     for j in range(2):
         c = t.rows[0].cells[j]; shade(c, GREY); box_borders(c, MED)
@@ -111,6 +112,22 @@ def sbar_box(d, lh=0.28):
     for i, r in enumerate(t.rows):
         nosplit(r); rowh(r, 0.26 if i == 0 else lh, True)
     spacer(d, 4)
+
+
+PAIRS = {'M': ('MEDS & TREATMENTS pair reports', 'Charge asks: "what is running, due, or dangerous? What should we give, hold or stop?"', 'FFEFC2'),
+         'A': ('ASSESSMENT & VITALS pair reports', 'Charge asks: "what does the monitor show and what do you find at the bedside?"', 'DCEBFA'),
+         'R': ('RESULTS & LABS pair reports', 'Charge asks: "what is new and what does it mean for his diagnosis?"', 'DDF0E1')}
+
+
+def pair_box(d, kind, n=3):
+    lab, hint, fl = PAIRS[kind]
+    box(d, [(lab, hint, fl)], n)
+
+
+def team_boxes(d, close=False):
+    box(d, [('What changed since the last stop?' if not close else 'What changed since 0300 and since arrival?', ''), ('What we will do next', '')], 2)
+    box(d, [('Our top 3 priorities' + (' for the day team' if close else ''), 'the charge nurse decides, in order')], 3, numbered=True)
+    sbar_box(d)
 
 
 def checkpoint_header(d, n, cp):
@@ -143,24 +160,32 @@ def cover(d):
     page_top(d); tag(d, 'FRONT', 1, 3)
     banner(d, 'TEAM CASE STUDY: RAY KESSLER', '5 East, Room 14  |  Tue 0700 to Wed 0700', fill=INK, size=17, sub='The whole class is ONE nursing team for one patient across 24 hours. We move through the time together, 4 hours at a time.', h=0.62)
     P(d, 'Write your team name in the header at the top of this page (it repeats on every page).', size=9, italic=True, color=GRAY, before=2, after=3)
-    grid(d, ['Name (print)', 'Letter', 'Initials'], [4.4, 1.2, 1.7], [['', L, ''] for L in 'ABCDEFG'], row_h=0.3, size=10, hsize=9, center=[1, 2])
+    t = new_table(d, 4, 3, [2.4, 2.45, 2.45], borders=THIN)
+    blocks = [('PAIR 1: MEDS & TREATMENTS', 'FFEFC2', 'A', 'B'), ('PAIR 2: ASSESSMENT & VITALS', 'DCEBFA', 'C', 'D'), ('PAIR 3: RESULTS & LABS', 'DDF0E1', 'E', 'F')]
+    for j, (nm, fl, x, y) in enumerate(blocks):
+        c = t.rows[0].cells[j]; shade(c, fl); ctext(c, nm, size=8.8, bold=True, align='center')
+        for i, L in ((1, x), (2, y)):
+            ctext(t.rows[i].cells[j], f'**{L}**  name: ______________________', size=9.4)
+    for j in range(3):
+        rowh(t.rows[1], 0.34); rowh(t.rows[2], 0.34)
+    c = t.rows[3].cells[0].merge(t.rows[3].cells[2]); ctext(c, '**G**  FLOAT NURSE (helps wherever the charge nurse sends them): name: ____________________________', size=9.4); rowh(t.rows[3], 0.34)
+    spacer(d, 4)
     P(d, 'HOW THE TWO HOURS WORK', size=11, bold=True, color=INK, before=2, after=2, keep=True)
     bullets(d, ['The instructor moves the clock forward **4 hours at a time**: 0700, 1100, 1500, 1900, 2300, 0300, and a final check at 0700.',
-                'At each checkpoint, the instructor reads the situation. The team looks at Ray and the chart. The **charge nurse asks every nurse for one thing** before deciding, and **only the charge nurse writes** in the shared boxes while the others advise. The charge nurse makes one SBAR call.',
+                'At each checkpoint, the instructor reads the situation. The team looks at Ray and the chart. The **charge nurse runs the page**: asks each pair what they found, and the pair reports. **Only the charge nurse writes** in the shared boxes while the pairs advise. The charge nurse makes one SBAR call.',
                 'The packet is shared by the table; each student has their own reflection page (last page). You finish each page at the **end** of its time block. **Do not turn the page** until the instructor advances the clock.',
                 'Use the EHR on your own device (vitals, meds, results). Your patient and the time are synced with the instructor. Write in dark pen.'], size=9.6)
     P(d, 'ROLES', size=11, bold=True, color=INK, before=3, after=2, keep=True)
     t = new_table(d, 2, 2, [1.6, W - 1.6], borders=MED)
-    rows = [('CHARGE NURSE\n(one person; changes every checkpoint)', 'Coordinates and organizes the team. Keeps time. Decides who looks at what. Leads a quick huddle. Decides the priorities with the team. **Makes the SBAR call and writes down the team plan.**'),
-            ('NURSE\n(everyone else)', 'You are the eyes and the thinking. Look at Ray, the chart and the monitor, share what you find, and speak up. At each checkpoint the charge nurse and the team choose a focus. For example, one nurse looks at meds and treatments and one at results and the monitor. Then speak up when the charge nurse asks.')]
+    rows = [('CHARGE NURSE\n(one person; changes every stop)', 'Runs the section. Keeps time. **Asks each pair what they found and what to do**, then decides the priorities with the team. **Makes the SBAR call and writes the team plan.**'),
+            ('NURSE PAIRS\n(the other students)', '**Meds & Treatments:** MAR, orders, notes: what is running, due or should stop. **Assessment & Vitals:** the bedside monitor and the bedside exam (alertness, reflexes, breathing, urine). **Results & Labs:** new labs, ECG, trends, the Mg strip. Speak up when the charge nurse asks. If one of your pair is charge, your partner reports for the pair.')]
     for i, (a, b) in enumerate(rows):
         shade(t.rows[i].cells[0], 'ECE6F7' if i == 0 else 'DDF0E1'); ctext(t.rows[i].cells[0], '**' + a.split('\n')[0] + '**\n' + a.split('\n')[1], size=9)
-        ctext(t.rows[i].cells[1], b, size=9.2); rowh(t.rows[i], 0.85)
+        ctext(t.rows[i].cells[1], b, size=9.2); rowh(t.rows[i], 0.9)
     spacer(d, 5)
     P(d, 'CHARGE NURSE ROTATION  (each student is charge nurse exactly once)', size=10, bold=True, color=INK, before=2, after=2, keep=True)
     cols = ['Stop', '0700', '1100', '1500', '1900', '2300', '0300', 'Close 0700']
-    grid(d, cols, [1.3] + [0.857] * 7, [['Student letter'] + list('ABCDEFG'), ['Name / initials'] + [''] * 7], row_h=0.42, size=10, hsize=8.6, center=list(range(8)), pre_fill={0: 'F4F4F4'})
-    P(d, 'Smaller teams: with 4 people the letters go A B C D A B C; with 3, A B C A B C A. The charge nurse organizes; the whole team still does the thinking.', size=8.6, italic=True, color=GRAY, after=3)
+    grid(d, cols, [1.3] + [0.857] * 7, [['Charge nurse (letter)'] + list('ACEBDFG'), ['Partner reports for the pair'] + ['B', 'D', 'F', 'A', 'C', 'E', '-'], ['Name'] + [''] * 7], row_h=0.34, size=9.4, hsize=8.6, center=list(range(8)), pre_fill={0: 'F4F4F4'})
     P(d, 'TURN-IN', size=10, bold=True, color=INK, before=2, after=1, keep=True)
     P(d, 'One shared packet for the team, fastened with a **paperclip (no staples)**. The last page has an individual reflection and a peer check: write your own name on yours.', size=9.4, after=0)
 
@@ -209,7 +234,7 @@ def rubric_page(d):
         for c in row.cells: box_borders(c, THIN)
     spacer(d, 6)
     P(d, 'WHAT WE LOOK FOR ON EVERY CHECKPOINT PAGE', size=11, bold=True, color=INK, after=2, keep=True)
-    bullets(d, ['A **charge nurse is named** and the team has decided who looks at what.', 'The boxes are filled in with **real numbers from the chart** (vitals, labs) and a short reason.',
+    bullets(d, ['A **charge nurse is named** and each pair (Meds, Assessment, Results) reported in its own box.', 'The boxes are filled in with **real numbers from the chart** (vitals, labs) and a short reason.',
                 'Three **priorities in order** and a complete **SBAR** (Situation, Background, Assessment, Recommendation).', 'The **magnesium level** is written and marked on the team strip.',
                 'A **prediction** for the next 4 hours. A good guess with a reason earns credit, even if it turns out wrong.'], size=10)
     spacer(d, 4)
@@ -223,23 +248,20 @@ def checkpoint(d, n):
     cp = C.CP[n]
     checkpoint_header(d, n, cp)
     vitals_row(d, n)
-    box(d, [('Vitals and what I noticed', 'read the monitor, then look at Ray'), ('Current meds and treatments', 'running, due, or should stop?')], 4)
-    box(d, [('New results and what they mean for his diagnosis', ''), ('What changed since the last checkpoint?', '')], 4)
+    pair_box(d, 'M'); pair_box(d, 'A'); pair_box(d, 'R')
     mg_box(d)
     if n == 3:
-        box(d, [('Our top 3 priorities', 'in order')], 3, numbered=True)
-        sbar_box(d)
-        box(d, [('Charge nurse notes', 'ask every nurse for one thing, then decide; note who looked at what')], 3)
         stop_page_note(d)
         page_top(d); tag(d, f'CHECKPOINT {n}', 2, 2)
-        banner2(d, '1500  |  Tuesday', 'Checkpoint 3 of 6, page 2', sub='Dialysis is starting. Same team, same charge nurse.')
-        box(d, [('Before dialysis starts: what must be ready and checked?', '')], 5)
-        box(d, [('While dialysis runs: what do we watch, and how often?', '')], 5)
-        box(d, [('When do we call for help? Our call numbers and who we call', '')], 4)
-        box(d, [('What we will do next', ''), ('Prediction for the next 4 hours', 'what do we think will happen?')], 5)
-        box(d, [('Anything else the charge nurse wants to record', '')], 3)
+        banner2(d, '1500  |  Tuesday', 'Checkpoint 3 of 6, page 2', sub='Dialysis is starting. Same charge nurse. The charge nurse asks each pair for one more thing.')
+        box(d, [('Meds pair: before dialysis starts, what must be ready and checked?', '', PAIRS['M'][2])], 3)
+        box(d, [('Assessment pair: while dialysis runs, what do we watch, and how often?', '', PAIRS['A'][2])], 3)
+        box(d, [('Results pair: what numbers tell us to call for help, and who do we call?', '', PAIRS['R'][2])], 3)
+        team_boxes(d)
+        box(d, [('Prediction for the next 4 hours', ''), ('Charge nurse notes', 'ask each pair for one thing, then decide')], 3)
     else:
-        standard_boxes_bottom(d, n)
+        team_boxes(d)
+        box(d, [('Prediction for the next 4 hours', ''), ('Charge nurse notes', 'ask each pair for one thing, then decide')], 2)
 
 
 def stop_page_note(d):
@@ -252,14 +274,11 @@ def closing(d):
     charge_bar(d, f'{cp["time"]}  |  {cp["day"]}', 'Final check')
     sit_box(d, cp['sit'])
     vitals_row(d, 7)
-    box(d, [('Vitals and what I noticed', ''), ('Current meds and treatments', 'running, due, or should stop?')], 3)
-    box(d, [('New results and what they mean', ''), ('What changed since 0300 and since arrival?', '')], 3)
+    pair_box(d, 'M', 2); pair_box(d, 'A', 2); pair_box(d, 'R', 2)
     mg_box(d)
-    box(d, [('Our top 3 priorities for the day team', 'in order')], 3, numbered=True)
-    sbar_box(d, 0.27)
-    box(d, [('What we will teach Ray and Eleanor', 'three plain-language tips'), ('The story of Ray\'s stay in our words', 'look at the team strip')], 3)
-    box(d, [('Charge nurse notes', '')], 2)
-    P(d, 'Last step: turn to the next page for your individual reflection.', size=9, bold=True, color=INK, align='center', before=1, after=0)
+    team_boxes(d, close=True)
+    box(d, [('What we will teach Ray and Eleanor', 'three plain tips'), ('The story of Ray\'s stay in our words', 'look at the team strip')], 2)
+    box(d, [('Charge nurse notes (then turn to the individual reflection page)', '')], 2)
 
 
 def reflection(d):
