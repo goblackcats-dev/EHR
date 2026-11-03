@@ -2,7 +2,7 @@
    Wraps renderBrainPage from app.js. A "List" button brings back the original columns. */
 (() => {
   'use strict';
-  let view = 'timeline';
+  let view = 'timeline', shiftOff = 0, shiftCase = '';   // shiftOff: 0 = the current 12-hour shift, -1 = the 12 hours before it, +1 = the next 12 hours
   const pad = n => String(n).padStart(2, '0');
   const hourKey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}`;
 
@@ -12,6 +12,8 @@
     if (!box) {
       box = document.createElement('div'); box.id = 'brainTimeline'; box.className = 'brain-timeline';
       const cols = card.querySelector('.brain-columns'); card.insertBefore(box, cols);
+      const pg = document.createElement('div'); pg.id = 'brainPager'; pg.className = 'mar-pager brain-pager'; card.insertBefore(pg, box);
+      pg.addEventListener('click', e => { const b = e.target.closest('[data-pg]'); if (!b || b.disabled) return; shiftOff = b.dataset.pg === 'prior' ? shiftOff - 1 : b.dataset.pg === 'next' ? shiftOff + 1 : 0; draw(); });
       const bar = card.querySelector('.brain-toolbar-actions');
       ['timeline:Timeline', 'list:List'].forEach(s => {
         const [k, t] = s.split(':'), b = document.createElement('button');
@@ -28,14 +30,23 @@
     document.querySelectorAll('.brain-view-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
     const cols = document.querySelector('#brainSection .brain-columns');
     box.classList.toggle('hidden', view !== 'timeline'); if (cols) cols.classList.toggle('hidden', view === 'timeline');
+    { const pg0 = document.getElementById('brainPager'); if (pg0) pg0.style.display = view === 'timeline' ? '' : 'none'; }
     if (view !== 'timeline') return;
 
     const tasks = getBrainTasks(true).filter(t => brainFilter === 'all' || !t.completed);
     const now = parseSimDate(simulationTime), tl = currentCanonicalCase.timeline || {};
     const start = parseSimDate(tl.simulationStart) || now, end = parseSimDate(tl.simulationEnd) || new Date(start.getTime() + 8 * 3600000);
     if (!now || !start) { box.innerHTML = ''; return; }
-    const first = new Date(start); first.setMinutes(0, 0, 0);
-    const lastT = new Date(Math.max(end.getTime(), now.getTime())); lastT.setMinutes(0, 0, 0);
+    // one 12-hour shift (0700-1859 or 1900-0659) at a time, with buttons to move to the prior 12 hours and back to the current shift
+    const alignShift = d => { let x = new Date(d); x.setMinutes(0, 0, 0); while (x.getHours() !== 7 && x.getHours() !== 19) x = new Date(x.getTime() - 3600000); return x; };
+    const caseKey = safe(currentCanonicalCase.caseMeta && currentCanonicalCase.caseMeta.caseId || currentCanonicalCase.patient && currentCanonicalCase.patient.id); if (caseKey !== shiftCase) { shiftCase = caseKey; shiftOff = 0; }
+    const H12 = 12 * 3600000, curStart = alignShift(now), firstShift = alignShift(start), lastShift = alignShift(new Date(Math.max(end.getTime(), now.getTime())));
+    const minOff = Math.round((firstShift - curStart) / H12), maxOff = Math.round((lastShift - curStart) / H12);
+    shiftOff = Math.max(minOff, Math.min(maxOff, shiftOff));
+    const first = new Date(curStart.getTime() + shiftOff * H12), lastT = new Date(first.getTime() + 11 * 3600000);
+    const dayName = d => d.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' });
+    const pg = document.getElementById('brainPager');
+    if (pg) pg.innerHTML = `<button type="button" class="small-tool-button" data-pg="prior" ${shiftOff <= minOff ? 'disabled' : ''}>\u25C0 Prior 12 h</button><span class="mar-pager-label">${dayName(first)} ${pad(first.getHours())}00\u2013${pad(lastT.getHours())}59${shiftOff === 0 ? ' (current shift)' : ''}</span><button type="button" class="small-tool-button" data-pg="next" ${shiftOff >= maxOff ? 'disabled' : ''}>Next 12 h \u25B6</button><button type="button" class="small-tool-button${shiftOff === 0 ? ' active' : ''}" data-pg="now">Current shift</button>`;
     const rows = [];
     for (let d = new Date(first); d <= lastT; d = new Date(d.getTime() + 3600000)) rows.push(new Date(d));
     const byHour = new Map(rows.map(r => [hourKey(r), []])), overdue = [], later = [];
@@ -55,7 +66,7 @@
       list.forEach(t => row.querySelector('.bt-slot').appendChild(renderBrainTask(t)));
       box.appendChild(row);
     };
-    section('Overdue<br><span>before this shift</span>', overdue, 'bt-overdue');
+    if (shiftOff === 0) section('Overdue<br><span>before this shift</span>', overdue, 'bt-overdue');
     rows.forEach(r => {
       const k = hourKey(r), list = byHour.get(k), isNow = k === nowKey, past = r.getTime() + 3600000 <= now.getTime();
       const row = document.createElement('div'); row.className = `bt-row${isNow ? ' bt-now' : ''}${past ? ' bt-past' : ''}`;
@@ -65,8 +76,9 @@
       if (isNow) { const m = document.createElement('div'); m.className = 'bt-nowline'; m.style.left = `${Math.round(now.getMinutes() / 60 * 100)}%`; row.appendChild(m); }
       box.appendChild(row);
     });
-    section('Later<br><span>after this shift</span>', later, 'bt-later');
+    if (shiftOff === 0) section('Later<br><span>after this shift</span>', later, 'bt-later');
     const nowCol = box.querySelector('.bt-now'); if (nowCol && box.scrollWidth > box.clientWidth) box.scrollLeft = Math.max(0, nowCol.offsetLeft - box.offsetLeft - 8);
+    if (pg) pg.style.display = view === 'timeline' ? '' : 'none';
   }
 
   // Tasks that come from what has just happened in the chart (abnormal vital signs, critical results), not only from the order schedule.

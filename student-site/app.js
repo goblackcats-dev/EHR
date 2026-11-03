@@ -2829,15 +2829,16 @@ function marNowIndex() {
   const base = new Date(start.getTime()); base.setMinutes(0, 0, 0);
   return Math.floor((now - base) / 3600000);
 }
-function renderMARTimelineHeader(timeSlots) {
+function renderMARTimelineHeader(timeSlots, offset = 0) {
   clearChildren(elements.marTimelineHeader);
   const nowIdx = marNowIndex();
   const start = parseSimDate(safe(currentCanonicalCase?.timeline?.simulationStart, ''));
-  (timeSlots || []).forEach((slot, idx) => {
+  (timeSlots || []).forEach((slot, i) => {
+    const idx = i + offset;
     const cell = document.createElement('div');
     cell.className = 'mar-hour-header' + (idx === nowIdx ? ' now' : '');
     let day = '';
-    if (start && (idx === 0 || safe(slot) === '0000')) { const d = new Date(start.getTime() + idx * 3600000); day = `<small>${d.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' })}</small>`; }
+    if (start && (i === 0 || safe(slot) === '0000')) { const d = new Date(start.getTime() + idx * 3600000); day = `<small>${d.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' })}</small>`; }
     cell.innerHTML = `${escapeHtml(safe(slot))}${day}`;
     elements.marTimelineHeader.appendChild(cell);
   });
@@ -2917,7 +2918,7 @@ function renderMARDetail(med) {
   `;
 }
 
-function renderMARRow(med, timeSlots) {
+function renderMARRow(med, timeSlots, offset = 0) {
   const row = document.createElement('div');
   const rowKey = getMARRowKey(med);
   row.className = `mar-row mar-clickable ${currentMARSelectedKey === rowKey ? 'selected-mar-row' : ''}`;
@@ -2937,7 +2938,8 @@ function renderMARRow(med, timeSlots) {
   grid.className = 'mar-row-grid';
   const events = Array.isArray(med.events) ? med.events : [];
 
-  (timeSlots || []).forEach((slot, idx) => {
+  (timeSlots || []).forEach((slot, i) => {
+    const idx = i + offset;
     const cell = document.createElement('div');
     let classes = ['mar-cell'];
     if (typeof med.orderStartIndex === 'number' && idx < med.orderStartIndex) classes.push('mar-before');
@@ -2949,7 +2951,7 @@ function renderMARRow(med, timeSlots) {
     if (idx === marNowIndex()) classes.push('now-col');
     cell.className = classes.join(' ');
     let html = here.map(createMAREventPill).join('');
-    if (idx === (timeSlots || []).length - 1 || event) {
+    if (i === (timeSlots || []).length - 1 || event) {
       html += `<div class="mar-admin-line">${escapeHtml(safe(slot))}</div>`;
     }
     cell.innerHTML = html;
@@ -2977,9 +2979,39 @@ function renderMARRow(med, timeSlots) {
   return row;
 }
 
+// The MAR shows one 12-hour shift (0700-1859 or 1900-0659) as boxes; the student moves to the prior 12 hours and back to the current shift
+let marShiftOffset = null, marShiftCase = '';
+function marWindow(allSlots) {
+  const n = allSlots.length; if (n <= 12) return { off: 0, slots: allSlots, cur: 0, n, single: true };
+  const nowIdx = Math.max(0, Math.min(marNowIndex() == null ? 0 : marNowIndex(), n - 1)), isStart = i => { const t = safe(allSlots[i]); return t === '0700' || t === '1900'; };
+  let cur = nowIdx; while (cur > 0 && !isStart(cur)) cur--;
+  if (!isStart(cur)) cur = Math.floor(nowIdx / 12) * 12;   // slots that do not line up with a shift change: plain 12-hour blocks
+  let off = marShiftOffset == null ? cur : marShiftOffset;
+  off = Math.max(-11, Math.min(off, n - 1));
+  const from = Math.max(0, off);
+  return { off: from, slots: allSlots.slice(from, off + 12), cur, n, shown: off, single: false };
+}
+function marShiftLabel(w, allSlots) {
+  const first = safe(allSlots[w.off]), last = safe(allSlots[Math.min(w.n - 1, w.off + 11)]), start = parseSimDate(safe(currentCanonicalCase?.timeline?.simulationStart, ''));
+  let day = ''; if (start) { const b = new Date(start.getTime()); b.setMinutes(0, 0, 0); day = new Date(b.getTime() + w.off * 3600000).toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' }); }
+  return `${day} ${first}\u2013${last}${w.off === w.cur ? ' (current shift)' : ''}`;
+}
+function renderMARPager(w, allSlots) {
+  const bar = document.querySelector('.mar-subtoolbar'); if (!bar) return; let box = document.getElementById('marPager');
+  if (!box) { box = document.createElement('div'); box.id = 'marPager'; box.className = 'mar-pager'; bar.insertBefore(box, bar.firstChild);
+    box.addEventListener('click', e => { const b = e.target.closest('[data-pg]'); if (!b || b.disabled) return; const k = b.dataset.pg, w2 = marWindow(getMARData(currentPatientData).timeSlots || []);
+      if (k === 'prior') marShiftOffset = w2.off - 12; else if (k === 'next') marShiftOffset = w2.off + 12; else marShiftOffset = null;
+      if (marShiftOffset !== null && marShiftOffset === w2.cur) marShiftOffset = null; renderMARPage(currentPatientData); }); }
+  box.style.display = w.single ? 'none' : '';
+  if (w.single) return;
+  box.innerHTML = `<button type="button" class="small-tool-button" data-pg="prior" ${w.off <= 0 ? 'disabled' : ''}>\u25C0 Prior 12 h</button><span class="mar-pager-label">${escapeHtml(marShiftLabel(w, allSlots))}</span><button type="button" class="small-tool-button" data-pg="next" ${w.off + 12 >= w.n ? 'disabled' : ''}>Next 12 h \u25B6</button><button type="button" class="small-tool-button${w.off === w.cur ? ' active' : ''}" data-pg="now">Current shift</button>`;
+}
 function renderMARPage(data) {
   const marData = getMARData(data);
-  const timeSlots = marData.timeSlots || [];
+  const allSlots = marData.timeSlots || [];
+  const caseKey = safe(currentCanonicalCase?.caseMeta?.caseId || currentCanonicalCase?.patient?.id, '');
+  if (caseKey !== marShiftCase) { marShiftCase = caseKey; marShiftOffset = null; }
+  const win = marWindow(allSlots), timeSlots = win.slots;
   const activeMeds = getFilteredMARMeds(marData, false);
   const completedMeds = getFilteredMARMeds(marData, true);
   const allVisibleMeds = [...activeMeds, ...completedMeds];
@@ -2987,7 +3019,8 @@ function renderMARPage(data) {
   elements.marDateTitle.textContent = safe(marData.date, 'No date loaded');
   elements.marStatus.textContent = `${activeMeds.length} active meds | ${completedMeds.length} completed/historical`;
   elements.marFilterBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.marFilter === currentMARFilter));
-  renderMARTimelineHeader(timeSlots);
+  renderMARTimelineHeader(timeSlots, win.off);
+  renderMARPager(win, allSlots);
 
   if (!currentMARSelectedKey && allVisibleMeds.length) {
     const firstDetailed = allVisibleMeds.find(m => m.detail) || allVisibleMeds[0];
@@ -3001,28 +3034,27 @@ function renderMARPage(data) {
   if (!activeMeds.length) {
     elements.marRows.innerHTML = '<div class="empty-state" style="padding:16px;">No MAR rows loaded for this filter.</div>';
   } else {
-    activeMeds.forEach(med => elements.marRows.appendChild(renderMARRow(med, timeSlots)));
+    activeMeds.forEach(med => elements.marRows.appendChild(renderMARRow(med, timeSlots, win.off)));
   }
 
   clearChildren(elements.marCompletedRows);
   if (!completedMeds.length) {
     elements.marCompletedRows.innerHTML = '<div class="empty-state" style="padding:16px;">No completed medications loaded.</div>';
   } else {
-    completedMeds.forEach(med => elements.marCompletedRows.appendChild(renderMARRow(med, timeSlots)));
+    completedMeds.forEach(med => elements.marCompletedRows.appendChild(renderMARRow(med, timeSlots, win.off)));
   }
 
   const selected = allVisibleMeds.find(m => getMARRowKey(m) === currentMARSelectedKey) || allVisibleMeds[0] || null;
   renderMARDetail(selected);
   // a long stay has one column per clock hour: widen the grid and bring the current hour into view when the patient time changes
   const inner = document.querySelector('.mar-scroll-inner');
-  if (inner) inner.style.minWidth = Math.max(1040, 400 + timeSlots.length * 96) + 'px';
-  if (timeSlots.length > 12 && currentMainSection === 'mar' && window.__marScrolledTo !== simulationTime) { window.__marScrolledTo = simulationTime; setTimeout(marScrollToNow, 30); }
+  if (inner) inner.style.minWidth = Math.max(900, 300 + timeSlots.length * 72) + 'px';
 }
 function marScrollToNow() {
   const sc = document.querySelector('.mar-scroll'), idx = marNowIndex();
   if (sc && idx !== null) sc.scrollLeft = Math.max(0, idx * 96 - 192);
 }
-document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.mar-subtoolbar .small-tool-button'); if (b && /go to now/i.test(b.textContent)) marScrollToNow(); });
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.mar-subtoolbar .small-tool-button'); if (b && /go to now/i.test(b.textContent)) { marShiftOffset = null; renderMARPage(currentPatientData); } });
 
 
 function getVisibleMedicationOrder(orderId) {

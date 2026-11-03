@@ -396,3 +396,14 @@ body.class-synced .simulation-clock-controls button { display: none; }
 .mar-toolbar-actions { margin-left: 0; gap: 10px; }
 .mar-toolbar-actions .small-tool-button { font-size: 17px; font-weight: 600; padding: 12px 24px; min-height: 48px; border-radius: 8px; }
 .small-tool-button.active#qgBtn { background: #1b6e3a; color: #fff; }
+/* MAR: one 12-hour shift of boxes, pager to the prior 12 hours */
+.mar-timeline-header, .mar-row-grid { grid-auto-columns: minmax(70px, 1fr) !important; }
+.mar-pager { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-right: 14px; }
+.mar-pager .small-tool-button { font-size: 15px; font-weight: 600; padding: 9px 16px; min-height: 42px; border-radius: 8px; }
+.mar-pager .small-tool-button.active { background: #1f5fa8; color: #fff; border-color: #1f5fa8; }
+.mar-pager .small-tool-button:disabled { opacity: .4; }
+.mar-pager-label { font-weight: 700; color: #1f3b57; padding: 0 6px; }
+/* Results Review: Show All / Flagged Only / Newest buttons, larger, on the left next to the title */
+.results-toolbar { justify-content: flex-start !important; gap: 28px; flex-wrap: wrap; }
+.results-toolbar-actions { margin-left: 0 !important; display: flex; gap: 10px; flex-wrap: wrap; }
+.results-toolbar-actions .small-tool-button { font-size: 17px; font-weight: 600; padding: 12px 24px; min-height: 48px; border-radius: 8px; }
