@@ -21,8 +21,10 @@
     // a relay put in the link by the instructor (students), or saved in the Class session window (instructor)
     try { const j = JSON.parse(sessionStorage.getItem('nursingsim.iceJoin') || 'null'); if (Array.isArray(j) && j.length) return j; } catch (e) { /* ignore */ }
     try { const o = JSON.parse(localStorage.getItem('nursingsim.turn') || 'null'); if (Array.isArray(o) && o.length) return o; } catch (e) { /* default */ }
-    return [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' },
-      { urls: ['turn:openrelay.metered.ca:80', 'turn:openrelay.metered.ca:443', 'turn:openrelay.metered.ca:443?transport=tcp'], username: 'openrelayproject', credential: 'openrelayproject' }];
+    // built-in relay (the instructor's free Metered.ca TURN account) so no one has to enter anything; the instructor chose to keep it in the public repo
+    const U = 'na.relay.metered.ca', user = '96d01918e955c8819300eefb', cred = 'CEYGTzarJNhKoWZ+';
+    return [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun.relay.metered.ca:80' },
+      { urls: [`turn:${U}:80`, `turn:${U}:80?transport=tcp`, `turn:${U}:443`, `turns:${U}:443?transport=tcp`], username: user, credential: cred }];
   };
   const peerOpts = cfg => ({ host: cfg.host, port: cfg.port, secure: cfg.secure, path: cfg.path, debug: 0, config: { iceServers: iceServers(), iceCandidatePoolSize: 4 } });
   const me = () => (window.NSUser && NSUser.current()) || null;
