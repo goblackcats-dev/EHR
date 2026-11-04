@@ -19,6 +19,24 @@
    }
   },
   {
+   "id": "addison",
+   "caseCode": "CS-ADDISON-1",
+   "title": "Medical-Surgical Telemetry: adrenal (Addisonian) crisis in known Addison disease after viral gastroenteritis (24 h in 4-hour checkpoints)",
+   "patient": "Lauren Mitchell",
+   "age": 46,
+   "sex": "Female",
+   "diagnosis": "Adrenal crisis (primary adrenal insufficiency, autoimmune Addison disease) after viral gastroenteritis with loss of oral steroid: hypovolemic shock, hypoglycemia, hyponatremia 126, hyperkalemia 6.0, prerenal acute kidney injury",
+   "room": "4W-22",
+   "passPct": 70,
+   "token": "bde24bafd8",
+   "files": {
+    "studentPdf": "cases/addison/CASE_STUDY_PACKET.pdf",
+    "studentDocx": "cases/addison/CASE_STUDY_PACKET.docx",
+    "keyPdf": "cases/addison/INSTRUCTOR_CASESTUDY_KEY.pdf",
+    "keyDocx": "cases/addison/INSTRUCTOR_CASESTUDY_KEY.docx"
+   }
+  },
+  {
    "id": "hypermag",
    "caseCode": "CS-HYPERMAG-1",
    "title": "Telemetry Step-Down: hypermagnesemia from over-the-counter magnesium with acute kidney injury on CKD, emergent hemodialysis (24 h in 4-hour checkpoints)",

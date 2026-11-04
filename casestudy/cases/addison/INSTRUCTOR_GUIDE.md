@@ -202,7 +202,7 @@ After treatment (about 1120) you may lower HR to 100 with **Apply** on the monit
 
 ### CHECKPOINT 4: Monday 1900 (evaluating the response; norovirus)
 
-**(A) Read aloud.** "It's 1900, shift change. The new fluid is running at 100 mL/h. She has had broth, ginger ale and juice, and a regular diet was ordered at 1830. One loose stool at 1640. The GI panel came back."
+**(A) Read aloud.** "It's 1900, shift change. The new fluid is running at 100 mL/h. She has had clear liquids, ginger ale and juice, and a regular diet was ordered at 1830. One loose stool at 1640. The GI panel came back."
 
 **(B) Monitor.**
 | Temp | HR | BP lying (MAP) | RR | SpO2 | Pain | Rhythm | POC glucose |
