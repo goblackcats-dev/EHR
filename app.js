@@ -1782,8 +1782,8 @@ function refreshSimulationView(preserveSection = true) {
   // tell the instructor's Bedside Monitor page (monitor.html, same browser) what the simulation time is
   try {
     const st = String(simulationTime || ''), p = currentCanonicalCase.patient || {};
-    localStorage.setItem('nursingsim.simTime', st);
-    if ('BroadcastChannel' in window) { window.__nsChan = window.__nsChan || new BroadcastChannel('nursingsim'); window.__nsChan.postMessage({ simTime: st, name: `${safe(currentCanonicalCase.encounter && currentCanonicalCase.encounter.room, 'BED')}   ${safe(p.name).split(' ').reverse().join(', ').toUpperCase()}   ${p.age || ''} ${safe(p.sex).slice(0, 1)}` }); }
+    localStorage.setItem('nursingsim.simTime', st); localStorage.setItem('nursingsim.mrn', safe(p.mrn, ''));   // the monitor picks its built-in scenario by MRN
+    if ('BroadcastChannel' in window) { window.__nsChan = window.__nsChan || new BroadcastChannel('nursingsim'); window.__nsChan.postMessage({ simTime: st, mrn: safe(p.mrn, ''), name: `${safe(currentCanonicalCase.encounter && currentCanonicalCase.encounter.room, 'BED')}   ${safe(p.name).split(' ').reverse().join(', ').toUpperCase()}   ${p.age || ''} ${safe(p.sex).slice(0, 1)}` }); }
   } catch (e) { /* monitor link is optional */ }
 
   const visibleCanonical = getVisibleCanonicalCase(currentCanonicalCase);

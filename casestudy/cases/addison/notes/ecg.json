@@ -1,0 +1,40 @@
+[
+ {
+  "id": "note_ecg_202612070435",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "A. Brennan, MD",
+  "datetime": "2026-12-07 04:35",
+  "category": "Cardiology",
+  "summary": "Sinus tachycardia 118, PR 148 ms, QRS 88 ms, QTc 428 ms. Tall, narrow, peaked T waves V2-V4 (correlate with potassium).",
+  "body": "**Measurements**\nVentricular rate 118 bpm. PR 148 ms. QRS 88 ms. QT/QTc 305/428 ms.\n\n**Interpretation**\nSinus tachycardia. Tall, narrow, symmetric (\"tented\") T waves, most obvious in V2 to V4. PR and QRS are normal and P waves are present: no signs of severe hyperkalemia (no wide QRS, no loss of P waves). No ST elevation. Correlate with the potassium level (drawn 0406).",
+  "study": "ECG 12 lead, acquired 04:25",
+  "impression": "Sinus tachycardia 118 with peaked T waves V2-V4, consistent with hyperkalemia. Normal PR and QRS.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0425.png",
+    "caption": "12-lead ECG acquired 2026-12-07 04:25 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-12-07 04:25: Sinus tachycardia 118, PR 148 ms, QRS 88 ms, QTc 428 ms. Tall, narrow, peaked T waves V2-V4 (correlate with potassium)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202612071340",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "R. Delacroix, MD",
+  "datetime": "2026-12-07 13:40",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 94, PR 152 ms, QRS 86 ms, QTc 432 ms. T waves normal; the peaked T waves of 0425 have resolved.",
+  "body": "**Measurements**\nVentricular rate 94 bpm. PR 152 ms. QRS 86 ms. QT/QTc 345/432 ms.\n\n**Interpretation**\nNormal sinus rhythm. T waves now normal in height and shape in V2 to V4. Compared with 0425: heart rate slower (118 to 94) and the peaked T waves have resolved (potassium 6.0 to 4.9).",
+  "study": "ECG 12 lead, acquired 13:30",
+  "impression": "Normal sinus rhythm 94. Peaked T waves resolved. Normal ECG.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1330.png",
+    "caption": "12-lead ECG acquired 2026-12-07 13:30 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-12-07 13:30: Sinus rhythm 94, PR 152 ms, QRS 86 ms, QTc 432 ms. T waves normal; the peaked T waves of 0425 have resolved."
+   }
+  ]
+ }
+]

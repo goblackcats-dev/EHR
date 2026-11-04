@@ -165,17 +165,18 @@
   <small>Alarm limits: HR below 50 or above 120, SpO2 below 92, systolic below 90 or above 180, RR below 10 or above 24, temp above 100.4. The sound only works after you click the button above once.</small>
 
   <h3>Scenario (times and vitals)</h3>
-  <small>One row per time: the monitor shows the latest row at or before the clock. Edit it, then press Save. It is kept in this browser.</small>
+  <small>One row per time: the monitor shows the latest row at or before the clock. Edit it, then press Save. It is kept in this browser for this patient only (the EHR tells the monitor which patient is open; built-in scenarios: Raymond Kessler SIM-40318, Lauren Mitchell SIM-40422).</small>
   <textarea id="scenText" spellcheck="false"></textarea>
-  <div class="row"><button id="scenSave">Save scenario</button><button id="scenReset" class="alt">Reset to Ray Kessler</button></div>
+  <div class="row"><button id="scenSave">Save scenario</button><button id="scenReset" class="alt">Reset to built-in scenario</button></div>
   <small>Natural variation: every 2-3 seconds the numbers drift a little (HR &plusmn;3, SpO2 &plusmn;1, RR &plusmn;1) and each blood pressure reading differs a little (&plusmn;5 / &plusmn;3), never across an alarm limit. A row can set its own ranges, for example <code>"var": {"hr": 2, "sys": 3}</code>. The cuff takes 45 seconds, with pump and valve sounds when sound is on. Numbers you type yourself (Apply, or the EHR Monitor window) are used exactly.</small>
-  <small>Fields per row: t, hr, spo2, sys, dia, rr, temp, rhythm (sinus, brady, avb1, widebrady), pr, qrs, tAmp, o2 (text), note.</small>
+  <small>Fields per row: t, hr, spo2, sys, dia, rr, temp, rhythm (sinus, brady, tachy, avb1, widebrady), pr, qrs, tAmp, o2 (text), note.</small>
   <small>Keys: C = this panel, N = measure BP, F = full screen, S = sound.</small>
 </div>
 
 <script>
 (() => {
-  // ---------- scenario: Ray Kessler (hypermagnesemia). Rows match casestudy/cases/hypermag/INSTRUCTOR_GUIDE.md ----------
+  // ---------- built-in scenarios, chosen by the MRN of the patient open in the EHR (falls back to Ray Kessler) ----------
+  // Ray Kessler (hypermagnesemia). Rows match casestudy/cases/hypermag/INSTRUCTOR_GUIDE.md
   const RAY = [
     { t: '2026-11-17 07:00', hr: 52, spo2: 94, sys: 96, dia: 56, rr: 14, temp: 97.6, rhythm: 'avb1', pr: 0.26, qrs: 0.12, tAmp: 0.4, o2: 'Room air', note: 'Arrival: slow heart rate, long PR' },
     { t: '2026-11-17 11:00', hr: 44, spo2: 91, sys: 84, dia: 48, rr: 10, temp: 97.4, rhythm: 'avb1', pr: 0.30, qrs: 0.13, tAmp: 0.5, o2: 'Room air', note: 'Worse: slow, shallow breathing' },
@@ -185,13 +186,35 @@
     { t: '2026-11-18 03:00', hr: 56, spo2: 95, sys: 104, dia: 60, rr: 12, temp: 98.0, rhythm: 'avb1', pr: 0.24, qrs: 0.11, tAmp: 0.4, o2: 'Room air', note: 'Magnesium rebound' },
     { t: '2026-11-18 07:00', hr: 68, spo2: 96, sys: 124, dia: 70, rr: 16, temp: 98.0, rhythm: 'sinus', pr: 0.20, qrs: 0.10, tAmp: 0.3, o2: 'Room air', note: 'Recovery' }
   ];
+  // Lauren Mitchell (adrenal crisis, Addison disease). Rows match casestudy/cases/addison/INSTRUCTOR_GUIDE.md (lying BP; standing values are in the note)
+  const ADDISON = [
+    { t: '2026-12-07 07:00', hr: 104, spo2: 98, sys: 98, dia: 60, rr: 18, temp: 99.4, rhythm: 'tachy', pr: 0.15, qrs: 0.09, tAmp: 0.6, o2: 'Room air', note: 'Arrival: sinus tach, tall T waves (K 6.0 in ED). Not safe to stand' },
+    { t: '2026-12-07 11:00', hr: 112, spo2: 98, sys: 94, dia: 58, rr: 20, temp: 99.0, rhythm: 'tachy', pr: 0.15, qrs: 0.09, tAmp: 0.5, o2: 'Room air', note: 'Glucose 58: shaky, sweaty, anxious' },
+    { t: '2026-12-07 15:00', hr: 92, spo2: 99, sys: 108, dia: 66, rr: 16, temp: 98.8, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Lying. Standing 94/60, HR 114, dizzy (orthostatic +)' },
+    { t: '2026-12-07 19:00', hr: 86, spo2: 99, sys: 112, dia: 70, rr: 16, temp: 98.6, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Lying. Standing 104/66, HR 96 (negative)' },
+    { t: '2026-12-07 23:00', hr: 80, spo2: 98, sys: 116, dia: 72, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Cannot sleep (steroid). Standing 112/70, HR 88' },
+    { t: '2026-12-08 03:00', hr: 76, spo2: 98, sys: 118, dia: 74, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.25, o2: 'Room air', note: 'After the 0240 near-fall; right forearm IV infiltrated; K 3.7' },
+    { t: '2026-12-08 07:00', hr: 74, spo2: 99, sys: 120, dia: 76, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.25, o2: 'Room air', note: 'Recovery. Standing 116/74, HR 80' }
+  ];
+  const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON };
+  const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F' };
   const RHY = { sinus: 'Normal sinus rhythm', brady: 'Sinus bradycardia', tachy: 'Sinus tachycardia', avb1: 'Sinus rhythm, 1st degree AV block', widebrady: 'Sinus brady, wide QRS', mobitz1: '2nd degree AV block, Mobitz I (Wenckebach)', mobitz2: '2nd degree AV block, Mobitz II', chb: 'Complete heart block (3rd degree)', afib: 'Atrial fibrillation', vtach: 'Ventricular tachycardia', vfib: 'Ventricular fibrillation', asystole: 'Asystole' };
   const NUMERIC = ['hr', 'spo2', 'sys', 'dia', 'rr', 'temp', 'pr', 'qrs', 'tAmp'];
   const $ = id => document.getElementById(id);
   const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
-  let scen = RAY.slice();
-  try { const s = JSON.parse(ls.get('nsmon.scen') || 'null'); if (Array.isArray(s) && s.length) scen = s; } catch (e) {}
-  scen.sort((a, b) => String(a.t).localeCompare(String(b.t)));
+  // which patient: the EHR stores/broadcasts the open patient's MRN. A saved (edited) scenario belongs to the MRN it was saved for.
+  let mrn = ls.get('nursingsim.mrn') || '';
+  const builtinFor = m => (BUILTIN[m] || RAY).map(r => Object.assign({}, r));
+  const scenKey = m => 'nsmon.scen.' + (m || 'none');
+  function scenarioFor(m) {
+    let rows = null;
+    try { const s = JSON.parse(ls.get(scenKey(m)) || 'null'); if (Array.isArray(s) && s.length) rows = s; } catch (e) {}
+    // an older saved scenario (before scenarios were kept per patient) was Ray Kessler's
+    if (!rows && (!m || m === 'SIM-40318')) { try { const s = JSON.parse(ls.get('nsmon.scen') || 'null'); if (Array.isArray(s) && s.length) rows = s; } catch (e) {} }
+    rows = rows || builtinFor(m);
+    return rows.sort((a, b) => String(a.t).localeCompare(String(b.t)));
+  }
+  let scen = scenarioFor(mrn);
 
   // ---------- clock ----------
   const pad = n => String(n).padStart(2, '0');
@@ -513,8 +536,19 @@
   $('tNext').onclick = () => jump(4 * 3600000); $('tPrev').onclick = () => jump(-4 * 3600000); $('t1').onclick = () => jump(3600000); $('t15').onclick = () => jump(900000);
   $('tGo').onclick = () => { const t = parse($('tSet').value); if (t != null) { mode = 'manual'; document.querySelectorAll('input[name=tmode]').forEach(r => r.checked = r.value === 'manual'); setClock(t); } else toast('Use the form 2026-11-17 07:00'); };
   $('scenText').value = JSON.stringify(scen, null, 1);
-  $('scenSave').onclick = () => { try { const s = JSON.parse($('scenText').value); if (!Array.isArray(s) || !s.length || s.some(r => parse(r.t) == null)) throw new Error('bad'); scen = s.sort((a, b) => a.t.localeCompare(b.t)); ls.set('nsmon.scen', JSON.stringify(scen)); curKey = ''; setClock(clock); toast('Scenario saved'); } catch (e) { toast('That scenario text is not valid'); } };
-  $('scenReset').onclick = () => { scen = RAY.slice(); ls.set('nsmon.scen', ''); $('scenText').value = JSON.stringify(scen, null, 1); curKey = ''; setClock(clock); toast('Reset to Ray Kessler'); };
+  $('scenSave').onclick = () => { try { const s = JSON.parse($('scenText').value); if (!Array.isArray(s) || !s.length || s.some(r => parse(r.t) == null)) throw new Error('bad'); scen = s.sort((a, b) => a.t.localeCompare(b.t)); ls.set(scenKey(mrn), JSON.stringify(scen)); curKey = ''; setClock(clock); toast('Scenario saved for this patient'); } catch (e) { toast('That scenario text is not valid'); } };
+  $('scenReset').onclick = () => { scen = builtinFor(mrn); ls.set(scenKey(mrn), ''); if (!mrn || mrn === 'SIM-40318') ls.set('nsmon.scen', ''); $('scenText').value = JSON.stringify(scen, null, 1); curKey = ''; setClock(clock); toast('Reset to the built-in scenario'); };
+  // the EHR opened another patient: load that patient's scenario (saved one first, else the built-in one, else Ray Kessler)
+  function usePatient(m, name, t) {
+    m = String(m || ''); if (!m || m === mrn) return;
+    mrn = m; scen = scenarioFor(mrn); ovr = null; curKey = ''; $('scenText').value = JSON.stringify(scen, null, 1);
+    if (!name && BUILTIN_NAME[mrn]) setName(BUILTIN_NAME[mrn]);
+    const ms = mode === 'ehr' ? parse(t) : null; if (ms != null) clock = ms;
+    seedHist(); setClock(clock, 'init'); toast(BUILTIN[mrn] ? 'Scenario: ' + (BUILTIN_NAME[mrn] || mrn).replace(/\s+/g, ' ').trim() : 'No built-in scenario for this patient: using Ray Kessler\'s');
+  }
+  // patient banner: the EHR sends 'ROOM   LAST, FIRST   AGE S'; the yellow bed tab shows the room
+  function setName(n) { $('pname').textContent = n; const room = String(n).trim().split(/\s{2,}/)[0]; if (room && /\d/.test(room) && !/,/.test(room)) $('bedTab').textContent = 'BED ' + room; }
+  if (BUILTIN_NAME[mrn]) setName(BUILTIN_NAME[mrn]);
   $('kSil').onclick = () => { silenceUntil = Date.now() + 120000; refreshNums(); };
   $('kAlm').onclick = () => { $('alOn').checked = !$('alOn').checked; refreshNums(); };
   $('kNbp').onclick = () => { if (bp.measuring && Date.now() < bp.measuring) { cancelBP(); refreshNums(); } else measureBP(); };
@@ -531,8 +565,8 @@
     if (v.rhythm && o.preset !== false) { const P = { sinus: [0.16, 0.10, 0.3], brady: [0.18, 0.10, 0.3], tachy: [0.14, 0.09, 0.3], avb1: [0.26, 0.12, 0.4], widebrady: [0.20, 0.16, 0.7], mobitz1: [0.20, 0.10, 0.3], mobitz2: [0.26, 0.12, 0.3], chb: [0.20, 0.14, 0.3], afib: [0.16, 0.10, 0.3], vtach: [0.16, 0.20, 0.3] }[v.rhythm]; if (P && v.pr == null) { ovr.pr = P[0]; ovr.qrs = P[1]; ovr.tAmp = P[2]; } }
     fillInputs(); refreshNums(); broadcastState();
   }
-  if (chan) chan.onmessage = e => { const d = e.data || {}; if (d.cmd === 'set') applyOverride(d); else if (d.cmd === 'bp') measureBP(); else if (d.cmd === 'reset') $('vReset').onclick(); else if (d.cmd === 'getState') broadcastState(); if (d.simTime) fromEhr(d.simTime); if (d.name) { $('pname').textContent = d.name; } };
-  addEventListener('storage', e => { if (e.key === 'nursingsim.simTime') fromEhr(e.newValue); });
+  if (chan) chan.onmessage = e => { const d = e.data || {}; if (d.cmd === 'set') applyOverride(d); else if (d.cmd === 'bp') measureBP(); else if (d.cmd === 'reset') $('vReset').onclick(); else if (d.cmd === 'getState') broadcastState(); if (d.mrn) usePatient(d.mrn, d.name, d.simTime); if (d.simTime) fromEhr(d.simTime); if (d.name) setName(d.name); };
+  addEventListener('storage', e => { if (e.key === 'nursingsim.mrn') usePatient(e.newValue, '', ls.get('nursingsim.simTime')); if (e.key === 'nursingsim.simTime') fromEhr(e.newValue); });
   const saved = ls.get('nursingsim.simTime'); if (mode === 'ehr' && saved && parse(saved)) clock = parse(saved);
   if (chan) chan.postMessage({ hello: 'monitor' });
   setClock(clock, 'init'); requestAnimationFrame(frame);

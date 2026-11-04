@@ -1,0 +1,164 @@
+[
+ {
+  "id": "note_cxr_ed_202612070505",
+  "type": "imaging",
+  "title": "XR Chest Single View (portable)",
+  "author": "Radiology Service",
+  "datetime": "2026-12-07 05:05",
+  "category": "Radiology",
+  "summary": "No acute disease. Small heart size, clear lungs.",
+  "body": "**Exam**\nPortable AP chest radiograph, 0450.\n\n**Indication**\nHypotension, confusion, vomiting, low-grade temperature.\n\n**Comparison**\nNone.\n\n**Findings**\n- Lungs clear. No consolidation, pulmonary edema, pleural effusion or pneumothorax.\n- Small heart size (can be seen with low blood volume). Mediastinum normal.\n- No free air under the diaphragm.",
+  "study": "Portable chest x-ray, AP",
+  "impression": "No acute cardiopulmonary disease. Small cardiac silhouette, consistent with low intravascular volume."
+ },
+ {
+  "id": "note_ed_provider_202612070535",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Adrenal Crisis",
+  "author": "A. Brennan, MD",
+  "datetime": "2026-12-07 05:35",
+  "category": "ED Note",
+  "summary": "46-year-old woman with known Addison disease in adrenal crisis after gastroenteritis: shock, glucose 52, Na 126, K 6.0, peaked T waves. Hydrocortisone 100 mg IV 0420 after cortisol/ACTH draw; 2.5 L fluid; admit telemetry.",
+  "body": "**Chief complaint**\nConfusion, weakness, vomiting and diarrhea.\n\n**History of present illness**\n46-year-old woman with primary adrenal insufficiency (autoimmune Addison disease, diagnosed 2021, 21-hydroxylase antibodies positive) on hydrocortisone 15 mg at 0700 and 5 mg at 1400 and fludrocortisone 0.1 mg daily, and Hashimoto hypothyroidism on levothyroxine. Her son had gastroenteritis last week. Since Saturday afternoon she has had 6-8 watery stools a day and repeated vomiting. She vomited her hydrocortisone Saturday afternoon and Sunday morning and did not take extra doses or an injection (she has no kit and says nobody taught her sick-day rules). Sunday: dizzy on standing, salt craving, fell to her knees. Found confused on the bathroom floor at 0318.\n\n**Exam**\nT 99.8 F, HR 124, BP 78/44, RR 22, SpO2 97% RA. Lethargic, GCS 13, oriented to self. Diffuse hyperpigmentation with dark buccal and gum patches, darker palmar creases. Dry mucous membranes, flat neck veins, weak pulses, cool hands. Abdomen soft, diffusely tender, no guarding or rebound, hyperactive bowel sounds. No meningismus. No rash.\n\n**Results**\nNa 126, K 6.0, Cl 94, CO2 18 (anion gap 14), BUN 38, creatinine 1.6 (baseline 0.8), glucose 49, Ca 10.6, albumin 4.6, lactate 3.1, serum osmolality 264. Urine Na 48, urine osm 420, SG 1.026, ketones 2+. WBC 10.8 with eosinophils 7% (absolute 0.76). Hgb 14.6. Lipase, LFTs and troponin normal. Urine hCG negative. ECG: sinus tachycardia 118, peaked T waves V2-V4, normal PR and QRS. Chest x-ray clear.\n\n**Medical decision making**\nAdrenal crisis in known primary adrenal insufficiency, triggered by viral gastroenteritis with loss of oral steroid. The pattern fits both cortisol deficiency (shock, hypoglycemia, low sodium, eosinophilia) and aldosterone deficiency (high potassium, urine sodium high despite dehydration, prerenal kidney injury). Random cortisol and ACTH drawn at 0406, before treatment; treatment NOT delayed for results. Hydrocortisone 100 mg IV given at 0420. Sepsis considered: no source besides the gut, lungs clear, UA clean; blood cultures sent, antibiotics not started (afebrile, improving with steroid and fluid; re-evaluate if fever or worsening). Potassium 6.0 with peaked T waves but normal QRS: no calcium or insulin needed; expected to fall with saline and hydrocortisone. Recheck BMP in 4 hours. Sodium 126 is chronic (2-3 days): avoid raising it more than 8 in 24 hours.\n\n**ED course**\nD50 25 g (0408), hydrocortisone 100 mg IV (0420), NS 1 L x2, ondansetron 4 mg IV, D5NS 150 mL/h from 0600. BP 78/44 to 96/58, HR 124 to 104, glucose 52 to 96, more alert.\n\n**Diagnoses**\n1. Adrenal crisis, primary adrenal insufficiency (Addison disease).\n2. Hypovolemic shock, resolving.\n3. Hypoglycemia. 4. Hyponatremia (126). 5. Hyperkalemia (6.0) with peaked T waves.\n6. Acute kidney injury, prerenal (creatinine 1.6).\n7. Acute gastroenteritis, probably viral.\n\n**Disposition**\nAdmit to the hospitalist (Dr. Osei), Med-Surg Telemetry 4 West. Endocrinology consult in the morning."
+ },
+ {
+  "id": "note_hp_202612070640",
+  "type": "hp",
+  "title": "Hospitalist Admission H&P",
+  "author": "K. Osei, MD",
+  "datetime": "2026-12-07 06:40",
+  "category": "H&P",
+  "summary": "Admit telemetry: adrenal crisis (Addison disease) from viral gastroenteritis. Hydrocortisone 50 mg IV q6h from 1000, D5NS 150 mL/h, BMP q4h, glucose q2h, fludrocortisone held, endocrine consult.",
+  "body": "**Identification**\nLauren Mitchell, 46-year-old woman, middle school science teacher, lives with her husband Daniel (health care proxy) and son Ethan (15). Admitted 0640 Monday 12/07/2026.\n\n**Chief complaint**\n\"I couldn't keep anything down, not even my pills.\"\n\n**HPI**\nSee the ED note. Known autoimmune Addison disease (2021) with 2 days of vomiting and diarrhea (son had the same illness), no hydrocortisone absorbed since Saturday morning, no extra doses, no emergency injection. Arrived in shock with hypoglycemia, hyponatremia and hyperkalemia. Improving after hydrocortisone 100 mg IV at 0420 and 2.5 L of fluid.\n\n**Past history**\nAddison disease 2021 (presented with fatigue, weight loss, salt craving and tanning; 21-hydroxylase antibodies positive). Hashimoto hypothyroidism 2016. Appendectomy at age 19. No previous adrenal crisis. Last endocrinology visit 18 months ago (Dr. S. Kaur); was due for follow-up. Never prescribed an emergency hydrocortisone injection.\n\n**Home medications**\nHydrocortisone 15 mg at 0700 and 5 mg at 1400. Fludrocortisone 0.1 mg daily. Levothyroxine 88 mcg daily at 0600. Vitamin D3 2,000 units daily.\n\n**Allergy**\nSulfamethoxazole-trimethoprim: hives.\n\n**Social**\nNever smoker, rare alcohol, no drugs. Very active; runs on weekends.\n\n**Family history**\nMother with type 1 diabetes and vitiligo; sister with Hashimoto thyroiditis.\n\n**Exam (0630)**\nT 99.4 F, HR 104, BP 96/58, RR 18, SpO2 98% RA. Weight 58.2 kg (usual 61), height 165 cm. Drowsy, oriented to person and place, follows commands, no focal deficit. Hyperpigmented skin, palmar creases and buccal mucosa. Dry mucous membranes. Lungs clear. Heart regular, tachycardic, no murmur. Abdomen soft, mild diffuse tenderness, hyperactive bowel sounds. No edema. Bruises on both knees.\n\n**Assessment**\nAdrenal crisis in primary adrenal insufficiency, triggered by acute viral gastroenteritis and loss of oral replacement. Complications: hypovolemic shock (responding), hypoglycemia, hyponatremia 126 (hypovolemic, chronic), hyperkalemia 6.0 with peaked T waves (aldosterone deficiency), prerenal AKI, mild hypercalcemia (volume contraction). Eosinophilia fits cortisol deficiency.\n\n**Plan**\n1. Hydrocortisone 50 mg IV every 6 hours (1000, 1600, 2200, 0400) = 200 mg a day. Do not hold. Taper when eating and stable (endocrinology).\n2. Fludrocortisone HELD: not needed while hydrocortisone is more than 50 mg a day. Home oral hydrocortisone held.\n3. Fluids: D5NS 150 mL/h. Reassess lungs every 4 hours.\n4. Sodium: BMP every 4 hours. Goal rise 4-6 per 24 hours, LIMIT 8 per 24 hours (no higher than 134 by 0400 Tuesday). Expect a brisk urine flow once cortisol and volume are back.\n5. Potassium: telemetry; expected to fall with fluid and steroid. No binders. Repeat ECG 1330.\n6. Glucose: POC every 2 hours x3, then every 4 hours. Hypoglycemia protocol (D50 if not safe to swallow).\n7. GI: ondansetron PRN, NPO except sips, advance when nausea settles. Stool C. diff PCR and GI panel. Contact (enteric) precautions.\n8. Possible infection: blood cultures pending; no antibiotics now.\n9. Hypothyroidism: levothyroxine held today (vomiting); resume tomorrow. TSH/free T4 sent.\n10. VTE: enoxaparin 40 mg daily. Falls: high risk.\n11. Consults: endocrinology, pharmacy (education, emergency kit), dietitian.\n12. Code: Full. Proxy: husband."
+ },
+ {
+  "id": "note_pharm_hx_202612070830",
+  "type": "therapyNotes",
+  "title": "Pharmacy Medication History and Steroid Review",
+  "author": "T. Nakagawa, PharmD",
+  "datetime": "2026-12-07 08:30",
+  "category": "Pharmacy",
+  "summary": "Medication history verified. No emergency hydrocortisone kit ever dispensed; no sick-day rules teaching on record. Fludrocortisone hold is appropriate at 200 mg/day hydrocortisone. Hydrocortisone doses must be on time.",
+  "body": "**Sources**\nPatient (more alert now), husband, bottles from home, outpatient pharmacy fill history.\n\n**Home medications (verified)**\n- Hydrocortisone 10 mg tablets: 1.5 tablets (15 mg) on waking, 1/2 tablet (5 mg) at 1400. Fills on time. Last dose absorbed: Saturday 0700.\n- Fludrocortisone 0.1 mg daily.\n- Levothyroxine 88 mcg daily at 0600.\n- Vitamin D3 2,000 units daily.\n- No over-the-counter products, herbal supplements or other steroids. No opioids.\n\n**Findings**\n1. No hydrocortisone injection kit (Act-O-Vial) has ever been dispensed. No record of sick-day rules teaching. The patient says, \"I thought if I threw it up I should just wait for the next dose.\"\n2. She does not wear a medical alert ID.\n3. Last endocrinology prescription renewal 18 months ago; refills from the primary care office since.\n\n**Assessment / recommendations (discussed with Dr. Delacroix)**\n- Hydrocortisone 50 mg IV every 6 hours is appropriate stress dosing. Mark as time critical: give within 30 minutes of the scheduled time.\n- Fludrocortisone hold is appropriate: hydrocortisone at more than 50 mg/day has enough mineralocorticoid (aldosterone-like) effect. Restart when the dose is 50 mg/day or less.\n- Levothyroxine: safe to miss one day; resume Tuesday 0600.\n- Ondansetron: QTc 428, safe.\n- Avoid drugs that speed up cortisol breakdown if possible later (for example rifampin, phenytoin) and remember that a patient on replacement needs extra steroid for surgery and procedures.\n- Before discharge: two emergency kits (hydrocortisone 100 mg/2 mL Act-O-Vial) with syringes and needles, teaching with return demonstration for patient and husband, written sick-day rules, steroid emergency card, medical alert ID. Pharmacy will check insurance coverage for the kits."
+ },
+ {
+  "id": "note_hosp_0915_202612070915",
+  "type": "progressNotes",
+  "title": "Hospitalist Progress Note - Day 1 Morning",
+  "author": "R. Delacroix, MD",
+  "datetime": "2026-12-07 09:15",
+  "category": "Progress Note",
+  "summary": "Improving: BP 98-102 systolic, HR 100s, more alert. 0900 labs pending. First hydrocortisone 50 mg IV due 1000 (on time). Endocrinology and pharmacy consulted. Stool sample still needed.",
+  "body": "**Subjective**\nMore awake. \"I feel like I was hit by a truck.\" Still nauseated, no vomiting since 0440. Belly cramps 4/10. Thirsty, wants salty food.\n\n**Objective**\nVitals per the unit flowsheet: systolic BP high 90s to about 100, HR about 100-106 sinus tachycardia, afebrile (99.4 F), SpO2 98% RA. Oriented to person and place, follows commands. Mucous membranes still dry. Lungs clear. Voided 120 mL at 0800.\nED labs reviewed. 0900 BMP pending.\n\n**Assessment and plan**\nAdrenal crisis, responding to stress-dose hydrocortisone and fluids.\n- Hydrocortisone 50 mg IV every 6 hours; first unit dose 1000. Nursing: time critical.\n- D5NS 150 mL/h. Sodium every 4 hours (limit +8 in 24 hours: no higher than 134 before 0400 Tuesday).\n- Potassium 6.0 in the ED: telemetry, recheck 0900, ECG 1330.\n- Glucose every 2 hours; she has no glycogen reserve until cortisol works (hours).\n- Stool C. difficile PCR and GI panel on the next liquid stool; contact (enteric) precautions.\n- Endocrinology (Dr. Harrington) and pharmacy consulted.\n- Orthostatic vitals once lying systolic is 100 or more and she is alert. Bed rest with commode until then.\n- Husband updated at the bedside."
+ },
+ {
+  "id": "note_hosp_1130_202612071130",
+  "type": "progressNotes",
+  "title": "Hospitalist Event Note - Hypoglycemia",
+  "author": "R. Delacroix, MD",
+  "datetime": "2026-12-07 11:30",
+  "category": "Progress Note",
+  "summary": "RN called 1102: glucose 58, shaky, sweaty, HR 112. Dextrose 50% 25 g IV per protocol at 1105; glucose 142 at 1120. RN asked to confirm the 1000 hydrocortisone was on time. Glucose hourly x2 then q2h.",
+  "body": "**Event**\nRN called at 1102: POC glucose 58 on the scheduled check. Patient shaky, sweaty, anxious, \"foggy\". HR 112, BP 94/58. Nauseated, not safe for oral glucose. Dextrose 50% 25 g IV given at 1105 by the RN per the hypoglycemia protocol (18 g left forearm, good blood return). Recheck 1120: glucose 142, symptoms resolved, HR 100.\n\n**Assessment**\nHypoglycemia from cortisol deficiency (no glycogen stores, no glucose production by the liver) and nothing by mouth. The 0900 serum glucose was 74 (low normal) while on D5NS 150 mL/h. Asked the RN to confirm on the MAR that the hydrocortisone 50 mg due at 1000 was given on time (a late or missed dose is a common cause of relapse); even when on time, its effect on glucose takes several hours. 0900 BMP: Na 128, K 5.5, creatinine 1.4.\n\n**Plan**\n- Continue D5NS 150 mL/h (dextrose source).\n- POC glucose every hour x2, then every 2 hours until three values are over 70, then every 4 hours.\n- Clear liquids when nausea allows (endocrinology to see this afternoon). Ondansetron 4 mg IV now available (last dose 0430).\n- Call for glucose under 70 again or any new confusion."
+ },
+ {
+  "id": "note_endo_consult_202612071400",
+  "type": "progressNotes",
+  "title": "Endocrinology Consult Note",
+  "author": "M. Harrington, MD",
+  "datetime": "2026-12-07 14:00",
+  "category": "Consult",
+  "summary": "Adrenal crisis in autoimmune Addison disease, precipitated by norovirus-type gastroenteritis without sick-day dosing. Cortisol 1.8 before treatment. Continue hydrocortisone 50 mg IV q6h for 24 h, then oral taper; fludrocortisone held until hydrocortisone is 50 mg/day; safe sodium correction; full education before discharge.",
+  "body": "**Reason for consult**\nAdrenal crisis in known Addison disease.\n\n**History**\nAs documented. Diagnosis 2021: fatigue, weight loss, salt craving, tanning; ACTH high, cortisol low, 21-hydroxylase antibodies positive. Stable on hydrocortisone 20 mg/day and fludrocortisone 0.1 mg. No prior crisis. Never given an emergency injection kit and never taught sick-day rules (our clinic will review why). Precipitant: viral gastroenteritis with vomiting of oral doses since Saturday.\n\n**Exam (1330)**\nAlert, oriented x3, still tired. BP 104/64 lying, HR 96. Mucous membranes moist. Hyperpigmentation of palmar creases, knuckles, gums and buccal mucosa; old appendectomy scar darker than the surrounding skin. Mild diffuse abdominal tenderness. No edema.\n\n**Data**\nRandom cortisol (0406, before hydrocortisone): **1.8 mcg/dL** (in severe illness the cortisol should be well above 18). ACTH pending (expected high). Na 126 to 128 to 132 (1300). K 6.0 to 5.5 to 4.9. Creatinine 1.6 to 1.2. Glucose 58 at 1100 treated. Eosinophils 7%. TSH 4.6, free T4 1.1.\n\n**Assessment**\n1. Adrenal crisis, primary adrenal insufficiency, precipitated by gastroenteritis and missed steroid. Responding well.\n2. Hyponatremia, now correcting quickly: +6 in 9 hours. As cortisol returns, ADH (the water-holding hormone) switches off and she will lose free water in the urine. Risk of correcting too fast.\n3. Hyperkalemia, resolving (aldosterone deficiency; hydrocortisone at this dose acts on the same receptor).\n4. Mildly high TSH: common in untreated adrenal insufficiency and usually settles with steroid. Do NOT change the levothyroxine dose now; recheck TSH in 6-8 weeks.\n\n**Recommendations**\n1. Continue hydrocortisone 50 mg IV every 6 hours until Tuesday 0400 (last IV dose), then oral 20 mg / 20 mg / 10 mg on Tuesday, double home dose (30 mg + 10 mg) until the diarrhea has stopped 24 hours, then home dose 15 mg + 5 mg.\n2. Fludrocortisone: keep HELD while hydrocortisone is more than 50 mg a day. Restart 0.1 mg daily on Tuesday 0800, the morning the dose drops to 50 mg/day.\n3. Sodium: limit the rise to 8 mmol/L in 24 hours (no higher than 134 before 0400 Tuesday). Suggest a lower-sodium fluid now and close monitoring of urine output; if the limit is reached, D5W and/or desmopressin (discuss with us).\n4. Advance to clear liquids; salt is fine (no sodium restriction).\n5. Added renin and aldosterone to the 0406 ED sample (send-out, for the record).\n6. Education before discharge (pharmacy and nursing): sick-day rules, two emergency injection kits with return demonstration (patient and husband), medical alert ID, steroid emergency card, letter for the school nurse/employer, when to call 911.\n7. Clinic follow-up with me in 1-2 weeks."
+ },
+ {
+  "id": "note_endo_add_202612071450",
+  "type": "progressNotes",
+  "title": "Endocrinology Addendum - ACTH Result",
+  "author": "M. Harrington, MD",
+  "datetime": "2026-12-07 14:50",
+  "category": "Consult",
+  "summary": "ACTH 1,240 pg/mL (drawn before steroid) with cortisol 1.8: confirms PRIMARY adrenal insufficiency (the adrenal gland, not the pituitary). Explains the hyperpigmentation and the need for fludrocortisone.",
+  "body": "**Result**\nACTH (0406, before hydrocortisone): **1,240 pg/mL** (normal 7.2-63).\n\n**Interpretation**\nVery low cortisol with very high ACTH = primary adrenal insufficiency (the adrenal glands do not respond, so the pituitary keeps sending more ACTH). ACTH comes from the same precursor (POMC) as melanocyte-stimulating hormone, which is why her skin, gums and scars darken. In primary disease aldosterone is also missing (salt wasting, high potassium), so she needs BOTH hydrocortisone and fludrocortisone for life. In secondary (pituitary) disease ACTH would be low, there would be no tanning and aldosterone would be normal.\n\nNo change to the plan."
+ },
+ {
+  "id": "note_hosp_1535_202612071535",
+  "type": "progressNotes",
+  "title": "Hospitalist Progress Note - Sodium Rising Too Fast",
+  "author": "R. Delacroix, MD",
+  "datetime": "2026-12-07 15:35",
+  "category": "Progress Note",
+  "summary": "RN called 1505: Na 126 to 132 in 9 hours with urine about 260 mL/h; orthostatic positive. D5NS changed to D5 0.45% NaCl 100 mL/h; limit Na 134 until 0400; clear liquids; up with assist only.",
+  "body": "**Event**\nRN called at 1505 with SBAR: sodium 126 (0406) to 132 (1300), a rise of 6 in 9 hours; urine output 1,050 mL from 1100 to 1500 (about 260 mL/h, pale); orthostatic vitals positive at 1500 (lying 108/66 HR 92; standing 94/60 HR 114, dizzy). Alert and oriented x3, no headache, speech normal. Glucose 118.\n\n**Assessment**\n1. Hyponatremia correcting too quickly. Cortisol and volume are back, so ADH has switched off and she is excreting dilute urine (water diuresis). At this pace she would pass the 8 mmol/L limit before 0400.\n2. Still mildly volume depleted (orthostatic) despite good lying BP.\n3. Adrenal crisis otherwise improving: alert, nausea gone, potassium 4.9, ECG normal (1330).\n\n**Plan**\n- Stop D5NS. Start D5 0.45% NaCl at 100 mL/h (less sodium, still volume and dextrose). Encourage oral fluids; clear liquids since 1345.\n- Sodium limit 134 until 0400 Tuesday. BMP 1700 and 2100 as ordered. Call for sodium over 134, urine over 250 mL/h for 2 hours, or any neuro change; then D5W and/or desmopressin 1-2 mcg IV with endocrinology.\n- Up with 1 assist only, dangle first. Repeat orthostatic vitals at 1900.\n- Continue hydrocortisone 50 mg IV every 6 hours (1600 due)."
+ },
+ {
+  "id": "note_rd_202612071815",
+  "type": "therapyNotes",
+  "title": "Nutrition Initial Assessment",
+  "author": "E. Lindqvist, RD",
+  "datetime": "2026-12-07 18:15",
+  "category": "Nutrition",
+  "summary": "Weight 58.2 kg (usual 61, -4.6% in 3 days from fluid loss). Tolerating clear liquids. Recommend regular diet, no sodium restriction, small frequent meals, oral rehydration; salt intake teaching for Addison disease.",
+  "body": "**Assessment**\n46-year-old woman with Addison disease admitted in adrenal crisis after 2 days of vomiting and diarrhea. Height 165 cm, weight 58.2 kg (usual 61 kg; loss mostly fluid). BMI 21.4. Clear liquids since 1400: broth, ginger ale, apple juice, about 480 mL, no vomiting. One loose stool 1640. Craving salt.\n\n**Nutrition diagnosis**\nInadequate oral intake related to gastroenteritis and adrenal crisis, as shown by 2 days of vomiting and weight loss.\n\n**Recommendations**\n1. Advance to a regular diet, NO sodium restriction (order placed by Dr. Delacroix 1830). Small, frequent meals; bland foods first (toast, rice, bananas, crackers, soup).\n2. Oral rehydration: at least 2 L a day; include salty fluids (broth, oral rehydration solution).\n3. Teaching: people with Addison disease lose salt; they may salt food to taste and need extra salt and fluids in hot weather and with exercise or sweating. Do not follow a low-salt diet unless the endocrinologist says so.\n4. Steroid with food to protect the stomach. Steroids raise appetite and glucose a little: a balanced diet.\n5. Will follow up Tuesday."
+ },
+ {
+  "id": "note_hosp_2320_202612072320",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Progress Note",
+  "author": "K. Osei, MD",
+  "datetime": "2026-12-07 23:20",
+  "category": "Progress Note",
+  "summary": "Stable: BP 116/72, HR 80, orthostatics negative at 1900, eating. Na 133 (1700, 2100), K 4.0. Norovirus on GI panel. Cannot sleep (steroid): melatonin PRN. Glucose 152 after dinner: steroid effect, no insulin.",
+  "body": "**Interval**\nRN called at 2310: patient cannot sleep, \"wired\", worried about her son and missing work. Glucose 152 at 2300 (dinner at 2000). No vomiting since 0440. One loose stool at 1640. Orthostatic vitals negative at 1900 (lying 112/70 HR 86; standing 104/66 HR 96). Walking with assist. Drinking well; regular dinner 75% eaten.\n\n**Data**\n1700: Na 133, K 4.4, creatinine 1.0, glucose 112. 2100: Na 133, K 4.0, creatinine 0.9, glucose 128. GI panel: norovirus detected; C. difficile negative.\n\n**Assessment and plan**\n1. Adrenal crisis resolving. Hydrocortisone 50 mg IV due 2200 and 0400. Endocrinology plans the oral switch Tuesday morning.\n2. Sodium 133 and stable since 1700 after the fluid change: on track (limit 134 until 0400).\n3. Potassium falling as expected (6.0 to 4.0). Mg/phos with the 0100 labs. Replace if under 3.5.\n4. Insomnia from high-dose steroid and the setting: sleep hygiene, lights down, cluster care; melatonin 3 mg once PRN. No diphenhydramine or benzodiazepines (falls at night with a water diuresis and an IV).\n5. Glucose 152: expected with stress-dose steroid in a person without diabetes. No insulin; call if over 180 twice.\n6. Norovirus: contact (enteric) precautions and soap and water until 48 hours after the diarrhea stops. Husband and son: hand hygiene and clean bathrooms with a bleach product at home."
+ },
+ {
+  "id": "note_hosp_0310_202612080310",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Event Note - Lightheaded in the Bathroom; IV Site",
+  "author": "K. Osei, MD",
+  "datetime": "2026-12-08 03:10",
+  "category": "Progress Note",
+  "summary": "Called 0250: walked to the bathroom alone at 0240, lightheaded, sat down on the toilet and called; no fall, no injury. Vitals and glucose stable per RN. Right forearm IV puffy and cool (infiltration): remove it and move the fluid to the left forearm IV. K 3.7.",
+  "body": "**Event**\nRN called at 0250. At about 0240 the patient got up without calling (bed alarm sounded), walked to the bathroom, felt lightheaded after a soft loose stool, sat on the toilet and pulled the call cord. No fall, no head strike. RN reports vitals stable and glucose 128 at 0300. She says she \"didn't want to bother anyone.\"\nRN also reports the 20 g right forearm IV site is puffy, pale and cool, about 3 cm of swelling (infiltration of D5 0.45% NaCl).\n\n**Data**\n0100: Na 133, K 3.7, creatinine 0.9, glucose 136, Mg 1.9, phos 2.9.\n\n**Assessment and plan**\n1. Near-fall at night: diuresis, steroid, hospital bed, lightheaded after straining. Not an adrenal relapse (BP normal, alert, glucose normal). Reinforce call-don't-fall, bed alarm, bedside commode tonight, non-skid socks, light on in the bathroom.\n2. Infiltration: stop the infusion and remove the right forearm IV; run D5 0.45% NaCl through the 18 g left forearm IV; elevate the arm, compress per policy (non-vesicant fluid), mark and measure, reassess every hour. Keep one working IV (in case an IV steroid dose is needed); a second IV only if needed.\n3. Potassium 3.7, falling by about 0.3-0.4 every 4 hours. Recheck at 0500; replace if 3.5 or lower.\n4. Hydrocortisone 50 mg IV due 0400 through the left forearm IV."
+ },
+ {
+  "id": "note_hosp_0615_202612080615",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Morning Labs",
+  "author": "K. Osei, MD",
+  "datetime": "2026-12-08 06:15",
+  "category": "Progress Note",
+  "summary": "0500: Na 134 (+8 in 25 h, at the limit, not over), K 3.5: KCl 20 mEq PO now; BMP 1300. Hgb 14.6 to 11.9 with rehydration. Eosinophils gone (0.4%). Blood cultures no growth at 24 h.",
+  "body": "**Data (0500)**\nNa 134, K 3.5, Cl 103, CO2 23, BUN 13, creatinine 0.8 (back to baseline), glucose 118, Ca 8.9, Mg 1.8, phos 3.1, albumin 3.6. CBC: WBC 12.6 (steroid effect), Hgb 11.9 (14.6 on arrival, diluted by rehydration), platelets 231, eosinophils 0.4% (7% on arrival). Blood cultures: no growth at 24 hours. Weight 59.8 kg.\n\n**Assessment and plan**\n1. Sodium 126 to 134 in 25 hours (+8): at the limit but not over it. No further correction needed; she will drink to thirst. Recheck with the 1300 BMP.\n2. Potassium 3.5 (6.0 on arrival). Potassium chloride 20 mEq by mouth now with a snack; BMP at 1300. Fludrocortisone restarting at 0800 will also lower potassium: watch.\n3. Hemoglobin fall is dilutional (no bleeding). Recheck at the endocrine follow-up.\n4. White count 12.6 with no fever: expected after high-dose steroid (white cells leave the vessel walls). Not an infection.\n5. Hand off to Dr. Delacroix at 0700. Endocrinology has written the oral transition orders."
+ },
+ {
+  "id": "note_endo_0630_202612080630",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - Transition to Oral Replacement",
+  "author": "M. Harrington, MD",
+  "datetime": "2026-12-08 06:30",
+  "category": "Consult",
+  "summary": "Crisis resolved. Last IV hydrocortisone 0400. Oral hydrocortisone 20/20/10 mg today from 1000, double home dose until diarrhea stops 24 h, then 15 mg + 5 mg. Fludrocortisone 0.1 mg restarts 0800. Discharge this afternoon after teaching and return demonstration of the IM kit.",
+  "body": "**Subjective**\n\"I feel almost normal. I want to go home to my son.\" Ate a full dinner and toast overnight. One soft stool at 0240. No vomiting since 0440 yesterday. Some trouble sleeping.\n\n**Objective**\nOvernight vitals stable: BP 116-120/72-76, HR 74-80, afebrile. Orthostatic vitals negative at 1900 and 2300 per nursing. Alert and oriented x4. Na 134, K 3.5, creatinine 0.8, glucose 118.\n\n**Evaluation of the treatment (criteria met)**\n- Blood pressure normal without vasopressors; orthostatics negative.\n- Heart rate under 100; telemetry normal sinus; peaked T waves gone (ECG 1330).\n- Mental status back to baseline.\n- Glucose stable 104-152 since 1300 without dextrose boluses.\n- Sodium up safely (126 to 134 in 25 hours); potassium normal (low normal).\n- Creatinine back to baseline (0.8); urine output good.\n- Nausea gone, eating and drinking; diarrhea slowing.\n\n**Plan**\n1. Oral hydrocortisone today: 20 mg at 1000, 20 mg at 1500, 10 mg at 2000 (50 mg/day). Wednesday and Thursday: 30 mg on waking + 10 mg at 1400 (double the home dose) until the diarrhea has stopped for 24 hours. Then home dose 15 mg on waking + 5 mg at 1400.\n2. Fludrocortisone 0.1 mg daily: RESTART at 0800 today (hydrocortisone now 50 mg/day). Check BP, swelling and potassium at follow-up.\n3. Potassium chloride 20 mEq once (Dr. Osei). BMP 1300.\n4. Levothyroxine resumed 0600; TSH in 6-8 weeks.\n5. Teaching with teach-back (patient and husband) before discharge: sick-day rules, IM injection return demonstration, medical alert ID, steroid emergency card, school/employer letter.\n6. Two emergency kits prescribed. Clinic follow-up with me in 1-2 weeks (case management to schedule).\n7. Discharge this afternoon if she keeps the 1000 and 1500 doses down, eats lunch, orthostatics stay negative and the 1300 potassium is normal."
+ },
+ {
+  "id": "note_pharm_teach_202612080640",
+  "type": "therapyNotes",
+  "title": "Pharmacy Discharge Teaching Plan - Steroid Safety",
+  "author": "T. Nakagawa, PharmD",
+  "datetime": "2026-12-08 06:40",
+  "category": "Pharmacy",
+  "summary": "Teaching plan for patient and husband: daily doses, sick-day rules, emergency 100 mg IM hydrocortisone kit (Act-O-Vial) with return demonstration, card and ID. Kit covered by insurance ($15 copay each).",
+  "body": "**Medication changes**\n- Hydrocortisone taper (endocrinology): today 20/20/10 mg; Wed-Thu 30 mg + 10 mg; then home 15 mg + 5 mg. Take with food. Use a pill organizer and phone alarms.\n- Fludrocortisone 0.1 mg daily restarts today.\n- Levothyroxine 88 mcg on an empty stomach, 30-60 minutes before breakfast (unchanged).\n\n**Sick-day rules (written handout, teach-back)**\n1. Fever of 100.4 F or more, or an illness that needs bed rest or antibiotics: DOUBLE the daily hydrocortisone dose. Fever of 102.2 F or more: TRIPLE it. Continue until 24-48 hours after feeling well, then return to the usual dose. Call the endocrinology clinic.\n2. Vomiting or diarrhea: if a dose is vomited within 30 minutes, take it again. If vomiting happens again, or there is severe diarrhea, or she cannot keep pills down: GIVE THE EMERGENCY INJECTION and call 911 or go to the ED.\n3. Never stop or skip hydrocortisone. Always carry extra tablets.\n4. Tell every provider and dentist she takes steroid replacement: surgery, procedures, childbirth and serious injuries need extra steroid. Show the steroid emergency card.\n\n**Emergency hydrocortisone kit (hydrocortisone sodium succinate 100 mg/2 mL Act-O-Vial)**\n1. Press the plunger cap to push the liquid into the powder; swirl gently (do not shake) until clear.\n2. Clean the top, draw up all 2 mL with a 3 mL syringe, change to a 1-1.5 inch needle.\n3. Inject into the middle of the outer thigh (vastus lateralis) at 90 degrees; through clothing is acceptable in an emergency.\n4. Then call 911 or go to the ED and show the card: she still needs IV fluids and care.\nReturn demonstration with a training vial by the patient AND the husband (the person who gives it may be the husband if she is confused). Keep one kit at home and one in her bag; check the expiration date every 6 months; store at room temperature.\n\n**Other**\n- Medical alert ID (bracelet or necklace) \"Adrenal insufficiency - steroid dependent\".\n- Insurance: kits covered, $15 copay each. Prescriptions sent to her pharmacy."
+ },
+ {
+  "id": "note_cm_202612080650",
+  "type": "caseManagement",
+  "title": "Case Management Discharge Planning Note",
+  "author": "G. Fontaine, RN CM",
+  "datetime": "2026-12-08 06:50",
+  "category": "Case Management",
+  "summary": "Discharge home with husband planned Tuesday afternoon. Endocrinology follow-up Dec 16 (Dr. Harrington). Kits covered. Medical alert ID information given. Work note for 1 week.",
+  "body": "**Assessment**\n46-year-old teacher, lives with husband (Daniel) and son (15) in a two-story house. Independent before admission. Husband can stay home Tuesday and Wednesday. Insurance: commercial (employer).\n\n**Plan**\n1. Discharge home with husband this afternoon if medically ready.\n2. Endocrinology follow-up: Wednesday 12/16/2026 at 1030 with Dr. M. Harrington (scheduled). PCP (Dr. L. Grant) visit in 1 week.\n3. Emergency hydrocortisone kits: prior authorization not needed; two kits sent to her pharmacy, ready by 1400.\n4. Medical alert ID: brochure and order form given; the husband will order today.\n5. Work/school: note for 1 week off; letter for the school nurse about adrenal insufficiency and the emergency kit (endocrinology to sign).\n6. Home health: not needed.\n7. Norovirus at home: hand hygiene and cleaning information given to the husband."
+ }
+]

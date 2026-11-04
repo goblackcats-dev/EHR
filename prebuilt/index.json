@@ -67,6 +67,15 @@
    "note": "Patients with a built care-plan case study (see Case Studies).",
    "patients": [
     {
+     "id": "addison",
+     "name": "Lauren Mitchell",
+     "title": "Medical-Surgical Telemetry: adrenal (Addisonian) crisis in known Addison disease after viral gastroenteritis (24 h in 4-hour checkpoints)",
+     "desc": "Mon 0700 to Tue 0700 in seven 4-hour checkpoints: a 46-year-old teacher with Addison disease who vomited her hydrocortisone for 2 days arrives from the ED after hydrocortisone 100 mg IV and 2.5 L of fluid. Stress-dose hydrocortisone on time, a second low glucose, sodium correcting too fast (fluid change), positive then negative orthostatics, steroid insomnia and a night near-fall, falling potassium, then the oral taper, fludrocortisone restart and sick-day rules / emergency injection teaching. Includes an instructor guide with bedside-monitor settings and a debriefing.",
+     "file": "casestudy/cases/addison/patient.json",
+     "age": 46,
+     "sex": "Female"
+    },
+    {
      "id": "burn_icu",
      "name": "Marcus Delaney",
      "title": "Burn ICU: 22% TBSA flame burn with smoke inhalation and burn wound sepsis",
