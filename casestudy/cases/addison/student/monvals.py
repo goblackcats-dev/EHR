@@ -20,9 +20,9 @@ MON = {
 ED_VITALS = dict(clock='ED 0620', temp='99.4', hr='104', bp='96/58', map='71', rr='18', spo2='98% room air', pain='4/10', rhythm='Sinus tachycardia', glucose='88 (0645)', stand='-')
 # urine (hat) and I&O for each block, from patient.json ioEvents (checked)
 UO = {
- 1: 'ED 0335-0700: in 2,700 IV / out 500 (urine 150 at 0450, emesis 150, stool 200). First void on the unit is at 0800 (120 mL).',
+ 1: 'ED 0335-0700: in 2,700 IV (fluids 2,650 + D50 50) / out 500 (urine 150 at 0450, emesis 150, stool 200). First void on the unit is at 0800 (120 mL).',
  2: '0700-1100: in 660 (IV 600, PO 60) / out 630: voids 0800 120, 0930 140, 1050 120 (380 mL, about 95 mL/h) + liquid stool 250 at 0945.',
- 3: '1100-1500: in 770 (IV 650 incl. D50 50, PO 120) / out 1,050: voids 1150 250, 1300 300, 1400 280, 1450 220 = about 260 mL/h of pale urine.',
+ 3: '1100-1500: in 770 (IV fluid 600 + D50 50 charted as IV med, PO 120) / out 1,050: voids 1150 250, 1300 300, 1400 280, 1450 220 = about 260 mL/h of pale urine.',
  4: '1500-1900: in 905 (IV 425, PO 480) / out 1,100: voids 1600 300, 1730 320, 1850 280 (900 mL) + loose stool 200 at 1640.',
  5: '1900-2300: in 1,120 (IV 400, PO 720) / out 700: voids 2000 250, 2130 250, 2250 200.',
  6: '2300-0300: in 640 (IV 400, PO 240) / out 600: voids 0030 250, 0245 200 (450 mL) + soft loose stool 150 at 0240.',

@@ -50,7 +50,7 @@ HORMONES = [('CORTISOL (missing)', 'Keeps blood vessels tight and BP up; makes g
 CP = {
  1: dict(time='0700', day='Monday', title='Checkpoint 1 of 6',
    sit=['It is **Monday 0700** on 4 West, room 4W-22. Lauren Mitchell, 46, has just come up from the ED. She has **Addison disease** and has been vomiting and having watery diarrhea since Saturday; she could not keep her pills down.',
-        'EMS found her confused on the bathroom floor at 0318 (BP 74/40, glucose 58). In the ED she got dextrose, **hydrocortisone 100 mg IV at 0420** and about 2.5 L of fluid. Her husband Daniel is at the bedside.'],
+        'EMS found her confused on the bathroom floor at 0318 (BP 74/40, glucose 58). EMS and the ED gave her 2.5 L of saline; the ED also gave dextrose, **hydrocortisone 100 mg IV at 0420** and started D5NS. Her husband Daniel is at the bedside.'],
    ask={'M': 'Charge asks: "Which steroid is due next, and when? Why are the home hydrocortisone and fludrocortisone held? What is running in the IV?"',
         'A': 'Charge asks: "What do the monitor and Lauren show? Skin color, mouth, mental status, belly. Is she safe to stand?"',
         'R': 'Charge asks: "ED sodium, potassium, glucose, creatinine: what does each mean? What do the ECG T waves show? What is still pending?"'},
@@ -64,7 +64,7 @@ CP = {
     changed='First stop: compare with the ED. BP 74/40 (EMS) to 98/60; HR 126 to 104; glucose 52 to 88 after D50. Better, but still in crisis.',
     pri=['Perfusion and rhythm: BP/MAP, HR, telemetry (tall T waves, K 6.0), mental status, urine; IV sites working.', 'Hydrocortisone 50 mg IV at 1000 ON TIME (and glucose checks every 2 hours with the protocol ready).', 'Safety: bed rest, bed alarm, commode with assist (dizzy, confused); contact (enteric) precautions with soap and water.'],
     S='RN for Lauren Mitchell, 4W-22, just arrived from the ED in adrenal crisis. BP 98/60, HR 104 with tall T waves, drowsy and oriented x2.',
-    B='46, Addison disease, vomited her hydrocortisone since Saturday. Na 126, K 6.0, glucose 49 in the ED; hydrocortisone 100 mg IV 0420, D50 and 2.5 L fluid.',
+    B='46, Addison disease, vomited her hydrocortisone since Saturday. Na 126, K 6.0, glucose 49 in the ED; hydrocortisone 100 mg IV 0420, D50 and 2.5 L saline, then D5NS.',
     A='Improving after the stress dose but still in crisis; at risk for low glucose, low BP and arrhythmia.',
     R='Confirm hydrocortisone 50 mg IV at 1000 and the plan for glucose and BMP checks; call parameters please.',
     nxt='Hydrocortisone ready for 1000; glucose at 0900; BMP 0900; strict I&O with the hat; bed rest and bed alarm; stool sample ready; ask Daniel what they knew about sick days.',
@@ -79,7 +79,7 @@ CP = {
    labs=[dict(times=['Mon 0406', 'Mon 0900'], rows=[('Sodium', ['126', '128']), ('Potassium', ['6.0', '5.5']), ('Creatinine', ['1.6', '1.4']), ('Glucose (serum)', ['49', '74']), ('CO2 (bicarbonate)', ['18', '19']), ('Lactate', ['3.1', '1.4'])])],
    key=dict(
     meds='Hydrocortisone 50 mg IV due 1000: check the MAR that it was given on time (if late, this is the moment to connect it). Glucose 58 + nausea + "foggy" = **D50 25 g IV** (protocol), slowly through the 18 g left forearm IV after checking blood return (vesicant); **recheck in 15 minutes** (142 at 1120). Keep D5NS 150 mL/h running. Ondansetron 4 mg IV is available (last dose 0430) so she can start sips.',
-    noticed='HR 112, BP 94/58 (MAP 70), RR 20, SpO2 98%, T 99.0, pain 3/10. **Glucose 58**: shaky, sweaty, anxious, cool moist skin, oriented to person and place (worse than 0900). Urine 0800 120, 0930 140, 1050 120 = 380 mL (about 95 mL/h), getting lighter. Liquid stool 250 mL at 0945. In 660 / out 630.',
+    noticed='HR 112, BP 94/58 (MAP 70), RR 20, SpO2 98%, T 99.0, pain 3/10. **Glucose 58**: shaky, sweaty, anxious, cool moist skin, oriented to person and place (at 0900 she knew the date). Urine 0800 120, 0930 140, 1050 120 = 380 mL (about 95 mL/h), getting lighter. Liquid stool 250 mL at 0945. In 660 / out 630.',
     results='Sodium 128 (+2 in 5 h), potassium 5.5 (down from 6.0), creatinine 1.4, CO2 19, lactate 1.4 (down from 3.1): **improving**. Serum glucose 74 at 0900 hinted the fall. Why low with D5NS: no cortisol = the liver cannot make glucose, glycogen used up after 2.5 days of no food, nothing by mouth; hydrocortisone takes hours to fix this. D5NS at 150 mL/h gives only 7.5 g/h.',
     changed='Worse: glucose 88 to 58, HR 104 to 112, BP 98/60 to 94/58, more confused. Better: labs (Na 126 to 128, K 6.0 to 5.5, creatinine 1.6 to 1.4, lactate 3.1 to 1.4).',
     pri=['Treat the low glucose now: D50 25 g IV, recheck in 15 minutes, keep the dextrose fluid running.', 'Make sure the hydrocortisone was on time (and stays on time at 1600); call the provider (SBAR).', 'Safety: fall precautions (shaky, confused), IV site check before D50, nausea control so she can start sips.'],

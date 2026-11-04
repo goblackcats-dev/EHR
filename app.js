@@ -3626,7 +3626,7 @@ function flowsheetIoParts(io) {
   const d = io.detail || {};
   const add = (kind, label, ml) => { if (ml > 0) parts.push({ kind, label, ml }); };
   if (io.intake !== undefined) {
-    if (io.detail) { add('intake', 'Oral', n(d.po)); add('intake', 'IV', n(d.iv)); add('intake', safe(d.intakeOtherLabel, 'Other'), n(io.intake) - n(d.po) - n(d.iv)); }
+    if (io.detail) { add('intake', 'Oral', n(d.po)); add('intake', 'IV fluid', n(d.iv)); add('intake', safe(d.intakeOtherLabel, 'Other'), n(io.intake) - n(d.po) - n(d.iv)); }
     else add('intake', 'Total', n(io.intake));
   }
   if (io.output !== undefined) {

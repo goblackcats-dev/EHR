@@ -72,7 +72,7 @@ Each checkpoint follows the same 13-14 minute rhythm. The final 0700 gets 17 min
 
 Monitor (the NOW row): HR 104, BP 98/60 lying (MAP 73), RR 18, SpO2 98% room air, temp 99.4, pain 4/10 crampy belly; rhythm: Sinus tachycardia, tall peaked T waves. Standing (aloud): not safe to stand (dizzy sitting up). Bedside glucose (aloud): 88 (0645)
 
-Urine and I&O for the Vitals pair: ED 0335-0700: in 2,700 IV / out 500 (urine 150 at 0450, emesis 150, stool 200). First void on the unit is at 0800 (120 mL).
+Urine and I&O for the Vitals pair: ED 0335-0700: in 2,700 IV (fluids 2,650 + D50 50) / out 500 (urine 150 at 0450, emesis 150, stool 200). First void on the unit is at 0800 (120 mL).
 
 Portray: Drowsy, wakes to voice, oriented to person and place. "I'm so tired... my stomach hurts... I just want some pickles. Did I miss my pills?" If they sit her up: "the room is spinning". Daniel: "Nobody ever told us what to do. We don't have that shot."
 
@@ -102,7 +102,7 @@ Portray: Drowsy, wakes to voice, oriented to person and place. "I'm so tired... 
 | Response tracker column | 98/60 (73);  standing not safe;  104, tall T;  88;  Na 126;  K 6.0;  drowsy, x2;  150 mL in the ED, dark;  nauseated;  (start) |
 | TEAM (charge): what changed | First stop: compare with the ED. BP 74/40 (EMS) to 98/60; HR 126 to 104; glucose 52 to 88 after D50. Better, but still in crisis. |
 | TEAM (charge): top 3 priorities | 1) Perfusion and rhythm: BP/MAP, HR, telemetry (tall T waves, K 6.0), mental status, urine; IV sites working.  2) Hydrocortisone 50 mg IV at 1000 ON TIME (and glucose checks every 2 hours with the protocol ready).  3) Safety: bed rest, bed alarm, commode with assist (dizzy, confused); contact (enteric) precautions with soap and water. |
-| TEAM (charge): SBAR (warm-up, not scored) | S: RN for Lauren Mitchell, 4W-22, just arrived from the ED in adrenal crisis. BP 98/60, HR 104 with tall T waves, drowsy and oriented x2.  B: 46, Addison disease, vomited her hydrocortisone since Saturday. Na 126, K 6.0, glucose 49 in the ED; hydrocortisone 100 mg IV 0420, D50 and 2.5 L fluid.  A: Improving after the stress dose but still in crisis; at risk for low glucose, low BP and arrhythmia.  R: Confirm hydrocortisone 50 mg IV at 1000 and the plan for glucose and BMP checks; call parameters please. |
+| TEAM (charge): SBAR (warm-up, not scored) | S: RN for Lauren Mitchell, 4W-22, just arrived from the ED in adrenal crisis. BP 98/60, HR 104 with tall T waves, drowsy and oriented x2.  B: 46, Addison disease, vomited her hydrocortisone since Saturday. Na 126, K 6.0, glucose 49 in the ED; hydrocortisone 100 mg IV 0420, D50 and 2.5 L saline, then D5NS.  A: Improving after the stress dose but still in crisis; at risk for low glucose, low BP and arrhythmia.  R: Confirm hydrocortisone 50 mg IV at 1000 and the plan for glucose and BMP checks; call parameters please. |
 | TEAM (charge): what we will do next | Hydrocortisone ready for 1000; glucose at 0900; BMP 0900; strict I&O with the hat; bed rest and bed alarm; stool sample ready; ask Daniel what they knew about sick days. |
 | Prediction (no wrong answers) | Any reasoned guess earns credit. What happens: the 0900 labs improve, but at 1100 she has a second low glucose (58) with sweating. |
 | Charge nurse notes | Look for: each pair was asked its question, the charge nurse decided, a time check. Credit any honest notes. |
@@ -139,7 +139,7 @@ Portray: Shaky, sweaty, anxious, foggy: "Something's wrong... I feel like I'm go
 | Box | Model answer and rationale |
 |---|---|
 | MEDS & TREATMENTS pair | Hydrocortisone 50 mg IV due 1000: check the MAR that it was given on time (if late, this is the moment to connect it). Glucose 58 + nausea + "foggy" = D50 25 g IV (protocol), slowly through the 18 g left forearm IV after checking blood return (vesicant); recheck in 15 minutes (142 at 1120). Keep D5NS 150 mL/h running. Ondansetron 4 mg IV is available (last dose 0430) so she can start sips. |
-| VITALS & ASSESSMENT pair | HR 112, BP 94/58 (MAP 70), RR 20, SpO2 98%, T 99.0, pain 3/10. Glucose 58: shaky, sweaty, anxious, cool moist skin, oriented to person and place (worse than 0900). Urine 0800 120, 0930 140, 1050 120 = 380 mL (about 95 mL/h), getting lighter. Liquid stool 250 mL at 0945. In 660 / out 630. |
+| VITALS & ASSESSMENT pair | HR 112, BP 94/58 (MAP 70), RR 20, SpO2 98%, T 99.0, pain 3/10. Glucose 58: shaky, sweaty, anxious, cool moist skin, oriented to person and place (at 0900 she knew the date). Urine 0800 120, 0930 140, 1050 120 = 380 mL (about 95 mL/h), getting lighter. Liquid stool 250 mL at 0945. In 660 / out 630. |
 | RESULTS & LABS pair: new results and significance | Sodium 128 (+2 in 5 h), potassium 5.5 (down from 6.0), creatinine 1.4, CO2 19, lactate 1.4 (down from 3.1): improving. Serum glucose 74 at 0900 hinted the fall. Why low with D5NS: no cortisol = the liver cannot make glucose, glycogen used up after 2.5 days of no food, nothing by mouth; hydrocortisone takes hours to fix this. D5NS at 150 mL/h gives only 7.5 g/h. |
 | Response tracker column | 94/58 (70);  not done;  112;  58 (142 after D50);  Na 128;  K 5.5;  foggy, x2;  about 95 mL/h;  mild nausea;  worse (glucose); labs better |
 | TEAM (charge): what changed | Worse: glucose 88 to 58, HR 104 to 112, BP 98/60 to 94/58, more confused. Better: labs (Na 126 to 128, K 6.0 to 5.5, creatinine 1.6 to 1.4, lactate 3.1 to 1.4). |
@@ -155,7 +155,7 @@ Instructor as the provider (suggested reply): Good: give the D50 and recheck in 
 
 Monitor (the NOW row): HR 92, BP 108/66 lying (MAP 80), RR 16, SpO2 99% room air, temp 98.8, pain 2/10; rhythm: Normal sinus rhythm, normal T waves. Standing (aloud): 94/60, HR 114, dizzy (POSITIVE). Bedside glucose (aloud): 118
 
-Urine and I&O for the Vitals pair: 1100-1500: in 770 (IV 650 incl. D50 50, PO 120) / out 1,050: voids 1150 250, 1300 300, 1400 280, 1450 220 = about 260 mL/h of pale urine.
+Urine and I&O for the Vitals pair: 1100-1500: in 770 (IV fluid 600 + D50 50 charted as IV med, PO 120) / out 1,050: voids 1150 250, 1300 300, 1400 280, 1450 220 = about 260 mL/h of pale urine.
 
 Portray: "I feel so much better. Can I go to the bathroom by myself? I have to go all the time." Orthostatics aloud: lying 108/66 HR 92; standing at 1 minute 94/60, HR 114, "I'm dizzy, I need to sit down." Lay her back down.
 

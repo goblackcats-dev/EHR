@@ -65,3 +65,34 @@ Rebuilt after the changes with `python3 gen/ecg/make_ecgs.py` (gave the same PNG
 10. **Import validation warnings (10).** "Active problem ... not clearly addressed in a hospitalist progress note" is a string-match heuristic: it needs the exact problem name in the note body. All 10 problems are addressed in substance (H&P, 0915, 1535, 2320, 0615 notes). The other built-in cases (hypermag, burn_icu, hip_orif) have the same warnings. Not a real defect; left.
 11. **Stool C. diff/GI panel order.** The planned `end` (0945, the collection time) is visible in the order detail from 0730. Minor; it is a planned "complete on collection" order.
 12. **K 6.0** is flagged High, not Critical; the critical threshold is "over 6.0" (the BMP order says so). The labs differ on this, and the case is internally consistent.
+
+## Case study review
+
+Fresh final review of the 2-hour team case study (CASE_STUDY_PACKET 12 pages, INSTRUCTOR_CASESTUDY_KEY 16 pages). I rendered and read every page and checked it against patient.json, DESIGN.md, INSTRUCTOR_GUIDE.md and the monitor.html `ADDISON` rows. I also checked the I&O display in the app with Playwright.
+
+**Checked and correct (no change):**
+- Every vital and MAP on the "prev" rows and in the tracker model.
+- Every lab value, range and result time on each page.
+- Sodium arithmetic (+6 in 9 h, +7 in 13 h, +8 in 25 h), the potassium trend and the urine mL/h for each block.
+- Charge rotation: 7 students, each is charge once.
+- Rubric adds to 20 (5+6+5+4). Individual check is /4 (charge 1 + reflection 2 + peer check 1).
+- Run of show ends at 2:00.
+- Nothing is on a page before it is available in the chart. The screenshots are legible and taken at their checkpoint: MAR 0700 (hatched fludrocortisone, "1000 Due" on the hydrocortisone row), Chart Review > Cardiology "View tracing" 0700, Endocrine tree 1500, sodium history 1900.
+- Medical content agrees with the Endocrine Society 2016 PAI guideline: stress-dose hydrocortisone on time, fluids, D50 for symptomatic hypoglycemia, fludrocortisone held above 50 mg/day and restarted at 50 mg/day, the 8/24 h sodium limit, potassium replacement at 3.5 or lower, the taper, sick-day rules (double at 38 C or for illness, triple at 39 C, repeat a dose vomited within 30 min), 100 mg IM Act-O-Vial with return demonstration by both, ID and card, and norovirus contact precautions for 48 h after symptoms end.
+- The instructor's goals are all covered: hormone map (pathophysiology), assessment boxes, interventions and the standard plan, the response tracker at every stop, and the final evaluation table with a verdict.
+
+**Fixed:**
+| # | Where | Problem | Change |
+|---|---|---|---|
+| 1 | Flowsheets > Intake / Output (report: the 1100 stool was missing and the day shift showed 3,360 in) | Two causes. (a) **Data:** each stool had a long free-text label ("Liquid stool (0945, sample sent)"). The app makes a new row from each label, so the 250 mL showed in an extra row at the bottom and the standard Stool row was empty. (b) **App:** `renderIoTotals` assigns a block to a shift by its `collected` time as a point, so a block filed at exactly 0700 (the ED block) counted in the day shift. This also affects every block ending at 0700/1900 in all cases. | gen/physiology.js: stool blocks use `otherLabel: 'Stool'` with the details moved to the note. The combined blocks are labelled "Emesis + stool (ED)" and "Emesis + diarrhea (home estimate)". D50 is charted as "IV med" (IV fluid 2,650 / 600). Every block has `periodEnd: true`. flowsheet-charting.js `ioEnd`: a block with `periodEnd` counts in the shift it closes (opt-in, so the shift totals of hypermag, burn_icu and hip_orif are unchanged; burn_icu's key quotes `ehr_io_totals.txt` as currently displayed). app.js `flowsheetIoParts`: the case IV volume goes in the standard "IV fluid" row instead of a separate "IV" row (all cases; totals unchanged). Verified at 1100: Stool 250 in the 1100 column; night 3,500/2,900; day 660/630. At Tue 0700: day 2,335/2,780, night 2,520/1,800, last 24 h 4,855/4,580. Hypermag, burn_icu and hip_orif: shift totals the same as before, no page errors. Version bumped to v113; student.html and student-site rebuilt. |
+| 2 | notes/provider.json, dietitian 1815 | "Clear liquids since 1400: broth, ..." was the wrong time (the order is 1345). Broth also clashed with the 1530 "no salty broth until the limit ends" order. | "Clear liquids since 1345: ginger ale, apple juice and gelatin". |
+| 3 | content2.py, 0700 situation and model SBAR | "In the ED she got ... about 2.5 L of fluid": EMS gave 500 mL of the 2.5 L of saline. | "EMS and the ED gave her 2.5 L of saline; the ED also gave dextrose, hydrocortisone 100 mg IV at 0420 and started D5NS." |
+| 4 | content2.py, 1100 key | "(worse than 0900)" pointed to a finding that is not in the chart. | "(at 0900 she knew the date)", which is the guide's portrayal. |
+| 5 | monvals.py, key I&O lines | Did not match the flowsheet rows after fix 1. | ED: "2,700 IV (fluids 2,650 + D50 50)". 1100-1500: "IV fluid 600 + D50 50 charted as IV med". |
+| 6 | check_facts.py | No check that the I&O blocks keep the shift rule. | Added a `periodEnd` check. |
+
+Rebuilt: `node gen/assemble.js`, `node tools/make-prebuilt.js`, `bash student/build_all.sh` (12 pages, 0 layout problems, check_facts ALL CHECKS PASSED, 327 values).
+
+**Questions for the instructor:**
+- Should the other cases get the shift rule too? hypermag, hip_orif and burn_icu still count their 0700 and 1900 blocks in the next shift. burn_icu's key and `ehr_io_totals.txt` were written to the current display, so changing it means regenerating them.
+- The hormone map labels ACTH "very high" at 0700, before the 1440 result. It is a pathophysiology fact for primary AI, so I left it. Change it to "ACTH (?)" if you want students to predict it.

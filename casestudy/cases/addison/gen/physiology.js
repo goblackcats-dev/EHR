@@ -105,18 +105,21 @@ function buildLabs() {
 }
 
 // intake and output in blocks; each block shows when it ends (collected). Voids and stools: see DESIGN.md.
+// periodEnd: true tells the Flowsheets I&O shift totals that 'collected' is the END of the block, so a block ending at 0700 or 1900
+// counts in the shift it closes (without it, a value filed at exactly 0700 is counted in the day shift that starts then).
+// Stool goes in the standard "Stool" row (details in the note); D50 is charted as "IV med", not IV fluid.
 function buildIO() {
   const B = [
-    [T('Mon', '03:35'), '48 h home est.', 800, 2400, { po: 800, iv: 0, urine: 500, other: 1900, otherLabel: 'Emesis about 900 mL + diarrhea about 1,000 mL (husband estimate, Sat-Mon)' }, 'Home estimate before EMS arrived'],
-    [T('Mon', '07:00'), '0335-0700 EMS + ED', 2700, 500, { po: 0, iv: 2700, urine: 150, other: 350, otherLabel: 'Emesis 150 mL (0440) + liquid stool 200 mL (0515)' }, 'IV: EMS saline 500, saline boluses 2 x 1,000, D50 50, D5NS 150 (0600-0700). Voided 150 mL dark yellow 0450.'],
-    [T('Mon', '11:00'), '0700-1100', 660, 630, { po: 60, iv: 600, urine: 380, other: 250, otherLabel: 'Liquid stool (0945, sample sent)' }, 'D5NS 150 mL/h; sips 60 mL. Voids 0800 120, 0930 140, 1050 120 mL (hat).'],
-    [T('Mon', '15:00'), '1100-1500', 770, 1050, { po: 120, iv: 650, urine: 1050, other: 0, otherLabel: '' }, 'D5NS 600 + dextrose 50% 50 mL (1105). Voids 1150 250, 1300 300, 1400 280, 1450 220 mL: brisk water diuresis (about 260 mL/h).'],
-    [T('Mon', '19:00'), '1500-1900', 905, 1100, { po: 480, iv: 425, urine: 900, other: 200, otherLabel: 'Loose stool (1640)' }, 'D5NS 150 mL/h to 1530, then D5 0.45% NaCl 100 mL/h. Clear liquids. Voids 1600 300, 1730 320, 1850 280 mL.'],
+    [T('Mon', '03:35'), '48 h home est.', 800, 2400, { po: 800, iv: 0, urine: 500, other: 1900, otherLabel: 'Emesis + diarrhea (home estimate)' }, 'Home estimate before EMS arrived (husband, Sat-Mon): emesis about 900 mL + diarrhea about 1,000 mL'],
+    [T('Mon', '07:00'), '0335-0700 EMS + ED', 2700, 500, { po: 0, iv: 2650, intakeOtherLabel: 'IV med', urine: 150, other: 350, otherLabel: 'Emesis + stool (ED)' }, 'EMS + ED. Emesis 150 mL (0440) + liquid stool 200 mL (0515). IV fluid 2,650: EMS saline 500, saline boluses 2 x 1,000, D5NS 150 (0600-0700); IV med: D50 50 mL (0408). Voided 150 mL dark yellow 0450.'],
+    [T('Mon', '11:00'), '0700-1100', 660, 630, { po: 60, iv: 600, urine: 380, other: 250, otherLabel: 'Stool' }, 'D5NS 150 mL/h; sips 60 mL. Liquid stool 250 mL at 0945 (sample sent). Voids 0800 120, 0930 140, 1050 120 mL (hat).'],
+    [T('Mon', '15:00'), '1100-1500', 770, 1050, { po: 120, iv: 600, intakeOtherLabel: 'IV med', urine: 1050, other: 0, otherLabel: '' }, 'D5NS 600 mL + dextrose 50% 50 mL IV push (1105, charted as IV med). Voids 1150 250, 1300 300, 1400 280, 1450 220 mL: brisk water diuresis (about 260 mL/h).'],
+    [T('Mon', '19:00'), '1500-1900', 905, 1100, { po: 480, iv: 425, urine: 900, other: 200, otherLabel: 'Stool' }, 'D5NS 150 mL/h to 1530, then D5 0.45% NaCl 100 mL/h. Clear liquids. Loose stool 200 mL at 1640. Voids 1600 300, 1730 320, 1850 280 mL.'],
     [T('Mon', '23:00'), '1900-2300', 1120, 700, { po: 720, iv: 400, urine: 700, other: 0, otherLabel: '' }, 'Regular dinner 2000 (ate 75%). Voids 2000 250, 2130 250, 2250 200 mL.'],
-    [T('Tue', '03:00'), '2300-0300', 640, 600, { po: 240, iv: 400, urine: 450, other: 150, otherLabel: 'Soft loose stool (0240)' }, 'Voids 0030 250, 0245 200 mL.'],
+    [T('Tue', '03:00'), '2300-0300', 640, 600, { po: 240, iv: 400, urine: 450, other: 150, otherLabel: 'Stool' }, 'Soft loose stool 150 mL at 0240. Voids 0030 250, 0245 200 mL.'],
     [T('Tue', '07:00'), '0300-0700', 760, 500, { po: 360, iv: 400, urine: 500, other: 0, otherLabel: '' }, 'Voids 0430 250, 0640 250 mL. Weight 0600: 59.8 kg (58.2 on arrival).']
   ];
-  return B.map(([t2, time, i, o, detail, note]) => ({ id: `io_${t2.replace(/[- :]/g, '_')}`, date: t2.slice(0, 10), time, collected: t2, intake: i, output: o, detail, note }));
+  return B.map(([t2, time, i, o, detail, note]) => ({ id: `io_${t2.replace(/[- :]/g, '_')}`, date: t2.slice(0, 10), time, collected: t2, periodEnd: true, intake: i, output: o, detail, note }));
 }
 module.exports = { buildVitals, buildLabs, buildIO, SETS, PANELS, egfr };
 if (require.main === module) { console.log('vital obs', buildVitals().length, 'labs', buildLabs().length, 'io', buildIO().length, 'eGFR', PANELS.map(p => egfr(p.Cr)).join(',')); }

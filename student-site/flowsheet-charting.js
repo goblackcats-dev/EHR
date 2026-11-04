@@ -393,6 +393,8 @@
 
   // ------------------------------------------------------------ I&O totals by shift / 24 h
   function ioEnd(io, simDate) {
+    // periodEnd: the case marks "collected" as the END of a block (e.g. 0300-0700 filed at 0700), so it counts in the shift it closes
+    if (io.collected && io.periodEnd) return { t: io.collected, point: false };
     if (io.collected) return { t: io.collected, point: true };
     const m = safe(io.time, '').match(/^(\d{2})(\d{2})\s*-\s*(\d{2})(\d{2})$/);
     const date = io.date || simDate;

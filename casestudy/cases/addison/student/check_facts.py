@@ -103,6 +103,8 @@ for n, t in IOB.items():
         mm = re.search(r'about (\d+) mL/h', tr)
         if not mm or abs(int(mm.group(1)) - perh) > 3: fail(f'CP{n} tracker urine {tr} vs chart {perh} mL/h')
 if io['2026-12-08 07:00']['note'].find('59.8 kg') < 0: fail('weight 59.8 kg')
+# blocks are filed at their END time; periodEnd makes Flowsheets > I&O count a block ending 0700/1900 in the shift it closes
+if not all(e.get('periodEnd') for e in pj['ioEvents']): fail('ioEvents without periodEnd: the I&O shift totals would move the 0700/1900 blocks into the next shift')
 
 # 4. ECG numbers quoted anywhere must be in a chart ECG
 def docx_text(path):
