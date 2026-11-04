@@ -40,7 +40,7 @@ Columns: Na, K, Cl, CO2, BUN, Cr, glucose, Ca (Mg, phos when drawn).
 - eGFR (CKD-EPI 2021, female 46): 92 (clinic), 40, 47, 57, 70, 80, 80, 92.
 - **Cortisol, random (0406, before hydrocortisone): 1.8 mcg/dL, result Mon 1310** (critical low). **ACTH (0406): 1,240 pg/mL, result Mon 1440.** Renin and aldosterone added on at 1345: "Pending (send-out, 3-5 days)" from 1350.
 - CBC 0406 (res 0450): WBC 10.8, Hgb 14.6, Hct 43.8, Plt 268, neutrophils 50%, lymphocytes 38%, **eosinophils 7.0% (abs 0.76)**. Tue 0500 (res 0545): WBC 12.6, Hgb 11.9, Hct 35.6, Plt 231, neutrophils 82%, lymphocytes 12%, eosinophils 0.4% (abs 0.05).
-- Urine 0450 (res 0530-0540): SG 1.026, ketones 2+, protein trace, otherwise negative, hCG negative; **urine Na 48** (high despite dehydration = aldosterone deficiency), urine osm 420.
+- Urine 0450 (res 0530): SG 1.026, ketones 2+, protein trace, otherwise negative, hCG negative; **urine Na 48** (high despite dehydration = aldosterone deficiency), urine osm 420.
 - Micro: blood cultures x2 (0430) "no growth at 24 h" Tue 0530; **C. difficile PCR negative** (collected 0945, res 1240); **GI panel norovirus GI/GII DETECTED** (0945, res 1820).
 - ECG 0425 (res 0435): sinus tachycardia 118, PR 148, QRS 88, QTc 428, **peaked T waves V2-V4**. ECG 1330 (res 1340): sinus 94, PR 152, QRS 86, QTc 432, **T waves normal**. Both are Chart Review > Cardiology records with images (gen/ecg/make_ecgs.py).
 - POC glucose in the chart: EMS 0340 58, ED 0405 52, 0425 132, 0530 96, 0645 88. **Later POC values are given by the instructor**: 0900 72, **1100 58** (1120 after D50: 142), 1300 104, 1500 118, 1900 142, 2300 152, 0300 128, 0700 112.
@@ -63,7 +63,7 @@ Unit 0700-0700: in 4,855 / out 4,580 (net +275). Since EMS: in 7,555 / out 5,080
 - **1130:** POC glucose q1h x2, then q2h until three over 70, then q4h (ends 1900).
 - **1345:** clear liquids (Delacroix; ends 1830); renin/aldosterone add-on (Harrington). **1400:** dietitian consult.
 - **1530 (Delacroix, after the RN's 1505 SBAR):** **D5 0.45% NaCl 100 mL/h replaces D5NS**; sodium limit order (Na <= 134 until 0400 Tue; call for Na > 134, urine > 250 mL/h x2 h, neuro change). **1545:** up with 1 assist, repeat orthostatics 1900 (ends 1930).
-- **1830:** regular diet, no sodium restriction. **1930 (Osei):** ambulate with assist. **2315:** melatonin 3 mg PRN.
+- **1830:** regular diet, no sodium restriction (normal salt to taste; no extra salt or salty broth until the sodium-limit window ends Tue 0400). **1930 (Osei):** ambulate with assist. **2315:** melatonin 3 mg PRN.
 - **Tue 0610:** KCl 20 mEq PO once (due 0630); BMP Tue 1300. **0630:** case management. **0635 (Harrington):** oral hydrocortisone 20 mg 1000 / 20 mg 1500 / 10 mg 2000 then double home dose (30 + 10) until diarrhea gone 24 h, then 15 + 5; **fludrocortisone 0.1 mg daily restarts Tue 0800**; saline lock at 1000 if drinking well; teaching order (sick-day rules, IM kit return demonstration, ID, card). **0640:** discharge prescriptions (two hydrocortisone 100 mg Act-O-Vial kits, tablets, fludrocortisone, medical alert ID).
 
 ## Fludrocortisone rule (state it the same everywhere)
@@ -73,7 +73,7 @@ Hydrocortisone at more than 50 mg a day has enough mineralocorticoid (aldosteron
 EMS PIV 18 g left antecubital (0335, **removed 0640**: positional, leaking); PIV 20 g right forearm (ED 0406; D5NS; **infiltrates about 0240 Tue: portrayed, students remove it**); PIV 18 g left forearm (ED 0640; saline lock for hydrocortisone/D50); telemetry 5-lead transmitter (0655). No Foley.
 
 ## Notes (all time-gated by datetime)
-ED triage RN 0410 (with EMS report), ECG 0435, CXR 0505, ED provider 0535, ED RN 0630, H&P 0640, handoff 0655, pharmacy med history 0830, hospitalist 0915, hospitalist hypoglycemia event 1130, ECG 1340, endocrinology consult 1400, endocrinology ACTH addendum 1450, hospitalist sodium note 1535, dietitian 1815, night hospitalist 2320, night event note 0310 (near-fall, IV infiltration, K), night hospitalist 0615 (0500 labs, KCl), endocrinology transition 0630, pharmacy teaching plan 0640, case management 0650. Notes by the students' unit RN are NOT pre-written.
+ED triage RN 0410 (with EMS report), ECG 0435, CXR 0505, ED provider 0625, ED RN 0650, H&P 0640, handoff 0655, pharmacy med history 0830, hospitalist 0915, hospitalist hypoglycemia event 1130, ECG 1340, endocrinology consult 1400, endocrinology ACTH addendum 1450, hospitalist sodium note 1535, dietitian 1815, night hospitalist 2320, night event note 0310 (near-fall, IV infiltration, K), night hospitalist 0615 (0500 labs, KCl), endocrinology transition 0630, pharmacy teaching plan 0640, case management 0650. Notes by the students' unit RN are NOT pre-written.
 
 ## Sticky notes
 Adrenal crisis signs; hydrocortisone on time (1000, 1600, 2200, 0400); fludrocortisone held; contact (enteric) precautions; sodium limit (from 1530); norovirus detected (from 1820).

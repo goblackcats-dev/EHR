@@ -89,8 +89,8 @@ function buildLabs() {
   const ua = (label, units, ref, v, o) => add(lab('Urinalysis', label, units, ref, null, null, [[T('Mon', '04:50'), v, T('Mon', '05:30')]], Object.assign({ specimen: 'Urine (clean catch in the ED)', abn: /1\+|2\+|Trace|Positive|Dark/ }, o || {})));
   ua('UA appearance', '', 'Clear/yellow', 'Dark yellow, clear'); ua('UA specific gravity', '', '1.005-1.030', '1.026'); ua('UA protein', '', 'Negative', 'Trace'); ua('UA glucose', '', 'Negative', 'Negative'); ua('UA ketones', '', 'Negative', '2+');
   ua('UA blood', '', 'Negative', 'Negative'); ua('UA leukocyte esterase', '', 'Negative', 'Negative'); ua('UA nitrite', '', 'Negative', 'Negative'); ua('Urine hCG (pregnancy)', '', 'Negative', 'Negative');
-  add(lab('Urinalysis', 'Urine sodium', 'mmol/L', 'Under 20 expected when a person is dehydrated', null, null, [[T('Mon', '04:50'), 48, T('Mon', '05:40')]], { specimen: 'Urine (clean catch in the ED)' }));
-  add(lab('Urinalysis', 'Urine osmolality', 'mOsm/kg', '50-1200', null, null, [[T('Mon', '04:50'), 420, T('Mon', '05:40')]], { specimen: 'Urine (clean catch in the ED)' }));
+  add(lab('Urinalysis', 'Urine sodium', 'mmol/L', 'Under 20 expected when a person is dehydrated', null, null, [[T('Mon', '04:50'), 48, T('Mon', '05:30')]], { specimen: 'Urine (clean catch in the ED)' }));
+  add(lab('Urinalysis', 'Urine osmolality', 'mOsm/kg', '50-1200', null, null, [[T('Mon', '04:50'), 420, T('Mon', '05:30')]], { specimen: 'Urine (clean catch in the ED)' }));
   // microbiology
   add(lab('Microbiology', 'Blood culture x2 (0430, before any antibiotic)', '', 'No growth', null, null, [[T('Mon', '04:30'), 'No growth at 24 hours (preliminary; final at 5 days)', T('Tue', '05:30')]], { specimen: 'Blood (two sites)', status: 'Preliminary' }));
   add(lab('Microbiology', 'Clostridioides difficile toxin gene PCR', '', 'Negative', null, null, [[T('Mon', '09:45'), 'Negative', T('Mon', '12:40')]], { specimen: 'Stool (liquid)' }));

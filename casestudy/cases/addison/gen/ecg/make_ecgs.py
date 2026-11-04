@@ -20,7 +20,7 @@ ECGS = [
       p=dict(rate=94, pr=0.152, qrs=0.086, qtc=0.432, rhythm='sinus', t_amp=0.9, seed=22),
       interp=['NORMAL SINUS RHYTHM', 'NORMAL T WAVES', 'NORMAL ECG', 'PEAKED T WAVES OF 0425 HAVE RESOLVED'],
       summary='Sinus rhythm 94, PR 152 ms, QRS 86 ms, QTc 432 ms. T waves normal; the peaked T waves of 0425 have resolved.',
-      body='**Measurements**\nVentricular rate 94 bpm. PR 152 ms. QRS 86 ms. QT/QTc 345/432 ms.\n\n**Interpretation**\nNormal sinus rhythm. T waves now normal in height and shape in V2 to V4. Compared with 0425: heart rate slower (118 to 94) and the peaked T waves have resolved (potassium 6.0 to 4.9).',
+      body='**Measurements**\nVentricular rate 94 bpm. PR 152 ms. QRS 86 ms. QT/QTc 345/432 ms.\n\n**Interpretation**\nNormal sinus rhythm. T waves now normal in height and shape in V2 to V4. Compared with 0425: heart rate slower (118 to 94) and the peaked T waves have resolved (potassium 6.0 at 0406 and 5.5 at 0900; the 1300 potassium is pending).',
       imp='Normal sinus rhythm 94. Peaked T waves resolved. Normal ECG.'),
 ]
 

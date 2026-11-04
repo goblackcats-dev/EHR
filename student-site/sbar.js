@@ -116,7 +116,7 @@
     F.labs.filter(l => l.flag && !/critical/i.test(safe(l.flag)) && !/a1c|egfr|vitamin|albumin|mcv|hematocrit/i.test(safe(l.label))).slice(0, 1).forEach(l => add(2, `Review abnormal result: ${safe(l.label)} ${safe(l.value)} ${unit(l)} and tell the provider`, 'Abnormal but not critical results need follow-up soon, after any unstable patient problem.'));
     const pain = F.vitals.find(o => o.code === 'PAIN' && parseFloat(o.value) >= 7); if (pain) add(2, `Patient reports pain ${pain.value}/10; give PRN medication`, 'Severe pain needs treatment soon, but not before airway, breathing or circulation.');
     const orderOf = id => (F.vis.orders || []).find(o => o.id === id) || {}, nowMs = (parseSimDate(F.now) || new Date()).getTime();
-    const due = (F.vis.administrations || []).filter(a => /due/i.test(safe(a.state))).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time)), o: orderOf(a.orderId) })).filter(x => x.d && x.o.medication && Math.abs(x.d - nowMs) <= 3600000 * 1.5);
+    const due = (F.vis.administrations || []).filter(a => /due/i.test(safe(a.state))).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time, a.slotIndex)), o: orderOf(a.orderId) })).filter(x => x.d && x.o.medication && Math.abs(x.d - nowMs) <= 3600000 * 1.5);
     due.filter(x => x.o.medication.highAlert).slice(0, 1).forEach(x => add(2, `High-alert medication due at ${x.a.time}: ${safe(x.o.name)}`, 'Time-critical and high-alert medications are given on time with an independent double check.'));
     due.filter(x => !x.o.medication.highAlert).slice(0, 1).forEach(x => add(3, `Routine scheduled medication due at ${x.a.time}: ${safe(x.o.name)}`, 'Routine scheduled medications are given within the time window, after urgent problems.'));
     // fill with routine tasks

@@ -156,7 +156,7 @@
     if (given.length) add({ box: 'ac', label: 'Medications given or held this shift', expected: uniq(given.map(a => baseName(orderOf(a.orderId)))).join(', '), type: 'tokens', words: uniq(given.map(a => baseName(orderOf(a.orderId)))).slice(0, 6), need: 1, points: 2, source: 'MAR' });
 
     const nowMs = (parseSimDate(simulationTime) || new Date()).getTime();
-    const dueSoon = (vis.administrations || []).filter(a => /due/i.test(safe(a.state))).sort((x, y) => ((orderOf(y.orderId).medication || {}).highAlert ? 1 : 0) - ((orderOf(x.orderId).medication || {}).highAlert ? 1 : 0)).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time)) })).filter(x => x.d && x.d.getTime() >= nowMs - 30 * 60000 && x.d.getTime() <= nowMs + 4 * 3600000);
+    const dueSoon = (vis.administrations || []).filter(a => /due/i.test(safe(a.state))).sort((x, y) => ((orderOf(y.orderId).medication || {}).highAlert ? 1 : 0) - ((orderOf(x.orderId).medication || {}).highAlert ? 1 : 0)).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time, a.slotIndex)) })).filter(x => x.d && x.d.getTime() >= nowMs - 30 * 60000 && x.d.getTime() <= nowMs + 4 * 3600000);
     const seen = new Set(); let routine = 0;
     dueSoon.forEach(x => {
       const o = orderOf(x.a.orderId), nm = baseName(o); if (!o.id || seen.has(nm) || seen.size >= 4) return;

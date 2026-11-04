@@ -72,7 +72,7 @@
 3. Time control: **4h ▶** moves to the next checkpoint. For smaller steps use **1h ▶** or **Next event** (release schedule in Section 5). Labs appear automatically at their result time.
 4. Open the **bedside monitor** (`monitor.html`, or the **Monitor** button in the EHR top bar) in the same browser. It reads the patient's MRN from the EHR and loads **Lauren Mitchell's built-in scenario** automatically (the patient name at the top of the monitor should read MITCHELL, LAUREN). If it shows Ray Kessler, press 4h once in the EHR or reload the monitor.
 
-**Vitals rule.** *There are no vitals in the chart after 0700.* At each checkpoint the monitor shows the values below, students take their own set (including orthostatic vitals when ordered) and chart it. The 0700 set is already in the chart (arrival set); have them confirm it.
+**Vitals rule.** *There are no vitals in the chart after 0700.* At each checkpoint the monitor shows the values below, students take their own set (including orthostatic vitals when ordered) and chart it. The 0700 set is already in the chart (arrival set); have them confirm it. (Instructors also see a "Suggested vitals" bar above the Flowsheets vital-sign grid: for this patient it can only repeat the 0700 chart set, so ignore it and use the monitor values below.)
 
 ---
 
@@ -225,7 +225,7 @@ After treatment (about 1120) you may lower HR to 100 with **Apply** on the monit
 2. **Evaluate the treatment with criteria** (Section 7.4): BP normal, HR under 100, orthostatics negative, alert and oriented x4, glucose stable without D50 since 1105, nausea gone and eating, urine output good, Na 133 (+7 in 13 hours; slowing), K 4.4, creatinine 1.0, normal ECG. **Response: effective.**
 3. Sodium: 133 at 1700 = +1 in 4 hours after the fluid change: **the plan is working**. Still on the limit (134 until 0400).
 4. **Norovirus:** continue contact (enteric) precautions until 48 hours after the diarrhea stops; **soap and water**; teach the husband about cleaning at home (bleach-based cleaner for the bathroom).
-5. Diet: regular, **no salt restriction** (salt is good for her); encourage fluids. Ambulation with assist after negative orthostatics.
+5. Diet: regular, **no salt restriction** (salt is good for her long term), but **no extra salt or salty broth tonight** while the sodium limit is on (until 0400); encourage fluids to thirst. Ambulation with assist after negative orthostatics.
 6. Begin the **education plan** now that she is alert (assess what she knows; she believed "if I throw up my pill, I wait for the next dose").
 
 **(F) Prompts if missed.**
@@ -432,7 +432,7 @@ Orthostatic vitals: lying 120/76, HR 74; standing **116/74, HR 80** = negative. 
 
 **Why a "stomach bug" causes a crisis.** Illness raises the body's cortisol need 2-10 times. A healthy adrenal gland responds; hers cannot. Vomiting means no absorbed hydrocortisone at all, and diarrhea/vomiting add salt and water loss on top of the aldosterone deficiency. Without sick-day rules (double dose, injection), she went from a normal day to shock in about 48 hours.
 
-**Other labs.** Calcium 10.6 (mild, from volume contraction; falls with fluid). Hemoconcentration on arrival (Hgb 14.6) unmasks to 11.9 after 7.5 L of fluid in and out (dilution). TSH 4.6 mildly high is common in untreated adrenal insufficiency; do not raise levothyroxine now.
+**Other labs.** Calcium 10.6 (mild, from volume contraction; falls with fluid). Hemoconcentration on arrival (Hgb 14.6) falls to 11.9 after about 7.5 L of fluid in (net about +2.5 L) and an albumin drop from 4.6 to 3.6: dilution, not bleeding. TSH 4.6 mildly high is common in untreated adrenal insufficiency; do not raise levothyroxine now.
 
 **Primary vs secondary adrenal insufficiency.** Primary (adrenal gland): cortisol low, **ACTH high**, aldosterone low (high K, salt wasting), **hyperpigmentation**; needs hydrocortisone AND fludrocortisone. Secondary (pituitary) or tertiary (long-term steroid use stopped suddenly): cortisol low, ACTH low/normal, aldosterone normal (potassium normal), no tanning; needs glucocorticoid only.
 
@@ -447,7 +447,7 @@ Orthostatic vitals: lying 120/76, HR 74; standing **116/74, HR 80** = negative. 
 ### 7.3 Safe sodium correction
 
 - Her hyponatremia developed over 2-3 days (chronic: more than 48 hours), so the brain has adapted. A fast rise shrinks brain cells and can cause **osmotic demyelination syndrome** (trouble speaking and swallowing, weakness, confusion, quadriparesis, "locked-in"), appearing 2-6 days later.
-- **Goal 4-6 mmol/L in 24 hours; limit 8 mmol/L in any 24 hours** for chronic hyponatremia (limit 8 especially with high risk: very low sodium, low potassium, alcohol use, malnutrition, liver disease).
+- **Goal 4-6 mmol/L in 24 hours. Upper limit 10 mmol/L in 24 hours for most patients with chronic hyponatremia, and 8 mmol/L when the risk of osmotic demyelination is high** (sodium 105 or lower at the start, low potassium, alcohol use disorder, malnutrition, liver disease). **This case uses the conservative limit of 8** (the order and the hospital's policy), because correction after cortisol replacement is fast and hard to predict.
 - **Why adrenal crisis is a set-up for over-correction:** treatment removes BOTH causes of water retention at once. Volume is restored and cortisol returns, so ADH switches off and the kidneys pour out dilute urine (water diuresis). Saline also adds sodium.
 - **Lauren's numbers:** 126 (0406) -> 128 (0900) -> **132 (1300, +6 in 9 h)** -> fluid changed 1530 -> 133 (1700) -> 133 (2100) -> 133 (0100) -> **134 (0500, +8 in 25 h)**.
 - **Nursing:** trend every result against the first value and the clock; watch urine output and color (over 250 mL/h pale urine is the warning sign); call early. Provider options: lower-sodium fluid (used here: D5 0.45% NaCl), D5W to replace urine water, desmopressin ("DDAVP clamp") to stop the water loss; in over-correction, re-lowering the sodium.
@@ -544,7 +544,7 @@ Orthostatic vitals: lying 120/76, HR 74; standing **116/74, HR 80** = negative. 
    *Model:* Osmotic demyelination syndrome, usually 2-6 days later: trouble speaking (dysarthria), trouble swallowing (dysphagia), weakness, confusion, seizures, locked-in syndrome. It is preventable and often permanent.
 
 10. **Interpret the 1500 orthostatic vitals. What do you do with the result?**
-    *Model:* Lying 108/66 HR 92, standing 94/60 HR 114 with dizziness: positive (systolic -14, HR +22 with symptoms). She is still volume-depleted upright. Up with assist only, dangle first, encourage fluids and salty broth, recheck later, tell the provider.
+    *Model:* Lying 108/66 HR 92, standing 94/60 HR 114 with dizziness: positive (systolic -14, HR +22 with symptoms). She is still volume-depleted upright. Up with assist only, dangle first, encourage oral fluids (but no extra salt or salty broth while the sodium is rising too fast), recheck later, tell the provider.
 
 11. **Which data at 1900 prove the treatment is working?**
     *Model:* BP 112/70 lying, orthostatics negative, HR 86 sinus with normal T waves, oriented x4, glucose stable without D50, eating without nausea, good urine, Na 133 (safe), K 4.4, creatinine 1.0.

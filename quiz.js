@@ -98,7 +98,7 @@
       return num('Dose math', `The order is ${shortName(o)} ${o.medication.dose} ${safe(o.medication.route)}. The vial is labeled ${c} mg/mL. How many mL do you draw up?`, dose / c, 'mL', 0.01, `${dose} mg ÷ ${c} mg/mL = ${dose / c} mL.`);
     },
     F => { // next due
-      const due = (F.vis.administrations || []).filter(a => /due/i.test(safe(a.state))).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time)), o: (F.vis.orders || []).find(o => o.id === a.orderId) })).filter(x => x.d && x.o && x.o.medication).sort((x, y) => x.d - y.d);
+      const due = (F.vis.administrations || []).filter(a => /due/i.test(safe(a.state))).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time, a.slotIndex)), o: (F.vis.orders || []).find(o => o.id === a.orderId) })).filter(x => x.d && x.o && x.o.medication).sort((x, y) => x.d - y.d);
       if (!due.length) return null; const first = due[0], rightName = shortName(first.o);
       const others = due.filter(x => shortName(x.o) !== rightName && x.d - first.d >= 3600000).map(x => shortName(x.o)).concat(F.meds.map(shortName));
       return mc('Medication safety', `Based on the MAR at ${safe(F.now).slice(11)}, which medication is due NEXT?`, rightName, others, `${rightName} is due at ${first.a.time}. Always check the MAR and the time window (usually 1 hour before to 1 hour after) before giving.`);

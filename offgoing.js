@@ -77,7 +77,7 @@
     if (prn.length) add('4. Medications and orders', `PRN medications I gave: ${prn.slice(-4).map(a => `${cleanName(orderOf(a.orderId).name)} at ${hhmm(a.administeredAt)}`).join('; ')}.`);
     if (hi.length) add('4. Medications and orders', `High-alert medications given overnight: ${uniq(hi.map(a => cleanName(orderOf(a.orderId).name))).slice(0, 4).join(', ')}.`);
     const nowMs = (parseSimDate(start) || new Date()).getTime();
-    const dueSoon = (vis.administrations || []).filter(a => /due/i.test(safe(a.state))).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time)), o: orderOf(a.orderId) })).filter(x => x.d && x.o.medication && x.d - nowMs >= -3600000 && x.d - nowMs <= 7200000).sort((x, y) => x.d - y.d);
+    const dueSoon = (vis.administrations || []).filter(a => /due/i.test(safe(a.state))).map(a => ({ a, d: parseSimDate(combineSimDateAndClock(a.time, a.slotIndex)), o: orderOf(a.orderId) })).filter(x => x.d && x.o.medication && x.d - nowMs >= -3600000 && x.d - nowMs <= 7200000).sort((x, y) => x.d - y.d);
     if (dueSoon.length) add('4. Medications and orders', `Due in the first two hours: ${uniq(dueSoon.map(x => `${cleanName(x.o.name)} at ${x.a.time}${x.o.medication.highAlert ? ' (high-alert)' : ''}`)).slice(0, 6).join('; ')}.`);
     const inf = (vis.orders || []).filter(o => safe(o.category) === 'Medication' && /continuous/i.test(safe((o.mar || {}).category)) && /active/i.test(safe(o.status)));
     if (inf.length) add('4. Medications and orders', `Running infusions: ${inf.slice(0, 4).map(o => `${cleanName(o.name)} at ${safe((o.mar || {}).adminDose || (o.medication || {}).dose)}`).join('; ')}.`);

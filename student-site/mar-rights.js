@@ -11,8 +11,8 @@
   const WINDOW_MIN = 60;
 
   // ------------------------------------------------------------------ colors
-  function minutesLate(time) {
-    const sched = parseSimDate(combineSimDateAndClock(time)), now = parseSimDate(simulationTime);
+  function minutesLate(time, slotIndex) {
+    const sched = parseSimDate(combineSimDateAndClock(time, slotIndex)), now = parseSimDate(simulationTime);
     if (!sched || !now) return 0;
     return Math.round((now - sched) / 60000);
   }
@@ -20,7 +20,7 @@
   createMAREventPill = function (event) { // eslint-disable-line no-func-assign
     const html = origPill.apply(this, arguments);
     if (!event || String(event.state).toLowerCase() !== 'due') return html;
-    const late = minutesLate(event.time);
+    const late = minutesLate(event.time, event.slotIndex);
     if (late > WINDOW_MIN) return html.replace('mar-event-due', 'mar-event-overdue').replace(/>([^<]*)<\/div>$/, (m, t) => `>${t} Overdue</div>`).replace('data-mar-state="due"', 'data-mar-state="due" data-late="' + late + '"');
     if (late < -WINDOW_MIN) return html.replace('mar-event-due', 'mar-event-scheduled');
     return html;
@@ -38,7 +38,7 @@
   // a short read-only summary of the rights (nothing to tick)
   function rightsList(med, event, order) {
     const p = (currentCanonicalCase.patient || {}), m = order.medication || {};
-    const late = minutesLate(event.time), prn = /prn/i.test(safe(med.category));
+    const late = minutesLate(event.time, event.slotIndex), prn = /prn/i.test(safe(med.category));
     const bad = !prn && Math.abs(late) > WINDOW_MIN;
     const time = prn ? 'PRN: when needed; check the last dose and the maximum dose' : late > WINDOW_MIN ? `Scheduled ${safe(event.time)}; now ${String(simulationTime).slice(11)}: ${late} minutes late, outside the ${WINDOW_MIN}-minute window` : late < -WINDOW_MIN ? `Scheduled ${safe(event.time)}; now ${String(simulationTime).slice(11)}: more than ${WINDOW_MIN} minutes early` : `Scheduled ${safe(event.time)}; now ${String(simulationTime).slice(11)}: within the ${WINDOW_MIN}-minute window`;
     return [

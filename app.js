@@ -1682,6 +1682,11 @@ function getVisibleCanonicalCase(canonical) {
   visible.problems = (canonical.problems || []).filter(item => availableAtSimulationTime(item));        // a problem that appears later in the stay (for example a new infection) has an availableAt time
   visible.stickyNotes = (canonical.stickyNotes || []).filter(item => availableAtSimulationTime(item));
   // an order that has been placed but does not start yet is "Pending" until its start time, not "Active"
+  // an order that will be stopped early (an unplanned discontinuation) must not reveal its future stop time before it happens (a copy: the case itself is not changed)
+  visible.orders = visible.orders.map(order => {
+    if (!(simulationTime && order.stoppedEarly && order.end && String(order.end) > String(simulationTime))) return order;
+    const copy = structuredClone(order); copy.end = ''; if (copy.mar) delete copy.mar.discontinuedIndex; return copy;
+  });
   visible.orders.forEach(order => {
     if (/^active$/i.test(safe(order.status)) && order.start && String(order.start) > String(simulationTime)) order.status = 'Pending';
     // an order with an end time that the clock has passed shows as Completed (or Discontinued when it was stopped early)
@@ -1944,9 +1949,15 @@ function resetSimulation() {
   refreshSimulationView();
 }
 
-function combineSimDateAndClock(clockText) {
+function combineSimDateAndClock(clockText, slotIndex) {
   if (!simulationTime || !clockText) return '';
-  const datePart = simulationTime.slice(0, 10);
+  let datePart = simulationTime.slice(0, 10);
+  // a MAR event's slot (hours after the simulation start) gives its calendar day, so a 0400 dose on the next morning is not "overdue" the evening before
+  const start = parseSimDate(safe(currentCanonicalCase?.timeline?.simulationStart, ''));
+  if (start && slotIndex !== undefined && slotIndex !== null && slotIndex !== '' && Number(slotIndex) >= 0 && Number.isFinite(Number(slotIndex))) {
+    const base = new Date(start.getTime()); base.setMinutes(0, 0, 0); base.setHours(base.getHours() + Number(slotIndex));
+    datePart = `${base.getFullYear()}-${String(base.getMonth() + 1).padStart(2, '0')}-${String(base.getDate()).padStart(2, '0')}`;
+  }
   const raw = String(clockText).replace(':', '').padStart(4, '0');
   return `${datePart} ${raw.slice(0,2)}:${raw.slice(2,4)}`;
 }
@@ -1988,7 +1999,7 @@ function getBrainTasks(includeCompleted = false) {
     const order = orderMap.get(admin.orderId);
     if (!order) return;
 
-    const dueAt = combineSimDateAndClock(admin.time);
+    const dueAt = combineSimDateAndClock(admin.time, admin.slotIndex);
     // doses given before the simulation began are history, not worklist items
     if (state === 'given' && (Number(admin.slotIndex) < 0 || (dueAt && currentCanonicalCase.timeline && dueAt < safe(currentCanonicalCase.timeline.simulationStart)))) return;
     const id = `mar_${admin.id}`;
@@ -2210,7 +2221,7 @@ function updateNavigationBadges() {
 
   const dueMeds = (visible.administrations || []).filter(admin => {
     if (safe(admin.state).toLowerCase() !== 'due') return false;
-    const dueAt = combineSimDateAndClock(admin.time);
+    const dueAt = combineSimDateAndClock(admin.time, admin.slotIndex);
     return simMinutesBetween(simulationTime, dueAt) <= 60;
   }).length;
   setNavBadge(elements.badgeMAR, dueMeds ? `${dueMeds} DUE` : '', 'due');
