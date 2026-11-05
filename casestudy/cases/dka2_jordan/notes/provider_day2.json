@@ -1,0 +1,152 @@
+[
+ {
+  "id": "note_hosp_night_event_202612142015",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Event Note - Potassium 3.3, Insulin Held",
+  "author": "P. Raman, MD",
+  "datetime": "2026-12-14 20:15",
+  "category": "Progress Note",
+  "summary": "K 3.3 at 1830 (resulted 1915) with flat T waves and U waves: insulin infusion HELD 1920, D10 off, KCl 10 mEq riders x4 (10 mEq/h), magnesium 2 g. STAT BMP 2130. Restart insulin when K 3.5 or higher.",
+  "body": "**Called by RN at 1918** for K 3.3 (critical trend).\n\n**Results 1830**\nNa 139, **K 3.3** (after 20 mEq of riders 1600-1800), Cl 108, CO2 16, **gap 15**, BUN 13, Cr 0.9, **Mg 1.7**, phos 1.8, **BHB 1.8**, pH 7.31, pCO2 31. Glucose 192 at 1900.\n\n**Bedside 1925**\nAwake, talking, no weakness or cramps, no palpitations. Monitor: sinus 90s, **T waves flat with U waves**. ECG 1935: sinus 92, flat T, U waves V2-V3, QTc 468, no arrhythmia.\n\n**Assessment**\nHypokalemia from insulin moving potassium into cells, plus urine losses and low-normal magnesium (alcohol). Adult protocol: **K under 3.5 = hold insulin and replace potassium first** (insulin would drive K lower and risk arrhythmia).\n\n**Plan**\n1. **Insulin infusion HELD at 1920.** D10 line stopped at the same time (no dextrose without insulin). LR + KCl 20 continues at 100 mL/h.\n2. **KCl 10 mEq/100 mL over 1 h x4** (1930, 2030, 2130, 2230) through the right antecubital IV, one at a time (peripheral maximum 10 mEq/h). Total K now about 12 mEq/h with the LR.\n3. **Magnesium sulfate 2 g IV** over 1 h (1930).\n4. **STAT BMP, Mg, VBG, BHB at 2130.** Restart insulin 7.2 units/h as soon as K is 3.5 or higher, and the D10 line at 100 mL/h if glucose is under 250.\n5. POC glucose hourly (206 at 2000). Ketones may rise a little while insulin is off: keep the hold as short as possible.\n6. Cardiac monitor; call for ectopy, K under 3.0, or glucose over 300.",
+  "allowTimes": [
+   "2130",
+   "2030",
+   "2230"
+  ]
+ },
+ {
+  "id": "note_hosp_night_2_202612142230",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Insulin Restarted",
+  "author": "P. Raman, MD",
+  "datetime": "2026-12-14 22:30",
+  "category": "Progress Note",
+  "summary": "K 3.7 at 2130 after 20 mEq: insulin restarted 2200 at 7.2 units/h with D10 100 mL/h (glucose 248). BHB 2.0 (was 1.8): ketones nudged up during the 2.7-hour hold. Remaining riders continue.",
+  "body": "**Results 2130 (STAT)**\nNa 139, **K 3.7**, Cl 108, CO2 15, gap 16, **Mg 2.1**, phos 1.9, **BHB 2.0** (1.8 at 1830), pH 7.30, pCO2 30.\nPOC glucose 206 (2000), 236 (2100), **248 (2200)**.\n\n**Actions**\n- **Insulin restarted 2200 at 7.2 units/h** (held 1920-2200).\n- **D10 restarted at 100 mL/h** (glucose under 250).\n- KCl riders 3 and 4 (2130, 2230) continue: 40 mEq total by 2330.\n- Monitor: T waves a little taller, U waves smaller.\n\n**Assessment**\nPotassium corrected enough to restart insulin. The small rise in ketones and gap while insulin was off shows why the hold must be short. Expect the gap to close overnight.\n\n**Plan**\nNext panel 0130 (every 4 h from the last draw). Hourly glucose: if under 150 on D10 100 mL/h, raise to 150 mL/h and call. Sugar-free fluids. CIWA-Ar 0.",
+  "allowTimes": [
+   "2230",
+   "2330",
+   "0130"
+  ]
+ },
+ {
+  "id": "note_hosp_night_3_202612150630",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Progress Note - DKA Resolved",
+  "author": "P. Raman, MD",
+  "datetime": "2026-12-15 06:30",
+  "category": "Progress Note",
+  "summary": "Gap 13 at 0130, then 11 at 0530 with BHB 0.4, pH 7.36, bicarbonate 20: DKA resolved. Glucose 148 at 0300 on D10 100 mL/h: raised to 150 mL/h. K 4.1. Transition this morning with endocrinology.",
+  "body": "**Overnight**\n- Slept 0000-0600 between checks. No vomiting. CIWA-Ar 0.\n- POC glucose 226 (2300), 204 (0000), 182 (0100), 166 (0200), **148 (0300) on D10 100 mL/h: RN raised D10 to 150 mL/h per protocol and called (0305)**; 158 (0400), 162, 166, 164 (0700).\n- All four KCl riders given (done 2330).\n\n**Results**\n- 0130: Na 140, K 4.0, Cl 109, **CO2 18, gap 13**, Mg 2.0, phos 2.1, **BHB 0.9**, pH 7.34. Not yet resolved (BHB still 0.6 or more).\n- **0530: Na 139, K 4.1, Cl 108, CO2 20, gap 11, BUN 10, Cr 0.9, Mg 1.9, phos 2.6, BHB 0.4, pH 7.36, pCO2 35.** CBC: WBC 8.4, Hgb 13.9.\n- Weight 0600: 74.2 kg (72.0 on arrival).\n\n**Assessment**\n**DKA resolved at 0530** (pH 7.3 or higher, bicarbonate 18 or higher, BHB under 0.6; gap 11). AKI resolved (Cr 0.9). Chloride 108-109: mild high-chloride (non-gap) component from the first saline; less than usual because LR was used.\n\n**Plan**\nEndocrinology to write the transition (glargine bridge, meal lispro). Keep the drip running until glargine has been in for 1-2 hours. He is asking to put his pump back on this morning: not yet (see endocrinology).",
+  "allowTimes": [
+   "0700"
+  ]
+ },
+ {
+  "id": "note_endo_transition_202612150640",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - Transition to Subcutaneous Insulin",
+  "author": "M. Feld, MD",
+  "datetime": "2026-12-15 06:40",
+  "category": "Progress Note",
+  "summary": "DKA resolved at 0530. Glargine 20 units at 0730 (bridge), breakfast lispro 0800, drip and D10 off 0930. Pump NOT restarted today: restart Wednesday after the educator's site-change teach-back, timed to the glargine wearing off.",
+  "body": "**Data**\nResolved at 0530: pH 7.36, bicarbonate 20, BHB 0.4, gap 11. K 4.1. Glucose 160-166 on D10. Wants to eat.\n\n**Discussion with Jordan**\nHe wants the pump back on now (\"I've done this for 10 years, I can just put a new set in\"). Explained: (1) he has had no basal insulin except the drip, so the switch must overlap; (2) the pump failed silently once and we need to see the whole site routine and his backup plan first; (3) a long-acting dose today means restarting the pump tomorrow morning when it wears off. He agreed, reluctantly.\n\n**Plan**\n1. **Insulin glargine 20 units SC at 0730** (pump basal 21.6 units/day; about 90%). One bridge dose only.\n2. **Lispro pen with meals: 1 unit/10 g carbohydrate + correction 1 unit/45 above 150** (whole units). Bedtime correction only if over 250. If nausea returns or he may not finish the tray, dose right after eating.\n3. **Stop the insulin infusion and D10 at 0930** (2 hours after glargine, after the breakfast lispro). LR + KCl 20 at 100 mL/h until 1400, then lock.\n4. POC before meals, bedtime, 0300 and 1030. Rebound BMP + BHB 1130.\n5. **Pump restart Wednesday about 0800-0830** after the diabetes educator watches him do a complete site change (teach-back) and the pump agreement is signed; no glargine Wednesday.\n6. Dietitian today; diabetes educator today and tomorrow.",
+  "allowTimes": [
+   "0730",
+   "0800",
+   "0930",
+   "1030",
+   "1130",
+   "1400",
+   "0830"
+  ]
+ },
+ {
+  "id": "note_hosp_d2_202612151000",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 2 (Transition Done)",
+  "author": "A. Lindqvist, MD",
+  "datetime": "2026-12-15 10:00",
+  "category": "Progress Note",
+  "summary": "Transition done: glargine 20 units 0730, breakfast lispro 7 units 0800 (70 g, glucose 162), drip and D10 off 0930. Eating, no nausea. Still pressing to restart his pump today; plan stands for Wednesday. Transfer to 4 East this afternoon if stable.",
+  "body": "**Subjective**\nAte all of breakfast. \"I feel normal again.\" Asking twice for his pump. No tremor, no sweats; CIWA-Ar 0 (last drink about 56 hours ago).\n\n**Objective**\nPOC 162 (0730), 174 (0830), 182 (0930). Glargine 20 units at 0730; breakfast 70 g, lispro 7 units at 0800 (no correction at 162). **Insulin drip and D10 off at 0930.** LR + KCl 20 at 100 mL/h. Weight 74.2 kg. Labs 0530 normal anion gap; CBC normal.\n\n**Assessment / Plan**\n1. DKA resolved; on basal-bolus injections. Rebound BMP + BHB at 1130; POC 1030.\n2. Pump: endocrinology plan (restart Wednesday with the educator). Nurses: he may not reconnect it on his own; his pump stays in the belongings bag.\n3. Alcohol: no withdrawal. Social work this afternoon (brief intervention).\n4. **Transfer to 4 East (4E-21) at about 1400** if the 1130 labs show no rebound ketones. Monitor off at transfer.",
+  "allowTimes": [
+   "1030",
+   "1130",
+   "1400"
+  ]
+ },
+ {
+  "id": "note_hosp_transfer_202612151340",
+  "type": "progressNotes",
+  "title": "Transfer Summary - IMCU to 4 East",
+  "author": "A. Lindqvist, MD",
+  "datetime": "2026-12-15 13:40",
+  "category": "Progress Note",
+  "summary": "Transfer to 4E-21 at 1400. No rebound ketones (BHB 0.3, gap 11 at 1130). Glucose 246 before lunch (expected rise after the drip): lunch lispro 10 units. Pump restart Wednesday with the educator.",
+  "body": "**Hospital course**\nModerate DKA (pH 7.22, gap 26, BHB 6.2) from insulin pump set failure during a binge-drinking weekend. Adult protocol: 2 L crystalloid in the first 3 hours, then LR with KCl 20; fixed-rate insulin 7.2 units/h from Monday 0215; D10 line from 0805. Magnesium 1.5 replaced (2 g x2). **K 3.3 Monday evening: insulin held 1920-2200**, KCl riders 60 mEq total, ECG flat T/U waves. Resolved Tuesday 0530. Glargine 20 units 0730; drip off 0930.\n\n**Today**\n1130 labs: Na 138, K 3.9, CO2 22, **gap 11**, Cr 0.9, Mg 1.9, phos 2.8, **BHB 0.3** (no rebound). POC glucose 188 (1030), **246 (1130)**: lunch 80 g, lispro 8 + 2 = **10 units** at 1200.\n\n**For 4 East**\n- Vital signs every 4 h. POC AC/HS and 0300.\n- Lispro pen meal + correction doses (orders). **Dose after the meal if he is not sure he will eat it.**\n- Pump stays in the belongings bag until endocrinology restarts it Wednesday.\n- CIWA-Ar every 4 h until Wednesday 0200 (all 0-1 so far).\n- One IV (left forearm) saline-locked at 1400.\n- Social work, dietitian and educator are seeing him.",
+  "allowTimes": [
+   "1400"
+  ]
+ },
+ {
+  "id": "note_dce_1_202612151100",
+  "type": "therapyNotes",
+  "title": "Diabetes Education Session 1 - What Went Wrong With the Pump",
+  "author": "L. Abernathy, RN, CDCES",
+  "datetime": "2026-12-15 11:00",
+  "category": "Diabetes Education",
+  "summary": "Reviewed the event with Jordan: dislodged set, silent phone, no ketone check, corrections through a failed set, no backup insulin. Taught the unexplained-high rule and pump-user sick-day rules. Site change teach-back planned for Wednesday 0800.",
+  "body": "**What happened (his words, then the pump and CGM history)**\n- Set placed Thursday, left lower abdomen, his usual spot (some lumps from overuse).\n- Saturday night: drinking, asleep on a couch in jeans; tubing caught on his belt; cannula pulled half out. **No occlusion alarm**: the pump kept \"delivering\" onto his skin.\n- Phone died: no CGM high alarms overnight.\n- Sunday: high all day and vomiting; he blamed a hangover; two corrections **through the same set**; no ketone check (no strips); no pen or long-acting insulin at home.\n\n**Teaching (teach-back for each)**\n1. **Unexplained-high rule**: glucose over 250 that does not drop 1 hour after a pump correction (or any ketones, nausea or vomiting) = check blood ketones, **give the correction by PEN, change the whole set at a new site**, recheck in 1-2 hours. Never correct twice through a set you do not trust.\n2. **Why pump users get DKA fast**: only rapid-acting insulin; no insulin on board 2-4 hours after delivery stops.\n3. **Vomiting is DKA until proven otherwise** in type 1 diabetes, even after drinking: check ketones.\n4. **Sick-day rules for pump users**: check glucose every 2-3 h and ketones every 2-4 h; never stop basal; fluids 250 mL every hour; ketones 0.6-1.4 = pen correction + set change + call if not falling; 1.5-2.9 = call now; 3.0 or more or vomiting/belly pain/fast breathing = ED.\n5. **Backup kit**: long-acting pen (glargine), rapid pen, pen needles, ketone strips, spare sets and reservoirs, glucagon. Written backup plan if the pump is off for more than 2-3 hours.\n6. **Site care**: rotate sites (abdomen, flank, upper buttock, thighs); avoid lumps (lipohypertrophy: poor absorption); route tubing away from belts; change every 2-3 days.\n\nHe was open and quiet: \"I've never thought about the pump just... not working.\" Plan: **site change teach-back Wednesday 0800** with endocrinology present; CGM alarms and alcohol tomorrow.",
+  "allowTimes": [
+   "0800"
+  ]
+ },
+ {
+  "id": "note_sw_202612151500",
+  "type": "caseManagement",
+  "title": "Social Work Assessment - Alcohol Screening and Brief Intervention",
+  "author": "R. Halvorsen, LCSW",
+  "datetime": "2026-12-15 15:00",
+  "category": "Social Work",
+  "summary": "AUDIT-C 7 (positive for risky drinking); no signs of dependence. Brief intervention done; he chose goals (no more than 3-4 drinks on a night out, eat first, tell a friend, alarms on). Roommate supportive. Work note given. Insured on his parents' plan.",
+  "body": "**Situation**\nRoommate Theo Grant (a coworker at another restaurant) found him and drove him in. Parents in another city, supportive; mother called daily. Line cook, 4-5 shifts a week (1400-2300); staff meal on shift; food at home fine. Insured on his parents' plan until he turns 26 (March 2028).\n\n**Alcohol screening (SBIRT)**\n- **AUDIT-C 7** (drinking 2-4 times a month = 2; 7-9 drinks on a typical drinking day = 3; 6 or more drinks monthly = 2). Positive for risky drinking (men 4 or more).\n- No daily drinking, no morning drinking, no blackouts other than Saturday, no withdrawal, no legal problems. CIWA-Ar 0-1 throughout.\n\n**Brief intervention (FRAMES)**\nFeedback: the DKA started on a drinking night; alcohol hides lows and highs and stops him hearing alarms. He said \"that's on me.\" Readiness to change 7/10. **His goals**: no more than 3-4 drinks on a night out, eat carbs first, set a bedtime glucose check, leave the CGM alarm on loud and phone charged, tell one friend what DKA looks like, never sleep in his jeans with the pump on. Information on community resources given; declined counseling referral for now; primary care follow-up.\n\n**Plan**\nWork note for this week. Roommate to know the warning signs (vomiting + high glucose = ketones and ED). No other needs."
+ },
+ {
+  "id": "note_rd_202612151530",
+  "type": "therapyNotes",
+  "title": "Nutrition Assessment - Carbohydrate Counting, Alcohol, Work Meals",
+  "author": "K. Osei, RD",
+  "datetime": "2026-12-15 15:30",
+  "category": "Nutrition",
+  "summary": "Accurate carbohydrate counter. Main issues: irregular meals on a line-cook schedule and drinking without food. Taught alcohol rules (eat carbs, do not bolus for most alcohol, bedtime snack, delayed lows up to 24 h).",
+  "body": "**Intake**\nUsual: late breakfast, staff meal 1630, snacks at the line, late-night food after shifts. Counts carbohydrate well (tested 5 foods: within 10 g). Weight 74.2 kg today (usual 74.5).\n\n**Teaching**\n- **Alcohol**: the liver stops releasing glucose while it clears alcohol, so lows can come 6-24 hours later (overnight and the next morning). Eat a carbohydrate meal before and while drinking; do not bolus for most beer/mixer carbs on a night out (or bolus only part) because of the delayed low; bedtime snack with protein if glucose under 150; set an alarm or CGM alert for the night; check on waking. Beer and mixed drinks have carbs; spirits and dry wine have little.\n- **Shift work**: bolus for the staff meal before eating, not after the rush; keep glucose tabs and a snack at the station.\n- **Sick days**: if he cannot eat, keep basal and sip 15 g carbohydrate every hour (juice, regular soda) to allow insulin.\n\nTalked through today's dinner: if unsure he will eat it all, dose after eating."
+ },
+ {
+  "id": "note_endo_d2_202612151630",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - Pump Restart Plan",
+  "author": "M. Feld, MD",
+  "datetime": "2026-12-15 16:30",
+  "category": "Progress Note",
+  "summary": "Pump restart Wednesday 0815 after the 0800 site-change teach-back (no glargine Wednesday). Patient-managed pump orders with the hospital policy, unexplained-high rule, ketone meter checks, and a backup lispro pen are written to start then.",
+  "body": "**Data**\nNo rebound ketones (BHB 0.3, gap 11 at 1130). Glucose 188-246 today on glargine 20 + lispro. Pump checked with Jordan: settings unchanged since October (basal 21.6 units/day, 1:10, 1:45, target 120, active insulin 3 h); pump works normally on a test prime.\n\n**Plan**\n1. **Wednesday 0800: diabetes educator watches a full site change** (new site, not the left abdomen), then **pump basal restarts at 0815**, about 24 hours after the glargine. No glargine Wednesday.\n2. Patient-managed pump per hospital policy: signed agreement, RN checks fingersticks AC/HS/0300 and documents every bolus; pump off for imaging.\n3. **Unexplained-high rule** in the orders (ketones, pen, set change, call). Bedside ketone meter available.\n4. Discharge Thursday if a full day and night on the pump go well. Backup pens (glargine and lispro), ketone meter and strips, glucagon on the discharge prescriptions.\n5. Tonight: lispro pen as ordered; bedtime correction only over 250.",
+  "allowTimes": [
+   "0800",
+   "0815"
+  ]
+ },
+ {
+  "id": "note_hosp_night_hypo_202612152045",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Event Note - Low Glucose After Dinner",
+  "author": "P. Raman, MD",
+  "datetime": "2026-12-15 20:45",
+  "category": "Progress Note",
+  "summary": "Glucose 64 at 2010 (CGM low alert, fingerstick confirmed): full 10-unit dinner dose given at 1730 for 90 g, but he ate about half. Juice 15 g, 92 at 2025, snack. Meal doses after eating when intake is uncertain.",
+  "body": "**Event**\nAt about 2005 his CGM alarmed low on his phone; he felt shaky and sweaty. **Fingerstick 64 at 2010.** CIWA-Ar 2 (sweats, tremor) - explained by the low, not withdrawal (last drink about 66 hours ago).\n\n**Cause**\n1730: glucose 188, dinner tray 90 g -> lispro 9 + 1 = **10 units** before eating. He ate **about half** (\"still not hungry for real food\"), about 45 g. Also, insulin needs fall once the ketones and high glucose have cleared.\n\n**Treatment**\n4 oz juice (15 g) at 2012 -> **92 at 2025** -> milk and crackers (15 g + protein) -> **118 at 2100** (bedtime: no correction).\n\n**Plan**\n- Meal lispro **right after the meal** for the grams eaten whenever nausea or a small appetite makes intake uncertain (sticky note added).\n- POC 0300. Treat lows by the rule of 15.\n- Teaching point for Jordan: CGM alarms work only if the phone is charged and the sound is on; confirm with a fingerstick before treating in the hospital.",
+  "allowTimes": [
+   "2100"
+  ]
+ }
+]

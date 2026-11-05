@@ -1,0 +1,94 @@
+[
+ {
+  "id": "note_endo_d3_202612160730",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - Pump Restart Day",
+  "author": "M. Feld, MD",
+  "datetime": "2026-12-16 07:30",
+  "category": "Progress Note",
+  "summary": "Night low 64 explained by a half-eaten dinner. BMP normal. Proceed: site-change teach-back 0800, pump basal 0815, no glargine. Breakfast bolus by pump.",
+  "body": "**Overnight**\n2010 glucose 64 after a full dinner dose with half the meal eaten; treated; 118 at 2100, 132 at 0300, **138 at 0730**. CIWA-Ar stopped at 0200 (72 hours, all scores 0-2).\n\n**Wednesday 0500 labs**\nNa 139, K 4.1, Cl 104, CO2 24, gap 11, BUN 11, Cr 0.9, Mg 1.9, phos 3.4.\n\n**Plan**\n1. **0800 site-change teach-back** with the diabetes educator (new site: right lower abdomen, away from the lumpy left side).\n2. **Pump basal restarts 0815** (glargine given Tuesday 0730). Settings unchanged.\n3. Breakfast bolus by the pump calculator (target 120 at home). RN verifies and documents each bolus.\n4. POC 1030 (2 hours after restart) and AC/HS/0300: proves the set is delivering.\n5. Unexplained-high rule and pen backup in the orders. Discharge Thursday morning if the night goes well.",
+  "allowTimes": [
+   "0800",
+   "0815",
+   "1030"
+  ]
+ },
+ {
+  "id": "note_dce_2_202612160930",
+  "type": "therapyNotes",
+  "title": "Diabetes Education Session 2 - Site Change Teach-Back, Pump Restart, CGM Alarms, Alcohol Plan",
+  "author": "L. Abernathy, RN, CDCES",
+  "datetime": "2026-12-16 09:30",
+  "category": "Diabetes Education",
+  "summary": "Jordan did a full infusion set change with correct technique (teach-back passed) and restarted his pump at 0815. Breakfast bolus 6.4 units by the pump. Reviewed CGM alarm settings, backup plan, ketone meter, sick-day and alcohol rules.",
+  "body": "**Site change teach-back (0800, Dr. Feld present)**\nHand hygiene; new reservoir filled with lispro, air bubbles removed; tubing primed until drops at the tip; new site **right lower abdomen** (2 inches from the navel, no lumps); skin cleaned and dry; set inserted; cannula filled (0.3 unit for a 6 mm soft cannula); tubing looped and taped away from the belt line; old site checked. **Pump basal resumed 0815.** All steps correct without prompts.\n\n**Breakfast 0830**\nGlucose 138 (0730). 60 g: pump calculator 60/10 = 6.0 + correction (138-120)/45 = 0.4 = **6.4 units**, given by Jordan; RN checked and documented.\n\n**Teaching (teach-back)**\n- **Check the site** at every glucose check and before bed: tubing connected, no wetness or insulin smell, no redness, cannula not kinked. Check glucose 2 hours after every set change.\n- **Unexplained high**: over 250, not down 1 hour after a pump correction = ketones, pen correction, new set at a new site.\n- **CGM**: urgent low alarm on and loud; high alert on (250) with repeat; phone charged and not on Do Not Disturb at night; share alerts with his roommate (he agreed).\n- **Backup kit and plan**: glargine pen (20 units if the pump is off for more than about 3 hours and cannot be fixed; restart the pump 24 hours later), lispro pen, pen needles, ketone meter and strips, spare sets; nasal glucagon (roommate shown how).\n- **Alcohol**: eat first, lower or skip boluses for alcohol carbs, bedtime glucose 150 or higher with a snack, temporary basal reduction overnight (about 20%) after heavy drinking per his endocrinologist, never sleep with the pump tubing tangled in clothes; a sober friend who knows the plan.\n- **Medical ID** bracelet: ordered online during the session."
+ },
+ {
+  "id": "note_pharm_dc_202612161400",
+  "type": "therapyNotes",
+  "title": "Pharmacy Discharge Medication Teaching - Backup Insulin Kit",
+  "author": "E. Novak, PharmD",
+  "datetime": "2026-12-16 14:00",
+  "category": "Pharmacy Note",
+  "summary": "Discharge prescriptions filled (meds-to-beds at 1500 delivery): lispro vials for the pump, glargine and lispro backup pens, pen needles, ketone meter and strips, nasal glucagon x2. Storage and expiry reviewed.",
+  "body": "**Prescriptions (ordered 1300)**\n- Insulin lispro U-100 10 mL vials (pump).\n- **Backup**: insulin glargine SoloStar pens (20 units once daily ONLY if the pump is off and cannot be fixed); insulin lispro KwikPen (1 unit/10 g; correction 1 unit/45 above 150); pen needles 4 mm.\n- Blood ketone meter and strips; glucose meter strips (backup to the CGM).\n- **Nasal glucagon 3 mg x2** (home and work bag).\n- Glucose tablets.\n\n**Teaching**\n- Unopened insulin in the fridge; the pen in use at room temperature up to 28 days; check dates every 3 months (his last backup pen had expired).\n- Backup pens never in a hot car or the kitchen line at work.\n- Glucagon: works poorly after heavy drinking (liver glycogen low): still use it and call 911.\n- Copays: covered by his parents' plan.\n\nMeds-to-beds delivery at 1500.",
+  "allowTimes": [
+   "1500"
+  ]
+ },
+ {
+  "id": "note_cm_202612161430",
+  "type": "caseManagement",
+  "title": "Case Management Discharge Planning Note",
+  "author": "D. Kim, RN CM",
+  "datetime": "2026-12-16 14:30",
+  "category": "Case Management",
+  "summary": "Discharge home with roommate Thursday. Endocrinology clinic Monday 12/21; educator phone call Friday; primary care in 2 weeks. Pump supplies on hand; meds-to-beds arranged. Work note given.",
+  "body": "**Plan**\n- Home with his roommate Thursday after breakfast (roommate driving).\n- **Follow-up**: endocrinology (Dr. Feld's clinic) Monday 12/21 1030; diabetes educator phone call Friday 12/18; primary care 2 weeks (alcohol follow-up, vaccines).\n- Supplies: pump sets and reservoirs at home (3-month supply through the pump supplier); backup insulin and ketone strips via meds-to-beds.\n- Insurance verified (parents' plan). No home health needs.\n- Return-to-work note: may return Saturday 12/19 (light shift)."
+ },
+ {
+  "id": "note_hosp_d3_202612161600",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 3 (Back on the Pump)",
+  "author": "A. Lindqvist, MD",
+  "datetime": "2026-12-16 16:00",
+  "category": "Progress Note",
+  "summary": "Pump restarted 0815; glucose 164 at 1030 and 176 at 1130 (set delivering). Teaching complete. Plan discharge Thursday morning after a night on the pump.",
+  "body": "**Subjective**\nFeels well, eating normally, managing his own boluses. Embarrassed less, \"more careful now.\"\n\n**Objective**\nPOC 138 (0730), **164 (1030)**, 176 (1130). Breakfast bolus 6.4 units, lunch bolus by pump at 1200 (documented). Pump site right lower abdomen clean. Labs Wednesday 0500 normal.\n\n**Assessment / Plan**\n1. DKA resolved; back on his pump with the unexplained-high rule.\n2. Hypoglycemia Tuesday evening: cause found (dose before an uncertain meal); none since.\n3. Alcohol: brief intervention done; no withdrawal.\n4. **Discharge Thursday morning** if the overnight glucose is stable on the pump. Thursday 0500 BMP."
+ },
+ {
+  "id": "note_hosp_night_high_202612170115",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Event Note - Unexplained High on the Pump (Kinked Cannula)",
+  "author": "P. Raman, MD",
+  "datetime": "2026-12-17 01:15",
+  "category": "Progress Note",
+  "summary": "Glucose 276 at 2300 after pizza; pump correction 3.45 units; 298 at 0010 (no fall) with ketones 0.6. Jordan followed the rule himself: pen correction 3 units, new set at a new site (old cannula kinked). Recheck 0130 and 0300.",
+  "body": "**Events (Wednesday evening)**\n- 1730 glucose 204: skipped the tray (roommate bringing food); pump correction only.\n- 1930 two slices of pizza (about 75 g): pump bolus 7.5 units. 2100 glucose 212.\n- **2300 CGM high alert; fingerstick 276.** Pump correction (276-120)/45 = **3.45 units** at 2305.\n- **0010 glucose 298**: no fall 1 hour after the correction. Pizza can cause a late rise, but **blood ketones 0.6** = insulin is not getting in.\n\n**Action (Jordan led it; RN watched)**\n- **Lispro by pen 3 units at 0020** (hospital scale (298-150)/45 = 3.3 -> 3; some pump insulin may still absorb).\n- **Set changed at 0030** to the left upper buttock (flank). The old soft cannula came out **kinked** at the tip (bent on insertion or when he lay on it). No occlusion alarm had sounded.\n- Water 240 mL.\n\n**Assessment**\nExactly the failure that caused this admission, caught early this time: ketones only 0.6, no symptoms.\n\n**Plan**\nRecheck glucose at 0130 and glucose + ketones at 0300; call if ketones 1.0 or higher or glucose still over 250. Discharge plan unchanged if this settles.",
+  "allowTimes": [
+   "0130",
+   "0300"
+  ]
+ },
+ {
+  "id": "note_hosp_night_dc_202612170620",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Discharge Day",
+  "author": "P. Raman, MD",
+  "datetime": "2026-12-17 06:20",
+  "category": "Progress Note",
+  "summary": "After the set change: 236 (0130), 168 with ketones 0.2 (0300), 142 (0600). BMP normal. Ready for discharge after breakfast.",
+  "body": "**Overnight**\nGlucose **236 (0130), 168 (0300), 142 (0600)**. Ketones **0.2** at 0300. Slept after 0130. New set (left flank) clean, tubing secured.\n\n**Thursday 0500**\nNa 140, K 4.3, Cl 104, CO2 26, gap 10, Cr 0.9, Mg 2.0, phos 3.6. Weight 73.9 kg.\n\n**Plan**\nDischarge order this morning if endocrinology agrees; endocrinology to see before discharge."
+ },
+ {
+  "id": "note_endo_dc_202612170650",
+  "type": "progressNotes",
+  "title": "Endocrinology Note - Discharge Readiness",
+  "author": "M. Feld, MD",
+  "datetime": "2026-12-17 06:50",
+  "category": "Progress Note",
+  "summary": "Ready for discharge on his pump with a backup plan. He handled a kinked-cannula high overnight correctly (ketones, pen, new set). Clinic Monday 12/21.",
+  "body": "**Summary**\nModerate DKA from a dislodged pump set during a binge-drinking weekend; resolved about 27 hours after the insulin infusion started; one potassium hold; glargine bridge; one post-transition low; pump restarted after a site-change teach-back; a kinked-cannula high handled correctly overnight (pen correction and set change, ketones 0.6 to 0.2).\n\n**Discharge plan**\n- Pump settings unchanged. Change sets every 2-3 days; rotate sites; check glucose 2 hours after every set change.\n- **Unexplained high** over 250 not down in 1 hour = ketones, pen, new set. Ketones 1.5+ or vomiting = call/ED.\n- **Backup**: glargine 20 units if the pump is off more than about 3 hours and cannot be fixed (pump basal restarts 24 hours later); lispro pen for meals and corrections meanwhile.\n- **Alcohol**: his own goals (social work); bedtime glucose and snack; CGM alarms loud; roommate knows the signs and the nasal glucagon.\n- Clinic Monday 12/21; educator call Friday."
+ }
+]
