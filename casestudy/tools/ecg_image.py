@@ -48,6 +48,9 @@ for _k in ('left', 'right'):
 # Hyperkalemia-like T emphasis per lead (multiplier applied when peaked=True): tall, narrow, symmetric, strongest V2-V4
 PEAK_BOOST = {'I': 1.0, 'II': 1.3, 'III': 1.0, 'aVR': 1.0, 'aVL': 0.8, 'aVF': 1.2, 'V1': 1.6, 'V2': 1.7, 'V3': 1.7, 'V4': 1.6, 'V5': 1.4, 'V6': 1.2}
 
+# U-wave size per lead (multiplier of u_amp): largest in the mid-precordial leads
+U_LEAD = {'I': 0.4, 'II': 0.6, 'III': 0.3, 'aVR': -0.4, 'aVL': 0.2, 'aVF': 0.4, 'V1': 0.6, 'V2': 1.0, 'V3': 1.0, 'V4': 0.8, 'V5': 0.6, 'V6': 0.5}
+
 RHYTHMS = {
     'sinus': 'Normal sinus rhythm', 'sinus_brady': 'Sinus bradycardia', 'sinus_tach': 'Sinus tachycardia',
     'first_degree': 'Sinus rhythm with first-degree AV block', 'wide': 'Sinus rhythm with wide QRS (hyperkalemia-like pattern)',
@@ -97,8 +100,9 @@ def _events(rhythm, rate, pr, dur, irregular, rng, no_p):
 
 
 def synth_leads(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t_amp=1.0, peaked=False, no_p=False,
-                irregular=None, noise=0.02, axis='normal', pacer=False, st_elev=0.0, p_amp=1.0, dur=10.0, seed=7):
-    """Returns dict lead -> numpy array (mV) sampled at FS for `dur` seconds."""
+                irregular=None, noise=0.02, axis='normal', pacer=False, st_elev=0.0, p_amp=1.0, dur=10.0, seed=7, u_amp=0.0):
+    """Returns dict lead -> numpy array (mV) sampled at FS for `dur` seconds. u_amp (mV, about 0.05-0.2) adds a U wave after each T
+    (hypokalemia-like; strongest V2-V3); pair it with a low t_amp for flattened T waves."""
     rng = np.random.default_rng(seed)
     if rhythm == 'afib': no_p = True
     p_on, q_on = _events(rhythm, rate, pr, dur, irregular if rhythm != 'afib' else (True if irregular is None else irregular), rng, no_p)
@@ -150,6 +154,8 @@ def synth_leads(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t
             if peaked:  # pronounced narrow based T that starts right after the QRS
                 tc = q0 + max(d + 0.07, qt - 2.4 * tsig - 0.02)
             _gauss(sig, t, tc, tamp, tsig)
+            if u_amp:   # U wave: small, broad, about 0.16 s after the T peak; largest in V2-V3
+                _gauss(sig, t, tc + 0.16, u_amp * U_LEAD.get(lead, 0.5), 0.035)
             if pacer:
                 _gauss(sig, t, q0 - 0.012, 0.9, 0.0007)
         if rhythm == 'afib':   # fibrillatory baseline (best in V1 and II)
@@ -175,7 +181,7 @@ def _measure_lines(m):
 def render_ecg(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t_amp=1.0, peaked=False, no_p=False,
                irregular=None, noise=0.02, axis='normal', pacer=False, st_elev=0.0, p_amp=1.0, layout='12',
                lead='II', patient=None, when='', location='', interpretation=None, status='Unconfirmed',
-               device='SIMULATED ECG', width_px=1600, seed=7, axes_text=None, title=None, colors=64, dur=10.0):
+               device='SIMULATED ECG', width_px=1600, seed=7, axes_text=None, title=None, colors=64, dur=10.0, u_amp=0.0):
     """Returns PNG bytes. patient = dict(name, mrn, dob, age, sex). interpretation = list of lines (default from rhythm)."""
     patient = patient or {}
     rr_mean = 60.0 / rate
@@ -183,7 +189,7 @@ def render_ecg(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t_
     if qt is None: qt = qtc * math.sqrt(rr_mean)
     if qtc is None: qtc = qt / math.sqrt(rr_mean)
     no_p_eff = no_p or rhythm in ('afib', 'vtach')
-    sigs = synth_leads(rate, pr, qrs, qt, qtc, rhythm, t_amp, peaked, no_p, irregular, noise, axis, pacer, st_elev, p_amp, dur, seed)
+    sigs = synth_leads(rate, pr, qrs, qt, qtc, rhythm, t_amp, peaked, no_p, irregular, noise, axis, pacer, st_elev, p_amp, dur, seed, u_amp)
     if interpretation is None:
         interpretation = [RHYTHMS.get(rhythm, rhythm).upper()] + (['WIDE QRS'] if qrs >= 0.12 and rhythm not in ('vtach', 'paced') else []) + (['ABNORMAL ECG'] if (rate < 50 or rate > 100 or pr > 0.2 or qrs >= 0.12 or rhythm not in ('sinus',)) else ['NORMAL ECG'])
     meas = dict(rate=round(rate), pr=pr, qrs=qrs, qt=qt, qtc=qtc, no_pr=no_p_eff or rhythm in ('complete',), axes=axes_text or ('---' if rhythm in ('afib', 'vtach') else '50  35  40'))
@@ -291,6 +297,7 @@ def main(argv=None):
     ap.add_argument('--noise', type=float, default=0.02, help='baseline wander / muscle noise (0 = clean)')
     ap.add_argument('--axis', default='normal', choices=['normal', 'left', 'right'])
     ap.add_argument('--pacer', action='store_true', help='draw pacemaker spikes')
+    ap.add_argument('--u-amp', type=float, default=0.0, help='U-wave amplitude, mV (hypokalemia-like, e.g. 0.12 with --t-amp 0.3)')
     ap.add_argument('--st-elev', type=float, default=0.0, help='ST elevation, mV')
     ap.add_argument('--layout', default='12', choices=['12', 'strip'])
     ap.add_argument('--lead', default='II', help='lead for strip layout')
@@ -307,7 +314,7 @@ def main(argv=None):
     png = render_ecg(rate=a.rate, pr=a.pr, qrs=a.qrs, qt=a.qt, qtc=a.qtc, rhythm=a.rhythm, t_amp=a.t_amp, peaked=a.peaked, no_p=a.no_p,
                      irregular=irr, noise=a.noise, axis=a.axis, pacer=a.pacer, st_elev=a.st_elev, layout=a.layout, lead=a.lead,
                      patient=dict(name=a.name, mrn=a.mrn, dob=a.dob, age=a.age, sex=a.sex), when=a.when, location=a.location,
-                     interpretation=a.interp, status=a.status, seed=a.seed, width_px=a.width, title=a.title)
+                     interpretation=a.interp, status=a.status, seed=a.seed, width_px=a.width, title=a.title, u_amp=a.u_amp)
     open(a.out, 'wb').write(png)
     print(f'{a.out}: {len(png) / 1024:.0f} KB')
     if a.json:

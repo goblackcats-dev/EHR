@@ -1687,10 +1687,13 @@ function getVisibleCanonicalCase(canonical) {
     if (!(simulationTime && order.stoppedEarly && order.end && String(order.end) > String(simulationTime))) return order;
     const copy = structuredClone(order); copy.end = ''; if (copy.mar) delete copy.mar.discontinuedIndex; return copy;
   });
-  visible.orders.forEach(order => {
-    if (/^active$/i.test(safe(order.status)) && order.start && String(order.start) > String(simulationTime)) order.status = 'Pending';
+  // (the status is changed on a copy: changing the case's own order would leave it "Pending" for good once the clock passes its start)
+  visible.orders = visible.orders.map(order => {
+    if (!/^active$/i.test(safe(order.status))) return order;
+    if (order.start && String(order.start) > String(simulationTime)) return { ...order, status: 'Pending' };
     // an order with an end time that the clock has passed shows as Completed (or Discontinued when it was stopped early)
-    if (/^active$/i.test(safe(order.status)) && order.end && String(order.end) <= String(simulationTime)) order.status = order.stoppedEarly ? 'Discontinued' : 'Completed';
+    if (order.end && String(order.end) <= String(simulationTime)) return { ...order, status: order.stoppedEarly ? 'Discontinued' : 'Completed' };
+    return order;
   });
   // A device that has been placed is "active" until its removal time; removed devices are kept apart so the Avatar can drop them.
   const placedDevices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
@@ -3811,10 +3814,17 @@ elements.simulationNextEventBtn.addEventListener('click', advanceToNextSimulatio
 var simClock = { seconds: 0, paused: false, pending: 0 };
 function simClockBusy() { const a = document.activeElement; return !!document.querySelector('dialog[open]') || !!(a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)); }
 function simJump(minutes) { if (!simulationTime) return; simClock.seconds = 0; advanceSimulation(minutes); }
+// jumps to the next shift change (0700 or 1900), or to the scenario end if that comes first (multi-day cases have a checkpoint at every shift change)
 function simEndOfShift() {
-  if (!simulationTime || !simulationEndTime) return;
-  const a = parseSimDate(simulationTime), b = parseSimDate(simulationEndTime); if (!a || !b || b <= a) return;
-  simClock.seconds = 0; advanceSimulation(Math.round((b - a) / 60000));
+  if (!simulationTime) return;
+  const a = parseSimDate(simulationTime); if (!a) return;
+  const next = new Date(a.getTime()); next.setSeconds(0, 0);
+  const h = a.getHours() + a.getMinutes() / 60;
+  if (h < 7) next.setHours(7, 0); else if (h < 19) next.setHours(19, 0); else { next.setDate(next.getDate() + 1); next.setHours(7, 0); }
+  let target = next; const b = simulationEndTime ? parseSimDate(simulationEndTime) : null;
+  if (b && b < target) target = b;
+  if (target <= a) return;
+  simClock.seconds = 0; advanceSimulation(Math.round((target - a) / 60000));
 }
 function simSetPaused(p) {
   simClock.paused = p; const btn = document.getElementById('simPauseBtn');

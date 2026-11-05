@@ -103,6 +103,22 @@
      "sex": "Male"
     }
    ]
+  },
+  {
+   "id": "grp_dka_patients",
+   "title": "DKA Patients",
+   "note": "Seven pre-built type 1 diabetes patients in diabetic ketoacidosis, each 3 days long (Day 1 0700 to Day 4 0700). Vital signs after the 0700 arrival come from the bedside monitor (monitor.html). See casestudy/cases/DKA_SERIES.md and each patient's INSTRUCTOR_NOTES.md.",
+   "patients": [
+    {
+     "id": "dka1_maya",
+     "name": "Maya Thompson",
+     "title": "DKA 1 of 7, PICU to adolescent unit: new-onset type 1 diabetes in severe DKA (3 days, checkpoints every 0700 and 1900)",
+     "desc": "Mon 12/07 0700 to Thu 12/10 0700. A 16-year-old with 5 weeks of thirst, peeing and weight loss arrives in the PICU in severe DKA. Pediatric protocol (one 10 mL/kg bolus, insulin 0.1 unit/kg/h without bolus, two-bag dextrose, potassium and phosphate), cerebral edema signs at 1130 treated with mannitol, low potassium with U waves, DKA resolved overnight, transition to glargine and lispro, a night low after a bedtime correction, then CGM, glucagon, sick-day and school teaching with her parents. Vital signs after 0700 come from the bedside monitor.",
+     "file": "casestudy/cases/dka1_maya/patient.json",
+     "age": 16,
+     "sex": "Female"
+    }
+   ]
   }
  ]
 }

@@ -1,0 +1,40 @@
+[
+ {
+  "id": "note_ecg_202612070310",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "N. Adeyemi, MD",
+  "datetime": "2026-12-07 03:10",
+  "category": "Cardiology",
+  "summary": "Sinus tachycardia 128, PR 136 ms, QRS 82 ms, QTc 452 ms. Tall, narrow, peaked T waves V2-V4 (potassium 5.6 at 0220).",
+  "body": "**Measurements**\nVentricular rate 128 bpm. PR 136 ms. QRS 82 ms. QT/QTc 310/452 ms.\n\n**Interpretation**\nSinus tachycardia. Tall, narrow, peaked T waves in V2 to V4. P waves present, PR and QRS normal: no signs of severe hyperkalemia. QTc borderline long (common in DKA; recheck after treatment). No ST changes.\n\n**Context**\nSevere DKA, potassium 5.6 at 0220 (resulted 0300). Insulin will move potassium into the cells quickly: the body is actually low on potassium. Add potassium to the fluids once K is under 5.5 and she is voiding.",
+  "study": "ECG 12 lead, acquired 03:00",
+  "impression": "Sinus tachycardia 128 with peaked T waves V2-V4, consistent with potassium 5.6. QTc 452 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0300.png",
+    "caption": "12-lead ECG acquired 2026-12-07 03:00 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-12-07 03:00: Sinus tachycardia 128, PR 136 ms, QRS 82 ms, QTc 452 ms. Tall, narrow, peaked T waves V2-V4 (potassium 5.6 at 0220)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202612071745",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "E. Whitford, MD",
+  "datetime": "2026-12-07 17:45",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 98, PR 140 ms, QRS 82 ms, QT/QTc 360/460 ms. Flattened T waves with prominent U waves V2-V3 (potassium 3.3 at 1630).",
+  "body": "**Measurements**\nVentricular rate 98 bpm. PR 140 ms. QRS 82 ms. QT/QTc 360/460 ms (measured to the end of the T wave; the U wave makes the end of repolarization hard to see).\n\n**Interpretation**\nNormal sinus rhythm. T waves now low and flat, with small rounded U waves after them, best in V2 and V3. No ectopy. Compared with 0300: heart rate slower (128 to 98), the peaked T waves are gone and a low-potassium pattern has appeared.\n\n**Context**\nPotassium 5.6 (0220), 4.7 (0430), 3.9 (0830), 3.5 (1140), 3.3 (1630) on the insulin infusion. Potassium in the fluids raised to 60 mEq/L at 1730. Recheck BMP 2030; keep on the cardiac monitor.",
+  "study": "ECG 12 lead, acquired 17:30",
+  "impression": "Normal sinus rhythm 98. Flattened T waves and U waves, consistent with potassium 3.3. No arrhythmia.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1730.png",
+    "caption": "12-lead ECG acquired 2026-12-07 17:30 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-12-07 17:30: Sinus rhythm 98, PR 140 ms, QRS 82 ms, QT/QTc 360/460 ms. Flattened T waves with prominent U waves V2-V3 (potassium 3.3 at 1630)."
+   }
+  ]
+ }
+]

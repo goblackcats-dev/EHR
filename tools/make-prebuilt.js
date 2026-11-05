@@ -1,6 +1,6 @@
 /* Builds the Pre-Built patient library:   node tools/make-prebuilt.js
    - LPN Med Pass patients are built from the Case Builder (case-builder/*.js) into prebuilt/lpn_*.json
-   - Case Study patients point at casestudy/cases/<name>/patient.json
+   - Case Study patients point at casestudy/cases/<name>/patient.json (meta.json "group" puts a patient in its own group, e.g. "DKA Patients")
    - Writes prebuilt/index.json (the list the "Pre-Built Patients" menu reads). Re-run after changing a profile. */
 const fs = require('fs'), vm = require('vm'), path = require('path');
 global.window = global;
@@ -56,12 +56,22 @@ LPN.forEach(d => {
   if (!d.archived) groups[0].patients.push({ id: d.id, name: d.name, title: NS.PRIMARY[d.primary].label.replace('LPN Med Pass: ', ''), desc: d.desc, file: 'prebuilt/' + file, age: d.age, sex: d.sex });
 });
 // Case study patients: every casestudy/cases/<id>/ folder with a patient.json. A meta.json (id, caseCode, title, patient, age, sex, diagnosis, desc) describes it for the list.
+// meta.json "group" (any name, e.g. "DKA Patients") puts the patient in its own group, listed after the built-in groups in order of first appearance
+// (folders are read in name order, so dka1_..., dka2_... keep their numbers). Optional "groupNote" sets the line shown under that group's tab.
+const GROUP_NOTES = { 'DKA Patients': 'Seven pre-built type 1 diabetes patients in diabetic ketoacidosis, each 3 days long (Day 1 0700 to Day 4 0700). Vital signs after the 0700 arrival come from the bedside monitor (monitor.html). See casestudy/cases/DKA_SERIES.md and each patient\'s INSTRUCTOR_NOTES.md.' };
+const groupFor = name => {
+  if (!name || name === 'Case Study Patients') return groups[1];
+  let g = groups.find(x => x.title === name);
+  if (!g) { g = { id: 'grp_' + name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''), title: name, note: GROUP_NOTES[name] || '', patients: [] }; groups.push(g); }
+  return g;
+};
 const csDir = path.join(root, 'casestudy', 'cases');
 if (fs.existsSync(csDir)) fs.readdirSync(csDir).sort().forEach(id => {
   const pf = path.join(csDir, id, 'patient.json'), mf = path.join(csDir, id, 'meta.json');
   if (!fs.existsSync(pf)) return;
   const m = fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')) : {};
-  groups[1].patients.push({ id, name: m.patient || id, title: m.title || id, desc: m.desc || `${m.caseCode || ''} ${m.diagnosis || ''}`.trim(), file: `casestudy/cases/${id}/patient.json`, age: m.age, sex: m.sex });
+  const g = groupFor(m.group); if (m.groupNote && !g.note) g.note = m.groupNote;
+  g.patients.push({ id, name: m.patient || id, title: m.title || id, desc: m.desc || `${m.caseCode || ''} ${m.diagnosis || ''}`.trim(), file: `casestudy/cases/${id}/patient.json`, age: m.age, sex: m.sex });
 });
 fs.writeFileSync(path.join(root, 'prebuilt', 'index.json'), JSON.stringify({ groups }, null, 1));
 console.log('pre-built library:', groups.map(g => `${g.title} ${g.patients.length}`).join(', '));

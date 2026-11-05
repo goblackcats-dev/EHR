@@ -1,0 +1,72 @@
+[
+ {
+  "id": "note_picu_night1_202612072140",
+  "type": "progressNotes",
+  "title": "PICU Night Progress Note",
+  "author": "J. Kowalski, MD",
+  "datetime": "2026-12-07 21:40",
+  "category": "Progress Note",
+  "summary": "Stable night so far: GCS 15, no headache. 2030: pH 7.27, bicarbonate 13, anion gap 15, BHB 1.6, K 3.6 (up on 60 mEq/L), phosphorus 1.6. Sips of water since 2000 without vomiting. Glucose 170s on D10.",
+  "body": "**Interval**\nNo headache since about 1400; hourly neuro checks GCS 15, pupils normal. HR 90s, BP 110s/60s, RR about 20 and less deep (per RN). **Sips of water allowed from 1945**: 120 mL since 2000, no nausea. Voided 120 mL at 2030.\n\nPOC glucose 176 (2000), 172 (2100) on D10 (Bag B 100 mL/h). Insulin 4.9 units/h.\n\n**Labs 2030**\npH 7.27, pCO2 27, HCO3 12.0; Na 139, **K 3.6**, Cl 111, CO2 13, BUN 14, creatinine 0.7, glucose 174, Ca 8.6, Mg 1.8, **phosphorus 1.6**. **Anion gap 15.** Beta-hydroxybutyrate 1.6. Corrected sodium about 140.\n\n**Assessment and plan**\n- DKA resolving: gap 28 to 15, ketones 7.8 to 1.6. Continue insulin 4.9 units/h and D10. Next labs 0030.\n- Potassium up to 3.6 on 60 mEq/L: continue.\n- Phosphorus 1.6: no weakness, breathing normal; continue the potassium phosphate in the bags; recheck 0030. Treat separately only if under 1.0 or symptoms.\n- Chloride rising (111) from the saline: expect the bicarbonate to lag behind the gap (non-gap acidosis). Not a reason to keep the insulin going once the ketones are cleared.\n- Neuro checks hourly; total fluids 100 mL/h; sips of water up to 120 mL every 4 h.\n- Father expected about 2200."
+ },
+ {
+  "id": "note_picu_night_event_202612080330",
+  "type": "progressNotes",
+  "title": "PICU Night Event Note - Glucose Under 150 on D10",
+  "author": "J. Kowalski, MD",
+  "datetime": "2026-12-08 03:30",
+  "category": "Progress Note",
+  "summary": "RN called 0305: glucose 147 on Bag B 100% (D10). Anion gap 13 and BHB 0.9 at 0030: acidosis nearly cleared. Insulin lowered to 0.075 unit/kg/h (3.6 units/h) at 0310. Neuro normal; father arrived 2200.",
+  "body": "**Call**\nRN called at 0305: POC glucose **147 at 0300** (154 at 0200, 158 at 0100), already on Bag B 100% (D10) at 100 mL/h; asleep, easy to wake, GCS 15, no headache. HR 80s, BP 108/64 (per RN).\n\n**Labs 0030**\npH 7.29, pCO2 29, HCO3 13.5; Na 140, K 3.8, **Cl 112**, CO2 15, BUN 12, creatinine 0.7, glucose 160, Mg 1.8, phosphorus 1.9. **Anion gap 13.** **Beta-hydroxybutyrate 0.9.**\n\n**Assessment**\nThe ketoacidosis is almost gone: ketones 0.9 and the gap nearly closed. The bicarbonate (15) is lower than the gap explains because the chloride is high from about 3.5 L of 0.9% saline (hyperchloremic, non-gap acidosis); this improves by itself. Glucose now drifts below 150 even on D10 because she needs less insulin as the acidosis clears.\n\n**Plan**\n- **Lower insulin to 0.075 unit/kg/h = 3.6 units/h (order 0310).** Keep D10 at 100 mL/h. (Protocol choices: raise dextrose or lower insulin, never below 0.05 unit/kg/h while ketones are present.)\n- Call for glucose under 120 or a rise in ketones. Labs at 0430 as planned.\n- Father (Kevin) arrived at 2200 and is at the bedside with the mother; both updated."
+ },
+ {
+  "id": "note_picu_night2_202612080610",
+  "type": "progressNotes",
+  "title": "PICU Night Progress Note - DKA Resolved",
+  "author": "J. Kowalski, MD",
+  "datetime": "2026-12-08 06:10",
+  "category": "Progress Note",
+  "summary": "DKA resolved at 0430: pH 7.33, bicarbonate 18, anion gap 10, BHB 0.4. Glucose 152-161 on 3.6 units/h. Weight 49.1 kg. Neuro normal all night. Ready for the transition to subcutaneous insulin with breakfast (endocrinology).",
+  "body": "**Overnight**\nSlept between neuro checks; GCS 15 every hour; no headache, no vomiting. Insulin 3.6 units/h since 0310; POC glucose 152 (0400), 156 (0500), 161 (0600). Water sips 60 mL since 0300. Voided 120 mL at 0500. **Weight 0600: 49.1 kg** (48.6 on arrival).\n\n**Labs 0430**\n**pH 7.33**, pCO2 33, HCO3 16.8; Na 140, K 3.9, Cl 112, **CO2 18**, BUN 10, creatinine 0.6, glucose 148, Ca 8.8, ionized Ca 1.18, Mg 1.8, phosphorus 2.4. **Anion gap 10. Beta-hydroxybutyrate 0.4.** CBC: WBC 9.8, Hgb 12.6, Hct 37.4, platelets 248 (rehydrated; the high white count on arrival was stress).\n\n**Assessment**\n**DKA resolved** (pH 7.30 or higher, bicarbonate 18 or higher, beta-hydroxybutyrate under 0.6, gap closed). AKI resolved (creatinine 0.6). Potassium and phosphorus recovering.\n\n**Plan**\n- Keep the insulin infusion running until the subcutaneous basal insulin has been given (do not stop it now: ketones return within hours without insulin).\n- Endocrinology to write the transition orders this morning; breakfast is the first meal.\n- Hand off to Dr. Whitford at 0700."
+ },
+ {
+  "id": "note_endo_transition_202612080640",
+  "type": "progressNotes",
+  "title": "Pediatric Endocrinology Progress Note - Transition to Subcutaneous Insulin",
+  "author": "R. Banerjee, MD",
+  "datetime": "2026-12-08 06:40",
+  "category": "Consult",
+  "summary": "DKA resolved. Transition with breakfast: glargine 20 units SC 0745, lispro 1 unit/12 g carbohydrate + correction 1 unit/40 over 150 at 0800, stop the insulin infusion and both bags at 0915. Carbohydrate-consistent diet. Teaching starts today.",
+  "body": "**Data**\n0430: pH 7.33, bicarbonate 18, anion gap 10, beta-hydroxybutyrate 0.4, K 3.9, phosphorus 2.4. Glucose 161 at 0600 on 3.6 units/h. Weight 49.1 kg. Hungry.\n\n**Assessment**\nNew-onset type 1 diabetes; DKA resolved. Ready for basal-bolus insulin.\n\n**Insulin plan** (doses on the admission weight 48.6 kg; estimated total daily dose about 0.9-1 unit/kg = 44-48 units)\n- **Insulin glargine 20 units SC daily at 0800**; first dose **0745 today** (about 0.4 unit/kg; basal about 40-45%).\n- **Insulin lispro with meals: 1 unit per 12 g carbohydrate** (500 rule: 500 / 44 = about 11; rounded to 12 for a first day) **plus correction 1 unit per 40 mg/dL above 150** (1800 rule) before meals and at bedtime. Half-unit pens; round to the nearest 0.5 unit.\n- **Stop the insulin infusion and both two-bag fluids at 0915**: 1.5 hours of overlap with the glargine and about 1 hour after the breakfast lispro. Then D5 0.45% saline with KCl 20 mEq/L at 60 mL/h until she drinks well (lock at 1700).\n- POC glucose before meals, bedtime and 0300; also 1000 today. BMP and beta-hydroxybutyrate at 1300 (rebound ketosis check).\n- Carbohydrate-consistent diet: 60-75 g per meal, 15-30 g snacks.\n\n**Education**\nDiabetes educator today (survival skills), dietitian (carbohydrate counting), child life (needles). Goal: Maya and both parents each give an injection and treat a low (with teach-back) before discharge. CGM discussion tomorrow.\n\nDiscussed with Maya and both parents at the bedside: why both a long-acting and a mealtime insulin, and that the doses will change over the next weeks (often less insulin is needed for a while: the \"honeymoon\")."
+ },
+ {
+  "id": "note_picu_day2_202612081030",
+  "type": "progressNotes",
+  "title": "PICU Attending Progress Note - Day 2 (Transition Done)",
+  "author": "E. Whitford, MD",
+  "datetime": "2026-12-08 10:30",
+  "category": "Progress Note",
+  "summary": "Transition done: glargine 20 units 0745, breakfast lispro 0800, infusion stopped 0915. Glucose 154 (0745), 172 (0900), 196 (1000). Ate 90% of breakfast. Neuro normal; checks every 4 h from 1000. C-peptide 0.2 (low). Confidential HEADSS done. Transfer to 5 North this afternoon.",
+  "body": "**Subjective**\n\"I feel like a person again.\" Hungry; ate about 90% of breakfast (60 g carbohydrate). No headache, belly ache gone. Asked to shower and to have her phone.\n\n**Objective**\nPer RN: HR 80s, BP 112-116/68-70, RR 16, SpO2 99% RA, afebrile. Neuro normal; **neuro checks every 4 h from 1000**.\n\nPOC glucose 154 (0745, before breakfast), 172 (0900), 196 (1000, 45 min after the infusion stopped). Per the MAR: glargine 20 units SC 0745, lispro 5 units 0800 (60 g / 12; no correction at 154). Insulin infusion and two-bag fluids stopped 0915; D5 0.45% saline + KCl 20 at 60 mL/h.\n\n**C-peptide 0.2 ng/mL** (resulted 1000; drawn with glucose 612): very low insulin production, fits type 1 diabetes.\n\n**Adolescent interview (HEADSS, alone, 1000)**\nHome: close to parents; \"Mom is freaking out.\" Education: honor roll; worried about finals next week. Activities: club volleyball, babysits. Drugs/alcohol: drank at a party once in October; no vaping or drugs. Sexuality: not sexually active. Suicide/mood: stressed, sleeping poorly; PHQ-A 6 (mild); no thoughts of self-harm. Safety: learner's permit. Counseled: alcohol can cause delayed lows hours later (overnight); check glucose before driving (must be over 90; carry fast sugar).\n\n**Assessment and plan**\n- New-onset type 1 diabetes, DKA resolved; on basal-bolus insulin. Expect some higher readings today after the infusion stops (insulin catching up); correct per scale. Watch for lows tonight.\n- BMP and beta-hydroxybutyrate 1300.\n- Neurologic: back to baseline after the possible cerebral edema yesterday; no deficits.\n- Transfer to Pediatrics 5 North (adolescent unit) about 1500 if the 1300 labs are reassuring.\n- Diabetes educator and child life this afternoon."
+ },
+ {
+  "id": "note_picu_transfer_202612081440",
+  "type": "progressNotes",
+  "title": "PICU Transfer Summary to Pediatrics 5 North",
+  "author": "E. Whitford, MD",
+  "datetime": "2026-12-08 14:40",
+  "category": "Progress Note",
+  "summary": "Transfer to 5N-12 at 1500. Summary of severe DKA, possible cerebral edema treated with mannitol, low potassium/phosphorus, and the transition. 1300: bicarbonate 21, anion gap 10, BHB 0.3, K 3.7. Lunch glucose 268 corrected.",
+  "body": "**PICU course (Mon 0700 - Tue 1500)**\n1. **Severe DKA at diagnosis of type 1 diabetes** (pH 7.04, bicarbonate 5, gap 28, beta-hydroxybutyrate 7.8, glucose 612). One 10 mL/kg bolus, then deficit + maintenance (150 mL/h, cut to 100 mL/h at 1145). Insulin 0.1 unit/kg/h from 0400 Mon, no bolus; two-bag dextrose; lowered to 0.075 unit/kg/h at 0310 Tue. **Resolved 0430 Tue** (pH 7.33, bicarbonate 18, beta-hydroxybutyrate 0.4).\n2. **Possible cerebral edema 1130 Mon** (headache, vomiting, GCS 13, HR 110 to 72, BP 134/92): mannitol 24 g at 1140, fluids cut by one-third; normal within 45 min; CT head normal. No recurrence.\n3. **Hypokalemia** (nadir 3.3 at 1630 Mon, flat T waves with U waves) and **hypophosphatemia** (nadir 1.6): potassium 60 mEq/L from 1730; recovered (K 3.7, phosphorus 2.6 today).\n4. **AKI** (creatinine 1.3) resolved (0.6).\n5. **Transition** Tue: glargine 20 units 0745, lispro with meals, infusion off 0915.\n\n**Labs 1300**: Na 139, K 3.7, Cl 108, CO2 21, BUN 8, creatinine 0.6, glucose 212, Ca 9.0, Mg 1.8, phosphorus 2.6, anion gap 10, **beta-hydroxybutyrate 0.3** (no rebound ketosis).\n\n**Glucose since the infusion stopped**: 196 (1000), 268 (1130, before lunch: lunch dose 70 g / 12 = 6 units + correction (268-150)/40 = 3 units).\n\n**To do on 5 North**\n- POC glucose before meals, bedtime and 0300; insulin per orders. Hypoglycemia protocol.\n- Maintenance IV 60 mL/h until 1700, then saline lock if drinking well; remove the right forearm IV.\n- Vital signs every 4 h; neuro checks every 4 h for 24 h more.\n- Teaching (educator, dietitian, child life, social work). BMP Wednesday 0500.\n- Weight 49.1 kg (dosing weight stays 48.6 kg)."
+ },
+ {
+  "id": "note_hosp_accept_202612081600",
+  "type": "progressNotes",
+  "title": "Pediatric Hospitalist Admission Note - 5 North",
+  "author": "B. Osterman, MD",
+  "datetime": "2026-12-08 16:00",
+  "category": "Progress Note",
+  "summary": "Accepted on 5N-12 from the PICU: new-onset type 1 diabetes after severe DKA, now on glargine and lispro. Well, eating, neuro normal. Plan: insulin per endocrinology, teaching, discharge likely Thursday.",
+  "body": "**Summary**\nSee PICU transfer summary. Arrived on 5 North at 1500 walking with her father.\n\n**Exam 1545**\nAlert, chatty, GCS 15, no headache. HR 80, BP 114/70, RR 16, SpO2 99% RA, T 98.6 F. Moist mouth. Lungs clear. Abdomen soft, non-tender. Left AC IV with D5 0.45% saline + KCl 20 at 60 mL/h, site clean; right forearm saline lock.\n\n**Data**\n1300 labs normal except glucose 212; beta-hydroxybutyrate 0.3. Glucose 268 before lunch.\n\n**Plan**\n1. Type 1 diabetes: glargine 20 units at 0800; lispro 1 unit/12 g with meals + correction 1 unit/40 over 150 (meals and bedtime). POC before meals, bedtime and 0300. Hypoglycemia protocol (glucose tablets/juice; glucagon IM; D10 IV).\n2. Lock the IV at 1700 if drinking well; remove the extra IV.\n3. Teaching with teach-back for Maya and both parents; dinner injection by Maya with child life support.\n4. BMP Wednesday 0500. Anticipated discharge Thursday if teaching is complete."
+ }
+]

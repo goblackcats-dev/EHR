@@ -1,0 +1,142 @@
+[
+ {
+  "id": "note_dce_1_202612081330",
+  "type": "therapyNotes",
+  "title": "Diabetes Education Session 1 - Survival Skills",
+  "author": "H. Lindgren, RN, CDCES",
+  "datetime": "2026-12-08 13:30",
+  "category": "Diabetes Education",
+  "summary": "First session with Maya and both parents: what type 1 diabetes is, glucose meter, pen injection on a practice pad, symptoms and treatment of a low (rule of 15). Maya very anxious about needles. Plan: Maya gives her own dinner dose with child life; parents practice tonight.",
+  "body": "**Present** Maya, mother Danielle, father Kevin. Learning style: Maya prefers short videos and hands-on; parents want written steps. Reading level fine; English.\n\n**Taught**\n1. Type 1 diabetes: the pancreas no longer makes insulin (autoimmune); insulin lets sugar into the cells; without it the body burns fat and makes ketones (DKA). Not caused by sugar or anything they did.\n2. Two insulins: **glargine** (long-acting, once a day, like a \"background\") and **lispro** (rapid, with every meal by carbohydrate count, plus a correction for high numbers).\n3. **Glucose meter**: wash hands, side of the fingertip, record. Maya did her own fingerstick at 1130 (268) with coaching.\n4. **Pen injection** on a practice pad: attach a new 4 mm needle, prime 2 units, dial the dose, 90 degrees, count to 10, rotate sites. Maya cried before the first try, then did it well.\n5. **Lows (under 70)**: shaky, sweaty, fast heartbeat, hungry, headache, grumpy, confused, nightmares or night sweats. **Rule of 15**: 15 g fast sugar (4 glucose tablets or 4 oz juice), recheck in 15 minutes, repeat if still under 70, then a snack if the next meal is more than 1 hour away.\n\n**Teach-back**\nMaya and her mother explained the rule of 15 correctly. Father explained why both insulins are needed.\n\n**Plan**\n- Maya gives her own dinner dose with child life support; mother gives the bedtime correction if needed; father gives tomorrow's glargine (with Maya).\n- Session 2 tomorrow: glucagon, ketones and sick-day rules, CGM, school.\n- Materials: new-diagnosis teaching binder, logbook, hospital video series."
+ },
+ {
+  "id": "note_child_life_202612081400",
+  "type": "therapyNotes",
+  "title": "Child Life Note - Needle Coping",
+  "author": "K. Rios, CCLS",
+  "datetime": "2026-12-08 14:00",
+  "category": "Child Life",
+  "summary": "Maya fears needles (vasovagal at vaccines as a child). Coping plan: she controls the timing, counts down from 3, ice and pressure for fingersticks, music, slow breathing. Practice on a teaching doll; plan to support her first self-injection at dinner.",
+  "body": "**Assessment**\nMaya says she has always hated needles (\"I passed out at my 12-year shots\"). She is scared of \"doing this four times a day forever\" and embarrassed to inject at school. Her mother's anxiety rises when Maya cries.\n\n**Interventions**\n- Explained the 4 mm pen needle (shorter than a fingernail is wide) next to a vaccine needle.\n- Medical play: Maya injected a teaching doll several times, then a practice pad.\n- **Coping plan she chose**: she decides when (within 2 minutes), slow breathing (in 4, out 6), counts down from 3, earbuds with her playlist, ice on the fingertip before fingersticks, pressure after.\n- Coached the mother to stay calm and quiet during injections (\"one voice\").\n- Talked about telling friends and the volleyball coach (her choice); peer support: the hospital's teen diabetes group and diabetes camp in summer.\n\n**Plan**\nWill be present for Maya's first self-injection at dinner (about 1730). Comfort kit left at the bedside."
+ },
+ {
+  "id": "note_rd_1_202612081700",
+  "type": "therapyNotes",
+  "title": "Nutrition Initial Assessment",
+  "author": "A. Fairbanks, RD",
+  "datetime": "2026-12-08 17:00",
+  "category": "Nutrition",
+  "summary": "Weight 48.6 kg (10% loss since August), BMI 18.3 (about 25th percentile). Needs about 2,200 kcal/day. Taught carbohydrate basics and reading the tray ticket. Stop sugary drinks. No restriction of food amounts: regain weight with insulin.",
+  "body": "**Anthropometrics**\nHeight 163 cm. Weight 48.6 kg on admission (49.1 kg today after fluids); 54.2 kg in August: **10% loss in about 4 months** (insulin deficiency). BMI 18.3 (about the 25th percentile for age).\n\n**Diet history**\nSkipped breakfast often; school lunch; big dinner; 2-3 large regular sports drinks a day for the last month (about 150-200 g sugar a day from drinks alone). Likes pasta, chicken, fruit, yogurt. No allergies; not vegetarian.\n\n**Needs**\nAbout 2,200 kcal/day (active teen, catch-up), protein about 1 g/kg. Carbohydrate 60-75 g per meal and 15-30 g snacks (carbohydrate-consistent while learning).\n\n**Teaching (Maya, mother)**\n- What carbohydrate is (starches, fruit, milk, sweets) and that protein and fat have almost none.\n- Reading the **tray ticket** grams and a food label (serving size, total carbohydrate).\n- Meal dose = grams / 12, rounded to 0.5 unit. Practice: lunch 70 g = about 6 units.\n- **Water or sugar-free drinks**; regular juice and sports drinks only to treat lows or for long practices.\n- Food is not restricted: she needs to regain weight; insulin covers the carbohydrate.\n\n**Plan**\nSession 2 tomorrow (carbohydrate counting with real meals, eating out, sports snacks). Will screen for eating concerns (routine for teens with new type 1 diabetes)."
+ },
+ {
+  "id": "note_hosp_night_hypo_202612090325",
+  "type": "progressNotes",
+  "title": "Pediatric Hospitalist Night Event Note - Low Glucose",
+  "author": "S. Iverson, MD",
+  "datetime": "2026-12-09 03:25",
+  "category": "Progress Note",
+  "summary": "Woke at 0225 sweaty, shaky, with a nightmare; POC glucose 64 at 0230. Treated with 15 g juice: 92 at 0245, snack, 118 at 0315. Likely from the 2.5-unit bedtime correction (248) on top of glargine as insulin needs fall. No bedtime correction tonight; endocrinology to adjust in the morning.",
+  "body": "**Event**\nRN called at 0240. Maya woke at about 0225 from a nightmare, sweaty and shaky, heart \"racing\". **POC glucose 64 at 0230.** Alert and able to swallow: **4 oz apple juice (15 g) at 0232** per protocol. **0245: 92.** Snack (crackers and milk, about 15 g) at 0250. **0315: 118.** Now asleep; skin dry.\n\n**Context**\n- Glucose 214 before dinner (1730); dinner lispro by ratio + correction. Glucose **248 at bedtime (2100)**: **2.5 units of correction lispro** given per the scale, with a 15 g bedtime snack not covered by insulin.\n- Glargine 20 units at 0745 yesterday.\n\n**Assessment**\nSymptomatic **hypoglycemia (64)**, treated correctly and recovered. Likely cause: a full correction dose at bedtime (rapid-acting insulin peaks 1-3 h later, overnight when she is not eating) on top of basal insulin, while her insulin needs are falling now that the acidosis and very high glucose have cleared.\n\n**Plan**\n- **No bedtime/overnight correction insulin until endocrinology reviews (order 0255).**\n- Recheck with any symptoms; 0730 before breakfast.\n- Parents (both present) were scared; reviewed what happened, that it was treated the right way, and that this is exactly the teaching they need for home. Father asked to learn glucagon."
+ },
+ {
+  "id": "note_endo_day3_202612090650",
+  "type": "progressNotes",
+  "title": "Pediatric Endocrinology Progress Note - Dose Adjustment",
+  "author": "R. Banerjee, MD",
+  "datetime": "2026-12-09 06:50",
+  "category": "Consult",
+  "summary": "Night low 64 after a bedtime correction. Glargine lowered 20 to 18 units; bedtime correction only over 250 at half dose. Labs normal. Start Dexcom G7 today (teaching); glucagon, ketones and sick-day rules. Discharge Thursday if teaching is complete.",
+  "body": "**Data**\nPOC glucose: 268 (1130), 214 (1730), 248 (2100, 2.5 units correction), **64 (0230)**, 92 (0245), 118 (0315). Weight 49.4 kg.\n\nLabs 0500: Na 138, K 4.0, Cl 105, CO2 23, BUN 9, creatinine 0.6, glucose 118, Ca 9.2, Mg 1.9, phosphorus 3.2, albumin 3.9. **Anion gap 10.** All normal.\n\n**Assessment**\nNew-onset type 1 diabetes on basal-bolus insulin. Insulin sensitivity improving fast (expected after DKA; a partial remission \"honeymoon\" often follows). Night low was caused by a full bedtime correction.\n\n**Changes**\n- **Glargine 18 units at 0800** (10% lower).\n- **Correction: meals 1 unit per 40 mg/dL above 150; bedtime and overnight ONLY if over 250, and then half dose (1 unit per 80 above 150).**\n- Meal ratio unchanged: 1 unit per 12 g.\n- **CGM (Dexcom G7)** placed by the educator today, for teaching and home. Doses in the hospital still from fingersticks; confirm alarms with a fingerstick.\n\n**Teaching today**\nGlucagon (nasal 3 mg), blood ketone meter, sick-day rules, CGM alarms (low 70, urgent low 55, high 250), exercise and volleyball, driving. School Diabetes Medical Management Plan written today.\n\n**Discharge**\nThursday late morning if Maya and both parents complete the teach-back checklist. Clinic follow-up Monday 12/14; educator phone calls daily for 1 week to adjust doses."
+ },
+ {
+  "id": "note_endo_addendum_202612091500",
+  "type": "progressNotes",
+  "title": "Pediatric Endocrinology Addendum - Antibody and Screening Results",
+  "author": "R. Banerjee, MD",
+  "datetime": "2026-12-09 15:00",
+  "category": "Consult",
+  "summary": "GAD65 186, IA-2 42 and insulin autoantibody 0.9: positive, autoimmune type 1 diabetes confirmed. Celiac screen negative with normal IgA; thyroid normal. ZnT8 pending. Discharge prescriptions written.",
+  "body": "**Results (drawn 0220 Monday, before insulin; resulted 1400 today)**\n- **GAD65 antibody 186 IU/mL** (negative under 5): positive.\n- **IA-2 antibody 42 U/mL** (under 7.5): positive.\n- **Insulin autoantibody 0.9 U/mL** (under 0.4): positive (valid because it was drawn before any insulin).\n- ZnT8: pending (send-out).\n- **Tissue transglutaminase IgA 1.0 (negative), total IgA 168 (normal)**: no celiac disease now.\n- TSH 2.1, free T4 1.0 (Monday): normal.\n- C-peptide 0.2 ng/mL with glucose 612: low.\n\n**Interpretation**\n**Autoimmune (type 1A) diabetes confirmed.** Insulin is lifelong. Screen thyroid every 1-2 years and celiac disease at 2 and 5 years after diagnosis (or with symptoms). Siblings and parents can join research screening for type 1 diabetes antibodies (TrialNet); discussed with the parents for Eli.\n\n**Discharge prescriptions written** (glargine and lispro pens, pen needles, meter, strips, ketone meter and strips, Dexcom G7 sensors, nasal glucagon 3 mg x2, glucose tablets). Explained to Maya and her parents."
+ },
+ {
+  "id": "note_dce_2_202612091230",
+  "type": "therapyNotes",
+  "title": "Diabetes Education Session 2 - CGM, Glucagon, Ketones, Sick Days",
+  "author": "H. Lindgren, RN, CDCES",
+  "datetime": "2026-12-09 12:30",
+  "category": "Diabetes Education",
+  "summary": "Dexcom G7 placed 1100 on the back of the left arm. Taught nasal glucagon (both parents demonstrated), blood ketone checks and sick-day rules, exercise and driving. Maya gave her own lunch dose. Ready for the school plan.",
+  "body": "**Present** Maya and both parents.\n\n**CGM** Dexcom G7 inserted 1100 on the back of the left upper arm by Maya (with help); 30-minute warm-up; app on Maya's and her mother's phones (follow). Alerts set: low 70, urgent low 55, high 250. Taught: CGM reads tissue fluid (about 5-10 minutes behind a fingerstick); **check a fingerstick when symptoms don't match the CGM, during the first day, or before treating in the hospital**; lying on the sensor can cause a false low (\"compression low\").\n\n**Lunch** POC 176; Maya counted 70 g and calculated 6 + 0.5 = 6.5 units and gave it herself at 1200 (abdomen), checked by the RN.\n\n**Glucagon** Nasal glucagon 3 mg (Baqsimi): for a low when she cannot swallow safely, is passing out or seizing. Put her on her side, one spray in one nostril (no need to inhale), call 911, give sugar when awake. **Both parents demonstrated with the trainer.** One device at home, one in her bag; the school nurse gets one.\n\n**Ketones and sick-day rules**\n- Check blood ketones when glucose is over 250 twice in a row (or over 300 once), or when sick or vomiting.\n- Under 0.6: normal. **0.6-1.4**: extra rapid insulin (correction dose), 250-500 mL water every hour, recheck in 2 hours, call the diabetes team. **1.5 or more, or vomiting, belly pain, fast breathing, very sleepy: call now / go to the ED** (DKA starting).\n- **Never skip glargine, even if not eating.** Sugary fluids if glucose is low and she cannot eat.\n\n**Exercise and driving**\nCheck before volleyball; if under 120 eat 15-30 g first; carry fast sugar; lows can come hours after practice. Before driving glucose must be over 90 (check or CGM); never drive low.\n\n**Teach-back**\nMaya explained ketone levels and what to do; father demonstrated glucagon; mother explained the CGM fingerstick rule.\n\n**Plan** Dinner: mother gives the meal dose. Tonight: Maya gives nothing at bedtime unless glucose is over 250 (new rule)."
+ },
+ {
+  "id": "note_rd_2_202612091330",
+  "type": "therapyNotes",
+  "title": "Nutrition Follow-up - Carbohydrate Counting; Eating Concerns Screen",
+  "author": "A. Fairbanks, RD",
+  "datetime": "2026-12-09 13:30",
+  "category": "Nutrition",
+  "summary": "Carbohydrate counting with real meals, labels and restaurant apps: Maya counted lunch within 5 g. Routine eating screen: DEPS-R 16 (cut-off 20) but she said she \"liked losing the weight\"; told endocrinology and social work; psychology referral recommended.",
+  "body": "**Carbohydrate counting (Maya, mother)**\n- Counted her lunch tray (pasta, milk, apple) as 68 g; ticket said 70 g: good.\n- Labels and serving sizes; carbohydrate apps; restaurant nutrition guides; school lunch menu with carbohydrate counts (to send to the school nurse).\n- Sports: 15-30 g snack per hour of volleyball; check before and after.\n- Snacks under 15 g need no insulin; bigger snacks get a dose (1 unit per 12 g).\n\n**Eating concerns screen (routine for teens with new type 1 diabetes; spoken with Maya alone)**\n- Diabetes Eating Problem Survey-Revised (DEPS-R): **16** (screening cut-off 20: below, but not zero).\n- Maya said: **\"Honestly I liked losing the weight. Everyone said I looked good.\"** Asked if insulin will make her gain weight. Denies vomiting on purpose, skipping meals to lose weight, or plans to skip insulin.\n- Explained that the weight she lost was mostly water and muscle from not having insulin, that regaining it is healthy, and that skipping insulin to lose weight is dangerous (DKA).\n\n**Plan**\n- **Told Dr. Banerjee, Dr. Osterman and the social worker** (with Maya's knowledge). Recommend outpatient diabetes psychology follow-up and a repeat screen at clinic visits.\n- Dietitian visit with the clinic in 2 weeks."
+ },
+ {
+  "id": "note_sw_2_202612091530",
+  "type": "caseManagement",
+  "title": "Social Work Follow-up - School Plan and Coping",
+  "author": "D. Mensah, LCSW",
+  "datetime": "2026-12-09 15:30",
+  "category": "Social Work",
+  "summary": "School nurse and counselor contacted (with consent): Diabetes Medical Management Plan and 504 plan meeting next week; finals can be rescheduled. Parents coping better; father returning to work in a week. Psychology referral placed for adjustment and eating concerns.",
+  "body": "**School (Westbrook High School)**\nSpoke with the school nurse (R. Delgado, RN) and counselor with written consent. The school will receive the Diabetes Medical Management Plan from endocrinology; **504 plan meeting** Wednesday 12/16 (testing and snacks in class, extra time for exams if glucose is out of range, access to water and the bathroom, nurse visits). Finals may be taken the week of 12/21 or in January. Glucagon and supplies to the nurse's office.\n\n**Family**\nBoth parents at the bedside since Monday night. Mother slept last night for the first time. Father: \"I'm on the road a lot; I need to know how to do all of this too.\" Brother Eli (11) worried; parents will bring him tomorrow to see Maya and learn what a low looks like.\n\n**Maya**\nTearful about \"being different\"; does not want her volleyball team to know yet. Talked about choosing whom to tell; the teen diabetes group; summer diabetes camp.\n\n**Psychosocial plan**\n- **Outpatient pediatric diabetes psychology referral** (adjustment, needle fear, and the eating concern the dietitian raised); first visit within 2-3 weeks.\n- Discharge supplies covered by insurance (case management confirmed).\n- Will see the family once more before discharge."
+ },
+ {
+  "id": "note_cm_202612091600",
+  "type": "caseManagement",
+  "title": "Case Management Discharge Planning Note",
+  "author": "P. Albright, RN CM",
+  "datetime": "2026-12-09 16:00",
+  "category": "Case Management",
+  "summary": "Discharge Thursday late morning home with parents. Insurance covers pens, CGM (prior authorization approved 1430), ketone meter and glucagon; copays reviewed. Meds-to-beds delivery; clinic Monday 12/14; educator calls daily.",
+  "body": "**Plan** Home with both parents Thursday 12/10 after lunch teaching is complete.\n\n**Coverage (commercial plan through the mother's employer)**\n- Insulin glargine and lispro pens: covered (preferred brands), copay $35 per month each under the plan's insulin cap.\n- Pen needles, meter, strips, lancets, blood ketone meter and strips: covered.\n- **Dexcom G7: prior authorization approved 1430 today** (pharmacy benefit; 3 sensors per 30 days).\n- Nasal glucagon 3 mg x2: covered.\n\n**Arrangements**\n- Meds-to-beds from the hospital outpatient pharmacy: delivered to the room Thursday morning for the final check with the nurse.\n- Pediatric endocrinology clinic **Monday 12/14 at 1000**; diabetes educator phone calls every day for the first week (glucose review and dose changes); dietitian at 2 weeks; psychology referral sent.\n- Sharps container provided; disposal instructions.\n- School paperwork via social work."
+ },
+ {
+  "id": "note_hosp_day3_202612091640",
+  "type": "progressNotes",
+  "title": "Pediatric Hospitalist Progress Note - Day 3",
+  "author": "B. Osterman, MD",
+  "datetime": "2026-12-09 16:40",
+  "category": "Progress Note",
+  "summary": "Doing well. Glucose 142-188 today on glargine 18. Felt shaky after a 30-minute hall walk (fingerstick 104, CGM 98 falling): snack, teaching about exercise. Teaching on track; discharge tomorrow.",
+  "body": "**Subjective**\nMood better; joking with her father. Did her own fingersticks and her lunch dose. After a 30-minute hall walk with her father she felt \"a little shaky\" at about 1555.\n\n**Objective**\nVitals stable (per RN): HR 70s-80s, BP 110s/60s-70s, afebrile. Exam normal. Weight 49.4 kg.\nPOC glucose 142 (0730), 176 (1130), **104 (1600, after the walk; CGM 98 with a down arrow)**: ate an apple (15 g); no treatment needed for a low.\nLabs 0500 normal. Antibodies positive (see endocrinology addendum).\n\n**Assessment and plan**\n- Type 1 diabetes on glargine 18 units + lispro 1:12 + revised correction. The walk showed how activity lowers glucose; good teaching moment (Maya noticed it herself).\n- Eating concern flagged by the dietitian: psychology referral placed.\n- Discharge tomorrow after the teach-back checklist (fingersticks, CGM, pens, carbohydrate counting, lows, glucagon, ketones/sick days, when to call). Remove the IV before discharge."
+ },
+ {
+  "id": "note_pharm_dc_202612091700",
+  "type": "therapyNotes",
+  "title": "Pharmacy Discharge Medication Teaching",
+  "author": "V. Shah, PharmD",
+  "datetime": "2026-12-09 17:00",
+  "category": "Pharmacy",
+  "summary": "Reviewed every discharge medicine and supply with Maya and both parents: pen storage, priming, needle disposal, glucagon, ketone strips, sick-day plan. Teach-back complete. No drug interactions.",
+  "body": "**Discharge medicines**\n1. **Insulin glargine (Lantus SoloStar) 18 units SC every morning at 0800.** Never skip, even when sick.\n2. **Insulin lispro (Humalog Junior KwikPen, half-unit)**: meals 1 unit per 12 g carbohydrate; correction 1 unit per 40 mg/dL above 150 before meals; at bedtime only if over 250, half dose (1 unit per 80 above 150). Give 0-15 minutes before eating.\n3. **Nasal glucagon 3 mg** x2 (home and bag/school).\n4. Glucose tablets (4 g each).\n\n**Supplies** Pen needles 4 mm, meter, strips, lancets, blood ketone meter and strips, Dexcom G7 sensors, sharps container.\n\n**Storage** Unopened pens in the refrigerator (do not freeze); the pen in use at room temperature up to 28 days; never leave in a hot car; never share pens.\n\n**Safety** Look-alike pens: glargine is gray, lispro (Junior) is blue; check the label every time. Prime 2 units before every injection. A missed glargine dose: call the diabetes team.\n\n**Teach-back** Maya and both parents described the pen colors, the priming step, how to store insulin and where the glucagon will be kept. Father asked about acetaminophen and ibuprofen: both fine; no medicine interactions with insulin found."
+ },
+ {
+  "id": "note_hosp_night_d4_202612100620",
+  "type": "progressNotes",
+  "title": "Pediatric Hospitalist Night Note - Discharge Day",
+  "author": "S. Iverson, MD",
+  "datetime": "2026-12-10 06:20",
+  "category": "Progress Note",
+  "summary": "Quiet night. CGM low alarm at 0210 (CGM 54) with fingerstick 132: a compression low from lying on the sensor arm; no treatment. Fingerstick 126 at 0300. BMP normal. Weight 49.6 kg. Ready for discharge today.",
+  "body": "**Night events**\n- **0210 CGM urgent-low alarm: CGM 54.** Maya was asleep on her left side (on the sensor arm), no symptoms. **Fingerstick 0215: 132.** No treatment. CGM rose to the 120s within 20 minutes after she rolled over. Taught again: confirm with a fingerstick when the reading and symptoms do not match; lying on the sensor causes false lows (\"compression low\").\n- Fingerstick 126 at 0300. Bedtime glucose 206 at 2100: no correction (new rule: only over 250) and a 15 g snack.\n\n**Labs 0500** Na 139, K 4.2, Cl 104, CO2 25, BUN 10, creatinine 0.6, glucose 126, Ca 9.4, Mg 2.0, phosphorus 3.8. Anion gap 10. All normal.\n\n**Weight 0600** 49.6 kg.\n\n**Plan** Discharge today after the 0800 glargine (Maya) and the lunch teach-back; IV out before discharge."
+ },
+ {
+  "id": "note_endo_dc_202612100655",
+  "type": "progressNotes",
+  "title": "Pediatric Endocrinology Note - Discharge Readiness",
+  "author": "R. Banerjee, MD",
+  "datetime": "2026-12-10 06:55",
+  "category": "Consult",
+  "summary": "Ready for discharge: glucose 104-206 on the day ward, no lows since the bedtime correction change, false CGM low overnight handled correctly. Final regimen confirmed. Clinic Monday; daily educator calls.",
+  "body": "**Data**\nPOC glucose Wednesday: 142, 176, 104 (after a walk), 188, 206; overnight 132 (0215, CGM compression alarm) and 126 (0300); **124 at 0645**. No lows since the change. Labs 0500 normal.\n\n**Final regimen**\n- Glargine **18 units at 0800** daily.\n- Lispro **1 unit per 12 g** carbohydrate with meals; correction **1 unit per 40 mg/dL above 150** before meals; bedtime/overnight only over 250, half dose.\n- Dexcom G7 with fingerstick confirmation; nasal glucagon 3 mg.\n\n**Teach-back checklist** (Maya / mother / father): fingerstick and CGM, pen injection, carbohydrate counting, low glucose and the rule of 15, glucagon, ketones and sick-day rules, when to call: done by all three per the educator, dietitian and pharmacy notes; final review with the nurse this morning.\n\n**Follow-up**\nEndocrinology clinic Monday 12/14 at 1000 (HbA1c in 3 months; thyroid yearly; celiac screen at 2 years). Diabetes educator calls daily for 1 week. Psychology referral (adjustment, eating concerns). 504 plan meeting 12/16.\n\nDischarge from the endocrine standpoint today."
+ }
+]

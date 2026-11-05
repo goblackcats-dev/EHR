@@ -1,0 +1,45 @@
+# Instructor Notes: DKA 1 of 7, Maya Thompson (CS-DKA1-THOMPSON)
+
+**Maya Thompson, 16 F, MRN SIM-40501, PICU-4 then 5N-12. New-onset type 1 diabetes in severe DKA. Mon 12/07/2026 0700 to Thu 12/10/2026 0700.**
+Everything here matches `DESIGN.md`, the chart (`patient.json`) and the monitor rows (monitor.html, MRN SIM-40501).
+
+## Patient summary (one page)
+- **Story.** 5 weeks of thirst (sports drinks), peeing, night peeing and 5.6 kg (10%) weight loss; vomiting since Sunday; arrives with deep fast breathing, fruity breath and drowsiness. ED 0220: glucose 612, **pH 7.04**, pCO2 16, **bicarbonate 5, anion gap 28, beta-hydroxybutyrate 7.8**, Na 131 (corrected about 139), **K 5.6** (peaked T), creatinine 1.3, HbA1c 12.8% (resulted 0900).
+- **Pediatric DKA protocol (ISPAD 2022).** One 10 mL/kg saline bolus (500 mL), then 150 mL/h (maintenance 86 + 8% deficit over 48 h); **insulin 0.1 unit/kg/h = 4.9 units/h, no bolus**, started 1 h after fluids; **two-bag system** (Bag A saline, Bag B D10 saline, both with potassium 40 mEq/L half as phosphate) titrated by hourly glucose; potassium only if K under 5.5 and voiding; no bicarbonate; neuro checks every hour; mannitol and 3% saline ordered PRN.
+- **Weight 48.6 kg** for all doses. Two IVs: left AC (fluids + insulin), right forearm (labs, IV push).
+- **Family.** Mother Danielle at the bedside (guilt, fear); father Kevin, a truck driver, arrives Mon 2200; brother Eli (11). School junior, volleyball, learner's permit, finals next week.
+- **Vitals rule.** The chart has vitals only to 0700 Monday. Set the bedside monitor (monitor.html opens Maya's rows by MRN). Ignore the instructor-only "Suggested vitals" bar on Flowsheets (it repeats the 0700 set). POC glucose values ARE in the chart at their times: read them aloud when students check.
+- **MAR rule.** Doses after Mon 0700 are "due" for the students. If you skip a shift, its doses show as overdue: tell students they were given (the notes say so) or chart them yourself.
+- **Advance with "End of shift"** (next 0700/1900) or the 1 h / 4 h buttons. Everything is time-gated (labs about 45 min after the draw).
+
+## Two-bag table (sticky note in the chart)
+Glucose 300+: A 100% / B 0%. 250-299: 50/50 (D5). 200-249: A 25% / B 75% (D7.5). 150-199: B 100% (D10). Under 150 on D10: call. Total rate stays the same. Change the bags, not the insulin.
+
+## The six shifts
+| Checkpoint | Set the monitor | What happens in this shift (with times) | Key labs released | Expected nursing actions |
+|---|---|---|---|---|
+| **1. Mon 0700 (PICU day)** | HR 118 sinus tach, BP 114/70, RR 26 deep, SpO2 99% RA, T 98.9; T waves a little tall | 0700 glucose 386. **0905 D5** (287), **1105 D7.5** (241). **1045 mild headache** -> **1130 cerebral edema signs**: headache 7/10, vomits, GCS 13, **HR 72 (from 110), BP 134/92**. Mannitol 24 g (120 mL 20%) 1140, fluids cut to 100 mL/h 1145, CT 1255 (normal). Better by 1215 (HR 96, 118/74, GCS 15). **1505 D10** (198). **1700: K 3.3**, flat T + U waves -> K 60 mEq/L 1730, ECG 1730. Mid rows: 1045, 1115, 1130, 1215, 1700 | 0830: pH 7.14, bicarb 7, gap 23, BHB 5.2, K 3.9, phos 2.6. A1c 12.8. **1140 STAT: K 3.5, gap 19, corrected Na 136 (falling)**. 1630: pH 7.23, gap 17, BHB 2.6, **K 3.3, phos 1.8** | Hourly glucose, neuro checks, I&O; two-bag changes on time; **recognize cerebral edema and call immediately** (SBAR), HOB 30, prepare mannitol with a filter, stay at the bedside; no acetaminophen for the headache; K and ECG changes; support mother |
+| **2. Mon 1900 (PICU night)** | HR 96, BP 112/68, RR 22, T 98.6; flat T with small U waves | Sips of water from 2000 (order 1945). Father arrives 2200. **0300 glucose 147 on D10 -> call -> insulin 3.6 units/h at 0310.** Mid row 0300 (HR 82, 108/64) | 2030: gap 15, BHB 1.6, K 3.6, phos 1.6. 0030: gap 13, BHB 0.9, Cl 112 (non-gap acidosis). **0430: pH 7.33, bicarb 18, gap 10, BHB 0.4 = resolved** | Hourly glucose/neuro; I&O; potassium trend; know why the bicarbonate lags (chloride); **do not stop the drip just because the gap closed** |
+| **3. Tue 0700 (PICU day -> 5 North)** | HR 84, BP 112/68, RR 16, T 98.4, normal T | **Transition**: glargine 20 units 0745 (154), breakfast lispro 5 units 0800 (60 g), **drip and both bags off 0915**, D5 1/2NS + KCl 20 at 60 mL/h. 1000 glucose 196. **1130 glucose 268** (rebound): lunch 6 + 3 = 9 units. Transfer to 5N-12 at 1500 (mid row 1500: HR 80, 114/70). Monitor and right IV removed. **1730: Maya's first self-injection** (75 g, 214: 6 + 1.5 = 7.5 units) with child life | C-peptide 0.2 (1000). 1300: bicarb 21, gap 10, BHB 0.3 (no rebound ketones), K 3.7 | Correct overlap (basal before stopping the drip); calculate doses (half units); first teaching (meter, pen, rule of 15); needle coping; transfer handoff |
+| **4. Tue 1900 (5 North night)** | HR 82, BP 114/72, RR 16, T 98.4 | **2100 glucose 248 -> 2.5 units correction** (old rule). **0230 woke sweaty, shaky, nightmare: glucose 64** -> 15 g juice -> 0245 92 -> snack -> 0315 118. 0255 order: no overnight correction. Mid rows 0215 (asleep 78), **0230 (HR 112, 124/76)**, 0300 (86) | (none new until 0545 Wed) | Recognize and treat the low (rule of 15), recheck, snack, notify; teach parents; think about the cause (full correction at bedtime) |
+| **5. Wed 0700 (teaching day)** | HR 76, BP 110/68, RR 16, T 98.2 | Glargine **18** units 0800; new rule (bedtime correction only over 250, half dose). **CGM placed 1100.** Educator 1230 (glucagon, ketones, sick days, CGM), dietitian 1330 (**DEPS-R 16; "I liked losing the weight"**), **antibodies positive 1400**, social work school plan, case management. **1600 shaky after a walk: 104** (CGM 98 falling): snack | Wed 0500 BMP normal. GAD65 186, IA-2 42, IAA positive; celiac negative | Teach-back with Maya AND both parents; dose calculations (0800: 5; 1200: 6.5 by Maya; 1730: 7 by mother); respond to the eating concern without judgment |
+| **6. Wed 1900 (discharge night)** | HR 78, BP 112/70, RR 16, T 98.4 | 2100: 206 -> **no correction** (new rule), snack. **0210 CGM urgent low 54 while lying on the sensor arm; fingerstick 132** = compression low, no treatment. 0300 126. Thu 0645 124. Discharge order 0645 | Thu 0500 BMP normal; weight 49.6 kg | Confirm CGM lows with a fingerstick; discharge teaching checklist; follow-up plan |
+| **End: Thu 0700** | HR 72, BP 110/66, RR 14, T 98.2 | Ready to go home after the 0800 glargine and lunch teach-back | Endocrine discharge note 0655 | Evaluate: all teaching done? who calls whom? |
+
+## Key numbers to check student work
+- Anion gap = Na - Cl - CO2: 28 -> 25 -> 23 -> 19 -> 17 -> 15 -> 13 -> 10.
+- Corrected Na (Na + 1.6 x (glucose - 100)/100): 139.2, 138.7, 138.5, **136.4 (1140, falling)**, 138.5, 140.2, 141.0, 140.8. It should rise as glucose falls; a fall is a cerebral edema warning.
+- Glucose fall before dextrose: 47-56 mg/dL per hour (goal 50-75; never over 100).
+- Fluids: 150 mL/h = 3.1 mL/kg/h (1.7 x maintenance 86); after 1145: 100 mL/h.
+- Insulin 4.9 units/h (0.1 unit/kg/h); 3.6 units/h (0.075) from Tue 0310; never below 2.4 (0.05) while ketotic.
+- Potassium: 6 mEq/h at both stages (0.12 mEq/kg/h; maximum 0.5).
+- Mannitol 0.5 g/kg = 24 g = 120 mL of 20% over 15 min with a filter.
+
+## Teaching points for the debrief
+1. **Why kids are different**: cerebral edema (about 0.5-1% of pediatric DKA, most deaths): one cautious bolus, insulin without a bolus and 1 h after fluids, no bicarbonate, hourly neuro checks; **headache + falling heart rate + rising BP + vomiting + drowsiness = act now** (mannitol or 3% saline, cut fluids by one-third, HOB 30; CT after, never before treatment).
+2. **Insulin treats the acid, dextrose protects the glucose**: the two-bag system; DKA is over when pH 7.30+, bicarbonate 18+, ketones under 0.6, not when glucose is normal.
+3. **Potassium**: high on arrival, low after insulin (total body is low). Read it on the monitor: peaked T early, flat T and U waves later.
+4. **Transition overlap**: basal insulin 1-2 h before stopping the drip; ketones return within hours without it. Glucose often rises after the drip stops.
+5. **Night lows**: insulin needs drop fast after DKA (honeymoon); bedtime corrections are smaller or skipped. Rule of 15; glucagon when she cannot swallow.
+6. **New-diagnosis teaching**: carbohydrate counting (1 unit/12 g), correction (1 unit/40 over 150), sick-day and ketone rules (never skip basal), CGM limits (confirm with a fingerstick), school plan (DMMP, 504), driving (over 90), alcohol (delayed lows), eating concerns (weight loss "felt good": screen, refer, no shame).
+7. **Family-centered care**: guilt, fear after the 1130 event, a father on the road, a younger sibling; both parents and the teen each give an injection before discharge.

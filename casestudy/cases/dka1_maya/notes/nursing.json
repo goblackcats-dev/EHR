@@ -1,0 +1,32 @@
+[
+ {
+  "id": "note_ed_triage_202612070230",
+  "type": "progressNotes",
+  "title": "ED Triage Nursing Note",
+  "author": "C. Huang, RN",
+  "datetime": "2026-12-07 02:30",
+  "category": "Nursing Note",
+  "summary": "Arrived 0205 with mother: 5 weeks of thirst, peeing a lot and weight loss; vomiting since Sunday; deep fast breathing, fruity breath, drowsy. POC glucose HI. ESI 2, to resuscitation bay.",
+  "body": "**Arrival 0205** by private car with her mother (Danielle Thompson). Walked in with help.\n\n**Story (mother and Maya)**\n- About 5 weeks of being very thirsty (2-3 large sports drinks plus water every day), peeing \"all the time\", up 3-4 times a night; wet the bed once last week.\n- Lost weight: 54.2 kg at her sports physical in August. Tired, falling asleep in class.\n- Saturday: belly ache and nausea. Sunday from about 0900: vomited 6 times, could not keep fluids down. Sunday evening: breathing deep and fast, \"really sleepy\". Mother brought her in when she could not stay awake to talk.\n- No fever, no diarrhea, no cough, no urinary burning. No known diabetes. No medicines. No allergies.\n\n**Triage 0210**\nT 99.1 F, HR 134, BP 108/64, RR 32 deep and regular (Kussmaul), SpO2 99% room air, pain 6/10 upper belly. Weight 48.6 kg (standing, with help). GCS 14 (E3 V5 M6). Fruity (acetone) breath. Dry cracked lips, no tears, capillary refill 3-4 seconds, hands cool.\n\n**POC glucose 0225: HI (over 600).**\n\nESI 2. To resuscitation bay 2; Dr. Adeyemi at the bedside 0218. Two IVs and labs ordered (DKA order set)."
+ },
+ {
+  "id": "note_ed_rn_202612070645",
+  "type": "progressNotes",
+  "title": "ED Nursing Note - DKA Treatment and Response",
+  "author": "C. Huang, RN",
+  "datetime": "2026-12-07 06:45",
+  "category": "Nursing Note",
+  "summary": "Severe DKA treated per pediatric protocol: one 10 mL/kg bolus, insulin 0.1 unit/kg/h from 0400 (no bolus), two-bag fluids with K 40 mEq/L from 0545. Glucose falling 50-56 per hour; GCS 14 unchanged; no headache.",
+  "body": "**Lines**\n- 0220: 20 g IV left antecubital (labs drawn first, including the diabetes antibody tubes before any insulin).\n- 0225: 20 g IV right forearm (saline lock for labs and IV push).\n\n**Treatment**\n- 0235 ondansetron 4 mg IV.\n- 0240-0310 normal saline 500 mL (10 mL/kg) bolus.\n- 0300 ECG: sinus tach 128, peaked T waves (K 5.6).\n- 0315 normal saline 150 mL/h (no potassium yet: K 5.6, not yet voided).\n- 0330 voided 350 mL (urine sample sent).\n- **0400 regular insulin infusion 4.9 units/h (0.1 unit/kg/h), no bolus**, own pump, tubing primed with 20 mL. Independent double check with M. Ortiz, RN.\n- 0545 two-bag system started (potassium 4.7 at 0430, voiding): Bag A 150 mL/h, Bag B (D10) hung at 0 mL/h.\n- 0610 voided 400 mL.\n\n**Response**\n- POC glucose: HI (0225), 574 (0330), 552 (0400), 497 (0500), 441 (0600): falling about 55 per hour on insulin.\n- Vitals 0615: HR 120, BP 112/70, RR 28 (still deep), SpO2 99%, T 98.8 F.\n- Neuro checks hourly from 0300: GCS 14 each time, pupils 4 mm equal and brisk, no headache. Emesis 150 mL at 0230 only.\n\n**Family**\nMother at the bedside, crying on and off: \"I thought she was just drinking a lot because of volleyball.\" Father (Kevin) is a long-haul truck driver, driving home from Ohio; mother has called him."
+ },
+ {
+  "id": "note_ed_handoff_202612070655",
+  "type": "progressNotes",
+  "title": "ED to PICU Handoff (SBAR)",
+  "author": "C. Huang, RN",
+  "datetime": "2026-12-07 06:55",
+  "category": "Nursing Note",
+  "summary": "SBAR to the PICU RN: 16-year-old with new-onset type 1 diabetes in severe DKA; insulin 4.9 units/h since 0400, two-bag 150 mL/h (D0); glucose 441 at 0600; K 4.7; hourly neuro checks normal.",
+  "body": "**S:** Maya Thompson, 16, new-onset type 1 diabetes in severe DKA. Full Code. No allergies. Weight 48.6 kg.\n\n**B:** 5 weeks of thirst, peeing and weight loss (lost 5.6 kg); vomiting since Sunday. ED labs 0220: glucose 612, pH 7.04, pCO2 16, bicarbonate 5, anion gap 28, beta-hydroxybutyrate 7.8, Na 131, K 5.6, BUN 28, creatinine 1.3. 0430: glucose 520, pH 7.07, bicarbonate 6, K 4.7, beta-hydroxybutyrate 7.1.\n\n**A:** Drowsy, GCS 14, oriented to person and place; Kussmaul breathing 28; HR 120, BP 112/70. No headache. Normal saline bolus 500 mL (0240), insulin 4.9 units/h from 0400 (no bolus), two-bag fluids 150 mL/h from 0545: Bag A 150, Bag B 0. Glucose 441 at 0600 (falling about 55/h). Voided 350 and 400 mL. Emesis once (0230).\n\n**R:** Hourly glucose: expect to start Bag B soon (glucose under 300 = 50/50). Hourly neuro checks: highest cerebral edema risk in the next 4-12 hours. Next labs 0830. Mother at the bedside; father driving home. Two IVs: left AC (fluids + insulin), right forearm (saline lock for labs)."
+ }
+]
