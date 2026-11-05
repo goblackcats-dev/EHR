@@ -218,9 +218,29 @@
     { t: '2026-12-09 19:00', hr: 78, spo2: 99, sys: 112, dia: 70, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Shift change: parents practicing; discharge planned tomorrow' },
     { t: '2026-12-10 07:00', hr: 72, spo2: 99, sys: 110, dia: 66, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Discharge day (CGM false low at 0210 overnight)' }
   ];
+  // Jordan Ellis, 24 M, insulin pump failure + weekend drinking, moderate DKA (casestudy/cases/dka2_jordan). Lying vitals.
+  const DKA2 = [
+    { t: '2026-12-14 07:00', hr: 108, spo2: 98, sys: 112, dia: 68, rr: 24, temp: 98.8, rhythm: 'tachy', pr: 0.15, qrs: 0.09, tAmp: 0.5, o2: 'Room air', note: 'IMCU arrival: deep breathing (Kussmaul), fruity breath, nauseated, wants his pump back. Glucose 266. Insulin 7.2 units/h' },
+    { t: '2026-12-14 13:10', hr: 96, spo2: 99, sys: 118, dia: 72, rr: 20, temp: 98.6, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.35, o2: 'Room air', note: 'Roommate visiting; Jordan is drinking a REGULAR soda (sugar-free liquids ordered). Glucose will be 248 at 1400' },
+    { t: '2026-12-14 19:00', hr: 94, spo2: 99, sys: 116, dia: 70, rr: 18, temp: 98.6, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.2, uAmp: 0.08, o2: 'Room air', note: 'Shift change: T waves flattening. 1830 labs pending (K resulted 1915)' },
+    { t: '2026-12-14 19:20', hr: 92, spo2: 99, sys: 116, dia: 72, rr: 18, temp: 98.6, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.15, uAmp: 0.13, o2: 'Room air', note: 'K 3.3: flat T waves with U waves. HOLD insulin, D10 off, KCl riders 10 mEq/h, ECG 1935' },
+    { t: '2026-12-14 22:00', hr: 88, spo2: 99, sys: 114, dia: 70, rr: 18, temp: 98.6, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.25, uAmp: 0.06, o2: 'Room air', note: 'K 3.7: insulin restarted 7.2 units/h, D10 100 mL/h (glucose 248)' },
+    { t: '2026-12-15 03:00', hr: 78, spo2: 98, sys: 112, dia: 66, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Asleep. Glucose 148 on D10 100 mL/h: raise D10 to 150 and call' },
+    { t: '2026-12-15 07:00', hr: 80, spo2: 99, sys: 118, dia: 72, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'DKA resolved (0530 labs). Glargine 0730, lispro 0800, drip off 0930. Asking to restart his pump now' },
+    { t: '2026-12-15 14:00', hr: 82, spo2: 99, sys: 120, dia: 74, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Transfer to 4 East (4E-21); monitor off after this' },
+    { t: '2026-12-15 19:00', hr: 80, spo2: 99, sys: 122, dia: 76, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shift change on 4 East. Ate about half of dinner after a full 10-unit dose' },
+    { t: '2026-12-15 20:10', hr: 108, spo2: 99, sys: 128, dia: 80, rr: 18, temp: 98.4, rhythm: 'tachy', pr: 0.14, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'CGM low alarm: shaky, sweaty. Fingerstick 64. 15 g juice, recheck in 15 minutes' },
+    { t: '2026-12-15 20:30', hr: 84, spo2: 99, sys: 120, dia: 74, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Recovered: 92 at 2025, snack, 118 at 2100' },
+    { t: '2026-12-16 07:00', hr: 72, spo2: 99, sys: 118, dia: 72, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Pump day: site-change teach-back 0800, pump basal restart 0815, no glargine' },
+    { t: '2026-12-16 19:00', hr: 76, spo2: 99, sys: 120, dia: 76, rr: 14, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shift change: back on his pump; roommate bringing pizza 1930' },
+    { t: '2026-12-17 00:10', hr: 86, spo2: 99, sys: 124, dia: 78, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Glucose 298, not down 1 h after a pump correction; ketones 0.6. Pen correction + new set (old cannula kinked)' },
+    { t: '2026-12-17 03:00', hr: 70, spo2: 99, sys: 116, dia: 70, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Asleep. Glucose 168, ketones 0.2' },
+    { t: '2026-12-17 07:00', hr: 70, spo2: 99, sys: 118, dia: 72, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Discharge day: home with roommate after breakfast' }
+  ];
   // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 2-7 append here
   const DKA_SERIES = [
-    ['SIM-40501', DKA1, 'PICU-4   THOMPSON, MAYA   16 F']
+    ['SIM-40501', DKA1, 'PICU-4   THOMPSON, MAYA   16 F'],
+    ['SIM-40502', DKA2, 'IMC-6   ELLIS, JORDAN   24 M']
   ];
   const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON };
   const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F' };

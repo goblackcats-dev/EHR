@@ -117,6 +117,15 @@
      "file": "casestudy/cases/dka1_maya/patient.json",
      "age": 16,
      "sex": "Female"
+    },
+    {
+     "id": "dka2_jordan",
+     "name": "Jordan Ellis",
+     "title": "DKA 2 of 7, intermediate care to medical floor: insulin pump failure after a weekend of drinking (3 days, checkpoints every 0700 and 1900)",
+     "desc": "Mon 12/14 0700 to Thu 12/17 0700. A 24-year-old line cook with type 1 diabetes since age 11 wakes after a friend's birthday with his pump set half pulled out, vomits all day thinking it is a hangover and arrives in moderate DKA. Adult protocol (fluids, fixed-rate insulin 0.1 unit/kg/h, D10 line under 250, peripheral potassium riders with the insulin held for K 3.3), a regular soda he was not supposed to drink, glargine bridge and the drip off, a low after a half-eaten dinner, then the pump back on after a site-change teach-back and a kinked cannula caught overnight. Alcohol screening, withdrawal watch and safer-drinking teaching. Vital signs after 0700 come from the bedside monitor.",
+     "file": "casestudy/cases/dka2_jordan/patient.json",
+     "age": 24,
+     "sex": "Male"
     }
    ]
   }
