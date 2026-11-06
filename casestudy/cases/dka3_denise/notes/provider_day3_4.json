@@ -1,0 +1,105 @@
+[
+ {
+  "id": "note_night_summary_202611110630",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Overnight Summary",
+  "author": "T. Rivera, MD",
+  "datetime": "2026-11-11 06:30",
+  "category": "Progress Note",
+  "summary": "Rested overnight, no nausea or low-glucose symptoms; bedtime 162, 0200 check 140. Identifies the basal pen by its label. Worried about strips and time off work. 0645 labs not yet due.",
+  "body": "Denise rested overnight without nausea, vomiting or symptoms of hypoglycemia. The bedtime glucose was 162 and the ordered 0200 safety check was 140.\n\nShe can identify the basal pen using the printed label and says the separate timing now makes more sense. She remains concerned about obtaining strips and finding time for follow-up between jobs.\n\nThe 0645 blood specimen is not yet due and no morning chemistry result is available. Handoff will emphasize independent pen identification, bedside supply verification and completion of the food and transportation plan."
+ },
+ {
+  "id": "note_hosp_d3_202611110720",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 3 Morning",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-11 07:20",
+  "category": "Progress Note",
+  "summary": "0645 panel: K 4.1, bicarbonate 25, gap 9, creatinine 0.7, phosphate 2.9. Prebreakfast glucose 134, no overnight lows. Rehydrated, eating, walking. Continue basal and carbohydrate-matched meal insulin. Discharge depends on medicines in hand, follow-up and independent teach-back.",
+  "body": "The 0645 panel is available with potassium 4.1, bicarbonate 25, anion gap 9, creatinine 0.7 and phosphate 2.9. Prebreakfast glucose is 134 with no recurrent low readings overnight.\n\nShe is clinically rehydrated, eating and ambulating independently. Continue the current basal and carbohydrate-matched meal insulin.\n\nDischarge remains contingent on medicines and supplies in hand, reliable follow-up and independent teach-back after last night's pen confusion. Pharmacy delivery and case-management review are planned for today but are not yet complete."
+ },
+ {
+  "id": "note_pharm_delivery_202611111015",
+  "type": "therapyNotes",
+  "title": "Pharmacy Bedside Delivery - Discharge Supplies",
+  "author": "H. Price, PharmD",
+  "datetime": "2026-11-11 10:15",
+  "category": "Pharmacy Note",
+  "summary": "Delivered at 1000: glargine and lispro pens (5 each), 200 pen needles, meter, 200 strips, 200 lancets, ketone strips, glucose tablets, glucagon kit. Labels match the plan (glargine 18 units at 1630; lispro 1 unit per 15 g). Former lispro instructions discontinued; no second product.",
+  "body": "At 1000 the pharmacy delivered insulin glargine U-100 and insulin lispro U-100, each as a box of five 3 mL pens. The bag also contains 200 pen needles, a meter, 200 matching strips, 200 lancets, ketone strips, glucose tablets and a glucagon kit.\n\nLabels specify glargine 18 units at 1630 and lispro one unit per 15 g carbohydrate with the written correction scale. Denise and I checked that her former fixed 6-unit lispro instructions are discontinued, that only one lispro product is listed and that no second basal product is listed.\n\nThe hospital charity fund (simulated) covered this discharge bridge. The working paid route for the next 30-day fill is the manufacturer savings program for people without insurance (simulated, about $35 per month for the two insulins together). We reviewed storage, expiration after opening, safe disposal and the need to contact the clinic before supplies fall below one week."
+ },
+ {
+  "id": "note_cm_202611111100",
+  "type": "caseManagement",
+  "title": "Case Management Coordination - Follow-Up and Assistance",
+  "author": "A. Patel, RN CM",
+  "datetime": "2026-11-11 11:00",
+  "category": "Case Management",
+  "summary": "Riverbend Community Health Center (simulated) will see her Friday Nov 13 at 1000 (sliding fee $10, simulated); nurse call Nov 13 0830; diabetes education Nov 18 at 1500. Assistance application submitted, approval pending; clinic access coordinator checks Nov 16. Rides arranged.",
+  "body": "Riverbend Community Health Center (simulated) has accepted Denise for a Friday, November 13 appointment at 1000 with a sliding-fee visit charge of $10 (simulated). A diabetes-education follow-up is booked for November 18 at 1500, and a clinic nurse telephone check is booked for November 13 at 0830.\n\nThe completed manufacturer-assistance application (simulated) has now been submitted with her income documents, but approval is still pending. The clinic's access coordinator has accepted responsibility for checking the application on November 16 and keeping a bridge available if processing is delayed.\n\nA round-trip ride for the first appointment and a ride home tomorrow have been arranged. Denise has the clinic contact card and understands that she must report any price, refill, coverage or food problem before insulin runs out."
+ },
+ {
+  "id": "note_rd2_202611111330",
+  "type": "therapyNotes",
+  "title": "Nutrition and Food-Resource Follow-Up",
+  "author": "S. Lindholm, RD",
+  "datetime": "2026-11-11 13:30",
+  "category": "Nutrition",
+  "summary": "Correctly estimated today's 60 g lunch and its 4-unit lispro dose with supervision; practiced a 30 g meal (2 units). Community pantry food box reserved for her sister; school meal support and SNAP referral documented. No carbohydrate eaten = no meal lispro; basal continues.",
+  "body": "Denise correctly estimated today's 60 g lunch and the corresponding 4-unit lispro dose with nursing supervision. We practiced an alternative 30 g meal that would need only 2 nutritional units under her current plan.\n\nA community food pantry has reserved a food box for her sister to collect this afternoon, and school meal support and a SNAP application referral are documented. Denise chose shelf-stable items she can carry between jobs and agreed to keep a rapid carbohydrate source with her meter.\n\nShe understands that eating no carbohydrate means no nutritional lispro dose, while basal insulin continues and correction or illness questions follow the written plan. The clinic dietitian will review meal access and carbohydrate estimates at follow-up rather than assuming she can purchase a special diet."
+ },
+ {
+  "id": "note_dce2_202611111645",
+  "type": "therapyNotes",
+  "title": "Diabetes Education - Final Assessment",
+  "author": "O. Hart, RN, CDCES",
+  "datetime": "2026-11-11 16:45",
+  "category": "Diabetes Education",
+  "summary": "Identified both pens from the labels without prompting; demonstrated meter use, priming, dose selection, site rotation, sharps disposal. Gave glargine 18 units at 1630 under supervision. Taught back low-glucose treatment, illness rules and when to seek urgent care. Sister took part.",
+  "body": "Denise independently identified glargine and lispro from their labels without prompting. She demonstrated meter use, pen priming, dose selection, injection-site rotation and safe needle disposal. At 1630 she administered the prescribed 18-unit glargine dose under RN supervision.\n\nShe calculated doses for 15 g, 30 g, 45 g and 60 g meals and explained how she would handle a missed meal. She correctly taught back low-glucose treatment, continued basal insulin during illness, ketone checks, and urgent evaluation for persistent vomiting or DKA symptoms.\n\nHer sister participated with consent, and both can locate the written schedule, clinic contact card, food plan and medication bag."
+ },
+ {
+  "id": "note_night_d3_202611111915",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Discharge Readiness",
+  "author": "T. Rivera, MD",
+  "datetime": "2026-11-11 19:15",
+  "category": "Progress Note",
+  "summary": "1845 panel: K 4.1, bicarbonate 26, gap 9, phosphate 3.1; glucose 156 before dinner. Medicines and supplies are at the bedside; independent teach-back documented this afternoon. Sister will collect the food box and take her home. Final chemistry and the discharge decision are for the morning.",
+  "body": "The 1845 panel has released with potassium 4.1, bicarbonate 26, anion gap 9 and phosphate 3.1. The pre-dinner glucose was 156 and her dinner tray has arrived.\n\nShe has correctly explained the expected meal dose, which will be given after the amount eaten is confirmed. Her labeled discharge medicines and supplies are at the bedside and the educator documented independent teach-back this afternoon. Her sister has confirmed collection of the food box and plans to bring her home tomorrow.\n\nFinal chemistry and the discharge decision remain scheduled for the morning and are not yet available."
+ },
+ {
+  "id": "note_hosp_dc_cond_202611120650",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Conditional Discharge",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-12 06:50",
+  "category": "Progress Note",
+  "summary": "Completed the evening self-management demonstration and tolerated dinner; bedtime glucose 144, no lows or DKA symptoms. Medicines, supplies, follow-up and transport verified. Conditional discharge order for 0700, pending the final chemistry (0645 specimen not yet resulted).",
+  "body": "Denise completed the evening self-management demonstration under supervision and tolerated dinner. The bedtime glucose was 144, and no symptoms of recurrent hypoglycemia or DKA occurred overnight.\n\nHer medicine and supply bridge, written regimen, follow-up appointments and transportation arrangements have been verified. I have written a conditional discharge order for 0700, contingent on the final chemistry and glucose review.\n\nThe 0645 specimen is pending, so this note does not attest to its results. If those results show recurrent acidosis or significant electrolyte abnormalities, cancel the discharge and reassess treatment.",
+  "allowTimes": [
+   "0700"
+  ]
+ },
+ {
+  "id": "note_cm_final_202611120655",
+  "type": "caseManagement",
+  "title": "Case Management Final Verification",
+  "author": "A. Patel, RN CM",
+  "datetime": "2026-11-12 06:55",
+  "category": "Case Management",
+  "summary": "Sister confirmed the ride. Clinic visit and next-day call remain booked; contact card in hand. Food box collected; daughter supervised. Assistance application pending (clinic checks Nov 16). Denise understands the paid refill fallback and will call the clinic if cost, work, transport or food threatens the plan.",
+  "body": "Denise's sister has confirmed that she will arrive for the planned discharge ride. The community health center appointment and next-day telephone check remain booked, and Denise has the printed contact card. The food box was collected yesterday and the daughter has safe supervision.\n\nManufacturer assistance remains pending (simulated), with the clinic access coordinator assigned to check progress on November 16. Denise has a supplied medication bridge and understands the working refill fallback instead of relying on an assumed assistance approval.\n\nShe agrees to call the clinic if a pharmacy charge, work schedule, transportation problem or food shortage threatens the plan."
+ },
+ {
+  "id": "note_dc_202611120700",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Discharge Note",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-12 07:00",
+  "category": "Progress Note",
+  "summary": "Final chemistry: K 4.2, bicarbonate 26, gap 9, creatinine 0.7, phosphate 3.2, Mg 2.0; glucose 134. Discharge criteria met. Glargine 18 units next due today at 1630; breakfast lispro by carbohydrate eaten. Saline lock out, teach-back done with Denise and her sister. Leaves with her sister.",
+  "body": "The final chemistry is now available with potassium 4.2, bicarbonate 26, anion gap 9, creatinine 0.7, phosphate 3.2 and magnesium 2.0. The prebreakfast bedside glucose is 134, and the conditional discharge criteria are met.\n\nDenise correctly states that her next glargine dose is 18 units at 1630 today and that breakfast lispro depends on the carbohydrate she actually eats after leaving. She has the labeled medication bag, meter and supplies, low-glucose rescue treatment, written sick-day plan and follow-up contact card. No antibiotics, anticoagulant, IV fluid or electrolyte prescription is needed at discharge.\n\nThe remaining peripheral IV is removed intact and discharge instructions are reviewed with Denise and her sister using teach-back. She leaves with her sister without recurrent gastrointestinal symptoms or unresolved medication-access needs for the supplied bridge period."
+ }
+]

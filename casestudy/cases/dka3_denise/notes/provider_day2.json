@@ -1,0 +1,75 @@
+[
+ {
+  "id": "note_hosp_d2_202611100715",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 2 Morning",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-10 07:15",
+  "category": "Progress Note",
+  "summary": "DKA and AKI resolved: bicarbonate 24, gap 9, K 3.7, creatinine 0.7; glucose 148 before breakfast. Stop IV fluids, remove one IV, walk. Phosphate 2.3 still a little low: keep checking. Not ready for discharge: medicine access, food and independent dosing unresolved.",
+  "body": "**Subjective**\nNo nausea or vomiting, abdominal soreness gone, appetite variable. Says she often skips lunch.\n\n**Objective**\nThe 0645 panel released at 0700: potassium 3.7, bicarbonate 24, anion gap 9, creatinine back to 0.7, magnesium 1.8, phosphate 2.3, WBC 9.0 (the admission white count was stress-related; no infection found). The overnight safety glucose was 156 and the prebreakfast value is 148. HbA1c from Day 1 is 11.8%, an average glucose near 290 over the past three months, consistent with the insulin rationing.\n\n**Assessment / plan**\n1. **DKA and prerenal AKI resolved** without recurrent gastrointestinal symptoms. She is eating and drinking, so IV fluids stop now, the left peripheral IV comes out (the right stays as a saline lock), and she walks with assessment.\n2. **Phosphate** is improving but still slightly low (2.3): continue the planned chemistry surveillance.\n3. **Insulin:** glargine 18 units at 1630; lispro 4 units with a full 45 g meal plus correction.\n4. **Discharge is not appropriate yet:** medicine access, food security and independent use of the final regimen remain unresolved. Social work, dietitian and pharmacy are seeing her today."
+ },
+ {
+  "id": "note_sw_202611100900",
+  "type": "caseManagement",
+  "title": "Social Work Assessment - Insulin Access and Food Security",
+  "author": "L. Brooks, LCSW",
+  "datetime": "2026-11-10 09:00",
+  "category": "Social Work",
+  "summary": "Lost insurance 3 months ago; two part-time jobs; skips meals so her daughter can eat. Benefits screening started with consent. No coverage approval yet. Plan: leave with an insulin and supply bridge, follow-up and food arrangements, not only phone numbers.",
+  "body": "Denise lost employer insurance three months ago and now has variable income from two part-time jobs. She reports insufficient food during the past month and sometimes skips meals so her daughter can eat.\n\nWith her consent I began benefits screening and requested income documents for a manufacturer assistance application (simulated) and community health center enrollment. Medicaid and marketplace eligibility require formal review, and no coverage approval is documented today.\n\nHer sister can continue childcare temporarily, while transportation and work-related scheduling remain barriers. We agreed that she will leave with an insulin and testing-supply bridge, a reachable follow-up team and specific food access arrangements rather than a list of telephone numbers alone."
+ },
+ {
+  "id": "note_rd_202611101030",
+  "type": "therapyNotes",
+  "title": "Nutrition Assessment - Affordable Carbohydrate Counting",
+  "author": "S. Lindholm, RD",
+  "datetime": "2026-11-10 10:30",
+  "category": "Nutrition",
+  "summary": "Usual weight about 64 kg, ED weight 60 kg while dehydrated. Irregular meals from work schedules and grocery shortages. Plan: about 45 g carbohydrate per meal, practice with affordable foods; flexible carbohydrate-based insulin if fixed doses prove unsafe.",
+  "body": "Denise's usual weight is approximately 64 kg and the ED weight was 60 kg during dehydration. She describes irregular meals driven by work schedules and grocery shortages rather than a preference for skipping food.\n\nWe practiced identifying affordable carbohydrate portions using beans, oats, rice, milk and shelf-stable foods. Today's plan uses approximately 45 g carbohydrate per meal while staff document what she actually eats.\n\nShe understands that meal insulin should match food, but says her appetite is still unpredictable after the vomiting illness. I will coordinate food resources and recommend a flexible carbohydrate-based insulin plan if fixed meal doses prove unsafe."
+ },
+ {
+  "id": "note_hosp_hypo_202611101440",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Event Note - Low Glucose After Lunch",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-10 14:40",
+  "category": "Progress Note",
+  "summary": "Glucose 62 at 1400 with shakiness and sweating after lispro 4 units at 1145 and only 15 g of lunch eaten. 15 g juice: 78 at 1415, snack, 104 at 1430. Symptoms resolved. Meal insulin now by carbohydrate actually eaten (order 1435); glargine continues.",
+  "body": "At 1400 Denise reported shakiness and sweating and the bedside glucose was 62. She had received the 1145 lispro dose for a planned 45 g lunch but ate only 15 g because her appetite declined.\n\nShe was awake with a safe swallow, so she received 120 mL of juice (15 g rapid carbohydrate). Glucose rose to 78 at 1415, a protein-containing 15 g carbohydrate snack followed, and the glucose was 104 at 1430. Symptoms have resolved. I was notified; the next stability check is due at 1500.\n\nThe 1435 order replaces fixed meal doses with insulin matched to the carbohydrate actually eaten, and basal insulin continues after review. Endocrinology is reviewing the doses.",
+  "allowTimes": [
+   "1500"
+  ]
+ },
+ {
+  "id": "note_endo_d2_202611101445",
+  "type": "progressNotes",
+  "title": "Endocrinology Dose Review - Hypoglycemia",
+  "author": "V. Lee, MD",
+  "datetime": "2026-11-10 14:45",
+  "category": "Progress Note",
+  "summary": "The low followed a fixed meal dose with a small meal. Repeat values responded to oral treatment; no new ketoacidosis. Fixed 4-unit meal dose stopped at 1435; lispro 1 unit per 15 g eaten, given just after eating. Glargine 18 units continues.",
+  "body": "Today's hypoglycemia followed a clear mismatch between a fixed nutritional insulin dose and the amount of lunch consumed. Repeat glucose values show response to oral treatment, and there is no recurrent vomiting or evidence of renewed ketoacidosis.\n\nAt 1435 I discontinued the fixed 4-unit meal order and prescribed lispro at one unit per 15 g carbohydrate actually eaten, given just after eating while appetite is uncertain (rounded down to a whole unit). Keep the conservative premeal correction and give no bedtime correction.\n\nContinue glargine 18 units daily because fasting and overnight values do not suggest excess basal insulin. Nursing and the dietitian will rehearse carbohydrate estimation using meals she can afford and foods available during work shifts."
+ },
+ {
+  "id": "note_pharm_access_202611101730",
+  "type": "therapyNotes",
+  "title": "Pharmacy Access and Affordability Review",
+  "author": "H. Price, PharmD",
+  "datetime": "2026-11-10 17:30",
+  "category": "Pharmacy Note",
+  "summary": "A manufacturer savings program for people without insurance (simulated, about $35 per month) would cover one long-acting and one rapid-acting pen when filled together. A hospital charity fund (simulated) will cover the first fill and supplies. Application still being assembled; nothing delivered yet.",
+  "body": "The dispensing pharmacy has verified that a long-acting pen (glargine) and a rapid-acting pen (lispro) can be filled together under a manufacturer savings program for people without insurance (simulated, about $35 per month for the two insulins together). That figure does not cover meter strips, pen needles or other supplies.\n\nHer lispro is one product only: the discharge reconciliation will replace her former fixed 6-unit instruction rather than add a second rapid-acting product. A simulated hospital charity fund will cover the first fill, pen needles, meter supplies, ketone strips, glucose treatment and glucagon while a patient-assistance application (simulated) is pursued.\n\nThe application is still being assembled and no approval or shipment has occurred. The community health center will own application follow-up and renewal checks, including reassessment if her insurance status changes. Delivery to the bedside is planned but has not occurred, so this note alone does not satisfy discharge readiness."
+ },
+ {
+  "id": "note_night_teachback_202611102045",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Pen Teach-Back",
+  "author": "T. Rivera, MD",
+  "datetime": "2026-11-10 20:45",
+  "category": "Progress Note",
+  "summary": "At the 2030 teach-back Denise first named the meal-insulin pen as the afternoon pen; similar-looking pens. Labeled demonstration pens and a one-page schedule used; correct on repeat, still needs written prompts for the missed-meal plan. Educator to repeat tomorrow. Dinner tolerated, 3 units after 45 g.",
+  "body": "The night nurse reports that during the 2030 demonstration Denise initially identified the meal-insulin pen as the pen to use every afternoon. She said the similar-looking pens made it hard to remember which insulin must continue when she does not eat.\n\nUsing labeled demonstration pens and a one-page schedule, the nurse reviewed basal insulin at 1630 and lispro matched to carbohydrate. She correctly identified both pens on an immediate repeat attempt but still needed written prompts to explain the missed-meal plan.\n\nDinner was tolerated (45 g eaten, lispro 3 units at 1920, glucose 174 before the meal) and she has had no further hypoglycemia symptoms this evening. Another independent demonstration with the diabetes educator is requested tomorrow."
+ }
+]

@@ -237,10 +237,30 @@
     { t: '2026-12-17 03:00', hr: 70, spo2: 99, sys: 116, dia: 70, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Asleep. Glucose 168, ketones 0.2' },
     { t: '2026-12-17 07:00', hr: 70, spo2: 99, sys: 118, dia: 72, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Discharge day: home with roommate after breakfast' }
   ];
-  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 2-7 append here
+  // Denise Carter, 38 F, cost-related insulin rationing, DKA (casestudy/cases/dka3_denise). Lying vitals.
+  const DKA3 = [
+    { t: '2026-11-09 07:00', hr: 100, spo2: 99, sys: 114, dia: 70, rr: 22, temp: 98.2, rhythm: 'tachy', pr: 0.15, qrs: 0.09, tAmp: 0.5, o2: 'Room air', note: 'Step-down arrival: deep breathing, tired, dry mouth, wants water; mild peaked T. Glucose 410. Insulin 6 units/h, saline with KCl 20 mEq/L at 250 mL/h' },
+    { t: '2026-11-09 07:30', hr: 104, spo2: 99, sys: 112, dia: 68, rr: 22, temp: 98.2, rhythm: 'tachy', pr: 0.15, qrs: 0.09, tAmp: 0.4, o2: 'Room air', note: 'Nauseated after sips of water: vomits about 150 mL (the last time). T waves flattening' },
+    { t: '2026-11-09 08:00', hr: 98, spo2: 99, sys: 114, dia: 70, rr: 20, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.25, uAmp: 0.05, o2: 'Room air', note: 'Critical K 3.2 called by the lab: HOLD insulin, plain saline, KCl 10 mEq piggybacks one at a time, magnesium 2 g on the other IV, ECG now. Denies palpitations' },
+    { t: '2026-11-09 08:15', hr: 96, spo2: 99, sys: 114, dia: 70, rr: 20, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.15, uAmp: 0.12, o2: 'Room air', note: 'ECG 0815: flat T waves with small U waves (K 3.2, Mg 1.6). Insulin held; first KCl bag running' },
+    { t: '2026-11-09 09:00', hr: 94, spo2: 99, sys: 112, dia: 68, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.15, uAmp: 0.1, o2: 'Room air', note: 'Insulin still held (glucose 340). Second KCl bag; K check drawn 0945' },
+    { t: '2026-11-09 10:00', hr: 92, spo2: 99, sys: 114, dia: 70, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.25, uAmp: 0.06, o2: 'Room air', note: 'K 3.6 (0945): provider confirms insulin restart 6 units/h; KCl bags 3 and 4 continue. BHB 3.0: not resolved' },
+    { t: '2026-11-09 12:00', hr: 90, spo2: 99, sys: 116, dia: 72, rr: 18, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'K 4.0, four KCl bags done. Glucose 220: D5NS with KCl 20 mEq/L at 200 mL/h and insulin down to 3 units/h. BHB 1.6: not resolved' },
+    { t: '2026-11-09 16:00', hr: 88, spo2: 99, sys: 118, dia: 72, rr: 18, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'DKA resolved (1545 labs: BHB 0.4, pH 7.37, bicarbonate 20). Glargine 18 units 1630; insulin and D5NS off 1830' },
+    { t: '2026-11-09 19:00', hr: 88, spo2: 99, sys: 118, dia: 72, rr: 18, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Shift change: normal sinus rhythm, normal T waves. Dinner tray arriving; lispro 4 units given at 1855. Worried about paying for insulin' },
+    { t: '2026-11-10 07:00', hr: 82, spo2: 99, sys: 116, dia: 74, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Day 2: IV fluids off, one IV out, walking. Glucose 148. Often skips lunch' },
+    { t: '2026-11-10 14:00', hr: 108, spo2: 99, sys: 126, dia: 78, rr: 18, temp: 98.2, rhythm: 'tachy', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shaky, sweaty (low glucose 62): ate only 15 g of lunch after lispro 4 units at 1145. 15 g juice, recheck in 15 minutes' },
+    { t: '2026-11-10 14:30', hr: 86, spo2: 99, sys: 118, dia: 72, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Recovering: 78 at 1415, snack, 104 at 1430. Meal insulin now by carbohydrate eaten' },
+    { t: '2026-11-10 19:00', hr: 80, spo2: 99, sys: 120, dia: 74, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Shift change: symptoms gone; confused about which pen is basal (teach-back 2030)' },
+    { t: '2026-11-11 07:00', hr: 78, spo2: 99, sys: 118, dia: 76, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Day 3: rested, walking, can name the pens with written prompts. Supplies delivered 1000' },
+    { t: '2026-11-11 19:00', hr: 76, spo2: 99, sys: 122, dia: 76, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Shift change: medicine bag and food plan at the bedside; ready to dose dinner' },
+    { t: '2026-11-12 07:00', hr: 76, spo2: 99, sys: 120, dia: 76, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Discharge day: labs normal, leaving with her sister' }
+  ];
+  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 4-7 append here
   const DKA_SERIES = [
     ['SIM-40501', DKA1, 'PICU-4   THOMPSON, MAYA   16 F'],
-    ['SIM-40502', DKA2, 'IMC-6   ELLIS, JORDAN   24 M']
+    ['SIM-40502', DKA2, 'IMC-6   ELLIS, JORDAN   24 M'],
+    ['SIM-40503', DKA3, 'SD-8   CARTER, DENISE   38 F']
   ];
   const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON };
   const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F' };

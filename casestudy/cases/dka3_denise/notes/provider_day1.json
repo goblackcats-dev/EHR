@@ -1,0 +1,126 @@
+[
+ {
+  "id": "note_ed_provider_202611090220",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - DKA from Insulin Underdosing",
+  "author": "A. Shah, MD",
+  "datetime": "2026-11-09 02:20",
+  "category": "ED Provider Note",
+  "summary": "Diabetic ketoacidosis (glucose 684, bicarbonate 9, anion gap 27, BHB 7.2, arterial pH 7.23, K 5.3) with prerenal AKI (creatinine 1.5 vs baseline 0.7). Cause: cost-related insulin underdosing. Insulin 6 units/h after the first liter; no potassium yet.",
+  "body": "**Chief complaint**\nVomiting for two days, weakness, deep breathing.\n\n**HPI**\n38-year-old woman with type 1 diabetes since age 18 (one remote DKA during influenza at 24). Three months ago she lost her job and employer insurance and began stretching her insulin: glargine about 10-12 units every other night instead of 22 units nightly, and lispro 0-3 units with some meals. During the last 48 hours she had thirst, polyuria, diffuse abdominal discomfort and repeated nonbloody vomiting; the last day she could not keep fluids down and took no insulin. Last glargine 10 units two nights ago at 2100. No fever, cough, urinary symptoms, chest pain or toxic ingestion. Her sister brought her in.\n\n**Exam**\nDrowsy but arousable, oriented when engaged. Deep regular respirations, dry mucous membranes, delayed capillary refill. Abdomen soft with mild diffuse tenderness, no guarding or rebound. No focal infection source on examination.\n\n**Results (0200 specimen, available 0215)**\nGlucose 684, Na 130 (corrected about 139), **K 5.3**, Cl 94, **bicarbonate 9, anion gap 27**, BUN 32, **creatinine 1.5** (baseline 0.7), **BHB 7.2**, phosphate 4.8, Mg 1.9. Arterial blood gas pH 7.23, pCO2 22 (expected 21.5 +/- 2: appropriate compensation). WBC 15.2, Hgb 15.7, platelets 326, lactate 1.7, lipase 30, pregnancy screen negative.\n\n**Assessment / plan**\n1. **DKA** with severe biochemical features (bicarbonate 9, BHB 7.2) although the pH is 7.23: remain in the resuscitation area with ICU-level nursing during initial treatment.\n2. Volume depletion with **prerenal AKI**: normal saline 1 L over 1 hour, then 500 mL/h.\n3. **Insulin**: regular insulin 6 units/h (0.1 unit/kg/h at 60 kg), no bolus, to start after the first liter and with K 5.3 confirmed. No potassium in the first two bags; recheck chemistry at 0445.\n4. Ondansetron 4 mg IV once for vomiting.\n5. **Precipitant**: cost-related insulin underdosing; no focal infection on history or examination (urinalysis pending). Reassess the white count rather than treat it as sepsis.\n6. Peripheral IV potassium safety protocol written (never more than 10 mEq/h).",
+  "allowTimes": [
+   "0445"
+  ]
+ },
+ {
+  "id": "note_ed_provider_transfer_202611090615",
+  "type": "erVisitSummary",
+  "title": "ED Provider Transfer Reassessment",
+  "author": "A. Shah, MD",
+  "datetime": "2026-11-09 06:15",
+  "category": "ED Provider Note",
+  "summary": "Improving DKA: 0445 bicarbonate 12, BHB 5.0, K 4.0, creatinine 1.2; glucose falling about 60 per hour. Saline with KCl 20 mEq/L since 0500. Step-down transfer reasonable after the 0645 labs and a final look at 0700.",
+  "body": "The 0445 specimen showed improving acidosis with bicarbonate 12, BHB 5.0, potassium 4.0 and creatinine 1.2. Saline containing 20 mEq per liter of potassium was started at 0500 at 250 mL per hour (5 mEq/h).\n\nShe is now alert, protects her airway and reports improving abdominal discomfort without focal tenderness. Glucose has fallen at about 60 mg/dL per hour since the infusion began.\n\nHer course is compatible with improving moderate DKA, and transfer to an appropriately staffed step-down unit is reasonable after another assessment and the 0645 labs. The unit has an approved IV-insulin pathway and hourly glucose capability. She is not ready for subcutaneous transition: hourly bedside glucose and scheduled electrolyte checks must continue.",
+  "allowTimes": [
+   "0645",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_hp_202611090700",
+  "type": "hp",
+  "title": "Step-Down Admission History and Physical",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-09 07:00",
+  "category": "History and Physical",
+  "summary": "Admitted to step-down: DKA improving but not resolved (0645: glucose 424, bicarbonate 13, gap 19, BHB 4.1, K 3.6, Mg 1.6, creatinine 1.0). Continue insulin 6 units/h and saline with potassium 20 mEq/L; early repeat panel for the falling potassium. Cost is the precipitant.",
+  "body": "**Reason for admission**\nDiabetic ketoacidosis from cost-related insulin underdosing, with prerenal acute kidney injury.\n\n**HPI**\n38-year-old woman with type 1 diabetes since age 18. Three months ago she lost her full-time job and insurance; she now works variable shifts at two part-time jobs without benefits. Insulin refills competed with rent and groceries, so she stretched glargine to about 10-12 units every other night and took lispro 0-3 units with some meals. Two days of vomiting, thirst and polyuria ended with no insulin the day before arrival. ED course: 2.5 L saline, ondansetron once, insulin 6 units/h from 0300, potassium-containing saline from 0500.\n\n**Past history**\nType 1 diabetes at 18; one DKA at 24 during influenza. No CKD, heart failure, coronary disease, neuropathy or gastroparesis; baseline creatinine 0.7. No SGLT2 inhibitor. One uncomplicated childbirth.\n\n**Medications**\nPrescribed: glargine U-100 (LANTUS) 22 units nightly at 2100; lispro U-100 (HUMALOG) 6 units with each full meal plus 1 unit per 50 mg/dL above 200 before meals; no pump. Actually taking: glargine 10-12 units every other night, lispro 0-3 units. **Allergies:** none known.\n\n**Social / family**\nLives with her 12-year-old daughter in rented housing; household gross income about $2,600 a month. Skips meals so her daughter can eat. Working phone with intermittent data; no reliable car. Meter works but strips ran out two weeks ago. No tobacco, drugs or heavy alcohol. Sister Angela has the daughter. Mother has autoimmune hypothyroidism; father has type 2 diabetes and hypertension.\n\n**Exam**\nAlert, tired, dry mouth, deep respirations, mild diffuse abdominal soreness without guarding. Two peripheral IVs; no central line. Telemetry: sinus tachycardia, no ectopy.\n\n**Data**\n0645 specimen (just released): glucose 424, bicarbonate 13, anion gap 19, BHB 4.1, potassium 3.6, magnesium 1.6, creatinine 1.0. Phosphate has fallen from 4.8 to 2.0 with treatment.\n\n**Assessment / plan**\n1. **DKA, improving but not resolved.** Continue regular insulin 6 units/h and the current saline with potassium 20 mEq/L at 250 mL/h (5 mEq/h; no higher potassium concentration through peripheral IVs). Hourly glucose.\n2. **Potassium is falling toward the insulin-hold threshold** (5.3, 4.0, 3.6): obtain an early repeat panel at 0745 (Mg and phosphate included). Insulin is held if K is under 3.5.\n3. **Phosphate** 2.0: monitor with each panel and watch for weakness; replace only if under 1.0 or with heart or breathing problems or hemolysis.\n4. **Prerenal AKI** (creatinine 1.5 to 1.0): strict measured I&O, no catheter.\n5. **Cost-related insulin rationing and food insecurity:** consult endocrinology, social work, case management, pharmacy, dietitian and diabetes education. Discharge planning must secure actual supplies and follow-up, not only prescriptions.\n6. Fall precautions; assisted bathroom activity; telemetry.",
+  "allowTimes": [
+   "0745"
+  ]
+ },
+ {
+  "id": "note_hosp_k_critical_202611090810",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Critical Potassium",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-09 08:10",
+  "category": "Progress Note",
+  "summary": "Critical K 3.2 (0745 specimen, called at 0800) with Mg 1.6, phosphate 1.8, pH 7.30, BHB 3.5. Insulin held per protocol; plain saline; KCl 10 mEq piggybacks one at a time x4; magnesium 2 g on the other IV; ECG now. Vomited 150 mL at 0730.",
+  "body": "The laboratory called potassium 3.2 at 0800 from the 0745 specimen. The trend on insulin is 5.3, 4.0, 3.6, 3.2. Same specimen: glucose 360, bicarbonate 14, anion gap 17, BHB 3.5, venous pH 7.30, magnesium 1.6, phosphate 1.8.\n\nPer the peripheral potassium protocol: the insulin infusion is held (K under 3.5); the saline carrying potassium is replaced by plain saline at 250 mL/h; KCl 10 mEq in 100 mL piggybacks run one at a time, four in a row, with no simultaneous potassium-containing fluid (10 mEq/h maximum); magnesium sulfate 2 g runs over 2 hours on the other IV. A 12-lead ECG is ordered now, with telemetry and hourly site checks.\n\nShe vomited about 150 mL at 0730 after sips of water and now has no palpitations or new muscle weakness. A pH of 7.30 with BHB 3.5 is not resolved DKA. The next chemistry will be drawn at 0945 during the second potassium bag, from a site away from the infusions; insulin restarts only when K is 3.5 or higher and I confirm.",
+  "allowTimes": [
+   "0945"
+  ]
+ },
+ {
+  "id": "note_hosp_k_reassess_202611091010",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Electrolyte Reassessment",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-09 10:10",
+  "category": "Progress Note",
+  "summary": "0945 specimen: K 3.6, creatinine 0.9, BHB 3.0 (DKA not resolved). Insulin restarted 6 units/h at 1000; last two KCl bags approved. Phosphate 1.6 is being monitored, not replaced.",
+  "body": "**Subjective**\nTired, no vomiting since 0730, denies palpitations and weakness.\n\n**Objective**\nThe 0945 specimen (drawn during the second replacement bag) released at 1000: potassium 3.6, creatinine 0.9, bicarbonate 14, gap 16, BHB 3.0, venous pH 7.31, magnesium 1.6, phosphate 1.6. Urine output has been adequate. Glucose 330 at 1000.\n\n**Assessment / plan**\n1. **Hypokalemia, improving:** potassium is 3.5 or higher, so I approve **insulin restart at 6 units/h at 1000** and completion of the remaining two KCl 10 mEq bags. Keep the carrier saline free of potassium until the fourth piggyback ends. Next chemistry at 1145.\n2. **Magnesium:** replacement is complete; recheck on the 1145 specimen.\n3. **Phosphate 1.6, falling slowly with treatment:** no weakness and no heart or breathing problem, so it is monitored, not replaced (replace if under 1.0 or with compromise or hemolysis). It will be rechecked with each panel.\n4. **DKA not resolved:** glucose is still above the dextrose threshold and BHB remains 3.0. Keep hourly glucose."
+ },
+ {
+  "id": "note_hosp_midday_202611091210",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Infusion Change",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-09 12:10",
+  "category": "Progress Note",
+  "summary": "Four KCl bags finished (40 mEq). 1145: K 4.0, bicarbonate 16, BHB 1.6, Mg 1.9, phosphate 1.5. Glucose 220 at 1200: D5NS with KCl 20 mEq/L at 200 mL/h and insulin down to 3 units/h; ketones not cleared. Phosphate monitored, not replaced.",
+  "body": "The four potassium piggybacks have finished (40 mEq in 400 mL, completed at 1200). The 1145 specimen released at 1200: potassium 4.0, bicarbonate 16, anion gap 13, BHB 1.6, venous pH 7.33, creatinine 0.8, magnesium 1.9 (replaced), phosphate 1.5.\n\nBedside glucose at 1200 was 220, below 250, so dextrose-containing fluid is added: D5NS with potassium 20 mEq/L at 200 mL/h (4 mEq/h of potassium) and the regular insulin is reduced to 3 units/h (0.05 unit/kg/h). Insulin must continue: the bicarbonate is 16 and the BHB is 1.6, so DKA is not resolved even though the glucose has improved.\n\nPhosphate 1.5 is low from treatment and recovery. She has no weakness and no heart or breathing compromise, so no phosphate is ordered; it is monitored on each panel and should improve with eating. No vomiting since 0730; she is taking small sips. Peripheral sites intact. Next panel at 1545.",
+  "allowTimes": [
+   "1545"
+  ]
+ },
+ {
+  "id": "note_dce1_202611091430",
+  "type": "therapyNotes",
+  "title": "Diabetes Education - Initial Assessment",
+  "author": "O. Hart, RN, CDCES",
+  "datetime": "2026-11-09 14:30",
+  "category": "Diabetes Education",
+  "summary": "Describes stretching basal insulin and skipping meal insulin to make supplies last; thought she did not need insulin when she could not eat. No blame; basal vs meal insulin explained. Pen teaching waits until the regimen is settled.",
+  "body": "Denise describes stretching basal insulin and skipping meal insulin to make supplies last. She says she believed insulin was unnecessary when vomiting prevented eating.\n\nWe discussed the separate roles of basal and meal insulin without assigning blame for the cost barrier. She can explain that withholding all insulin can allow ketones to build even when she is not eating.\n\nShe is still receiving IV insulin, so full pen demonstrations will wait until she is rested and the discharge regimen is settled. I asked pharmacy and case management to make meter strips, needles, food access and insulin affordability part of the same plan."
+ },
+ {
+  "id": "note_endo_consult_202611091615",
+  "type": "progressNotes",
+  "title": "Endocrinology Consult - DKA Resolved, Transition Plan",
+  "author": "V. Lee, MD",
+  "datetime": "2026-11-09 16:15",
+  "category": "Consult Note",
+  "summary": "1545 specimen: glucose 184, BHB 0.4, venous pH 7.37, bicarbonate 20, gap 10: DKA resolved by the 2024 definition. Glargine 18 units at 1630, insulin infusion until 1830 (2-hour overlap), lispro 4 units with a 45 g meal plus correction.",
+  "body": "The 1545 results released at 1600: glucose 184, BHB 0.4, venous pH 7.37, bicarbonate 20, anion gap 10. DKA now meets the 2024 consensus resolution definition (BHB under 0.6 plus venous pH 7.3 or higher or bicarbonate 18 or higher). Neither the 1145 bicarbonate of 16 nor a nearly closed gap would have allowed an earlier transition with a BHB of 1.6.\n\nShe is alert and ready to try a consistent-carbohydrate meal. **Give glargine 18 units at 1630 and continue the IV insulin until 1830** for a full two-hour overlap; stop the dextrose fluid at the same time. Do not also give the former 2100 basal dose.\n\nBegin lispro 4 units with a full 45 g meal plus the conservative premeal correction order (no bedtime correction), with attention to actual food available and appetite. The lower regimen compared with her former prescription (glargine 22 units, lispro 6 units) reflects recovery, recent intake and the need to reassess a sustainable basal-meal balance.",
+  "allowTimes": [
+   "1630",
+   "1830"
+  ]
+ },
+ {
+  "id": "note_hosp_transition_202611091840",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Transition Completed",
+  "author": "D. Reed, MD",
+  "datetime": "2026-11-09 18:40",
+  "category": "Progress Note",
+  "summary": "Glargine 18 units given 1630 and verified; insulin infusion and D5NS stopped 1830 (glucose 188); plain saline 100 mL/h. Nausea resolved. 1845 confirmation labs about to be drawn.",
+  "body": "Glargine 18 units was given at 1630 and independently verified. The insulin infusion continued for two hours and was stopped at 1830 with bedside glucose 188. The dextrose-containing fluid was stopped at the same time and plain saline is running at 100 mL/h.\n\nDenise is alert, reports that nausea has resolved and is waiting for dinner. The confirmatory 1845 specimen has not yet been collected and no result from it is available. The evening team will give the prescribed meal dose when food is present and will not give a duplicate bedtime glargine dose."
+ },
+ {
+  "id": "note_night_eval_202611092000",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Evening Assessment",
+  "author": "T. Rivera, MD",
+  "datetime": "2026-11-09 20:00",
+  "category": "Progress Note",
+  "summary": "1845 results: K 3.9, bicarbonate 22, gap 9, BHB 0.3 (stable off IV insulin); ECG normal. Dinner: lispro 4 units, ate the full 45 g. Her glargine is now once a day at 1630: no 2100 dose tonight.",
+  "body": "The 1845 results are available: potassium 3.9, bicarbonate 22, anion gap 9, BHB 0.3. The 1855 ECG shows normal sinus rhythm with normal T waves and no U waves. Glucose before dinner was 190.\n\nDenise received the dinner lispro dose (4 units) after food arrived and ate the full 45 g meal. She is comfortable without recurrent vomiting or abdominal pain.\n\nShe tells me she had been choosing groceries for her daughter over refilling her own insulin. Her sister has confirmed childcare for tonight, and Denise consents to keeping her informed. Plan: bedtime glucose at 2100 with no correction, an extra check at 0200, and no 2100 basal dose; her next glargine is tomorrow at 1630.",
+  "allowTimes": [
+   "2100",
+   "0200"
+  ]
+ }
+]

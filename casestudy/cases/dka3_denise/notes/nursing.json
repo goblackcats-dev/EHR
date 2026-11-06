@@ -1,0 +1,35 @@
+[
+ {
+  "id": "note_ed_rn_admit_202611090210",
+  "type": "progressNotes",
+  "title": "ED Nursing Admission Note",
+  "author": "G. Alvarez, RN",
+  "datetime": "2026-11-09 02:10",
+  "category": "Nursing Note",
+  "summary": "Arrived with her sister after 2 days of vomiting and weakness; drowsy but arousable, deep breathing. Bedside glucose 690. Two peripheral IVs, first liter of saline running, cardiac monitor on. Reports reducing insulin because she lost her insurance.",
+  "body": "**Arrival**\nDenise Carter, 38, arrived at 0200 with her sister (Angela) after two days of vomiting and increasing weakness. Her sister noticed deep breathing and exhaustion this evening.\n\n**Assessment**\nDrowsy but responds to voice and answers orientation questions appropriately. Respirations are deep and regular, oral mucosa is dry, capillary refill is delayed, and the abdomen has mild diffuse tenderness without guarding.\n\n**Actions so far**\nBedside glucose 690 mg/dL. Two peripheral IVs placed (left forearm 18 gauge, right forearm 20 gauge) and both are patent. Blood and urine specimens were sent and results are pending. The first liter of normal saline is infusing, cardiac monitoring is in place, and every void is being measured (no catheter).\n\n**History she gave**\nShe has been stretching her insulin because she lost her insurance three months ago and could not afford refills. Her test strips ran out two weeks ago. She weighed 60.0 kg on arrival."
+ },
+ {
+  "id": "note_ed_rn_reassess_202611090340",
+  "type": "progressNotes",
+  "title": "ED Nursing Treatment Reassessment",
+  "author": "G. Alvarez, RN",
+  "datetime": "2026-11-09 03:40",
+  "category": "Nursing Note",
+  "summary": "First liter of saline done at 0300; insulin infusion started at 0300 after a two-nurse check. More alert, less nauseated after ondansetron. Sites patent; urine being measured.",
+  "body": "The first liter of saline finished at 0300 and normal saline is now running at 500 mL/h. Regular insulin 6 units/h (1 unit/mL) was started at 0300, with no bolus, after independent pump and concentration verification with a second nurse.\n\nThe next glucose check is due at 0400; the latest bedside value is the 0300 result of 650 mg/dL.\n\nDenise is more alert and reports less nausea after the single ondansetron dose (0225). Both peripheral sites are soft and patent. Urine is being collected and measured without a catheter. The 0330 vital-sign set has been entered in the ED flowsheet.",
+  "allowTimes": [
+   "0400"
+  ]
+ },
+ {
+  "id": "note_ed_rn_handoff_202611090650",
+  "type": "progressNotes",
+  "title": "ED to Step-Down Handoff (SBAR)",
+  "author": "G. Alvarez, RN",
+  "datetime": "2026-11-09 06:50",
+  "category": "Nursing Note",
+  "summary": "Handoff to step-down: DKA improving on insulin 6 units/h (since 0300) and saline with potassium 20 mEq/L at 250 mL/h (since 0500). Two patent IVs, voiding. 0645 labs pending. Sister has her daughter and may join teaching.",
+  "body": "**Situation**\nDenise Carter, 38, is going to step-down/telemetry for diabetic ketoacidosis from cost-related insulin underdosing. Bedside handoff, pump verification and a second-nurse check of the insulin concentration and rate are planned at the bedside on arrival.\n\n**Background**\nType 1 diabetes since age 18; two days of vomiting; no insulin the day before arrival. Allergies: none known. Full code. Weight 60.0 kg (dosing weight). ED treatment: normal saline 1,000 mL (0200-0300), ondansetron 4 mg IV once (0225), normal saline 500 mL/h (0300-0500), regular insulin 6 units/h from 0300, and normal saline with potassium chloride 20 mEq/L at 250 mL/h from 0500 (5 mEq/h).\n\n**Assessment**\nAlert, conversant, abdominal discomfort improving, still breathing deeply. Glucose 470 at 0600 (falling about 60 per hour). Two patent peripheral IVs (left forearm 18 g, right forearm 20 g); no central line. About 500 mL of urine measured since 0200 and about 250 mL of emesis (0215). The 0645 specimen has been drawn and results are pending.\n\n**Recommendation**\nHourly glucose, keep the rhythm on the monitor, and check the potassium result when it releases: the potassium has been falling with insulin. Her sister Angela has her 12-year-old daughter and Denise agrees to involving her sister in teaching. Pace teaching around fatigue and nausea."
+ }
+]

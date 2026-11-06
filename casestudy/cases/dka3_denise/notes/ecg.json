@@ -1,0 +1,59 @@
+[
+ {
+  "id": "note_ecg_202611090215",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "A. Shah, MD",
+  "datetime": "2026-11-09 02:15",
+  "category": "Cardiology",
+  "summary": "Sinus tachycardia 122, PR 150 ms, QRS 86 ms, QTc 432 ms (Fridericia). Mildly prominent symmetric T waves, narrow QRS, no ischemic changes (potassium 5.3 at 0200).",
+  "body": "**Measurements**\nVentricular rate 122 bpm. PR 150 ms. QRS 86 ms. QTc 432 ms (Fridericia).\n\n**Interpretation**\nSinus tachycardia. Mildly prominent, symmetric T waves with a narrow QRS. P waves present, PR and QRS normal: no sign of significant hyperkalemia. No ST or T-wave pattern of ischemia, no arrhythmia.\n\n**Context**\nDKA, potassium 5.3 at 0200 (resulted 0215). This mild elevation need not produce dramatic ECG changes. Insulin will move potassium into the cells and total body potassium is low: no potassium in the first two bags, recheck at 0445.",
+  "study": "ECG 12 lead, acquired 02:05",
+  "impression": "Sinus tachycardia 122 with mildly prominent symmetric T waves, consistent with potassium 5.3. QTc 432 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0205.png",
+    "caption": "12-lead ECG acquired 2026-11-09 02:05 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-09 02:05: Sinus tachycardia 122, PR 150 ms, QRS 86 ms, QTc 432 ms (Fridericia). Mildly prominent symmetric T waves, narrow QRS, no ischemic changes (potassium 5.3 at 0200)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611090815",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "R. Okonkwo, MD",
+  "datetime": "2026-11-09 08:15",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 96, PR 158 ms, QRS 86 ms, QTc 460 ms (Fridericia). Flattened T waves with small distinct U waves, no ectopy (potassium 3.2, magnesium 1.6 at 0745).",
+  "body": "**Measurements**\nVentricular rate 96 bpm. PR 158 ms. QRS 86 ms. QTc 460 ms (Fridericia; the U wave is identified separately and not included in the QT).\n\n**Interpretation**\nSinus rhythm. Flattened T waves with small, distinct U waves best seen in V2-V3. No ventricular ectopy. Compared with 0205: rate slower (122 to 96), the prominent T waves are gone and a low-potassium pattern has appeared.\n\n**Context**\nPotassium 5.3 (0200), 4.0 (0445), 3.6 (0645), 3.2 (0745, reported 0800) and magnesium 1.6 on the insulin infusion. Correct both deficits and keep her on telemetry. Never infer a normal potassium from the ECG alone.",
+  "study": "ECG 12 lead, acquired 08:05",
+  "impression": "Sinus rhythm 96. Flattened T waves and small U waves, consistent with potassium 3.2 and magnesium 1.6. QTc 460 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0805.png",
+    "caption": "12-lead ECG acquired 2026-11-09 08:05 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-09 08:05: Sinus rhythm 96, PR 158 ms, QRS 86 ms, QTc 460 ms (Fridericia). Flattened T waves with small distinct U waves, no ectopy (potassium 3.2, magnesium 1.6 at 0745)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611091900",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "R. Okonkwo, MD",
+  "datetime": "2026-11-09 19:00",
+  "category": "Cardiology",
+  "summary": "Normal sinus rhythm 88, PR 160 ms, QRS 84 ms, QTc 438 ms (Fridericia). Normal T-wave contour, no U waves, no conduction abnormality (potassium 3.9, magnesium 1.9 at 1845).",
+  "body": "**Measurements**\nVentricular rate 88 bpm. PR 160 ms. QRS 84 ms. QTc 438 ms (Fridericia).\n\n**Interpretation**\nNormal sinus rhythm. Normal T-wave contour with no distinct U waves. No conduction abnormality, no ectopy, no ST changes. Compared with 0805: the flat T waves and U waves have resolved and the QTc is shorter.\n\n**Context**\nPotassium 3.9 and magnesium 1.9 on the 1845 specimen (released 1900), after the potassium and magnesium replacement. No later 12-lead ECG is planned unless symptoms or electrolyte abnormalities return.",
+  "study": "ECG 12 lead, acquired 18:55",
+  "impression": "Normal sinus rhythm 88. Normal T waves, no U waves. QTc 438 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1855.png",
+    "caption": "12-lead ECG acquired 2026-11-09 18:55 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-09 18:55: Normal sinus rhythm 88, PR 160 ms, QRS 84 ms, QTc 438 ms (Fridericia). Normal T-wave contour, no U waves, no conduction abnormality (potassium 3.9, magnesium 1.9 at 1845)."
+   }
+  ]
+ }
+]
