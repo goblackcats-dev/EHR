@@ -1,0 +1,198 @@
+[
+ {
+  "id": "note_ed_provider_202611160150",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Epigastric Ache, Possible DKA and ACS",
+  "author": "G. Marsh, MD",
+  "datetime": "2026-11-16 01:50",
+  "category": "ED Provider Note",
+  "summary": "Deep-breathing, dehydrated 45-year-old with type 1 diabetes, 36 hours of epigastric ache with fatigue and sweating, then vomiting. POC glucose HIGH. The 12-lead ECG (0140) shows 1.5 mm horizontal ST depression V4-V6: NSTE-ACS pattern. Aspirin 324 mg given, 1,000 mL saline started, labs sent, insulin to start once the potassium is known.",
+  "body": "**HPI**\n45-year-old man with type 1 diabetes since age 14 (multiple daily injections, HbA1c 8.2% six months ago), dyslipidemia and a 25 pack-year smoking history. Thirty-six hours ago, finishing his bus route, he developed a dull, persistent epigastric ache with unusual heavy fatigue and some sweating; he attributed it to indigestion (six calcium carbonate tablets without relief). Yesterday morning he was nauseated and not eating, skipped his mealtime lispro (he believed insulin without food is dangerous) and his bedtime glargine 24 units, and by 2330 had two bilious vomits, polyuria and intense thirst. At 0100 his wife Grace noticed deep, fast breathing and a fruity odor and drove him in. Father died of a STEMI at 48.\n\n**Medicines and allergies**\nGlargine 24 units at 2100 (last taken two nights ago), lispro 6 units with meals plus 1 unit per 50 mg/dL over 150 (held 18 hours), atorvastatin 20 mg at bedtime (misses 3-4 doses a week), calcium carbonate as needed. No drug, food or iodinated contrast allergy. **Lisinopril: intolerance (persistent dry cough), not an allergy.**\n\n**Exam**\nAnxious, clutching his upper abdomen; deep Kussmaul respirations 26/min; dry mucous membranes; skin warm and flushed; lungs clear; no JVD or edema. Triage vitals: heart rate 114, BP 148/92, SpO2 97% on room air, temperature 98.2 F. POC glucose HIGH. Alert, oriented x4.\n\n**ECG (acquired 0140, read 0150)**\nSinus tachycardia 114 with 1.5 mm horizontal ST depression in V4-V6 (0.5 mm in I and aVL) and T-wave inversion V5-V6. No ST elevation. This is an NSTE-ACS pattern: a \"silent\" ischemic event in a man with long-standing diabetes (autonomic neuropathy blunts pain) may be the trigger for the ketoacidosis.\n\n**Plan**\nAspirin 324 mg chewed (given 0145). 0.9% sodium chloride 1,000 mL over 1 hour, not more: an ischemic ventricle limits volume. Ondansetron 4 mg IV. VBG, BMP, magnesium, phosphorus, BHB, hs-troponin I, CBC, hepatic and lipid panels, HbA1c and urinalysis are collected; results are pending. Insulin infusion at 0.1 unit/kg/h (8 units/h at 80 kg) without a bolus once the potassium is known to be above 3.5. Continuous telemetry. Cardiology and endocrinology will be called with the results.",
+  "allowTimes": [
+   "0140",
+   "0145",
+   "0150",
+   "2330",
+   "2100",
+   "0100"
+  ]
+ },
+ {
+  "id": "note_ed_provider_202611160230",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Diagnostic Update, DKA with NSTEMI",
+  "author": "G. Marsh, MD",
+  "datetime": "2026-11-16 02:30",
+  "category": "ED Provider Note",
+  "summary": "Labs released 0210: glucose 540, bicarbonate 12, gap 24, BHB 5.8, venous pH 7.21, K 5.2, creatinine 1.35, hs-troponin I 185 (normal under 14). DKA precipitated by an NSTEMI. Insulin 8 units/h from 0215 with no bolus; potassium held for now; cardiology and endocrinology called.",
+  "body": "**Data (released 0210)**\nGlucose 540, sodium 131 (corrected for glucose 138.0), potassium 5.2, chloride 95, bicarbonate 12, **anion gap 24**, venous pH 7.21 (pCO2 27; Winter's formula expects 26 +/- 2, so the respiratory compensation is appropriate), beta-hydroxybutyrate 5.8, BUN 28, creatinine 1.35, phosphorus 4.2, magnesium 2.1. **hs-troponin I 185 ng/L** (normal under 14). CBC: WBC 13.8, Hgb 15.6, platelets 265. HbA1c 8.9%. Total cholesterol 248, LDL 162, HDL 34, triglycerides 260. Urinalysis: glucose 4+, ketones 3+, nitrite and leukocyte esterase negative.\n\n**Assessment**\nModerate-to-severe DKA (glucose over 200, BHB over 3.0, pH under 7.3, bicarbonate under 18) precipitated by an acute NSTEMI: the stress-hormone surge from the ischemia plus insulin omission. Corrected sodium 138.0 is normal, so after the first liter a hypotonic carrier (0.45% sodium chloride) is appropriate.\n\n**Plan**\n1. Insulin: regular insulin infusion 0.1 unit/kg/h = 8 units/h, no bolus, started at 0215 after the potassium of 5.2 (above 3.5) was known. Hourly point-of-care glucose; goal fall 50-75 mg/dL per hour.\n2. Potassium: 5.2 is above 5.0, so none yet; repeat at 0430 and add potassium once it is under 5.0 (goal 4.0-5.0 for the ischemic heart; peripheral IV maximum 10 mEq/h).\n3. Fluids: the 1,000 mL bolus finishes at 0245, then 0.45% sodium chloride at 200 mL/h while the volume status and lungs are reassessed.\n4. NSTEMI: aspirin given; repeat hs-troponin I with the 0430 draw; calling cardiology now about heparin and the invasive timing; endocrinology for the transition plan.\n5. Admit to the Cardiac Step-Down Unit after the repeat labs and metabolic stabilization.",
+  "allowTimes": [
+   "0215",
+   "0245",
+   "0430"
+  ]
+ },
+ {
+  "id": "note_ed_provider_202611160505",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Repeat Labs, Troponin Rise, Heparin and Potassium Added",
+  "author": "G. Marsh, MD",
+  "datetime": "2026-11-16 05:05",
+  "category": "ED Provider Note",
+  "summary": "Repeat labs (0430): K 4.3 (from 5.2), gap 22, pH 7.25, hs-troponin I 640: dynamic NSTEMI. Cardiology by telephone: heparin bolus 4,000 units (the 4,800 weight-based dose capped at the maximum) and 960 units/h, atorvastatin 80 mg, beta-blocker deferred. Fluid changed to 0.45% NaCl with KCl 20 mEq/L at 150 mL/h.",
+  "body": "**Data (released 0450-0455)**\nGlucose 380, sodium 134 (corrected 138.5), **potassium 4.3** (down from 5.2 on insulin), chloride 98, bicarbonate 14, **gap 22**, venous pH 7.25 (pCO2 30; Winter's expects 29 +/- 2), BHB 4.2, creatinine 1.25, **hs-troponin I 640 ng/L** (185 at 0140): a rise that confirms a dynamic NSTEMI. Glucose has fallen about 55 mg/dL per hour (540, 505, 450, 395 at 0400).\n\n**Cardiology (telephone, 0500)**\nStart unfractionated heparin for NSTEMI at 60 units/kg bolus with a maximum of 4,000 units (80 kg x 60 = 4,800, so 4,000 units) and 12 units/kg/h with a maximum of 1,000 units/h (960 units/h; 100 units/mL bag at 9.6 mL/h), anti-Xa 0.30-0.70 checked 6 hours after the start. Atorvastatin 80 mg. **Oral beta-blocker deferred** until the tachycardia and volume depletion from DKA resolve. Aspirin already given. The P2Y12 inhibitor load waits for the coronary anatomy. Early invasive strategy to be arranged by the cardiology team.\n\n**Done**\nHeparin bolus 4,000 units IV and infusion 960 units/h started at 0500 on its own IV; atorvastatin 80 mg at 0500. Because K is 4.3 and falling and must stay at 4.0 or higher with an acute coronary syndrome, the carrier was changed to 0.45% sodium chloride with potassium chloride 20 mEq/L at 150 mL/h (3 mEq/h; below the peripheral maximum of 20 mEq/L in a bag and 10 mEq/h), reduced from 200 mL/h on cardiology advice to limit volume.\n\n**Disposition**\nAdmission to the Cardiac Step-Down Unit at 0700. The next panel is due at 0655.",
+  "allowTimes": [
+   "0430",
+   "0500",
+   "0655",
+   "0140",
+   "0215",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_hospitalist_hp_202611160735",
+  "type": "hp",
+  "title": "Cardiac Step-Down Admission History and Physical",
+  "author": "F. Pelletier, MD",
+  "datetime": "2026-11-16 07:35",
+  "category": "History and Physical",
+  "summary": "DKA precipitated by an NSTEMI. On arrival frequent unifocal PVCs; K 3.3 released 0710: insulin held, potassium-free D5 0.45% NaCl at 50 mL/h, four KCl 10 mEq/100 mL riders one at a time (0715-1115), ECG 0715 (flat T, U waves, 1.0 mm ST depression), restart insulin at 4 units/h only at K 3.5 or higher with my confirmation. Heparin 960 units/h; fluids capped at 150 mL/h total; aspirin given; cardiology to see.",
+  "body": "**Chief complaint**\nEpigastric ache, fatigue, vomiting and deep breathing; admitted from the ED with DKA and an NSTEMI.\n\n**HPI**\nSee the ED notes. 45-year-old man, type 1 diabetes since 14, who developed a dull epigastric ache with fatigue and sweating about 36 hours before arrival (a \"silent\" presentation: autonomic neuropathy blunts ischemic pain) and then skipped his lispro and his bedtime glargine because of nausea. ED: glucose 540, bicarbonate 12, gap 24, BHB 5.8, venous pH 7.21, K 5.2, hs-troponin I 185 then 640 ng/L; ECG with 1.5 mm ST depression V4-V6. Treated with 1,000 mL 0.9% saline, aspirin 324 mg, regular insulin 8 units/h from 0215, heparin (4,000 unit bolus, 960 units/h) and atorvastatin 80 mg from 0500, and 0.45% saline with KCl 20 mEq/L at 150 mL/h. On arrival at 0700 his epigastric ache is 1/10 and he is tired with a dry mouth and mild calf cramps.\n\n**PMH, medicines, social, family**\nType 1 diabetes (HbA1c 8.9%; 8.2% six months ago; no DKA in 10 years), dyslipidemia, mild non-proliferative retinopathy, GERD (self-treated). Home: glargine 24 units at 2100, lispro 6 units with meals plus correction, atorvastatin 20 mg (misses doses), calcium carbonate as needed (stop). **Allergies: none to drugs, food or contrast; lisinopril intolerance (dry cough).** Married to Grace (teacher; emergency contact); daughter Naomi (12) and son David (9); city bus driver for 11 years with a commercial driver license; he is frightened that this will cost him his license and income. Smokes 1 pack/day for 25 years. Alcohol 1-2 beers on weekends. Father died of a STEMI at 48; mother 71 with hypertension; paternal uncle CABG at 52.\n\n**Exam (0700-0735)**\nHeart rate 96, BP 134/82, respirations 20, SpO2 98% on room air, temperature 98.2 F. Tired, mildly dry mucosa, lungs clear, no JVD or edema, abdomen soft. **Telemetry: sinus rhythm with frequent unifocal PVCs (6 to 8 per minute), flattened T waves, prominent U waves and 1.0 mm ST depression V4-V6.** Weight 80.0 kg (usual dry weight 83.5 kg: about a 3.5 L deficit).\n\n**Data**\n0655 panel (released 0710): glucose 235, sodium 136, **potassium 3.3 (critical)**, chloride 103, bicarbonate 16, gap 17, venous pH 7.29, BHB 2.6, creatinine 1.15, magnesium 1.8, phosphorus 2.6. ECG 0715: sinus rhythm 96 with frequent unifocal PVCs, flat T and prominent U waves, QTc 492 ms with T-U fusion, ST depression 1.0 mm V4-V6.\n\n**Assessment and plan**\n1. **DKA, improving, with insulin-induced hypokalemia (K 3.3) and ventricular ectopy in an ischemic heart.** Insulin drives potassium into cells: K fell from 5.2 to 3.3 in 5 hours. Orders written: HOLD the insulin infusion now; replace the 0.45% NaCl + KCl 20 mEq/L bag with potassium-free D5 0.45% NaCl at 50 mL/h (glucose 235, under 250); then four sequential KCl 10 mEq/100 mL riders over 1 hour each (0715-1115, one at a time, 10 mEq/h maximum on a peripheral IV, urine output adequate). **While a rider runs the carrier carries no potassium**, so the total never exceeds 10 mEq/h. Draw BMP, gas, BHB, magnesium, phosphorus, troponin and anti-Xa when the fourth rider ends (about 1115, opposite arm). Restart insulin at 0.05 unit/kg/h (4 units/h) with the potassium-containing carrier only when K is 3.5 or higher AND I have reviewed it; the goal K is 4.0 or higher. DKA resolution requires BHB under 0.6 and venous pH 7.30 or higher or bicarbonate 18 or higher.\n2. **NSTEMI.** Aspirin given; heparin 960 units/h by anti-Xa (0.30-0.70; first level at 1130); atorvastatin 80 mg given. Beta-blocker deferred by cardiology. Cardiology to consult this morning; an early invasive strategy is expected. NPO status for the procedure to be set by cardiology; for now sugar-free clear liquids. Total IV fluid ceiling 150 mL/h including piggybacks (cardiology). Nitroglycerin and chest-pain orders to follow cardiology. Telemetry with ST monitoring; bedrest with commode.\n3. **Fluids and volume.** Estimated deficit 3.5 L; replace slowly because of the ischemic ventricle; lungs and urine every 2 hours.\n4. **Tobacco use.** Nicotine withdrawal will start; replacement to be discussed with cardiology.\n5. **VTE prevention.** He is on therapeutic heparin now, then dual antiplatelet therapy and early walking: no additional prophylactic anticoagulant is needed.\n6. **Home medicines.** Stop calcium carbonate (the \"heartburn\" was ischemia); atorvastatin 20 mg to be replaced by 80 mg; glargine and lispro to be re-ordered at the transition; lisinopril intolerance noted (an ARB would be the choice later).\n7. **Code status** Full code. Wife Grace updated at the bedside; consults: cardiology, endocrinology, dietitian, case management and tobacco treatment to follow.",
+  "allowTimes": [
+   "0715",
+   "1115",
+   "0655",
+   "0200",
+   "0215",
+   "0500",
+   "1130",
+   "0700",
+   "0735",
+   "0710",
+   "0725",
+   "2100"
+  ]
+ },
+ {
+  "id": "note_endocrinology_consult_202611160830",
+  "type": "progressNotes",
+  "title": "Endocrinology Consultation - DKA with Hypokalemia on Insulin",
+  "author": "I. Ashcroft, MD",
+  "datetime": "2026-11-16 08:30",
+  "category": "Consult Note",
+  "summary": "DKA triggered by an NSTEMI plus insulin omission. K 3.3 with PVCs: insulin held, riders in progress. Restart at 4 units/h only at K 3.5 or higher (goal 4.0 or higher) with dextrose; resolution needs BHB under 0.6 plus pH 7.30 or bicarbonate 18; glargine 22 units 2 hours before the drip stops.",
+  "body": "I saw Samuel at the bedside for DKA in a 45-year-old man with type 1 diabetes since age 14 (admission HbA1c 8.9%). The history shows a dual trigger: an acute NSTEMI two days ago that presented only as epigastric discomfort and fatigue because of diabetic autonomic neuropathy, driving a surge of epinephrine, glucagon and cortisol; and omission of both his mealtime lispro and his basal glargine (24 units) because he was nauseated and believed that insulin without food is dangerous.\n\nTwo points drive this morning's care. First, **dextrose is added once the glucose is under 250** (235 at 0700) so the ketones can clear without a fall in glucose. Second, **insulin lowers potassium**: it fell from 5.2 to 3.3 overnight with frequent PVCs, and the infusion is rightly held. The four sequential peripheral KCl 10 mEq/100 mL riders (0715-1115) run with a **potassium-free** D5 0.45% saline carrier, so the total stays at or under 10 mEq/h. In an ischemic heart the potassium should be 4.0 or higher.\n\n**Plan**\n1. When the repeat K at about 1115 is 3.5 or higher (ideally 4.0 or higher) and the covering physician agrees, restart regular insulin at **0.05 unit/kg/h = 4 units/h** with D5 0.45% saline plus KCl 20 mEq/L at 150 mL/h to hold the glucose at 150-200 while the acidosis clears.\n2. **Resolution:** BHB under 0.6 mmol/L AND (venous pH 7.30 or higher or bicarbonate 18 or higher). A closed anion gap or a normal glucose alone does not end the infusion.\n3. When resolved (expected this evening): glargine 22 units subcutaneously (a small reduction from his home 24 units) with the mealtime lispro **two hours before the IV insulin stops** to prevent rebound ketoacidosis.\n4. Basal insulin is never omitted in type 1 diabetes, even if he is NPO for the catheterization. I will teach the sick-day rules before discharge.",
+  "allowTimes": [
+   "0715",
+   "1115",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_cardiology_consult_202611160930",
+  "type": "progressNotes",
+  "title": "Cardiology Consultation - NSTEMI with DKA",
+  "author": "L. Vitale, MD",
+  "datetime": "2026-11-16 09:30",
+  "category": "Consult Note",
+  "summary": "High-risk NSTEMI (troponin 185 to 640, lateral ST depression), diabetes, LDL 162, 25 pack-years, father died at 48. K 3.3 with PVCs now settling during the third potassium rider. Heparin 960 units/h, aspirin, atorvastatin 80 mg; beta-blocker, ARB and ticagrelor load deferred. Catheterization booked 1100 tomorrow; IV fluids at 150 mL/h or less.",
+  "body": "Consulted for NSTEMI in a 45-year-old city bus driver with type 1 diabetes, dyslipidemia (LDL 162, HDL 34, triglycerides 260), 25 pack-years of smoking and a strong family history (father fatal STEMI at 48, uncle CABG at 52). He presented with an anginal equivalent (dull epigastric discomfort, sweating, fatigue) that precipitated DKA. hs-troponin I rose from 185 at 0140 to 640 ng/L at 0430 and the admission ECG shows 1.5 mm horizontal ST depression in V4-V6 with T inversion in V5-V6: a high-risk NSTE-ACS (culprit probably the first obtuse marginal territory).\n\nAt 0700 he had hypokalemia (K 3.3) with frequent unifocal PVCs and U waves on telemetry; the PVCs are decreasing now that he is receiving the third KCl 10 mEq/100 mL rider. Potassium and magnesium should be kept at 4.0 or higher and 2.0 or higher in an ischemic heart.\n\n**Recommendations**\n1. Continue aspirin (324 mg given; 81 mg daily from tomorrow), atorvastatin 80 mg, and unfractionated heparin: 4,000 unit bolus (the weight-based 4,800 exceeds the 4,000-unit cap) and **960 units/h** (12 units/kg/h; the cap is 1,000), anti-Xa 0.30-0.70 about every 6 hours, platelets daily. Hold the infusion at 1030 tomorrow when called to the cath lab.\n2. **Early invasive strategy:** coronary angiography with possible PCI by the right radial route at 1100 tomorrow (Day 2). I am holding the P2Y12 inhibitor (ticagrelor) load until the anatomy is known, in case surgical revascularization is better for multivessel diabetic disease.\n3. Oral beta-blocker and an ARB are deferred this morning: he is still volume-depleted and acidotic (pH 7.29, gap 17) and relies on sympathetic tone. Plan low-dose metoprolol once the gap closes and the insulin drip transitions this evening. An ARB (not an ACE inhibitor: lisinopril caused cough) after the catheterization.\n4. **IV fluid not above 150 mL/h in total** (piggybacks included) today: a stiff ischemic ventricle can tip into pulmonary edema.\n5. Nitroglycerin 0.4 mg sublingual as needed for chest or epigastric pain (systolic BP 100 or higher, no sildenafil or tadalafil in 48 hours) with a STAT ECG and a call to the cardiology fellow for any episode. No NSAIDs.\n6. Counsel that smoking is the most modifiable risk; replacement therapy is acceptable after a stable PCI.",
+  "allowTimes": [
+   "1030",
+   "1100",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_pharmacy_202611161145",
+  "type": "therapyNotes",
+  "title": "Pharmacy Note - Anticoagulation, Potassium and Medication Safety Review",
+  "author": "T. Ng, PharmD",
+  "datetime": "2026-11-16 11:45",
+  "category": "Pharmacy Note",
+  "summary": "Weight 80.0 kg. Heparin 4,000 unit bolus (capped) and 960 units/h correct; anti-Xa 0.48 therapeutic. Four KCl riders (40 mEq) ran with a potassium-free carrier at 10 mEq/h; K 4.1; insulin restart ordered at 4 units/h. hs-troponin I 1,420 (likely the peak). Lisinopril is a documented intolerance (cough): losartan later.",
+  "body": "Reviewed the medication profile, infusion concentrations and labs for Samuel (admission weight 80.0 kg).\n\n**Heparin.** The weight-based bolus is 60 units/kg = 4,800 units but the ACS maximum is 4,000 units: 4,000 units was given. The infusion 12 units/kg/h = 960 units/h (maximum 1,000 units/h) of the 100 units/mL bag = 9.6 mL/h; both are correct as ordered. The 1130 anti-Xa (6 hours after the start) is **0.48 IU/mL**, inside the 0.30-0.70 target: continue 960 units/h unchanged; the next level is at 1900, then about every 6 hours and 6 hours after any change. Baseline platelets 265; daily CBC.\n\n**Potassium.** The four riders (KCl 10 mEq/100 mL over 1 hour, 0715-1115) delivered 40 mEq at exactly 10 mEq/h; the carrier during that time was **D5 0.45% saline with no potassium** at 50 mL/h, so the total never exceeded the peripheral limit of 10 mEq/h (the 20 mEq/L bag resumes only after the last rider). Repeat potassium is **4.1** (released 1130), glucose 242, bicarbonate 17, gap 16, venous pH 7.31, BHB 1.9; the order is to restart regular insulin at 0.05 unit/kg/h = 4 units/h with D5 0.45% saline + KCl 20 mEq/L at 150 mL/h (3 mEq/h). hs-troponin I **1,420 ng/L** (1140), probably the peak.\n\n**Other.** Lisinopril: persistent dry cough is a documented intolerance, not an allergy; when a renin-angiotensin blocker is added after the catheterization, losartan (an ARB) is the right choice with potassium and creatinine checked within a week. Ondansetron is a QT-prolonging drug: avoid repeating it while the QTc is long. Home calcium carbonate should be stopped (the ache was ischemia).",
+  "allowTimes": [
+   "1900",
+   "0715",
+   "1115",
+   "1130",
+   "1140"
+  ]
+ },
+ {
+  "id": "note_hospitalist_1555_202611161555",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Gap Narrowing, Ketones Persist; Chest Pressure at 1400",
+  "author": "F. Pelletier, MD",
+  "datetime": "2026-11-16 15:55",
+  "category": "Progress Note",
+  "summary": "DKA improving but NOT resolved: 1530 gap 15, bicarbonate 19, venous pH 7.34, BHB 1.1 (above 0.6), K 4.0 on the 20 mEq/L carrier. Insulin continues at 4 units/h with D5. Chest pressure at 1400 relieved by one nitroglycerin; cardiology saw him.",
+  "body": "Panel at 1530 (released 1545): glucose 195, sodium 138, **potassium 4.0**, chloride 104, bicarbonate 19, gap 15, venous pH 7.34, BHB **1.1**, creatinine 1.02, phosphorus 2.7, magnesium 2.0.\n\n**DKA:** better but not resolved. The venous pH is above 7.30 and the bicarbonate is above 18, but the BHB is 1.1 mmol/L (the gate is under 0.6) and the gap is still 15: the insulin infusion continues at 4 units/h with D5 0.45% NaCl + KCl 20 mEq/L at 150 mL/h; glucose is 195-208 on the hourly checks (goal 150-200). Potassium is at the 4.0 goal on the carrier; no extra rider is needed while insulin runs (recheck with the 1850 panel). A venous pH above 7.30 and a bicarbonate above 18 do not by themselves mean the ketones are cleared.\n\n**NSTEMI:** one episode of 5/10 retrosternal pressure at 1400 (see the cardiology fellow's note), relieved by sublingual nitroglycerin; no PVCs since the potassium was corrected. Continue heparin; the next anti-Xa and a repeat hs-troponin I are due with the 1850 draw; beta-blocker after the DKA resolves.\n\n**Fluids:** about 150 mL/h of IV fluid in total; lungs clear; urine adequate. Plan the subcutaneous transition when the BHB is under 0.6 (basal insulin 2 hours before the drip stops).",
+  "allowTimes": [
+   "1850",
+   "1400"
+  ]
+ },
+ {
+  "id": "note_fellow_event_1430_202611161430",
+  "type": "progressNotes",
+  "title": "Cardiology Fellow Event Note - Recurrent Chest Pressure",
+  "author": "A. Vogt, MD",
+  "datetime": "2026-11-16 14:30",
+  "category": "Progress Note",
+  "summary": "New 5/10 retrosternal and epigastric pressure at 1400 with mild shortness of breath; ECG 1405 deeper lateral ST depression (1.5 mm V4-V6); one sublingual nitroglycerin at 1410 relieved it within 4 minutes and the ST changes returned toward baseline. No emergent catheterization; invasive study stays at 1100 tomorrow.",
+  "body": "Called to the bedside at 1405 for **new 5/10 dull, squeezing pressure across the lower sternum and epigastrium with mild shortness of breath**, which began at 1400 during a routine glucose check (glucose 208). Heart rate and blood pressure were above his baseline at the first check; the telemetry showed sinus rhythm without PVCs but a transient deepening of ST depression in V5. A STAT 12-lead ECG at 1405 (read 1415) shows **horizontal ST depression of 1.5 mm in V4-V6**, deeper than the 1.0 mm on the 0715 tracing, with T-wave inversion in V5-V6 and no ectopy or U waves (potassium was 4.1 at 1115).\n\nAfter confirming systolic BP above 100 and no phosphodiesterase-5 inhibitor use, **nitroglycerin 0.4 mg sublingual** was given at 1410 per the as-needed order. Within 4 minutes (by 1414) the pressure was gone (0/10), blood pressure and heart rate settled and the V5 depression returned toward its baseline on telemetry.\n\n**Assessment:** recurrent angina from the culprit lateral lesion on a background of NSTEMI, responsive to nitrate, no hemodynamic or rhythm instability, no heart failure signs. **Plan:** continue heparin 960 units/h and aspirin; keep the invasive study at 1100 tomorrow (an emergent transfer is not needed because the pain resolved quickly and the ST changes reversed); the beta-blocker starts once the DKA resolves this evening; repeat hs-troponin I with the 1850 panel; call me for any further episode, more than one nitroglycerin dose needed, hypotension, or new ST elevation. He and his wife were told that the pressure in his upper stomach and lower chest was his heart and not indigestion, and what to do next time.",
+  "allowTimes": [
+   "1405",
+   "1410",
+   "1414",
+   "1415",
+   "1850",
+   "1100",
+   "0715",
+   "1115"
+  ]
+ },
+ {
+  "id": "note_endocrinology_transition_202611161925",
+  "type": "progressNotes",
+  "title": "Endocrinology - DKA Resolved, Transition to Subcutaneous Insulin",
+  "author": "I. Ashcroft, MD",
+  "datetime": "2026-11-16 19:25",
+  "category": "Consult Note",
+  "summary": "DKA resolved on the 1850 specimen: BHB 0.4, venous pH 7.38, bicarbonate 22, gap 12, glucose 165, K 4.2. Glargine 22 units and lispro 6 units at 1930 with dinner; IV insulin 2 units/h and D5 + KCl carrier until 2130 (2-hour overlap). hs-troponin I 1,280 (down from 1,420); anti-Xa 0.52.",
+  "body": "The 1850 specimen (released 1905-1915) shows glucose 165, sodium 139, **potassium 4.2**, chloride 105, bicarbonate 22, **gap 12**, venous pH 7.38 (pCO2 40; Winter's expects 41 +/- 2), **BHB 0.4**, creatinine 0.95, phosphorus 3.0, magnesium 2.1. DKA is resolved: BHB under 0.6 with venous pH 7.30 or higher and bicarbonate 18 or higher. hs-troponin I **1,280** (the peak was 1,420 at 1130) and the anti-Xa is 0.52, therapeutic.\n\n**Transition (orders written 1915):**\n- Insulin glargine **22 units** SC at 1930 (0.275 unit/kg; home dose 24) and insulin lispro **6 units** with the consistent-carbohydrate dinner at 1930, with the correction scale before meals (151-200 +1, 201-250 +2, 251-300 +3, over 300 +4 and call).\n- **Keep the IV insulin (reduced to 2 units/h) and the D5 0.45% NaCl + KCl 20 mEq/L carrier running until 2130**, a 2-hour overlap: stopping the drip earlier lets ketones rebound before the glargine acts. POC glucose at 2000, 2100, 2130 and 0300.\n- No glargine at 2100 tonight (given at 1930); the next dose is 2100 tomorrow.\n- Consistent-carbohydrate (60 g per meal), heart-healthy diet from dinner. Basal insulin is never held, including tomorrow while he is NPO for the catheterization (the mealtime dose is held).",
+  "allowTimes": [
+   "1930",
+   "2130",
+   "2000",
+   "2100",
+   "0300",
+   "1130",
+   "1915"
+  ]
+ },
+ {
+  "id": "note_hospitalist_night_2035_202611162035",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Transition, Beta-Blocker Start, Catheterization Preparation",
+  "author": "E. Bouchard, MD",
+  "datetime": "2026-11-16 20:35",
+  "category": "Progress Note",
+  "summary": "Evening rounds after DKA resolution. Subcutaneous insulin given at 1930 with the IV overlap to 2130. Metoprolol tartrate 12.5 mg every 12 hours started at 2000 (HR and BP checked first; hold for HR under 55 or SBP under 100). NPO after midnight except medicines; NS 100 mL/h from 0700 tomorrow; heparin continues, anti-Xa therapeutic.",
+  "body": "I reviewed Samuel after the 1900 resolution (glucose 165, pH 7.38, bicarbonate 22, gap 12, BHB 0.4). He is eating the dinner tray without nausea or recurrent epigastric discomfort since the glargine 22 units and lispro 6 units at 1930; the IV insulin continues until 2130 (overlap) per the endocrinology orders.\n\nWith the ketoacidosis, osmotic diuresis and volume deficit resolved, an oral beta-blocker is started for the NSTEMI: **metoprolol tartrate 12.5 mg by mouth every 12 hours, first dose at 2000, only after the nurse checks the heart rate and blood pressure; hold for heart rate under 55 or systolic BP under 100.** It can blunt the tachycardia and tremor of a low glucose (sweating is not blocked), so glucose checks continue. Atorvastatin 80 mg was given in the ED at 0500; the next 80 mg dose is at 2100 tomorrow. Heparin continues at 960 units/h; the 1850 anti-Xa was 0.52 and the next is at 0100.\n\nFor tomorrow's 1100 catheterization: **NPO except medicines from midnight**, hold the 0730 mealtime lispro while NPO (never the basal), 0.9% sodium chloride at 100 mL/h from 0700 for contrast-kidney protection (creatinine 0.95 now, 1.35 on arrival), heparin held at 1030 on the cath lab call, and aspirin 81 mg and metoprolol with a sip of water at 0800. Ticagrelor is not given before the study.",
+  "allowTimes": [
+   "2000",
+   "2130",
+   "1100",
+   "0730",
+   "0700",
+   "0800",
+   "2100",
+   "0100",
+   "1030"
+  ]
+ }
+]

@@ -153,6 +153,15 @@
      "file": "casestudy/cases/dka5_ruth/patient.json",
      "age": 67,
      "sex": "Female"
+    },
+    {
+     "id": "dka6_samuel",
+     "name": "Samuel Okafor",
+     "title": "DKA 6 of 7, cardiac step-down: type 1 diabetes, DKA from a silent NSTEMI, potassium 3.3 on insulin, stent and radial hematoma (3 days, checkpoints every 0700 and 1900)",
+     "desc": "Mon 11/16 0700 to Thu 11/19 0700. A 45-year-old bus driver with type 1 diabetes arrives on the cardiac step-down unit in DKA from a silent heart attack; care covers the potassium drop on insulin, heparin, a stent and a driver-license worry. Vital signs after 0700 come from the bedside monitor.",
+     "file": "casestudy/cases/dka6_samuel/patient.json",
+     "age": 45,
+     "sex": "Male"
     }
    ]
   }

@@ -1,0 +1,149 @@
+[
+ {
+  "id": "note_hospitalist_night_0620_202611170620",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Overnight Summary Before Catheterization",
+  "author": "E. Bouchard, MD",
+  "datetime": "2026-11-17 06:20",
+  "category": "Progress Note",
+  "summary": "Quiet night after the transition: IV insulin and D5 stopped at 2130, glucose 172, 162, 156 and 146 (0300) on glargine 22 units. No chest or epigastric discomfort, no ectopy. 0100 anti-Xa 0.55 (therapeutic) on heparin 960 units/h. NPO since midnight; 0645 labs drawn.",
+  "body": "Overnight course after the evening transition to subcutaneous insulin: glargine 22 units and lispro 6 units at 1930; the IV insulin (2 units/h) and the D5 0.45% saline + KCl 20 mEq/L carrier were stopped at 2130 per the 2-hour overlap order. Point-of-care glucose: 172 at 2000, 162 at 2100, 156 at 2130 and 146 at 0300 (no correction needed, no low). He took metoprolol tartrate 12.5 mg at 2000 and tolerated it, and atorvastatin is next due tonight at 2100. He slept well; telemetry showed sinus rhythm without ectopy and no ischemic ST changes; no chest or epigastric discomfort. The 0100 heparin anti-Xa returned at 0.55 IU/mL (therapeutic) and the infusion continues at 960 units/h through the right antecubital IV. He has been NPO since midnight except medicines. The 0645 labs are drawn and pending.\n\n**For today:** NPO for the 1100 catheterization (sips with medicines); 0.9% sodium chloride 100 mL/h from 0700; hold the 0730 mealtime lispro while NPO but never the basal insulin (the glargine given at 1930 is active; the next dose is at 2100); aspirin 81 mg and metoprolol 12.5 mg with a sip of water at 0800; hold heparin at 1030; right arm: no cuff or venipuncture after the procedure.",
+  "allowTimes": [
+   "1100",
+   "0700",
+   "0730",
+   "0800",
+   "1030",
+   "2100",
+   "1930",
+   "2130",
+   "2000",
+   "0645",
+   "0100"
+  ]
+ },
+ {
+  "id": "note_endocrinology_0800_202611170800",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - NPO Insulin Plan, Day 2",
+  "author": "I. Ashcroft, MD",
+  "datetime": "2026-11-17 08:00",
+  "category": "Consult Note",
+  "summary": "No rebound ketosis: glucose 142, bicarbonate 24, gap 11, BHB 0.2, K 4.3. Hold the 0730 mealtime lispro while NPO; basal glargine stays on board; glargine 22 units again at 2100 tonight; lispro 6 units plus correction resumes with lunch.",
+  "body": "Day 2 after the transition to subcutaneous basal-bolus insulin. The 0700 panel shows sustained resolution with no rebound ketosis: glucose 142, sodium 139, potassium 4.3, chloride 104, bicarbonate 24, anion gap 11, BUN 14, creatinine 0.92, **BHB 0.2**. Because he is NPO for the 1100 catheterization, the 0730 mealtime lispro (6 units) is held; no correction is needed since his glucose was 142 (150 or below). Glucose will be checked before he goes to the cath lab (1030) and on return. The key point for the team and for him: a person with type 1 diabetes must always have basal insulin on board, even when NPO, because with no insulin ketones rise within 4 to 6 hours. The glargine 22 units from 1930 last night is active. Once he eats after the procedure he resumes lispro 6 units before meals with the low-dose correction scale, and glargine 22 units is due at 2100 tonight. I will see him on Day 3 for sick-day education.",
+  "allowTimes": [
+   "0730",
+   "1030",
+   "1100",
+   "2100",
+   "1930"
+  ]
+ },
+ {
+  "id": "note_cardiology_preproc_1030_202611171030",
+  "type": "progressNotes",
+  "title": "Cardiology Pre-Procedure Note - Coronary Angiography, Possible PCI",
+  "author": "R. Quintero, MD",
+  "datetime": "2026-11-17 10:30",
+  "category": "Consult Note",
+  "summary": "Pre-procedure check complete: informed consent (angiography, possible PCI) signed; bilateral radial and ulnar flow documented (modified Allen test normal); creatinine 0.92; contrast volume to be kept small; heparin held at 1030; right radial route. He is worried about his commercial driver license; reassured that case management and cardiology will work on the certification timeline.",
+  "body": "Reviewed the indication (NSTEMI, hs-troponin I peak so far 1,420 ng/L, 1.5 mm lateral ST depression, recurrent angina at 1400 yesterday), the risks (bleeding, radial artery occlusion, stroke, contrast kidney injury, myocardial infarction, death) and the alternatives. **Informed consent for coronary angiography and possible PCI is signed and witnessed.** Baseline creatinine 0.92 mg/dL (0700); no contrast or shellfish allergy; he is hydrating with 0.9% saline 100 mL/h since 0700. Right wrist and both groins are prepped; **bilateral radial and ulnar pulses 2+ with a normal modified Allen test (plethysmography)**; radial and pedal pulses marked in ink. Glucose before transport 136 mg/dL (1030). The heparin infusion is held at 1030 for the lab (procedural heparin will be given and not resumed afterwards unless the anatomy requires it). Aspirin 81 mg and metoprolol were taken at 0800. The ticagrelor loading dose will be given after the stent is placed.\n\nMr. Okafor spent time with me asking whether a stent or his diabetes will cost him his commercial driver license; I told him that this is a medical certification question with a usual waiting period after a heart attack and stent, that we will document his recovery, ejection fraction and an exercise test, and that case management and endocrinology will work through the paperwork with him. He is going to the cath lab at 1040.",
+  "allowTimes": [
+   "1030",
+   "1040",
+   "1100",
+   "0700",
+   "0800",
+   "1400"
+  ]
+ },
+ {
+  "id": "note_cath_procedure_202611171230",
+  "type": "progressNotes",
+  "title": "Cardiac Catheterization and PCI Procedure Note",
+  "author": "R. Quintero, MD",
+  "datetime": "2026-11-17 12:30",
+  "category": "Procedure Note",
+  "summary": "Right radial coronary angiography with PCI: 90% eccentric thrombotic ulcerated stenosis of the first obtuse marginal (culprit, TIMI-2 flow) treated with a 3.0 x 22 mm zotarolimus-eluting stent, 0% residual, TIMI-3. LAD 30%, RCA 20%, left main normal, LVEDP 11. Contrast 85 mL. Ticagrelor 180 mg at 1215. Radial compression band 14 mL, hemostasis confirmed.",
+  "body": "**Procedure:** left heart catheterization, selective coronary angiography and percutaneous coronary intervention with a 3.0 x 22 mm zotarolimus-eluting stent in the first obtuse marginal (OM1) branch of the left circumflex artery, right radial approach.\n\n**Indication:** 45-year-old man with type 1 diabetes and NSTEMI (hs-troponin I peak 1,420 ng/L, V4-V6 ST depression, recurrent angina) that precipitated DKA.\n\n**Sedation and access:** moderate sedation with fentanyl 50 mcg IV and midazolam 1 mg IV. Right radial artery accessed under ultrasound guidance with a 6 French hydrophilic sheath; verapamil 2.5 mg and nitroglycerin 200 mcg given through the sheath for spasm prophylaxis.\n\n**Findings:** left main normal. LAD mild 30% non-obstructive mid plaque. Right coronary dominant with 20% luminal irregularities. Left circumflex gives a large OM1 with a discrete ulcerated **90% eccentric thrombotic stenosis and TIMI-2 flow: the culprit lesion** matching the lateral ST depression. **LVEDP 11 mmHg (normal).**\n\n**Intervention:** therapeutic ACT 285 seconds on procedural unfractionated heparin; 6 French 3.5-curve extra-backup guide in the left main; 0.014-inch wire across the lesion; pre-dilation with a 2.5 x 15 mm balloon; 3.0 x 22 mm drug-eluting stent deployed at 14 atmospheres and post-dilated with a 3.25 mm non-compliant balloon: **0% residual stenosis and brisk TIMI-3 flow.** No complications.\n\n**Contrast and hemostasis:** low-osmolar iohexol 350, total 85 mL (kept low to protect the kidneys; creatinine 0.92 before). **Ticagrelor 180 mg given on the table at 1215** to start dual antiplatelet therapy. The sheath was removed and a radial compression band was applied with 14 mL of air, with patent hemostasis confirmed by plethysmography during ulnar compression.\n\n**Plan:** heparin infusion stays off. Aspirin 81 mg daily and ticagrelor 90 mg every 12 hours (first dose 12 hours after the load, at midnight) for at least 12 months. Continue 0.9% saline 100 mL/h until 1900; creatinine at 1845, at 0645 on Day 3 and on Day 4. Right radial band protocol and neurovascular checks; no cuff, venipuncture or lifting over 5 pounds on the right arm. Echocardiogram tomorrow. High-intensity statin, beta-blocker, and an ARB (losartan; lisinopril caused cough) to be started by the primary team.",
+  "allowTimes": [
+   "1215",
+   "1900",
+   "1845",
+   "0645"
+  ]
+ },
+ {
+  "id": "note_fellow_postproc_1320_202611171320",
+  "type": "progressNotes",
+  "title": "Cardiology Fellow Post-Procedure Note - Return to the Unit",
+  "author": "A. Vogt, MD",
+  "datetime": "2026-11-17 13:20",
+  "category": "Progress Note",
+  "summary": "Back from the cath lab at 1300 after right radial PCI of the OM1. ECG 1300: sinus rhythm 68 with complete resolution of the V4-V6 ST depression. Radial band in place (14 mL), hand warm and pink, no bleeding or swelling; neurovascular checks 15 minutes x4, then 30 minutes x4, then hourly x4. Glucose 148: lunch and lispro 6 units.",
+  "body": "He returned to the unit from the cath lab at 1300 after the right radial PCI with a single drug-eluting stent to the OM1 branch. The post-procedure 12-lead ECG at 1300 (read 1310) is **sinus rhythm at 68 bpm with complete resolution of the previous V4-V6 ST depression** and no ectopy or U waves. A radial compression band is in place on the right wrist with 14 mL of air: the right hand is warm and pink, capillary refill under 2 seconds, sensation and finger movement intact, radial and ulnar pulses 2+ distal to the band, and there is no bleeding or swelling under the band. Neurovascular checks are ordered every 15 minutes x4, then every 30 minutes x4, then hourly x4, then every 4 hours. Gradual deflation begins at 1430 (2-3 mL every 15-30 minutes) with removal planned at 1600 if hemostasis holds.\n\nThe 1300 glucose is 148 mg/dL: he may have his consistent-carbohydrate lunch tray and lispro 6 units (no correction). The 0.9% saline continues at 100 mL/h through the left forearm IV for contrast clearance and he is encouraged to drink water. He was told to keep his right wrist straight on a pillow, not to push up with the right hand, lift anything or reach for objects with it, and to call before standing. The ticagrelor 90 mg maintenance doses begin at midnight (12 hours after the load).",
+  "allowTimes": [
+   "1430",
+   "1600",
+   "1300",
+   "1310"
+  ]
+ },
+ {
+  "id": "note_cardiology_1615_202611171615",
+  "type": "progressNotes",
+  "title": "Cardiology Progress Note - Post-PCI, DAPT and ARB Start",
+  "author": "L. Vitale, MD",
+  "datetime": "2026-11-17 16:15",
+  "category": "Consult Note",
+  "summary": "Four hours after PCI: free of chest or epigastric discomfort, ECG shows resolved lateral ST depression, radial band off with intact hemostasis and a strong right radial pulse. 12 months of dual antiplatelet therapy (aspirin 81 mg + ticagrelor 90 mg every 12 hours). Losartan 25 mg to start at 1630 (K 4.3, creatinine 0.92); metoprolol succinate tomorrow; echocardiogram tomorrow.",
+  "body": "Seen at the bedside about four hours after PCI to the OM1. He is free of chest and epigastric discomfort and the post-PCI ECG confirms resolution of the lateral ST depression. At my 1610 examination the radial band is off with intact hemostasis (it was planned for 1600) and the right radial pulse is strong at 2+. With single-vessel obstructive coronary disease treated with a drug-eluting stent he needs **at least 12 months of uninterrupted dual antiplatelet therapy: aspirin 81 mg daily plus ticagrelor 90 mg every 12 hours, the first maintenance dose 12 hours after the 180 mg load (at midnight).**\n\nTo complete guideline-directed therapy after the NSTEMI (left ventricular remodeling) and for kidney protection in type 1 diabetes I am starting an angiotensin receptor blocker today. He has a documented dry cough with lisinopril (an intolerance), so **losartan 25 mg by mouth, first dose at 1630, then daily at 0800.** His blood pressure is stable, the 0700 potassium was 4.3 and creatinine 0.92; hold for systolic BP under 100, potassium above 5.0 or a creatinine rise of 0.3 or more; repeat BMP at 1845 and 0645. Tomorrow, once the first post-contrast creatinine is stable, the twice-daily metoprolol tartrate will be converted to metoprolol succinate 50 mg once daily (a step up from 25 mg per day, with the same heart rate and blood pressure hold parameters), and a transthoracic echocardiogram is ordered for tomorrow at 1300.",
+  "allowTimes": [
+   "1630",
+   "1610",
+   "1600",
+   "1845",
+   "0645",
+   "0800",
+   "1300",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_pharmacy_1730_202611171730",
+  "type": "therapyNotes",
+  "title": "Pharmacy Note - Medication Reconciliation After PCI (Antiplatelets, ARB, Beta-Blocker)",
+  "author": "T. Ng, PharmD",
+  "datetime": "2026-11-17 17:30",
+  "category": "Pharmacy Note",
+  "summary": "Reconciled home and new medicines. Ticagrelor first maintenance dose at midnight (12 hours after the 1215 load); aspirin stays at 81 mg with ticagrelor; atorvastatin 80 mg from 2100 tonight; losartan with potassium and creatinine monitoring; lisinopril recorded as an intolerance. Calcium carbonate stopped. No additional anticoagulant is needed.",
+  "body": "**Antiplatelets.** Ticagrelor 180 mg was given at 1215; the first 90 mg maintenance dose is due at **0000** (12 hours after the load), then every 12 hours (0000 and 1200 while here; we will agree a home schedule with him before discharge). Aspirin must stay at 100 mg or less with ticagrelor: 81 mg daily is correct. Counsel on dyspnea (a benign ticagrelor effect), bruising, and never stopping early. Avoid NSAIDs and strong CYP3A inhibitors or inducers.\n\n**Statin.** Atorvastatin 80 mg was given in the ED at 0500 on Day 1; the nightly 80 mg doses begin at 2100 tonight so two 80 mg doses are not 16 hours apart (no interaction problem with ticagrelor at this dose).\n\n**ARB.** Losartan 25 mg at 1630 after the contrast: baseline creatinine 0.92 and potassium 4.3; check the 1845 BMP, the 0645 BMP and a BMP within a week of discharge; hold for systolic BP under 100, potassium above 5.0 or a creatinine rise of 0.3 or more. **Lisinopril: record as an intolerance (dry cough), not an allergy.**\n\n**Beta-blocker and insulin.** Metoprolol can blunt the tachycardia and tremor of a low glucose (sweating is not blocked): glucose checks before driving and exercise, and fast carbohydrate always at hand. Glargine 22 units at 2100 (0.275 unit/kg) and lispro 6 units with meals plus correction are appropriate; no stacking of corrections within 4 hours.\n\n**Other.** Calcium carbonate for \"indigestion\" is stopped (ischemia, not reflux). Heparin is off; on dual antiplatelet therapy and walking he does not need an additional anticoagulant. Nicotine replacement will be reviewed with cardiology tomorrow.",
+  "allowTimes": [
+   "0000",
+   "1215",
+   "0500",
+   "2100",
+   "1630",
+   "1845",
+   "0645",
+   "1200"
+  ]
+ },
+ {
+  "id": "note_fellow_hematoma_1945_202611171945",
+  "type": "progressNotes",
+  "title": "Cardiology Fellow Event Note - Right Radial Access-Site Hematoma",
+  "author": "A. Vogt, MD",
+  "datetime": "2026-11-17 19:45",
+  "category": "Progress Note",
+  "summary": "At 1900 new throbbing and a firm tender 1.5 cm swelling just proximal to the right radial puncture after he reached for his water pitcher with the right hand. No external bleeding; pulses 2+, hand warm and pink, no numbness. Firm manual pressure 15 minutes, borders marked, pressure dressing and splint until 2300; stable at 1920. Antiplatelets continue.",
+  "body": "Called at 1900 because Samuel reported **new localized throbbing at the right wrist** after reaching across the bedside table for a full water pitcher with his right hand (the radial band came off at 1600). Examination: no external oozing, but a **new 1.5 cm firm, mildly tender subcutaneous hematoma just proximal to the puncture site**, which developed on aspirin plus the ticagrelor load. No bruit or thrill; right radial and ulnar pulses 2+; capillary refill under 2 seconds; hand warm and pink; full finger movement and sensation, no paresthesias.\n\n**Management:** direct firm manual pressure with two fingers just proximal to the arteriotomy for 15 minutes (1900-1915); the borders of the swelling were outlined with a skin marker; reinforced pressure dressing and a padded wrist splint to stay on until 2300 (4 hours). By 1920 the throbbing had resolved and the hematoma stayed within the marked borders. Neurovascular checks every 15 minutes x4, every 30 minutes x2, hourly x4, then every 4 hours with the border measured each time.\n\n**1900 results:** glucose 158, potassium 4.2, gap 10, creatinine 0.90 (no contrast injury so far) and hs-troponin I 520 ng/L (down from 890 this morning).\n\n**Assessment:** a small, contained access-site hematoma, expected on dual antiplatelet therapy and provoked by using the arm; no pseudoaneurysm signs. **Plan:** do not stop aspirin or ticagrelor (stent protection); no lifting over 5 pounds, no pushing up from bed or chair and no reaching with the right arm for one week; if the lump grows, becomes pulsatile, bleeds, or the hand turns cool, pale or numb: press firmly with two fingers above the puncture site and call at once (emergency 911 at home). I reviewed this with Samuel and his wife, who repeated it back correctly. Expect the bruise to spread down the forearm over several days and fade within one to two weeks.",
+  "allowTimes": [
+   "1900",
+   "1915",
+   "1920",
+   "2300",
+   "1600"
+  ]
+ }
+]

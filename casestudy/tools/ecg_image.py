@@ -100,9 +100,11 @@ def _events(rhythm, rate, pr, dur, irregular, rng, no_p):
 
 
 def synth_leads(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t_amp=1.0, peaked=False, no_p=False,
-                irregular=None, noise=0.02, axis='normal', pacer=False, st_elev=0.0, p_amp=1.0, dur=10.0, seed=7, u_amp=0.0):
+                irregular=None, noise=0.02, axis='normal', pacer=False, st_elev=0.0, p_amp=1.0, dur=10.0, seed=7, u_amp=0.0, st_dep=0.0, t_inv=False, pvc_beats=None):
     """Returns dict lead -> numpy array (mV) sampled at FS for `dur` seconds. u_amp (mV, about 0.05-0.2) adds a U wave after each T
-    (hypokalemia-like; strongest V2-V3); pair it with a low t_amp for flattened T waves."""
+    (hypokalemia-like; strongest V2-V3); pair it with a low t_amp for flattened T waves.
+    st_dep (mV, 0.10 = 1 mm): horizontal ST depression, full size in V4-V6, about a third in V3, I and aVL, with reciprocal elevation in aVR (lateral subendocardial ischemia).
+    t_inv: T waves inverted in V5-V6 (use with st_dep). pvc_beats: list of beat numbers (0 = first) that are premature ventricular beats (wide, no P wave, 0.3 R-R early; the next beat keeps its place, so a full compensatory pause)."""
     rng = np.random.default_rng(seed)
     if rhythm == 'afib': no_p = True
     p_on, q_on = _events(rhythm, rate, pr, dur, irregular if rhythm != 'afib' else (True if irregular is None else irregular), rng, no_p)
@@ -120,14 +122,24 @@ def synth_leads(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t
         P, Q, R, S, T = pre[lead]
         sig = np.zeros(n)
         tamp = T * t_amp * (PEAK_BOOST[lead] if peaked else 1.0)
+        if t_inv and lead in ('V5', 'V6'): tamp = -abs(tamp) * 0.7
         tsig = 0.032 if peaked else 0.048
         # P waves
         if not no_p:
-            for p0 in p_on:
+            for pi, p0 in enumerate(p_on):
+                if pvc_beats and pi in pvc_beats: continue
                 _gauss(sig, t, p0 + 0.055, P * p_amp, 0.021)
                 if lead == 'V1': _gauss(sig, t, p0 + 0.085, -0.04 * p_amp, 0.014)
-        for q0 in q_on:
+        pvc_set = set(pvc_beats or [])
+        for qi, q0 in enumerate(q_on):
             d = qrs
+            if qi in pvc_set:   # premature ventricular beat: wide, early, discordant T
+                q0 = q0 - 0.30 * rr_mean; d = 0.14
+                net = (R + S + Q) * 1.4 if abs(R + S + Q) > 0.15 else (1.1 if R >= abs(S) else -1.1) * max(abs(R), abs(S))
+                _gauss(sig, t, q0 + 0.5 * d, net * 0.9, 0.17 * d)
+                _gauss(sig, t, q0 + 0.78 * d, -net * 0.25, 0.12 * d)
+                _gauss(sig, t, q0 + d + 0.13, -net * 0.30, 0.06)
+                continue
             if wide_disc and rhythm in ('vtach', 'paced'):
                 net = (R + S + Q) * (1.4 if rhythm == 'vtach' else 1.0)
                 if rhythm == 'paced':   # LBBB-like paced morphology: V1 deep QS, lateral leads broad R
@@ -150,6 +162,9 @@ def synth_leads(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t
             if st_elev:   # ST elevation (inferior + lateral/anterior pattern) as a broad plateau after the J point
                 mask = {'II': 1, 'III': 1.3, 'aVF': 1.2, 'aVL': -0.6, 'V2': 0.5, 'V3': 0.7, 'V4': 0.8, 'V5': 0.7, 'V6': 0.5, 'I': 0.3}.get(lead, 0)
                 _gauss(sig, t, q0 + d + 0.09, st_elev * mask, 0.07)
+            if st_dep:   # horizontal ST depression plateau after the J point (lateral leads), reciprocal elevation in aVR
+                m = {'V4': 1.0, 'V5': 1.0, 'V6': 1.0, 'V3': 0.3, 'I': 0.35, 'aVL': 0.35, 'aVR': -0.3}.get(lead, 0)
+                _gauss(sig, t, q0 + d + 0.10, -st_dep * m, 0.075)
             tc = q0 + qt - 2.5 * tsig
             if peaked:  # pronounced narrow based T that starts right after the QRS
                 tc = q0 + max(d + 0.07, qt - 2.4 * tsig - 0.02)
@@ -181,7 +196,7 @@ def _measure_lines(m):
 def render_ecg(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t_amp=1.0, peaked=False, no_p=False,
                irregular=None, noise=0.02, axis='normal', pacer=False, st_elev=0.0, p_amp=1.0, layout='12',
                lead='II', patient=None, when='', location='', interpretation=None, status='Unconfirmed',
-               device='SIMULATED ECG', width_px=1600, seed=7, axes_text=None, title=None, colors=64, dur=10.0, u_amp=0.0):
+               device='SIMULATED ECG', width_px=1600, seed=7, axes_text=None, title=None, colors=64, dur=10.0, u_amp=0.0, st_dep=0.0, t_inv=False, pvc_beats=None):
     """Returns PNG bytes. patient = dict(name, mrn, dob, age, sex). interpretation = list of lines (default from rhythm)."""
     patient = patient or {}
     rr_mean = 60.0 / rate
@@ -189,7 +204,7 @@ def render_ecg(rate=70, pr=0.16, qrs=0.09, qt=None, qtc=None, rhythm='sinus', t_
     if qt is None: qt = qtc * math.sqrt(rr_mean)
     if qtc is None: qtc = qt / math.sqrt(rr_mean)
     no_p_eff = no_p or rhythm in ('afib', 'vtach')
-    sigs = synth_leads(rate, pr, qrs, qt, qtc, rhythm, t_amp, peaked, no_p, irregular, noise, axis, pacer, st_elev, p_amp, dur, seed, u_amp)
+    sigs = synth_leads(rate, pr, qrs, qt, qtc, rhythm, t_amp, peaked, no_p, irregular, noise, axis, pacer, st_elev, p_amp, dur, seed, u_amp, st_dep, t_inv, pvc_beats)
     if interpretation is None:
         interpretation = [RHYTHMS.get(rhythm, rhythm).upper()] + (['WIDE QRS'] if qrs >= 0.12 and rhythm not in ('vtach', 'paced') else []) + (['ABNORMAL ECG'] if (rate < 50 or rate > 100 or pr > 0.2 or qrs >= 0.12 or rhythm not in ('sinus',)) else ['NORMAL ECG'])
     meas = dict(rate=round(rate), pr=pr, qrs=qrs, qt=qt, qtc=qtc, no_pr=no_p_eff or rhythm in ('complete',), axes=axes_text or ('---' if rhythm in ('afib', 'vtach') else '50  35  40'))

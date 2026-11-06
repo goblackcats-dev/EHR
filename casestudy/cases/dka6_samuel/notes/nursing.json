@@ -1,0 +1,41 @@
+[
+ {
+  "id": "note_ed_rn_202611160630",
+  "type": "progressNotes",
+  "title": "ED Nursing Note - Reassessment Before Transfer",
+  "author": "O. Linton, RN",
+  "datetime": "2026-11-16 06:30",
+  "category": "Nursing Note",
+  "summary": "Monitored in resuscitation bay 3 since 0130 for DKA with an acute NSTEMI. Insulin 8 units/h since 0215 (glucose 505 to 285), heparin 960 units/h since 0500, potassium-containing fluid at 150 mL/h. Epigastric ache 1/10, nausea gone, urine 1,350 mL.",
+  "body": "Samuel has been on continuous telemetry and pulse oximetry in resuscitation bay 3 since 0130. After the 1,000 mL 0.9% sodium chloride bolus finished at 0245, the maintenance fluid became 0.45% sodium chloride at 200 mL/h. Point-of-care glucose read HIGH at 0130 and has fallen steadily on the insulin infusion: 505 at 0200, 450 at 0300, 395 at 0400, 340 at 0500 and 285 at 0600 (about 55 mg/dL per hour, on target). The 0430 panel showed the anion gap narrowing from 24 to 22 (sodium 134, chloride 98, bicarbonate 14), venous pH 7.25, and potassium falling from 5.2 to 4.3 on the insulin, while the hs-troponin I rose from 185 to 640 ng/L.\n\nPer cardiology recommendations at 0500 he received a heparin IV bolus of 4,000 units (60 units/kg would be 4,800, so the 4,000-unit maximum was given after an independent check) and the infusion is running at 960 units/h (12 units/kg/h, 9.6 mL/h) through the right antecubital 18 gauge IV alone, plus atorvastatin 80 mg by mouth. At 0500 the left forearm fluid was changed to 0.45% sodium chloride with potassium chloride 20 mEq/L at a reduced 150 mL/h to hold the potassium at 4.0 or higher and limit volume on the ischemic heart. The epigastric ache has improved from 4/10 to 1/10; he has not vomited since 0135 (150 mL) and has voided 1,350 mL by urinal since 0200. His wife Grace is at the bedside. Report is going to the Cardiac Step-Down nurse and transport is being arranged for 0700.",
+  "allowTimes": [
+   "0130",
+   "0200",
+   "0245",
+   "0300",
+   "0400",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_ed_rn_handoff_202611160655",
+  "type": "progressNotes",
+  "title": "ED to Cardiac Step-Down Handoff (SBAR)",
+  "author": "O. Linton, RN",
+  "datetime": "2026-11-16 06:55",
+  "category": "Nursing Note",
+  "summary": "SBAR for transfer: DKA with NSTEMI on insulin 8 units/h, heparin 960 units/h and 0.45% NaCl with KCl 20 mEq/L at 150 mL/h. Two peripheral IVs, no central line. ED totals 0130-0700: intake 1,883 mL, output 1,500 mL (net +383 mL), not to be added to the new shift. Occasional PVCs becoming more frequent; the 0655 panel is collected and not yet resulted.",
+  "body": "**Situation**\nSamuel Okafor, 45, type 1 diabetes with DKA and an acute NSTEMI, transferring to the Cardiac Step-Down Unit at 0700 on a regular insulin infusion, a heparin infusion and 0.45% sodium chloride with potassium chloride 20 mEq/L. Continuous telemetry; hourly glucose checks.\n\n**Background**\nThirty-six hours of epigastric ache and fatigue, then nausea, vomiting and deep breathing; he skipped his mealtime insulin and his bedtime glargine because he was not eating. ED course: 1,000 mL 0.9% sodium chloride 0145-0245, aspirin 324 mg at 0145, ondansetron 4 mg at 0145, regular insulin 8 units/h from 0215 (no bolus), heparin 4,000 unit bolus and 960 units/h from 0500, atorvastatin 80 mg at 0500. Potassium 5.2 at 0140, 4.3 at 0430. Allergies: none to drugs, food or contrast; lisinopril intolerance (dry cough). Two 18 gauge peripheral IVs: left forearm (carrier fluid and insulin) and right antecubital (heparin alone). ED totals 0130-0700: IV fluid 1,750 mL, IV medicine 83 mL, oral 50 mL = intake 1,883 mL; urine 1,350 mL and emesis 150 mL = output 1,500 mL; net +383 mL. These ED totals are NOT added again to shift 1.\n\n**Assessment**\nEpigastric ache 1/10, nausea resolved, lungs clear. Over the last 15 minutes the monitor shows PVCs, occasional and becoming more frequent. The 0655 panel (BMP, venous gas, BHB, magnesium, phosphorus) is collected and not yet resulted; the last potassium was 4.3 and falling on insulin; the glucose at 0600 was 285.\n\n**Recommendation**\nCheck the 0655 potassium as soon as it releases and look at the monitor now; call the provider at once for a potassium under 3.5 or more ectopy (the potassium protocol is in the orders). Heparin runs on its own IV; check the pumps with the receiving nurse. Hourly glucose; heparin anti-Xa is due at 1130. Next ECG if the ectopy increases.",
+  "allowTimes": [
+   "0655",
+   "0215",
+   "0145",
+   "0430",
+   "0500",
+   "0700",
+   "1130",
+   "0130",
+   "0245"
+  ]
+ }
+]

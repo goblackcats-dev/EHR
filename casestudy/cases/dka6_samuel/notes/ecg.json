@@ -1,0 +1,84 @@
+[
+ {
+  "id": "note_ecg_202611160150",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "G. Marsh, MD",
+  "datetime": "2026-11-16 01:50",
+  "category": "Cardiology",
+  "summary": "Sinus tachycardia 114, PR 148 ms, QRS 88 ms, QTc 432 ms (Bazett), axis +35. Horizontal ST depression 1.5 mm in V4-V6 (0.5 mm in I and aVL, 0.5 mm downsloping in V3) with T-wave inversion V5-V6; no ST elevation (0.5 mm reciprocal change in aVR). Lateral subendocardial ischemia pattern.",
+  "body": "**Measurements**\nVentricular rate 114 bpm. PR 148 ms. QRS 88 ms. QTc 432 ms (Bazett). Axis +35 degrees.\n\n**Interpretation**\nSinus tachycardia, regular, no ectopy. Inferior leads: isoelectric ST, normal T waves, no pathological Q waves. V1-V3: normal R-wave progression, isoelectric ST in V1-V2 and a subtle 0.5 mm downsloping ST depression in V3. **V4-V6, I and aVL: 1.5 mm horizontal ST depression in V4, V5 and V6 (0.5 mm in I and aVL) with symmetric T-wave inversion in V5-V6**: acute subendocardial lateral-wall ischemia in the first obtuse marginal territory. No ST elevation in any lead (0.5 mm benign reciprocal change in aVR).\n\n**Context**\nEpigastric ache with sweating and fatigue for 36 hours, deep breathing, glucose HIGH on the meter; labs and the first troponin are pending. This is an NSTE-ACS pattern: aspirin given, serial troponin and cardiology to follow.",
+  "allowTimes": [],
+  "study": "ECG 12 lead, acquired 01:40",
+  "impression": "Sinus tachycardia 114 with 1.5 mm ST depression V4-V6 and T inversion V5-V6: NSTE-ACS pattern. QTc 432 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0140.png",
+    "caption": "12-lead ECG acquired 2026-11-16 01:40",
+    "alt": "12-lead ECG tracing from 2026-11-16 01:40: Sinus tachycardia 114, PR 148 ms, QRS 88 ms, QTc 432 ms (Bazett), axis +35. Horizontal ST depression 1.5 mm in V4-V6 (0.5 mm in I and aVL, 0.5 mm downsloping in V3) with T-wave inversion V5-V6; no ST elevation (0.5 mm reciprocal change in aVR). Lateral subendocardial ischemia pattern."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611160725",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "W. Haldane, MD",
+  "datetime": "2026-11-16 07:25",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 96 with frequent unifocal ventricular premature beats (left ventricular origin, right bundle branch block pattern, QRS 136 ms; about 7 per minute with couplets and trigeminal runs) near the end of the T-U wave. PR 164 ms, QRS 92 ms, QTc 492 ms (T-U fusion). Diffuse T-wave flattening with prominent U waves; persistent 1.0 mm ST depression V4-V6. Hypokalemia pattern (potassium 3.3) on top of lateral ischemia.",
+  "body": "**Measurements**\nVentricular rate 96 bpm. PR 164 ms. QRS 92 ms (136 ms on the premature beats). QTc 492 ms (Bazett; the T and U waves are fused, so this is a QTc/QUc). Axis +30 degrees.\n\n**Interpretation**\nSinus rhythm with **frequent unifocal ventricular premature beats** (left ventricular origin, right bundle branch block morphology; about 7 per minute, with couplets and trigeminal runs) that fall near the end of the T-U wave: R-on-T risk. Inferior leads: diffuse T-wave flattening with U waves visible after the T in lead II. V1-V3: markedly flattened T waves with **prominent upright U waves (over 1.5 mm in V2-V3, taller than the T wave)**. V4-V6, I and aVL: persistent 1.0 mm horizontal ST depression, flattened T waves, U waves in V4-V5. Compared with 0140: rate slower (114 to 96), ST depression smaller (1.5 to 1.0 mm), new U waves and ventricular ectopy.\n\n**Context**\nPotassium 3.3 on the 0655 specimen (released 0710) on an insulin infusion in an acute NSTEMI. Ventricular ectopy on an ischemic myocardium with hypokalemia can degenerate into polymorphic ventricular tachycardia: hold the insulin, replace potassium (peripheral limit 10 mEq/h), keep K at 4.0 or higher and magnesium normal, and keep him on telemetry.",
+  "allowTimes": [],
+  "study": "ECG 12 lead, acquired 07:15",
+  "impression": "Sinus rhythm 96, frequent unifocal PVCs, flat T with prominent U waves, ST depression 1.0 mm V4-V6 at potassium 3.3. QTc 492 ms (T-U fusion).",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0715.png",
+    "caption": "12-lead ECG acquired 2026-11-16 07:15",
+    "alt": "12-lead ECG tracing from 2026-11-16 07:15: Sinus rhythm 96 with frequent unifocal ventricular premature beats (left ventricular origin, right bundle branch block pattern, QRS 136 ms; about 7 per minute with couplets and trigeminal runs) near the end of the T-U wave. PR 164 ms, QRS 92 ms, QTc 492 ms (T-U fusion). Diffuse T-wave flattening with prominent U waves; persistent 1.0 mm ST depression V4-V6. Hypokalemia pattern (potassium 3.3) on top of lateral ischemia."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611161415",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "A. Vogt, MD",
+  "datetime": "2026-11-16 14:15",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 94, PR 156 ms, QRS 90 ms, QTc 438 ms (Bazett). Horizontal ST depression 1.5 mm in V4-V6 (deeper than 1.0 mm at 0715), T-wave inversion V5-V6; no ventricular ectopy and no U waves (potassium 4.1 at 1115). Recurrent lateral ischemia with chest pressure.",
+  "body": "**Measurements**\nVentricular rate 94 bpm. PR 156 ms. QRS 90 ms. QTc 438 ms (Bazett).\n\n**Interpretation**\nSinus rhythm. **1.5 mm horizontal ST depression in V4-V6 with T-wave inversion in V5-V6**, deeper than the 1.0 mm on the 0715 tracing. No premature beats, no U waves, narrow QRS. No ST elevation.\n\n**Context**\nRecorded at 1405 during new 5/10 retrosternal and epigastric pressure, 15 minutes before the sublingual nitroglycerin was given. Potassium 4.1 at 1115, so the ectopy and U waves have gone. Recurrent angina from the culprit lateral lesion: continue heparin and aspirin, repeat troponin with the next panel, and review after the nitrate.",
+  "allowTimes": [],
+  "study": "ECG 12 lead, acquired 14:05",
+  "impression": "Sinus rhythm 94 with 1.5 mm ST depression V4-V6 and T inversion V5-V6 during chest pressure: recurrent lateral ischemia. No ectopy. QTc 438 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1405.png",
+    "caption": "12-lead ECG acquired 2026-11-16 14:05",
+    "alt": "12-lead ECG tracing from 2026-11-16 14:05: Sinus rhythm 94, PR 156 ms, QRS 90 ms, QTc 438 ms (Bazett). Horizontal ST depression 1.5 mm in V4-V6 (deeper than 1.0 mm at 0715), T-wave inversion V5-V6; no ventricular ectopy and no U waves (potassium 4.1 at 1115). Recurrent lateral ischemia with chest pressure."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611171310",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "W. Haldane, MD",
+  "datetime": "2026-11-17 13:10",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 68, PR 160 ms, QRS 86 ms, QTc 418 ms (Bazett), axis +32. Complete resolution of the lateral ST depression in V4-V6; upright T in V4-V5, trace flattening in V6; U waves gone; no premature beats. Compatible with reperfusion of the first obtuse marginal after stenting.",
+  "body": "**Measurements**\nVentricular rate 68 bpm. PR 160 ms. QRS 86 ms. QTc 418 ms (Bazett). Axis +32 degrees.\n\n**Interpretation**\nNormal sinus rhythm, completely regular, no premature atrial or ventricular beats. Inferior leads: isoelectric ST, normal T. V1-V3: isoelectric ST, normal T-wave amplitude, **U waves gone**. **V4-V6, I and aVL: complete resolution of the horizontal ST depression** (isoelectric), upright T in V4-V5 with only trace flattening in V6. Compared with 1405 yesterday and 0140: resolved.\n\n**Context**\nPost drug-eluting stent to the first obtuse marginal (right radial, completed about 1215). Potassium 4.3 at 0700. Telemetry can continue.",
+  "allowTimes": [
+   "1405"
+  ],
+  "study": "ECG 12 lead, acquired 13:00",
+  "impression": "Normal sinus rhythm 68. Lateral ST depression resolved, no U waves, no ectopy. QTc 418 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1300.png",
+    "caption": "12-lead ECG acquired 2026-11-17 13:00",
+    "alt": "12-lead ECG tracing from 2026-11-17 13:00: Sinus rhythm 68, PR 160 ms, QRS 86 ms, QTc 418 ms (Bazett), axis +32. Complete resolution of the lateral ST depression in V4-V6; upright T in V4-V5, trace flattening in V6; U waves gone; no premature beats. Compatible with reperfusion of the first obtuse marginal after stenting."
+   }
+  ]
+ }
+]

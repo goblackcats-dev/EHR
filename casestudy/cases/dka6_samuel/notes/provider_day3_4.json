@@ -1,0 +1,163 @@
+[
+ {
+  "id": "note_hospitalist_night_0545_202611180545",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Overnight Events, Nicotine Withdrawal",
+  "author": "E. Bouchard, MD",
+  "datetime": "2026-11-18 05:45",
+  "category": "Progress Note",
+  "summary": "Called at 0540: awake, restless and irritable with strong nicotine cravings after about 52 hours without a cigarette. Right radial hematoma examined: soft, non-pulsatile, inside the marked 1.5 cm borders, pulse 2+. Sinus rhythm overnight without ectopy or ischemic ST change. Supportive care; nicotine replacement to be settled with cardiology on rounds.",
+  "body": "Overnight: neurovascular and hematoma checks on the right wrist continued as ordered with no expansion; the splint came off at 2300 per the order. The 2000 metoprolol, the 2100 glargine and atorvastatin, and the 0000 ticagrelor 90 mg (12 hours after the 180 mg load) are on the MAR. Telemetry has shown sinus rhythm without ectopy or ischemic ST changes. At 0540 the nurse called because Samuel woke early, restless and irritable, saying that after about 52 hours without a cigarette he has severe cravings and wants to go outside to smoke. I examined the wrist: the hematoma is soft, non-pulsatile and contained inside the 1.5 cm marked border (no bruit or thrill), radial pulse 2+, hand warm. I explained why smoking right now (days after a stent) sharply raises the risk of stent thrombosis and offered support; I am not starting nicotine replacement at night and will raise it with cardiology and the day team on morning rounds. The 0645 labs (BMP for the first post-contrast creatinine, troponin, CBC) will be drawn.",
+  "allowTimes": [
+   "0000",
+   "2100",
+   "2000",
+   "2300",
+   "0540",
+   "0645"
+  ]
+ },
+ {
+  "id": "note_hospitalist_0830_202611180830",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 3: Renal Check, Radial Site, Nicotine Replacement",
+  "author": "F. Pelletier, MD",
+  "datetime": "2026-11-18 08:30",
+  "category": "Progress Note",
+  "summary": "First post-contrast creatinine (about 19 hours after the contrast) is 0.94 (0.92 before the cath, 0.90 last evening): no kidney injury so far; potassium 4.4, gap 10, hs-troponin I 310 (falling). Radial hematoma flat and stable. Glucose 128 fasting on glargine 22 units. Nicotine patch 21 mg and lozenges ordered; discharge expected tomorrow morning.",
+  "body": "Hospital Day 3, the day after PCI to the OM1 and about 36 hours after DKA resolved. **Renal:** the 0645 BMP (released 0700) shows creatinine **0.94 mg/dL** (0.92 before the catheterization, 0.90 at 1845), BUN 14, potassium 4.4, bicarbonate 25, anion gap 10. This is about 19 hours after the contrast (given about 1145), so it is an early check: a contrast-associated injury would show as a rise of 0.3 or more within 48 hours, and tomorrow's 0645 panel (about 43 hours) completes the window with a repeat BMP at the one-week visit. hs-troponin I is 310 ng/L and falling. Hgb 14.1 and platelets 246: stable, no bleeding on aspirin and ticagrelor.\n\n**Radial site:** the right wrist puncture is soft, dry and intact; the 1.5 cm ecchymosis has not expanded, no bruit or thrill, radial pulse 2+, no tenderness. Keep the lifting restriction.\n\n**Diabetes:** fasting glucose 128 on glargine 22 units at 2100 and lispro with meals: no lows, no ketosis.\n\n**Cardiac medicines today at 0800:** aspirin 81 mg, losartan 25 mg (after the BMP), and the change from metoprolol tartrate to metoprolol succinate 50 mg daily (hold for heart rate under 55 or systolic BP under 100; ticagrelor is on its 0000/1200 schedule).\n\n**Tobacco:** his main distress this morning is nicotine withdrawal. **Nicotine patch 21 mg/24 hours (first patch at 1000) and nicotine lozenge 2 mg every 2 hours as needed** are ordered (cardiology agrees: replacement is far safer than smoking after a stent). The tobacco treatment specialist, dietitian, cardiac rehabilitation and case management will see him today; the echocardiogram is at 1300; discharge is expected tomorrow morning (Day 4).",
+  "allowTimes": [
+   "1000",
+   "0800",
+   "1300",
+   "0645",
+   "0000",
+   "1200",
+   "1845",
+   "0700",
+   "1145",
+   "2100"
+  ]
+ },
+ {
+  "id": "note_tobacco_1000_202611181000",
+  "type": "therapyNotes",
+  "title": "Tobacco Treatment Specialist Consultation",
+  "author": "P. Dunne, RRT, CTTS",
+  "datetime": "2026-11-18 10:00",
+  "category": "Tobacco Treatment",
+  "summary": "30-minute consultation: 1 pack/day for 25 years, first cigarette within 30 minutes of waking (Fagerstrom 7/10), strong withdrawal. Patch 21 mg ordered for 1000 and lozenge 2 mg for cravings; 8-week taper plan; telephone quit-line coaching referral. Strongly motivated (his father died at 48).",
+  "body": "Met Mr. Okafor for a 30-minute tobacco dependence consultation. He smokes 20 cigarettes a day for 25 years and has his first cigarette within 20-30 minutes of waking (Fagerstrom score 7 of 10: high physical dependence). This morning he has classic withdrawal: irritability, restlessness, poor concentration and strong cravings that made him consider walking outside to smoke. We discussed how smoking in type 1 diabetes speeds coronary atherosclerosis and endothelial dysfunction, and that smoking after a drug-eluting stent more than doubles the risk of sudden stent thrombosis and a repeat heart attack. He is strongly motivated to quit for his wife Grace and his children (12 and 9); watching his father die of a heart attack at 48 is his reason.\n\nA **21 mg/24-hour nicotine patch** is ordered for application at 1000 (clean, hairless skin of the upper chest or left upper arm, away from the right wrist; rotate sites; remove the old patch first). I showed him how to use the **2 mg nicotine lozenge** for breakthrough cravings (park it between cheek and gum for 20-30 minutes, do not chew or swallow, no food or acidic drinks for 15 minutes before) around stress, meals and breaks on his route. We agreed an **8-week taper**: 21 mg for 4 weeks, 14 mg for 2 weeks, 7 mg for 2 weeks. He accepted a referral to a telephone quit-line coaching program. Follow-up call after discharge.",
+  "allowTimes": [
+   "1000"
+  ]
+ },
+ {
+  "id": "note_dietitian_1130_202611181130",
+  "type": "therapyNotes",
+  "title": "Dietitian Consultation - Carbohydrate Counting and Heart-Healthy Eating",
+  "author": "C. Hadley, RDN, CDCES",
+  "datetime": "2026-11-18 11:30",
+  "category": "Nutrition",
+  "summary": "Joint session with Samuel and his wife: carbohydrate counting for type 1 diabetes with a post-MI Mediterranean-style, low-sodium plan (60 g carbohydrate per meal, under 2,000 mg sodium). Practical cooler plan for his bus shifts; ratio 1 unit per 10 g; fast carbohydrate always carried. Both calculated two practice meals correctly.",
+  "body": "Counseled Samuel and Grace together on combining type 1 carbohydrate counting with a post-myocardial-infarction Mediterranean-style, low-sodium pattern. Before admission he often ate fast food (burgers, fries, fried chicken) during his route and estimated his mealtime lispro rather than counting. With his lipids (total cholesterol 248, LDL 162, HDL 34, triglycerides 260) and HbA1c 8.9% we built a **practical cooler plan for his shifts: about 60 g of high-fiber, complex carbohydrate per meal (four carbohydrate choices) with lean protein and unsaturated fats** (whole-grain turkey and avocado wraps, unsalted almonds, Greek yogurt, berries, raw vegetables with hummus). We reviewed his insulin-to-carbohydrate ratio of **1 unit lispro per 10 g** (6 units for a 60 g meal) plus the correction, and practiced reading labels on three packages. Also: sodium under 2,000 mg a day, no trans fats, no sugar-sweetened drinks, and **15 g fast carbohydrate (4 glucose tablets) in his pocket and the bus cab at all times** for the rule of 15 (important with the beta-blocker). Both the patient and his wife calculated mealtime doses for two practice meals correctly during teach-back.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_rehab_1430_202611181430",
+  "type": "therapyNotes",
+  "title": "Cardiac Rehabilitation Phase I Evaluation and Walk",
+  "author": "M. Eriksen, DPT, CCS",
+  "datetime": "2026-11-18 14:30",
+  "category": "Cardiac Rehabilitation",
+  "summary": "About 26 hours after right radial PCI. Pre-exercise glucose 144 (1200) and 152 (1345). Walked 600 feet in 8 minutes (2-3 METs) protecting the right wrist: heart rate rose modestly (blunted by metoprolol), blood pressure rose appropriately, oxygen saturation stayed normal on room air, telemetry sinus rhythm without PVCs or ST depression, no symptoms, RPE 10/20. Phase II referral in 2 weeks.",
+  "body": "Evaluated Mr. Okafor for inpatient Phase I cardiac rehabilitation about 26 hours after the uncomplicated right radial PCI. Before exercise in a person with type 1 diabetes I confirmed a safe glucose (144 mg/dL at 1200 before lunch and 152 mg/dL at the 1345 pre-walk check) and that no rapid-acting insulin had been injected into an exercising muscle in the last hour. He walked **600 feet continuously in 8 minutes** (2-3 METs) in the unit hallway while protecting the right wrist from weight-bearing. The resting heart rate and blood pressure were taken sitting before the walk; during peak walking the heart rate rose modestly from rest (appropriately blunted by metoprolol), the blood pressure rose physiologically, oxygen saturation stayed normal on room air, the rating of perceived exertion was 10/20 (\"light\"), and the wireless telemetry showed sinus rhythm without PVCs or ST depression and no chest or epigastric discomfort. (Exact monitor values are on the flowsheet.)\n\n**Education:** build from 10 minutes twice a day to 30 minutes daily over 2 weeks; no lifting over 5 pounds with the right arm for 1 week; check glucose before and after exercise because of delayed low glucose; stop and call for chest or epigastric discomfort, unusual breathlessness or dizziness. **Phase II supervised cardiac rehabilitation begins in 14 days**; it will also give the objective exercise-capacity documentation needed for his commercial driver medical re-certification.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_echo_1440_202611181440",
+  "type": "cardiology",
+  "title": "Transthoracic Echocardiogram",
+  "author": "W. Haldane, MD",
+  "datetime": "2026-11-18 14:40",
+  "category": "Cardiology",
+  "summary": "LVEF 55% with mild hypokinesis of the lateral wall (OM1 territory); normal right ventricle and valves; no effusion or thrombus.",
+  "body": "**Study:** transthoracic echocardiogram performed at 1300 on Day 3, one day after PCI to the first obtuse marginal.\n\n**Findings:** left ventricular size normal; **LVEF 55%** by biplane method; **mild hypokinesis of the basal and mid lateral wall** (the OM1 territory); no other regional abnormality; no left ventricular thrombus. Normal right ventricular size and function. Normal mitral, aortic and tricuspid valves; no significant regurgitation or stenosis. No pericardial effusion.\n\n**Impression:** preserved systolic function with mild lateral wall hypokinesis consistent with the recent NSTEMI in the OM1 territory.",
+  "allowTimes": [
+   "1300"
+  ]
+ },
+ {
+  "id": "note_cm_1530_202611181530",
+  "type": "caseManagement",
+  "title": "Case Management and Social Work - Commercial Driver License and Medication Access",
+  "author": "Y. Prescott, LCSW",
+  "datetime": "2026-11-18 15:30",
+  "category": "Case Management",
+  "summary": "Reviewed the federal commercial driver medical certification process with Samuel and Grace: expected medical leave of weeks to a couple of months, then cardiology clearance (no symptoms, LVEF 55%, exercise test) and an endocrinology form for insulin-treated diabetes. Short-term disability and job-protected leave paperwork completed (70% wage replacement). Ticagrelor copay assistance reduces his cost to $10 a month; prescriptions to be delivered to the bedside tomorrow.",
+  "body": "Met Samuel and Grace about two urgent concerns: his commercial driver license (he is a municipal bus driver for 11 years) and the cost of his new medicines, especially ticagrelor.\n\n**Driver license.** I reviewed the federal commercial driver medical certification standards with them and with the cardiology and endocrinology teams. After an NSTEMI treated with a stent, drivers usually need a medical leave (commonly weeks to a couple of months, decided by the certifying medical examiner), followed by clearance from the cardiologist showing no symptoms, a left ventricular ejection fraction of 40% or higher (this afternoon's echocardiogram report is 55%), a satisfactory exercise test (arranged through cardiac rehabilitation), and an updated treating-clinician form from his endocrinologist confirming a stable insulin regimen without severe hypoglycemia. I helped him complete the short-term disability and job-protected medical leave paperwork for the transit authority, which pays 70% wage replacement during the expected 6-to-8-week recovery; his acute worry about income eased.\n\n**Medication access.** Missing ticagrelor for cost is a leading preventable cause of stent thrombosis. His commercial prescription plan covers ticagrelor; I applied a manufacturer copay-assistance program that lowers his out-of-pocket cost to $10 a month and sent all discharge prescriptions (blood ketone strips, nicotine patches and lozenges included) to the hospital outpatient pharmacy for bedside delivery tomorrow morning.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_endocrinology_1700_202611181700",
+  "type": "progressNotes",
+  "title": "Endocrinology - Sick-Day Rules Education and Discharge Insulin Plan",
+  "author": "I. Ashcroft, MD",
+  "datetime": "2026-11-18 17:00",
+  "category": "Consult Note",
+  "summary": "Education with Samuel and Grace; both repeated four sick-day rules correctly (never stop basal insulin; check glucose and blood ketones every 2-4 hours when ill; carbohydrate or electrolyte fluids; when to seek emergency care, including any chest or epigastric discomfort). Glucose 128-164 in 24 hours, no lows. Discharge on glargine 22 units at bedtime and lispro 6 units with meals plus correction.",
+  "body": "Education session on diabetes self-management and **sick-day rules** with Mr. Okafor and his wife ahead of tomorrow's discharge. Over the last 24 hours on glargine 22 units at bedtime and lispro 6 units before meals with the low-dose correction his glucoses are 128 to 164 mg/dL with no low and normal electrolytes (K 4.4, gap 10). We reviewed why he was admitted: an acute silent MI caused stress hyperglycemia and ketogenesis, and stopping his basal insulin because he was nauseated made it a life-threatening DKA. Four rules, repeated back accurately by both:\n1. **Never stop basal insulin.** Even if nauseated, vomiting or not eating, take the full glargine dose (22 units at bedtime) to suppress ketone production.\n2. **Check glucose and blood ketones every 2 to 4 hours whenever you feel unwell,** are nauseated, or the glucose is above 250 mg/dL twice in a row (he will use the new home blood ketone meter).\n3. **Keep fluids going:** sip 4 to 8 ounces every 30-60 minutes; sugar-free electrolyte drinks or broth when the glucose is over 200, carbohydrate-containing drinks when the glucose is under 200 and he cannot eat, with insulin continued.\n4. **Emergency care:** go to the emergency department (or call 911) for blood ketones of 1.5 mmol/L or higher, glucose over 300 mg/dL after two correction doses, vomiting that stops fluids for more than 2 hours, or ANY chest or epigastric discomfort, shortness of breath or unusual fatigue (his heart attack felt like indigestion).\nBecause metoprolol can hide the racing heart of a low glucose, he will check before driving and carry 15 g fast carbohydrate. He will follow up with me in 1 week.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_hospitalist_1840_202611181840",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Day 3 Afternoon Update",
+  "author": "F. Pelletier, MD",
+  "datetime": "2026-11-18 18:40",
+  "category": "Progress Note",
+  "summary": "Productive day: echocardiogram LVEF 55% with mild lateral hypokinesis; 600-foot walk with cardiac rehabilitation without symptoms or ectopy; nicotine patch and one lozenge settled his cravings; glucoses 128, 144, 152 and 156 (+1 correction). Radial site flat and unchanged. Dietitian, case management, tobacco and endocrinology sessions done. Discharge planned for tomorrow morning.",
+  "body": "Reviewed the day. The transthoracic echocardiogram (reported 1440) shows **LVEF 55% with mild lateral wall hypokinesis** and normal valves. With cardiac rehabilitation he walked 600 feet at 1400 without chest pain, dyspnea or telemetry changes. After the nicotine patch (1000) and a lozenge at 1400 his withdrawal restlessness has settled. Glucoses: 128 (0730), 144 (1200), 152 (1345 pre-walk), 156 (1730, lispro 6 units + 1 unit correction); no lows. The right radial site remains clean and intact with a fading flat 1.5 cm ecchymosis, strong 2+ radial pulse and normal sensation. He has met the dietitian, case manager, tobacco treatment specialist and endocrinology, and his wife has been present. **Plan:** continue aspirin, ticagrelor (0000 and 1200), metoprolol succinate, losartan and atorvastatin 80 mg at 2100 tonight with glargine 22 units; 0645 BMP tomorrow (the 48-hour post-contrast window); discharge tomorrow after morning medicines and a structured teach-back with his wife.",
+  "allowTimes": [
+   "1440",
+   "1400",
+   "1000",
+   "0730",
+   "1200",
+   "1345",
+   "1730",
+   "0000",
+   "2100",
+   "0645"
+  ]
+ },
+ {
+  "id": "note_hospitalist_night_0620_202611190620",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Day 3 Night Summary",
+  "author": "E. Bouchard, MD",
+  "datetime": "2026-11-19 06:20",
+  "category": "Progress Note",
+  "summary": "Comfortable night: glucose 138 at 2100 (glargine 22 units, atorvastatin 80 mg), sinus rhythm 60s without ectopy or ST changes on telemetry, no chest discomfort, no nicotine withdrawal complaints. Radial site unchanged. 0645 labs drawn (48-hour window) and pending. Discharge medicines are being prepared for morning teach-back.",
+  "body": "Mr. Okafor slept comfortably through his last night before discharge. Ticagrelor 90 mg was given at 0000 and the 2100 glargine 22 units (bedtime glucose 138 mg/dL) and atorvastatin 80 mg were taken; he injected the glargine himself under observation with correct pen priming and site rotation. Telemetry showed sinus rhythm in the 60s with isoelectric ST segments and no ventricular ectopy. No chest or epigastric discomfort. The right radial site is soft and unchanged. The pre-discharge labs (BMP, magnesium, phosphorus, troponin, CBC) are drawn at 0645. The outpatient pharmacy will bring his discharge medicines to the bedside for the morning teach-back.",
+  "allowTimes": [
+   "0000",
+   "2100",
+   "0645"
+  ]
+ },
+ {
+  "id": "note_discharge_ready_0700_202611190700",
+  "type": "progressNotes",
+  "title": "Cardiology and Hospital Medicine - Discharge Readiness and Plan",
+  "author": "L. Vitale, MD and F. Pelletier, MD",
+  "datetime": "2026-11-19 07:00",
+  "category": "Progress Note",
+  "summary": "Ready for discharge home after morning medicines, breakfast insulin and teach-back: 0700 labs normal (K 4.3, creatinine 0.91 at about 43 hours after contrast, gap 10, glucose 118, hs-troponin I 140 and falling); echo LVEF 55%. DKA from an NSTEMI, treated with insulin, potassium, heparin and a stent to the OM1. Discharge medicine list, follow-up and teach-back topics below; discharge order pending.",
+  "body": "**Summary.** 45-year-old man with type 1 diabetes admitted with moderate-to-severe DKA precipitated by an acute NSTEMI (anion gap 24, venous pH 7.21, BHB 5.8, hs-troponin I peak 1,420 ng/L, V4-V6 ST depression). DKA was treated with fluids, an insulin infusion, dextrose once the glucose was under 250, and peripheral potassium replacement (four KCl 10 mEq/100 mL riders at 10 mEq/h when the potassium fell to 3.3 with frequent PVCs, with the insulin held and then restarted at 4 units/h); the anion gap closed and ketones cleared by 1900 on Day 1 and he moved to subcutaneous basal-bolus insulin with a 2-hour overlap. The NSTEMI was treated with aspirin, heparin, atorvastatin and, on Day 2, right radial PCI with a 3.0 x 22 mm drug-eluting stent to the OM1 (contrast 85 mL). A small right radial hematoma on Day 2 evening stayed contained. Creatinine 0.92 before the cath, 0.90, 0.94 and now 0.91 (about 43 hours after the contrast): no contrast injury. Echocardiogram LVEF 55% with mild lateral hypokinesis.\n\n**0700 labs:** glucose 118, sodium 140, potassium 4.3, chloride 104, bicarbonate 26, gap 10, BUN 13, **creatinine 0.91**, phosphorus 3.6, magnesium 2.1, **hs-troponin I 140 ng/L** (falling), Hgb 14.0, platelets 244. Right radial site healed and non-tender.\n\n**Discharge medicines (planned):** insulin glargine 22 units at bedtime (never skip); insulin lispro 6 units with meals (about 1 unit per 10 g carbohydrate) plus 1 unit per 50 mg/dL over 150; aspirin EC 81 mg daily; **ticagrelor 90 mg every 12 hours for at least 12 months (never miss a dose or stop early)**, with a 12-hour schedule agreed with him; atorvastatin 80 mg at bedtime; metoprolol succinate 50 mg daily; losartan 25 mg daily; nitroglycerin 0.4 mg sublingual as needed; nicotine patch 21 mg daily plus 2 mg lozenges as needed (8-week taper); blood ketone meter and strips. Stop calcium carbonate. Lisinopril is an intolerance (cough), not an allergy.\n\n**Teach-back before he leaves:** sick-day rules (never omit basal insulin; ketones and glucose every 2-4 hours when ill; call for ketones 1.5 or higher or vomiting over 2 hours); stent protection (aspirin plus ticagrelor, bleeding precautions, no NSAIDs); atypical ischemia (epigastric discomfort, indigestion, jaw or arm discomfort, unusual fatigue or breathlessness: sit, check glucose, one nitroglycerin under the tongue, call 911 if not gone in 5 minutes); right wrist care (no lifting over 5 pounds, no soaking for 5 days, firm pressure above the puncture and call 911 for bleeding or a growing lump); beta-blocker and low glucose (sweating is not masked; check before driving; carry 15 g fast carbohydrate).\n\n**Follow-up:** cardiology and endocrinology in 1 week (BMP for losartan and contrast), cardiac rehabilitation Phase II in 2 weeks, tobacco quit-line call, commercial driver medical certification timeline with case management.",
+  "allowTimes": [
+   "0645",
+   "1900"
+  ]
+ }
+]

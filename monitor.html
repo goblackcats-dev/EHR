@@ -169,7 +169,7 @@
   <textarea id="scenText" spellcheck="false"></textarea>
   <div class="row"><button id="scenSave">Save scenario</button><button id="scenReset" class="alt">Reset to built-in scenario</button></div>
   <small>Natural variation: every 2-3 seconds the numbers drift a little (HR &plusmn;3, SpO2 &plusmn;1, RR &plusmn;1) and each blood pressure reading differs a little (&plusmn;5 / &plusmn;3), never across an alarm limit. A row can set its own ranges, for example <code>"var": {"hr": 2, "sys": 3}</code>. The cuff takes 45 seconds, with pump and valve sounds when sound is on. Numbers you type yourself (Apply, or the EHR Monitor window) are used exactly.</small>
-  <small>Fields per row: t, hr, spo2, sys, dia, rr, temp, rhythm (sinus, brady, tachy, avb1, widebrady), pr, qrs, tAmp, uAmp (U wave, low potassium, e.g. 0.1), o2 (text), note.</small>
+  <small>Fields per row: t, hr, spo2, sys, dia, rr, temp, rhythm (sinus, brady, tachy, avb1, widebrady), pr, qrs, tAmp, uAmp (U wave, low potassium, e.g. 0.1), pvc (optional: premature ventricular beats per minute drawn on the live ECG, e.g. 6; leave it out for none), o2 (text), note.</small>
   <small>Keys: C = this panel, N = measure BP, F = full screen, S = sound.</small>
 </div>
 
@@ -287,13 +287,36 @@
     { t: '2026-11-07 21:00', hr: 76, spo2: 98, sys: 124, dia: 72, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Routine bedtime glucose 63: NO sweating, tremor, palpitations or hunger and vital signs unchanged (hypoglycemia unawareness). Treat anyway: 15 g juice, recheck in 15 minutes' },
     { t: '2026-11-08 07:00', hr: 76, spo2: 98, sys: 126, dia: 70, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Closing: oriented x4, CAM negative, can teach back; glucose 145. Conditional discharge order for about 1000' }
   ];
-  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 6-7 append here
+  // Samuel Okafor, 45 M, DKA precipitated by a silent NSTEMI; K 3.3 with PVCs on insulin; PCI Day 2 (casestudy/cases/dka6_samuel). Lying vitals. Celsius in the design converted to F.
+  // pvc = premature ventricular beats per minute drawn on the live ECG (6-8 while K 3.3, none once K is corrected); events = PVCs and couplets listed for the review screen.
+  const DKA6 = [
+    { t: '2026-11-16 07:00', hr: 96, spo2: 98, sys: 134, dia: 82, rr: 20, temp: 98.2, rhythm: 'sinus', pr: 0.164, qrs: 0.092, tAmp: 0.2, uAmp: 0.14, pvc: 7, o2: 'Room air', note: 'Cardiac step-down arrival: tired, dry mouth, calf cramps, epigastric ache 1/10; lungs clear. FREQUENT UNIFOCAL PVCs (6-8 per minute), flat T waves, U waves, 1.0 mm ST depression V4-V6. Glucose 235; insulin 8 units/h, heparin 960 units/h, KCl 20 mEq/L fluid 150 mL/h. K 3.3 releases at 0710', events: [{ at: '2026-11-16 07:01', type: 'pvc' }, { at: '2026-11-16 07:02', type: 'pvc' }, { at: '2026-11-16 07:04', type: 'couplet' }, { at: '2026-11-16 07:06', type: 'pvc' }, { at: '2026-11-16 07:07', type: 'pvc' }, { at: '2026-11-16 07:09', type: 'pvc' }, { at: '2026-11-16 07:11', type: 'couplet' }, { at: '2026-11-16 07:13', type: 'pvc' }, { at: '2026-11-16 07:16', type: 'pvc' }, { at: '2026-11-16 07:18', type: 'pvc' }, { at: '2026-11-16 07:22', type: 'couplet' }, { at: '2026-11-16 07:27', type: 'pvc' }, { at: '2026-11-16 07:33', type: 'pvc' }, { at: '2026-11-16 07:41', type: 'pvc' }, { at: '2026-11-16 07:52', type: 'pvc' }, { at: '2026-11-16 08:10', type: 'pvc' }, { at: '2026-11-16 08:40', type: 'couplet' }, { at: '2026-11-16 09:05', type: 'pvc' }, { at: '2026-11-16 09:35', type: 'pvc' }, { at: '2026-11-16 10:10', type: 'pvc' }, { at: '2026-11-16 11:05', type: 'pvc' }] },
+    { t: '2026-11-16 07:15', hr: 96, spo2: 98, sys: 134, dia: 82, rr: 20, temp: 98.2, rhythm: 'sinus', pr: 0.164, qrs: 0.092, tAmp: 0.2, uAmp: 0.14, pvc: 7, o2: 'Room air', note: 'K 3.3 released 0710 (critical): HOLD insulin, swap to potassium-free D5 0.45% NaCl 50 mL/h, then KCl 10 mEq riders x4 one at a time (10 mEq/h). ECG 0715: PVCs, flat T, prominent U waves, QTc 492' },
+    { t: '2026-11-16 09:30', hr: 92, spo2: 98, sys: 130, dia: 80, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.164, qrs: 0.09, tAmp: 0.25, uAmp: 0.08, pvc: 3, o2: 'Room air', note: 'Third KCl rider running: PVCs decreasing (about 3 per minute), U waves smaller. Insulin still held; glucose 245' },
+    { t: '2026-11-16 11:15', hr: 90, spo2: 98, sys: 130, dia: 80, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.162, qrs: 0.09, tAmp: 0.3, uAmp: 0.04, pvc: 1, o2: 'Room air', note: 'Fourth rider ends: PVCs rare. Draw BMP, gas, BHB, troponin and anti-Xa from the arm opposite the infusion' },
+    { t: '2026-11-16 11:30', hr: 88, spo2: 98, sys: 128, dia: 80, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'K 4.1 released 1130, no PVCs, normal T: restart insulin 4 units/h (0.05 unit/kg/h) with D5 0.45% NaCl + KCl 20 mEq/L at 150 mL/h. Glucose 242. Troponin 1,420 at 1140 (peak). IV fluid total stays at or under 150 mL/h' },
+    { t: '2026-11-16 14:00', hr: 94, spo2: 97, sys: 144, dia: 88, rr: 20, temp: 98.2, rhythm: 'sinus', pr: 0.156, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'NEW chest pressure 5/10 (lower sternum and epigastrium) with mild shortness of breath; glucose 208. No PVCs; ST depression deepens in V5. STAT ECG 1405; nitroglycerin 0.4 mg SL only if SBP 100 or higher; call the cardiology fellow' },
+    { t: '2026-11-16 14:14', hr: 82, spo2: 98, sys: 128, dia: 78, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.156, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'After one nitroglycerin 0.4 mg SL at 1410: pain 0/10 by 1414, BP and HR settled, ST depression back to baseline. Cardiology: no emergent cath; study stays at 1100 tomorrow' },
+    { t: '2026-11-16 19:00', hr: 84, spo2: 98, sys: 128, dia: 78, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shift change: DKA resolved (1850 labs: BHB 0.4, pH 7.38, HCO3 22, gap 12). Alert, hungry, pain-free, no Kussmaul breathing, no PVCs, 0.5 mm residual ST depression V5-V6. Glargine 22 units + lispro 6 units 1930; IV insulin to 2130; metoprolol 12.5 mg 2000 after HR and BP' },
+    { t: '2026-11-17 07:00', hr: 74, spo2: 98, sys: 124, dia: 74, rr: 16, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.088, tAmp: 0.3, o2: 'Room air', note: 'Day 2: NPO since midnight, comfortable, very anxious about the 1100 catheterization and his commercial driver license; ST nearly isoelectric. Glucose 142. Hold the 0730 lispro (NPO), basal is on board; NS 100 mL/h; heparin off 1030' },
+    { t: '2026-11-17 11:00', hr: 78, spo2: 98, sys: 126, dia: 76, rr: 16, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.088, tAmp: 0.3, o2: 'Room air', note: 'In the cath lab (about 1100-1215; values from the lab monitor): sinus rhythm, moderate sedation with fentanyl and midazolam, right radial access. Culprit 90% OM1 stented; ticagrelor 180 mg 1215' },
+    { t: '2026-11-17 13:00', hr: 70, spo2: 99, sys: 122, dia: 74, rr: 15, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Back on the unit 1300 after right radial PCI: radial band 14 mL, hand warm and pink, ECG 1300 ST depression resolved. Glucose 148; lunch and lispro 6 units. Neurovascular checks every 15 minutes; band deflation from 1430, off 1600' },
+    { t: '2026-11-17 19:00', hr: 68, spo2: 99, sys: 120, dia: 72, rr: 15, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Shift change: ST depression resolved. NEW throbbing and a firm tender 1.5 cm swelling at the right radial site after reaching for his water pitcher: firm pressure 15 minutes, mark the borders, splint to 2300, neurovascular checks, call the fellow. Losartan 1630; creatinine 0.90, troponin 520' },
+    { t: '2026-11-18 05:30', hr: 76, spo2: 99, sys: 126, dia: 76, rr: 16, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Awake early, restless and irritable: about 52 hours without a cigarette, strong cravings. Wrist hematoma unchanged. Night provider called 0540; nicotine replacement on morning rounds' },
+    { t: '2026-11-18 07:00', hr: 66, spo2: 99, sys: 118, dia: 70, rr: 14, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Day 3: right wrist soft, 1.5 cm ecchymosis not expanding, radial pulse 2+. Irritable, pacing, intense nicotine cravings, wants to go outside to smoke. First post-contrast creatinine 0.94. Metoprolol succinate 50 mg and losartan 0800, patch 21 mg 1000' },
+    { t: '2026-11-18 14:00', hr: 82, spo2: 99, sys: 128, dia: 74, rr: 16, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Peak of the 600-foot walk with cardiac rehabilitation: HR rises 66 to 82, BP 128/74, no PVCs, no ST depression, no symptoms; protects the right wrist' },
+    { t: '2026-11-18 14:10', hr: 66, spo2: 99, sys: 118, dia: 70, rr: 14, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Resting again after the walk. Echo (1300): LVEF 55%, mild lateral hypokinesis' },
+    { t: '2026-11-18 19:00', hr: 66, spo2: 99, sys: 118, dia: 70, rr: 14, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Shift change: cravings controlled with the patch and one lozenge; education done with his wife; ketone meter and sick-day rules reviewed; discharge tomorrow morning' },
+    { t: '2026-11-19 07:00', hr: 64, spo2: 99, sys: 116, dia: 68, rr: 14, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Discharge morning: dressed, calm, sitting with his wife; wrist healed, no tenderness. 0700 labs normal (creatinine 0.91, troponin 140). Teach-back and morning medicines before discharge about 0900' }
+  ];
+  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patient 7 appends here
   const DKA_SERIES = [
     ['SIM-40501', DKA1, 'PICU-4   THOMPSON, MAYA   16 F'],
     ['SIM-40502', DKA2, 'IMC-6   ELLIS, JORDAN   24 M'],
     ['SIM-40503', DKA3, 'SD-8   CARTER, DENISE   38 F'],
     ['SIM-40504', DKA4, 'SD-5   REYES, MARCUS   31 M'],
-    ['SIM-40505', DKA5, 'ICU-9   NAKAMURA, RUTH   67 F']
+    ['SIM-40505', DKA5, 'ICU-9   NAKAMURA, RUTH   67 F'],
+    ['SIM-40506', DKA6, 'CSD-412   OKAFOR, SAMUEL   45 M']
   ];
   const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON };
   const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F' };
@@ -375,7 +398,7 @@
     ['hr', 'spo2', 'rr'].forEach(k => { const d = t[k] - shown[k]; shown[k] += Math.abs(d) <= 1 ? d : Math.sign(d) * (Math.abs(d) > 12 ? 3 : 1); });
     { const d = t.temp - shown.temp; shown.temp = Math.abs(d) < 0.11 ? t.temp : shown.temp + Math.sign(d) * 0.1; }
     ['pr', 'qrs', 'tAmp', 'uAmp'].forEach(k => { if (t[k] != null) shown[k] = shown[k] == null ? t[k] : shown[k] + (t[k] - shown[k]) * 0.25; });
-    shown.rhythm = t.rhythm; shown.o2 = t.o2; shown.note = t.note; shown.t = t.t;
+    shown.rhythm = t.rhythm; shown.o2 = t.o2; shown.note = t.note; shown.t = t.t; shown.pvc = t.pvc || 0;
   }, 250);
   const NBP_SECONDS = 45;
   function startBP(sys, dia, instant, exact) {
@@ -445,12 +468,13 @@
   // Wenckebach lengthens the PR until a P is not followed by a QRS, Mobitz II drops a QRS with a constant PR, complete block has P waves and QRS complexes that do not match, and A-fib has no P waves at all.
   const pWave = (tau, amp) => amp * g(tau, 0, 0.032);
   let beats = [], pBeats = [], nextBeat = 0, nextP = 0, pCount = 0, lastRhy = '', t0 = performance.now() / 1000;
+  const pvcSet = new Set();   // beat times that are premature ventricular beats (row field pvc = beats per minute; none when the field is absent)
   const SPEED = 130;   // pixels per second (CSS px)
   function frame() {
     const now = performance.now() / 1000, v = vals();
     if (v) {
       const rr = 60 / Math.max(20, v.hr), rhy = v.rhythm, look = now + 0.7, pr = v.pr || 0.16, qrs = v.qrs || 0.1;
-      if (rhy !== lastRhy) { lastRhy = rhy; beats = []; pBeats = []; nextBeat = 0; nextP = 0; pCount = 0; }
+      if (rhy !== lastRhy) { lastRhy = rhy; beats = []; pBeats = []; nextBeat = 0; nextP = 0; pCount = 0; pvcSet.clear(); }
       const pushQ = at => { beats.push(at); setTimeout(() => { if (snd.off) return; if (alarmState) beep(false); else beep(true, vals().spo2); }, Math.max(0, (at - now) * 1000)); };
       if (rhy === 'mobitz1' || rhy === 'mobitz2') {
         const n = rhy === 'mobitz1' ? 4 : 3, A = rr * (n - 1) / n; if (!nextP) nextP = now;
@@ -461,13 +485,17 @@
         while (nextBeat < look) { pushQ(nextBeat); nextBeat += rr; }          // a slow ventricular escape rhythm, unrelated to the P waves
       } else {
         if (!nextBeat) nextBeat = now;
-        while (nextBeat < look) { const at = nextBeat; pushQ(at); if (rhy !== 'afib' && rhy !== 'vtach' && rhy !== 'vfib' && rhy !== 'asystole') pBeats.push(at - qrs / 2 - pr + 0.055); nextBeat += rr * (1 + (Math.random() - 0.5) * (rhy === 'afib' ? 0.5 : 0.03)); }
+        while (nextBeat < look) {
+          let at = nextBeat, isPvc = false;
+          // premature ventricular beat: 0.3 R-R early, no P wave, the next sinus beat keeps its place (compensatory pause); only when the row sets pvc (beats per minute)
+          if (v.pvc > 0 && (rhy === 'sinus' || rhy === 'tachy' || rhy === 'brady') && at - 0.3 * rr > now + 0.05 && Math.random() < Math.min(0.5, v.pvc * rr / 60)) { isPvc = true; at = nextBeat - 0.3 * rr; pvcSet.add(at); }
+          pushQ(at); if (!isPvc && rhy !== 'afib' && rhy !== 'vtach' && rhy !== 'vfib' && rhy !== 'asystole') pBeats.push(at - qrs / 2 - pr + 0.055); nextBeat += rr * (1 + (Math.random() - 0.5) * (rhy === 'afib' ? 0.5 : 0.03)); }
       }
       pBeats = pBeats.filter(b => b > now - 3);
-      beats = beats.filter(b => b > now - 3);
+      beats = beats.filter(b => b > now - 3); pvcSet.forEach(b => { if (b < now - 3) pvcSet.delete(b); });
       const arrest = v.rhythm === 'vfib' || v.rhythm === 'asystole', amp = arrest ? 0 : Math.max(0.25, Math.min(1, (bp.sys == null ? 110 : bp.sys) / 130)) * (v.spo2 < 90 ? 0.8 : 1);
-      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + 0.01 * Math.sin(tau * 170); let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += ecgBeat(x, v); } for (const pb of pBeats) { const x = tau - pb; if (x > -0.2 && x < 0.2) y += pWave(x, 0.22); } if (v.rhythm === 'afib') y += 0.035 * (Math.sin(tau * 41) + 0.8 * Math.sin(tau * 57 + 1.3) + 0.6 * Math.sin(tau * 29 + 2.1)); return y + 0.006 * Math.sin(tau * 190) + artVal(tau, 'e'); }, '#46f070', 0.62, 0.60);
-      drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp); return y + artVal(tau, 'p'); }, '#3cc8ff', 0.8, 0.85, true);
+      drawChan('e', now, tau => { if (v.rhythm === 'vfib' || v.rhythm === 'vtach' || v.rhythm === 'asystole') return ecgBeat(tau, v) + 0.01 * Math.sin(tau * 170); let y = 0; for (const b of beats) { const x = tau - b; if (x > -0.6 && x < 0.9) y += pvcSet.has(b) ? pvcBeat(x, 1.1) : ecgBeat(x, v); } for (const pb of pBeats) { const x = tau - pb; if (x > -0.2 && x < 0.2) y += pWave(x, 0.22); } if (v.rhythm === 'afib') y += 0.035 * (Math.sin(tau * 41) + 0.8 * Math.sin(tau * 57 + 1.3) + 0.6 * Math.sin(tau * 29 + 2.1)); return y + 0.006 * Math.sin(tau * 190) + artVal(tau, 'e'); }, '#46f070', 0.62, 0.60);
+      drawChan('p', now, tau => { let y = 0; for (const b of beats) y += pleBeat(tau - b - 0.2, amp * (pvcSet.has(b) ? 0.6 : 1)); return y + artVal(tau, 'p'); }, '#3cc8ff', 0.8, 0.85, true);
       const rrate = Math.max(2, v.rr), depth = v.rr <= 10 ? 0.55 : 1;
       drawChan('r', now, tau => { const ph = (tau * rrate / 60) % 1; return depth * (Math.sin(ph * 2 * Math.PI - Math.PI / 2) * 0.5 + 0.5) * 0.9 + 0.02 * Math.sin(tau * 9); }, '#d9d9d9', 0.7, 0.8, true);
     }
