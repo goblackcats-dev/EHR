@@ -1,0 +1,102 @@
+[
+ {
+  "id": "note_night_hypo_202611060705",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Low Glucose at 0645",
+  "author": "R. Voss, MD",
+  "datetime": "2026-11-06 07:05",
+  "category": "Progress Note",
+  "summary": "At 0645 sweating and tremor with glucose 58: treated with 15 g apple juice, recheck 92 at 0700, symptoms resolved, snack given. Serum glucose 62 (drawn 0640) is a pretreatment sample. 0200 glucose 108. BHB 0.3, K 4.8, creatinine 3.0. Endocrinology to review the insulin doses this morning.",
+  "body": "At 0645 Marcus reported sweating and tremor and the bedside glucose was 58. He was awake with a safe swallow, so he received 120 mL of apple juice (15 g carbohydrate) under the hypoglycemia order, and I was notified. The 0700 recheck is 92 with resolution of symptoms, and a solid carbohydrate and protein snack is being provided. The serum glucose of 62 released at 0700 was drawn at 0640, before treatment, and does not represent failure of the oral rescue.\n\nHis 0200 glucose was 108 and no correction insulin was given overnight. The likely contributors are glargine 18 units, the 3-unit meal dose and the 1-unit bedtime correction in a patient whose kidneys clear insulin more slowly. The morning panel shows BHB 0.3 (no recurrent ketosis), potassium 4.8, bicarbonate 22 and creatinine 3.0. Endocrinology will review the glargine, meal and correction doses this morning; basal insulin is not omitted in type 1 diabetes. Standing weight at 0700 is 81.0 kg, up 0.5 kg from arrival, with clear lungs."
+ },
+ {
+  "id": "note_endo_hypo_202611060745",
+  "type": "progressNotes",
+  "title": "Endocrinology Dose Revision After Low Glucose",
+  "author": "G. Tran, MD",
+  "datetime": "2026-11-06 07:45",
+  "category": "Progress Note",
+  "summary": "Symptomatic low glucose after the first transition night, treated orally. 0730 glucose 106; no recurrent ketosis; creatinine 3.0. At 0715: glargine reduced to 14 units at 1900, meal lispro 2 units immediately after a verified meal, bedtime correction discontinued. Basal insulin continues.",
+  "body": "The overnight transition was followed by symptomatic hypoglycemia that responded to oral carbohydrate. The 0730 bedside glucose is 106, and there is no recurrent nausea or evidence of recurrent ketosis on the morning panel. Creatinine remains elevated at 3.0, with reduced intake and impaired renal insulin clearance contributing to a lower requirement.\n\nAt 0715 I reduced the next glargine dose to 14 units at 1900, changed meal lispro to 2 units immediately after a verified meal, and discontinued bedtime correction. Continue the conservative correction scale before meals only, with the specified spacing and no meal component when the meal is skipped. Basal insulin remains necessary in type 1 diabetes, and additional overnight checks will assess the revised regimen.",
+  "allowTimes": [
+   "1900"
+  ]
+ },
+ {
+  "id": "note_neph_d2_202611060930",
+  "type": "progressNotes",
+  "title": "Nephrology Follow-Up - Recovery Reassessment",
+  "author": "D. Lin, MD",
+  "datetime": "2026-11-06 09:30",
+  "category": "Consult Note",
+  "summary": "Creatinine 3.0 and K 4.8 on the morning panel. Urine recovered overnight and lungs are clear without a diuretic. The six-hour low-output interval yesterday (about 0.3 mL/kg/h) and the creatinine ratio are consistent with stage 1 AKI; no dialysis indication. Weight up 0.5 kg. Oral fluids in divided amounts; losartan stays held.",
+  "body": "Creatinine has decreased to 3.0 and potassium is 4.8 on the morning panel. Urine output recovered overnight and the lungs are clear without diuretic treatment. The six-hour low-output interval yesterday (25 mL per hour, about 0.3 mL/kg/h, from 1200 to 1800) and the peak creatinine of 3.5 against a baseline of 2.1 are consistent with stage 1 AKI, with no current dialysis indication.\n\nStanding weight has risen modestly from unit arrival, reinforcing that examination and urine output should guide further fluid decisions. Continue oral fluids in divided amounts, strict balance records and daily weights rather than routine IV maintenance. Losartan remains held until kidney function and potassium are reassessed, and the discharge plan must clearly assign who decides on the restart.",
+  "allowTimes": [
+   "1200",
+   "1800"
+  ]
+ },
+ {
+  "id": "note_dce1_202611061030",
+  "type": "therapyNotes",
+  "title": "Diabetes Education - Initial Teaching",
+  "author": "E. Marchetti, RN, CDCES",
+  "datetime": "2026-11-06 10:30",
+  "category": "Diabetes Education",
+  "summary": "He stopped all insulin because he was not eating and feared a low. Reviewed basal vs mealtime insulin; he can state that illness may need insulin even with little intake, with clinician-directed dose changes. Practiced the backup meter, blood ketone testing and the 15 g rule using this morning's low. Partner taking part.",
+  "body": "Marcus describes stopping all insulin because he was not eating and feared a low glucose. We reviewed the different purposes of continuous basal insulin and food-related rapid-acting insulin. He can now explain that illness may require insulin even when food intake is reduced, with clinician-directed dose adjustment rather than complete omission. We practiced checking glucose with the backup meter and reviewed blood ketone testing for illness or persistent hyperglycemia. The morning low-glucose episode was used to practice the 15 g treatment and 15-minute recheck process. His partner participated with his permission and will help locate ketone supplies and contact information before discharge."
+ },
+ {
+  "id": "note_rd_202611061130",
+  "type": "therapyNotes",
+  "title": "Renal Dietitian Nutrition Assessment",
+  "author": "J. Yamada, RDN",
+  "datetime": "2026-11-06 11:30",
+  "category": "Nutrition",
+  "summary": "Appetite improving but below usual. Consistent-carbohydrate, lower-sodium plan without high-protein supplements while AKI recovers. K 4.8 and phosphorus 2.2: no blanket potassium or phosphorus restriction; avoid potassium-based salt substitutes. Practiced carbohydrate estimation; fluids divided through the day.",
+  "body": "Appetite is improving but remains below the patient's usual intake. The current plan uses consistent-carbohydrate meals, sodium reduction, and avoidance of high-protein supplements while AKI recovers. Potassium is 4.8 and phosphorus is 2.2 on the available morning results, so a blanket severe potassium and phosphorus restriction is not appropriate today. We discussed avoiding potassium-based salt substitutes and choosing minimally processed foods without imposing unnecessary limits.\n\nHe practiced estimating meal carbohydrate and identifying when a smaller meal requires individualized insulin guidance. Oral fluid intake will be divided through the day and adjusted with the team according to urine, weight and lung findings."
+ },
+ {
+  "id": "note_pharm_d2_202611061300",
+  "type": "therapyNotes",
+  "title": "Pharmacy Transition Review",
+  "author": "N. Gallagher, PharmD",
+  "datetime": "2026-11-06 13:00",
+  "category": "Pharmacy Note",
+  "summary": "Revised glargine, meal and correction orders are active; bedtime correction removed. Premeal glucose 112 and 174 needed no correction; intake was verified before each reduced lispro dose. Kidney impairment prolongs insulin action, so corrections are not repeated within 4 hours. Losartan on hold; no potassium or phosphate supplement. Apple juice or glucose tablets (not orange juice) for lows.",
+  "body": "The revised basal and meal orders are active and the bedtime correction has been removed. The breakfast and lunch premeal bedside values are 112 and 174, and neither requires correction. Meal intake was verified before each reduced lispro dose was administered. We reviewed how reduced kidney function can prolong insulin action and why repeating correction doses too soon can cause hypoglycemia.\n\nLosartan remains on hold and there is no ongoing potassium or phosphate replacement order. Because his potassium has swung both low and high, apple juice or glucose tablets are preferred over orange juice when treating a low. I will reconcile the final prescriptions against the current regimen and make sure he does not resume the previous 24-unit basal dose from an older medication list."
+ },
+ {
+  "id": "note_cm_202611061430",
+  "type": "caseManagement",
+  "title": "Case Management - Discharge Planning",
+  "author": "H. Sorensen, MSW",
+  "datetime": "2026-11-06 14:30",
+  "category": "Case Management",
+  "summary": "Lives with his partner, active insurance, stable meals and pharmacy access. Insulin omission came from uncertainty about sick-day management, not supply. Checking coverage for pen supplies, backup strips, blood ketone testing and rescue glucagon. Partner provides transport. Discharge depends on stable dosing, renal reassessment and teach-back, not a fixed date.",
+  "body": "Marcus lives with his partner and expects to return to an accessible home. He reports active insurance, a working refrigerator, stable meals and access to his usual pharmacy. The insulin omission arose from uncertainty about sick-day management rather than a reported supply shortage. We are checking coverage for pen supplies, backup meter strips, blood ketone testing and rescue glucagon.\n\nTransportation to outpatient laboratory testing and visits is available through his partner. Discharge remains dependent on stable dosing, renal reassessment, and completion of patient and partner teaching rather than a fixed departure promise."
+ },
+ {
+  "id": "note_hosp_d2pm_202611061740",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Afternoon Note - Meals and Self-Management",
+  "author": "I. Morgan, MD",
+  "datetime": "2026-11-06 17:40",
+  "category": "Progress Note",
+  "summary": "Ate at least half of breakfast and lunch and tolerated the postmeal lispro doses; no further low-glucose symptoms. Walked the corridor after the safety check, drinking divided amounts, lungs clear, voiding spontaneously and measured. Can demonstrate pen priming and site rotation on a teaching device. Evening chemistry due at 1840.",
+  "body": "Marcus has eaten at least half of his breakfast and lunch and has tolerated the ordered postmeal lispro doses. There have been no further low-glucose symptoms since the morning treatment. He walked in the corridor after the nursing safety assessment and continues to collect each void for measurement. His lungs are clear and he is drinking divided amounts rather than rapidly consuming large volumes.\n\nHe can demonstrate pen priming and injection-site rotation using a teaching device. We will continue the revised insulin plan and review the ordered evening chemistry when it becomes available.",
+  "allowTimes": [
+   "1840"
+  ]
+ },
+ {
+  "id": "note_night_k_202611062010",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Mild Hyperkalemia",
+  "author": "R. Voss, MD",
+  "datetime": "2026-11-06 20:10",
+  "category": "Progress Note",
+  "summary": "1900 panel: K 5.2 (nonhemolyzed), creatinine 2.8, bicarbonate 23. Repeat K 5.1 at 2000. ECG: sinus rhythm, no peaked T or QRS widening; no weakness or palpitations. No potassium since the two bags yesterday; losartan held. Surveillance, dietary review, no emergency-shift therapy; escalate for rising K, ECG change or symptoms.",
+  "body": "The evening panel released at 1900 shows potassium 5.2 with creatinine improved to 2.8 and bicarbonate 23. The sample was not hemolyzed, and the repeat potassium released at 2000 is 5.1. The ECG released at 1920 shows sinus rhythm without peaked T waves or conduction widening, and Marcus reports no weakness or palpitations.\n\nNo potassium has been given since the two replacement bags yesterday, and losartan remains held; the rise reflects limited kidney reserve and dietary intake. Continue telemetry, review dietary potassium sources and any salt substitutes, and follow urine output and the next chemistry without emergency-shift therapy for this stable mild elevation. Escalation is required for a rising or severe level, ECG change, symptoms or clinical deterioration, and a reassuring tracing does not replace the laboratory value. The first reduced glargine dose of 14 units is due at 1900, with no bedtime correction."
+ }
+]

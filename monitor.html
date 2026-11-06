@@ -256,11 +256,26 @@
     { t: '2026-11-11 19:00', hr: 76, spo2: 99, sys: 122, dia: 76, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Shift change: medicine bag and food plan at the bedside; ready to dose dinner' },
     { t: '2026-11-12 07:00', hr: 76, spo2: 99, sys: 120, dia: 76, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, o2: 'Room air', note: 'Discharge day: labs normal, leaving with her sister' }
   ];
-  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 4-7 append here
+  // Marcus Reyes, 31 M, DKA with AKI on CKD G3b, repaired posterior urethral valves (casestudy/cases/dka4_marcus). Lying vitals. Celsius in the design converted to F.
+  const DKA4 = [
+    { t: '2026-11-05 07:00', hr: 96, spo2: 97, sys: 118, dia: 72, rr: 22, temp: 99.1, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Step-down arrival: alert, dry mouth, mild nausea, respirations still a little deep, lungs clear. Glucose 360. Insulin 8 units/h, saline 100 mL/h' },
+    { t: '2026-11-05 09:00', hr: 92, spo2: 97, sys: 116, dia: 70, rr: 20, temp: 99.0, rhythm: 'sinus', pr: 0.15, qrs: 0.09, tAmp: 0.25, o2: 'Room air', note: 'Glucose 240: D5NS 100 mL/h and insulin down to 4 units/h. K 3.6 and falling; urine 50 mL/h; lungs clear' },
+    { t: '2026-11-05 11:00', hr: 92, spo2: 98, sys: 118, dia: 72, rr: 18, temp: 98.8, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.18, uAmp: 0.08, o2: 'Room air', note: 'K 3.4: HOLD insulin; KCl 10 mEq bag 1 at 100 mL/h (previous hour urine 50 mL). ECG 1105: mild T-wave flattening. Glucose 190' },
+    { t: '2026-11-05 13:00', hr: 94, spo2: 95, sys: 126, dia: 78, rr: 20, temp: 98.8, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.25, uAmp: 0.04, o2: 'Room air', note: 'Fine basal crackles, urine only 25 mL/h (K 3.8). D5NS to D10W 50 mL/h, insulin restarts at 4 units/h. Bladder scan 1310 (70 mL). No bolus' },
+    { t: '2026-11-05 19:00', hr: 88, spo2: 96, sys: 124, dia: 76, rr: 18, temp: 98.8, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shift change: DKA resolved (BHB 0.4). Nausea gone, hungry, crackles much improved, last hourly urine 50 mL. Glargine 18 units now; drip stops 2100' },
+    { t: '2026-11-06 06:45', hr: 104, spo2: 98, sys: 130, dia: 80, rr: 18, temp: 98.6, rhythm: 'tachy', pr: 0.15, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Sweaty and shaky (low glucose 58): awake, can swallow. 15 g apple juice, recheck in 15 minutes' },
+    { t: '2026-11-06 07:00', hr: 82, spo2: 97, sys: 122, dia: 74, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Recovered: glucose 92, snack. Urine recovered overnight, lungs clear. Doses will be reduced at 0715' },
+    { t: '2026-11-06 19:00', hr: 80, spo2: 98, sys: 126, dia: 78, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shift change: K 5.2 (1840, not hemolyzed). No weakness or palpitations; no peaked T or QRS widening (ECG 1910). Repeat K at 1950' },
+    { t: '2026-11-07 07:00', hr: 76, spo2: 98, sys: 124, dia: 76, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Day 3: K 4.8, creatinine 2.5. Walking independently, eating, lungs clear' },
+    { t: '2026-11-07 19:00', hr: 74, spo2: 98, sys: 122, dia: 76, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shift change: ready for home; partner here for the dinner dose practice' },
+    { t: '2026-11-08 07:00', hr: 72, spo2: 98, sys: 120, dia: 74, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Discharge day: labs reviewed, home with his partner after final teach-back' }
+  ];
+  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 5-7 append here
   const DKA_SERIES = [
     ['SIM-40501', DKA1, 'PICU-4   THOMPSON, MAYA   16 F'],
     ['SIM-40502', DKA2, 'IMC-6   ELLIS, JORDAN   24 M'],
-    ['SIM-40503', DKA3, 'SD-8   CARTER, DENISE   38 F']
+    ['SIM-40503', DKA3, 'SD-8   CARTER, DENISE   38 F'],
+    ['SIM-40504', DKA4, 'SD-5   REYES, MARCUS   31 M']
   ];
   const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON };
   const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F' };

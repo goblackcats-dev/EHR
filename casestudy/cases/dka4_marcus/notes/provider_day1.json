@@ -1,0 +1,159 @@
+[
+ {
+  "id": "note_ed_provider_202611050225",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - DKA with AKI on CKD",
+  "author": "W. Cole, MD",
+  "datetime": "2026-11-05 02:25",
+  "category": "ED Provider Note",
+  "summary": "Type 1 diabetes and CKD G3b (repaired posterior urethral valves) with 3 days of illness and missed insulin. Glucose 620, bicarbonate 10, anion gap 25, venous pH 7.22, BHB 7.2, K 5.8, creatinine 3.4 (baseline about 2.1). Small reassessed saline boluses, then IV insulin without a bolus; no potassium or bicarbonate now.",
+  "body": "**HPI**\n31-year-old man with type 1 diabetes since age 9 and CKD G3b from posterior urethral valves repaired in infancy (baseline creatinine 2.0-2.2). Sore throat, myalgias, dry cough, nausea and poor intake began 11/02. He stopped his meal insulin when he stopped eating and skipped glargine on 11/03 and 11/04, believing all insulin requires food. Last evening he developed thirst, polyuria followed by less urine, diffuse abdominal discomfort and repeated nonbloody vomiting. He denies dysuria, flank pain, chest pain, toxic ingestion and NSAID use. His partner, Elena Cruz, brought him in.\n\n**Exam**\nAwake and oriented, dry mouth, deep respirations, lungs clear, mild diffuse abdominal tenderness without guarding or focal findings.\n\n**Data (released 0220)**\nGlucose 620, sodium 130 (corrected for glucose about 138), potassium 5.8, bicarbonate 10, anion gap 25, venous pH 7.22, BHB 7.2, BUN 64, creatinine 3.4 (known baseline near 2.1), phosphate 5.6, magnesium 2.1, lactate 1.5. The initial ECG shows no peaked T waves or QRS widening; a normal-looking tracing does not exclude hyperkalemia.\n\n**Assessment and plan**\n1. DKA (moderate by pH, severe by bicarbonate and ketones) from insulin omission during a presumed viral illness.\n2. AKI on CKD G3b: creatinine is about 1.6 times baseline, stage 1 by the creatinine criterion. No known heart failure, anuria or dialysis history.\n3. Volume: small 250 mL saline boluses with a lung and perfusion reassessment after each, not a standard large-volume sequence. Further boluses need provider reassessment.\n4. Start IV regular insulin at 0.1 unit/kg/h (8 units/h at 80 kg) without a bolus after the first fluid; no potassium now (K 5.8), no bicarbonate (pH over 7.0). Repeat chemistry at 0400 and a potassium-only check at 0500.\n5. Respiratory PCR sent; no focal bacterial source so far. Strict measured intake and output; continuous cardiac monitoring.",
+  "allowTimes": [
+   "0400",
+   "0500"
+  ]
+ },
+ {
+  "id": "note_ed_provider_transfer_202611050650",
+  "type": "erVisitSummary",
+  "title": "ED Provider Transfer Note",
+  "author": "W. Cole, MD",
+  "datetime": "2026-11-05 06:50",
+  "category": "ED Provider Note",
+  "summary": "Tolerated cautious fluids with clear lungs. K 5.0 (0420) and 4.7 (0510). Glucose falling 60 mg/dL/h on insulin (420 at 0600). Respiratory PCR negative, no bacterial source. 0640 specimens pending; step-down accepted for IV insulin and telemetry.",
+  "body": "The patient remains alert and has tolerated cautious initial fluid therapy without new lung findings. Chemistry released at 0420 showed glucose 540, potassium 5.0, bicarbonate 12 and creatinine 3.3; the potassium-only check released at 0510 was 4.7, so potassium is falling on insulin and no supplement has been given. The latest hourly bedside glucose at 0600 is 420, a controlled fall of about 60 mg/dL per hour.\n\nThe respiratory PCR is negative for influenza A/B and SARS-CoV-2, and there is no identified focal bacterial infection, so no antibiotic or antiviral was given. The 0640 transfer blood specimens are pending and must be reviewed when they result rather than assumed to show improvement. Step-down has accepted him for continued IV insulin with hourly glucose checks and telemetry. Handoff includes all fluids, insulin and urine measured so far."
+ },
+ {
+  "id": "note_hp_202611050745",
+  "type": "hp",
+  "title": "Step-Down Admission History and Physical",
+  "author": "I. Morgan, MD",
+  "datetime": "2026-11-05 07:45",
+  "category": "History and Physical",
+  "summary": "DKA from insulin omission during a presumed viral illness, with stage 1 AKI on CKD G3b (congenital posterior urethral valves). 0700 panel: K 4.2 falling, bicarbonate 14, gap 18, BHB 4.8, creatinine 3.2, HbA1c 8.9%. Losartan held, nephrotoxins avoided, nephrology and endocrinology consulted, cautious fluids, no pharmacologic VTE prophylaxis (ambulatory, no clot-risk factor).",
+  "body": "**Reason for admission**\nDiabetic ketoacidosis triggered by insulin omission during an acute illness, with acute kidney injury on CKD G3b.\n\n**HPI**\n31-year-old man with type 1 diabetes since age 9 (one prior DKA at 22). Three days of sore throat, myalgias, dry cough, nausea and poor intake; he stopped meal insulin when he stopped eating and skipped glargine on 11/03 and 11/04 because he believed all insulin requires food. ED course: two 250 mL saline boluses, ondansetron once, regular insulin 8 units/h from 0300 without a bolus, saline 100 mL/h; no potassium given.\n\n**Past history**\nCongenital posterior urethral valves repaired in infancy with residual renal dysplasia and scarring: CKD G3b, baseline creatinine 2.0-2.2 (2.1 on 10/22), outpatient UACR 180 mg/g, followed by nephrology. Mild hypertension. No dialysis, transplant, catheter, heart failure, coronary or lung disease.\n\n**Medications**\nGlargine U-100 24 units nightly at 2100; lispro 1 unit per 12 g carbohydrate plus 1 unit per 50 mg/dL above 150 before meals (12-18 units/day); pens, CGM (sensor expired during the illness), no pump. Losartan 25 mg every morning; cholecalciferol 1,000 units daily. No SGLT2 inhibitor, metformin, potassium or phosphate product. **Allergies:** none known.\n\n**Social / family**\nLives with his partner Elena Cruz; IT technician; insured, stable housing and food. Never smoked; occasional alcohol, none during illness; no recreational drugs. Father has hypertension, mother has hypothyroidism; no known familial kidney disease.\n\n**Exam**\nAlert, dry mouth, mild nausea, respirations still somewhat deep, lungs clear, no edema, two peripheral IVs, no central line. Telemetry shows sinus rhythm.\n\n**Data (0700 release of the 0640 panel)**\nGlucose 380, sodium 135, potassium 4.2, chloride 103, bicarbonate 14, anion gap 18, venous pH 7.29, BHB 4.8, BUN 59, creatinine 3.2, phosphate 3.8, magnesium 1.9. Admission HbA1c 8.9%. Point-of-care glucose 360.\n\n**Assessment and plan**\n1. **DKA, improving, not resolved.** Continue regular insulin 8 units/h and saline 100 mL/h, hourly glucose. When glucose falls under 250, add dextrose and reduce insulin to 4 units/h.\n2. **Potassium is falling** (5.8, 5.0, 4.7, 4.2): add a panel at 0840. Insulin is held if K is under 3.5. Peripheral IVs only: potassium never above 10 mEq per hour from all sources, individually authorized in AKI.\n3. **AKI on CKD G3b, stage 1 by the creatinine criterion** (3.2-3.4 is about 1.5-1.6 times baseline): reassess volume by examination, urine output and daily weights rather than a standard large-volume sequence. Hold losartan, no NSAIDs, avoid nonessential contrast. Nephrology and endocrinology consulted; pharmacy renal-dosing review. The automatic eGFR is not a measured GFR and is not used alone for dosing.\n4. **Phosphate** 3.8 and falling with treatment: monitor with each panel; replace only for a value under 1.0 or muscle, breathing or heart problems.\n5. **VTE risk:** young, ambulatory, no prior clot or other documented risk factor (CKD alone is not one); no pharmacologic prophylaxis. Reassess if he becomes immobile.\n6. Assisted bathroom activity, fall precautions, telemetry, strict I&O with every void measured.",
+  "allowTimes": [
+   "0840",
+   "2100"
+  ]
+ },
+ {
+  "id": "note_pharm_202611050830",
+  "type": "therapyNotes",
+  "title": "Pharmacy Medication and Renal Dosing Review",
+  "author": "N. Gallagher, PharmD",
+  "datetime": "2026-11-05 08:30",
+  "category": "Pharmacy Note",
+  "summary": "Home medicines reconciled. Losartan held for AKI and hyperkalemia risk. Automatic eGFR is unreliable while creatinine changes: do not dose from it alone. Reduced kidney insulin clearance raises later hypoglycemia risk. Potassium only by one-bag riders, 10 mEq/h maximum. No pharmacologic VTE prophylaxis ordered (ambulatory, no risk factor).",
+  "body": "Home doses were confirmed with the patient and his partner: glargine 24 units nightly, carbohydrate-based lispro with a correction factor, losartan 25 mg each morning and cholecalciferol 1,000 units daily. Losartan is appropriately held during the acute kidney injury and potassium disturbance.\n\nThe current creatinine is changing, so the automatic eGFR (24-26 so far) is only an estimate and should not be used alone to choose drug doses; I will review each new renally cleared medicine against the current creatinine, urine output and trend. The one ondansetron dose needs no renal adjustment, and I see no scheduled repeat. I verified the regular insulin concentration (100 units in 100 mL, 1 unit/mL) and the premixed potassium chloride 10 mEq/100 mL piggyback in the renal-modified protocol: one bag at a time, never above 10 mEq per hour from all sources, none in the maintenance fluid.\n\nReduced kidney clearance of insulin may increase hypoglycemia risk during and after the transition, so subcutaneous doses will need reassessment rather than an automatic return to the home regimen. He is young, ambulatory and has no clot history or other documented risk factor, so no pharmacologic VTE prophylaxis is ordered; I agree and will reassess if he becomes immobile. Nonsteroidal anti-inflammatory drugs and nonessential iodinated contrast are to be avoided."
+ },
+ {
+  "id": "note_hosp_dextrose_202611050910",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Dextrose Added, Potassium Falling",
+  "author": "I. Morgan, MD",
+  "datetime": "2026-11-05 09:10",
+  "category": "Progress Note",
+  "summary": "0900 glucose 240 (fall 60 mg/dL/h): D5NS 100 mL/h replaces saline and insulin reduced to 4 units/h. K 3.6 (from 4.2), BHB 3.6, creatinine 3.3, urine 50 mL/h. No potassium yet because K is above the hold threshold and AKI argues against replacing on a single value; next panel at 1040. Lungs clear.",
+  "body": "The 0900 results show glucose 250 on the 0840 specimen with a bedside glucose of 240, potassium 3.6, bicarbonate 15, anion gap 16, BHB 3.6 and creatinine 3.3. The glucose has fallen about 60 mg/dL per hour since insulin started, within the intended range. Under the order written at 0900, normal saline is replaced by D5/0.9% saline at 100 mL/h with no added potassium and regular insulin is reduced to 4 units/h (0.05 unit/kg/h); it keeps running because the ketones are not cleared.\n\nPotassium has fallen from 5.8 to 3.6 in about seven hours on insulin. It is above the insulin-hold threshold of 3.5, hourly urine is 50 mL (0.6 mL/kg/h) and creatinine is 3.3; with AKI I am not starting potassium on a single value, and I will review the trend with the next panel at 1040. If K is under 3.5 the insulin is held and replacement is given by individually authorized one-bag riders at no more than 10 mEq per hour. Lungs are clear and there is no edema at this assessment. Every IV volume continues to be counted.",
+  "allowTimes": [
+   "1040"
+  ]
+ },
+ {
+  "id": "note_neph_consult_202611051000",
+  "type": "progressNotes",
+  "title": "Nephrology Initial Consultation",
+  "author": "D. Lin, MD",
+  "datetime": "2026-11-05 10:00",
+  "category": "Consult Note",
+  "summary": "CKD G3b from congenital posterior urethral valve disease (baseline creatinine about 2.1) with AKI most consistent with reduced renal perfusion; creatinine 3.3, K 3.6. No indication for kidney replacement therapy. Cautious fluids, frequent lung checks, strict urine measurement, daily weights, individualized potassium; hold losartan, avoid NSAIDs and contrast.",
+  "body": "Marcus has established CKD G3b from congenital posterior urethral valve disease with a baseline creatinine near 2.1. The current AKI is most consistent with reduced renal perfusion during vomiting and osmotic losses, with possible evolving tubular injury. Creatinine on the latest available panel is 3.3 and potassium has fallen to 3.6 during DKA treatment.\n\nHe has no current indication for kidney replacement therapy and no history of anuria or dialysis dependence. Continue cautious fluids, frequent lung assessment, strict urine measurement, daily weights, and individualized potassium replacement after reviewing urine output; no automatic replacement. Hold losartan and avoid nonessential contrast and NSAIDs while monitoring for either congestion or persistent hypoperfusion. A creatinine that is still rising after volume repletion would prompt imaging of the repaired urinary tract."
+ },
+ {
+  "id": "note_hosp_hypok_202611051115",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Low Potassium, Insulin Held",
+  "author": "I. Morgan, MD",
+  "datetime": "2026-11-05 11:15",
+  "category": "Progress Note",
+  "summary": "1100 results: K 3.4 (below 3.5), glucose 195, BHB 2.4, pH 7.32, bicarbonate 16, gap 15, phosphate 2.2, creatinine 3.4. Insulin held under protocol; one KCl 10 mEq/100 mL bag at 100 mL/h (previous hour urine 50 mL); D5NS and hourly glucose continue. ECG: mild T-wave flattening. Recheck K at 1150.",
+  "body": "The 1040 specimen, released at 1100, shows potassium 3.4, glucose 195, bicarbonate 16, anion gap 15, venous pH 7.32, BHB 2.4, phosphate 2.2, magnesium 1.8 and creatinine 3.4. The bedside glucose at 1100 is 190. Potassium is under 3.5, so the insulin infusion is held under the potassium order. The pH is above 7.3 but BHB is 2.4, so ketoacidosis is not resolved and the hold is expected to be short.\n\nThe urine measured in the previous hour is 50 mL, above the 40 mL/h threshold, and there is no ECG contraindication; one KCl 10 mEq in 100 mL bag runs at 100 mL/h from 1100 with no other potassium source (10 mEq per hour maximum). D5NS continues and hourly glucose checks continue during the pause. The 12-lead ECG released at 1110 shows mild T-wave flattening without ectopy. A potassium-only specimen will be drawn at 1150 by separate venipuncture, and I will review it and the hour of urine before authorizing any second bag.\n\nPhosphate 2.2 is being monitored; replacement is reserved for a value under 1.0 or muscle, breathing or heart compromise, and potassium phosphate would add to the potassium load in AKI. Magnesium 1.8 needs no replacement.",
+  "allowTimes": [
+   "1150"
+  ]
+ },
+ {
+  "id": "note_hosp_k_reassess_202611051215",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Potassium Reassessment",
+  "author": "I. Morgan, MD",
+  "datetime": "2026-11-05 12:15",
+  "category": "Progress Note",
+  "summary": "K 3.5 after the first 10 mEq bag; preceding hourly urine 50 mL; second KCl bag authorized 1200-1300. Insulin stays held: a K exactly at the threshold after one bag is not a confirmed restart value; decision after the 1240 panel. POC glucose 210 on D5NS.",
+  "body": "The potassium-only specimen released at 1200 is 3.5 after the first KCl bag. The preceding hourly urine output is 50 mL, there is no IV-site pain or swelling, and the ECG showed only mild T-wave flattening. I authorized a second KCl 10 mEq/100 mL bag over one hour with no overlap, still no more than 10 mEq per hour from all sources; no third or fourth bag is ordered.\n\nInsulin stays held. The restart rule is K 3.5 or higher with my confirmation, and a value exactly at the threshold, up only 0.1 after 10 mEq on a falling trend in AKI, is not a value I will confirm; I will decide on the 1240 panel, which results at 1300. The 1200 bedside glucose is 210 and dextrose support continues with hourly checks. I also want a fresh lung and urine assessment at 1300 because the fluid total now includes the potassium bags.",
+  "allowTimes": [
+   "1240",
+   "1300"
+  ]
+ },
+ {
+  "id": "note_neph_crackles_202611051315",
+  "type": "progressNotes",
+  "title": "Nephrology Follow-Up - Low Output and Lung Findings",
+  "author": "D. Lin, MD",
+  "datetime": "2026-11-05 13:15",
+  "category": "Consult Note",
+  "summary": "1300 panel: K 3.8, creatinine 3.5, bicarbonate 17, BHB 1.8. Fine basal crackles and a urine hour of 25 mL; bladder scan 70 mL. D5NS changed to D10W 50 mL/h (same 5 g/h dextrose, half the volume), insulin restarted at 4 units/h; no automatic bolus or diuretic; non-contrast ultrasound ordered.",
+  "body": "The 1300 panel shows potassium 3.8, creatinine 3.5, bicarbonate 17 and BHB 1.8. Two cautious potassium bags are complete and no further potassium is ordered. The most recent urine hour (1200-1300) is 25 mL, below 0.5 mL/kg/h, and fine crackles have appeared at the lung bases without overt respiratory distress. The bladder scan at 1310 is 70 mL, so major retention is unlikely; a non-contrast renal and bladder ultrasound is ordered because of his urologic history.\n\nWe are reducing the dextrose-containing fluid volume by changing D5NS to D10W at 50 mL/h while keeping the same hourly glucose delivery, and restarting insulin at the ordered reduced rate now that K is 3.8. Do not give an automatic saline bolus or a diuretic solely for the creatinine value; reassess congestion, perfusion, output and the pending imaging, and watch the sodium with the free water in D10W. If urine stays under 40 mL/h for a second hour, that formally meets the notification threshold at 1400.",
+  "allowTimes": [
+   "1400"
+  ]
+ },
+ {
+  "id": "note_endo_consult_202611051520",
+  "type": "progressNotes",
+  "title": "Endocrinology Consult - DKA Reassessment",
+  "author": "G. Tran, MD",
+  "datetime": "2026-11-05 15:20",
+  "category": "Consult Note",
+  "summary": "1500 panel: glucose 203, K 4.3, bicarbonate 18, gap 12, pH 7.35 but BHB 1.0: not resolved by the ketone requirement. Continue insulin 4 units/h with low-volume dextrose and hourly glucose. Ultrasound: chronic scarring, no obstruction. No phosphate replacement (1.7, no symptoms). Plan a reduced, overlapped basal-bolus regimen.",
+  "body": "The latest chemistry shows glucose 203, potassium 4.3, bicarbonate 18, anion gap 12 and venous pH 7.35. BHB remains 1.0, so ketoacidosis is not yet resolved by the consensus ketone requirement (BHB under 0.6 plus pH 7.3 or higher or bicarbonate 18 or higher). The gap and the improving pH should not trigger premature discontinuation of insulin.\n\nContinue regular insulin at 4 units/h with low-volume dextrose support and hourly bedside glucose assessment. The renal ultrasound has resulted with chronic scarring and no acute obstruction. Phosphate is 1.7 without weakness or cardiopulmonary compromise, so I see no reason to add phosphate. Calcium 8.4 with a normal admission albumin is asymptomatic: monitor, no replacement. Once ketones clear and oral intake is reliable, use a reduced basal-bolus plan with a documented overlap rather than restoring his full home regimen, because kidney insulin clearance is reduced and the requirement is likely lower."
+ },
+ {
+  "id": "note_us_202611051500",
+  "type": "imaging",
+  "title": "Renal and Bladder Ultrasound Without Contrast",
+  "author": "Radiology Service (L. Brandt, MD)",
+  "datetime": "2026-11-05 15:00",
+  "category": "Radiology",
+  "summary": "Bilateral chronic renal scarring. No hydronephrosis, no acute obstruction. Bladder without significant retention.",
+  "body": "**Exam**\nRenal and bladder ultrasound, performed 1400. No contrast.\n\n**Indication**\n31-year-old with repaired congenital posterior urethral valves, CKD G3b and acute kidney injury; falling urine output at 1200-1300. Bladder scan 70 mL at 1310.\n\n**Comparison**\nNone available.\n\n**Findings**\n- Both kidneys show chronic parenchymal scarring with cortical thinning.\n- No hydronephrosis in either kidney. No calculi seen. No perinephric collection.\n- Urinary bladder without significant retained urine.\n\n**Impression**\nBilateral chronic renal scarring, consistent with the known history. No hydronephrosis or acute obstruction."
+ },
+ {
+  "id": "note_hosp_transition_202611051905",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - DKA Resolved, Transition",
+  "author": "I. Morgan, MD",
+  "datetime": "2026-11-05 19:05",
+  "category": "Progress Note",
+  "summary": "1900 results: BHB 0.4, pH 7.38, bicarbonate 21, gap 9, glucose 180: DKA resolved. Glargine 18 units ordered at 1900 with lispro 3 units for the late dinner; IV insulin and D10W continue until 2100 (two-hour overlap), then stop if stable. Lungs improved after the volume reduction; last hourly urine 50 mL.",
+  "body": "The 1900 results show BHB 0.4, venous pH 7.38, bicarbonate 21, anion gap 9 and glucose 180, with a bedside glucose of 178. These meet the resolution criteria (BHB under 0.6 plus venous pH 7.3 or higher or bicarbonate 18 or higher). The 1900 ECG shows a normal T-wave contour. Marcus is hungry, nausea has resolved, and a late dinner is available.\n\nGlargine 18 units (reduced from his home 24) is ordered for 1900 with an initial lispro dose of 3 units for the meal; the IV insulin and D10W continue until 2100 for a two-hour overlap and then stop if he is stable, not vomiting and has eaten. Lung findings have improved after the fluid volume was reduced, and the last hourly urine output is 50 mL. Continue renal surveillance and overnight glucose checks, because acute illness, reduced intake and impaired kidney function can make the subcutaneous insulin requirement lower than at home.",
+  "allowTimes": [
+   "2100"
+  ]
+ },
+ {
+  "id": "note_night_eval_202611052130",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Infusion Stopped, Overnight Plan",
+  "author": "R. Voss, MD",
+  "datetime": "2026-11-05 21:30",
+  "category": "Progress Note",
+  "summary": "2100 glucose 214 (190 at 2000). Two-hour overlap complete: IV insulin and D10W stop at 2100 per order; first bedtime correction of lispro 1 unit by the scale; no further correction overnight; extra 0200 check. Lungs improving, urine measured. Low-glucose symptoms should prompt a call.",
+  "body": "The late dinner was tolerated and glargine 18 units was ordered at 1900 before the infusion was to stop. The two-hour overlap is complete: under the transition order the regular insulin and the D10W stop at 2100 if he is stable. The 2100 bedside glucose is 214 (190 at 2000). The ordered initial bedtime correction is lispro 1 unit by the scale after the drip stops; no further rapid-acting insulin is planned overnight and corrections stay at least 4 hours apart.\n\nAn extra glucose check is ordered at 0200. Lung findings are improving and urine measurement continues despite the end of IV maintenance fluid. Reduced kidney insulin clearance makes the combined basal, meal and correction doses a hypoglycemia risk overnight: sweating, shakiness or weakness should prompt a call, and he is asked to call before getting up.",
+  "allowTimes": [
+   "0200"
+  ]
+ }
+]

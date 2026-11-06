@@ -135,6 +135,15 @@
      "file": "casestudy/cases/dka3_denise/patient.json",
      "age": 38,
      "sex": "Female"
+    },
+    {
+     "id": "dka4_marcus",
+     "name": "Marcus Reyes",
+     "title": "DKA 4 of 7, step-down / telemetry: type 1 diabetes in DKA with acute kidney injury on CKD G3b (3 days, checkpoints every 0700 and 1900)",
+     "desc": "Thu 11/05 0700 to Sun 11/08 0700. A 31-year-old with type 1 diabetes and kidney disease from birth arrives in DKA with AKI; care needs small fluids, careful potassium and a kidney-safe plan. Vital signs after 0700 come from the bedside monitor.",
+     "file": "casestudy/cases/dka4_marcus/patient.json",
+     "age": 31,
+     "sex": "Male"
     }
    ]
   }

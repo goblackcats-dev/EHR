@@ -1,0 +1,78 @@
+[
+ {
+  "id": "note_night_d3_202611070705",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Revised Regimen Overnight",
+  "author": "R. Voss, MD",
+  "datetime": "2026-11-07 07:05",
+  "category": "Progress Note",
+  "summary": "Overnight on the reduced regimen (glargine 14 units, no bedtime correction): bedtime glucose 154, 0200 check 118, no sweating, tremor, nausea or abdominal pain. Morning panel: K 4.8, creatinine 2.5, bicarbonate 23. Urine measured reliably; night totals reconciled. Comfortable and ready for meal and sick-day teaching.",
+  "body": "Marcus received the reduced 14-unit basal dose last evening and no bedtime correction. The bedtime bedside glucose was 154 and the extra 0200 check was 118. He has reported no sweating, tremor, nausea or recurrent abdominal pain overnight. Urine collection remained reliable, and the night intake and output totals have been reconciled. The newly released morning chemistry shows potassium 4.8, creatinine 2.5 and bicarbonate 23, and the standing weight is 80.6 kg. He is awake, comfortable and ready to continue meal and sick-day teaching with the day team."
+ },
+ {
+  "id": "note_neph_d3_202611070900",
+  "type": "progressNotes",
+  "title": "Nephrology Follow-Up - Plan After Discharge",
+  "author": "D. Lin, MD",
+  "datetime": "2026-11-07 09:00",
+  "category": "Consult Note",
+  "summary": "Creatinine 2.5, K 4.8 without a binder, urine output recovered, lungs clear: no IV fluid or diuretic needed. CKD G3b stays by baseline; the current creatinine is still recovering from AKI. Continue to hold losartan; early post-discharge BMP before any restart. Reviewed NSAID and contrast avoidance and home watch for swelling or falling urine.",
+  "body": "Renal function is improving with creatinine 2.5 and recovered urine output. Potassium has returned to 4.8 without a binder or additional potassium-shifting treatment. Lungs are clear and there is no indication for continued IV fluid or a diuretic. His congenital renal disease remains CKD G3b by the established baseline, while the current creatinine is still recovering from AKI.\n\nContinue to hold losartan and obtain an early post-discharge BMP before considering resumption. I discussed avoidance of NSAIDs and nonessential contrast, daily home observation for swelling or falling urine, and the need for longer-term reassessment after AKI."
+ },
+ {
+  "id": "note_dce2_202611071030",
+  "type": "therapyNotes",
+  "title": "Diabetes Education - Competency Check",
+  "author": "E. Marchetti, RN, CDCES",
+  "datetime": "2026-11-07 10:30",
+  "category": "Diabetes Education",
+  "summary": "Correct meter check; knows that symptoms outrank reassuring CGM readings. Asked what he would do if he were vomiting, he said basal continues, call promptly and check ketones. Described the 15 g rule. Partner practiced the glucagon trainer and when to call emergency services. Both can separate the held losartan from continuing insulin. Written final doses to follow.",
+  "body": "Marcus correctly demonstrated a meter check and explained when symptoms require confirmation even if CGM readings appear reassuring. Asked what he would do if he were vomiting, he stated that basal insulin continues with prompt clinician contact for adjustment and that ketones should be checked. He described treating an awake low-glucose episode with 15 g carbohydrate followed by a 15-minute recheck.\n\nHis partner practiced use of the glucagon trainer and explained when to call emergency services. Both can distinguish the held losartan from the continuing insulin and understand that the discharge insulin doses may need further adjustment as kidney function and intake improve. Written instructions will state the final doses and follow-up contacts so that older home prescriptions do not create confusion."
+ },
+ {
+  "id": "note_cm_d3_202611071500",
+  "type": "caseManagement",
+  "title": "Case Management - Arrangements Confirmed",
+  "author": "H. Sorensen, MSW",
+  "datetime": "2026-11-07 15:00",
+  "category": "Case Management",
+  "summary": "Pharmacy confirmed the revised insulin prescriptions, pen needles, strips, blood ketone supplies and nasal glucagon. Transport arranged for the early lab draw and specialist visits. BMP Monday 11/09 at 0900 (about 26 hours after discharge); endocrinology contact next business day; nephrology within a week. Work note asked for. Final discharge still depends on the morning review.",
+  "body": "The pharmacy has confirmed access to the revised insulin prescriptions, pen needles, meter strips, blood ketone supplies and nasal rescue glucagon. Marcus and his partner have transportation for the early laboratory draw and specialist follow-up. A post-discharge BMP appointment is arranged for Monday, November 9 at 0900, about 26 hours after the planned discharge. Endocrinology contact is arranged for the next business day and nephrology follow-up for the coming week.\n\nThe patient has asked for a brief work absence note while oral intake and glucose patterns stabilize. Supplies and appointments are ready, while final discharge still requires the morning clinical and laboratory review."
+ },
+ {
+  "id": "note_night_ready_202611071930",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Discharge Readiness",
+  "author": "R. Voss, MD",
+  "datetime": "2026-11-07 19:30",
+  "category": "Progress Note",
+  "summary": "Evening panel: creatinine 2.3, K 4.6, bicarbonate 24, glucose 158. Premeal glucose 132/166/158 with no correction doses. Eating, walking independently, lungs clear, no ketosis symptoms. Continue 14 units basal and 2-unit postmeal doses with overnight checks; losartan hold and early BMP reviewed. Discharge home tomorrow if the morning review is satisfactory.",
+  "body": "The evening chemistry now shows creatinine 2.3, potassium 4.6, bicarbonate 24 and glucose 158. The daytime premeal bedside glucose values (132, 166 and 158) have remained within the current inpatient goal without additional correction doses. Marcus is tolerating meals, walking independently, and has no recurrent ketosis symptoms or lung congestion.\n\nContinue the current reduced basal and postmeal regimen with the ordered overnight checks. We reviewed the kidney-protection plan, the held losartan and the need for an early BMP rather than automatic restart. If the final morning review remains satisfactory, discharge home with his partner is appropriate tomorrow morning."
+ },
+ {
+  "id": "note_night_final_202611080645",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Final Overnight Assessment",
+  "author": "R. Voss, MD",
+  "datetime": "2026-11-08 06:45",
+  "category": "Progress Note",
+  "summary": "Quiet night: no low-glucose symptoms, vomiting or breathing discomfort. Bedtime glucose 146, 0200 check 122. Urine measurable; ledger finalizes at 0700. 0640 samples pending. He and his partner can state the current doses and that losartan is held. Teaching materials and supplies ready.",
+  "body": "The final night has been free of reported low-glucose symptoms, vomiting or breathing discomfort. Bedtime bedside glucose was 146 and the 0200 safety check was 122. Urine output has remained measurable and the shift ledger will be finalized at 0700. Morning blood samples were collected at 0640 and are still pending. Marcus and his partner can state the current insulin doses and identify losartan as held pending follow-up. Final teaching materials and supplies are prepared, with discharge awaiting the morning results and provider review.",
+  "allowTimes": [
+   "0700"
+  ]
+ },
+ {
+  "id": "note_dc_202611080700",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Discharge Note",
+  "author": "I. Morgan, MD",
+  "datetime": "2026-11-08 07:00",
+  "category": "Progress Note",
+  "summary": "Creatinine 2.2, K 4.5, bicarbonate 24, glucose 128. DKA resolved; AKI near baseline (2.1) but not proven recovered. No recurrent hypoglycemia. Discharge home with his partner on glargine 14 units at 1900, lispro 2 units after verified meals with the premeal correction plan, losartan held until nephrology reviews the post-discharge BMP, nasal glucagon; teach-back done.",
+  "body": "The morning results are now available with creatinine 2.2, potassium 4.5, bicarbonate 24 and glucose 128. DKA remains resolved and AKI is near the established creatinine baseline, although further recovery and surveillance are still needed. There has been no recurrent hypoglycemia after the insulin reduction, and he is tolerating the planned diet with independent mobility.\n\nDischarge is authorized with glargine 14 units nightly at 1900, meal lispro 2 units after verified intake, and the written conservative premeal correction plan. Losartan remains held until nephrology reviews the post-discharge BMP and clinical status, and the follow-up and emergency instructions have been reviewed using teach-back. Marcus will leave with his partner after final medication reconciliation and removal of the peripheral IVs.",
+  "allowTimes": [
+   "1900"
+  ]
+ }
+]

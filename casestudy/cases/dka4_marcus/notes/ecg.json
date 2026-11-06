@@ -1,0 +1,78 @@
+[
+ {
+  "id": "note_ecg_202611050220",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "W. Cole, MD",
+  "datetime": "2026-11-05 02:20",
+  "category": "Cardiology",
+  "summary": "Sinus tachycardia 116, PR 152 ms, QRS 90 ms, QTc 426 ms (Fridericia). No tall narrow peaked T waves, no loss of P waves, no QRS widening (potassium 5.8 at 0200). A normal-looking tracing does not exclude hyperkalemia.",
+  "body": "**Measurements**\nVentricular rate 116 bpm. PR 152 ms. QRS 90 ms. QTc 426 ms (Fridericia).\n\n**Interpretation**\nSinus tachycardia. No tall, narrow, peaked T waves, no loss of P waves and no conduction widening. No ST or T-wave pattern of ischemia, no arrhythmia.\n\n**Context**\nDKA with potassium 5.8 (released 0220). A normal-looking tracing does not exclude hyperkalemia, and insulin will move potassium into the cells while total body potassium is low. Continue cardiac monitoring; no potassium or bicarbonate now.",
+  "study": "ECG 12 lead, acquired 02:10",
+  "impression": "Sinus tachycardia 116 without peaked T waves or QRS widening at potassium 5.8. QTc 426 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0210.png",
+    "caption": "12-lead ECG acquired 2026-11-05 02:10 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-05 02:10: Sinus tachycardia 116, PR 152 ms, QRS 90 ms, QTc 426 ms (Fridericia). No tall narrow peaked T waves, no loss of P waves, no QRS widening (potassium 5.8 at 0200). A normal-looking tracing does not exclude hyperkalemia."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611051110",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "C. Lombardi, MD",
+  "datetime": "2026-11-05 11:10",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 92, PR 156 ms, QRS 88 ms, QTc 438 ms (Fridericia). Mild nonspecific T-wave flattening; no prominent U waves, no ectopy (potassium 3.4 at 1040).",
+  "body": "**Measurements**\nVentricular rate 92 bpm. PR 156 ms. QRS 88 ms. QTc 438 ms (Fridericia; any U wave is identified separately and not included in the QT).\n\n**Interpretation**\nSinus rhythm. Mild nonspecific T-wave flattening with at most a tiny U wave; no prominent U waves and no ventricular ectopy. Compared with 0210: rate slower (116 to 92) and the T waves are lower.\n\n**Context**\nPotassium 4.2 (0640), 3.6 (0840), 3.4 (1040, released 1100) on the insulin infusion, with AKI on CKD. Replace cautiously, keep him on telemetry, and never infer a normal potassium from the ECG alone.",
+  "study": "ECG 12 lead, acquired 11:05",
+  "impression": "Sinus rhythm 92. Mild nonspecific T-wave flattening at potassium 3.4. QTc 438 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1105.png",
+    "caption": "12-lead ECG acquired 2026-11-05 11:05 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-05 11:05: Sinus rhythm 92, PR 156 ms, QRS 88 ms, QTc 438 ms (Fridericia). Mild nonspecific T-wave flattening; no prominent U waves, no ectopy (potassium 3.4 at 1040)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611051900",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "C. Lombardi, MD",
+  "datetime": "2026-11-05 19:00",
+  "category": "Cardiology",
+  "summary": "Normal sinus rhythm 88, PR 158 ms, QRS 88 ms, QTc 424 ms (Fridericia). Normal T-wave contour; no ischemic or conduction change (potassium 4.6 at 1840).",
+  "body": "**Measurements**\nVentricular rate 88 bpm. PR 158 ms. QRS 88 ms. QTc 424 ms (Fridericia).\n\n**Interpretation**\nNormal sinus rhythm. Normal T-wave contour; no ischemic or conduction change, no ectopy. Compared with 1105: the T-wave flattening has resolved.\n\n**Context**\nPotassium 4.6 on the 1840 specimen (released 1900), after 20 mEq of potassium chloride. Continue telemetry.",
+  "study": "ECG 12 lead, acquired 18:55",
+  "impression": "Normal sinus rhythm 88. Normal T-wave contour. QTc 424 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1855.png",
+    "caption": "12-lead ECG acquired 2026-11-05 18:55 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-05 18:55: Normal sinus rhythm 88, PR 158 ms, QRS 88 ms, QTc 424 ms (Fridericia). Normal T-wave contour; no ischemic or conduction change (potassium 4.6 at 1840)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202611061920",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "C. Lombardi, MD",
+  "datetime": "2026-11-06 19:20",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 80, PR 160 ms, QRS 90 ms, QTc 422 ms (Fridericia). No peaked T waves or QRS widening despite mild hyperkalemia (potassium 5.2 at 1840); continue laboratory surveillance.",
+  "body": "**Measurements**\nVentricular rate 80 bpm. PR 160 ms. QRS 90 ms. QTc 422 ms (Fridericia).\n\n**Interpretation**\nSinus rhythm. No peaked T waves, no PR prolongation and no QRS widening despite the mildly high potassium.\n\n**Context**\nPotassium 5.2 on the 1840 specimen (released 1900). This tracing is reassuring but does not replace laboratory surveillance: a repeat potassium is pending. Continue telemetry.",
+  "study": "ECG 12 lead, acquired 19:10",
+  "impression": "Sinus rhythm 80 without peaked T waves or QRS widening at potassium 5.2. QTc 422 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1910.png",
+    "caption": "12-lead ECG acquired 2026-11-06 19:10 (simulated)",
+    "alt": "Simulated 12-lead ECG tracing from 2026-11-06 19:10: Sinus rhythm 80, PR 160 ms, QRS 90 ms, QTc 422 ms (Fridericia). No peaked T waves or QRS widening despite mild hyperkalemia (potassium 5.2 at 1840); continue laboratory surveillance."
+   }
+  ]
+ }
+]

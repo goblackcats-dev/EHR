@@ -1,0 +1,25 @@
+[
+ {
+  "id": "note_ed_rn_reassess_202611050330",
+  "type": "progressNotes",
+  "title": "ED Nursing Treatment Reassessment",
+  "author": "B. Hall, RN",
+  "datetime": "2026-11-05 03:30",
+  "category": "Nursing Note",
+  "summary": "Both 250 mL saline boluses complete with clear lungs after each. Regular insulin started 0300 at 8 units/h after an independent check; no bolus. 0300 glucose 600. Nausea better after ondansetron. Urinalysis resulted: glucose and ketones, no infection.",
+  "body": "Two peripheral IVs are patent (right forearm 18 gauge, left forearm 20 gauge) and the two 250 mL saline boluses are complete. Lung reassessments after each bolus remain clear. Regular insulin began at 0300 at 8 units per hour after an independent dose and pump check, on its own dedicated line; there was no insulin bolus. The 0300 bedside glucose was 600. Ondansetron 4 mg was given at 0225 for vomiting, with improvement in nausea since. The urinalysis has resulted with glucose and ketones but no evidence of infection, and every void is being measured."
+ },
+ {
+  "id": "note_ed_rn_handoff_202611050655",
+  "type": "progressNotes",
+  "title": "ED to Step-Down Handoff (SBAR)",
+  "author": "B. Hall, RN",
+  "datetime": "2026-11-05 06:55",
+  "category": "Nursing Note",
+  "summary": "SBAR for transfer to step-down: DKA with AKI on CKD G3b. Insulin 8 units/h and saline 100 mL/h running; both IVs patent. ED totals (0200-0700): intake 954 mL, output 350 mL (net +604 mL), not to be added to the new shift. Lungs clear. 0640 labs pending.",
+  "body": "**Situation**\nMarcus Reyes, 31, DKA with acute kidney injury on CKD G3b, transferring to step-down at 0700 on IV insulin with hourly glucose checks and telemetry.\n\n**Background**\nType 1 diabetes; stopped insulin during a three-day illness. Baseline creatinine about 2.1 (posterior urethral valves repaired in infancy). ED weight 80.0 kg, which is the dosing weight. Partner Elena Cruz is the designated contact.\n\n**Assessment**\nAlert and oriented, lungs clear on repeated checks, no edema, mild nausea, respirations still somewhat deep. Two peripheral IVs patent: right forearm 18 gauge (insulin on its own dedicated line) and left forearm 20 gauge (fluids). Regular insulin 8 units per hour since 0300; 0.9% saline 100 mL per hour. Last bedside glucose 420 at 0600; last potassium 4.7 at 0500; the 0640 panel is pending.\n\n**Intake and output handed off (ED 0200-0700, pre-shift totals)**\nIV fluid 900 mL (two 250 mL boluses and 400 mL at 100 mL/h), insulin carrier 32 mL, ondansetron 2 mL, saline flushes 20 mL; oral 0. Urine 250 mL (two voids, no catheter), emesis 100 mL. Intake 954 mL, output 350 mL, net +604 mL. These are not added again to the first unit shift.\n\n**Recommendation**\nVerify the pump, insulin concentration and weight at the bedside handoff, continue hourly glucose and lung assessments, count every void, and review the 0640 results as soon as they release.",
+  "allowTimes": [
+   "0700"
+  ]
+ }
+]
