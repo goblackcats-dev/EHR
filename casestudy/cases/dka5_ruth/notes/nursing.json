@@ -1,0 +1,25 @@
+[
+ {
+  "id": "note_ed_rn_stabilization_202611050300",
+  "type": "progressNotes",
+  "title": "ED Nursing Treatment Reassessment",
+  "author": "K. Dunmore, RN",
+  "datetime": "2026-11-05 03:00",
+  "category": "Nursing Note",
+  "summary": "Three lactated Ringer's boluses complete (1,800 mL = 30 mL/kg). Ceftriaxone given 0140 after blood and urine specimens. Insulin and D10W both started 0200 on separate pumps after an independent check; no insulin bolus. POC glucose 0300: 194. Follows simple instructions, inattentive; no vomiting since the antiemetic.",
+  "body": "Three peripheral IVs are patent (A right forearm 20 gauge for insulin alone, B left forearm 20 gauge for lactated Ringer's and D10W, C left antecubital 18 gauge for ceftriaxone and later potassium). The three crystalloid boluses are complete, a total of 1,800 mL, with lung and perfusion reassessment between each bolus (lungs clear throughout). Ceftriaxone 2 g was given from 0140 after both blood-culture sets and the urine specimen had been collected. Regular insulin began at 0200 at 6 units per hour on its own line after an independent dose and pump check, with D10W at 100 mL per hour started at the same time. The 0300 bedside glucose is 194. Acetaminophen 650 mg was given rectally at 0150 for fever, and ondansetron 4 mg at 0120; she has not vomited again. Ruth remains inattentive but follows simple instructions, and her daughter Emi is at the bedside. Urine is measured with assisted collection and she is not allowed to walk to the bathroom alone."
+ },
+ {
+  "id": "note_ed_rn_handoff_202611050655",
+  "type": "progressNotes",
+  "title": "ED to ICU Handoff (SBAR)",
+  "author": "K. Dunmore, RN",
+  "datetime": "2026-11-05 06:55",
+  "category": "Nursing Note",
+  "summary": "SBAR for transfer to the ICU: sepsis from a probable urinary source with DKA (insulin 6 units/h with D10W 100 mL/h, lactated Ringer's 100 mL/h). Three peripheral IVs; no central line. ED totals 0100-0700: intake 3,062 mL, output 850 mL (net +2,212 mL), not to be added to the new shift. 0650 panel collected, not yet resulted.",
+  "body": "**Situation**\nRuth Nakamura, 67, type 1 diabetes with DKA (glucose 210) and sepsis from a probable urinary source, transferring to the ICU at 0700 on IV insulin, D10W and lactated Ringer's, with continuous telemetry and hourly glucose checks.\n\n**Background**\nTwo days of urinary symptoms, then nausea and vomiting and confusion; started empagliflozin 10 mg daily in September (off-label for type 1 diabetes). Sulfonamide antibiotic allergy (hives). Blood cultures x2 and urine culture collected before the first ceftriaxone dose (0140). Resuscitation: lactated Ringer's 1,800 mL (30 mL/kg) by 0300, then 100 mL/h; two potassium chloride riders (0330 and 0430) with potassium-free saline during them; lactated Ringer's resumed at 0530. Insulin 6 units/h and D10W 100 mL/h since 0200. Renal and bladder ultrasound (report 0530): no hydronephrosis or obstructing stone. Weight 60.0 kg. ED totals 0100-0700: intake 3,062 mL (IV fluid 2,700, IV medicine 362), output 850 mL (urine 700, emesis 150), net +2,212 mL; the ICU shift starts its own ledger at 0700.\n\n**Assessment**\nLast set 0655: temperature 38.0 C, heart rate 104, BP 116/64, respirations 24, SpO2 98% on room air. Oriented to person and place only, inattentive, follows one-step commands, protects her airway; lungs clear. Last POC glucose 168 (0600). The 0650 transfer panel is collected and NOT yet resulted: potassium is unknown to me.\n\n**Recommendation**\nRead the 0650 result as soon as it is released and act on the potassium before anything else; keep hourly glucose, the bed alarm on and assisted toileting; no unassisted walking; reorient her and call Emi with updates (agent if capacity is lost).",
+  "allowTimes": [
+   "0700"
+  ]
+ }
+]

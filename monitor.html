@@ -270,12 +270,30 @@
     { t: '2026-11-07 19:00', hr: 74, spo2: 98, sys: 122, dia: 76, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Shift change: ready for home; partner here for the dinner dose practice' },
     { t: '2026-11-08 07:00', hr: 72, spo2: 98, sys: 120, dia: 74, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.09, tAmp: 0.3, o2: 'Room air', note: 'Discharge day: labs reviewed, home with his partner after final teach-back' }
   ];
-  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 5-7 append here
+  // Ruth Nakamura, 67 F, SGLT2-inhibitor-associated near-euglycemic DKA with E. coli urosepsis and delirium (casestudy/cases/dka5_ruth). Lying vitals. Celsius in the design converted to F (fever curve 38.0 C falling to 36.7 C).
+  const DKA5 = [
+    { t: '2026-11-05 07:00', hr: 104, spo2: 98, sys: 116, dia: 64, rr: 24, temp: 100.4, rhythm: 'tachy', pr: 0.164, qrs: 0.088, tAmp: 0.2, uAmp: 0.1, o2: 'Room air', note: 'ICU arrival: dry mouth, weak, oriented to person and place only, CAM-ICU positive. K 3.3 just released: HOLD insulin, D10W 50 mL/h, KCl riders x4 (max 10 mEq/h); flat T with small U waves, ECG 0705' },
+    { t: '2026-11-05 09:15', hr: 98, spo2: 98, sys: 118, dia: 66, rr: 22, temp: 100.2, rhythm: 'sinus', pr: 0.162, qrs: 0.088, tAmp: 0.25, uAmp: 0.07, o2: 'Room air', note: 'K 3.7 (0900): provider confirms insulin restart 6 units/h and D10W back to 100 mL/h; KCl riders 3 and 4 still to run. Glucose 154' },
+    { t: '2026-11-05 13:00', hr: 94, spo2: 98, sys: 120, dia: 68, rr: 22, temp: 99.9, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Glucose 148 (164 at 1200): raise D10W to 150 mL/h under the protocol, insulin stays 6 units/h (BHB 2.8). Mild headache since 1200, no neurological change. Denies symptoms (impaired awareness)' },
+    { t: '2026-11-05 19:00', hr: 92, spo2: 98, sys: 118, dia: 66, rr: 20, temp: 99.7, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Shift change: normal T waves, no U waves. Nausea gone, asks about her cat, inconsistent about the date. BHB 0.7: not resolved, insulin and D10W 150 mL/h continue' },
+    { t: '2026-11-05 21:00', hr: 96, spo2: 98, sys: 120, dia: 68, rr: 20, temp: 99.7, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Nocturnal disorientation: wants to leave to feed the cat. Glucose 168 (not low). CAM-ICU positive: reorient, assist to the commode, call Emi; no sedative' },
+    { t: '2026-11-05 23:00', hr: 86, spo2: 98, sys: 120, dia: 68, rr: 18, temp: 99.3, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'DKA resolved (2250 labs: BHB 0.4, pH 7.36, HCO3 19). Glargine 12 units due now; insulin and D10W run until 0100 (2-hour overlap)' },
+    { t: '2026-11-06 07:00', hr: 84, spo2: 98, sys: 124, dia: 68, rr: 18, temp: 98.8, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Day 2: oriented to person, place and date, CAM-ICU negative, eats with supervision, strength reduced. Drip stopped 0100; E. coli to be identified at 0800' },
+    { t: '2026-11-06 14:00', hr: 82, spo2: 98, sys: 126, dia: 70, rr: 16, temp: 98.6, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Afternoon: oral amoxicillin starts (E. coli final 1045); sulfonamide allergy: TMP-SMX reads susceptible but is NOT an option. Walks with a walker and assistance' },
+    { t: '2026-11-06 19:00', hr: 80, spo2: 98, sys: 126, dia: 70, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.166, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Shift change: oriented in conversation but impulsive about toileting; tubing and neuropathy raise the fall risk. ECG 1900: normal T waves' },
+    { t: '2026-11-06 20:15', hr: 94, spo2: 98, sys: 124, dia: 68, rr: 18, temp: 98.4, rhythm: 'sinus', pr: 0.164, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Tried to walk to the bathroom alone: knees buckle, nurse supports her into a chair, no floor descent or impact. Glucose 186. Check injury, mental status, tell the provider' },
+    { t: '2026-11-07 07:00', hr: 76, spo2: 98, sys: 128, dia: 72, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Day 3: oriented x4, remembers the near-fall, asks to go home. Transfer to the ward at 1000' },
+    { t: '2026-11-07 19:00', hr: 74, spo2: 98, sys: 124, dia: 70, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Shift change on the ward: pleasant, walking with assistance; dinner smaller than lunch (30 g carbohydrate)' },
+    { t: '2026-11-07 21:00', hr: 76, spo2: 98, sys: 124, dia: 72, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Routine bedtime glucose 63: NO sweating, tremor, palpitations or hunger and vital signs unchanged (hypoglycemia unawareness). Treat anyway: 15 g juice, recheck in 15 minutes' },
+    { t: '2026-11-08 07:00', hr: 76, spo2: 98, sys: 126, dia: 70, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Closing: oriented x4, CAM negative, can teach back; glucose 145. Conditional discharge order for about 1000' }
+  ];
+  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patients 6-7 append here
   const DKA_SERIES = [
     ['SIM-40501', DKA1, 'PICU-4   THOMPSON, MAYA   16 F'],
     ['SIM-40502', DKA2, 'IMC-6   ELLIS, JORDAN   24 M'],
     ['SIM-40503', DKA3, 'SD-8   CARTER, DENISE   38 F'],
-    ['SIM-40504', DKA4, 'SD-5   REYES, MARCUS   31 M']
+    ['SIM-40504', DKA4, 'SD-5   REYES, MARCUS   31 M'],
+    ['SIM-40505', DKA5, 'ICU-9   NAKAMURA, RUTH   67 F']
   ];
   const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON };
   const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F' };

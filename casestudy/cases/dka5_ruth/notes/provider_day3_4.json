@@ -1,0 +1,116 @@
+[
+ {
+  "id": "note_icu_progress_202611070715",
+  "type": "progressNotes",
+  "title": "ICU Note - Ready for Ward Care",
+  "author": "H. Calloway, MD",
+  "datetime": "2026-11-07 07:15",
+  "category": "Progress Note",
+  "summary": "0650 panel (released 0700): bicarbonate 24, gap 9, creatinine 0.8, WBC 9.8. Blood cultures no growth at about 48 hours (released 0120). Fully oriented, recalls the near-fall and agrees to ask for help. DKA and AKI resolved. Transfer to the medical ward ordered for 1000.",
+  "body": "The morning panel released at 0700 shows bicarbonate 24, anion gap 9, potassium 4.1, creatinine 0.8 and WBC 9.8. Blood cultures were again reported as no growth at approximately 48 hours when the update was released at 0120. Ruth is fully oriented today, recalls the assisted near-fall, and agrees to ask for help with walking. She is tolerating oral amoxicillin and meals without recurrent urinary pain or vomiting.\n\nDKA and the acute kidney injury have resolved; deconditioning and impaired hypoglycemia awareness remain the discharge concerns. Transfer to the medical ward is ordered for 1000 with continued before-meal and bedtime glucose testing, fall precautions, and planned therapy and family education. Enoxaparin continues while she remains hospitalized.",
+  "allowTimes": [
+   "1000"
+  ]
+ },
+ {
+  "id": "note_pt_202611070930",
+  "type": "therapyNotes",
+  "title": "Physical Therapy - Mobility Evaluation",
+  "author": "E. Whitlock, PT, DPT",
+  "datetime": "2026-11-07 09:30",
+  "category": "Physical Therapy",
+  "summary": "Mild bilateral leg weakness and reduced foot sensation. Transfers with a walker and standby assistance after reminders to pause before standing; practiced two entrance steps with a railing and hands-on help, no loss of balance. Recommend a rolling walker, temporary family supervision and home therapy rather than unsupervised mobility.",
+  "body": "Ruth demonstrates mild bilateral lower-extremity weakness and reduced distal sensation in both feet. She transfers with a walker and one-person standby assistance after reminders to pause before standing. During a supervised short hallway walk she initially advances the walker too far but corrects the technique with cueing. She practiced two entrance steps using a railing with hands-on assistance and no loss of balance.\n\nI recommend a rolling walker, temporary family supervision and home therapy rather than unsupervised mobility immediately after discharge. Nursing should continue assisted toileting and reinforce the same transfer sequence consistently: pause, feet flat, push up, then grip the walker before stepping."
+ },
+ {
+  "id": "note_cdces_202611071100",
+  "type": "therapyNotes",
+  "title": "Diabetes Education - Ketones, CGM and Hypoglycemia Rescue",
+  "author": "M. Brightwell, RN, CDCES",
+  "datetime": "2026-11-07 11:00",
+  "category": "Diabetes Education",
+  "summary": "Ruth and her daughter Emi (with her consent) practiced blood-ketone testing and explained that nausea, vomiting, deep breathing or confusion need ketones checked even when glucose is near normal. CGM receiver reconnected with a low alert of 90; hospital dosing still uses bedside testing. They understand empagliflozin is permanently stopped.",
+  "body": "Ruth and Emi participated in teaching with Ruth's consent after her transfer to the ward. They correctly explained that nausea, vomiting, deep breathing and confusion require a ketone check even when the glucose is near the usual range, and that her glucose of about 200 hid a serious acidosis this time. Ruth demonstrated blood-ketone testing and explained why basal insulin must continue during illness unless a clinician gives a specific alternative plan. Escalation levels for the discharge plan: a blood ketone of 0.6 to 1.4 means calling the diabetes team now and repeating in 2 hours; 1.5 or higher with vomiting, inability to keep fluids down, new confusion or trouble breathing, or any value of 3 or higher, means the emergency department, not home care.\n\nEmi practiced the insulin pen safety check and reviewed how meal doses depend on the carbohydrate actually eaten. We reconnected the CGM receiver and set a low alert of 90 with sharing to Emi, and reinforced that hospital dosing uses bedside testing. Because Ruth may not feel a low glucose, they reviewed the rescue steps: 15 g of fast carbohydrate and a recheck in 15 minutes, nasal glucagon from Emi if she cannot swallow, and no driving until the hypoglycemia risk and her thinking have been reviewed. Both understand that empagliflozin and any similar SGLT2-inhibitor medicine have been permanently discontinued, and that recurrent symptoms need urgent clinical advice rather than waiting for a very high glucose reading."
+ },
+ {
+  "id": "note_rd_202611071300",
+  "type": "therapyNotes",
+  "title": "Dietitian Meal Planning Follow-Up",
+  "author": "N. Vandermeer, RDN",
+  "datetime": "2026-11-07 13:00",
+  "category": "Nutrition",
+  "summary": "Ruth can now follow the whole discussion and counted the carbohydrate in a sample meal accurately. Plan: about 45 g carbohydrate per meal; smaller meals allowed with the matching insulin dose; Emi will prepare meals at first. Treat a low with rapid carbohydrate first, then a snack if the next meal is not soon.",
+  "body": "Ruth is now able to sustain attention throughout the discussion and accurately counts the carbohydrate in the sample meal. The usual plan is approximately 45 g of carbohydrate at each meal, with the option to eat a smaller amount and receive the corresponding prescribed insulin dose. She and Emi described several easy meals and agreed that Emi will prepare food during the first days at home.\n\nWe reviewed maintaining fluids and a source of carbohydrate during illness and contacting the diabetes team early when intake declines. I reinforced that treating a low glucose requires rapid carbohydrate first, with a follow-up snack when the next meal is not soon. Emi will keep a written food and insulin record temporarily so the outpatient team can adjust doses to her recovery and appetite."
+ },
+ {
+  "id": "note_cm_202611071530",
+  "type": "caseManagement",
+  "title": "Case Management - Family Support and Supplies",
+  "author": "C. Easterly, RN CCM",
+  "datetime": "2026-11-07 15:30",
+  "category": "Case Management",
+  "summary": "Emi will stay with Ruth continuously for the first 72 hours after discharge and visit daily afterward; the cat is cared for. Walker, meter, CGM supplies, blood-ketone meter and strips, and nasal glucagon are available for home. Home nursing visit accepted for the day after discharge; endocrinology contact within 48 hours and visits within one week. Discharge still depends on the medical team.",
+  "body": "Emi confirms that she will stay with Ruth continuously for the first 72 hours after discharge and continue daily visits afterward. The cat is being cared for, and this concern is no longer prompting Ruth to try to leave unexpectedly. A rolling walker, a functioning glucose meter, CGM supplies, a blood-ketone meter and strips, and an unexpired nasal glucagon device are available for home use.\n\nHome nursing has accepted a visit for the day after the anticipated discharge. Follow-up arrangements include an endocrinology contact within 48 hours and an office visit within one week, with a primary-care review within one week of the temporary lisinopril hold and a basic metabolic panel. Discharge remains dependent on the medical team's reassessment, the final teaching verification and safe glucose control overnight."
+ },
+ {
+  "id": "note_ward_202611071930",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Evening Note",
+  "author": "D. Sandoval, MD",
+  "datetime": "2026-11-07 19:30",
+  "category": "Progress Note",
+  "summary": "Evening chemistry (released 1900): bicarbonate 24, gap 9, K 4.0, glucose 118. Oriented and conversational with no recurrence of delirium today. Dinner about 30 g carbohydrate (smaller than lunch). Walking more with assistance; continues to deny warning symptoms when asked about past lows. Bedtime glucose due at 2100; glargine 12 units due at 2300.",
+  "body": "I am covering the ward overnight. The evening chemistry released at 1900 shows bicarbonate 24, anion gap 9, potassium 4.0 and serum glucose 118. Ruth is oriented and converses appropriately, with no recurrence of delirium during the day. Her dinner was smaller than her lunch (about 30 g of carbohydrate), so the after-meal lispro is calculated from what she actually ate, 2 units at 1 unit per 15 g.\n\nShe spent more time walking with assistance today and continues to deny warning symptoms when she discusses past low glucose episodes, which is characteristic of her hypoglycemia unawareness. The bedtime glucose is scheduled for 2100 and glargine 12 units is ordered for 2300. I reviewed the hypoglycemia order set, the need to observe actual intake and the daughter's planned supervision.",
+  "allowTimes": [
+   "2100",
+   "2300"
+  ]
+ },
+ {
+  "id": "note_ward_202611072135",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Night Note - Asymptomatic Low Glucose",
+  "author": "D. Sandoval, MD",
+  "datetime": "2026-11-07 21:35",
+  "category": "Progress Note",
+  "summary": "Routine 2100 glucose 63 with no sweating, tremor, palpitations or hunger. Awake and swallowing safely: 120 mL juice (15 g) under the hypoglycemia order; I was notified at 2105. Recheck 88 at 2115, then a cracker snack; 107 at 2130. No bedtime correction insulin. Endocrinology asked to review the 2300 basal dose.",
+  "body": "The routine 2100 bedside glucose was 63 even though Ruth denied sweating, tremor, palpitations or hunger: an asymptomatic low in a woman with known hypoglycemia unawareness. She stayed alert and swallowed safely, so she received 120 mL of juice containing 15 g of rapid carbohydrate under the hypoglycemia order, and I was notified at 2105. At 2115 the repeat glucose was 88, and I ordered the follow-up cracker snack because the next meal is not soon. No bedtime correction insulin has been given.\n\nThe nurse remained with her during the immediate recovery. The glucose at 2130 was 107 and the next check is at 2200. Because glargine 12 units is scheduled for 2300 and this low came after a day of improving insulin sensitivity, more walking and a small dinner, I have asked endocrinology for a dose review before 2300; basal insulin is not simply omitted in type 1 diabetes. Her daughter will be updated by phone in the morning.",
+  "allowTimes": [
+   "2200",
+   "2300"
+  ]
+ },
+ {
+  "id": "note_endo_202611072150",
+  "type": "progressNotes",
+  "title": "Endocrinology - Insulin Reassessment After Low Glucose",
+  "author": "L. Ostrander, MD",
+  "datetime": "2026-11-07 21:50",
+  "category": "Consult Note",
+  "summary": "Reviewed the asymptomatic glucose of 63 and the recovery: 88 at 2115, 107 at 2130. No bedtime correction was given. At 2145 I reduced glargine from 12 to 10 units (first dose 2300) and changed meal lispro to 1 unit per 18 g carbohydrate with the same premeal correction. Basal continues; more monitoring, not omission.",
+  "body": "I reviewed the asymptomatic glucose of 63 and the treatment response of 88 at 2115 and 107 at 2130. The episode occurred without a bedtime correction and in the setting of improving insulin sensitivity after resolution of the infection, increased activity and a variable appetite. Because she does not feel lows, her glucose targets should sit slightly higher for now; avoiding all lows for several weeks can partly restore warning symptoms.\n\nAt 2145 I reduced the scheduled glargine from 12 to 10 units and changed future meal dosing to 1 unit per 18 g of carbohydrate eaten, keeping the cautious premeal correction scale. Basal insulin will still be given because she has type 1 diabetes, with additional monitoring rather than omission. A further bedside check is planned at 2200 before the revised 2300 basal dose, and a targeted check at 0300. Ruth and her daughter need repeat teach-back of the revised doses and the impaired-awareness rescue plan before discharge.",
+  "allowTimes": [
+   "2200",
+   "2300",
+   "0300",
+   "2145"
+  ]
+ },
+ {
+  "id": "note_ward_202611080700",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Morning Note - Discharge Readiness",
+  "author": "V. Halloran, MD",
+  "datetime": "2026-11-08 07:00",
+  "category": "Progress Note",
+  "summary": "0650 panel (released 0700): bicarbonate 24, gap 9, K 4.1, creatinine 0.8, WBC 8.2, Hb 11.8 (mild dilutional fall, no bleeding); POC glucose 145. After the low: 126 at 2200, glargine 10 units at 2300, 132 at 0300. Oriented and able to teach back. Blood cultures no growth at about 72 hours (released 0120); final result pending. Conditional discharge order written for about 1000.",
+  "body": "The closing laboratory panel released at 0700 shows bicarbonate 24, anion gap 9, creatinine 0.8, potassium 4.1 and WBC 8.2, with a hemoglobin of 11.8 and platelets of 228 (a mild dilutional fall without bleeding) and a bedside glucose of 145. After the evening low, her glucose reached 126 at 2200, glargine 10 units was due at 2300, and the targeted 0300 glucose was 132. Ruth is fully oriented and can describe the purpose of ketone testing and the permanent empagliflozin discontinuation.\n\nBlood cultures remain preliminary with no growth at approximately 72 hours (released at 0120), and our inpatient team retains responsibility for reviewing the five-day result. I have written a conditional discharge order for an anticipated 1000 departure after breakfast tolerance, her daughter's arrival, supply verification and repeat teaching of the revised insulin regimen (glargine 10 units at 2300, lispro 1 unit per 18 g carbohydrate eaten plus the premeal correction, no bedtime correction). The decision to leave depends on those checks and on no further low glucose; if intake is poor, confusion returns or supervision cannot be arranged, we reassess rather than discharge. Enoxaparin ends at actual discharge.",
+  "allowTimes": [
+   "1000",
+   "2200",
+   "2300",
+   "0300",
+   "0120"
+  ]
+ }
+]

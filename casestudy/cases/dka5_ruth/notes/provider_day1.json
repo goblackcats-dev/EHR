@@ -1,0 +1,196 @@
+[
+ {
+  "id": "note_ed_provider_202611050115",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Sepsis Evaluation, Possible DKA",
+  "author": "T. Quillen, MD",
+  "datetime": "2026-11-05 01:15",
+  "category": "ED Provider Note",
+  "summary": "Acute confusion, dysuria, right flank pain and vomiting in a 67-year-old with type 1 diabetes of 52 years on an SGLT2 inhibitor. Dry, deep-breathing, right costovertebral-angle tenderness, inattentive, no focal deficit. Sepsis from a urinary source is likely and DKA is possible despite the home glucose of 198. Samples sent and cultures collected before antibiotics; fluid resuscitation started.",
+  "body": "**HPI**\n67-year-old woman with type 1 diabetes since age 15 (hypoglycemia unawareness, mild distal neuropathy, nonproliferative retinopathy), hypertension and hyperlipidemia. Dysuria and frequency began two days ago; yesterday she had urgency, feverishness, reduced drinking and right flank discomfort; at 1800 she was nauseated and vomited once. Her meter read 198, so she assumed she could not have DKA. Her daughter Emi Tanaka found her confused on the telephone at 0030 and EMS brought her in. She took glargine 18 units at 2100 as usual and lispro 3 units with lunch, and skipped dinner insulin because she did not eat.\n\n**Medicines and allergy**\nGlargine 18 units at 2100, lispro 1 unit per 12 g carbohydrate plus 1 unit per 50 mg/dL over 150 with meals, empagliflozin 10 mg at 0800 (started September 24 by an outside prescriber for glucose and weight, off-label in type 1 diabetes), lisinopril 5 mg, atorvastatin 20 mg, nasal glucagon as needed. **Allergy: sulfonamide antibiotics (generalized urticaria, no anaphylaxis).** No penicillin or cephalosporin allergy. Personal CGM; the receiver connection was lost two days ago.\n\n**Exam**\nTemperature 39.1 C orally, heart rate 118, BP 92/54, respirations 28 and deep, SpO2 97% on room air. Dry mucous membranes, capillary refill about 4 seconds, right costovertebral-angle tenderness, lungs clear, no focal neurological deficit. GCS 14: oriented to person and place, not to date, and inattentive.\n\n**Plan**\nSepsis with probable pyelonephritis and possible DKA. Blood chemistry, magnesium, phosphorus, BHB, arterial gas, lactate, albumin, CBC and HbA1c were collected at 0110; the first blood-culture set is drawn and the second is being obtained, then an assisted clean-catch urine for urinalysis and culture, all before antibiotics. Lactated Ringer's 500 mL boluses with lung and perfusion reassessment between each, ondansetron for nausea, ECG now, strict output collection. Results are pending.",
+  "allowTimes": [
+   "1800",
+   "0030",
+   "2100",
+   "1200",
+   "0800",
+   "0110"
+  ]
+ },
+ {
+  "id": "note_ed_provider_202611050135",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Diagnostic Update, DKA and Sepsis",
+  "author": "T. Quillen, MD",
+  "datetime": "2026-11-05 01:35",
+  "category": "ED Provider Note",
+  "summary": "Panel released 0130: glucose 210, bicarbonate 9, gap 24, BHB 6.8, arterial pH 7.12 (pCO2 29), lactate 3.2, creatinine 1.2 (baseline 0.7), WBC 18.6; urine nitrite-positive with pyuria. SGLT2-associated DKA with near-normal glucose, urinary sepsis, delirium and AKI. Ceftriaxone at 0140; insulin without a bolus with D10W from the start.",
+  "body": "**Data (released 0130)**\nGlucose 210, sodium 134 (corrected for glucose about 135.8), potassium 4.8, chloride 101, bicarbonate 9, anion gap 24, BHB 6.8, BUN 36, creatinine 1.2, magnesium 1.8, phosphorus 3.8, albumin 3.8 (no gap correction needed), lactate 3.2, WBC 18.6, hemoglobin 13.0, platelets 240, HbA1c 8.1%. Arterial gas: pH 7.12, pCO2 29. Urinalysis: nitrite positive, large leukocyte esterase, over 100 WBC per high-power field, many bacteria, glucose 1,000 mg/dL or more and ketones 3+. ECG: sinus tachycardia 118 with normal T waves.\n\n**Assessment**\n1. **DKA with near-normal glucose, associated with the SGLT2 inhibitor.** Glucose 210 is just above the strict 200 cut-off for euglycemic DKA, but the acidosis is severe by bicarbonate and moderate by pH; a reassuring glucose must not delay treatment. Empagliflozin is discontinued permanently.\n2. **Respiratory compensation is inadequate.** Winter's formula predicts an arterial pCO2 of 21.5 (19.5-23.5); the measured 29 means a superimposed respiratory component. Reassess airway protection, fatigue and aspiration risk now; do not call it simple Kussmaul breathing. A repeat arterial gas follows at 0320.\n3. **Sepsis from a urinary source** (pyuria, nitrite, flank tenderness, fever, lactate 3.2) with encephalopathy and acute kidney injury (creatinine 1.2 is 1.7 times her baseline of 0.7, stage 1). Cultures were collected before antibiotics; ceftriaxone 2 g starts at 0140 (no ESBL history; allergy is to sulfonamides only).\n4. Acute infection-associated delirium. Aspiration precautions, no sedatives.\n\n**Plan**\nIntensive-care admission. Complete 30 mL/kg lactated Ringer's (1,800 mL) by 0300 with reassessment. Regular insulin 0.1 unit/kg/h = 6 units/h with no bolus, started with D10W 100 mL/h so the ketones can clear without hypoglycemia; hourly glucose; potassium surveillance (K 4.8 now, expect a fall). Renal and bladder ultrasound for the urinary source.",
+  "allowTimes": [
+   "0320",
+   "0140",
+   "0300",
+   "0130"
+  ]
+ },
+ {
+  "id": "note_ed_provider_202611050345",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Repeat Labs and Potassium Replacement",
+  "author": "T. Quillen, MD",
+  "datetime": "2026-11-05 03:45",
+  "category": "ED Provider Note",
+  "summary": "0320 panel released 0330: arterial pH 7.25, pCO2 24 (appropriate compensation), bicarbonate 10, gap 21, BHB 5.7, lactate 2.2, potassium 4.0 and falling. Two potassium chloride riders with potassium-free saline; insulin and D10W continue. Renal and bladder ultrasound ordered.",
+  "body": "The 0320 specimen was released at 0330. Arterial pH 7.25 and pCO2 24: Winter's expected pCO2 is 23 (21-25), so compensation is now appropriate and the earlier respiratory concern has settled. Bicarbonate 10, anion gap 21, BHB 5.7: improving on insulin but far from resolved. Lactate has fallen from 3.2 to 2.2 after resuscitation (repeat once more with the next panel). Glucose 192, creatinine 1.1.\n\nPotassium has fallen from 4.8 to 4.0 in 2 hours on insulin with good urine output (350 mL since arrival, about 2 mL/kg/h). Replace now: potassium chloride 10 mEq in 100 mL over 1 hour, two sequential riders on a pump, with potassium-free saline replacing lactated Ringer's (LR carries 4 mEq/L) so the combined delivery never exceeds 10 mEq per hour through the peripheral line. Continue insulin 6 units/h with D10W 100 mL/h and hourly glucose. Renal and bladder ultrasound is ordered for the urinary source and the AKI. Transfer panel at 0650.",
+  "allowTimes": [
+   "0650",
+   "0320"
+  ]
+ },
+ {
+  "id": "note_radiology_202611050530",
+  "type": "imaging",
+  "title": "Renal and Bladder Ultrasound",
+  "author": "Radiology Service (J. Whelan, MD)",
+  "datetime": "2026-11-05 05:30",
+  "category": "Radiology",
+  "summary": "No hydronephrosis, no obstructing stone seen, bladder not distended. No drainage procedure indicated.",
+  "body": "**Indication**\nSepsis with probable pyelonephritis, right flank tenderness, acute kidney injury.\n\n**Findings**\nNo hydronephrosis in either kidney. No obstructing stone seen. The bladder is not distended.\n\n**Impression**\nNo obstruction. No drainage procedure is indicated at this time; repeat imaging only for failure to improve or new deterioration.",
+  "study": "Renal and bladder ultrasound, performed 0500",
+  "impression": "No hydronephrosis or obstructing stone; bladder not distended."
+ },
+ {
+  "id": "note_icu_hp_202611050715",
+  "type": "hp",
+  "title": "ICU Admission History and Physical",
+  "author": "H. Calloway, MD",
+  "datetime": "2026-11-05 07:15",
+  "category": "History and Physical",
+  "summary": "SGLT2-associated DKA with near-normal glucose, sepsis from a probable urinary source, acute metabolic encephalopathy and improving prerenal AKI. 0650 panel: K 3.3 (insulin held, four peripheral KCl riders, K recheck at 0900), bicarbonate 12, gap 17, BHB 4.1, lactate 1.6, Mg 1.6. ECG 0705: flattened T waves with small U waves. Enoxaparin 40 mg daily for documented clot risk (sepsis, ICU stay, reduced mobility, age 67).",
+  "body": "**Reason for admission**\nDiabetic ketoacidosis with sepsis from a urinary source, in a woman with type 1 diabetes taking an SGLT2 inhibitor.\n\n**HPI**\n67-year-old woman, type 1 diabetes for 52 years. Dysuria and frequency for 2 days, then fever, right flank pain, vomiting and confusion. Empagliflozin 10 mg daily had been started on September 24 by an outside prescriber (off-label in type 1 diabetes); her last dose was yesterday morning, and she took her basal insulin. Meter glucose was 198 so she assumed she could not have DKA. ED course: blood cultures x2 and urine culture before ceftriaxone 2 g (0140); lactated Ringer's 1,800 mL (30 mL/kg) by 0300 then 100 mL/h; regular insulin 6 units/h without a bolus with D10W 100 mL/h from 0200; potassium chloride 10 mEq x2 (0330, 0430); ondansetron; acetaminophen 650 mg rectally. Renal ultrasound (0530): no hydronephrosis or obstruction.\n\n**Past history, medicines, allergy, social**\nHypertension, hyperlipidemia, prior uncomplicated UTIs, nonproliferative retinopathy and mild distal sensory neuropathy; hypoglycemia unawareness (sometimes no symptoms until glucose is under 50). Baseline creatinine 0.7. No heart failure, coronary disease, dementia, lung or chronic kidney disease. Home: glargine 18 units at 2100, lispro with meals, lisinopril 5 mg, atorvastatin 20 mg, nasal glucagon 3 mg as needed, empagliflozin (now stopped). **Allergy: sulfonamide antibiotics (generalized urticaria).** Widowed retired librarian who lives alone with her cat, Miso; independent before this illness; no tobacco, alcohol or drugs. Daughter Emi Tanaka (health-care agent if capacity is lost) lives 10 minutes away. Full code.\n\n**Exam**\nWeak and dry-mouthed, awake and oriented to person and place only, distractible, follows one-step commands, protects her airway; CAM-ICU positive; no focal deficit. Deep respirations, lungs clear. Right costovertebral-angle tenderness. Three peripheral IVs, no central line. Telemetry: sinus tachycardia with mild T-wave flattening and small U waves (ECG 0705).\n\n**Data (0650 panel, released 0700)**\nGlucose 168, sodium 137, **potassium 3.3**, chloride 108, bicarbonate 12, anion gap 17, venous pH 7.28, pCO2 26, BHB 4.1, BUN 29, creatinine 1.0, lactate 1.6, magnesium 1.6, phosphorus 2.0, WBC 17.0. POC glucose 168.\n\n**Assessment and plan**\n1. **DKA, improving but NOT resolved** (BHB 4.1, bicarbonate 12) despite the modest glucose. Potassium is below 3.5, so the insulin infusion is **held now** and D10W is reduced to 50 mL/h with hourly glucose. Four sequential potassium chloride 10 mEq riders (0700, 0800, 0900, 1000) through a peripheral IV, never above 10 mEq per hour from all sources, with potassium-free saline replacing lactated Ringer's (LR carries 4 mEq/L); potassium rechecked at 0900. Insulin restarts only when K is 3.5 or higher and I have reviewed it.\n2. **Hypomagnesemia and low phosphorus.** Magnesium 1.6 will be rechecked at 1100 and replaced if still low (it makes potassium hard to correct); phosphorus 2.0 is monitored, not replaced.\n3. **Sepsis, probable right pyelonephritis.** Lactate normalized (1.6) after 30 mL/kg; no pressor need, no oxygen need. Ceftriaxone continues (next dose due at 0140 tomorrow); cultures pending; no obstruction on ultrasound. Reassess lungs and perfusion before any more fluid.\n4. **Acute metabolic encephalopathy (delirium).** Treat the causes; assisted mobility, bed alarm, reorientation, family presence, no benzodiazepines or restraints.\n5. **AKI, prerenal and improving** (creatinine 1.2 to 1.0; baseline 0.7). Hold lisinopril, no NSAIDs, strict I&O.\n6. **VTE prophylaxis: enoxaparin 40 mg subcutaneously daily from 0900.** She has documented clot-risk factors: age 67, sepsis (acute infection), an ICU stay with reduced mobility (assisted mobility only, delirium), a risk-model score of 4 (high risk). No bleeding, platelets 240, estimated creatinine clearance above 40 mL/min (no dose change). Inpatient only.\n7. **Impaired hypoglycemia awareness** with D10W and insulin running: hourly POC glucose, hypoglycemia orders in place; no symptoms does not mean safe.\n8. Empagliflozin permanently stopped (serious adverse drug reaction documented). Endocrinology consulted for transition planning.",
+  "allowTimes": [
+   "0900",
+   "0800",
+   "1000",
+   "1100",
+   "0140",
+   "0200",
+   "0330",
+   "0430",
+   "0530",
+   "0300",
+   "0650",
+   "0705",
+   "0700",
+   "2100"
+  ]
+ },
+ {
+  "id": "note_icu_progress_202611050925",
+  "type": "progressNotes",
+  "title": "ICU Note - Potassium 3.7, Insulin Restart",
+  "author": "H. Calloway, MD",
+  "datetime": "2026-11-05 09:25",
+  "category": "Progress Note",
+  "summary": "Potassium 3.7 (0900 specimen, released 0910) after 20 mEq. I reviewed it and authorized restarting insulin at 6 units/h at 0915 with D10W back to 100 mL/h; riders 3 and 4 continue. POC glucose 156 (0800) and 154 (0900) during the hold.",
+  "body": "The interim potassium drawn at 0900 (before the third rider) was released at 0910 with a value of 3.7 after two riders (20 mEq). That is above the 3.5 threshold and rising, so I reviewed the result and authorized restarting the regular insulin infusion at 6 units per hour (0.1 unit/kg/h) at 0915, with D10W returned to 100 mL per hour. The third and fourth potassium riders continue one at a time, with potassium-free saline as the carrier. During the 2-hour 15-minute hold the bedside glucose stayed at 156 and then 154 on D10W 50 mL/h: SGLT2 inhibitors keep causing glucose loss in the urine for days, which also explains why her glucose has stayed in the 150s.\n\nThe ketoacidosis is still active (BHB 4.1 at 0650), so the insulin is needed even though her glucose is modest. Her mentation is unchanged: she follows one-step commands but needs repeated reminders about why she is in hospital. Peripheral sites are without pain or swelling. The next panel is at 1100 (potassium, magnesium, BHB, gas); keep hourly glucose, and keep the D10W titration protocol active.",
+  "allowTimes": [
+   "1100",
+   "0650",
+   "1000"
+  ]
+ },
+ {
+  "id": "note_endo_consult_202611051130",
+  "type": "progressNotes",
+  "title": "Endocrinology Consultation - DKA, Transition and Hypoglycemia Unawareness",
+  "author": "L. Ostrander, MD",
+  "datetime": "2026-11-05 11:30",
+  "category": "Consult Note",
+  "summary": "1100 panel (released 1110): K 4.0, bicarbonate 14, gap 15, BHB 2.8, glucose 172. Ketones still need insulin at 6 units/h with dextrose titrated; magnesium 2 g now (Mg 1.6). Phosphorus 1.8 monitored, not replaced. Empagliflozin stopped permanently. After resolution: conservative basal-bolus plan with a 2-hour overlap.",
+  "body": "**Reason**\nSGLT2-inhibitor-associated DKA in long-standing type 1 diabetes with hypoglycemia unawareness; guidance on the insulin course, transition and medicine safety.\n\n**Assessment**\nThe 1100 panel released at 1110 shows potassium 4.0 (after 40 mEq), bicarbonate 14, gap 15, BHB 2.8 and glucose 172. The glucose is not a marker of how much ketoacidosis remains: the ketones are still high, so insulin continues at 6 units per hour with dextrose adjusted to prevent a low. Magnesium is 1.6 and a 2 g infusion starts now. Phosphorus is low at 1.8 but she has no respiratory muscle weakness or other reason to replace it; the threshold is under 1.0 or those signs.\n\n**Recommendations**\n1. Continue the fixed-rate infusion with the D10W titration until DKA resolves (BHB under 0.6 AND venous pH 7.3 or higher OR bicarbonate 18 or higher), then give long-acting insulin and keep the infusion on for a full 2 hours.\n2. Permanently discontinue empagliflozin and all SGLT2 inhibitors; list the reaction in the allergy and adverse-reaction record. Warn the team that glycosuria and ketosis can persist for several days after the last dose, so urine glucose is not a useful marker.\n3. Conservative subcutaneous regimen after resolution: low basal dose and meal insulin by carbohydrate actually eaten, with no bedtime correction. Her age, recent AKI, uncertain intake and impaired awareness argue against restarting her full home doses.\n4. Teaching later: euglycemic DKA recognition and a blood-ketone meter, CGM reconnection with a low alert, glucagon, and daughter teach-back.",
+  "allowTimes": [
+   "1100"
+  ]
+ },
+ {
+  "id": "note_icu_progress_202611051315",
+  "type": "progressNotes",
+  "title": "ICU Note - Glucose 148, D10W Increased",
+  "author": "H. Calloway, MD",
+  "datetime": "2026-11-05 13:15",
+  "category": "Progress Note",
+  "summary": "POC glucose 148 at 1300 (164 at 1200). D10W increased from 100 to 150 mL/h under the protocol; insulin stays at 6 units/h because BHB 2.8 shows active DKA. She denies symptoms, which does not exclude a decline given her impaired awareness. Mild headache since 1200 without neurological change.",
+  "body": "The bedside glucose was 148 at 1300, down from 164 at 1200. She denies symptoms, but her history of impaired hypoglycemia awareness means this does not exclude a clinically important fall. Under the titration protocol (POC 100-149) D10W goes from 100 to 150 mL per hour (15 g of dextrose per hour) and the next check is in one hour. The insulin infusion stays at 6 units per hour because the latest BHB of 2.8 shows ongoing ketoacidosis.\n\nShe mentions a mild headache since about noon with no neck stiffness, no focal deficit and no change in her attention; acetaminophen as needed is ordered (the 0150 rectal dose counts toward the daily maximum), and I should be called for any new neurological change. Magnesium 2 g runs 1130-1230. Lungs remain clear and urine output is good, so the added D10W volume is tolerated; sodium is watched with each panel because D10W is free water. Next panel 1450.",
+  "allowTimes": [
+   "1230",
+   "1450",
+   "1130"
+  ]
+ },
+ {
+  "id": "note_icu_progress_202611051515",
+  "type": "progressNotes",
+  "title": "ICU Note - Gap Closed, Ketones Persist",
+  "author": "H. Calloway, MD",
+  "datetime": "2026-11-05 15:15",
+  "category": "Progress Note",
+  "summary": "1450 panel (released 1500): bicarbonate 17, pH 7.33, gap 11, BHB 1.2, K 3.8, Mg 1.9. The gap has closed but BHB is still 1.2, so DKA is not resolved: insulin and D10W continue. Two more potassium riders at 1500 and 1600.",
+  "body": "The 1450 panel released at 1500 shows bicarbonate 17, venous pH 7.33, anion gap 11 and BHB 1.2. The gap has closed and the pH is over 7.3, but the ketoacidosis has not met the resolution criterion because BHB is still above 0.6 and the bicarbonate is under 18. The low bicarbonate with a normal gap reflects a hyperchloremic component (chloride 110) after the saline and lactated Ringer's, not ketones. Stopping insulin now would be premature; insulin 6 units per hour and D10W 150 mL per hour continue.\n\nPotassium has fallen to 3.8 on insulin after 40 mEq earlier, so two more sequential riders (1500 and 1600), one at a time on a pump, are ordered; D10W and insulin contain no potassium, so delivery is exactly 10 mEq per hour; recheck on the 1850 panel. Magnesium is 1.9 after replacement. She is tolerating supervised clear liquids with no further vomiting.",
+  "allowTimes": [
+   "1600",
+   "1850"
+  ]
+ },
+ {
+  "id": "note_rd_202611051830",
+  "type": "therapyNotes",
+  "title": "Dietitian Initial Assessment",
+  "author": "N. Vandermeer, RDN",
+  "datetime": "2026-11-05 18:30",
+  "category": "Nutrition",
+  "summary": "Supervised clear liquids only; ate and drank very little during the illness. Explained that insulin is needed during illness even when appetite is poor. Detailed carbohydrate counting teaching waits until her attention improves; her daughter can help with food.",
+  "body": "Ruth remains on insulin with intravenous dextrose and is limited to supervised clear liquids. She reports eating very little during the illness because nausea and urinary symptoms disrupted her usual routine. I explained that insulin is still needed during illness even when appetite is poor, with carbohydrate support adjusted to the clinical situation. Her attention is variable, so detailed carbohydrate-counting education will be repeated after recovery.\n\nHer usual pattern is about three meals daily; as a retired librarian who lives alone she cooks for herself, and her daughter Emi can help provide food during convalescence. A full meal plan and teach-back session (about 45 g carbohydrate per meal) are planned once the diet advances and concentration improves."
+ },
+ {
+  "id": "note_icun_202611051930",
+  "type": "progressNotes",
+  "title": "ICU Night Handoff Note - Ketones Just Above Threshold",
+  "author": "S. Abrams, MD",
+  "datetime": "2026-11-05 19:30",
+  "category": "Progress Note",
+  "summary": "1850 panel (released 1900): bicarbonate 18, pH 7.35, gap 11, K 4.1, BHB 0.7 (not yet under 0.6): insulin and D10W continue. Urine culture preliminary (released 1800): more than 100,000 CFU/mL gram-negative rods, identification pending. Knows the hospital, asks about her cat.",
+  "body": "I am taking over from the day team. The 1850 panel released at 1900 shows bicarbonate 18, pH 7.35, anion gap 11, potassium 4.1 and BHB 0.7. The ketone level has not fallen under 0.6, so DKA is not resolved by the current criterion and the insulin infusion (6 units per hour) and D10W (150 mL per hour) continue; the next panel is at 2250. The urine culture preliminary report released at 1800 describes more than 100,000 CFU/mL of gram-negative rods with identification and susceptibilities pending; ceftriaxone continues.\n\nShe recognizes the hospital and asks about her cat but cannot give the date reliably. Her daughter has confirmed that Miso is fed and safe at home. Plan: continue hourly glucose and potassium surveillance, fall precautions with assisted toileting, and protect sleep tonight.",
+  "allowTimes": [
+   "2250",
+   "1800"
+  ]
+ },
+ {
+  "id": "note_icun_202611052145",
+  "type": "progressNotes",
+  "title": "ICU Night Note - Nocturnal Disorientation",
+  "author": "S. Abrams, MD",
+  "datetime": "2026-11-05 21:45",
+  "category": "Progress Note",
+  "summary": "At 2100 she became more disoriented and said she needed to leave to feed the cat. POC glucose 168 at 2100, so a low glucose did not explain it. CAM-ICU positive; no focal change. Reoriented, brief call with her daughter, assisted to the commode. No sedative or restraint.",
+  "body": "I was called at 2100 because Ruth became more disoriented and said she must leave to feed her cat. The bedside glucose at 2100 was 168, so hypoglycemia did not account for the behavior. I examined her: she is inattentive and her thinking is disorganized, but she follows a calm request to sit, has no focal neurological change and no breathing distress. CAM-ICU remains positive, which fits infection-associated delirium that worsens in the evening; it is not dementia (independent cognition before this illness).\n\nContributors checked: glucose normal, no oxygen need, no retention (she voids with assistance), infection under treatment, no new sedating medicine. Plan: reorient, reduce stimulation, assisted commode, a brief reassuring telephone call with her daughter, lights low and sleep protection after the 2250 panel. No benzodiazepine, antipsychotic or restraint is ordered; I will be called for agitation that is unsafe or any focal sign.",
+  "allowTimes": [
+   "2250"
+  ]
+ },
+ {
+  "id": "note_icun_202611052315",
+  "type": "progressNotes",
+  "title": "ICU Night Note - DKA Resolved, Transition Orders",
+  "author": "S. Abrams, MD",
+  "datetime": "2026-11-05 23:15",
+  "category": "Progress Note",
+  "summary": "2250 panel (released 2300): BHB 0.4, pH 7.36, bicarbonate 19, gap 10, K 4.0: DKA resolved by the ketone and acid-base criteria. Glargine 12 units ordered for 2300; insulin and D10W continue until 0100 for a full 2-hour overlap. Consistent-carbohydrate diet; meal lispro by carbohydrate eaten, no bedtime correction.",
+  "body": "The 2250 panel released at 2300 shows BHB 0.4, venous pH 7.36, bicarbonate 19, anion gap 10 and potassium 4.0. DKA is now biochemically resolved by the current criteria (BHB under 0.6 with a pH of 7.3 or higher and a bicarbonate of 18 or higher). Glargine 12 units is ordered for 2300, and both the insulin infusion and the D10W are to continue until 0100 for a full 2-hour overlap; they stop only after the glargine dose is verified, she is drinking and eating, and she has not vomited again.\n\nShe is taking supervised fluids without recurrent vomiting, and a consistent-carbohydrate diet is ordered for the transition. Meal lispro will be based on the carbohydrate actually eaten, with no bedtime correction. Delirium and impaired hypoglycemia awareness justify a conservative initial subcutaneous dose (about 0.35 unit/kg per day in total, 21 units, of which basal is 12) and continued supervision. Do not judge the dose from the high infusion rate.",
+  "allowTimes": [
+   "0100",
+   "2300"
+  ]
+ }
+]

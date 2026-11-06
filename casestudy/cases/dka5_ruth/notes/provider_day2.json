@@ -1,0 +1,101 @@
+[
+ {
+  "id": "note_icun_202611060130",
+  "type": "progressNotes",
+  "title": "ICU Night Note - Transition Orders Carried Out",
+  "author": "S. Abrams, MD",
+  "datetime": "2026-11-06 01:30",
+  "category": "Progress Note",
+  "summary": "Glargine 12 units at 2300 verified, 2-hour overlap completed; insulin and D10W stopped at 0100 with POC glucose 178. Tolerating fluids and a small snack. One-hour post-transition glucose due at 0200. Blood cultures: no growth at about 24 hours (preliminary, released 0120).",
+  "body": "I reviewed the medication record: the 2300 glargine dose and the 2-hour overlap were verified before the insulin infusion and D10W were stopped at 0100. The bedside glucose at discontinuation was 178. She tolerated oral fluids and a small snack without nausea or vomiting. A one-hour post-transition glucose is ordered for 0200 before routine before-meal and bedtime checks begin; the second ceftriaxone dose is due at 0140.\n\nThe first preliminary blood-culture update was released at 0120: no growth at approximately 24 hours. She remains intermittently unsure of the date but accepts reorientation and assisted toileting. Plan: bed alarm and hourly rounding continue; one IV (the antibiotic line) is kept as a lock for hypoglycemia rescue access; chemistry at 0650.",
+  "allowTimes": [
+   "0200",
+   "0140",
+   "0650",
+   "2300"
+  ]
+ },
+ {
+  "id": "note_icu_progress_202611060715",
+  "type": "progressNotes",
+  "title": "ICU Note - Morning Recovery",
+  "author": "H. Calloway, MD",
+  "datetime": "2026-11-06 07:15",
+  "category": "Progress Note",
+  "summary": "0650 panel (released 0700): bicarbonate 21, gap 10, BHB 0.3, creatinine 0.8, WBC 12.8, K 4.0: no recurrent ketosis after the transition. Oriented to person, place and date with better attention; CAM-ICU negative this morning. Blood cultures no growth at about 24 hours. Urine culture still preliminary gram-negative rods.",
+  "body": "The morning results released at 0700 show bicarbonate 21, anion gap 10, BHB 0.3, potassium 4.0, creatinine 0.8 and WBC 12.8. There is no biochemical evidence of recurrent DKA after the transition (venous pH 7.38, glucose 164). Ruth is oriented to person, place and date with improved attention, and her CAM-ICU assessment is negative this morning, although she still tires easily and her strength is reduced.\n\nBlood cultures were reported as no growth at approximately 24 hours when the preliminary update was released at 0120. The urine culture remains a preliminary gram-negative rod result, so ceftriaxone continues until identification and susceptibilities return. Assisted mobilization with a walker, meal-based insulin with observed intake, a consistent-carbohydrate diet and multidisciplinary discharge preparation start today (infectious disease, pharmacy, case management, physical therapy and the diabetes educator are ordered). Atorvastatin restarts tonight; lisinopril stays on hold.",
+  "allowTimes": [
+   "0120"
+  ]
+ },
+ {
+  "id": "note_id_consult_202611061100",
+  "type": "progressNotes",
+  "title": "Infectious Disease Consultation - E. coli Pyelonephritis, Oral Narrowing",
+  "author": "O. Fenwick, MD",
+  "datetime": "2026-11-06 11:00",
+  "category": "Consult Note",
+  "summary": "Urine E. coli identified (released 0800); final susceptibilities released 1045: susceptible to ampicillin (MIC 2) and ceftriaxone, ciprofloxacin resistant, no ESBL. Trimethoprim-sulfamethoxazole reads susceptible but is contraindicated by her sulfonamide allergy. Ceftriaxone stopped; amoxicillin 1,000 mg every 8 hours from 1400, 7 calendar days total, last dose 11/11 at 2200.",
+  "body": "**Assessment**\nFebrile complicated urinary tract infection (right pyelonephritis) with sepsis, without demonstrated bacteremia and without obstructed drainage. Urine identification (E. coli) was released at 0800 and the final susceptibility report became available at 1045. The isolate is susceptible to ampicillin (MIC 2 mcg/mL), amoxicillin-clavulanate, ceftriaxone, cefazolin and cefepime, with no ESBL phenotype, and resistant to ciprofloxacin.\n\n**Allergy check**\nThe laboratory also lists trimethoprim-sulfamethoxazole as susceptible. She has a documented sulfonamide-antibiotic allergy (generalized urticaria), so that agent is NOT an option; she has no penicillin or cephalosporin allergy, so amoxicillin is safe. A fluoroquinolone is not an option (resistance) and would also add delirium and tendon risk at her age.\n\n**Recommendation**\nShe is clinically improving, tolerating oral intake, her creatinine has returned to 0.8 and the ultrasound showed no obstruction. I ordered ceftriaxone discontinued (the second dose was given at 0140) and amoxicillin 1,000 mg orally every 8 hours at 0600, 1400 and 2200 starting at 1400. The planned course is seven calendar treatment days including the initial IV therapy, with the last dose on November 11 at 2200 if recovery continues. Final blood-culture results still require follow-up after discharge, and recurrent symptoms, new fever or failure to improve would prompt reassessment of source control and duration.",
+  "allowTimes": [
+   "0140",
+   "2200",
+   "0800",
+   "1045",
+   "1400",
+   "0600"
+  ]
+ },
+ {
+  "id": "note_pharm_202611061200",
+  "type": "therapyNotes",
+  "title": "Pharmacy Medication Reconciliation and Safety Review",
+  "author": "R. Medina, PharmD",
+  "datetime": "2026-11-06 12:00",
+  "category": "Pharmacy Note",
+  "summary": "Verified the final E. coli susceptibilities, the amoxicillin dose and no penicillin allergy; flagged that the \"susceptible\" TMP-SMX result must not be used (sulfonamide antibiotic allergy). Empagliflozin flagged as a serious adverse reaction and not to be reconciled back; lisinopril held. Enoxaparin dose appropriate.",
+  "body": "I verified the final susceptibility report, the amoxicillin dose (1,000 mg every 8 hours; estimated creatinine clearance by Cockcroft-Gault about 65 mL/min at 60 kg and a creatinine of 0.8, so no renal adjustment) and the absence of a penicillin allergy. The first oral dose remains scheduled for 1400 and the next ceftriaxone dose has been removed from the record. The laboratory lists trimethoprim-sulfamethoxazole as susceptible; because of her documented sulfonamide-antibiotic allergy a pharmacy alert is placed so it cannot be ordered for her.\n\nEmpagliflozin is flagged as a serious adverse drug reaction (SGLT2-inhibitor-associated DKA in type 1 diabetes) and must not reappear on discharge reconciliation; communicate this to the outside prescriber. Lisinopril remains held while kidney function and blood pressure are reviewed. Enoxaparin 40 mg daily is appropriate for her weight and kidney function; platelets are 230 and will be rechecked with each CBC. Glargine is due at 2300 and meal lispro is given after observed intake with no bedtime correction. The patient and her daughter will receive one printed medication list that separates the permanent stop (empagliflozin) from the temporary hold (lisinopril).",
+  "allowTimes": [
+   "1400",
+   "2300"
+  ]
+ },
+ {
+  "id": "note_cm_202611061500",
+  "type": "caseManagement",
+  "title": "Case Management - Initial Discharge Assessment",
+  "author": "C. Easterly, RN CCM",
+  "datetime": "2026-11-06 15:00",
+  "category": "Case Management",
+  "summary": "Lives alone and managed her own medicines and meals; daughter Emi lives nearby and will help with the cat and supervision. Insulin and strips are affordable; a blood-ketone meter and strips, replacement CGM supplies and nasal glucagon still need to be verified. Immediate return to fully unsupervised living is not appropriate.",
+  "body": "Ruth lives alone in a one-story home with two entrance steps and a railing and normally manages her own medicines, meals and household tasks. Her daughter Emi lives 10 minutes away, has her permission to receive updates, and has agreed to care for the cat, Miso, and provide temporary supervision. The family reports that insulin pens and glucose test strips are affordable through her current coverage.\n\nA blood-ketone meter and strips, replacement CGM supplies and an unexpired nasal glucagon device still need verification before she leaves. Her recent delirium and reduced mobility make an immediate return to completely unsupervised living inappropriate. I am coordinating the physical therapy evaluation, the diabetes educator visit with her daughter, home nursing and follow-up appointments before recommending a final disposition."
+ },
+ {
+  "id": "note_icun_202611061930",
+  "type": "progressNotes",
+  "title": "ICU Night Note - Evening Update",
+  "author": "S. Abrams, MD",
+  "datetime": "2026-11-06 19:30",
+  "category": "Progress Note",
+  "summary": "1850 chemistry (released 1900): bicarbonate 23, gap 10, K 4.0, glucose 192. Eating her meals; before-dinner glucose 204 adds 1 correction unit to the carbohydrate dose. No rash or stomach upset reported since the first oral antibiotic dose. Oriented in conversation but tends to stand before asking for help.",
+  "body": "The evening chemistry released at 1900 shows bicarbonate 23, anion gap 10, potassium 4.0 and serum glucose 192. Ruth has eaten her meals today; the pre-dinner glucose was 204, so the dinner dose is the carbohydrate dose (1 unit per 15 g eaten) plus 1 unit for the correction scale. She has had no rash or gastrointestinal upset since her first amoxicillin dose at 1400, which is reassuring given her sulfonamide allergy (a different drug class).\n\nShe is oriented during conversation but tends to stand before asking for assistance. A follow-up ECG is done at 1900 to confirm that the low-potassium changes have resolved. Call-light plan, a walker and a commode are in the assisted-care routine; bedside glucose at 2100 and glargine at 2300 without a bedtime correction dose.",
+  "allowTimes": [
+   "2100",
+   "2300",
+   "1400"
+  ]
+ },
+ {
+  "id": "note_icun_202611062045",
+  "type": "progressNotes",
+  "title": "ICU Night Note - Assisted Near-Fall Assessment",
+  "author": "S. Abrams, MD",
+  "datetime": "2026-11-06 20:45",
+  "category": "Progress Note",
+  "summary": "At 2015 she tried to walk to the bathroom alone, her knees began to buckle and the nurse supported her into a chair: no floor descent, head strike or impact. I examined her: no injury, no focal neurological change. POC glucose 186 at 2015. Hands-on assistance and scheduled toileting reinforced.",
+  "body": "I was notified of an assisted near-fall at 2015. Ruth attempted to walk to the bathroom before staff could help; her knees began to buckle and the nurse supported her into a nearby chair, so there was no fall to the floor, no head strike and no other impact. She denies pain. On my examination there is no tenderness over the hips, spine or head, full range of movement in all limbs, no new focal neurological finding and attention at her recent baseline. An immediate bedside glucose at 2015 was 186, which excludes hypoglycemia as the cause.\n\nLikely contributors: deconditioning after 2 days of acute illness, distal sensory neuropathy in both feet, tubing and an unfamiliar room, and impulsivity from resolving delirium. No injury imaging is indicated without a fall, head strike or injury sign. I reviewed the event with Ruth, reinforced hands-on assistance for every transfer and set a scheduled toileting plan. The 2100 glucose and a recheck of neurological status are due; I will be called for any new symptom, pain or change in attention.",
+  "allowTimes": [
+   "2100"
+  ]
+ }
+]

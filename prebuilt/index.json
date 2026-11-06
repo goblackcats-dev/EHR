@@ -144,6 +144,15 @@
      "file": "casestudy/cases/dka4_marcus/patient.json",
      "age": 31,
      "sex": "Male"
+    },
+    {
+     "id": "dka5_ruth",
+     "name": "Ruth Nakamura",
+     "title": "DKA 5 of 7, ICU: type 1 diabetes, SGLT2-inhibitor DKA with near-normal glucose, E. coli urosepsis and delirium (3 days, checkpoints every 0700 and 1900)",
+     "desc": "Thu 11/05 0700 to Sun 11/08 0700. A 67-year-old with type 1 diabetes on an SGLT2 inhibitor arrives confused with urosepsis and DKA although her glucose is only 210; care ends with a safe insulin plan and her daughter's teach-back. Vital signs after 0700 come from the bedside monitor.",
+     "file": "casestudy/cases/dka5_ruth/patient.json",
+     "age": 67,
+     "sex": "Female"
     }
    ]
   }
