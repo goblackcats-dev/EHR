@@ -131,7 +131,7 @@
      "id": "dka3_denise",
      "name": "Denise Carter",
      "title": "DKA 3 of 7, step-down / telemetry: type 1 diabetes in DKA after months of cost-related insulin rationing (3 days, checkpoints every 0700 and 1900)",
-     "desc": "Mon 11/09 0700 to Thu 11/12 0700. A 38-year-old single mother lost her job and insurance, stretched glargine to every other night and skipped meal insulin, then vomited for two days and arrived in DKA. Adult protocol (insulin 6 units/h, no bolus; peripheral IVs only so no more than 10 mEq/h of potassium from all sources): K falls to 3.2 at 0800 and the insulin is held for 2 hours while four KCl piggybacks and magnesium run, then restarts; dextrose and 3 units/h at glucose 220; resolution at 1545 (BHB 0.4); glargine two hours before the drip stops. A low after a fixed meal dose with a small lunch, a pen mix-up in the teach-back, and the real work: social work, pharmacy, case management, a food plan and supplies physically in hand before discharge. Vital signs after 0700 come from the bedside monitor.",
+     "desc": "Mon 11/09 0700 to Thu 11/12 0700. A 38-year-old single mother who lost her insurance and rationed insulin arrives in DKA; care ends with medicines and supplies in hand. Vital signs after 0700 come from the bedside monitor.",
      "file": "casestudy/cases/dka3_denise/patient.json",
      "age": 38,
      "sex": "Female"

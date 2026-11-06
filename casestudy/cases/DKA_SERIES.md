@@ -32,6 +32,8 @@ Seven 3-day patients for the Pre-Built Patients menu (group **"DKA Patients"**).
 - Notes: provider (ED, admitting H&P, attending day/night), endocrinology, pharmacy, dietitian, diabetes educator (CDCES), social work, case management (+ child life, nephrology, cardiology, MFM, etc. as the twist needs). **Time-gated; a note only quotes results already resulted and events already happened** (check with the scripts in patient 1's REVIEW.md). Unit RN notes are not pre-written (students are the RNs); ED nursing notes are.
 - **At least one Cardiology ECG record with an image** (`casestudy/tools/ecg_image.py`, now with `--u-amp` / `u_amp` for U waves) that matches the potassium at that time.
 
+- **VTE prophylaxis rule (instructor):** order enoxaparin (or other prophylaxis) only when the patient has a documented clot-risk factor (immobility, obesity, prior clot, pregnancy, MI per protocol). A young, ambulatory, normal-BMI patient gets none.
+
 **Lab schedule style**
 - ED: VBG, BMP, Mg, phos, beta-hydroxybutyrate (BHB), CBC, lactate, UA (hCG for anyone who could be pregnant), HbA1c, ECG; plus the twist's labs.
 - On the infusion: **BMP + Mg + phos + VBG + BHB every 2-4 h** (patient 1: every 4 h plus one STAT), POC glucose hourly. Result delays: gas 15 min, BMP 45 min, BHB 55 min (STAT faster).
