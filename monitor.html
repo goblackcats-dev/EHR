@@ -309,14 +309,30 @@
     { t: '2026-11-18 19:00', hr: 66, spo2: 99, sys: 118, dia: 70, rr: 14, temp: 97.9, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Shift change: cravings controlled with the patch and one lozenge; education done with his wife; ketone meter and sick-day rules reviewed; discharge tomorrow morning' },
     { t: '2026-11-19 07:00', hr: 64, spo2: 99, sys: 116, dia: 68, rr: 14, temp: 98.1, rhythm: 'sinus', pr: 0.16, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Discharge morning: dressed, calm, sitting with his wife; wrist healed, no tenderness. 0700 labs normal (creatinine 0.91, troponin 140). Teach-back and morning medicines before discharge about 0900' }
   ];
-  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']: DKA patient 7 appends here
+  // Priya Desai, 29 F, 28w2d, DKA in pregnancy; K 3.2 on insulin (short hold, dextrose kept); evening contractions Day 2 (casestudy/cases/dka7_priya). Left lateral tilt. Maternal values only: fetal tracing findings are in the chart notes and INSTRUCTOR_NOTES.md.
+  const DKA7 = [
+    { t: '2026-12-28 07:00', hr: 98, spo2: 99, sys: 110, dia: 68, rr: 20, temp: 98.2, rhythm: 'sinus', pr: 0.164, qrs: 0.088, tAmp: 0.2, uAmp: 0.12, o2: 'Room air', note: 'Unit arrival, left lateral tilt: tired, mildly weak calves, nausea improved, deep slightly fast breathing; flat T waves and U waves. Glucose 152; insulin 7 units/h, D5 0.45% NaCl + KCl 20 mEq/L 250 mL/h. K 3.2 releases at 0705. Fetal tracing Category II; husband Rohan asks about an emergency cesarean' },
+    { t: '2026-12-28 07:15', hr: 98, spo2: 99, sys: 110, dia: 68, rr: 20, temp: 98.2, rhythm: 'sinus', pr: 0.164, qrs: 0.088, tAmp: 0.2, uAmp: 0.12, o2: 'Room air', note: 'K 3.2 and Mg 1.5 released 0705 (critical): HOLD insulin, KEEP dextrose (potassium-free D5 0.45% NaCl 100 mL/h), KCl riders one at a time (10 mEq/h), magnesium 2 g 0730. ECG 0710: flat T, U waves, QTc 478' },
+    { t: '2026-12-28 09:30', hr: 90, spo2: 99, sys: 112, dia: 68, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.156, qrs: 0.086, tAmp: 0.25, uAmp: 0.05, o2: 'Room air', note: 'K 3.6 released 0930 after two riders: prescriber confirms the insulin restart at 3.5 units/h (hold 2 h 20 min) with a third rider and the potassium-free carrier. Glucose 188; BHB 2.6. Fetal tracing still Category II but variability improving' },
+    { t: '2026-12-28 11:30', hr: 88, spo2: 99, sys: 114, dia: 70, rr: 18, temp: 98.2, rhythm: 'sinus', pr: 0.156, qrs: 0.086, tAmp: 0.3, o2: 'Room air', note: 'Normal T waves. Glucose 148 (1100); K 3.8; BHB 1.9 (not resolved). Carrier D5 0.45% NaCl + KCl 20 mEq/L 200 mL/h. Fetal tracing now Category I (baseline 148, moderate variability, no decelerations since 0950)' },
+    { t: '2026-12-28 19:00', hr: 84, spo2: 99, sys: 114, dia: 70, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.148, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'Shift change: alert, smiling, hungry, no nausea. DKA RESOLVED (1850 labs: BHB 0.5, pH 7.42, HCO3 19, gap 12, K 4.1). Glargine 24 units + lispro 4 units 1930; IV insulin and D5 run to 2130. Fetal tracing Category I, reactive' },
+    { t: '2026-12-29 07:00', hr: 92, spo2: 99, sys: 112, dia: 68, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.15, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'Own sensor alarms low; shaky, sweaty palms, lightheaded: glucose 62 (fasting). Treat with 15 g carbohydrate at once, recheck in 15 minutes (84 at 0720). Tracing Category I (baseline 135, no change). Glargine 24 units was the full home dose' },
+    { t: '2026-12-29 16:30', hr: 84, spo2: 99, sys: 114, dia: 70, rr: 16, temp: 98.1, rhythm: 'sinus', pr: 0.15, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'After a hallway walk: mild lower abdominal tightening and lower back ache. Resume continuous fetal monitoring, 500 mL water, left lateral; call the OB provider. Tracing Category I, contractions irregular every 6-8 minutes' },
+    { t: '2026-12-29 19:00', hr: 82, spo2: 99, sys: 114, dia: 72, rr: 16, temp: 98.2, rhythm: 'sinus', pr: 0.15, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'Shift change: regular contractions every 4 minutes for 45 seconds over the last hour, mild cramping and back ache; asks about steroid shots for the baby\'s lungs. Tracing Category I. fFN negative and cervical length 3.8 cm released 1900: no betamethasone' },
+    { t: '2026-12-29 20:30', hr: 78, spo2: 99, sys: 112, dia: 68, rr: 15, temp: 98.1, rhythm: 'sinus', pr: 0.15, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'Contractions spaced to every 10-12 minutes by 2000 and gone by 2030 with hydration and left lateral rest. Tracing Category I' },
+    { t: '2026-12-30 07:00', hr: 78, spo2: 99, sys: 112, dia: 70, rr: 15, temp: 98.1, rhythm: 'sinus', pr: 0.15, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'Day 3: rested well, no contractions, fasting glucose 92 (goal under 95), urine ketones negative. Tracing Category I with 3 accelerations in 20 minutes. Telemetry stops after this assessment; BPP 0830; eager to learn' },
+    { t: '2026-12-30 19:00', hr: 76, spo2: 99, sys: 110, dia: 68, rr: 14, temp: 98.1, rhythm: 'sinus', pr: 0.15, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'Shift change: 1900 NST reactive Category I (baseline 140), kick count 10 movements in 22 minutes; pulse taken by hand. Discharge teaching checklist reviewed' },
+    { t: '2026-12-31 07:00', hr: 74, spo2: 99, sys: 112, dia: 70, rr: 14, temp: 97.9, rhythm: 'sinus', pr: 0.15, qrs: 0.082, tAmp: 0.3, o2: 'Room air', note: 'Discharge morning: dressed, packing with Rohan; fasting glucose 88; 0630 NST reactive (baseline 136). Teach-back of kick counts, sick-day and ketone rules, warning signs; discharge about 0900' }
+  ];
+  // [MRN, rows, monitor banner 'ROOM   LAST, FIRST   AGE S']
   const DKA_SERIES = [
     ['SIM-40501', DKA1, 'PICU-4   THOMPSON, MAYA   16 F'],
     ['SIM-40502', DKA2, 'IMC-6   ELLIS, JORDAN   24 M'],
     ['SIM-40503', DKA3, 'SD-8   CARTER, DENISE   38 F'],
     ['SIM-40504', DKA4, 'SD-5   REYES, MARCUS   31 M'],
     ['SIM-40505', DKA5, 'ICU-9   NAKAMURA, RUTH   67 F'],
-    ['SIM-40506', DKA6, 'CSD-412   OKAFOR, SAMUEL   45 M']
+    ['SIM-40506', DKA6, 'CSD-412   OKAFOR, SAMUEL   45 M'],
+    ['SIM-40507', DKA7, 'HRA-9   DESAI, PRIYA   29 F']
   ];
   const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON };
   const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F' };

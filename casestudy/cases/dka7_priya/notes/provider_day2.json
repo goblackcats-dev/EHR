@@ -1,0 +1,179 @@
+[
+ {
+  "id": "note_night_ob_0730",
+  "type": "progressNotes",
+  "title": "Night Obstetric Event Note - Fasting Hypoglycemia 62 mg/dL",
+  "author": "O. Ferrante, MD",
+  "datetime": "2026-12-29 07:30",
+  "category": "Progress Note",
+  "summary": "Overnight 0100 panel confirmed closure of the DKA (BHB 0.3, pH 7.43); glucose 96 at 0200; her own sensor alarmed at 0700 and a POC 62 confirmed hypoglycemia, treated with 15 g juice at 0705 and 84 at 0720; tracing Category I throughout. Basal glargine reduced.",
+  "body": "The 0100 panel (released 0115) showed sustained closure: glucose 118, sodium 137, potassium 4.0, chloride 105, bicarbonate 20, anion gap 12, pH 7.43, pCO2 31, BHB 0.3. She voided three times overnight (900 mL). Glucose at 0200 was 96. At about 0700 her own sensor alarmed urgently low; she had tremor and sweating on the palms. The point-of-care glucose was 62 mg/dL (serum 62 on the 0655 draw: Na 136, K 4.1, Cl 105, bicarbonate 20, gap 11, BHB 0.2). The nurse followed the hypoglycemia protocol with 15 g of juice (120 mL) at 0705; the 0720 recheck was 84 and the symptoms resolved. The fetal tracing stayed Category I with a baseline of 135 bpm and moderate variability through the episode (see the 0730 interpretation).\n\n**Cause:** the full home basal dose of 24 units after two days of vomiting and starvation (depleted hepatic glycogen). Endocrinology was called before breakfast insulin: breakfast lispro 5 units today, and the glargine is reduced (see the endocrinology note). A 0300 check every night is ordered.",
+  "allowTimes": [
+   "0100",
+   "0115",
+   "0200",
+   "0655",
+   "0700",
+   "0705",
+   "0720",
+   "0300"
+  ]
+ },
+ {
+  "id": "note_fhr_0740",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0700 to 0725 (during the maternal low glucose)",
+  "author": "O. Ferrante, MD",
+  "datetime": "2026-12-29 07:30",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 135 bpm, moderate variability, accelerations, no decelerations, uterus quiet; no change during the maternal glucose of 62 mg/dL.",
+  "body": "**Tracing** (0700-0725)\n- Baseline: 135 bpm\n- Variability: moderate\n- Accelerations: present\n- Decelerations: none\n- Contractions: none (toco quiet)\n\n**Category** NICHD Category I.\n\n**Interpretation and plan**\nNo fetal response to the brief maternal low glucose (treated within 5 minutes). Continue continuous monitoring.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_endo_0845",
+  "type": "progressNotes",
+  "title": "Endocrinology Day 2 Progress Note - Low Glucose on Full Basal Dose; Regimen Reduced",
+  "author": "H. Dalgaard, MD",
+  "datetime": "2026-12-29 08:45",
+  "category": "Consult Note",
+  "summary": "Fasting 62 on glargine 24 units; 1-hour glucose after breakfast (5 units lispro, 60 g) 128. Glargine to 20 units at 2100; lispro 1 unit per 10 g (6, 7, 8 units) plus a correction scale; pregnancy targets reviewed.",
+  "body": "Seen after the 0700 fasting low (62, corrected to 84 by 0720). The 0830 one-hour postprandial glucose is 128 mg/dL after lispro 5 units with a 60 g breakfast. The 0655 panel confirms durable resolution: bicarbonate 20, gap 11, K 4.1, BHB 0.2. The low came from the unchanged home basal dose (glargine 24 units at 1930) while hepatic glycogen was depleted after two days of gastroenteritis; late-pregnancy resistance usually raises needs, but recovery from the illness transiently raises sensitivity.\n\n**Changes**\n- Glargine 24 to **20 units at 2100** (a 17% cut).\n- Lispro ratio from 1:8 to **1 unit per 10 g carbohydrate**: 6 units for 60 g breakfast, 7 units for 70 g lunch, 8 units for 80 g dinner, plus correction 121-150: +1 unit, 151-180: +2, 181-210: +3.\n- Hypoglycemia protocol (15 g, recheck in 15 minutes); a 0200-0300 glucose every night.\n- Pregnancy targets: fasting under 95 mg/dL, 1 hour after a meal under 140, 2 hours under 120. Her continuous glucose monitor should be confirmed by a fingerstick whenever it alarms low or does not match symptoms.\n- Total daily dose is now about 41 units (0.59 unit/kg) against about 50 at home; I expect to raise it again as the third trimester advances.",
+  "allowTimes": [
+   "0200",
+   "0300",
+   "0700",
+   "0720",
+   "0830",
+   "2100",
+   "1930"
+  ]
+ },
+ {
+  "id": "note_ob_0935",
+  "type": "progressNotes",
+  "title": "Obstetric Day 2 Progress Note",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-29 09:35",
+  "category": "Progress Note",
+  "summary": "28 weeks 3 days. Well after the low glucose; tracing Category I; no contractions; exam benign; aspirin 81 mg and prenatal vitamin due; dietitian and diabetes educator to see her today.",
+  "body": "Hospital Day 2, 28 weeks 3 days. She feels well after correction of the brief fasting low (62, then 84) and ate her full breakfast with lispro 5 units; the 0830 postprandial glucose was on target. She takes her aspirin 81 mg and the prenatal vitamin with breakfast and had mild morning queasiness without vomiting. The fetal tracing is Category I (see the 0930 interpretation): baseline 135-140 bpm, moderate variability, frequent accelerations. Exam: soft non-tender gravid uterus appropriate for dates, no edema, normoactive bowel sounds, reflexes 2+. She is voiding spontaneously and ambulating in the room with her husband; sequential compression devices while in bed. VTE risk reassessed: unchanged and low (walking, hydrated). Continuous monitoring continues until 24 hours after resolution (about 1900 today). The dietitian and diabetes educator will see her today.",
+  "allowTimes": [
+   "0830",
+   "0950",
+   "1900"
+  ]
+ },
+ {
+  "id": "note_fhr_0930",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0900 to 0930",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-29 09:30",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 135-140 bpm, moderate variability (12 bpm), frequent accelerations, no decelerations, no contractions.",
+  "body": "**Tracing** (0900-0930)\n- Baseline: 135-140 bpm\n- Variability: moderate (about 12 bpm)\n- Accelerations: frequent, 15 x 15\n- Decelerations: none\n- Contractions: none\n\n**Category** NICHD Category I, reactive.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_rd_1105",
+  "type": "therapyNotes",
+  "title": "Dietitian Consultation - Pregnancy Meal Plan for Type 1 Diabetes",
+  "author": "R. Trevino, RDN",
+  "datetime": "2026-12-29 11:05",
+  "category": "Nutrition",
+  "summary": "2,200 kcal pregnancy plan: 3 meals and 3 snacks, about 270 g carbohydrate with breakfast 60 g, lunch 70 g, dinner 80 g, snacks 15, 15 and 30 g with protein at bedtime; sick-day liquid carbohydrate list.",
+  "body": "Met with Priya and Rohan. Her usual intake was about 1,900 kcal a day, a little low for the third trimester, which made starvation ketosis faster when she became ill. Weight 70 kg (62 kg before pregnancy, a gain of 8 kg: appropriate for a normal pre-pregnancy BMI of 22.8). Plan: **2,200 kcal/day, 3 meals and 3 snacks, about 270 g carbohydrate (about 49% of calories)**: breakfast 60 g (with protein and fat because morning insulin resistance is highest), 15 g mid-morning snack, lunch 70 g, 15 g afternoon snack, dinner 80 g, and a **30 g bedtime snack with protein at 2130** (whole-grain crackers with peanut butter or yogurt with berries) to sustain overnight glucose and prevent morning starvation ketosis or low glucose. A written **sick-day carbohydrate list** (regular electrolyte drink, diluted juice, regular gelatin, popsicles, crackers): 15 g every 1-2 hours whenever solid food is not tolerated so that insulin is never withheld. Phosphorus has been 2.3-2.9; dairy, eggs and legumes are included in the plan. Follow-up Day 3. The bedtime snack is at 2130.",
+  "allowTimes": [
+   "2130"
+  ]
+ },
+ {
+  "id": "note_cdces_1445",
+  "type": "therapyNotes",
+  "title": "Diabetes Educator Initial Session - Sick-Day Rules in Pregnancy",
+  "author": "M. Doyle, RN, CDCES",
+  "datetime": "2026-12-29 14:45",
+  "category": "Diabetes Education",
+  "summary": "Guilt about halving her basal insulin; four sick-day rules reviewed: never stop basal insulin, sip carbohydrate, check blood ketones, call early; ketone meter ordered for her bedside.",
+  "body": "Held a 45-minute session with Priya and Rohan. Priya said she \"caused this by cutting my glargine in half and skipping lispro when my sensor was only in the 190s and 220s.\" I acknowledged how frightening a low is while vomiting and explained the physiology of pregnancy: the fetus and placenta continuously use maternal glucose while placental hormones drive fat breakdown, so ketoacidosis can develop within 12-24 hours at glucose values under 250. **Four sick-day rules:** (1) never stop or drastically cut the basal insulin, even if not eating; (2) sip 10-15 g of carbohydrate every hour if the glucose is under 180 so that small insulin doses can be taken; (3) check blood ketones, not only glucose, every 2-4 hours when ill or when the glucose is over 180-200; (4) call the on-call line at ketones of 0.6 mmol/L or more or vomiting more than once in 4 hours. A blood ketone meter and strips will come to the bedside tomorrow. She teaches back rules 1 and 2 correctly; rules 3 and 4 will be practiced on Day 3.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_ob_1725",
+  "type": "progressNotes",
+  "title": "Obstetric Event Note - New Contractions After Walking",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-29 17:25",
+  "category": "Progress Note",
+  "summary": "Contractions began at about 1630 after a hallway walk, now every 6-7 minutes and mild; tracing Category I; monitoring resumed, 500 mL water over 1 hour, left lateral, urinalysis with culture, fFN and cervical length if they persist.",
+  "body": "Called at 1630 when Priya felt lower abdominal tightening and a mild lower back ache after walking in the hallway. Continuous fetal monitoring and tocodynamometry were resumed; the tracing is Category I (see the 1720 interpretation). The contractions are now every 6-7 minutes, 30-40 seconds, mild; abdomen soft between, no bleeding, no leaking of fluid, fetal movement normal. She has had good intake today and her ketones have been normal since last night. Plan: left lateral rest, 500 mL of water over 1 hour, urinalysis with culture, and if the contractions persist at every 4-5 minutes for an hour, MFM will perform a sterile speculum exam for a rapid fetal fibronectin swab BEFORE any digital exam (the test is unreliable after a digital exam, lubricant, bleeding or recent intercourse) and then a transvaginal cervical length. Betamethasone is not given on the basis of contractions alone.",
+  "allowTimes": [
+   "1630"
+  ]
+ },
+ {
+  "id": "note_fhr_1720",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 1645 to 1715",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-29 17:20",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 140 bpm, moderate variability, accelerations, no decelerations; irregular mild contractions every 6-8 minutes.",
+  "body": "**Tracing** (1645-1715)\n- Baseline: 140 bpm\n- Variability: moderate\n- Accelerations: present\n- Decelerations: none\n- Contractions: irregular, mild, every 6-8 minutes, 30-40 seconds\n\n**Category** NICHD Category I. Continue monitoring.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_fhr_1925",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 1830 to 1920",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-29 19:25",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 140 bpm, moderate variability, accelerations, no decelerations; regular contractions every 4 minutes lasting 45 seconds over the last hour.",
+  "body": "**Tracing** (1830-1920)\n- Baseline: 140 bpm\n- Variability: moderate\n- Accelerations: present\n- Decelerations: none\n- Contractions: regular, every 4 minutes, about 45 seconds, mild to moderate by palpation (fewer than 5 in 10 minutes: no tachysystole)\n\n**Category** NICHD Category I.\n\n**Interpretation and plan**\nThe fetus is well; the contractions are the issue and MFM is evaluating her now.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_mfm_2005",
+  "type": "progressNotes",
+  "title": "Maternal-Fetal Medicine Evaluation - Contractions and Betamethasone Decision",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-29 20:05",
+  "category": "Progress Note",
+  "summary": "Contractions every 4 minutes for an hour at 28w3d: negative rapid fFN (swab before any exam) and cervical length 3.8 cm, closed, no funneling: low risk of delivery within 7-14 days. NO betamethasone (it would raise her glucose for days). Contractions spacing to every 10-12 minutes by 2000.",
+  "body": "Called to evaluate Mrs. Desai at 28 weeks 3 days for regular contractions every 4 minutes lasting 45 seconds after the afternoon walk (the tracing is Category I, see the 1925 interpretation). Exam at 1845: sterile speculum, closed visually, no pooling, ferning or nitrazine change; the **rapid fetal fibronectin swab was taken first, before any other contact** (it is valid at 24-34 weeks with intact membranes and no recent intercourse, bleeding or digital exam); then transvaginal ultrasound. Results (released 1900): **fibronectin negative; cervical length 3.8 cm, closed internal os, no funneling.** A cervical length of 3.0 cm or longer is itself reassuring and, with a negative fibronectin, the chance of delivery within 7-14 days is well under 1-2%. The 1830 panel (released 1900) shows bicarbonate 21, anion gap 11, BHB 0.2: no recurrent ketoacidosis; urine screen pending.\n\n**Impression:** benign uterine irritability after exertion and recent dehydration, not preterm labor. With oral hydration and left lateral rest the contractions have already spaced to every 10-12 minutes by 2000.\n\n**Antenatal corticosteroids: NOT given.** They are for women in whom delivery within 7 days is likely. In type 1 diabetes betamethasone causes profound hepatic glucose output and insulin resistance beginning 6-12 hours after the dose and lasting up to 5 days, usually needing a 30-40% (sometimes more) insulin increase or an insulin infusion with hourly glucose and ketone checks to avoid a second DKA. Triggers to reconsider: cervical length under 2.0 cm, or 2.0-2.9 cm with a positive fibronectin, rupture of membranes, advanced cervical change, or bleeding. If true preterm labor were diagnosed: group B strep status is unknown, so prophylaxis would be cefazolin (childhood penicillin rash is a low-risk allergy history); magnesium sulfate for neuroprotection before 32 weeks. I explained all of this to her and Rohan.",
+  "allowTimes": [
+   "1845",
+   "1900",
+   "2000"
+  ]
+ },
+ {
+  "id": "note_fhr_2040",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 2000 to 2035",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-29 20:40",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 138 bpm, moderate variability, accelerations, no decelerations; contractions spaced to every 10-12 minutes by 2000 and absent by 2030.",
+  "body": "**Tracing** (2000-2035)\n- Baseline: 138 bpm\n- Variability: moderate\n- Accelerations: present\n- Decelerations: none\n- Contractions: every 10-12 minutes at 2000, none after 2030\n\n**Category** NICHD Category I. Continuous monitoring for the rest of the night.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_pharm_2135",
+  "type": "therapyNotes",
+  "title": "Pharmacy Note - Insulin Doses and Discharge Supplies",
+  "author": "G. Aoki, PharmD",
+  "datetime": "2026-12-29 21:35",
+  "category": "Pharmacy Note",
+  "summary": "Reviewed the Day 2 glucose log (62 to 84, then 128, 94, 132, 98, 124) and the reduced regimen; discharge supplies ordered: blood ketone meter and strips, nasal glucagon, ondansetron ODT.",
+  "body": "Reviewed the glucose log for Day 2: 0700 62 (then 84 at 0720), 0830 postprandial 128, 1200 premeal 94, 1330 postprandial 132, 1730 premeal 98, 1900 postprandial 124 mg/dL, on the new 1 unit per 10 g ratio. The reduced insulin glargine dose of 20 units is due at 2100 (a 17% reduction from home). Her bedtime snack of 30 g carbohydrate with protein is at 2130 with a 2200 and a 0300 glucose check. Discharge prescriptions will be ready for bedside delivery tomorrow: a blood ketone meter with 20 strips, nasal glucagon 3 mg (two-pack) for severe low glucose, and ondansetron 4 mg orally disintegrating tablets (12) for sick-day nausea. Ondansetron is acceptable in the third trimester; avoid it when potassium or magnesium is low.",
+  "allowTimes": [
+   "2100",
+   "2130",
+   "2200",
+   "0300"
+  ]
+ }
+]

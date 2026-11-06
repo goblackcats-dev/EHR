@@ -1,0 +1,88 @@
+[
+ {
+  "id": "note_ecg_202612280155",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "T. Eskridge, MD",
+  "datetime": "2026-12-28 01:55",
+  "category": "Cardiology",
+  "summary": "Sinus tachycardia 118 bpm, PR 142 ms, QRS 82 ms, QTc 432 ms (Bazett). Normal upright T waves, no U waves, no ST depression; rate-related tachycardia from dehydration and ketoacidosis.",
+  "body": "**Measurements**\nVentricular rate 118 bpm. PR 142 ms. QRS 82 ms. QTc 432 ms (Bazett). Axis +40 degrees (mild leftward shift is normal at 28 weeks).\n\n**Interpretation**\nRegular sinus tachycardia, no ectopy. Normal upright T waves in all leads, no U waves, no ST depression or elevation.\n\n**Context**\nRecorded during ketoacidosis with 36 hours of vomiting at 28 weeks 2 days; potassium result pending. Tachycardia is expected from volume depletion and acidosis (and is partly physiologic in pregnancy).",
+  "allowTimes": [],
+  "study": "ECG 12 lead, acquired 01:45",
+  "impression": "Sinus tachycardia 118 bpm. Normal T waves, no U waves. QTc 432 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0145.png",
+    "caption": "12-lead ECG acquired 2026-12-28 01:45",
+    "alt": "12-lead ECG tracing from 2026-12-28 01:45: Sinus tachycardia 118 bpm, PR 142 ms, QRS 82 ms, QTc 432 ms (Bazett). Normal upright T waves, no U waves, no ST depression; rate-related tachycardia from dehydration and ketoacidosis."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202612280720",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "T. Eskridge, MD",
+  "datetime": "2026-12-28 07:20",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 98 bpm, PR 164 ms, QRS 88 ms, QTc 478 ms (Bazett; T-U fusion). Diffusely flattened T waves (I, II, aVL, V3-V6), 0.5 mm ST depression V4-V6 and prominent U waves (1.5 mm V2-V4). Hypokalemia pattern (potassium 3.2, magnesium 1.5); no ectopy.",
+  "body": "**Measurements**\nVentricular rate 98 bpm. PR 164 ms. QRS 88 ms. QTc 478 ms (Bazett; the T and U waves are fused, so this is a QTc/QUc). Axis +35 degrees.\n\n**Interpretation**\nSinus rhythm, no premature beats. Diffusely **flattened T waves** (I, II, aVL, V3-V6), **prominent upright U waves** (1.5 mm in V2-V4, taller than the T wave) and **0.5 mm horizontal ST depression in V4-V6**. Compared with 0145: rate slower (118 to 98), new T flattening, U waves and ST depression.\n\n**Context**\nRecorded at 0710 after the critical potassium of 3.2 mEq/L with magnesium 1.5 mg/dL (insulin infusion running since 0215). The pattern fits insulin-driven hypokalemia with low magnesium. QT-prolonging drugs (ondansetron) should be avoided until potassium and magnesium are corrected. Repeat when the potassium has been replaced.",
+  "allowTimes": [
+   "0145"
+  ],
+  "study": "ECG 12 lead, acquired 07:10",
+  "impression": "Sinus rhythm 98 with flat T waves, prominent U waves and 0.5 mm ST depression V4-V6 at potassium 3.2. QTc 478 ms (T-U fusion).",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0710.png",
+    "caption": "12-lead ECG acquired 2026-12-28 07:10",
+    "alt": "12-lead ECG tracing from 2026-12-28 07:10: Sinus rhythm 98 bpm, PR 164 ms, QRS 88 ms, QTc 478 ms (Bazett; T-U fusion). Diffusely flattened T waves (I, II, aVL, V3-V6), 0.5 mm ST depression V4-V6 and prominent U waves (1.5 mm V2-V4). Hypokalemia pattern (potassium 3.2, magnesium 1.5); no ectopy."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202612280945",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "T. Eskridge, MD",
+  "datetime": "2026-12-28 09:45",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 90 bpm, PR 156 ms, QRS 86 ms, QTc 452 ms (Bazett). T waves improving (low but upright in V3-V6), ST segments isoelectric, U waves smaller (0.5 mm). Potassium 3.6 after 20 mEq replacement.",
+  "body": "**Measurements**\nVentricular rate 90 bpm. PR 156 ms. QRS 86 ms. QTc 452 ms (Bazett). Axis +35 degrees.\n\n**Interpretation**\nSinus rhythm. T waves have recovered to low upright waves in V3-V6, ST segments are isoelectric and the U waves are much smaller (0.5 mm). No ectopy. Compared with 0710: ST depression gone, QTc 478 to 452 ms.\n\n**Context**\nRecorded at the insulin restart (potassium 3.6 after two riders of 10 mEq and magnesium 2 g running). Continue potassium replacement to a goal of 4.0 or higher while the insulin runs.",
+  "allowTimes": [
+   "0710"
+  ],
+  "study": "ECG 12 lead, acquired 09:35",
+  "impression": "Sinus rhythm 90. T waves recovering, small U waves, no ST depression at potassium 3.6. QTc 452 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0935.png",
+    "caption": "12-lead ECG acquired 2026-12-28 09:35",
+    "alt": "12-lead ECG tracing from 2026-12-28 09:35: Sinus rhythm 90 bpm, PR 156 ms, QRS 86 ms, QTc 452 ms (Bazett). T waves improving (low but upright in V3-V6), ST segments isoelectric, U waves smaller (0.5 mm). Potassium 3.6 after 20 mEq replacement."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202612281925",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "T. Eskridge, MD",
+  "datetime": "2026-12-28 19:25",
+  "category": "Cardiology",
+  "summary": "Normal sinus rhythm 84 bpm, PR 148 ms, QRS 82 ms, QTc 424 ms (Bazett). Normal upright T waves in all leads, no U waves, normal ST segments. Hypokalemic changes resolved (potassium 4.1).",
+  "body": "**Measurements**\nVentricular rate 84 bpm. PR 148 ms. QRS 82 ms. QTc 424 ms (Bazett). Axis +35 degrees.\n\n**Interpretation**\nNormal sinus rhythm. Crisp normal upright T waves in all leads, no U waves, normal ST segments. Complete resolution of the hypokalemic repolarization changes seen at 0710 and 0935.\n\n**Context**\nRecorded after the 1850 panel (potassium 4.1, magnesium 2.0, DKA resolved). Telemetry can continue as ordered.",
+  "allowTimes": [
+   "0935"
+  ],
+  "study": "ECG 12 lead, acquired 19:15",
+  "impression": "Normal sinus rhythm 84. T waves normal, no U waves. QTc 424 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1915.png",
+    "caption": "12-lead ECG acquired 2026-12-28 19:15",
+    "alt": "12-lead ECG tracing from 2026-12-28 19:15: Normal sinus rhythm 84 bpm, PR 148 ms, QRS 82 ms, QTc 424 ms (Bazett). Normal upright T waves in all leads, no U waves, normal ST segments. Hypokalemic changes resolved (potassium 4.1)."
+   }
+  ]
+ }
+]

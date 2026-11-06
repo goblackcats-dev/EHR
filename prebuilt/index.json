@@ -162,6 +162,15 @@
      "file": "casestudy/cases/dka6_samuel/patient.json",
      "age": 45,
      "sex": "Male"
+    },
+    {
+     "id": "dka7_priya",
+     "name": "Priya Desai",
+     "title": "DKA 7 of 7, high-risk antepartum unit: type 1 diabetes in pregnancy at 28 weeks, DKA at a glucose of 242, potassium 3.2 on insulin, Category II fetal tracing, morning low glucose, evening contractions and the betamethasone decision (3 days, checkpoints every 0700 and 1900)",
+     "desc": "Mon 12/28 0700 to Thu 12/31 0700. A 29-year-old with type 1 diabetes, 28 weeks pregnant, arrives on the high-risk antepartum unit in DKA at a glucose of only 242 with fetal monitoring running; care covers the potassium drop on insulin, keeping dextrose for the baby, left lateral positioning, a morning low, evening contractions and sick-day teaching. Vital signs after 0700 come from the bedside monitor.",
+     "file": "casestudy/cases/dka7_priya/patient.json",
+     "age": 29,
+     "sex": "Female"
     }
    ]
   }

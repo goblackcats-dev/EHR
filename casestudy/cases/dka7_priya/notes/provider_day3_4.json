@@ -1,0 +1,165 @@
+[
+ {
+  "id": "note_night_ob_0740",
+  "type": "progressNotes",
+  "title": "Night Obstetric Summary Note - Quiet Night, Fasting Glucose on Target",
+  "author": "O. Ferrante, MD",
+  "datetime": "2026-12-30 07:40",
+  "category": "Progress Note",
+  "summary": "Contractions gone since 2030; glargine 20 units at 2100; bedtime 112, 0300 91, fasting 92 (target under 95); 0700 labs normal; urine ketones negative; tracing Category I with no contractions.",
+  "body": "Uneventful night. By 2030 the contractions had stopped after hydration and rest and the tocodynamometer stayed flat. Glargine 20 units was given at 2100 and she ate her bedtime snack (28 g carbohydrate). Glucose: 112 at 2200, 91 at 0300 (no nocturnal low on the reduced dose), 92 fasting at 0700 (target under 95). The 0700 panel (released 0700): sodium 136, potassium 4.1, chloride 104, bicarbonate 21, creatinine 0.52, anion gap 11, BHB 0.1, glucose 92; dipstick urine ketones negative. The fetal tracing is Category I (see the 0735 interpretation). Telemetry is discontinued after the 0700 assessment per the order. Fasting breakfast lispro is due at 0715.",
+  "allowTimes": [
+   "2030",
+   "2100",
+   "2200",
+   "0300",
+   "0700",
+   "0715"
+  ]
+ },
+ {
+  "id": "note_fhr_0735w",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0700 to 0730",
+  "author": "O. Ferrante, MD",
+  "datetime": "2026-12-30 07:35",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 138 bpm, moderate variability, three accelerations in 20 minutes, no decelerations, no contractions.",
+  "body": "**Tracing** (0700-0730)\n- Baseline: 138 bpm\n- Variability: moderate\n- Accelerations: 3 in 20 minutes (15 x 15)\n- Decelerations: none\n- Contractions: none\n\n**Category** NICHD Category I, reactive.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_mfm_0915",
+  "type": "progressNotes",
+  "title": "Maternal-Fetal Medicine Day 3 Note - Biophysical Profile and Surveillance Plan",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-30 09:15",
+  "category": "Progress Note",
+  "summary": "BPP 8/8 on the four ultrasound components (10/10 with the reactive NST) at 0830, 28w4d; monitoring changed to a 20-minute tracing every 4 hours; daily kick counts; outpatient testing weekly then twice weekly from 32 weeks.",
+  "body": "Performed a bedside ultrasound and biophysical profile at 0830 (28 weeks 4 days, about 38 hours after biochemical resolution): fetal breathing movements over 30 seconds (2 points), at least 3 body or limb movements (2), normal tone (2), amniotic fluid maximum vertical pocket 5.4 cm with an AFI of 13.8 cm (2): **8/8 on the ultrasound components; 10/10 including the reactive non-stress test.** She has had a Category I tracing for over 36 hours with normal acid-base, so continuous monitoring is changed to a 20-minute tracing every 4 hours while awake and once overnight until discharge. Daily fetal kick counts after dinner in left lateral position (goal 10 movements in 2 hours, usually 15-30 minutes).\n\n**After discharge:** weekly NST and fluid checks from now (29-31 weeks), twice-weekly NST with AFI or BPP from 32 weeks, growth ultrasound every 4 weeks. Delivery timing will be individualized by me at the clinic visits from her glucose control, fetal growth and any complications (usually 37-39 weeks for type 1 diabetes). First visit Monday at 0900 with an NST.",
+  "allowTimes": [
+   "0830"
+  ]
+ },
+ {
+  "id": "note_endo_1030",
+  "type": "progressNotes",
+  "title": "Endocrinology Day 3 Progress Note",
+  "author": "H. Dalgaard, MD",
+  "datetime": "2026-12-30 10:30",
+  "category": "Progress Note",
+  "summary": "Targets met on glargine 20 units and 1:10 lispro: 0300 91, fasting 92, 1 hour after breakfast 134. Sensor and fingerstick agree within 4-6 mg/dL now; hypoglycemia plan reviewed.",
+  "body": "Good control over the last 24 hours on glargine 20 units at 2100 and lispro 1 unit per 10 g: 0300 91, fasting 92 (goal under 95), 1 hour after breakfast 134 (goal under 140); BHB 0.1, bicarbonate 21. Her own continuous glucose monitor was compared with simultaneous point-of-care values: during dehydration and acidosis on Day 1 the interstitial readings can lag blood glucose by 10-15 minutes, which is why hourly fingersticks were required on the infusion; now that she is euvolemic its readings are within 4-6 mg/dL. Reminder: confirm any reading under 70 or any symptom that does not match with a fingerstick. Endocrinology clinic Monday at 1030 with the sensor data and ketone log. Expect insulin needs to rise through the third trimester; we will titrate at each visit. Medically ready for discharge tomorrow morning after one more night of observation and teach-back.",
+  "allowTimes": [
+   "0300",
+   "0700",
+   "2100"
+  ]
+ },
+ {
+  "id": "note_cdces_1400",
+  "type": "therapyNotes",
+  "title": "Diabetes Educator Teach-Back - Ketone Meter and Nasal Glucagon",
+  "author": "M. Doyle, RN, CDCES",
+  "datetime": "2026-12-30 14:00",
+  "category": "Diabetes Education",
+  "summary": "Return demonstration with the blood ketone meter (0.1 mmol/L at 1330) and nasal glucagon; action thresholds recited correctly: under 0.6 normal, 0.6-1.4 call, 1.5 or more or vomiting go to OB triage.",
+  "body": "Delivered the bedside supplies and watched Priya check her blood ketones at 1330: **0.1 mmol/L** (glucose 129 mg/dL one hour after a lunch with lispro 7 units). She recited the thresholds: **under 0.6 mmol/L** normal; **0.6-1.4** drink fluid, take the sick-day correction, recheck glucose and ketones in 2 hours and **call the endocrinology or MFM on-call line**; **1.5 or more, or any ketones with more than one vomit, abdominal pain or deep breathing: go directly to OB triage.** Rohan demonstrated giving nasal glucagon 3 mg for a severe low when she cannot swallow safely. Both showed full understanding of the four rules from yesterday.",
+  "allowTimes": [
+   "1330"
+  ]
+ },
+ {
+  "id": "note_sw_1545",
+  "type": "caseManagement",
+  "title": "Perinatal Social Work Note - Work, Follow-Up and Support",
+  "author": "L. Nwosu, LCSW",
+  "datetime": "2026-12-30 15:45",
+  "category": "Case Management",
+  "summary": "Worry about missing teaching days and classroom viral illness; medical excuse letter through the end of the week; transportation, insurance and family support confirmed; MFM 0900 and endocrinology 1030 Monday.",
+  "body": "Met with Priya and Rohan. She is worried about missing four days of teaching and about returning to a classroom with circulating gastroenteritis. We completed a medical excuse letter for her principal through the end of this week, with recommendations for water and snack breaks, scheduled glucose checks and strict handwashing in her room. Transportation, commercial health insurance (covering insulin, sensors and ketone strips) and nearby family support (her parents 15 minutes away) were confirmed. Two linked appointments: Maternal-Fetal Medicine and a non-stress test on Monday 01/04 at 0900, then Endocrinology in the same building at 1030.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_rd_1710",
+  "type": "therapyNotes",
+  "title": "Dietitian Follow-Up Note",
+  "author": "R. Trevino, RDN",
+  "datetime": "2026-12-30 17:10",
+  "category": "Nutrition",
+  "summary": "Diary review: 1-hour glucose after meals 124-134, no morning low; sample home menus built around her food preferences; written plans given.",
+  "body": "Reviewed her food and glucose diary. Spacing carbohydrate across 3 meals and 3 snacks (breakfast 60 g, snack 15, lunch 70, snack 15, dinner 80, bedtime 30 with protein), her one-hour post-meal glucoses were 124-134 mg/dL and there has been no morning low since Day 2. She chose a 3-day home menu around her own foods (smaller portions of brown basmati rice or whole-wheat roti with dal, paneer, grilled chicken and non-starchy vegetables). Written copies of the 2,200 kcal plan and her sick-day liquid carbohydrate chart were given. No further nutrition barriers.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_fhr_1935",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - Non-Stress Test 1900 to 1920",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-30 19:35",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Reactive NST, Category I: baseline 140 bpm, moderate variability, three 15 x 15 accelerations, no decelerations, toco flat; kick count 10 movements in 22 minutes.",
+  "body": "**Tracing** (20-minute non-stress test)\n- Baseline: 140 bpm\n- Variability: moderate\n- Accelerations: three, 15 bpm x 15 seconds (reactive)\n- Decelerations: none\n- Contractions: none\n\n**Category** NICHD Category I. After the test she completed a supervised kick count in left lateral position: 10 distinct movements in 22 minutes. Reassuring; the next tracing is the overnight and morning check.",
+  "allowTimes": [
+   "1900"
+  ]
+ },
+ {
+  "id": "note_ob_1940",
+  "type": "progressNotes",
+  "title": "Obstetric Evening Note - Ready for Final Night",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-30 19:40",
+  "category": "Progress Note",
+  "summary": "Day 3 afternoon uneventful: ambulating, normal diet, glucoses 89-131 on target; NST reactive; kick count normal; discharge teaching checklist reviewed.",
+  "body": "Afebrile, normotensive by the monitor entries, ambulating freely in the hallway and resting in left lateral tilt in bed. Glucose 89 before lunch (lispro 7 units), 129 one hour after, 93 before dinner (8 units) and 131 one hour after dinner. The 1900 NST was reactive and the kick count normal (see the 1935 interpretation). Discharge teaching checklist reviewed with Priya and Rohan: kick counts, preterm labor and preeclampsia warning signs (headache not relieved by acetaminophen, visual change, right upper abdominal or epigastric pain, sudden swelling), sick-day rules. Final night observation with glargine 20 units at 2100, a bedtime snack, a 2200 glucose and a morning NST; discharge about 0900 tomorrow.",
+  "allowTimes": [
+   "1900",
+   "2100",
+   "2200"
+  ]
+ },
+ {
+  "id": "note_fhr_0655d",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - Non-Stress Test 0630 to 0650",
+  "author": "O. Ferrante, MD",
+  "datetime": "2026-12-31 06:55",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Reactive NST, Category I: baseline 136 bpm, moderate variability, two 15 x 15 accelerations, no decelerations, toco flat.",
+  "body": "**Tracing** (20-minute NST, 0630-0650)\n- Baseline: 136 bpm\n- Variability: moderate\n- Accelerations: two, 15 bpm x 15 seconds\n- Decelerations: none\n- Contractions: none\n\n**Category** NICHD Category I, reactive.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_discharge_ob_0700",
+  "type": "progressNotes",
+  "title": "Obstetric and Maternal-Fetal Medicine Discharge-Readiness Note",
+  "author": "B. Montenegro, MD and L. Aldrich, MD",
+  "datetime": "2026-12-31 07:00",
+  "category": "Progress Note",
+  "summary": "28 weeks 5 days, discharge planned about 0900: well-grown singleton, Category II tracing resolved to Category I within about 9 hours of treatment with no cesarean; contractions Day 2 benign (cervical length 3.8 cm, fibronectin negative, no steroids); BPP 8/8; today NST reactive; glucose 88.",
+  "body": "Priya is ready for discharge home today at 28 weeks 5 days with a viable, well-grown singleton. Her triage Category II tracing (baseline 165, minimal variability, recurrent late decelerations) improved with maternal correction of volume, acid-base and potassium and reached Category I at about 1100 on Day 1, avoiding an unnecessary and risky preterm cesarean. The Day 2 evening contractions were benign uterine irritability (cervical length 3.8 cm, closed; fetal fibronectin negative), so betamethasone and its risk of steroid-induced recurrent DKA were avoided. The biophysical profile on Day 3 was 8/8 and the 0630 non-stress test this morning is reactive. Labs at 0700: fasting glucose 88, sodium 136, potassium 4.2, chloride 104, bicarbonate 21, creatinine 0.52, anion gap 11, BHB 0.1, phosphorus 3.6, magnesium 2.0; urine ketones negative; hemoglobin 10.8 (expected physiologic dilution of pregnancy). Rh positive: no immune globulin. GBS testing at 36 weeks. Education completed: daily kick counts, preterm labor and preeclampsia warning signs, sick-day return criteria; teach-back by both without error. Both IVs to be removed with intact sites before she leaves. Follow-up Monday 01/04 at 0900 (MFM, NST, fluid check) and 1030 (endocrinology).",
+  "allowTimes": [
+   "0630",
+   "0900",
+   "0650",
+   "1100",
+   "1030"
+  ]
+ },
+ {
+  "id": "note_endo_discharge_0700",
+  "type": "progressNotes",
+  "title": "Endocrinology Discharge Note",
+  "author": "H. Dalgaard, MD",
+  "datetime": "2026-12-31 07:00",
+  "category": "Consult Note",
+  "summary": "DKA in pregnancy resolved on Day 1 (glucose 242, pH 7.24, bicarbonate 10, BHB 5.4 at presentation); one fasting low on the full basal dose; home regimen glargine 20 units, lispro 1:10 plus scale; ketone meter and glucagon in hand.",
+  "body": "Priya was admitted with DKA at a glucose of only 242 mg/dL (pH 7.24, bicarbonate 10, anion gap 26, BHB 5.4) from gastroenteritis, a halved basal dose and omitted mealtime insulin. Treatment: crystalloid, regular insulin 0.1 unit/kg/h with dextrose from a glucose under 200, potassium and magnesium replacement through peripheral IVs within the 10 mEq/h limit, a 2 hour 20 minute insulin hold for a potassium of 3.2 with dextrose kept, and biochemical resolution on the 1850 draw of Day 1 (pH 7.42, bicarbonate 19, anion gap 12, BHB 0.5), with a 2-hour overlap with glargine. One fasting low (62) on Day 2 led to glargine 20 units. Since then fasting 91-92 and 88 and 1-hour postprandial values 124-134, with BHB 0.1.\n\n**Discharge regimen:** glargine 20 units at 2100; lispro 1 unit per 10 g carbohydrate 10-15 minutes before meals (about 6, 7 and 8 units) plus a correction of +1 for 121-150, +2 for 151-180, +3 for 181-210; aspirin 81 mg daily; prenatal vitamin; ondansetron 4 mg ODT every 8 hours as needed; nasal glucagon 3 mg; blood ketone meter; continuous glucose monitor. Pregnancy targets: fasting under 95, 1 hour under 140, 2 hours under 120, bedtime 90-120. I expect to raise doses with the third trimester. Clinic Monday at 1030.",
+  "allowTimes": [
+   "1850",
+   "2100",
+   "1030"
+  ]
+ }
+]

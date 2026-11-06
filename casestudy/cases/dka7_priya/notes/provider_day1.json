@@ -1,0 +1,367 @@
+[
+ {
+  "id": "note_ob_triage_0155",
+  "type": "erVisitSummary",
+  "title": "OB Triage Admission Note - Vomiting, Deep Breathing and Decreased Fetal Movement at 28 Weeks",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 01:55",
+  "category": "ED Provider Note",
+  "summary": "29-year-old G1P0 at 28 weeks 2 days with type 1 diabetes, 36 hours of vomiting after a classroom norovirus exposure, who cut her basal insulin in half. Kussmaul respirations, sinus tachycardia, fruity breath; fetal tracing Category II. Two IVs, Foley, labs sent, 1,000 mL saline and ondansetron started; left lateral tilt.",
+  "body": "**HPI**\n29-year-old G1P0 at 28 weeks 2 days (EDD 03/20/2027 by an 8-week crown-rump length), type 1 diabetes since age 12 on multiple daily injections and a continuous glucose monitor, who arrived at 0130 with her husband Rohan. Pupils in her fourth-grade classroom had gone home with acute viral gastroenteritis two days ago. About 36 hours ago she developed nausea and watery diarrhea (3 stools, resolved) and then intractable non-bloody vomiting (8 episodes in 18 hours). Her sensor read 175-235 mg/dL, which she did not recognize as dangerous; she feared a low, cut her bedtime glargine from 24 to 12 units last night and gave no mealtime lispro while sipping ginger ale and water. At 0030 she developed epigastric soreness, deep sighing breathing and marked fatigue, and noticed less fetal movement over the last 4 hours.\n\n**Exam**\nAnxious, nauseated, alert and oriented x4. Dry mucous membranes, fruity ketotic breath, deep regular Kussmaul respirations, sinus tachycardia, no fever. Lungs clear. Abdomen: gravid, soft, mild epigastric tenderness, no guarding; uterus soft between mild contractions. Placed at once in a 30-degree left lateral tilt (wedge under the right hip). Oxygen is not applied: saturation is 99% on room air and hyperoxia is avoided.\n\n**Fetal monitoring (started 0135)**\nExternal Doppler: baseline 165 bpm, minimal variability, no accelerations, recurrent late decelerations after mild contractions every 3-4 minutes. NICHD Category II.\n\n**Actions**\nTwo 18-gauge peripheral IVs (left forearm, right antecubital) and a Foley catheter with urometer at 0145 (120 mL of dark amber urine; dipstick ketones 4+, glucose 3+, specific gravity 1.030, nitrite and leukocytes negative). Blood drawn for venous gas, BMP, beta-hydroxybutyrate, magnesium, phosphorus, lactate, CBC, hepatic panel and lipase (epigastric pain at 28 weeks: pancreatitis and HELLP syndrome must be excluded; blood pressure is normal). 12-lead ECG at 0145. Sodium chloride 0.9% 1,000 mL over 1 hour from 0150 (about 14 mL/kg at 70 kg) and ondansetron 4 mg IV at 0155 for retching. Maternal-Fetal Medicine and Endocrinology are being called now.\n\n**Impression**\nSuspected diabetic ketoacidosis in pregnancy with a Category II fetal tracing from maternal acidosis and volume depletion. Plan: confirm with labs, start insulin once the potassium is known, treat the mother first, continuous fetal monitoring, no emergent delivery for the tracing alone.",
+  "allowTimes": [
+   "0030",
+   "0130",
+   "0135",
+   "0145",
+   "0150",
+   "0155",
+   "2027"
+  ]
+ },
+ {
+  "id": "note_fhr_0145",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0135 to 0145",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 01:45",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category II: baseline 165 bpm, minimal variability, no accelerations, recurrent late decelerations with contractions every 3-4 minutes.",
+  "body": "**Tracing** (external Doppler and tocodynamometer, 0135-0145)\n- Baseline: 165 bpm (fetal tachycardia)\n- Variability: minimal (under 5 bpm)\n- Accelerations: none\n- Decelerations: recurrent late decelerations, nadir about 140 bpm, about 40 seconds, after contractions\n- Contractions: mild, every 3-4 minutes by palpation\n\n**Category** NICHD Category II (indeterminate).\n\n**Interpretation and plan**\nMost consistent with maternal ketoacidosis, volume depletion and uteroplacental hypoperfusion; fetal tachycardia can also reflect maternal tachycardia and dehydration. Intrauterine resuscitation: left lateral position, IV fluids now, treat the acidosis, no routine oxygen. Continuous monitoring and review every hour. Delivery is not indicated for this tracing while the maternal condition is being corrected.",
+  "allowTimes": [
+   "0135"
+  ]
+ },
+ {
+  "id": "note_ob_rn_0220",
+  "type": "progressNotes",
+  "title": "OB Triage Nursing Note - Arrival, Access, Labs and Insulin Start",
+  "author": "F. Maddox, RN",
+  "datetime": "2026-12-28 02:20",
+  "category": "Nursing Note",
+  "summary": "Arrived 0130 by wheelchair with her husband; wedge placed, monitors on at 0135, two 18 g IVs and Foley at 0145, 1,000 mL saline at 0150, ondansetron 0155, labs resulted 0210, insulin 7 units/h started 0215.",
+  "body": "Priya arrived at 0130 by wheelchair with her husband Rohan, reporting 8 episodes of vomiting in 18 hours and less fetal movement over 4 hours. Placed in left lateral position with a foam wedge under the right hip; the fetal transducer and tocodynamometer went on at 0135. Two 18-gauge IVs (left forearm and right antecubital) and a Foley with urometer were placed at 0145 on the first attempts and labs were drawn. One 150 mL episode of clear emesis at 0140 before the ondansetron. Saline 1,000 mL started at 0150 and ondansetron 4 mg IV given at 0155. The 0145 results came back at 0210: glucose 242 mg/dL, sodium 134, potassium 4.1, chloride 98, bicarbonate 10, anion gap 26, venous pH 7.24 with pCO2 24, beta-hydroxybutyrate 5.4. At 0215 the regular insulin infusion was started at 7 units/h (0.1 unit/kg/h for 70 kg) with no bolus. Priya and Rohan were told what each step is for and that the fetal monitoring stays on continuously.",
+  "allowTimes": [
+   "0130",
+   "0135",
+   "0140",
+   "0145",
+   "0150",
+   "0155",
+   "0210",
+   "0215"
+  ]
+ },
+ {
+  "id": "note_mfm_0240",
+  "type": "progressNotes",
+  "title": "Maternal-Fetal Medicine Consultation - DKA in Pregnancy with a Category II Tracing",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-28 02:40",
+  "category": "Consult Note",
+  "summary": "Moderate DKA at a glucose of only 242 (pregnancy lowers the glucose at which ketoacidosis appears). Category II tracing from maternal acidosis. No emergent cesarean: correct the mother, left lateral, dextrose with the insulin.",
+  "body": "**Reason for consultation**\nDiabetic ketoacidosis at 28 weeks 2 days with a Category II fetal tracing.\n\n**Assessment**\nThe 0145 labs show moderate DKA at a glucose of only 242 mg/dL: venous pH 7.24, bicarbonate 10, anion gap 26 and beta-hydroxybutyrate 5.4. Pregnancy lets ketoacidosis develop at lower glucose values because of continuous fetal and placental glucose use, placental hormone insulin resistance, vomiting and a lower renal threshold for glucose, and because the baseline bicarbonate (18-22) and pCO2 (27-32) are already lower from progesterone-driven hyperventilation, which leaves less buffering reserve. Winter's formula (expected pCO2 23 +/- 2) was derived in non-pregnant adults; her measured pCO2 of 24 is appropriate compensation and, because pregnancy lowers the baseline, the pregnancy expectation is a few mmHg lower still. Maternal ketoacids and hydrogen ions cross the placenta, and a fetus is more acidemic than its mother, which explains the tracing (baseline 165, minimal variability, recurrent late decelerations).\n\n**Recommendations**\n1. Do NOT proceed to emergent cesarean delivery for this Category II tracing. Delivering a 28-week fetus from an acidotic mother raises maternal risk and delivers an acidemic, preterm infant. Intrauterine resuscitation by correcting the maternal acid-base, volume and potassium status almost always restores a Category I tracing within hours.\n2. Left lateral position at all times; fluids as ordered; no routine oxygen.\n3. Add 5% dextrose to the fluids as soon as the glucose is under 200 so the fetus has a steady carbohydrate supply while the insulin clears the ketones. If the potassium forces an insulin hold, keep the dextrose running.\n4. Continuous fetal monitoring until 24 hours after resolution. Call me for a prolonged deceleration, a return of recurrent late decelerations or a change of category.\n5. Neonatology counseling when she is stable. Blood type is O positive: no Rh immune globulin.",
+  "allowTimes": [
+   "0145"
+  ]
+ },
+ {
+  "id": "note_fhr_0300",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0250 to 0300",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 03:00",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category II: baseline 160 bpm, minimal variability, intermittent late decelerations, contractions every 4-5 minutes.",
+  "body": "**Tracing** (0250-0300)\n- Baseline: 160 bpm (down from 165)\n- Variability: minimal\n- Accelerations: none\n- Decelerations: intermittent late decelerations with the contractions\n- Contractions: every 4-5 minutes, mild\n\n**Category** NICHD Category II.\n\n**Interpretation and plan**\nThe fluid bolus is finishing and insulin has been running since 0215; the baseline is easing. Continue left lateral position and the hourly review. No indication for delivery.",
+  "allowTimes": [
+   "0250"
+  ]
+ },
+ {
+  "id": "note_endo_0310",
+  "type": "progressNotes",
+  "title": "Endocrinology Consultation - DKA in Pregnancy Triggered by Gastroenteritis and Insulin Reduction",
+  "author": "H. Dalgaard, MD",
+  "datetime": "2026-12-28 03:10",
+  "category": "Consult Note",
+  "summary": "DKA from vomiting and a halved basal dose. Corrected sodium 136.3; pCO2 24 matches Winter's 23 +/- 2. Insulin 7 units/h; POC 192 at 0300, so D5 with KCl 20 mEq/L was added; peripheral potassium limit 10 mEq/h from all sources.",
+  "body": "**Assessment**\n29-year-old woman, 28 weeks 2 days, type 1 diabetes, in DKA triggered by viral gastroenteritis with vomiting and a self-reduced basal dose (12 instead of 24 units) and no mealtime insulin. HbA1c 6.2%.\n\n**Arithmetic (0145 panel)**\n- Anion gap 134 - 98 - 10 = 26\n- Corrected sodium 134 + 1.6 x (242 - 100)/100 = 136.3\n- Winter's expected pCO2 1.5 x 10 + 8 = 23 +/- 2: measured 24. In pregnancy the baseline pCO2 is lower, so the pregnancy expectation sits a few mmHg below Winter's value; she is compensating appropriately, with no respiratory acidosis.\n- Venous pH 7.24 (Henderson-Hasselbalch from bicarbonate 10 and pCO2 24).\n\n**Treatment so far**\n1,000 mL saline from 0150 to 0250; regular insulin 7 units/h (0.1 unit/kg/h at 70 kg, no bolus) from 0215. The 0300 glucose is 192 (242 at the start), so at 0300 the fluid changed to D5 0.45% NaCl with KCl 20 mEq/L at 250 mL/h: glucose under 200 in pregnancy triggers dextrose so the fetus has continuous substrate and the insulin can run at full dose to clear the ketones.\n\n**Rules for the rest of the stay**\n- Peripheral IVs only: through a peripheral line potassium is limited to 10 mEq/h from ALL sources, in separate riders one at a time. While a rider runs the carrier must contain no potassium. No 40 mEq/L bags.\n- Potassium under 3.5: hold the insulin, keep the dextrose running, replace, restart at 3.5 or higher with the prescriber.\n- DKA is resolved only when beta-hydroxybutyrate is under 0.6 and the venous pH is 7.30 or higher or the bicarbonate is 18 or higher; basal insulin goes in 2 hours before the drip stops.\n- Goal glucose on the infusion 110-160 mg/dL.\nBMP, gas and ketones are repeated at 0400 and with the 0700 panel.",
+  "allowTimes": [
+   "0145",
+   "0150",
+   "0215",
+   "0300",
+   "0400",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_pharm_0430",
+  "type": "therapyNotes",
+  "title": "Pharmacy Note - Insulin, Potassium Limit and Antiemetic Safety",
+  "author": "G. Aoki, PharmD",
+  "datetime": "2026-12-28 04:30",
+  "category": "Pharmacy Note",
+  "summary": "70 kg dosing weight; insulin 7 units/h verified. K 3.6 at 0400: one 10 mEq rider 0420-0520 on IV B with the carrier changed to potassium-free so the total stays at 10 mEq/h (the 20 mEq/L bag alone is 5 mEq/h). Ondansetron acceptable; hold if K or QTc is abnormal.",
+  "body": "Reviewed the weight-based orders for Priya Desai (70.0 kg current weight, 28 weeks 2 days). Regular insulin is running at 7 units/h (0.1 unit/kg/h), no bolus, which limits the early drop in potassium and the osmotic shift. The 0400 panel (released 0415): glucose 178 mg/dL, sodium 135, potassium 3.6, chloride 101, bicarbonate 12, anion gap 22, pH 7.30, pCO2 25, beta-hydroxybutyrate 4.1.\n\nPotassium plan checked against the peripheral rule (never more than 10 mEq/h from all sources): the carrier was D5 0.45% NaCl with KCl 20 mEq/L at 250 mL/h, which delivers 5 mEq/h. A rider of 10 mEq/h on top would reach 15 mEq/h, so at 0420 the carrier is changed to D5 0.45% NaCl without potassium at 150 mL/h for the hour of the rider (KCl 10 mEq/100 mL on IV B, 0420-0520). The total is exactly 10 mEq/h and the total IV volume stays 250 mL/h. The 20 mEq/L bag resumes at 0520. Urine output is 110-150 mL/h, well over 35 mL/h.\n\nOndansetron 4 mg IV is acceptable in the third trimester; it can lengthen the QT interval, so repeat doses are PRN only and are held while the potassium is under 3.5 or the QTc is over 470 ms. Next panel with the 0700 draw.",
+  "allowTimes": [
+   "0400",
+   "0415",
+   "0420",
+   "0520",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_fhr_0540",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0530 to 0540",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 05:40",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category II: baseline 155 bpm, minimal-to-moderate variability, fewer late decelerations (only with the stronger contractions every 5 minutes).",
+  "body": "**Tracing** (0530-0540)\n- Baseline: 155 bpm\n- Variability: minimal-to-moderate\n- Accelerations: none\n- Decelerations: fewer late decelerations, only with the stronger contractions\n- Contractions: every 5 minutes, mild\n\n**Category** NICHD Category II (improving).\n\n**Interpretation and plan**\nGradual improvement as the acidosis and dehydration correct (3 hours of fluids and insulin). Nausea is better. Continue the same plan and hourly review.",
+  "allowTimes": [
+   "0530"
+  ]
+ },
+ {
+  "id": "note_ob_rn_0655",
+  "type": "progressNotes",
+  "title": "OB Triage Nursing Note - Handoff to the High-Risk Antepartum Unit (SBAR)",
+  "author": "F. Maddox, RN",
+  "datetime": "2026-12-28 06:55",
+  "category": "Nursing Note",
+  "summary": "Handoff: DKA in pregnancy, insulin 7 units/h, D5 0.45% NaCl with KCl 20 mEq/L at 250 mL/h running, glucose 159 at 0600, fetal tracing Category II improving, 0700 panel drawn and pending, urine 720 mL, emesis 150 mL.",
+  "body": "**Situation**\nPriya Desai, 29, 28 weeks 2 days, DKA in pregnancy, transferring to the high-risk antepartum unit at 0700.\n\n**Background**\nType 1 diabetes; norovirus-like illness with vomiting; halved her glargine and skipped lispro. Penicillin allergy (childhood rash). Weight 70.0 kg. Left lateral tilt since 0135.\n\n**Assessment**\nRegular insulin 7 units/h since 0215; fluids: 1,000 mL saline 0150-0250, then D5 0.45% NaCl with KCl 20 mEq/L at 250 mL/h (a rider of KCl 10 mEq ran 0420-0520 with a potassium-free carrier). POC glucose 159 at 0600. The 0400 potassium was 3.6. The next panel was drawn at 0655 and is pending. Intake about 2,100 mL; urine about 720 mL (Foley); emesis 150 mL once. Nausea better, epigastric soreness 1/10. Fetal tracing Category II and improving (baseline 155, minimal-to-moderate variability, fewer late decelerations).\n\n**Recommendation**\nCheck the 0655 potassium as soon as it releases: if it is under 3.5 the insulin is held and the carrier must be changed to the potassium-free bag BEFORE any rider. Keep the left lateral tilt and the continuous fetal monitor.",
+  "allowTimes": [
+   "0130",
+   "0135",
+   "0150",
+   "0250",
+   "0420",
+   "0520",
+   "0655",
+   "0700"
+  ]
+ },
+ {
+  "id": "note_fhr_0715",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0700 to 0715 (unit arrival)",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 07:15",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category II: baseline 155 bpm, minimal-to-moderate variability (5-6 bpm), no accelerations, intermittent late decelerations to 138 bpm with contractions every 4-5 minutes.",
+  "body": "**Tracing** (0700-0715, new monitor connected on arrival)\n- Baseline: 155 bpm\n- Variability: minimal-to-moderate (5-6 bpm)\n- Accelerations: none\n- Decelerations: intermittent late decelerations, nadir 138 bpm, with the contractions\n- Contractions: mild, every 4-5 minutes, 40 seconds\n\n**Category** NICHD Category II.\n\n**Interpretation and plan**\nUnchanged from 0530. The 0655 potassium has just resulted at 3.2 (critical): the insulin must be held, which will slow the clearance of ketones; the dextrose carrier stays on so the fetus is not starved of glucose. No indication for delivery; the husband asked whether she needs an emergency cesarean and was told that treating the mother is the safest way to treat the baby.",
+  "allowTimes": [
+   "0655"
+  ]
+ },
+ {
+  "id": "note_hp_0735",
+  "type": "hp",
+  "title": "High-Risk Antepartum Unit Admission History and Physical",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 07:35",
+  "category": "History and Physical",
+  "summary": "29-year-old G1P0 at 28 weeks 2 days with type 1 diabetes and DKA from gastroenteritis; K 3.2 and Mg 1.5 on insulin: insulin held, dextrose kept, riders and magnesium started; Category II tracing improving; VTE risk low, sequential compression devices, no enoxaparin; aspirin 81 mg continues.",
+  "body": "**Chief complaint**\nVomiting, deep breathing and decreased fetal movement; admitted from OB triage with DKA in pregnancy.\n\n**HPI**\nSee the triage notes. Type 1 diabetes since age 12, one prior DKA at 16 (influenza), HbA1c 6.4% before pregnancy and 6.0-6.1% in the first and second trimesters (6.2% today). Gastroenteritis with 36 hours of vomiting, glargine cut from 24 to 12 units, lispro omitted. Triage labs: glucose 242, bicarbonate 10, gap 26, venous pH 7.24, BHB 5.4, K 4.1. Insulin 7 units/h since 0215; D5 with potassium from 0300; one KCl rider 0420-0520. The 0655 panel (released 0705): glucose 152, **K 3.2 (critical)**, Mg 1.5 (below the pregnancy range 1.6-2.2), phosphorus 2.4, bicarbonate 14, gap 18, pH 7.34, pCO2 27, BHB 2.8. ECG at 0710 pending.\n\n**Obstetric history**\nG1P0, spontaneous conception, EDD 03/20/2027 (8-week crown-rump length). Nuchal translucency and cell-free DNA low risk (46,XX), anatomy scan at 20 weeks normal, fetal echocardiogram at 22 weeks normal. Growth scan 3 days ago: estimated fetal weight 1,180 g (54th percentile), amniotic fluid index 14.2 cm. Blood type O positive, antibody screen negative, rubella immune, RPR non-reactive, hepatitis B surface antigen negative, HIV negative, group B strep not yet due (36 weeks).\n\n**PMH, medicines, social, family**\nNo retinopathy (eye exam 4 months ago), no nephropathy (baseline creatinine 0.55; 24-hour urine protein 110 mg), no neuropathy. Home: glargine 24 units at 2100, lispro 1 unit per 8 g carbohydrate (about 8, 8 and 10 units) with a correction of 1 unit per 30 mg/dL over 120, aspirin 81 mg daily (preeclampsia prevention since 12 weeks), prenatal vitamin, continuous glucose monitor on the right upper arm. **Allergy: penicillin (childhood maculopapular rash), low-risk history.** Husband Rohan (31), at the bedside; fourth-grade teacher; no tobacco, alcohol or drugs. Mother: hypothyroidism and celiac disease; father: hypertension and hyperlipidemia; maternal aunt: type 1 diabetes.\n\n**Exam (arrival)**\nTired, alert, mildly weak in the calves, nausea much better, no vomiting since 0140. Dry mucous membranes improving, deep slightly fast breathing, lungs clear, no JVD, trace pedal edema, soft gravid uterus, mild epigastric tenderness, reflexes 2+. Weight 70.0 kg (pre-pregnancy 62.0 kg, height 165 cm, BMI 25.7 now). Fetal tracing: Category II (see the 0715 interpretation).\n\n**Assessment and plan**\n1. **DKA in pregnancy, moderate, improving** (glucose 152, gap 18, BHB 2.8). Resolution needs BHB under 0.6 plus pH 7.30 or higher or bicarbonate 18 or higher.\n2. **Hypokalemia 3.2 with low magnesium on insulin:** hold the insulin now, keep the dextrose carrier (D5 0.45% NaCl without potassium, 100 mL/h), KCl 10 mEq/100 mL riders at 0715 and 0815 one at a time (the carrier must be potassium-free so no minute exceeds 10 mEq/h), magnesium sulfate 2 g over 2 hours from 0730, ECG now, repeat BMP, gas and BHB when rider 2 ends (0915). Planned hold about 2 hours, not longer: ketones are still high and the fetus is acidemic. Restart at 3.5 units/h (0.05 unit/kg/h) when K is 3.5 or higher and I confirm.\n3. **Fetal status:** Category II improving; continuous monitoring; left lateral; no emergent cesarean (MFM agrees).\n4. **VTE risk assessment:** age 29, BMI 25.7, no prior clot or thrombophilia, no major immobility; transient factors are pregnancy, admission and dehydration. Low risk with a short stay and walking from tomorrow: sequential compression devices while in bed, hydration, no enoxaparin (pregnancy is a risk factor, but this does not justify drug prophylaxis here; a possible early delivery would also complicate neuraxial anesthesia timing). Reassess daily.\n5. **Aspirin 81 mg continues** (with a sip, once nausea has settled); prenatal vitamin from Day 2; ondansetron only as needed with QTc and potassium checked.\n6. NPO except ice chips and sips with medicines until nausea has settled; Foley for hourly urine.\n7. Penicillin allergy noted. GBS is not yet due.",
+  "allowTimes": [
+   "0140",
+   "0215",
+   "0300",
+   "0420",
+   "0520",
+   "0655",
+   "0705",
+   "0710",
+   "0715",
+   "0730",
+   "0815",
+   "0915",
+   "2100",
+   "2027"
+  ]
+ },
+ {
+  "id": "note_mfm_0850",
+  "type": "progressNotes",
+  "title": "Maternal-Fetal Medicine Progress Note - Insulin Hold, Dextrose Kept, Fetal Substrate",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-28 08:50",
+  "category": "Progress Note",
+  "summary": "Insulin held since 0710 for K 3.2 with dextrose kept; glucose drifting up (166). Tracing still Category II but variability improving. Hold limited to about 2 hours because of fetal acidemia and rising ketones risk. No emergent delivery.",
+  "body": "Saw Mrs. Desai with her husband. The insulin has been held since 0710 for a potassium of 3.2; two potassium riders are running one at a time with a potassium-free D5 0.45% NaCl carrier, and magnesium 2 g runs from 0730. She is comfortable, nausea gone, no vomiting since 0140.\n\n**Why the dextrose stays on:** a 28-week fetus depends on a steady maternal glucose supply. Switching to dextrose-free saline during the hold, as is sometimes done, would let the glucose fall and starve the fetus while ketones, which also cross the placenta, are still high (BHB 2.8). With 5 g/h of dextrose the glucose is drifting up slowly (152 at 0700, 166 at 0800), which is acceptable for 2 hours.\n\n**Why the hold must be short:** without insulin ketone production resumes. The planned recheck is at the end of rider 2 (0915): if the potassium is 3.5 or higher the insulin restarts at 0.05 unit/kg/h that hour. If the potassium is still under 3.5 a third rider would be needed and the hold extended, with the tracing and ketones reviewed again.\n\n**Fetal tracing:** see the 0845 interpretation: still Category II (late decelerations only with the stronger contractions), but moderate variability is appearing intermittently. Not an indication for delivery. Continue left lateral position and continuous monitoring. Rh status O positive: no immune globulin.",
+  "allowTimes": [
+   "0700",
+   "0710",
+   "0730",
+   "0800",
+   "0915"
+  ]
+ },
+ {
+  "id": "note_fhr_0845",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 0830 to 0845",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-28 08:45",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category II improving: baseline 152 bpm, moderate variability intermittently (7-10 bpm), no accelerations, occasional shallow late decelerations with the stronger contractions every 5-6 minutes.",
+  "body": "**Tracing** (0830-0845)\n- Baseline: 152 bpm\n- Variability: moderate intermittently (7-10 bpm)\n- Accelerations: none\n- Decelerations: occasional shallow late decelerations (nadir 142 bpm) only with the stronger contractions\n- Contractions: every 5-6 minutes, mild\n\n**Category** NICHD Category II (improving).\n\n**Interpretation and plan**\nTwo hours into the insulin hold the tracing continues to improve, probably from volume repletion and the steady dextrose supply. Repeat interpretation after the 0915 labs. No intervention beyond left lateral position.",
+  "allowTimes": [
+   "0915"
+  ]
+ },
+ {
+  "id": "note_endo_0950",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - Potassium Recheck and Insulin Restart",
+  "author": "H. Dalgaard, MD",
+  "datetime": "2026-12-28 09:50",
+  "category": "Consult Note",
+  "summary": "K 3.6 and Mg 1.7 after 20 mEq KCl; insulin restarted at 0930 at 3.5 units/h (hold 2 h 20 min) with a third rider; ECG improving; glucose 186; BHB 2.6.",
+  "body": "Reviewed the 0915 panel (released 0930) after riders 1 and 2 and 20 mEq of potassium chloride: **potassium 3.6** (from 3.2), magnesium 1.7, sodium 136, chloride 104, bicarbonate 14, anion gap 18, pH 7.34, pCO2 27, **BHB 2.6**, glucose 186, phosphorus 2.3, creatinine 0.62. Ketones barely moved during the hold (2.8 to 2.6), as expected without insulin. Potassium is 3.5 or higher and I confirmed the restart: **regular insulin restarted at 0930 at 3.5 units/h (0.05 unit/kg/h)** with the dextrose carrier running. Because 3.6 is only just above the threshold and insulin will pull it down again, a third rider (10 mEq, rider 4 of the stay) runs 0930-1030 with the carrier still potassium-free; after it the carrier changes to D5 0.45% NaCl with KCl 20 mEq/L at 200 mL/h. The hold lasted 2 hours 20 minutes. The 0935 ECG (read 0945) shows T waves recovering and smaller U waves, QTc 452 ms.\n\nGoal glucose 110-160 on the infusion: the glucose should now fall from 186 and the carrier supplies dextrose throughout. DKA is not resolved (BHB 2.6, gap 18). Next panel at 1100, then 1500 and 1900. Insulin is not stopped for a normal glucose.",
+  "allowTimes": [
+   "0710",
+   "0730",
+   "0915",
+   "0930",
+   "0935",
+   "1030",
+   "1100",
+   "1500",
+   "1900"
+  ]
+ },
+ {
+  "id": "note_neo_1215",
+  "type": "progressNotes",
+  "title": "Neonatology Counseling - Possible Preterm Delivery at 28 Weeks",
+  "author": "R. Stavros, MD",
+  "datetime": "2026-12-28 12:15",
+  "category": "Consult Note",
+  "summary": "Prenatal counseling for Priya and Rohan at 28 weeks 2 days: expected course if delivery were needed, NICU care, steroids and magnesium timing, no delivery planned.",
+  "body": "Met with Priya and Rohan at their request after the tracing improved. No delivery is planned; the purpose is to explain what would happen if one became necessary. At 28 weeks most infants survive and most survive without major disability, but they need care in a neonatal intensive care unit: breathing support and surfactant if needed, temperature and feeding support, glucose monitoring (an infant of a mother with diabetes is at risk of low glucose) and screening before discharge. Antenatal corticosteroids (betamethasone) improve lung maturity and are given only when delivery within about 7 days is likely; they raise maternal glucose for several days, which is why the decision will be shared with Endocrinology. Magnesium sulfate is given before an anticipated delivery before 32 weeks for neuroprotection. They asked good questions and said they felt prepared. I will see them again if the situation changes.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_fhr_1130",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 1100 to 1130",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-28 11:30",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I since about 1100: baseline 148 bpm, moderate variability (10-12 bpm), accelerations 15 x 15, no decelerations since 0950, contractions irregular and mild every 8-10 minutes.",
+  "body": "**Tracing** (1100-1130; the last late deceleration was at 0950)\n- Baseline: 148 bpm\n- Variability: moderate (10-12 bpm)\n- Accelerations: 15 bpm x 15 seconds at 1040 and 1105\n- Decelerations: none for 1 hour 40 minutes\n- Contractions: irregular, mild, every 8-10 minutes\n\n**Category** NICHD Category I.\n\n**Interpretation and plan**\nThe first Category I tracing of this admission, 4 hours after pH 7.34 and about 2 hours after the insulin restart and potassium replacement. The improvement follows the correction of volume, acid-base and potassium and the steady dextrose supply. Continuous monitoring continues until 24 hours after the DKA resolves.",
+  "allowTimes": [
+   "0950",
+   "1040",
+   "1105"
+  ]
+ },
+ {
+  "id": "note_endo_1145",
+  "type": "progressNotes",
+  "title": "Endocrinology Midday Progress Note - Ketones Still Present",
+  "author": "H. Dalgaard, MD",
+  "datetime": "2026-12-28 11:45",
+  "category": "Progress Note",
+  "summary": "1100 panel: K 3.8, glucose 148, bicarbonate 15, gap 16, pH 7.35, BHB 1.9: not resolved; insulin 3.5 units/h and D5 0.45% NaCl with KCl 20 mEq/L at 200 mL/h continue.",
+  "body": "Reviewed the 1100 panel (released 1115): potassium 3.8 after 40 mEq of potassium chloride over the morning (the last rider ended at 1030 and the 20 mEq/L carrier resumed at 1030, never alongside a rider), magnesium 2.0, glucose 148, sodium 136, chloride 105, bicarbonate 15, anion gap 16, pH 7.35 with pCO2 28, **BHB 1.9**, phosphorus 2.4, creatinine 0.58. The glucose fell from 188 at 0930 to 148 on insulin 3.5 units/h with D5, within the 110-160 goal; no D10 is needed. A rule of two of four criteria would already call her resolved (pH over 7.30, bicarbonate 15), but the ketones are still 1.9 and the gap is 16, so the infusion continues; resolution requires BHB under 0.6 plus pH 7.30 or higher or bicarbonate 18 or higher. Phosphorus 2.4 is only just below range: monitored and not replaced (replacement is for under 1.0). She is allowed clear liquids and is eating nothing yet. Next panel 1500.",
+  "allowTimes": [
+   "0930",
+   "1030",
+   "1115",
+   "1500"
+  ]
+ },
+ {
+  "id": "note_fhr_1535",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 1500 to 1530",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 15:35",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 145 bpm, moderate variability, accelerations present, no decelerations, contractions irregular every 8-10 minutes.",
+  "body": "**Tracing** (1500-1530)\n- Baseline: 145 bpm\n- Variability: moderate (10-12 bpm)\n- Accelerations: present, 15 bpm x 15 seconds, several\n- Decelerations: none\n- Contractions: mild, irregular, every 8-10 minutes\n\n**Category** NICHD Category I.\n\n**Interpretation and plan**\nSustained Category I for 4 hours; reactive pattern returning. Continue continuous monitoring until 24 hours after resolution.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_mfm_1540",
+  "type": "progressNotes",
+  "title": "Maternal-Fetal Medicine Afternoon Progress Note",
+  "author": "L. Aldrich, MD",
+  "datetime": "2026-12-28 15:40",
+  "category": "Progress Note",
+  "summary": "1500 panel: K 3.9, BHB 1.1 not resolved; fetal tracing Category I for 4 hours; contractions irregular and mild; the improvement followed correction of the mother.",
+  "body": "Reviewed the 1500 panel (released 1515): glucose 138, potassium 3.9, bicarbonate 17, anion gap 14, pH 7.39, pCO2 29, **BHB 1.1**, magnesium 2.0, phosphorus 2.7. Ketones are falling but are still above 0.6, so DKA is not resolved and the insulin continues. The fetal tracing (see the 1535 interpretation) has been Category I for about 4 hours: baseline 145, moderate variability, accelerations, no decelerations. Contractions have spaced to mild irregular tightenings every 8-10 minutes as the dehydration and ketosis corrected. She feels much stronger and has had sips of water and broth. This is the expected course: fetal distress during maternal DKA is treated by treating the mother, and an emergency delivery at 28 weeks would have exposed both of them to avoidable risk. Her measured pCO2 is now 29 (pregnancy baseline 27-32) as the bicarbonate recovers; Winter's formula (expected 33.5 +/- 2) over-predicts in pregnancy for the reason given at the first consultation.",
+  "allowTimes": [
+   "1500",
+   "1515"
+  ]
+ },
+ {
+  "id": "note_endo_1925",
+  "type": "progressNotes",
+  "title": "Endocrinology Evening Note - DKA Resolved, Subcutaneous Insulin Transition",
+  "author": "H. Dalgaard, MD",
+  "datetime": "2026-12-28 19:25",
+  "category": "Consult Note",
+  "summary": "1850 panel: BHB 0.5, pH 7.42, bicarbonate 19, gap 12, K 4.1: DKA resolved. Glargine 24 units and lispro 4 units at 1930 with a 32 g dinner; IV insulin (3.5 units/h) and D5 run until 2130 (2-hour overlap).",
+  "body": "The 1850 panel (released 1905) confirms **resolution of DKA**: glucose 132, sodium 137, potassium 4.1, chloride 106, **bicarbonate 19**, **anion gap 12**, **pH 7.42** (pCO2 30, the pregnancy baseline), **beta-hydroxybutyrate 0.5** (under 0.6), magnesium 2.0, phosphorus 2.9. The 1915 ECG is normal. She is hungry, free of nausea and drinking clear liquids.\n\n**Orders:** a light transition dinner of 32 g of carbohydrate at 1930. At 1930: **insulin glargine 24 units** (her home dose) and **insulin lispro 4 units** (1 unit per 8 g). Intravenous regular insulin has a half-life of minutes while glargine needs hours to form its depot, so **the insulin infusion (3.5 units/h) and the D5 0.45% NaCl with KCl 20 mEq/L carrier keep running for 2 full hours until 2130**, after the dose is verified and she has eaten. POC glucose at 2000, 2100, 2130, 2200 and 0200. Remove the Foley at 2200. Phosphorus 2.9 is normal: no phosphate supplement. I expect her insulin needs to fall for a day or two after the gastroenteritis; I will reassess the basal dose in the morning.",
+  "allowTimes": [
+   "1850",
+   "1905",
+   "1915",
+   "1930",
+   "2000",
+   "2100",
+   "2130",
+   "2200",
+   "0200"
+  ]
+ },
+ {
+  "id": "note_fhr_1930",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 1900 to 1920",
+  "author": "B. Montenegro, MD",
+  "datetime": "2026-12-28 19:30",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I, reactive: baseline 140 bpm, moderate variability (10-15 bpm), two 15 x 15 accelerations in 20 minutes, no decelerations, irregular tightenings every 10-15 minutes.",
+  "body": "**Tracing** (1900-1920)\n- Baseline: 140 bpm\n- Variability: moderate (10-15 bpm)\n- Accelerations: two of 15 bpm x 15 seconds in 20 minutes (reactive)\n- Decelerations: none\n- Contractions: irregular mild tightenings every 10-15 minutes\n\n**Category** NICHD Category I.\n\n**Interpretation and plan**\nNormal reactive pattern, 6 hours after the first Category I tracing and at the time of DKA resolution. Continue continuous monitoring through the night and until 24 hours after resolution.",
+  "allowTimes": []
+ },
+ {
+  "id": "note_night_ob_2235",
+  "type": "progressNotes",
+  "title": "Night Obstetric Progress Note - Drip Off, Foley Out, Tracing Category I",
+  "author": "O. Ferrante, MD",
+  "datetime": "2026-12-28 22:35",
+  "category": "Progress Note",
+  "summary": "Overnight check: insulin infusion and carrier stopped at 2130 after the 2-hour overlap; glucoses 128, 134, 129, 124; Foley removed at 2200 (320 mL); tracing Category I (baseline 138); next labs at 0100.",
+  "body": "Reviewed the evening. She ate her whole 32 g transition tray at 1930 without nausea. During the overlap the glucoses were 128 (2000), 134 (2100) and 129 (2130); at 2130, exactly 2 hours after the glargine 24 units and lispro 4 units, the insulin infusion and the D5 carrier were stopped and both IVs were saline-locked. Bedtime glucose 124 at 2200. The Foley was removed at 2200 with 320 mL in the urometer; she will void into a measuring hat. The fetal tracing is Category I with a baseline of 138 bpm, moderate variability and fetal movement felt (see the interpretation at 2235). She is resting in left lateral tilt; Rohan is on the couch. Plan: venous panel at 0100, glucose at 0200, then fasting glucose; the endocrinology service will adjust the insulin in the morning.",
+  "allowTimes": [
+   "1930",
+   "2000",
+   "2100",
+   "2130",
+   "2200",
+   "0100",
+   "0200"
+  ]
+ },
+ {
+  "id": "note_fhr_2235",
+  "type": "progressNotes",
+  "title": "Fetal Heart Rate Tracing Interpretation - 2200 to 2230",
+  "author": "O. Ferrante, MD",
+  "datetime": "2026-12-28 22:35",
+  "category": "Fetal Heart Rate Tracing Interpretation",
+  "summary": "Category I: baseline 138 bpm, moderate variability, accelerations present, no decelerations; patient feels regular fetal movement.",
+  "body": "**Tracing** (2200-2230)\n- Baseline: 138 bpm\n- Variability: moderate\n- Accelerations: present\n- Decelerations: none\n- Contractions: none to rare\n\n**Category** NICHD Category I. Continue continuous monitoring.",
+  "allowTimes": []
+ }
+]
