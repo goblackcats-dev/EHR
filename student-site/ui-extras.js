@@ -46,7 +46,7 @@
     dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
     let want = false;
     const rows = $('marRows');
-    if (rows) rows.addEventListener('click', e => { want = !e.target.closest('.mar-event-pill'); }, true);
+    if (rows) rows.addEventListener('click', e => { want = !e.target.closest('.mar-event-pill, .mar-inf-cell'); }, true);
     const original = renderMARDetail;
     renderMARDetail = function (med) { const r = original.apply(null, arguments); if (want && med) { want = false; if (!dlg.open) dlg.showModal(); } return r; };
   }

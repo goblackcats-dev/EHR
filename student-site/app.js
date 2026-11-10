@@ -1699,7 +1699,9 @@ function getVisibleCanonicalCase(canonical) {
   visible.orders = visible.orders.map(order => {
     const st = canonical.orderStop && canonical.orderStop[order.id];
     if (!st || !simulationTime || String(st.at) > String(simulationTime)) return order;
-    return { ...order, status: 'Discontinued', end: st.at, stoppedEarly: true, discontinuedBy: st };
+    const base = parseSimDate(safe(canonical.timeline && canonical.timeline.simulationStart, '')), at = parseSimDate(st.at);
+    let mar = order.mar; if (base && at && mar) { base.setMinutes(0, 0, 0); mar = { ...mar, discontinuedIndex: Math.floor((at - base) / 3600000) + 1 }; }   // the boxes after the stop are shaded
+    return { ...order, status: 'Discontinued', end: st.at, stoppedEarly: true, discontinuedBy: st, mar };
   });
   // A device that has been placed is "active" until its removal time; removed devices are kept apart so the Avatar can drop them.
   const placedDevices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
