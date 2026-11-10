@@ -21,7 +21,7 @@ Focus: pathophysiology (cortisol and aldosterone missing: low sodium, high potas
 - Print one packet per student (7), single-sided. Each student writes their name in the header; the last page is their individual reflection and peer check.
 - Load the EHR: Pre-Built Patients > Case Study Patients > Lauren Mitchell (or Import with casestudy/cases/addison/patient.json). Check that the clock reads Mon 07:00 (4W-22, SIM-40422).
 - Open the bedside monitor (Monitor button) in the same browser; it loads Lauren's built-in scenario by MRN and follows the 4h button. The monitor BP is lying: you say the standing values aloud.
-- There are no vital signs or bedside glucoses in the chart after 0700. You give the glucose and the standing values aloud (in each checkpoint section below). Ignore the instructor-only "Suggested vitals" bar on the Flowsheets page (it repeats the 0700 set).
+- There are no vital signs or bedside glucoses in the chart after 0700. You give the glucose and the standing values aloud (in each checkpoint section below). Ignore the instructor-only "Suggested vitals" bar on the Flowsheets page (it repeats the 0700 set). A new nursing assessment is charted at every checkpoint (Flowsheets > Adult Assessment, plus the IV site row), and new labs come back for every stop, so each pair has fresh material.
 - Optional moulage: bronzer on the face, neck and backs of the hands, darker palm creases; sweat spray at 1100.
 
 ## Rules that protect the pacing

@@ -657,3 +657,7 @@ The monitor BP is the **lying** value. Each row's note (shown in the control pan
 | Tue 0700 | 74 | 99 | 120/76 | 14 | 98.2 | Normal sinus | 0.16 / 0.09 | 0.25 | Standing 116/74, HR 80 |
 
 All on room air.
+
+
+## Update (assessments at every checkpoint)
+A full nursing assessment is now charted at the ED 0410, the unit 0700 and every checkpoint (1100, 1500, 1900, 2300, Tue 0300, Tue 0700), source `gen/assess.js` (the `LATER` table). Vital sign numbers and bedside glucoses are still NOT charted after 0700: give them aloud. New labs are collected every 4 hours (0900, 1300, 1700, 2100, 0100, 0500). Students can discontinue an order (Orders page > select the order > Discontinue this order) with a reason; Lauren's contact precautions stay because norovirus is positive (C. difficile is negative).
