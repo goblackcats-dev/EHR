@@ -208,6 +208,34 @@
     const c = host.dlg && host.dlg.querySelector('#lvCount'); if (c) c.textContent = `${live} sharing now (${host.students.size} joined)`;
     host.students.forEach(s => s.tile.classList.toggle('lv-idle', Date.now() - s.last >= 20000));
   }
+  // ---- a separate Monitor computer: its own 6-character code (not the student code); it receives the patient, the patient time and the instructor's monitor commands
+  const mon = { peer: null, code: '', conns: new Set(), last: null, chan: null };
+  const monUrl = () => new URL('monitor.html', location.href).href.replace(/#.*$/, '');
+  const monLink = () => monUrl() + '#mon=' + mon.code;
+  function monState() {
+    const st = typeof simulationTime === 'undefined' ? '' : String(simulationTime || '');
+    let mrn = ''; try { mrn = localStorage.getItem('nursingsim.mrn') || ''; } catch (e) { /* ignore */ }
+    const m = Object.assign({}, mon.last || {}); if (st) m.simTime = st; if (mrn) m.mrn = mrn; return m;
+  }
+  function monSend(msg, one) { (one ? [one] : [...mon.conns]).forEach(c => { if (c.open) { try { c.send(msg); } catch (e) { /* ignore */ } } }); }
+  function monCount() { const n = [...mon.conns].filter(c => c.open).length; const e = host.dlg && host.dlg.querySelector('#lvMonN'); if (e) e.textContent = n ? '(' + n + ' monitor connected)' : '(no monitor connected yet)'; }
+  function startMonitorHost() {
+    mon.code = newCode(); const cfg = peerConfig();
+    mon.peer = new window.Peer(PREFIX + 'mon-' + mon.code, peerOpts(cfg));
+    mon.peer.on('open', () => { const c = host.dlg.querySelector('#lvMonCode'); if (c) c.textContent = mon.code; const u = host.dlg.querySelector('#lvMonUrl'); if (u) u.textContent = monUrl(); monCount(); });
+    mon.peer.on('connection', conn => {
+      conn.on('open', () => { mon.conns.add(conn); monSend({ t: 'mon', m: monState() }, conn); monSend({ t: 'mon', m: { cmd: 'getState' } }, conn); monCount(); });
+      conn.on('close', () => { mon.conns.delete(conn); monCount(); });
+      conn.on('error', () => { mon.conns.delete(conn); monCount(); });
+      conn.on('data', d => { if (d && d.t === 'ms' && mon.chan) { try { mon.chan.postMessage({ monitorState: d.s }); } catch (e) { /* ignore */ } } });
+    });
+    mon.peer.on('error', err => { if (err && err.type === 'unavailable-id') { try { mon.peer.destroy(); } catch (e) { /* ignore */ } startMonitorHost(); } });
+    if ('BroadcastChannel' in window && !mon.chan) {   // everything the EHR tells a same-browser monitor (time, patient, instructor commands) is passed on to the remote monitor too
+      mon.chan = new BroadcastChannel('nursingsim');
+      mon.chan.onmessage = e => { const d = e.data || {}; if (d.monitorState || d.hello) return; if (d.simTime || d.mrn) mon.last = { simTime: d.simTime, mrn: d.mrn, name: d.name }; monSend({ t: 'mon', m: d }); };
+    }
+    clearInterval(mon.timer); mon.timer = setInterval(() => monSend({ t: 'mon', m: monState() }), 3000);
+  }
   async function startHost() {
     await libs();
     host.code = newCode();
@@ -216,15 +244,16 @@
     host.peer.on('open', () => { const c = host.dlg.querySelector('#lvCodeBig'); c.textContent = host.code; host.dlg.querySelector('#lvStatus').textContent = 'Ready. Send students the link below (or tell them the code: they choose Join class).'; });
     host.peer.on('connection', conn => { conn.on('data', d => onData(conn, d)); conn.on('close', () => { const st = host.students.get(conn.peer); if (st) { st.last = 0; updateCount(); } }); });
     host.peer.on('error', err => { if (err && err.type === 'unavailable-id') { host.peer.destroy(); startHost(); } else host.dlg.querySelector('#lvStatus').textContent = 'Could not reach the connection service (' + ((err && err.type) || 'error') + '). Check the internet connection.'; });
+    startMonitorHost();
     host.timer = setInterval(updateCount, 5000); sync.timer = setInterval(tickSync, 1000); stash(true);
     if (window.NSChartSync) NSChartSync.start(p => { if (sync.on) host.students.forEach(s => { if (s.conn && s.conn.open) { try { s.conn.send({ t: 'chart', p }); } catch (e) { /* ignore */ } } }); }, true);
   }
-  function endHost() { clearInterval(host.timer); clearInterval(sync.timer); if (window.NSChartSync) NSChartSync.stop(); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
+  function endHost() { clearInterval(mon.timer); mon.conns.forEach(c => { try { c.close(); } catch (e) { /* ignore */ } }); mon.conns.clear(); try { mon.peer && mon.peer.destroy(); } catch (e) { /* ignore */ } clearInterval(host.timer); clearInterval(sync.timer); if (window.NSChartSync) NSChartSync.stop(); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
   function openWatch() {
     if (host.dlg) { host.dlg.showModal(); host.students.forEach(fit); return; }
     const dlg = document.createElement('dialog'); dlg.id = 'lvWatch'; dlg.className = 'lv-dialog';
     dlg.innerHTML = `<div class="dialog-header"><div><h2>Class session</h2><p id="lvStatus">Starting...</p></div><div class="lv-head-r"><div class="lv-codebox">Class code<div id="lvCodeBig">------</div></div><button class="secondary-button" id="lvMin">Hide window</button> <button class="secondary-button" id="lvEnd">End session</button></div></div>
-      <div class="dialog-body"><div class="lv-sync"><label><input type="checkbox" id="lvSyncOn" checked> <b>Run the class together</b>: students see this patient and this patient time (use the clock buttons, pause and the Monitor as usual; student clocks follow yours)</label><div><label><input type="checkbox" id="lvQuick"> <b>Quick give</b>: students tap a due dose to give it at once (they say they gave it; no scanning)</label></div><div class="lv-link">Link for students (send once): <input id="lvLink" readonly onclick="this.select()"> <button class="secondary-button" id="lvCopy">Copy link</button></div><details class="lv-relay"><summary><b>Students cannot connect? Add a relay server (advanced)</b></summary><p style="margin:6px 0;font-size:13px">School Wi-Fi sometimes blocks direct connections. A free relay fixes it: make a free account at <b>metered.ca</b> (TURN server), copy the three values it shows, and paste them here. They are added to the student link automatically.</p><input id="lvTurnUrl" placeholder="Server address, e.g. turn:global.relay.metered.ca:443" style="width:100%;padding:6px;margin:2px 0"><input id="lvTurnUser" placeholder="Username" style="width:49%;padding:6px"> <input id="lvTurnCred" placeholder="Password / credential" style="width:49%;padding:6px"><div class="lv-actions"><button class="secondary-button" id="lvTurnSave">Save relay</button> <button class="secondary-button" id="lvTurnClear">Remove relay</button> <span id="lvTurnMsg" style="font-size:13px"></span></div></details><div class="lv-actions"><button class="secondary-button" id="lvTest">Test the relay</button> <span id="lvTestMsg" style="font-size:12px"></span> <button class="secondary-button" id="lvResend">Send my patient to everyone again</button> <button class="secondary-button" id="lvSay">Message to class...</button></div></div><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students open the student site, choose <b>Join class</b> and type the code (or open the link above). The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
+      <div class="dialog-body"><div class="lv-sync"><label><input type="checkbox" id="lvSyncOn" checked> <b>Run the class together</b>: students see this patient and this patient time (use the clock buttons, pause and the Monitor as usual; student clocks follow yours)</label><div><label><input type="checkbox" id="lvQuick"> <b>Quick give</b>: students tap a due dose to give it at once (they say they gave it; no scanning)</label></div><div class="lv-link">Link for students (send once): <input id="lvLink" readonly onclick="this.select()"> <button class="secondary-button" id="lvCopy">Copy link</button></div><div class="lv-sync" style="margin-top:8px"><b>Monitor computer</b> (a separate code: it shows only the Bedside Monitor): open <b id="lvMonUrl"></b> on that computer and type the code <b id="lvMonCode" style="font-size:18px;letter-spacing:3px;color:#0b5cad">------</b> <button class="secondary-button" id="lvMonCopy">Copy monitor link</button> <span id="lvMonN" style="font-size:12px"></span></div><details class="lv-relay"><summary><b>Students cannot connect? Add a relay server (advanced)</b></summary><p style="margin:6px 0;font-size:13px">School Wi-Fi sometimes blocks direct connections. A free relay fixes it: make a free account at <b>metered.ca</b> (TURN server), copy the three values it shows, and paste them here. They are added to the student link automatically.</p><input id="lvTurnUrl" placeholder="Server address, e.g. turn:global.relay.metered.ca:443" style="width:100%;padding:6px;margin:2px 0"><input id="lvTurnUser" placeholder="Username" style="width:49%;padding:6px"> <input id="lvTurnCred" placeholder="Password / credential" style="width:49%;padding:6px"><div class="lv-actions"><button class="secondary-button" id="lvTurnSave">Save relay</button> <button class="secondary-button" id="lvTurnClear">Remove relay</button> <span id="lvTurnMsg" style="font-size:13px"></span></div></details><div class="lv-actions"><button class="secondary-button" id="lvTest">Test the relay</button> <span id="lvTestMsg" style="font-size:12px"></span> <button class="secondary-button" id="lvResend">Send my patient to everyone again</button> <button class="secondary-button" id="lvSay">Message to class...</button></div></div><div id="lvCount" class="lv-count">0 sharing now</div><div id="lvGrid" class="lv-grid"></div><p class="lv-note">Students open the student site, choose <b>Join class</b> and type the code (or open the link above). The tiles update live. Click Enlarge on a tile to see it bigger. Hiding this window keeps the session running; reopen it from the Tools menu. If a student cannot connect, the school Wi-Fi may block direct connections.</p></div>`;
     document.body.appendChild(dlg); host.dlg = dlg;
     dlg.querySelector('#lvMin').addEventListener('click', () => dlg.close());
     dlg.querySelector('#lvEnd').addEventListener('click', () => { if (confirm('End the live session? Students will stop sharing.')) endHost(); });
@@ -246,6 +275,7 @@
         m.style.color = got.length ? '#0a7a2f' : '#b00020';
       } catch (e) { m.textContent = 'Test could not run: ' + e.message; }
     });
+    q('lvMonCopy').addEventListener('click', () => { try { navigator.clipboard.writeText(monLink()); } catch (e) { /* ignore */ } q('lvMonCopy').textContent = 'Copied'; setTimeout(() => q('lvMonCopy').textContent = 'Copy monitor link', 1500); });
     q('lvResend').addEventListener('click', () => { if (confirm('Send your open patient to every student again? Their own charting on this patient will be replaced.')) { stash(true); host.students.forEach(s => { sendCase(s.conn); try { s.conn.send({ t: 'chart', p: NSChartSync.full() }); } catch (e) { /* ignore */ } }); } });
     q('lvSay').addEventListener('click', () => { const t = prompt('Message to show on every student screen:'); if (t) host.students.forEach(s => { try { s.conn.send({ t: 'say', text: t }); } catch (e) { /* ignore */ } }); });
     q('lvCopy').addEventListener('click', () => { const t = q('lvLink').value; try { navigator.clipboard.writeText(t); } catch (e) { /* ignore */ } q('lvCopy').textContent = 'Copied'; setTimeout(() => q('lvCopy').textContent = 'Copy link', 1500); });
