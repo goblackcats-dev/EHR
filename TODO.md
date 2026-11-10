@@ -1,6 +1,14 @@
 # To-do list (kept for later)
 
 ## Next up
+### Instructor notes, 2026-11-10 (not started; do later, one at a time)
+- **Bedside monitor, NBP sound:** the cuff sound is a little fake. Improve it, maybe with a free, properly licensed sound file from online.
+- **Shift report:** it is unwieldy. The assessment part holds the most information and should be much less intense.
+- **Brain, order acknowledgement:** when an order is acknowledged on the Brain, it must sync to every viewer in a class session.
+- **Bedside monitor, keep awake:** stop the monitor computer from going to sleep (today the instructor has to move the mouse every 30 minutes). Use a screen wake lock.
+- **Critical lab alert:** clicking the critical lab should clear the "1 CRIT" warning on the left side of the screen.
+- **"Apply to our patient at 1600 and add to the patient creation skill":** the instructor wrote this right after the critical-lab note. Ask what "this" means (the critical-lab behavior? a new event at 1600?) and which patient before doing it. There is no patient creation skill yet (only `.claude/skills/team-case-study`), so one may need to be written.
+
 - Saving: save student work somewhere safer than one browser (carry work between devices, backup file / send to instructor). Today each student's work is saved on their own device only.
 - Add more to the flowsheets as the need comes up (more rows, templates, groups).
 - Rebuild the Case Builder's primary diagnoses one patient at a time, very thoroughly (the old profiles are in `case-builder/primary-archive/`).
