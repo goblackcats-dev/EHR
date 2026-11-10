@@ -17,11 +17,23 @@
   };
   // direct (WebRTC) connections: Google STUN servers plus a free public TURN relay as a fallback for school Wi-Fi that blocks direct paths.
   // (the relay only passes encrypted traffic). A different TURN server can be put in localStorage 'nursingsim.turn' as a JSON list of iceServers.
+  // Cloudflare relay (free, 1,000 GB/month): a small Worker hands out short-lived relay logins so no secret is stored in this public site. Fetched once per page (and again after 12 hours).
+  const ICE_WORKER = 'https://nursingsim-ice.goblackcats.workers.dev';
+  const cf = { ice: null, at: 0, p: null };
+  function loadCfIce() {
+    if (cf.ice && Date.now() - cf.at < 12 * 3600000) return Promise.resolve(cf.ice);
+    if (cf.p) return cf.p;
+    cf.p = Promise.race([fetch(ICE_WORKER, { cache: 'no-store' }).then(r => r.ok ? r.json() : null), new Promise(r => setTimeout(() => r(null), 5000))])
+      .then(j => { const a = j && j.iceServers; const list = Array.isArray(a) ? a : (a ? [a] : []); if (list.length) { cf.ice = list; cf.at = Date.now(); } return cf.ice; })
+      .catch(() => cf.ice).finally(() => { cf.p = null; });
+    return cf.p;
+  }
   const iceServers = () => {
     // a relay put in the link by the instructor (students), or saved in the Class session window (instructor)
     try { const j = JSON.parse(sessionStorage.getItem('nursingsim.iceJoin') || 'null'); if (Array.isArray(j) && j.length) return j; } catch (e) { /* ignore */ }
     try { const o = JSON.parse(localStorage.getItem('nursingsim.turn') || 'null'); if (Array.isArray(o) && o.length) return o; } catch (e) { /* default */ }
-    // built-in relay (the instructor's free Metered.ca TURN account) so no one has to enter anything; the instructor chose to keep it in the public repo
+    if (cf.ice && cf.ice.length) return [{ urls: 'stun:stun.l.google.com:19302' }].concat(cf.ice);
+    // last resort: the built-in Metered relay (its free data is used up for now). The instructor's free Metered.ca TURN account so no one has to enter anything; the instructor chose to keep it in the public repo
     const U = 'na.relay.metered.ca', user = '96d01918e955c8819300eefb', cred = 'CEYGTzarJNhKoWZ+';
     return [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun.relay.metered.ca:80' },
       { urls: [`turn:${U}:80`, `turn:${U}:80?transport=tcp`, `turn:${U}:443`, `turns:${U}:443?transport=tcp`], username: user, credential: cred }];
@@ -35,7 +47,7 @@
   const loaded = {};
   function loadScript(src) { return loaded[src] || (loaded[src] = new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('Could not load ' + src)); document.head.appendChild(s); })); }
   function loadCss(href) { if (document.querySelector(`link[href="${href}"]`)) return; const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; document.head.appendChild(l); }
-  const libs = () => Promise.all([loadScript('vendor/peerjs.min.js'), loadScript('vendor/rrweb.umd.min.js')]).then(() => loadCss('vendor/rrweb.min.css'));
+  const libs = () => Promise.all([loadScript('vendor/peerjs.min.js'), loadScript('vendor/rrweb.umd.min.js'), loadCfIce()]).then(() => loadCss('vendor/rrweb.min.css'));
 
   // ------------------------------------------------------------------ student side: share my screen
   let sh = { peer: null, conn: null, stop: null, buf: [], timer: null, ping: null, code: '', want: false, retry: null };
@@ -279,6 +291,7 @@
     q('lvTest').addEventListener('click', async () => {
       const m = q('lvTestMsg'); m.style.color = ''; m.textContent = 'Testing (up to 10 seconds)...';
       try {
+        await loadCfIce();
         const pc = new RTCPeerConnection({ iceServers: iceServers(), iceTransportPolicy: 'relay' }); const got = [], errs = [];
         pc.onicecandidate = e => { if (e.candidate) got.push(e.candidate.candidate); }; pc.onicecandidateerror = e => errs.push(e.errorCode + ' ' + (e.errorText || ''));
         pc.createDataChannel('t'); await pc.setLocalDescription(await pc.createOffer());

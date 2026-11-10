@@ -14,8 +14,11 @@
   const dot = document.createElement('div'); dot.id = 'rmDot'; document.body.appendChild(dot);
   const $ = id => document.getElementById(id), msg = t => { $('rmMsg').textContent = t; };
   const loadPeer = () => window.Peer ? Promise.resolve() : new Promise((ok, no) => { const s = document.createElement('script'); s.src = 'vendor/peerjs.min.js'; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+  const ICE_WORKER = 'https://nursingsim-ice.goblackcats.workers.dev'; let cfIce = null;
+  const loadCf = () => cfIce ? Promise.resolve(cfIce) : Promise.race([fetch(ICE_WORKER, { cache: 'no-store' }).then(r => r.ok ? r.json() : null), new Promise(r => setTimeout(() => r(null), 5000))]).then(j => { const a = j && j.iceServers; const l = Array.isArray(a) ? a : (a ? [a] : []); if (l.length) cfIce = l; return cfIce; }).catch(() => null);
   const iceServers = () => {
     try { const o = JSON.parse(localStorage.getItem('nursingsim.turn') || 'null'); if (Array.isArray(o) && o.length) return o; } catch (e) { /* default */ }
+    if (cfIce) return [{ urls: 'stun:stun.l.google.com:19302' }].concat(cfIce);
     const U = 'na.relay.metered.ca';
     return [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun.relay.metered.ca:80' }, { urls: [`turn:${U}:80`, `turn:${U}:80?transport=tcp`, `turn:${U}:443`, `turns:${U}:443?transport=tcp`], username: '96d01918e955c8819300eefb', credential: 'CEYGTzarJNhKoWZ+' }];
   };
@@ -24,7 +27,7 @@
   function later() { clearTimeout(retry); retry = setTimeout(() => { try { peer && peer.destroy(); } catch (e) { /* ignore */ } peer = conn = null; if (want) go(); }, 4000); }
   async function go() {
     const c = cfg();
-    try { await loadPeer(); } catch (e) { msg('Could not load the connection tool. Check the internet.'); return; }
+    try { await loadPeer(); await loadCf(); } catch (e) { msg('Could not load the connection tool. Check the internet.'); return; }
     peer = new window.Peer(undefined, { host: c.host, port: c.port, secure: c.secure, path: c.path, debug: 0, config: { iceServers: iceServers(), iceCandidatePoolSize: 4 } });
     dot.textContent = 'Connecting to the class...';
     const t1 = setTimeout(() => { if (want && peer && !peer.open) { msg('Cannot reach the connection service (school network?). Retrying...'); later(); } }, 12000);
