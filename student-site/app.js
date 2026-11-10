@@ -2226,7 +2226,9 @@ function updateNavigationBadges() {
   setNavBadge(elements.badgeChartReview, noteNew ? `${noteNew} NEW` : '', 'warning');
 
   const visibleLabs = (visible.observations || []).filter(obs => obs.type === 'lab');
-  const criticalLabs = visibleLabs.filter(obs => safe(obs.flag).toLowerCase().includes('critical')).length;
+  // a critical result keeps the red CRIT count until the nurse opens (clicks) it; opened results are listed in labsSeen
+  const seenLabs = new Set(Array.isArray(currentCanonicalCase.labsSeen) ? currentCanonicalCase.labsSeen : []);
+  const criticalLabs = (currentPatientData ? getAllLabResults(currentPatientData) : visibleLabs.map(o => ({ test: o.label, collected: o.collected, flag: o.flag }))).filter(l => safe(l.flag).toLowerCase().includes('critical') && !seenLabs.has(`${safe(l.test)}|${safe(l.collected)}`)).length;
   const labNew = simulationUnacknowledged.labResults.size;
   if (criticalLabs) setNavBadge(elements.badgeLabResults, `${criticalLabs} CRIT`, 'critical');
   else setNavBadge(elements.badgeLabResults, labNew ? `${labNew} NEW` : '', 'warning');

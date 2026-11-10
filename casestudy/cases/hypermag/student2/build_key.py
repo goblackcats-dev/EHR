@@ -51,7 +51,7 @@ def title_page(d):
     para(d, 'A simple 2-hour team case study. The whole class (designed for 7 students) works as ONE team and cares for Ray Kessler (74, hypermagnesemia with kidney failure) across 24 hours of patient time. The class advances **4 hours together** (0700, 1100, 1500, 1900, 2300, 0300, then a final check at 0700). Each team fills in **one plain page per checkpoint**. The packet is 12 pages.  This key has a run of show, a short model answer for every box, a scoring guide (20 points), a group score sheet and debrief questions.')
     H(d, 'Roles and pairs (7 students, one team)', level=2)
     bl(d, ['**Charge nurse** (rotates; each student has exactly one stop): runs the section, keeps time, **asks each pair what they found and what to do**, decides the priorities, makes the SBAR call and is the only one who writes in the shared boxes.',
-           '**Pair 1, Meds & Treatments (A, B):** MAR, orders, notes: what is running, due or should stop; give or hold meds.',
+           '**Pair 1, Meds and Orders (A, B):** MAR, orders, notes: what is running, due or should stop; give or hold meds.',
            '**Pair 2, Vitals & Assessment (C, D):** read your bedside monitor setting, chart the vitals, report the bedside exam (alertness, reflexes, breathing, urine).',
            '**Pair 3, Results & Labs (E, F):** new labs, ECG, trends against the diagnosis, the Mg strip.',
            '**G, float nurse:** helps wherever the charge nurse sends them (for example, runs the clock or marks the strip). G is charge at the final 0700.',
@@ -114,7 +114,7 @@ def answers(d, n, cp, mon, label):
     mg = ' and '.join(cp['mg'])
     H(d, 'New results (chart values)', size=10.5, before=2, level=3)
     lab_table(d, cp['labs'], cp.get('abg'))
-    rows = [['MEDS & TREATMENTS pair', k['meds']], ['VITALS & ASSESSMENT pair', k['noticed']], ['RESULTS & LABS pair: new results and significance', k['results']],
+    rows = [['MEDS AND ORDERS pair', k['meds']], ['VITALS & ASSESSMENT pair', k['noticed']], ['RESULTS & LABS pair: new results and significance', k['results']],
             ['RESULTS & LABS pair: Mg level and strip', f'Write {mg} mg/dL; mark on the strip in the {cp["zone"]}.'],
             ['TEAM (charge): what changed', k['changed']],
             ['TEAM (charge): top 3 priorities'] + ['1) ' + k['pri'][0] + '  2) ' + k['pri'][1] + '  3) ' + k['pri'][2]],

@@ -22,7 +22,7 @@ Students use the EHR on their own devices, synced with the instructor through Cl
   - **Do NOT print a cover table assigning students or letters to pairs** (no "Pair 1: A ___ B ___" and no letters A to G). There is no float with 7 students (1 charge + 3 pairs).
   - If the class size changes, ask the instructor how to place the extra student, for example a trio. Do not bring back the float on your own.
 - The three jobs, each with its own color:
-  - **Meds & Treatments** (`FFEFC2`)
+  - **Meds and Orders** (`FFEFC2`)
   - **Vitals & Assessment** (`DCEBFA`)
   - **Results & Labs** (`DDF0E1`)
 - Do NOT print anything like "Partner reports for the pair", either on the cover or in the charge bar at the top of each checkpoint.
@@ -45,7 +45,7 @@ Students use the EHR on their own devices, synced with the instructor through Cl
 7. **Team boxes**:
    - **First stop:** only **"Actions to suggest (Vitals + Meds pairs)"**. There is NO "What changed since the last stop?" box.
    - **Every later stop:** "What changed since the last stop?" side by side with "Actions to suggest (Vitals + Meds pairs)".
-   - The Vitals & Assessment and Meds & Treatments pairs work out the actions together at every stop.
+   - The Vitals & Assessment and Meds and Orders pairs work out the actions together at every stop.
    - **Top 3 priorities**: numbered 1 to 3, with `Charge RN: ________` in the header and no other subtitle.
    - **SBAR to the provider**: S, B, A and R rows. No subtitle.
 8. **Prediction for the next 4 hours** and **Charge nurse notes**: no subtitles.
@@ -150,6 +150,7 @@ When the instructor asks for a format change:
 3. Offer to apply it to the older packets (for example `hypermag/student2`).
 
 Change history:
+- 2026-11-10 (4): the Meds pair is now named **Meds and Orders** (not Meds & Treatments).
 - 2026-11-10 (3): every checkpoint has a NEW nursing assessment charted (all rows; carry forward unchanged values; no vital numbers) and a NEW lab set (q4h, even if not fully realistic), so each pair always has something new. Students can discontinue orders in the app (with a reason).
 - 2026-11-10 (2): no pair or letter table on the cover; pairs are assigned and switch jobs checkpoint by checkpoint; the rotation grid is charge nurse names only; no float; quick ADN-level pathophysiology box at the start of the cover.
 - 2026-11-10: charge nurse collects from each whole pair (no reporting partner); fill-in-the-blank situation; no prior vitals; names in pair boxes and no "Charge asks" subtitles; Vitals & Assessment fills the tracker; Actions to suggest (Vitals + Meds pairs) replaces "What we will do next"; no "What changed" at the first stop; Charge RN name on priorities; no subtitles on SBAR or other boxes; "Student name" header with one packet per student.

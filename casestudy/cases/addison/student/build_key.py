@@ -68,9 +68,9 @@ def title_page(d):
     para(d, '**Focus:** pathophysiology (cortisol and aldosterone missing: low sodium, high potassium, low volume, low glucose; high ACTH: dark skin), assessment, the standard treatment plan (stress-dose hydrocortisone on time, fluids, dextrose, fludrocortisone held then restarted), and **evaluation** of the response (the tracker every stop and the evaluation table at the end).')
     H(d, 'Roles and pairs (7 students, one team)', level=2)
     bl(d, ['**Charge nurse** (rotates; each student has exactly one stop): runs the section, keeps time, **gets the findings from each pair when the pair is finished**, decides the top 3 priorities (writes their name in that box), then develops and gives the SBAR. The questions are NOT printed for students: they learn to ask them. The "questions a strong charge nurse asks" in each section below are for you to prompt with only if a team is stuck.',
-           '**Meds & Treatments pair:** MAR, orders, notes: what is running, due, held or should change, and why.',
+           '**Meds and Orders pair:** MAR, orders, notes: what is running, due, held or should change, and why.',
            '**Vitals & Assessment pair:** read the bedside monitor and write the vitals row, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Fills the response tracker column at every stop.**',
-           'The **Vitals & Assessment** and **Meds & Treatments** pairs work together on "Actions to suggest" at every stop. Every student has their own packet, writes their name in the header and writes their pair\'s names in their pair box.',
+           'The **Vitals & Assessment** and **Meds and Orders** pairs work together on "Actions to suggest" at every stop. Every student has their own packet, writes their name in the header and writes their pair\'s names in their pair box.',
            '**Results & Labs pair:** new labs, ECGs, trends and what they mean (sodium rate, potassium, glucose, cortisol/ACTH).',
            '**Pairs switch jobs at every checkpoint.** With 7 students: 1 charge nurse + 3 pairs. You (or the charge nurse) assign the jobs at the start of each stop; students write their names in their pair box. Each student is charge nurse once (7 stops).',
            'At each stop the old charge nurse takes the new charge nurse\'s place in that pair.'])
@@ -105,7 +105,7 @@ def run_of_show(d):
     table(d, ['Minute', 'What happens'], [1.0, 6.3], [
         ['+0', 'Press 4h (except at the first 0700). Check the monitor moved to the new row. Read the situation aloud. Remind them the charge nurse changed.'],
         ['+1 to +3', 'Everyone fills the situation blanks from the chart. Pairs decide what to look for (no questions are printed; prompt with the questions below only if a pair is stuck). Give glucose and standing values aloud when they ask or check.'],
-        ['+3 to +10', 'Pairs work the chart, the monitor and "Lauren", write in their box with their names, and report to the charge nurse when finished. Vitals & Assessment + Meds & Treatments agree on actions to suggest; Vitals & Assessment fills the tracker column. Ask a charge nurse "what is your team deciding?"'],
+        ['+3 to +10', 'Pairs work the chart, the monitor and "Lauren", write in their box with their names, and report to the charge nurse when finished. Vitals & Assessment + Meds and Orders agree on actions to suggest; Vitals & Assessment fills the tracker column. Ask a charge nurse "what is your team deciding?"'],
         ['+10 to +13', 'The charge nurse decides the top 3 priorities, then gives you the SBAR. Answer as the provider with the suggested reply. Keep it short.'],
         ['+13 to +14', 'Check that the tracker column and the prediction are written. Then advance.']], size=8.5, row_h=0.22)
     H(d, 'Monitor and bedside values at a glance', size=11, level=3)
@@ -136,13 +136,13 @@ def answers(d, n, cp, label):
     para(d, '**Urine and I&O for the Vitals pair:** ' + UO[n], size=8.6)
     para(d, '**Portray:** ' + PORTRAY[n], size=8.6)
     para(d, '**Situation (blanks with answers in brackets):** ' + ' '.join(filled(x) for x in cp['sit']), size=8.6)
-    para(d, '**Questions a strong charge nurse asks (not printed for students; prompt only if stuck):** ' + ' '.join(f'**{k}:** ' + v.replace('Charge asks: ', '') for k, v in (('Meds & Treatments', cp['ask']['M']), ('Vitals & Assessment', cp['ask']['A']), ('Results & Labs', cp['ask']['R']))), size=8.4)
+    para(d, '**Questions a strong charge nurse asks (not printed for students; prompt only if stuck):** ' + ' '.join(f'**{k}:** ' + v.replace('Charge asks: ', '') for k, v in (('Meds and Orders', cp['ask']['M']), ('Vitals & Assessment', cp['ask']['A']), ('Results & Labs', cp['ask']['R']))), size=8.4)
     H(d, 'New results (chart values)', size=10.5, before=2, level=3)
     lab_tables(d, cp['labs'])
-    rows = [['MEDS & TREATMENTS pair', k['meds']], ['VITALS & ASSESSMENT pair', k['noticed']], ['RESULTS & LABS pair: new results and significance', k['results']],
+    rows = [['MEDS AND ORDERS pair', k['meds']], ['VITALS & ASSESSMENT pair', k['noticed']], ['RESULTS & LABS pair: new results and significance', k['results']],
             ['Response tracker column (Vitals & Assessment pair)', k['track'].replace(' | ', ';  ')]]
     if n != 1: rows.append(['What changed since the last stop', k['changed']])
-    rows += [['Actions to suggest (Vitals & Assessment + Meds & Treatments)', k['nxt']],
+    rows += [['Actions to suggest (Vitals & Assessment + Meds and Orders)', k['nxt']],
             ['TEAM (charge): top 3 priorities', '1) ' + k['pri'][0] + '  2) ' + k['pri'][1] + '  3) ' + k['pri'][2]],
             ['TEAM (charge): SBAR' + (' (warm-up, not scored)' if n == 1 else ''), f'**S:** {k["S"]}  **B:** {k["B"]}  **A:** {k["A"]}  **R:** {k["R"]}']]
     if 'pred' in k: rows.append(['Prediction (no wrong answers)', k['pred']])

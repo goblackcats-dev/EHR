@@ -38,7 +38,7 @@
   renderLabDetail = function (lab) { // eslint-disable-line no-func-assign
     const r = origDetail.apply(this, arguments);
     try {
-      if (clicked) { markSeen(lab); clicked = false; const d = document.querySelector('#resultsGridBody .selected-cell .lab-newdot'); if (d) d.remove(); try { enhance(); } catch (e2) { /* optional */ } }
+      if (clicked) { markSeen(lab); try { updateNavigationBadges(); } catch (e3) { /* optional */ } clicked = false; const d = document.querySelector('#resultsGridBody .selected-cell .lab-newdot'); if (d) d.remove(); try { enhance(); } catch (e2) { /* optional */ } }
       const all = getAllLabResults(currentPatientData).filter(l => safe(l.test) === safe(lab.test) && isFinite(parseFloat(l.result)));
       const pts = all.map(l => ({ t: NSChart.ms(l.collected), v: parseFloat(l.result), abn: !!safe(l.flag, ''), text: `${safe(l.result)} ${l.units || ''}`.trim() })).filter(p => isFinite(p.t));
       if (pts.length >= 2) {
@@ -56,7 +56,7 @@
     const card = document.querySelector('#labResultsSection .results-toolbar-actions'); if (!card) return;
     if (!$('labReviewAllBtn')) {
       const b = document.createElement('button'); b.className = 'small-tool-button'; b.id = 'labReviewAllBtn'; b.textContent = 'Mark all reviewed';
-      b.addEventListener('click', () => { const s = seenSet(); getAllLabResults(currentPatientData).forEach(l => s.add(keyOf(l))); currentCanonicalCase.labsSeen = Array.from(s); try { persistCase(); } catch (e) { /* best effort */ } renderLabResultsPage(currentPatientData); });
+      b.addEventListener('click', () => { /* a critical result must be opened (clicked) on its own */ const s = seenSet(); getAllLabResults(currentPatientData).forEach(l => { if (!/critical/i.test(String(l.flag || ''))) s.add(keyOf(l)); }); currentCanonicalCase.labsSeen = Array.from(s); try { persistCase(); } catch (e) { /* best effort */ } renderLabResultsPage(currentPatientData); try { updateNavigationBadges(); } catch (e3) { /* optional */ } });
       card.appendChild(b);
     }
     const n = getAllLabResults(currentPatientData).filter(isNew).length;
