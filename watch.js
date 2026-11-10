@@ -17,11 +17,11 @@
   };
   // direct (WebRTC) connections: Google STUN servers plus a free public TURN relay as a fallback for school Wi-Fi that blocks direct paths.
   // (the relay only passes encrypted traffic). A different TURN server can be put in localStorage 'nursingsim.turn' as a JSON list of iceServers.
-  // Cloudflare relay (free, 1,000 GB/month): a small Worker hands out short-lived relay logins so no secret is stored in this public site. Fetched once per page (and again after 12 hours).
+  // Cloudflare relay (free, 1,000 GB/month): a small Worker hands out short-lived relay logins so no secret is stored in this public site. Fetched once per page (and again after 3 hours, because the logins last 4).
   const ICE_WORKER = 'https://nursingsim-ice.goblackcats.workers.dev';
   const cf = { ice: null, at: 0, p: null };
   function loadCfIce() {
-    if (cf.ice && Date.now() - cf.at < 12 * 3600000) return Promise.resolve(cf.ice);
+    if (cf.ice && Date.now() - cf.at < 3 * 3600000) return Promise.resolve(cf.ice);
     if (cf.p) return cf.p;
     cf.p = Promise.race([fetch(ICE_WORKER, { cache: 'no-store' }).then(r => r.ok ? r.json() : null), new Promise(r => setTimeout(() => r(null), 5000))])
       .then(j => { const a = j && j.iceServers; const list = Array.isArray(a) ? a : (a ? [a] : []); if (list.length) { cf.ice = list; cf.at = Date.now(); } return cf.ice; })
