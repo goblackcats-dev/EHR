@@ -245,35 +245,40 @@
   function monSend(msg, one) { (one ? [one] : [...mon.conns]).forEach(c => { if (c.open) { try { c.send(msg); } catch (e) { /* ignore */ } } }); }
   function monCount() { const n = [...mon.conns].filter(c => c.open).length; const e = host.dlg && host.dlg.querySelector('#lvMonN'); if (e) e.textContent = n ? '(' + n + ' monitor connected)' : '(no monitor connected yet)'; }
   function startMonitorHost() {
-    mon.code = newCode(); const cfg = peerConfig();
+    { const sv = savedSession(); mon.reuse = !!sv && !!sv.mon && (mon.tries || 0) < 8; mon.code = mon.reuse ? sv.mon : newCode(); } const cfg = peerConfig();
     mon.peer = new window.Peer(PREFIX + 'mon-' + mon.code, peerOpts(cfg));
-    mon.peer.on('open', () => { const c = host.dlg.querySelector('#lvMonCode'); if (c) c.textContent = mon.code; const u = host.dlg.querySelector('#lvMonUrl'); if (u) u.textContent = monUrl(); monCount(); });
+    mon.peer.on('open', () => { mon.tries = 0; saveSession(); const c = host.dlg.querySelector('#lvMonCode'); if (c) c.textContent = mon.code; const u = host.dlg.querySelector('#lvMonUrl'); if (u) u.textContent = monUrl(); monCount(); });
     mon.peer.on('connection', conn => {
       conn.on('open', () => { mon.conns.add(conn); monSend({ t: 'mon', m: monState() }, conn); monSend({ t: 'mon', m: { cmd: 'getState' } }, conn); monCount(); });
       conn.on('close', () => { mon.conns.delete(conn); monCount(); });
       conn.on('error', () => { mon.conns.delete(conn); monCount(); });
       conn.on('data', d => { if (d && d.t === 'ms' && mon.chan) { try { mon.chan.postMessage({ monitorState: d.s }); } catch (e) { /* ignore */ } } });
     });
-    mon.peer.on('error', err => { if (err && err.type === 'unavailable-id') { try { mon.peer.destroy(); } catch (e) { /* ignore */ } startMonitorHost(); } });
+    mon.peer.on('error', err => { if (err && err.type === 'unavailable-id') { try { mon.peer.destroy(); } catch (e) { /* ignore */ } if (mon.reuse) { mon.tries = (mon.tries || 0) + 1; setTimeout(startMonitorHost, 4000); } else startMonitorHost(); } });
     if ('BroadcastChannel' in window && !mon.chan) {   // everything the EHR tells a same-browser monitor (time, patient, instructor commands) is passed on to the remote monitor too
       mon.chan = new BroadcastChannel('nursingsim');
       mon.chan.onmessage = e => { const d = e.data || {}; if (d.monitorState || d.hello) return; if (d.simTime || d.mrn) mon.last = { simTime: d.simTime, mrn: d.mrn, name: d.name }; monSend({ t: 'mon', m: d }); };
     }
     clearInterval(mon.timer); mon.timer = setInterval(() => monSend({ t: 'mon', m: monState() }), 3000);
   }
+  // The class code and the monitor code are kept on this computer for 12 hours, so after a page refresh the instructor gets the SAME codes back and the students (who retry every 5 seconds) rejoin on their own.
+  const SAVEKEY = 'nursingsim.hostSession';
+  const savedSession = () => { try { const o = JSON.parse(localStorage.getItem(SAVEKEY) || 'null'); return o && o.host && Date.now() - o.at < 12 * 3600000 ? o : null; } catch (e) { return null; } };
+  const saveSession = () => { try { if (host.code) localStorage.setItem(SAVEKEY, JSON.stringify({ host: host.code, mon: mon.code, at: Date.now() })); } catch (e) { /* ignore */ } };
   async function startHost() {
     await libs();
-    host.code = newCode();
+    clearInterval(host.timer); clearInterval(sync.timer);
+    const sv = savedSession(); host.reuse = !!sv && (host.tries || 0) < 8; host.code = host.reuse ? sv.host : newCode();
     const cfg = peerConfig();
     host.peer = new window.Peer(PREFIX + host.code, peerOpts(cfg));
-    host.peer.on('open', () => { const c = host.dlg.querySelector('#lvCodeBig'); c.textContent = host.code; host.dlg.querySelector('#lvStatus').textContent = 'Ready. Send students the link below (or tell them the code: they choose Join class).'; });
+    host.peer.on('open', () => { host.tries = 0; saveSession(); const c = host.dlg.querySelector('#lvCodeBig'); c.textContent = host.code; host.dlg.querySelector('#lvStatus').textContent = 'Ready. Send students the link below (or tell them the code: they choose Join class).'; });
     host.peer.on('connection', conn => { conn.on('data', d => onData(conn, d)); conn.on('close', () => { const st = host.students.get(conn.peer); if (st) { st.last = 0; updateCount(); } }); });
-    host.peer.on('error', err => { if (err && err.type === 'unavailable-id') { host.peer.destroy(); startHost(); } else host.dlg.querySelector('#lvStatus').textContent = 'Could not reach the connection service (' + ((err && err.type) || 'error') + '). Check the internet connection.'; });
+    host.peer.on('error', err => { if (err && err.type === 'unavailable-id') { try { host.peer.destroy(); } catch (e) { /* ignore */ } if (host.reuse) { host.tries = (host.tries || 0) + 1; host.dlg.querySelector('#lvStatus').textContent = 'Getting your class code back (attempt ' + host.tries + ' of 8)...'; setTimeout(startHost, 4000); } else startHost(); } else host.dlg.querySelector('#lvStatus').textContent = 'Could not reach the connection service (' + ((err && err.type) || 'error') + '). Check the internet connection.'; });
     startMonitorHost();
     host.timer = setInterval(updateCount, 5000); sync.timer = setInterval(tickSync, 1000); stash(true);
     if (window.NSChartSync) NSChartSync.start(p => { if (sync.on) host.students.forEach(s => { if (s.conn && s.conn.open) { try { s.conn.send({ t: 'chart', p }); } catch (e) { /* ignore */ } } }); }, true);
   }
-  function endHost() { clearInterval(mon.timer); mon.conns.forEach(c => { try { c.close(); } catch (e) { /* ignore */ } }); mon.conns.clear(); try { mon.peer && mon.peer.destroy(); } catch (e) { /* ignore */ } clearInterval(host.timer); clearInterval(sync.timer); if (window.NSChartSync) NSChartSync.stop(); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
+  function endHost() { try { localStorage.removeItem(SAVEKEY); } catch (e) { /* ignore */ } clearInterval(mon.timer); mon.conns.forEach(c => { try { c.close(); } catch (e) { /* ignore */ } }); mon.conns.clear(); try { mon.peer && mon.peer.destroy(); } catch (e) { /* ignore */ } clearInterval(host.timer); clearInterval(sync.timer); if (window.NSChartSync) NSChartSync.stop(); host.students.forEach(s => { try { s.conn.send({ t: 'bye' }); s.conn.close(); } catch (e) { /* ignore */ } }); host.students.clear(); try { host.peer && host.peer.destroy(); } catch (e) { /* ignore */ } host.peer = null; host.code = ''; if (host.dlg) { host.dlg.remove(); host.dlg = null; } }
   function openWatch() {
     if (host.dlg) { host.dlg.showModal(); host.students.forEach(fit); return; }
     const dlg = document.createElement('dialog'); dlg.id = 'lvWatch'; dlg.className = 'lv-dialog';
@@ -319,6 +324,8 @@
   addButtons();
   { const ice = (location.hash || '').match(/[&#]ice=([A-Za-z0-9_-]+)/); if (ice && window.NS_STUDENT) { try { const j = JSON.parse(atob(ice[1].replace(/-/g, '+').replace(/_/g, '/'))); if (Array.isArray(j)) sessionStorage.setItem('nursingsim.iceJoin', JSON.stringify(j)); } catch (e) { /* ignore a damaged link */ } }
     const m = (location.hash || '').match(/join=([A-Za-z0-9]{6})/); if (m && window.NS_STUDENT) setTimeout(() => { openJoin(); const c = $('lvCode'); if (c) c.value = m[1].toUpperCase(); }, 1200); }
+  // instructor: after a page refresh, bring the class session back in the background with the same codes (End session turns this off)
+  if (!window.NS_STUDENT && savedSession()) setTimeout(() => { try { openWatch(); if (host.dlg) host.dlg.close(); } catch (e) { /* ignore */ } }, 1800);
   // reconnect after a page reload while sharing
   const saved = sessionStorage.getItem('nursingsim.liveCode'); if (saved) setTimeout(() => startShare(saved), 800);
 })();
