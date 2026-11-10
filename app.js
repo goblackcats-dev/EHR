@@ -1695,6 +1695,12 @@ function getVisibleCanonicalCase(canonical) {
     if (order.end && String(order.end) <= String(simulationTime)) return { ...order, status: order.stoppedEarly ? 'Discontinued' : 'Completed' };
     return order;
   });
+  // orders a student (or the instructor) discontinued during the simulation: shown as Discontinued from that simulated time on (a copy: the case's own order is not changed, so going back in time shows it active again)
+  visible.orders = visible.orders.map(order => {
+    const st = canonical.orderStop && canonical.orderStop[order.id];
+    if (!st || !simulationTime || String(st.at) > String(simulationTime)) return order;
+    return { ...order, status: 'Discontinued', end: st.at, stoppedEarly: true, discontinuedBy: st };
+  });
   // A device that has been placed is "active" until its removal time; removed devices are kept apart so the Avatar can drop them.
   const placedDevices = (canonical.devices || []).filter(item => availableAtSimulationTime(item));
   const simNow = parseSimDate(simulationTime);
@@ -1933,6 +1939,7 @@ function resetSimulation() {
     }
   });
 
+  delete currentCanonicalCase.orderStop;   // nurse-discontinued orders are student work too
   currentCanonicalCase.observations = (currentCanonicalCase.observations || [])
     .filter(obs => !obs.studentEntered);
   currentCanonicalCase.simulationTasks = (currentCanonicalCase.simulationTasks || [])
@@ -3561,7 +3568,25 @@ function renderOrderDetail(order) {
       <h3>Nursing Considerations</h3>
       ${considerationsHtml}
     </div>
+    ${order.discontinuedBy ? `<div class="order-detail-section"><h3>Discontinued</h3><div>${escapeHtml(safe(order.discontinuedBy.by, 'Nurse'))} at ${escapeHtml(safe(order.discontinuedBy.at))}: ${escapeHtml(safe(order.discontinuedBy.reason, 'no reason given'))}</div></div>` : ''}
+    ${/^(active|pending)$/i.test(safe(order.status, 'Active')) && order.id ? `<div class="order-detail-section"><button type="button" class="secondary-button" id="orderStopBtn">Discontinue this order</button></div>` : ''}
   `;
+  const stopBtn = document.getElementById('orderStopBtn');
+  if (stopBtn) stopBtn.addEventListener('click', () => discontinueOrder(order));
+}
+
+// A nurse cancels an order (for example contact precautions once the C. difficile test is negative). The reason is kept and shown on the order; in a class session it reaches everyone.
+function discontinueOrder(order) {
+  if (!order || !order.id || !currentCanonicalCase) return;
+  const reason = window.prompt(`Discontinue "${safe(order.name).slice(0, 80)}"?\n\nWhy is this order being stopped? (required)`, '');
+  if (reason === null) return;
+  if (!reason.trim()) { window.alert('Please type the reason so the order can be stopped.'); return; }
+  const u = window.NSUser && NSUser.current ? NSUser.current() : null;
+  if (!currentCanonicalCase.orderStop) currentCanonicalCase.orderStop = {};
+  currentCanonicalCase.orderStop[order.id] = { at: simulationTime, by: u ? `${u.first} ${u.last}` : 'Nurse', reason: reason.trim().slice(0, 300) };
+  try { persistCase(); } catch (e) { /* best effort */ }
+  refreshSimulationView();
+  try { updateNavigationBadges(); } catch (e) { /* ignore */ }
 }
 
 function renderOrdersPage(data) {

@@ -56,6 +56,11 @@ Do not put italic hint text or questions after box titles unless the instructor 
 - `Charge RN:` on the priorities box
 - the Vitals & Assessment reminder on the response tracker
 
+### Chart content the packet depends on (patient.json)
+- Every stop has a **new full nursing assessment** (Flowsheets > Adult Assessment, plus the IV site row), time-gated to that stop. Rows that do not change carry the earlier value forward; changed rows tell the story of that stop. Do NOT put vital sign numbers or bedside glucoses in the chart after the first stop: the instructor gives them aloud.
+- Every stop has a **new lab set** collected before the stop (every 4 hours), even when that is not fully realistic.
+- Where it fits, include an order the students should discontinue (for example, precautions after a negative test) and tell the instructor in the key. Students can do it in the app (Orders > select order > Discontinue this order, with a reason).
+
 ### Packet as a whole
 - **Header on every page:** "Student name: ______". Each student fills in and turns in their **own packet**, with a paperclip and no staples. Never print "Team name" on the student packet.
 - **Front pages:**
@@ -145,5 +150,6 @@ When the instructor asks for a format change:
 3. Offer to apply it to the older packets (for example `hypermag/student2`).
 
 Change history:
+- 2026-11-10 (3): every checkpoint has a NEW nursing assessment charted (all rows; carry forward unchanged values; no vital numbers) and a NEW lab set (q4h, even if not fully realistic), so each pair always has something new. Students can discontinue orders in the app (with a reason).
 - 2026-11-10 (2): no pair or letter table on the cover; pairs are assigned and switch jobs checkpoint by checkpoint; the rotation grid is charge nurse names only; no float; quick ADN-level pathophysiology box at the start of the cover.
 - 2026-11-10: charge nurse collects from each whole pair (no reporting partner); fill-in-the-blank situation; no prior vitals; names in pair boxes and no "Charge asks" subtitles; Vitals & Assessment fills the tracker; Actions to suggest (Vitals + Meds pairs) replaces "What we will do next"; no "What changed" at the first stop; Charge RN name on priorities; no subtitles on SBAR or other boxes; "Student name" header with one packet per student.
