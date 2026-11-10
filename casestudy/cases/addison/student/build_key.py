@@ -11,6 +11,7 @@ OUT = os.path.join(HERE, '..')
 MD = []
 def md(s=''): MD.append(s)
 def plain(t): return re.sub(r'\*\*(.+?)\*\*', r'\1', t)
+def filled(t): return re.sub(r'\[\[(.+?)\]\]', r'**[\1]**', t)   # situation blanks with the answers shown
 
 # what the instructor says as the provider after the team's SBAR call (taken from the orders and notes that follow each call in the chart)
 PROVIDER = {
@@ -66,14 +67,15 @@ def title_page(d):
     para(d, 'A 2-hour team case study. The whole class (designed for 7 students) works as ONE team and cares for Lauren Mitchell (46, adrenal crisis in known Addison disease after a stomach virus) across 24 hours of patient time, **Mon 0700 to Tue 0700**. The class advances **4 hours together** (0700, 1100, 1500, 1900, 2300, 0300, then a final check at 0700). The packet is 12 pages: cover, patient card with a hormone map and two EHR screenshots, the rubric with a **response tracker**, one page per checkpoint, two final pages (evaluation, then teaching and discharge) and an individual reflection.')
     para(d, '**Focus:** pathophysiology (cortisol and aldosterone missing: low sodium, high potassium, low volume, low glucose; high ACTH: dark skin), assessment, the standard treatment plan (stress-dose hydrocortisone on time, fluids, dextrose, fludrocortisone held then restarted), and **evaluation** of the response (the tracker every stop and the evaluation table at the end).')
     H(d, 'Roles and pairs (7 students, one team)', level=2)
-    bl(d, ['**Charge nurse** (rotates; each student has exactly one stop): runs the section, keeps time, **asks each pair the printed "Charge asks" question**, decides the priorities, makes the SBAR call and is the only one who writes in the shared boxes.',
+    bl(d, ['**Charge nurse** (rotates; each student has exactly one stop): runs the section, keeps time, **gets the findings from each pair when the pair is finished**, decides the top 3 priorities (writes their name in that box), then develops and gives the SBAR. The questions are NOT printed for students: they learn to ask them. The "questions a strong charge nurse asks" in each section below are for you to prompt with only if a team is stuck.',
            '**Pair 1, Meds & Treatments (A, B):** MAR, orders, notes: what is running, due, held or should change, and why.',
-           '**Pair 2, Vitals & Assessment (C, D):** read the bedside monitor and chart the NOW row, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output.',
+           '**Pair 2, Vitals & Assessment (C, D):** read the bedside monitor and write the vitals row, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Fills the response tracker column at every stop.**',
+           'The **Vitals & Assessment** and **Meds & Treatments** pairs work together on "Actions to suggest" at every stop. Every student has their own packet, writes their name in the header and writes their pair\'s names in their pair box.',
            '**Pair 3, Results & Labs (E, F):** new labs, ECGs, trends and what they mean (sodium rate, potassium, glucose, cortisol/ACTH).',
            '**G, float nurse:** helps where the charge nurse sends them (for example, fills the tracker column). G is charge at the final 0700.',
-           'Charge order: A (0700), C (1100), E (1500), B (1900), D (2300), F (0300), G (final). When one of a pair is charge, the **partner reports for the pair**.'])
+           'Charge order: A (0700), C (1100), E (1500), B (1900), D (2300), F (0300), G (final). When one of a pair is charge, the other partner keeps working the pair\'s job and reports when finished.'])
     H(d, 'Before class', level=2)
-    bl(d, ['Print the shared packet single-sided: 2 or 3 copies for the table (or project the pages). **Print 7 copies of page 12** (individual reflection and peer check).',
+    bl(d, ['Print **one packet per student** (7), single-sided. Each student writes their name in the header; the last page is their individual reflection and peer check.',
            'Load the EHR: Pre-Built Patients > Case Study Patients > Lauren Mitchell (or Import with casestudy/cases/addison/patient.json). Check that the clock reads **Mon 07:00** (4W-22, SIM-40422).',
            'Open the bedside monitor (Monitor button) in the same browser; it loads Lauren\'s built-in scenario by MRN and follows the 4h button. The monitor BP is **lying**: you say the standing values aloud.',
            '**There are no vital signs or bedside glucoses in the chart after 0700.** You give the glucose and the standing values aloud (in each checkpoint section below). Ignore the instructor-only "Suggested vitals" bar on the Flowsheets page (it repeats the 0700 set).',
@@ -90,21 +92,21 @@ def run_of_show(d):
     para(d, 'Each checkpoint follows the same 13-14 minute rhythm. The final 0700 gets 17 minutes because it has two pages.', after=1)
     table(d, ['Clock', 'Minutes', 'What the instructor does'], [0.9, 1.0, 5.4], [
         ['Start', '0:00-0:05', 'Welcome. Everyone sits together as one team; fill in the pair names (A to F) and the float nurse (G). Walk through the cover, the patient card and hormone map (page 2), the rubric and the response tracker (page 3). Student A is charge nurse at 0700.'],
-        ['0700', '0:05-0:19', 'Do NOT press 4h (the 0700 set is in the chart). Read the situation. Charge A (B reports for pair 1) asks each pair; the team also fills the hormone map (page 2) and the 0700 tracker column; SBAR call to you (warm-up, not scored).'],
-        ['1100', '0:19-0:33', 'Press **4h** (Mon 1100). Charge C; D reports for pair 2. Give the glucose **58** when they check. Watch for juice vs D50 and for checking the 1000 hydrocortisone.'],
-        ['1500', '0:33-0:47', 'Press **4h** (Mon 1500). Charge E; F reports for pair 3. Give the standing values when they do orthostatics. Watch for the sodium calculation (+6 in 9 h) and the call.'],
-        ['1900', '0:47-1:01', 'Press **4h** (Mon 1900). Charge B; A reports for pair 1. The fluid change happened at 1530. Watch for evaluation with numbers ("is it working?").'],
-        ['2300', '1:01-1:14', 'Press **4h** (Mon 2300). Charge D; C reports for pair 2. Watch for sedative requests and insulin for 152.'],
-        ['0300', '1:14-1:27', 'Press **4h** (Tue 0300). Charge F; E reports for pair 3. Describe the infiltrated right forearm IV when they look. Watch for the plan for the 0400 IV dose.'],
+        ['0700', '0:05-0:19', 'Do NOT press 4h (the 0700 set is in the chart). Read the situation. Charge A gets each pair\'s findings; the team also fills the hormone map (page 2) and the 0700 tracker column; SBAR call to you (warm-up, not scored).'],
+        ['1100', '0:19-0:33', 'Press **4h** (Mon 1100). Charge C. Give the glucose **58** when they check. Watch for juice vs D50 and for checking the 1000 hydrocortisone.'],
+        ['1500', '0:33-0:47', 'Press **4h** (Mon 1500). Charge E. Give the standing values when they do orthostatics. Watch for the sodium calculation (+6 in 9 h) and the call.'],
+        ['1900', '0:47-1:01', 'Press **4h** (Mon 1900). Charge B. The fluid change happened at 1530. Watch for evaluation with numbers ("is it working?").'],
+        ['2300', '1:01-1:14', 'Press **4h** (Mon 2300). Charge D. Watch for sedative requests and insulin for 152.'],
+        ['0300', '1:14-1:27', 'Press **4h** (Tue 0300). Charge F. Describe the infiltrated right forearm IV when they look. Watch for the plan for the 0400 IV dose.'],
         ['Final 0700', '1:27-1:44', 'Press **4h** (Tue 0700). Charge G. Page 1: pairs, tracker, evaluation table and verdict. Page 2: handoff, steroid plan, sick-day rules, the injection (return demonstration with a training vial if you have one), ID, teach-back, readiness.'],
-        ['Reflection', '1:44-1:50', 'Each student completes their own reflection and peer check (page 12). Collect the shared packet and the 7 reflections.'],
+        ['Reflection', '1:44-1:50', 'Each student completes their own reflection and peer check (page 12). Collect the 7 packets.'],
         ['Debrief', '1:50-2:00', 'Use the debrief questions at the end of this key. Put the tracker on the board.']], size=8.5, row_h=0.24)
     H(d, 'The same 14 minutes, one checkpoint', size=11, level=3)
     table(d, ['Minute', 'What happens'], [1.0, 6.3], [
         ['+0', 'Press 4h (except at the first 0700). Check the monitor moved to the new row. Read the situation aloud. Remind them the charge nurse changed.'],
-        ['+1 to +3', 'The charge nurse reads each pair its "Charge asks" question. (Do not tell them the answers.) Give glucose and standing values aloud when they ask or check.'],
-        ['+3 to +10', 'Pairs look at the chart, the monitor and "Lauren" and report; the charge nurse writes. Walk around. Ask a charge nurse "what is your team deciding?"'],
-        ['+10 to +13', 'The charge nurse makes the SBAR call to you. Answer as the provider with the suggested reply. Keep it short.'],
+        ['+1 to +3', 'Everyone fills the situation blanks from the chart. Pairs decide what to look for (no questions are printed; prompt with the questions below only if a pair is stuck). Give glucose and standing values aloud when they ask or check.'],
+        ['+3 to +10', 'Pairs work the chart, the monitor and "Lauren", write in their box with their names, and report to the charge nurse when finished. Vitals & Assessment + Meds & Treatments agree on actions to suggest; Vitals & Assessment fills the tracker column. Ask a charge nurse "what is your team deciding?"'],
+        ['+10 to +13', 'The charge nurse decides the top 3 priorities, then gives you the SBAR. Answer as the provider with the suggested reply. Keep it short.'],
         ['+13 to +14', 'Check that the tracker column and the prediction are written. Then advance.']], size=8.5, row_h=0.22)
     H(d, 'Monitor and bedside values at a glance', size=11, level=3)
     rows = []
@@ -133,14 +135,16 @@ def answers(d, n, cp, label):
     para(d, '**Monitor (the NOW row):** ' + vit_text(MON[n]), size=8.8)
     para(d, '**Urine and I&O for the Vitals pair:** ' + UO[n], size=8.6)
     para(d, '**Portray:** ' + PORTRAY[n], size=8.6)
+    para(d, '**Situation (blanks with answers in brackets):** ' + ' '.join(filled(x) for x in cp['sit']), size=8.6)
+    para(d, '**Questions a strong charge nurse asks (not printed for students; prompt only if stuck):** ' + ' '.join(f'**{k}:** ' + v.replace('Charge asks: ', '') for k, v in (('Meds & Treatments', cp['ask']['M']), ('Vitals & Assessment', cp['ask']['A']), ('Results & Labs', cp['ask']['R']))), size=8.4)
     H(d, 'New results (chart values)', size=10.5, before=2, level=3)
     lab_tables(d, cp['labs'])
     rows = [['MEDS & TREATMENTS pair', k['meds']], ['VITALS & ASSESSMENT pair', k['noticed']], ['RESULTS & LABS pair: new results and significance', k['results']],
-            ['Response tracker column', k['track'].replace(' | ', ';  ')],
-            ['TEAM (charge): what changed', k['changed']],
+            ['Response tracker column (Vitals & Assessment pair)', k['track'].replace(' | ', ';  ')]]
+    if n != 1: rows.append(['What changed since the last stop', k['changed']])
+    rows += [['Actions to suggest (Vitals & Assessment + Meds & Treatments)', k['nxt']],
             ['TEAM (charge): top 3 priorities', '1) ' + k['pri'][0] + '  2) ' + k['pri'][1] + '  3) ' + k['pri'][2]],
-            ['TEAM (charge): SBAR' + (' (warm-up, not scored)' if n == 1 else ''), f'**S:** {k["S"]}  **B:** {k["B"]}  **A:** {k["A"]}  **R:** {k["R"]}'],
-            ['TEAM (charge): what we will do next', k['nxt']]]
+            ['TEAM (charge): SBAR' + (' (warm-up, not scored)' if n == 1 else ''), f'**S:** {k["S"]}  **B:** {k["B"]}  **A:** {k["A"]}  **R:** {k["R"]}']]
     if 'pred' in k: rows.append(['Prediction (no wrong answers)', k['pred']])
     rows.append(['Charge nurse notes', 'Look for: each pair was asked its question, the charge nurse decided, a time check. Credit any honest notes.'])
     table(d, ['Box', 'Model answer and rationale'], [1.7, 5.6], rows, size=8.5, row_h=0.26, bold_first=True)
@@ -160,7 +164,7 @@ def final_pages(d):
     page_top(d)
     H(d, 'Final page 2: teaching and discharge (model answers)', size=14, before=0, level=2)
     table(d, ['Box', 'Model answer'], [1.7, 5.6], [
-        ['Handoff to the day team (SBAR), priorities, what changed', 'Use the SBAR, priorities and "what changed" on the previous page.'],
+        ['Handoff to the day team (SBAR), priorities, what changed, actions to suggest', 'Use the SBAR, priorities, "what changed" and actions on the previous page.'],
         ['Meds pair: the steroid plan at home', k['meds'].split(' **KCl')[0]],
         ['Sick-day rules, the emergency injection, medical ID', k['teach']],
         ['Teach-back question', 'For example: "Tell me what you will do if Ethan\'s stomach bug comes back and you vomit your morning dose twice." (Model: take the dose again once if vomited within 30 minutes; if she vomits again: Daniel gives 100 mg IM in the outer thigh and calls 911.) Ask Daniel too: "Show me how you would give the shot."'],

@@ -53,7 +53,7 @@ if 'Norovirus' not in gi['value'] or gi['availableAt'] != '2026-12-07 18:20': fa
 
 # 2. monitor values vs monitor.html ADDISON rows, the guide (standing values, glucose), and the 0700 chart vitals
 html = open(os.path.join(REPO, 'monitor.html')).read()
-block = html[html.index('const ADDISON'):html.index('const BUILTIN')]
+block = html[html.index('const ADDISON'):]; block = block[:block.index('\n  ];')]
 rows = re.findall(r"\{ t: '([\d-]+ [\d:]+)', hr: (\d+), spo2: (\d+), sys: (\d+), dia: (\d+), rr: (\d+), temp: ([\d.]+), rhythm: '(\w+)', pr: ([\d.]+), qrs: ([\d.]+), tAmp: ([\d.]+), o2: '([^']*)', note: '([^']*)'", block)
 mon_html = {r[0]: r for r in rows}
 if len(mon_html) != 7: fail(f'monitor.html ADDISON has {len(mon_html)} rows')
