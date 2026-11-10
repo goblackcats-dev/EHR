@@ -114,7 +114,7 @@ def sbar_box(d, lh=0.26):
     spacer(d, 4)
 
 
-PAIRS = {'M': ('MEDS & TREATMENTS pair reports', 'Charge asks: "what is running, due, or dangerous? What should we give, hold or stop?"', 'FFEFC2'),
+PAIRS = {'M': ('MEDS AND ORDERS pair reports', 'Charge asks: "what is running, due, or dangerous? What should we give, hold or stop?"', 'FFEFC2'),
          'A': ('VITALS & ASSESSMENT pair reports', 'Charge asks: "what does the monitor show and what do you find at the bedside?"', 'DCEBFA'),
          'R': ('RESULTS & LABS pair reports', 'Charge asks: "what are the new results and what is their significance for his diagnosis?"', 'DDF0E1')}
 
@@ -161,7 +161,7 @@ def cover(d):
     banner(d, 'TEAM CASE STUDY: RAY KESSLER', '5 East, Room 14  |  Tue 0700 to Wed 0700', fill=INK, size=17, sub='The whole class is ONE nursing team for one patient across 24 hours. We move through the time together, 4 hours at a time.', h=0.62)
     P(d, 'Write your team name in the header at the top of this page (it repeats on every page).', size=9, italic=True, color=GRAY, before=2, after=3)
     t = new_table(d, 4, 3, [2.4, 2.45, 2.45], borders=THIN)
-    blocks = [('PAIR 1: MEDS & TREATMENTS', 'FFEFC2', 'A', 'B'), ('PAIR 2: VITALS & ASSESSMENT', 'DCEBFA', 'C', 'D'), ('PAIR 3: RESULTS & LABS', 'DDF0E1', 'E', 'F')]
+    blocks = [('PAIR 1: MEDS AND ORDERS', 'FFEFC2', 'A', 'B'), ('PAIR 2: VITALS & ASSESSMENT', 'DCEBFA', 'C', 'D'), ('PAIR 3: RESULTS & LABS', 'DDF0E1', 'E', 'F')]
     for j, (nm, fl, x, y) in enumerate(blocks):
         c = t.rows[0].cells[j]; shade(c, fl); ctext(c, nm, size=8.8, bold=True, align='center')
         for i, L in ((1, x), (2, y)):
@@ -178,7 +178,7 @@ def cover(d):
     P(d, 'ROLES', size=11, bold=True, color=INK, before=3, after=2, keep=True)
     t = new_table(d, 2, 2, [1.6, W - 1.6], borders=MED)
     rows = [('CHARGE NURSE\n(one person; changes every stop)', 'Runs the section. Keeps time. **Asks each pair what they found and what to do**, then decides the priorities with the team. **Makes the SBAR call and writes the team plan.**'),
-            ('NURSE PAIRS\n(the other students)', '**Meds & Treatments:** MAR, orders, notes: what is running, due or should stop. **Vitals & Assessment:** the bedside monitor and the bedside exam (alertness, reflexes, breathing, urine). **Results & Labs:** new labs, ECG, trends, the Mg strip. Speak up when the charge nurse asks. If one of your pair is charge, your partner reports for the pair.')]
+            ('NURSE PAIRS\n(the other students)', '**Meds and Orders:** MAR, orders, notes: what is running, due or should stop. **Vitals & Assessment:** the bedside monitor and the bedside exam (alertness, reflexes, breathing, urine). **Results & Labs:** new labs, ECG, trends, the Mg strip. Speak up when the charge nurse asks. If one of your pair is charge, your partner reports for the pair.')]
     for i, (a, b) in enumerate(rows):
         shade(t.rows[i].cells[0], 'ECE6F7' if i == 0 else 'DDF0E1'); ctext(t.rows[i].cells[0], '**' + a.split('\n')[0] + '**\n' + a.split('\n')[1], size=9)
         ctext(t.rows[i].cells[1], b, size=9.2); rowh(t.rows[i], 0.9)

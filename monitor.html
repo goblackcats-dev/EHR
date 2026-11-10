@@ -641,30 +641,52 @@
   function beep(qrs, spo2) {
     if (!snd.ac) return; const a = snd.ac, t = a.currentTime, o = a.createOscillator(), gn = a.createGain();
     if (qrs === false) { const n = Date.now(); if (n - lastAlarmBeep < (alarmState === 2 ? 900 : 2500)) { return beep(true, vals().spo2); } lastAlarmBeep = n; o.frequency.value = alarmState === 2 ? 980 : 740; o.type = 'square'; gn.gain.setValueAtTime(0.07, t); gn.gain.setTargetAtTime(0, t + 0.18, 0.04); o.connect(gn); gn.connect(a.destination); o.start(t); o.stop(t + 0.3); return; }
-    o.frequency.value = 520 + Math.max(0, (spo2 || 95) - 85) * 16; o.type = 'sine'; gn.gain.setValueAtTime(0.06, t); gn.gain.setTargetAtTime(0, t + 0.05, 0.03); o.connect(gn); gn.connect(a.destination); o.start(t); o.stop(t + 0.12);
+    // softer heart-rate beep (v132): lower, gentler, with a slower attack and a low-pass so it is less sharp
+    const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1400;
+    o.frequency.value = 470 + Math.max(0, (spo2 || 95) - 85) * 12; o.type = 'sine'; gn.gain.setValueAtTime(0.0001, t); gn.gain.linearRampToValueAtTime(0.034, t + 0.012); gn.gain.setTargetAtTime(0, t + 0.045, 0.03);
+    o.connect(lp); lp.connect(gn); gn.connect(a.destination); o.start(t); o.stop(t + 0.14);
   }
   let nbpNodes = [];
   function stopNbpSound() { nbpNodes.forEach(n => { try { n.stop(); } catch (e) { /* already stopped */ } }); nbpNodes = []; }
   // the sound of a blood pressure cuff: a motor pumping for about 12 seconds, a soft valve "tss" with each step down, then two beeps when the reading is done
   function nbpStartSound() {
+    // v132: a more natural cuff: a pump that whirs and rises in pitch with a pulsing motor, then soft valve ticks while the cuff lets air out, then the two end beeps
     stopNbpSound(); if (snd.off || !snd.ac) return;
     const a = snd.ac, t0 = a.currentTime, noise = a.createBuffer(1, a.sampleRate * 2, a.sampleRate), d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    // pump: low-passed noise (air and motor) plus a motor tone whose pitch climbs as the cuff fills, pulsing about 28 times a second
     const src = a.createBufferSource(); src.buffer = noise; src.loop = true;
-    const bpf = a.createBiquadFilter(); bpf.type = 'bandpass'; bpf.frequency.value = 230; bpf.Q.value = 1.1;
-    const g = a.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(0.18, t0 + 0.4); g.gain.setValueAtTime(0.18, t0 + 11.4); g.gain.linearRampToValueAtTime(0.0001, t0 + 12);
-    const motor = a.createOscillator(); motor.type = 'sawtooth'; motor.frequency.setValueAtTime(70, t0); motor.frequency.linearRampToValueAtTime(115, t0 + 12);
-    const mg = a.createGain(); mg.gain.setValueAtTime(0.035, t0); mg.gain.setValueAtTime(0.035, t0 + 11.5); mg.gain.linearRampToValueAtTime(0.0001, t0 + 12);
-    src.connect(bpf); bpf.connect(g); g.connect(a.destination); motor.connect(mg); mg.connect(a.destination);
-    src.start(t0); src.stop(t0 + 12.1); motor.start(t0); motor.stop(t0 + 12.1); nbpNodes.push(src, motor);
+    const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.setValueAtTime(380, t0); lp.frequency.linearRampToValueAtTime(900, t0 + 11.5); lp.Q.value = 0.7;
+    const g = a.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(0.14, t0 + 0.5); g.gain.setValueAtTime(0.14, t0 + 11.2); g.gain.linearRampToValueAtTime(0.0001, t0 + 12);
+    const lfo = a.createOscillator(); lfo.frequency.value = 28; const lg = a.createGain(); lg.gain.value = 0.06; lfo.connect(lg); lg.connect(g.gain);
+    const motor = a.createOscillator(); motor.type = 'triangle'; motor.frequency.setValueAtTime(95, t0); motor.frequency.linearRampToValueAtTime(190, t0 + 11.5);
+    const mlp = a.createBiquadFilter(); mlp.type = 'lowpass'; mlp.frequency.value = 600;
+    const mg = a.createGain(); mg.gain.setValueAtTime(0.0001, t0); mg.gain.linearRampToValueAtTime(0.03, t0 + 0.6); mg.gain.setValueAtTime(0.03, t0 + 11.2); mg.gain.linearRampToValueAtTime(0.0001, t0 + 12);
+    src.connect(lp); lp.connect(g); g.connect(a.destination); motor.connect(mlp); mlp.connect(mg); mg.connect(a.destination);
+    src.start(t0); src.stop(t0 + 12.1); motor.start(t0); motor.stop(t0 + 12.1); lfo.start(t0); lfo.stop(t0 + 12.1); nbpNodes.push(src, motor, lfo);
+    // slow deflation: a small soft valve tick with each pressure step (low and short, not a hiss)
     for (let k = 0; k < 17; k++) {
-      const t = t0 + 13.2 + k * 1.8, s2 = a.createBufferSource(); s2.buffer = noise; const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2600;
-      const gg = a.createGain(); gg.gain.setValueAtTime(0.0001, t); gg.gain.linearRampToValueAtTime(0.1, t + 0.01); gg.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
-      s2.connect(hp); hp.connect(gg); gg.connect(a.destination); s2.start(t); s2.stop(t + 0.16); nbpNodes.push(s2);
+      const t = t0 + 13.2 + k * 1.8 + (Math.random() - 0.5) * 0.12, s2 = a.createBufferSource(); s2.buffer = noise;
+      const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 700 - k * 12; bp.Q.value = 1.4;
+      const gg = a.createGain(); gg.gain.setValueAtTime(0.0001, t); gg.gain.linearRampToValueAtTime(0.07, t + 0.008); gg.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+      s2.connect(bp); bp.connect(gg); gg.connect(a.destination); s2.start(t, Math.random()); s2.stop(t + 0.12); nbpNodes.push(s2);
     }
-    [44.2, 44.5].forEach(dt => { const o = a.createOscillator(), gg = a.createGain(); o.frequency.value = 1000; gg.gain.setValueAtTime(0.08, t0 + dt); gg.gain.setValueAtTime(0.0001, t0 + dt + 0.18); o.connect(gg); gg.connect(a.destination); o.start(t0 + dt); o.stop(t0 + dt + 0.2); nbpNodes.push(o); });
+    // the air going out the whole time, very faint
+    { const s3 = a.createBufferSource(); s3.buffer = noise; s3.loop = true; const hp = a.createBiquadFilter(); hp.type = 'bandpass'; hp.frequency.value = 1500; hp.Q.value = 0.5;
+      const gh = a.createGain(); gh.gain.setValueAtTime(0.0001, t0 + 12.8); gh.gain.linearRampToValueAtTime(0.012, t0 + 14); gh.gain.setValueAtTime(0.012, t0 + 43); gh.gain.linearRampToValueAtTime(0.0001, t0 + 44);
+      s3.connect(hp); hp.connect(gh); gh.connect(a.destination); s3.start(t0 + 12.8); s3.stop(t0 + 44.1); nbpNodes.push(s3); }
+    [44.2, 44.55].forEach(dt => { const o = a.createOscillator(), gg = a.createGain(); o.frequency.value = 1000; gg.gain.setValueAtTime(0.0001, t0 + dt); gg.gain.linearRampToValueAtTime(0.06, t0 + dt + 0.01); gg.gain.setValueAtTime(0.06, t0 + dt + 0.16); gg.gain.linearRampToValueAtTime(0.0001, t0 + dt + 0.19); o.connect(gg); gg.connect(a.destination); o.start(t0 + dt); o.stop(t0 + dt + 0.2); nbpNodes.push(o); });
   }
   function toggleSound() { snd.off = !snd.off; if (!snd.off && !snd.ac) { try { snd.ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} } if (snd.ac && snd.ac.state === 'suspended') snd.ac.resume(); $('sndBtn').textContent = snd.off ? 'Sound OFF (click to turn on)' : 'Sound ON (click to turn off)'; }
   $('sndBtn').onclick = toggleSound;
+
+  // ---------- keep the screen awake (v132) ----------
+  // The monitor computer must not go to sleep or dim during class. A screen wake lock keeps the display on; it is asked for again whenever the page becomes visible.
+  let wake = null;
+  async function keepAwake() {
+    try { if ('wakeLock' in navigator && document.visibilityState === 'visible' && !wake) { wake = await navigator.wakeLock.request('screen'); wake.addEventListener('release', () => { wake = null; }); } } catch (e) { wake = null; }
+    const b = $('sndBtn'); if (b) b.title = wake ? 'The screen is kept awake' : 'This browser cannot keep the screen awake: change the computer\'s sleep setting';
+  }
+  document.addEventListener('visibilitychange', keepAwake); addEventListener('click', keepAwake); addEventListener('keydown', keepAwake); keepAwake(); setInterval(keepAwake, 60000);
 
   // ---------- controls ----------
   const RHY_KEYS = Object.keys(RHY); $('iRhy').innerHTML = RHY_KEYS.map(k => `<option value="${k}">${RHY[k]}</option>`).join('');
@@ -718,6 +740,6 @@
   setClock(clock, 'init'); requestAnimationFrame(frame);
 })();
 </script>
-<script src="monitor-remote.js?v=131"></script>
+<script src="monitor-remote.js?v=132"></script>
 </body>
 </html>

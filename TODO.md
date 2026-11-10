@@ -1,17 +1,12 @@
 # To-do list (kept for later)
 
 ## Next up
-### Instructor notes, 2026-11-10 (not started; do later, one at a time)
-- **Bedside monitor, NBP sound:** the cuff sound is a little fake. Improve it, maybe with a free, properly licensed sound file from online.
+### Instructor notes, 2026-11-10
+- Done in v132: softer heart-rate beep, a more natural blood pressure cuff sound (made in code: tell the instructor to listen and say if a real recording is wanted), monitor keeps the screen awake, the "1 CRIT" badge clears when the critical lab is opened (Mark all reviewed does not clear criticals), Meds and Orders rename (Lauren and Ray packets). Checked: order acknowledgements already sync both ways in a class session.
 - **Shift report:** it is unwieldy. The assessment part holds the most information and should be much less intense.
-- **Brain, order acknowledgement:** when an order is acknowledged on the Brain, it must sync to every viewer in a class session.
-- **Bedside monitor, keep awake:** stop the monitor computer from going to sleep (today the instructor has to move the mouse every 30 minutes). Use a screen wake lock.
-- **Bedside monitor, heart-rate beep:** soften the HR beep slightly.
 - **Relay (Metered) data use, next step:** set up Cloudflare's free TURN relay as the second relay (get the account, then change the app to use it; check the free limit first). A home server on Tailscale is NOT suitable (students would need Tailscale). Also add a switch in the Class session to turn student screen viewing off (screen view is the biggest data user when a connection goes through the relay), and show which students are on the relay.
 - **Case study patients: new labs and a new assessment at every checkpoint.** Done for Lauren Mitchell (v127) and in the `team-case-study` skill. Still to do: check the other case study patients (Ray Kessler hypermagnesemia, the burn ICU patient, Doris...) for stops with no new labs or assessment.
-- **Rename "Meds & Treatments" to "Meds and Orders"** in the case study packets, the instructor keys and the `team-case-study` skill (the Lauren Mitchell packet first, then the older ones).
 - **Screen view:** with the Cloudflare relay (1,000 GB a month) the live student screens can update rapidly; keep it compressed and optimized (v126 flushes every 0.25 s).
-- **Critical lab alert:** clicking the critical lab should clear the "1 CRIT" warning on the left side of the screen.
 - **"Apply to our patient at 1600 and add to the patient creation skill":** the instructor wrote this right after the critical-lab note. Ask what "this" means (the critical-lab behavior? a new event at 1600?) and which patient before doing it. There is no patient creation skill yet (only `.claude/skills/team-case-study`), so one may need to be written.
 
 - Saving: save student work somewhere safer than one browser (carry work between devices, backup file / send to instructor). Today each student's work is saved on their own device only.

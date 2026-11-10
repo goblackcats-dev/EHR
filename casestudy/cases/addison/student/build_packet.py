@@ -128,7 +128,7 @@ def sbar_box(d, lh=0.25, title='SBAR to the provider', hint=''):
     spacer(d, 4)
 
 
-PAIRS = {'M': ('MEDS & TREATMENTS', 'FFEFC2'), 'A': ('VITALS & ASSESSMENT', 'DCEBFA'), 'R': ('RESULTS & LABS', 'DDF0E1')}
+PAIRS = {'M': ('MEDS AND ORDERS', 'FFEFC2'), 'A': ('VITALS & ASSESSMENT', 'DCEBFA'), 'R': ('RESULTS & LABS', 'DDF0E1')}
 
 
 NAMES = 'Names: ____________________  ____________________'
@@ -179,13 +179,13 @@ def cover(d):
     P(d, 'HOW THE TWO HOURS WORK', size=11, bold=True, color=INK, before=2, after=2, keep=True)
     bullets(d, ['The instructor moves the clock forward **4 hours at a time**: 0700, 1100, 1500, 1900, 2300, 0300, and a final check at 0700 Tuesday.',
                 'At each checkpoint, the instructor sets the bedside monitor and reads the situation. Fill in the **blanks in the situation box** from the chart. Each pair does its job in the chart and at the bedside and writes its findings in its own box, **with your names**. You decide what to look for and what to ask.',
-                'When a pair is finished, the **charge nurse gets the findings from that pair**. The **Vitals & Assessment** and **Meds & Treatments** pairs work together on the **actions to suggest**. The charge nurse decides the **top 3 priorities**, then develops and gives the **SBAR** to the provider. Everyone writes them down.',
+                'When a pair is finished, the **charge nurse gets the findings from that pair**. The **Vitals & Assessment** and **Meds and Orders** pairs work together on the **actions to suggest**. The charge nurse decides the **top 3 priorities**, then develops and gives the **SBAR** to the provider. Everyone writes them down.',
                 'Every stop, the **Vitals & Assessment pair** fills one column of the **response tracker** (page 3): is the treatment working? At the end you use it to **evaluate** the whole treatment.',
                 'Finish each page at the **end** of its time block. **Do not turn the page** until the instructor advances the clock. Use the EHR on your own device (vitals, MAR, results, notes); your patient and the time are synced with the instructor. **Vitals row:** read the bedside monitor, take your own set, do orthostatic vitals when ordered and safe, and ask the instructor for the bedside glucose. Write in dark pen.'], size=9.5)
     P(d, 'ROLES', size=11, bold=True, color=INK, before=3, after=2, keep=True)
     t = new_table(d, 2, 2, [1.6, W - 1.6], borders=MED)
     rows = [('CHARGE NURSE\n(one person; changes every stop)', 'Runs the section and keeps time. **Gets the findings from each pair when the pair is finished.** Decides the top 3 priorities with the team (writes their name in that box). **Develops and gives the SBAR.**'),
-            ('NURSE PAIRS\n(switch jobs every stop)', 'The other students work in pairs. **At every checkpoint each pair is assigned a new job** and writes its names in that box. **Meds & Treatments:** MAR, orders, notes: what is running, due, held or should change, and why. **Vitals & Assessment:** the bedside monitor, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Results & Labs:** new labs, ECG, trends and what they mean. Report to the charge nurse when you are finished.')]
+            ('NURSE PAIRS\n(switch jobs every stop)', 'The other students work in pairs. **At every checkpoint each pair is assigned a new job** and writes its names in that box. **Meds and Orders:** MAR, orders, notes: what is running, due, held or should change, and why. **Vitals & Assessment:** the bedside monitor, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Results & Labs:** new labs, ECG, trends and what they mean. Report to the charge nurse when you are finished.')]
     for i, (a, b) in enumerate(rows):
         shade(t.rows[i].cells[0], 'ECE6F7' if i == 0 else 'DDF0E1'); ctext(t.rows[i].cells[0], '**' + a.split('\n')[0] + '**\n' + a.split('\n')[1], size=9)
         ctext(t.rows[i].cells[1], b, size=9.2); rowh(t.rows[i], 0.75)
