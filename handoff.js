@@ -15,7 +15,7 @@
   const BOXES = [
     { id: 'id', title: '1. Patient and illness severity', hint: 'Name, age, room, code status, allergies, isolation, and how sick the patient is (stable, watcher, unstable).' },
     { id: 'sb', title: '2. Situation and background', hint: 'Why they are here, hospital day, surgery or procedures, important history, what has happened so far.' },
-    { id: 'as', title: '3. Assessment', hint: 'Vital signs, findings by system, pain, labs, lines and drains, intake and output, diet, activity and fall risk, events this shift.' },
+    { id: 'as', title: '3. Assessment', hint: 'Vital signs, what is abnormal by system (say the rest were normal), key labs, lines, intake and output, diet, activity and fall risk, events this shift.' },
     { id: 'ac', title: '4. Medications, orders and to-do', hint: 'Medications given, due soon and high-alert drugs, tests and consults pending, what the next nurse needs to do.' },
     { id: 'co', title: '5. If-then plans and questions', hint: 'What to watch for and what to do if it happens (who to call), and ask the receiving nurse for questions.' }
   ];
@@ -116,27 +116,34 @@
     const bySection = {};
     assess.forEach(a => { (bySection[a.section] = bySection[a.section] || []).push(a); });
     const FP = window.FlowsheetPractice;
+    // v133: lighter assessment. Only the systems with a problem are asked about one by one (at most 6, a few key words each);
+    // every normal system together is a single item ("the rest looked normal"), so the Assessment box is not a long checklist.
+    const normalSecs = [], abnSecs = [];
     Object.keys(bySection).forEach(sec => {
       const list = bySection[sec], text = list.map(a => safe(a.value)).join('; ');
       const abn = list.some(a => a.abnormal || (FP && FP.isAbn && FP.isAbn(FP.tagsOf(safe(a.value)))));
       if (/braden|safety/i.test(sec) && !abn) return;
-      const words = sigWords(text, 10);
-      add({ box: 'as', label: `${sec} findings`, expected: list.map(a => `${safe(a.label)}: ${safe(a.value)}`).join('; '), type: 'section', sec, words, need: Math.max(1, Math.ceil(words.length * 0.35)), abnormal: abn, points: abn ? 2 : 1, critical: abn, source: 'Flowsheet' });
+      (abn ? abnSecs : normalSecs).push({ sec, list, text });
     });
+    abnSecs.slice(0, 6).forEach(({ sec, list, text }) => {
+      const words = sigWords(text, 6);
+      add({ box: 'as', label: `${sec}: what is abnormal`, expected: list.filter(a => a.abnormal).map(a => `${safe(a.label)}: ${safe(a.value)}`).join('; ') || list.map(a => `${safe(a.label)}: ${safe(a.value)}`).join('; '), type: 'section', sec, words, need: Math.max(1, Math.ceil(words.length * 0.25)), abnormal: true, points: 2, critical: true, source: 'Flowsheet' });
+    });
+    if (normalSecs.length) add({ box: 'as', label: `Other systems normal (${normalSecs.map(x => x.sec).slice(0, 4).join(', ')}${normalSecs.length > 4 ? ', ...' : ''})`, expected: 'The remaining systems were normal / no concerns', type: 'any', any: [/\bnormal\b|\bwnl\b|unremarkable|no (?:other )?(?:issues|concerns|problems)|otherwise (?:fine|stable|normal)|clear|intact|within normal/], points: 1, source: 'Flowsheet' });
 
     // ---- labs: abnormal and critical (latest of each)
     const labs = latestBy(obs.filter(o => o.type === 'lab' && /^-?\d/.test(safe(o.value))), o => o.code).filter(o => o.flag);
     const SKIP_LABS = new Set(['Hematocrit', 'Hemoglobin A1c', '25-OH Vitamin D', 'eGFR', 'Albumin', 'Prealbumin', 'Total protein', 'MCV']);
     labs.splice(0, labs.length, ...labs.filter(o => !SKIP_LABS.has(o.code)));
     labs.sort((a, b) => (/critical/i.test(safe(b.flag)) ? 1 : 0) - (/critical/i.test(safe(a.flag)) ? 1 : 0));
-    labs.slice(0, 5).forEach(o => {
+    labs.slice(0, 4).forEach(o => {
       const v = parseFloat(o.value), kw = LAB_KW[o.code] || new RegExp(reEsc(safe(o.code).toLowerCase()));
       add({ box: 'as', label: `Lab: ${safe(o.label)} (${safe(o.flag)})`, expected: `${safe(o.value)} ${safe(o.units)}`.trim(), type: 'num', kw, value: v, tol: Math.max(Math.abs(v) * 0.06, 0.15), points: /critical/i.test(safe(o.flag)) ? 2 : 1, critical: /critical/i.test(safe(o.flag)), source: 'Lab ' + safe(o.collected).slice(5, 16) });
     });
     if (!labs.length) add({ box: 'as', label: 'Labs (reviewed; nothing abnormal)', expected: 'No abnormal results', type: 'any', any: [/\blabs?\b|results?|bloodwork|blood work/], points: 1, source: 'Labs' });
 
     // ---- lines, drains, I&O, diet, activity
-    (vis.devices || cc.devices || []).filter(d => !/removed/i.test(safe(d.status))).slice(0, 5).forEach(d => {
+    (vis.devices || cc.devices || []).filter(d => !/removed/i.test(safe(d.status))).slice(0, 3).forEach(d => {
       const w = sigWords(`${safe(d.type)} ${safe(d.deviceType)}`, 4);
       add({ box: 'as', label: `Line / device: ${safe(d.type)}${d.location ? ' (' + safe(d.location) + ')' : ''}`, expected: `${safe(d.type)} ${safe(d.location)} - ${safe(d.status)}`.trim(), type: 'tokens', words: w.concat(/peripheral iv|iv/i.test(safe(d.type)) ? ['iv', 'line'] : []), need: 1, points: 1, source: 'Devices' });
     });

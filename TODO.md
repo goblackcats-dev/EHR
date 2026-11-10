@@ -3,7 +3,6 @@
 ## Next up
 ### Instructor notes, 2026-11-10
 - Done in v132: softer heart-rate beep, a more natural blood pressure cuff sound (made in code: tell the instructor to listen and say if a real recording is wanted), monitor keeps the screen awake, the "1 CRIT" badge clears when the critical lab is opened (Mark all reviewed does not clear criticals), Meds and Orders rename (Lauren and Ray packets). Checked: order acknowledgements already sync both ways in a class session.
-- **Shift report:** it is unwieldy. The assessment part holds the most information and should be much less intense.
 - **Relay (Metered) data use, next step:** set up Cloudflare's free TURN relay as the second relay (get the account, then change the app to use it; check the free limit first). A home server on Tailscale is NOT suitable (students would need Tailscale). Also add a switch in the Class session to turn student screen viewing off (screen view is the biggest data user when a connection goes through the relay), and show which students are on the relay.
 - **Case study patients: new labs and a new assessment at every checkpoint.** Done for Lauren Mitchell (v127) and in the `team-case-study` skill. Still to do: check the other case study patients (Ray Kessler hypermagnesemia, the burn ICU patient, Doris...) for stops with no new labs or assessment.
 - **Screen view:** with the Cloudflare relay (1,000 GB a month) the live student screens can update rapidly; keep it compressed and optimized (v126 flushes every 0.25 s).
