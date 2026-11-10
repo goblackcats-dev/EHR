@@ -15,14 +15,16 @@ Students use the EHR on their own devices, synced with the instructor through Cl
 ## Format rules (the instructor's requests; follow all of them)
 
 ### Roles
-- **Charge nurse**: one student per stop, rotating so each student is charge exactly once. The rotation grid on the cover has only two rows: **Charge nurse (letter)** and **Name**.
+- **Charge nurse**: one student per stop, rotating so each student is charge exactly once. The rotation grid on the cover has one row only: **Charge nurse name**, with one blank per stop.
   The charge nurse runs the section and keeps time. **They get the findings from each pair when the pair is finished.** Pairs report as a pair, not through one "reporting partner".
   The charge nurse decides the top 3 priorities with the team, then **develops and gives the SBAR**.
-- **Three pairs**, each with its own color:
+- **Three pairs, assigned checkpoint by checkpoint.** At every stop each pair gets a new job, and the pairs switch each time. Pairs write their names in that stop's box. The old charge nurse takes the new charge nurse's place in that pair.
+  - **Do NOT print a cover table assigning students or letters to pairs** (no "Pair 1: A ___ B ___" and no letters A to G). There is no float with 7 students (1 charge + 3 pairs).
+  - If the class size changes, ask the instructor how to place the extra student, for example a trio. Do not bring back the float on your own.
+- The three jobs, each with its own color:
   - **Meds & Treatments** (`FFEFC2`)
   - **Vitals & Assessment** (`DCEBFA`)
   - **Results & Labs** (`DDF0E1`)
-- **One float (G)**, who is charge at the final stop.
 - Do NOT print anything like "Partner reports for the pair", either on the cover or in the charge bar at the top of each checkpoint.
 
 ### Every checkpoint page, top to bottom
@@ -57,9 +59,27 @@ Do not put italic hint text or questions after box titles unless the instructor 
 ### Packet as a whole
 - **Header on every page:** "Student name: ______". Each student fills in and turns in their **own packet**, with a paperclip and no staples. Never print "Team name" on the student packet.
 - **Front pages:**
-  1. Cover: roles, how the 2 hours work, rotation grid, turn-in.
+  1. Cover:
+     - title banner
+     - **QUICK PATHOPHYSIOLOGY box** (see below)
+     - how the 2 hours work
+     - roles (pairs switch jobs every stop)
+     - charge nurse rotation grid (names only)
+     - turn-in
   2. Patient card plus a concept map tied to the disease, with 1 or 2 small EHR screenshots.
   3. Rubric (20 points, team grade) plus the response tracker table.
+- **Quick pathophysiology (required, at the beginning, on the cover):**
+  - One shaded box titled "QUICK PATHOPHYSIOLOGY: <disease>", written at a high level for ADN students.
+  - 6 or 7 short labeled lines, in this order:
+    1. the organ or system and what normally happens
+    2. the key hormones, substances or processes: what each does, and what you see when there is **too little** or **too much**
+    3. what tips the patient into the acute problem
+    4. the main dangers
+    5. the treatment logic: why each main treatment is given, plus key safety limits (for example, a correction rate)
+    6. nursing focus: what to monitor and teach
+  - Plain words, no numbers from the patient's chart.
+  - Nothing that gives away a later stop. Check its words against the BAN list in check_facts.py, for example "low glucose" rather than a banned word.
+  - The text lives in content2.py as `PATHO_TITLE` and `PATHO`, and the builder's `pathophys()` draws it. If the cover overflows, shorten the "how it works" bullets rather than the pathophysiology.
 - **Checkpoint pages**, then the final stop on 2 pages:
   - Page 1: pair boxes, tracker, an evaluation table (arrival vs now, goal met?), and "Our verdict on the treatment".
   - Page 2: what changed and actions, priorities, handoff SBAR, the Meds pair's home plan, discharge teaching boxes, teach-back, ready to go home?
@@ -81,6 +101,16 @@ Include:
   - model answers for each pair box, the tracker column, "what changed" (not at stop 1), "actions to suggest", the 3 priorities and the SBAR
   - the prediction, and the instructor's suggested reply as the provider
 - final evaluation model, rubric guide, score sheet and debrief questions
+
+## Adapting to a totally different patient or disease
+Keep the format exactly. Change only the clinical content:
+- **Quick pathophysiology:** write it for the new disease, using the same 6 or 7 line pattern.
+- **Concept map on page 2:** use what fits the disease, for example the hormones (adrenal), a fluid and electrolyte map (DKA), or the oxygenation chain (respiratory). Use 3 or 4 rows with the columns "what it normally does" and "what the patient shows". Students fill in the patient column.
+- **Response tracker rows:** 8 to 10 measures that show whether the treatment works, each with a goal taken from the instructor guide's evaluation criteria, plus an OVERALL row.
+- **Pair job descriptions on the cover:** name the sources for this patient, for example the MAR and drips, the bedside exam items that matter, and the key labs and tests.
+- **Stops:** one teaching event per stop (a new result, a complication, a decision), including at least one safety catch and one "is it working?" evaluation. The final stop covers evaluation plus discharge teaching.
+- **Things the instructor says aloud:** list the values that are not in the chart, such as the bedside glucose and standing BP, in the key, and remind students on the cover to ask for them.
+- **Rubric:** keep 20 points and the same four categories.
 
 ## How to build one
 
@@ -115,4 +145,5 @@ When the instructor asks for a format change:
 3. Offer to apply it to the older packets (for example `hypermag/student2`).
 
 Change history:
+- 2026-11-10 (2): no pair or letter table on the cover; pairs are assigned and switch jobs checkpoint by checkpoint; the rotation grid is charge nurse names only; no float; quick ADN-level pathophysiology box at the start of the cover.
 - 2026-11-10: charge nurse collects from each whole pair (no reporting partner); fill-in-the-blank situation; no prior vitals; names in pair boxes and no "Charge asks" subtitles; Vitals & Assessment fills the tracker; Actions to suggest (Vitals + Meds pairs) replaces "What we will do next"; no "What changed" at the first stop; Charge RN name on priorities; no subtitles on SBAR or other boxes; "Student name" header with one packet per student.

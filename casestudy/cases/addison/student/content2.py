@@ -42,6 +42,16 @@ TRACKER = [('BP lying (MAP)', 'SBP 100 or more; MAP 65 or more'), ('BP and HR st
            ('Mental status', 'Alert, oriented x4 (her baseline)'), ('Urine output', '0.5 mL/kg/h or more (about 30 mL/h); tell if over 250 mL/h'),
            ('Nausea / eating', 'No nausea; eating and drinking'), ('OVERALL', 'Better / same / worse?')]
 
+# quick pathophysiology (cover): high-level, ADN level, plain words; nothing that gives away a later stop
+PATHO_TITLE = 'QUICK PATHOPHYSIOLOGY: ADDISON DISEASE AND ADRENAL CRISIS'
+PATHO = [('The adrenal glands', 'The outer layer (cortex) makes **cortisol** and **aldosterone**. In **Addison disease** (primary adrenal insufficiency) the immune system destroys the cortex, so the person replaces both hormones with pills every day.'),
+         ('Cortisol', 'The stress hormone. It keeps blood pressure up (vessels respond to epinephrine), keeps blood glucose up between meals and helps the body get through illness. **Too little:** low BP, low glucose, weakness, nausea, vomiting, belly pain, confusion.'),
+         ('Aldosterone', 'Makes the kidneys keep sodium and water and get rid of potassium. **Too little:** sodium and water are lost in the urine (dehydration, low sodium) and potassium builds up (high potassium, peaked T waves, dysrhythmias).'),
+         ('ACTH', 'The pituitary keeps sending ACTH to glands that cannot answer. High ACTH darkens the skin (tan skin, dark skin creases and gums).'),
+         ('Adrenal crisis', 'Illness, injury, surgery or vomiting raises the need for cortisol, and the person cannot make more or keep the pills down. Result: **shock that fluid alone does not fix**, low glucose, low sodium, high potassium. It can kill within hours.'),
+         ('Treatment', '**IV hydrocortisone right away** (never wait for tests; every dose is time-critical), IV saline with dextrose, treat the trigger, cardiac monitoring. High-dose hydrocortisone also acts like aldosterone, so fludrocortisone is held while the dose is high. Raise the sodium slowly (no more than 8 in 24 hours) to protect the brain.'),
+         ('Nursing focus', 'BP and orthostatic vitals, heart rate and rhythm, glucose, sodium and potassium, mental status, intake and output, fall safety, steroid doses on time, and sick-day teaching before going home.')]
+
 # hormone map (page 2): what students fill at 0700
 HORMONES = [('CORTISOL (missing)', 'Keeps blood vessels tight and BP up; makes glucose in the liver between meals; needed for any stress or illness; helps the kidney get rid of water.'),
             ('ALDOSTERONE (missing)', 'Makes the kidney keep sodium and water and get rid of potassium (and acid).'),

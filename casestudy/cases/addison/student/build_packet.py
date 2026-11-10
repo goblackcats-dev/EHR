@@ -160,19 +160,22 @@ def stop(d):
 
 
 # ------------------------------------------------------------------ pages
+def pathophys(d):
+    """quick ADN-level pathophysiology box at the start of the packet (text in content2.PATHO)"""
+    t = new_table(d, 1, 1, [W], borders=MED)
+    c = t.rows[0].cells[0]; shade(c, 'F4F1FA'); c.text = ''
+    p = first_par(c); rich(p, C.PATHO_TITLE, size=10.5, bold=True, color=INK); p.paragraph_format.space_after = Pt(2)
+    for head, body in C.PATHO:
+        p = c.add_paragraph(); p.paragraph_format.space_after = Pt(1.5)
+        run(p, head + ':  ', bold=True, size=8.8, color=INK); rich(p, body, size=8.8)
+    spacer(d, 4)
+
+
 def cover(d):
     page_top(d); tag(d, 'FRONT', 1, 3)
     banner(d, 'TEAM CASE STUDY: LAUREN MITCHELL', '4 West, Room 4W-22  |  Mon 0700 to Tue 0700', fill=INK, size=17, sub='The whole class is ONE nursing team for one patient across 24 hours. We move through the time together, 4 hours at a time.', h=0.62)
     P(d, 'Write your name in the header at the top of this page (it repeats on every page). Everyone fills in their own packet.', size=9, italic=True, color=GRAY, before=2, after=3)
-    t = new_table(d, 4, 3, [2.4, 2.45, 2.45], borders=THIN)
-    blocks = [('PAIR 1: MEDS & TREATMENTS', 'FFEFC2', 'A', 'B'), ('PAIR 2: VITALS & ASSESSMENT', 'DCEBFA', 'C', 'D'), ('PAIR 3: RESULTS & LABS', 'DDF0E1', 'E', 'F')]
-    for j, (nm, fl, x, y) in enumerate(blocks):
-        c = t.rows[0].cells[j]; shade(c, fl); ctext(c, nm, size=8.8, bold=True, align='center')
-        for i, L in ((1, x), (2, y)):
-            ctext(t.rows[i].cells[j], f'**{L}**  name: ______________________', size=9.4)
-    rowh(t.rows[1], 0.34); rowh(t.rows[2], 0.34)
-    c = t.rows[3].cells[0].merge(t.rows[3].cells[2]); ctext(c, '**G**  FLOAT NURSE (helps wherever the charge nurse sends them): name: ____________________________', size=9.4); rowh(t.rows[3], 0.34)
-    spacer(d, 4)
+    pathophys(d)
     P(d, 'HOW THE TWO HOURS WORK', size=11, bold=True, color=INK, before=2, after=2, keep=True)
     bullets(d, ['The instructor moves the clock forward **4 hours at a time**: 0700, 1100, 1500, 1900, 2300, 0300, and a final check at 0700 Tuesday.',
                 'At each checkpoint, the instructor sets the bedside monitor and reads the situation. Fill in the **blanks in the situation box** from the chart. Each pair does its job in the chart and at the bedside and writes its findings in its own box, **with your names**. You decide what to look for and what to ask.',
@@ -182,14 +185,14 @@ def cover(d):
     P(d, 'ROLES', size=11, bold=True, color=INK, before=3, after=2, keep=True)
     t = new_table(d, 2, 2, [1.6, W - 1.6], borders=MED)
     rows = [('CHARGE NURSE\n(one person; changes every stop)', 'Runs the section and keeps time. **Gets the findings from each pair when the pair is finished.** Decides the top 3 priorities with the team (writes their name in that box). **Develops and gives the SBAR.**'),
-            ('NURSE PAIRS\n(the other students)', '**Meds & Treatments:** MAR, orders, notes: what is running, due, held or should change, and why. **Vitals & Assessment:** the bedside monitor, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Results & Labs:** new labs, ECG, trends and what they mean. Write your names in your pair\'s box and report to the charge nurse when you are finished.')]
+            ('NURSE PAIRS\n(switch jobs every stop)', 'The other students work in pairs. **At every checkpoint each pair is assigned a new job** and writes its names in that box. **Meds & Treatments:** MAR, orders, notes: what is running, due, held or should change, and why. **Vitals & Assessment:** the bedside monitor, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Results & Labs:** new labs, ECG, trends and what they mean. Report to the charge nurse when you are finished.')]
     for i, (a, b) in enumerate(rows):
         shade(t.rows[i].cells[0], 'ECE6F7' if i == 0 else 'DDF0E1'); ctext(t.rows[i].cells[0], '**' + a.split('\n')[0] + '**\n' + a.split('\n')[1], size=9)
-        ctext(t.rows[i].cells[1], b, size=9.2); rowh(t.rows[i], 0.9)
+        ctext(t.rows[i].cells[1], b, size=9.2); rowh(t.rows[i], 0.75)
     spacer(d, 5)
     P(d, 'CHARGE NURSE ROTATION  (each student is charge nurse exactly once)', size=10, bold=True, color=INK, before=2, after=2, keep=True)
     cols = ['Stop', '0700', '1100', '1500', '1900', '2300', '0300', 'Final 0700']
-    grid(d, cols, [1.3] + [0.857] * 7, [['Charge nurse (letter)'] + list('ACEBDFG'), ['Name'] + [''] * 7], row_h=0.34, size=9.4, hsize=8.6, center=list(range(8)), pre_fill={0: 'F4F4F4'})
+    grid(d, cols, [1.3] + [0.857] * 7, [['Charge nurse name'] + [''] * 7], row_h=0.4, size=9.4, hsize=8.6, center=list(range(8)), pre_fill={0: 'F4F4F4'})
     P(d, 'TURN-IN', size=10, bold=True, color=INK, before=2, after=1, keep=True)
     P(d, 'Each student turns in their own packet, fastened with a **paperclip (no staples)**. The last page is your individual reflection and peer check.', size=9.4, after=0)
 

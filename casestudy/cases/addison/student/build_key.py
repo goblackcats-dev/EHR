@@ -68,12 +68,12 @@ def title_page(d):
     para(d, '**Focus:** pathophysiology (cortisol and aldosterone missing: low sodium, high potassium, low volume, low glucose; high ACTH: dark skin), assessment, the standard treatment plan (stress-dose hydrocortisone on time, fluids, dextrose, fludrocortisone held then restarted), and **evaluation** of the response (the tracker every stop and the evaluation table at the end).')
     H(d, 'Roles and pairs (7 students, one team)', level=2)
     bl(d, ['**Charge nurse** (rotates; each student has exactly one stop): runs the section, keeps time, **gets the findings from each pair when the pair is finished**, decides the top 3 priorities (writes their name in that box), then develops and gives the SBAR. The questions are NOT printed for students: they learn to ask them. The "questions a strong charge nurse asks" in each section below are for you to prompt with only if a team is stuck.',
-           '**Pair 1, Meds & Treatments (A, B):** MAR, orders, notes: what is running, due, held or should change, and why.',
-           '**Pair 2, Vitals & Assessment (C, D):** read the bedside monitor and write the vitals row, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Fills the response tracker column at every stop.**',
+           '**Meds & Treatments pair:** MAR, orders, notes: what is running, due, held or should change, and why.',
+           '**Vitals & Assessment pair:** read the bedside monitor and write the vitals row, orthostatic vitals, the bedside exam (mental status, skin, mouth, belly), intake and output. **Fills the response tracker column at every stop.**',
            'The **Vitals & Assessment** and **Meds & Treatments** pairs work together on "Actions to suggest" at every stop. Every student has their own packet, writes their name in the header and writes their pair\'s names in their pair box.',
-           '**Pair 3, Results & Labs (E, F):** new labs, ECGs, trends and what they mean (sodium rate, potassium, glucose, cortisol/ACTH).',
-           '**G, float nurse:** helps where the charge nurse sends them (for example, fills the tracker column). G is charge at the final 0700.',
-           'Charge order: A (0700), C (1100), E (1500), B (1900), D (2300), F (0300), G (final). When one of a pair is charge, the other partner keeps working the pair\'s job and reports when finished.'])
+           '**Results & Labs pair:** new labs, ECGs, trends and what they mean (sodium rate, potassium, glucose, cortisol/ACTH).',
+           '**Pairs switch jobs at every checkpoint.** With 7 students: 1 charge nurse + 3 pairs. You (or the charge nurse) assign the jobs at the start of each stop; students write their names in their pair box. Each student is charge nurse once (7 stops).',
+           'At each stop the old charge nurse takes the new charge nurse\'s place in that pair.'])
     H(d, 'Before class', level=2)
     bl(d, ['Print **one packet per student** (7), single-sided. Each student writes their name in the header; the last page is their individual reflection and peer check.',
            'Load the EHR: Pre-Built Patients > Case Study Patients > Lauren Mitchell (or Import with casestudy/cases/addison/patient.json). Check that the clock reads **Mon 07:00** (4W-22, SIM-40422).',
@@ -91,14 +91,14 @@ def run_of_show(d):
     H(d, 'Run of show (about 2 hours)', size=14, before=0, level=2)
     para(d, 'Each checkpoint follows the same 13-14 minute rhythm. The final 0700 gets 17 minutes because it has two pages.', after=1)
     table(d, ['Clock', 'Minutes', 'What the instructor does'], [0.9, 1.0, 5.4], [
-        ['Start', '0:00-0:05', 'Welcome. Everyone sits together as one team; fill in the pair names (A to F) and the float nurse (G). Walk through the cover, the patient card and hormone map (page 2), the rubric and the response tracker (page 3). Student A is charge nurse at 0700.'],
-        ['0700', '0:05-0:19', 'Do NOT press 4h (the 0700 set is in the chart). Read the situation. Charge A gets each pair\'s findings; the team also fills the hormone map (page 2) and the 0700 tracker column; SBAR call to you (warm-up, not scored).'],
-        ['1100', '0:19-0:33', 'Press **4h** (Mon 1100). Charge C. Give the glucose **58** when they check. Watch for juice vs D50 and for checking the 1000 hydrocortisone.'],
-        ['1500', '0:33-0:47', 'Press **4h** (Mon 1500). Charge E. Give the standing values when they do orthostatics. Watch for the sodium calculation (+6 in 9 h) and the call.'],
-        ['1900', '0:47-1:01', 'Press **4h** (Mon 1900). Charge B. The fluid change happened at 1530. Watch for evaluation with numbers ("is it working?").'],
-        ['2300', '1:01-1:14', 'Press **4h** (Mon 2300). Charge D. Watch for sedative requests and insulin for 152.'],
-        ['0300', '1:14-1:27', 'Press **4h** (Tue 0300). Charge F. Describe the infiltrated right forearm IV when they look. Watch for the plan for the 0400 IV dose.'],
-        ['Final 0700', '1:27-1:44', 'Press **4h** (Tue 0700). Charge G. Page 1: pairs, tracker, evaluation table and verdict. Page 2: handoff, steroid plan, sick-day rules, the injection (return demonstration with a training vial if you have one), ID, teach-back, readiness.'],
+        ['Start', '0:00-0:05', 'Welcome. Everyone sits together as one team; pick the 0700 charge nurse and assign the three pair jobs (they switch every stop). Read the quick pathophysiology on the cover together. Walk through the patient card and hormone map (page 2), the rubric and the response tracker (page 3). Student A is charge nurse at 0700.'],
+        ['0700', '0:05-0:19', 'Do NOT press 4h (the 0700 set is in the chart). Read the situation. The charge nurse gets each pair\'s findings; the team also fills the hormone map (page 2) and the 0700 tracker column; SBAR call to you (warm-up, not scored).'],
+        ['1100', '0:19-0:33', 'Press **4h** (Mon 1100). New charge nurse; pairs switch jobs. Give the glucose **58** when they check. Watch for juice vs D50 and for checking the 1000 hydrocortisone.'],
+        ['1500', '0:33-0:47', 'Press **4h** (Mon 1500). New charge nurse; pairs switch jobs. Give the standing values when they do orthostatics. Watch for the sodium calculation (+6 in 9 h) and the call.'],
+        ['1900', '0:47-1:01', 'Press **4h** (Mon 1900). New charge nurse; pairs switch jobs. The fluid change happened at 1530. Watch for evaluation with numbers ("is it working?").'],
+        ['2300', '1:01-1:14', 'Press **4h** (Mon 2300). New charge nurse; pairs switch jobs. Watch for sedative requests and insulin for 152.'],
+        ['0300', '1:14-1:27', 'Press **4h** (Tue 0300). New charge nurse; pairs switch jobs. Describe the infiltrated right forearm IV when they look. Watch for the plan for the 0400 IV dose.'],
+        ['Final 0700', '1:27-1:44', 'Press **4h** (Tue 0700). New charge nurse; pairs switch jobs. Page 1: pairs, tracker, evaluation table and verdict. Page 2: handoff, steroid plan, sick-day rules, the injection (return demonstration with a training vial if you have one), ID, teach-back, readiness.'],
         ['Reflection', '1:44-1:50', 'Each student completes their own reflection and peer check (page 12). Collect the 7 packets.'],
         ['Debrief', '1:50-2:00', 'Use the debrief questions at the end of this key. Put the tracker on the board.']], size=8.5, row_h=0.24)
     H(d, 'The same 14 minutes, one checkpoint', size=11, level=3)
@@ -212,8 +212,8 @@ def score_sheet(d):
             ['Safety, priorities and SBAR (5)', '☐ 5', '☐ 3-4', '☐ 1-2', '/ 5', ''], ['Completeness and reflection (4)', '☐ 4', '☐ 2-3', '☐ 1', '/ 4', ''], ['GROUP TOTAL', '', '', '', '/ 20', '']]
     table(d, cols, [2.3, 0.6, 0.7, 0.9, 0.7, 2.1], rows, size=8.8, row_h=0.4, center=[1, 2, 3, 4])
     H(d, 'Individual check (7 students)', size=11, level=3)
-    table(d, ['Student (letter, pair)', 'Charge turn (1)', 'Reflection (2)', 'Peer check (1)', 'Individual /4'], [2.1, 1.2, 1.3, 1.2, 1.5],
-          [[f'{L}  ________________', '☐', '☐ 2  ☐ 1', '☐', ''] for L in 'ABCDEFG'], size=9, row_h=0.3, center=[1, 2, 3])
+    table(d, ['Student', 'Charge turn (1)', 'Reflection (2)', 'Peer check (1)', 'Individual /4'], [2.1, 1.2, 1.3, 1.2, 1.5],
+          [['________________________', '☐', '☐ 2  ☐ 1', '☐', ''] for _ in range(7)], size=9, row_h=0.3, center=[1, 2, 3])
     P(d, 'Comments for the team:', size=9.4, bold=True, after=1, before=3)
     lines(d, 2)
 
