@@ -76,7 +76,7 @@
     sh.stop = window.rrweb.record({
       emit: e => { sh.buf.push(e); }, sampling: { mousemove: false, scroll: 150, input: 'last' }, recordCanvas: false, collectFonts: false, checkoutEveryNms: 0, inlineStylesheet: true
     });
-    sh.timer = setInterval(flush, 400);
+    sh.timer = setInterval(flush, 250);
     sh.ping = setInterval(() => { if (sh.conn && sh.conn.open) { try { sh.conn.send({ t: 'ping', name: label(), role: (me() || {}).role || '', section: document.title }); } catch (e) { /* ignore */ } } }, 5000);
   }
   function stopRecording() { if (sh.stop) { try { sh.stop(); } catch (e) { /* ignore */ } sh.stop = null; } clearInterval(sh.timer); clearInterval(sh.ping); sh.buf = []; }
