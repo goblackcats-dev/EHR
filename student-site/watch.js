@@ -46,11 +46,23 @@
     b.innerHTML = `<span class="lv-dot"></span><span>${esc(text)}</span>${withStop ? '<button type="button" id="lvStop">Leave class</button>' : ''}`;
     const st = $('lvStop'); if (st) st.addEventListener('click', stopShare);
   }
-  function flush() { if (!sh.conn || !sh.conn.open || !sh.buf.length) return; const batch = sh.buf.splice(0); try { sh.conn.send({ t: 'ev', e: batch }); } catch (e) { /* retried on the next flush */ } }
+  // DATA SAVER (v124): the free relay has a monthly data limit. A full picture of the page is about 600 KB, so (1) it is sent once (when the instructor's tile starts or asks again), not every 90 seconds,
+  // and (2) every batch is gzip-compressed (about 10x smaller) when the browser can.
+  const gz = async (str, mode) => { const cs = new (mode === 'c' ? CompressionStream : DecompressionStream)('gzip'); const w = cs.writable.getWriter(); w.write(mode === 'c' ? new TextEncoder().encode(str) : str); w.close(); const buf = await new Response(cs.readable).arrayBuffer(); return mode === 'c' ? new Uint8Array(buf) : new TextDecoder().decode(buf); };
+  const canGz = typeof CompressionStream !== 'undefined' && typeof DecompressionStream !== 'undefined';
+  let flushing = false;
+  async function flush() {
+    if (flushing || !sh.conn || !sh.conn.open || !sh.buf.length) return; flushing = true;
+    const batch = sh.buf.splice(0);
+    try {
+      const json = JSON.stringify(batch);
+      if (canGz && json.length > 1500) sh.conn.send({ t: 'evz', z: await gz(json, 'c') }); else sh.conn.send({ t: 'ev', e: batch });
+    } catch (e) { sh.buf.unshift(...batch); } finally { flushing = false; }
+  }
   function startRecording() {
     if (sh.stop) return;
     sh.stop = window.rrweb.record({
-      emit: e => { sh.buf.push(e); }, sampling: { mousemove: false, scroll: 150, input: 'last' }, recordCanvas: false, collectFonts: false, checkoutEveryNms: 90000, inlineStylesheet: true
+      emit: e => { sh.buf.push(e); }, sampling: { mousemove: false, scroll: 150, input: 'last' }, recordCanvas: false, collectFonts: false, checkoutEveryNms: 0, inlineStylesheet: true
     });
     sh.timer = setInterval(flush, 400);
     sh.ping = setInterval(() => { if (sh.conn && sh.conn.open) { try { sh.conn.send({ t: 'ping', name: label(), role: (me() || {}).role || '', section: document.title }); } catch (e) { /* ignore */ } } }, 5000);
@@ -184,7 +196,8 @@
     if (!st) return;
     st.last = Date.now();
     if (d.t === 'chart') { if (sync.on && window.NSChartSync) { NSChartSync.receive(d.p); host.students.forEach(s => { if (s.conn !== conn && s.conn.open) { try { s.conn.send({ t: 'chart', p: d.p }); } catch (e) { /* ignore */ } } }); } return; }
-    if (d.t === 'ev') (d.e || []).forEach(e => { try { st.replayer.addEvent(e); } catch (err) { /* a damaged event is skipped */ } });
+    if (d.t === 'ev') { st.q = (st.q || Promise.resolve()).then(() => (d.e || []).forEach(e => { try { st.replayer.addEvent(e); } catch (err) { /* a damaged event is skipped */ } })); }
+    if (d.t === 'evz') { st.q = (st.q || Promise.resolve()).then(() => gz(d.z, 'd')).then(txt => JSON.parse(txt).forEach(e => { try { st.replayer.addEvent(e); } catch (err) { /* a damaged event is skipped */ } })).catch(() => {}); }
     if (d.t === 'ping' && d.name) { st.tile.querySelector('b').textContent = d.name; }
   }
 
