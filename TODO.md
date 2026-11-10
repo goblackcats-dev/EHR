@@ -8,6 +8,7 @@
 - **Bedside monitor, keep awake:** stop the monitor computer from going to sleep (today the instructor has to move the mouse every 30 minutes). Use a screen wake lock.
 - **Bedside monitor, heart-rate beep:** soften the HR beep slightly.
 - **Relay (Metered) data use:** add a switch in the Class session to turn student screen viewing off (screen view is the biggest data user when a connection goes through the relay), and show which students are on the relay.
+- **MAR, continuous fluids:** continuous IV fluids should have a **Due** option, and the instructor/student should be able to select the box at the current time to record what happened to the fluid: stopped, held, discontinued, bag change, etc.
 - **Critical lab alert:** clicking the critical lab should clear the "1 CRIT" warning on the left side of the screen.
 - **"Apply to our patient at 1600 and add to the patient creation skill":** the instructor wrote this right after the critical-lab note. Ask what "this" means (the critical-lab behavior? a new event at 1600?) and which patient before doing it. There is no patient creation skill yet (only `.claude/skills/team-case-study`), so one may need to be written.
 
