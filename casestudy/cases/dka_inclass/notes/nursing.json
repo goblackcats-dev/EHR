@@ -1,0 +1,43 @@
+[
+ {
+  "id": "note_ed_triage_nursing_note_202701110140",
+  "type": "progressNotes",
+  "title": "ED Triage Nursing Note",
+  "author": "B. Kessel, RN",
+  "datetime": "2027-01-11 01:40",
+  "category": "Nursing Note",
+  "summary": "28-year-old man with type 1 diabetes, 5 days of flu-like illness, vomiting, fast deep breathing; skipped his long-acting insulin 2 nights. Mask on; droplet precautions ordered. POC glucose 524.",
+  "body": "**Arrival 0130** with his sister, Tessa Mercer (support person). Surgical mask placed at the door (cough, fever).\n\n**Triage 0135**\nT 100.6 F, HR 124, BP 102/60, RR 28 deep and regular (Kussmaul), SpO2 97% on room air. Pain 6/10 (belly and body aches). GCS 15 but drowsy. Weight 76.0 kg (ED bed scale). POC glucose 0138: **524**.\n\n**History (patient and sister)**\n- Type 1 diabetes since age 16. Injections: glargine 24 units at bedtime and lispro with meals. No pump, no sensor.\n- Sore throat, dry cough, fever and body aches since Wednesday 01/06. Ate very little from Thursday.\n- **Skipped his glargine Saturday and Sunday night**: \"I wasn't eating, so I thought I'd go low.\" No lispro since Friday lunch. Last insulin of any kind: glargine Friday 2100.\n- Vomited 6-8 times since Sunday about 1000. Belly ache. Very thirsty, urinating a lot. Meter read \"HI\" Sunday evening. No ketone check (his strips are expired).\n- Sister texted him from 2100 with no answer. She used her key at about 0100 and found him drowsy, breathing fast and deep, \"smelling like nail polish remover.\"\n\n**Allergy:** codeine (hives).\n\n**Plan per Dr. Lindahl (0140):** droplet precautions (respiratory viral panel to be sent), labs, ECG, chest x-ray, NPO. ESI level 2.",
+  "allowTimes": [
+   "2100",
+   "1000"
+  ]
+ },
+ {
+  "id": "note_ed_nursing_note__dka_treatmen_202701110630",
+  "type": "progressNotes",
+  "title": "ED Nursing Note - DKA Treatment and Response",
+  "author": "B. Kessel, RN",
+  "datetime": "2027-01-11 06:30",
+  "category": "Nursing Note",
+  "summary": "ED care 0130-0630: 0.9% saline about 2.5 L by transfer, insulin 7.6 units/h since 0305, two IVs, voids 1,250 mL, emesis 350 mL, mask on.",
+  "body": "**IV access**\n- 18 g left forearm 0145 (labs drawn). 20 g right antecubital 0150 (saline lock).\n\n**Treatment**\n- Respiratory viral panel swab 0150 (pending). Ondansetron 4 mg IV 0150.\n- 0.9% sodium chloride 1,000 mL bolus 0155-0255, then 500 mL/h 0300-0500, then 250 mL/h from 0500 (2,500 mL by 0700).\n- Acetaminophen 1,000 mg IV 0230 for fever and aches.\n- ECG 0200. Chest x-ray 0230.\n- **Insulin regular infusion 7.6 units/h started 0305**, no bolus, own pump into the left forearm line. Independent double check with T. Rourke, RN.\n\n**Response**\n- POC glucose 0138 524, 0300 468, 0400 412, 0500 354, 0600 302.\n- Vitals 0615: HR 112, BP 108/64, RR 24, SpO2 98% room air, T 99.4 F. Still breathing deep. More awake than on arrival.\n- Output: voids 0215 400 mL (urine sample), 0430 450 mL, 0630 400 mL = 1,250 mL. Emesis 0205 200 mL, 0350 150 mL = 350 mL.\n\n**Other**\nSurgical mask on for transport; droplet precautions. Sister at the bedside. Belongings: phone, wallet, glucose meter, both insulin pens.",
+  "allowTimes": [
+   "0700"
+  ]
+ },
+ {
+  "id": "note_ed_to_stepdown_handoff_sbar_202701110645",
+  "type": "progressNotes",
+  "title": "ED to Step-Down Handoff (SBAR)",
+  "author": "B. Kessel, RN",
+  "datetime": "2027-01-11 06:45",
+  "category": "Nursing Note",
+  "summary": "SBAR to SD-3: DKA after skipping his long-acting insulin during a viral illness; insulin 7.6 units/h, 0.9% saline 250 mL/h; glucose 302 at 0600; \"K 5.6, too high for potassium, none given.\"",
+  "body": "**S:** Caleb Mercer, 28, type 1 diabetes, **DKA** after he skipped his long-acting insulin for 2 nights during a flu-like illness. Full Code. **Allergy: codeine (hives).** Weight 76.0 kg. Droplet precautions (respiratory viral panel pending).\n\n**B:** Arrival labs 0145: glucose 538, bicarbonate 8, anion gap 28, BHB 6.4, pH 7.18, creatinine 1.5. **K 5.6, too high for potassium, none given.** Chest x-ray clear. ECG: sinus tachycardia with peaked T waves. Repeat labs were drawn at 0500.\n\n**A:**\n- Insulin regular **7.6 units/h** since 0305 (fixed rate, no bolus). Left forearm 18 g.\n- **0.9% sodium chloride 250 mL/h.** Right antecubital 20 g saline lock.\n- Glucose **302 at 0600**, falling about 50 an hour.\n- Vitals 0615: HR 112, BP 108/64, RR 24 deep, SpO2 98% room air, T 99.4 F.\n- In: 0.9% sodium chloride 2,500 mL by 0700. Out: urine 1,250 mL (last void 0630, 400 mL), emesis 350 mL (last 0350).\n- Ondansetron 4 mg IV 0150; acetaminophen 1,000 mg IV 0230.\n\n**R:** Hourly glucose. D10W line when the glucose is under 250 (protocol). Labs at 0930 per the admission orders. Sister Tessa is staying.",
+  "allowTimes": [
+   "0700",
+   "0930"
+  ]
+ }
+]

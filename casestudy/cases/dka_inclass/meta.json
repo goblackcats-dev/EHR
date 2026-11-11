@@ -1,0 +1,12 @@
+{
+ "id": "dka_inclass",
+ "caseCode": "CS-DKA-CLASS-MERCER",
+ "group": "Case Study Patients",
+ "title": "In-class DKA: Caleb Mercer (36 h, checkpoints every 4 hours)",
+ "patient": "Caleb Mercer",
+ "age": 28,
+ "sex": "Male",
+ "diagnosis": "Moderate-to-severe diabetic ketoacidosis (pH 7.18, bicarbonate 8, beta-hydroxybutyrate 6.4, anion gap 28) in type 1 diabetes after stopping basal insulin during a viral illness",
+ "room": "SD-3",
+ "desc": "Mon 01/11 0700 to Tue 01/12 1900 in ten 4-hour checkpoints (in class; bedside monitor MRN SIM-40601). A 28-year-old with type 1 diabetes stopped his long-acting insulin for 2 nights during a flu-like illness and arrives from the ED on fixed-rate insulin. Adult DKA protocol with a dextrose line and peripheral potassium riders, droplet precautions, potassium and glucose changes on treatment, IV site care, the transition to subcutaneous insulin, sick-day teaching and discharge planning. Vital signs and bedside glucoses after 0700 come from the monitor and the instructor."
+}

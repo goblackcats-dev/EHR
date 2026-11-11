@@ -85,6 +85,15 @@
      "sex": "Male"
     },
     {
+     "id": "dka_inclass",
+     "name": "Caleb Mercer",
+     "title": "In-class DKA: Caleb Mercer (36 h, checkpoints every 4 hours)",
+     "desc": "Mon 01/11 0700 to Tue 01/12 1900 in ten 4-hour checkpoints (in class; bedside monitor MRN SIM-40601). A 28-year-old with type 1 diabetes stopped his long-acting insulin for 2 nights during a flu-like illness and arrives from the ED on fixed-rate insulin. Adult DKA protocol with a dextrose line and peripheral potassium riders, droplet precautions, potassium and glucose changes on treatment, IV site care, the transition to subcutaneous insulin, sick-day teaching and discharge planning. Vital signs and bedside glucoses after 0700 come from the monitor and the instructor.",
+     "file": "casestudy/cases/dka_inclass/patient.json",
+     "age": 28,
+     "sex": "Male"
+    },
+    {
      "id": "hip_orif",
      "name": "Doris Kowalczyk",
      "title": "Step-Down: right hip fracture ORIF (POD 2) with a catheter-associated UTI",
