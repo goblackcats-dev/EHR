@@ -1,5 +1,5 @@
 #!/bin/bash
-# Rebuilds the Lauren Mitchell team case study packet + key, converts to PDF and checks layout and facts.   bash build_all.sh
+# Rebuilds the Nora Whitcombe team case study packet + key, converts to PDF and checks layout and facts.   bash build_all.sh
 # (Screenshots: start a server at the repo root, run node capture_shots.js, then python3 crop_shots.py. They are kept in figs/.)
 cd "$(dirname "$0")"
 python3 crop_shots.py >/dev/null && python3 build_packet.py && python3 build_key.py && \

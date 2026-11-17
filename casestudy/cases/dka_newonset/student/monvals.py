@@ -2,7 +2,7 @@
 (DESIGN.md section 7 / INSTRUCTOR_GUIDE.md part C). Checked by check_facts.py against monitor.html. MAP = (SBP + 2 x DBP) / 3, rounded."""
 MON = {
  1: dict(clock='Mon 0700', temp='98.6', hr='106', bp='110/66', map='81', rr='24, deep', spo2='99% room air', pain='4/10 crampy belly',
-         rhythm='Sinus tachycardia, T waves slightly tall', glucose='274 (0700, also charted)', aloud='0700 274 (charted). Next check 0800. Last void 0610 400 mL.'),
+         rhythm='Sinus tachycardia, T waves slightly tall', glucose='274 (0700, also charted)', aloud='0700 274 (charted). Next check 0800. Last void at 0610: 400 mL.'),
  2: dict(clock='Mon 1100', temp='98.4', hr='96', bp='112/68', map='83', rr='20, still a little deep', spo2='99% room air', pain='2/10 belly',
          rhythm='Sinus rhythm', glucose='186 (0800 222, 0900 204, 1000 192)', aloud='0800 222, 0900 204, 1000 192, 1100 186.'),
  3: dict(clock='Mon 1500', temp='98.6', hr='90', bp='114/70', map='85', rr='18', spo2='99% room air', pain='1/10 calf cramps',
