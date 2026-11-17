@@ -32,7 +32,7 @@ const canonical = {
     { id: 'problem_hyperk', name: 'Hyperkalemia at arrival (K 5.8, shift from acidosis and no insulin; peaked T waves)', status: 'Active', details: 'Total body potassium is low; expect the potassium to fall on insulin.' },
     { id: 'problem_weightloss', name: 'Unintended weight loss (6.0 kg, 9.8% since 09/2026)', status: 'Active', details: 'Usual weight 61.0 kg; 55.0 kg on arrival.' },
     { id: 'problem_knowledge', name: 'Knowledge deficit: new diagnosis of diabetes (survival skills)', status: 'Active', details: 'Diabetes educator and dietitian consulted. Include her mother.' },
-    { id: 'problem_lowk', name: 'Low-normal potassium on insulin (K 3.6 at 1330)', status: 'Active', details: 'Insulin continues (3.5 or more). KCl riders 10 mEq/h, 4 in a row.', availableAt: AV('Mon', '14:15') },
+    { id: 'problem_lowk', name: 'Low-normal potassium on insulin (K 3.6 at 1330)', status: 'Active', details: 'Insulin continues (3.5 or more). Replace potassium per the peripheral potassium protocol; recheck with the 1730 labs.', availableAt: AV('Mon', '14:15') },
     { id: 'problem_hypomg', name: 'Hypomagnesemia, mild (Mg 1.7 at 1330)', status: 'Active', details: 'Magnesium sulfate 2 g IV.', availableAt: AV('Mon', '14:15') },
     { id: 'problem_hypophos', name: 'Hypophosphatemia, mild (phosphorus 1.8 at 1330)', status: 'Active', details: 'From insulin shifting phosphate into the cells. Monitored, not replaced (only under 1.0).', availableAt: AV('Mon', '14:15') },
     { id: 'problem_coping', name: 'Anxiety and grief with a new chronic illness', status: 'Active', details: 'Diagnosis discussed with Nora and her mother at 1700. Social work and diabetes educator involved.', availableAt: AV('Mon', '17:45') },

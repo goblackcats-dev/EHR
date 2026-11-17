@@ -47,6 +47,8 @@ const LATER = [
     IV_SITE: ['Left forearm 18 g: no redness or swelling; D5W/0.45% sodium chloride and insulin infusing. Right forearm 20 g: saline lock since 1230, patent, no redness or swelling; ready for riders', false]
   }],
   ['Mon', '19:00', {
+    NEURO: ['Alert, oriented x4; legs no longer feel heavy; follows commands', false],
+    GU: ['Voiding pale yellow urine; amounts smaller than this morning; no burning', false],
     PSYCHOSOCIAL: ['Tearful since the diagnosis talk at 1700; denial and bargaining ("Can\'t I just fix it with diet like my aunt?"); asks if she caused it; mother supportive at the bedside', true],
     CARDIOVASCULAR: ['Regular rhythm on the monitor; T waves near normal; pulses 2+; capillary refill under 3 seconds', false],
     RESPIRATORY: ['Normal rate and depth; no fruity breath; lungs clear', false],
@@ -68,6 +70,7 @@ const LATER = [
     LEARNING: ['Not ready for detailed teaching tonight; asks to "do it tomorrow with my mom"', true]
   }],
   ['Tue', '03:00', {
+    GU: ['Voided once at about 0200; pale yellow; no burning', false],
     NEURO: ['Hard to rouse for a moment, then groggy, irritable and briefly unsure where she is; oriented x4 within a minute; follows commands; speech slow', true],
     PSYCHOSOCIAL: ['Frightened: "I didn\'t even feel it coming"; mother awake and anxious', true],
     CARDIOVASCULAR: ['Sinus tachycardia on the monitor, regular; pulses strong', true],
