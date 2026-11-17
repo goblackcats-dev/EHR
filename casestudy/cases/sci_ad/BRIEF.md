@@ -1,0 +1,17 @@
+# BRIEF: spinal cord injury patient with autonomic dysreflexia (SHELL, to be refined)
+
+Built with `.claude/skills/patient-course/SKILL.md` (lighter: a general shell the instructor will refine a lot later). Every subagent reads this page first.
+
+## Who and why
+- **Adult with a chronic, high spinal cord injury (T6 or above), past spinal shock** so autonomic dysreflexia (AD) can happen. Default: **man, about 34, complete T4 injury (ASIA A) from a motor vehicle crash about 2 years ago**, wheelchair user, lives independently, uses intermittent catheterization at home (indwelling catheter while in the hospital), bowel program every evening.
+- **Why he is in the hospital:** a reason that is common and teachable for SCI, e.g. a stage 3 sacral pressure injury and/or a urinary tract infection (choose one main reason; keep it simple).
+- **Autonomic dysreflexia event on Day 1** (mid-shift, between checkpoints, so students meet it at a stop): classic trigger = **bladder distension from a kinked or blocked indwelling catheter** (or a full bowel). Classic signs: sudden severe pounding headache, BP rising far above his baseline (his baseline is low, about 90-100 systolic), flushing and sweating above the injury level, pale cool skin below, nasal stuffiness, bradycardia, blurred vision, anxiety. Nursing response (Ignatavicius 11e): sit him up and lower the legs, loosen tight clothing/devices, check BP every 2-5 minutes, find and remove the cause (bladder first: check/straighten/irrigate/replace the catheter; then bowel with anesthetic gel; then skin), notify the provider, give the ordered fast-acting antihypertensive if systolic stays at or above about 150 after the cause is removed (for example nitroglycerin ointment 2% 1 inch above the injury level, or oral nifedipine per order), monitor for 2 hours after, teach prevention and carry an AD card.
+- Other SCI care to show: skin and turning every 2 hours, pressure injury care, bowel program, bladder management, orthostatic hypotension when sitting up, VTE prophylaxis (he HAS a clot-risk factor: SCI with immobility, so enoxaparin is appropriate), respiratory (T4: reduced cough), body temperature regulation, psychosocial.
+
+## Use and timeline
+- **Shell for an in-class patient.** Start **Mon 2027-03-08 0700** on a medical-surgical unit (arrived from the ED overnight or admitted yesterday: choose); **24 hours, checkpoints every 4 hours** (0700, 1100, 1500, 1900, 2300, 0300, 0700). **AD event between 0900 and 1100 Day 1** (or the instructor may move it later).
+- MRN **SIM-40603**, room **4W-14** (check free), folder `casestudy/cases/sci_ad/`. Pre-Built group "Case Study Patients"; the title must say "(draft)" because the instructor will refine it.
+- No case study packet and no VR files yet. Instructor guide: a short one.
+
+## Rules (from the skill; all apply)
+Time-gating; vitals charted only up to 0700 (the Bedside Monitor and the instructor give them later), EXCEPT: none; a NEW nursing assessment at every checkpoint; a NEW lab set (or at least one new result) before every checkpoint; every dose after 0700 is `due`; at least one order to discontinue; at most 2 planted order errors (a shell may have 0-1); at least one ECG with an image (sinus bradycardia during or after the AD event is a good one); plain language; no real brand names except generic (Brand) drug names; unique staff names; no meta words in chart text. The bedside monitor must show the AD event (BP climbing to about 200/110, HR falling to the 40s-50s) and recovery.
