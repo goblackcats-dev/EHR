@@ -94,6 +94,15 @@
      "sex": "Male"
     },
     {
+     "id": "dka_newonset",
+     "name": "Nora Whitcombe",
+     "title": "In-class DKA: Nora Whitcombe (new-onset type 1, 24 h, checkpoints every 4 hours)",
+     "desc": "Mon 02/08 0700 to Tue 02/09 0700 in seven 4-hour checkpoints (in class; bedside monitor MRN SIM-40602). A 22-year-old college student with 6 weeks of thirst, urinating and weight loss arrives from the ED in DKA with a new diagnosis of diabetes. Adult fixed-rate DKA protocol with a dextrose step, peripheral potassium riders, the anion gap and resolution criteria, diet advancement, the transition to basal-bolus insulin with overlap, the emotional side of a new chronic diagnosis, a first low glucose on subcutaneous insulin, and survival-skills teaching for discharge. Vital signs and bedside glucoses after 0700 come from the monitor and the instructor.",
+     "file": "casestudy/cases/dka_newonset/patient.json",
+     "age": 22,
+     "sex": "Female"
+    },
+    {
      "id": "hip_orif",
      "name": "Doris Kowalczyk",
      "title": "Step-Down: right hip fracture ORIF (POD 2) with a catheter-associated UTI",
