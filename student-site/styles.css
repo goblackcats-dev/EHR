@@ -335,6 +335,9 @@ pre { background: #0f172a; color: #e2e8f0; padding: 14px; border-radius: 10px; o
 .test-name-cell {
   font-weight: 600;
   color: #26384d;
+  white-space: normal !important;   /* a long test name or reference range wraps inside its column instead of running into the results */
+  overflow-wrap: anywhere;
+  line-height: 1.25;
 }
 
 .test-reference {
@@ -342,6 +345,7 @@ pre { background: #0f172a; color: #e2e8f0; padding: 14px; border-radius: 10px; o
   font-size: 11px;
   margin-left: 4px;
   font-weight: 400;
+  display: inline-block;
 }
 
 .result-cell {
