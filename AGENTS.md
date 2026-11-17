@@ -1,62 +1,76 @@
-# NursingSim EHR: instructions for Codex
+# AGENTS.md: NursingSim EHR (read this first)
 
-This is a browser-based nursing simulation EHR for fictional patients, with an instructor site, a generated student site, a bedside monitor, patient-course generators, and printable case study packets. The instructor is nursing faculty and new to coding: use plain language and explain what changed and how it was checked.
+Instructions for AI coding agents (Codex, Claude Code and others) working in this repository.
+
+## What this project is
+**NursingSim EHR**: a static, client-side (plain HTML + JavaScript, no framework, no build step for the app) Epic-style electronic health record for **nursing simulation**. It runs on GitHub Pages. The owner is **nursing faculty, new to coding**: explain things in **plain language**, short sentences, no jargon. They run it in the sim lab and in class (Class session with synced clocks, a Bedside Monitor on a second computer, and soon a VR app). They teach from **Ignatavicius, Rebar & Heimgartner, Medical-Surgical Nursing: Concepts for Clinical Judgment and Collaborative Care, 11th ed. (Elsevier)**.
 
 ## Read before working
+- Read `README.md` (including the later version entries), `TODO.md`, and `SECURITY.md` for project history, decisions, and student/instructor separation. A to-do entry is not permission to implement unrelated work.
+- Before patient work, read the patient's `BRIEF.md`, `DESIGN.md`, `REVIEW.md`, and instructor guide/notes where present, plus any review documents they reference. Some older cases do not have every file; do not invent prior decisions or approvals.
+- Read `casestudy/cases/DKA_SERIES.md` before DKA work. Its take-home assessment, lab, and POC-glucose schedule differs from the in-class rules below.
 
-- `README.md`: project overview and version history. The opening version heading is historical; read the later change-log entries too.
-- `TODO.md`: pending work and recorded decisions. A to-do entry is not permission to implement unrelated work.
-- `SECURITY.md`: instructor/student separation and the limits of a public static site.
-- `.claude/skills/patient-course/SKILL.md`: required workflow for creating or rebuilding a patient's hospital course, including independent clinical review and checks.
-- `.claude/skills/team-case-study/SKILL.md`: required workflow and format for student packets and instructor keys.
-- `casestudy/cases/DKA_SERIES.md` before DKA work; its take-home conventions differ from the in-class conventions.
-- Before changing a patient, read that patient's `BRIEF.md`, `DESIGN.md`, `REVIEW.md`, and instructor guide/notes where present under `casestudy/cases/<id>/`. Read any additional review documents they reference. Some older cases do not have every file; do not invent prior decisions or approvals.
+## Branches and publishing
+- The site publishes from branch **`EHR`**; the GitHub default branch is currently `main`. Check the working tree and remote, preserve other work, and start a separate `codex/<task>` branch from an up-to-date `EHR`. Do not share another helper's work branch. Do not force-push. Do not rewrite history.
+- **Merge into or push directly to `EHR` only after the owner has reviewed the result and explicitly approved the merge.** This overrides the automatic merge/push steps in both Claude skills. Do not enable automatic merging in place of review.
+- Ask before anything outward-facing or hard to undo. Never commit secrets (the Cloudflare TURN key lives only in the Cloudflare account, never in this repo).
+- **Do not create pull requests unless the owner asks.**
 
-Treat the two skill files as project instructions when their workflows apply, even though they live under `.claude/`. Keep their clinical and teaching rules in those source files instead of maintaining separate Codex copies. The reminders below do not replace the full skills. Follow the user's current directions when they override older project instructions.
+## Where things are
+| What | Where |
+|---|---|
+| Main app (instructor/student EHR) | `index.html`, `app.js`, `styles.css`, `epic.css`, and the feature files (`mar-infusion.js`, `watch.js`, `shared-chart.js`, `handoff.js`, ...) |
+| Student version | `student.html` and `student-site/` are **generated**: run `node make-student.js` then `node make-student-site.js` after any change to the app. Never edit them by hand. |
+| Bedside Monitor | `monitor.html` (per-patient arrays keyed by MRN) and `monitor-remote.js` |
+| Class session (live students, screen view, relay) | `watch.js`, `shared-chart.js`, `quickgive.js` |
+| Pre-built patients menu | `prebuilt/index.json` is **generated**: run `node tools/make-prebuilt.js`. A patient's `meta.json` sets its group; `"draft": true` hides it. |
+| Case study patients and packets | `casestudy/cases/<id>/` (each has `BRIEF.md`, `DESIGN.md`, `REVIEW.md`, `gen/`, `notes/`, `patient.json`, `INSTRUCTOR_GUIDE.md`, and `student/` for the packet) |
+| Case Studies menu index | `casestudy/index.json`, built by `python3 casestudy/make_index.py` |
+| Change log (every version) | `README.md` (newest at the top of the change list) |
+| To-do list and decisions | `TODO.md` |
+| DKA series rules | `casestudy/cases/DKA_SERIES.md` |
 
-## Branch and review workflow
-
-- `EHR` is the publishing branch. GitHub's default branch is currently `main`; explicitly start work from `EHR`.
-- Check the current branch, working tree, and remote before editing. Preserve other work. Create a separate `codex/<task>` branch from an up-to-date `EHR`; do not work directly on `EHR` or share another helper's work branch.
-- Commit and push the work branch and open a pull request targeting `EHR` when preparing work for review.
-- **Do not merge into or push directly to `EHR` until the instructor has reviewed the result and explicitly approved the merge.** This overrides the automatic merge/push steps in both Claude skills. Do not enable automatic merging in place of review.
-- Keep `BRIEF.md`, `DESIGN.md`, and `REVIEW.md` current for patient work and add a README change-log entry for completed changes. Documentation-only changes do not need an app version bump or generated-site rebuild.
+## The two skills: read and follow them
+These are the owner's process, written as instructions. They are in `.claude/skills/` (Claude's folder) but **apply to any agent**:
+- **`.claude/skills/patient-course/SKILL.md`**: building a whole simulated patient (course, chart, instructor guide, monitor rows, VR brief) with a pipeline of independent helper agents and checks. If your tool has subagents, use them as described; otherwise do each role as a separate pass and have an independent second pass review the first.
+- **`.claude/skills/team-case-study/SKILL.md`**: building the printable team case study packet and instructor key (charge nurse + 3 pairs, Quick Checks "teach, not grade").
+Read both before building or changing a patient or packet. The owner's current directions take precedence over older project instructions. When the owner gives a new rule, add it to the right skill (with the date) and to `casestudy/cases/DKA_SERIES.md` if it is a DKA rule.
 
 ## Using the Claude workflows in Codex
+- Translate `AskUserQuestion` to a concise clarification when needed, `Agent` / `run_in_background` to available Codex subagents, and `SendUserFile` to a supported downloadable artifact or file link. Give subagents self-contained prompts and keep one writer responsible for a patient build. Verify their reports yourself.
+- Preserve the patient-course design gate: prepare the independently reviewed design and a plain-language course summary, then get the owner's OK before building a new patient course. This gate is for patient-course work, not routine documentation or app fixes.
+- If independent review or another required tool is unavailable, report that limitation. Do not call a self-review independent or claim an unrun check passed.
+- Old absolute paths such as `/opt/pw-browsers/chromium` and `/opt/node22/lib/node_modules/playwright` describe a previous environment. Discover installed equivalents in Codex.
 
-- Translate Claude tool names to available Codex tools: `AskUserQuestion` means a concise clarification when needed; `Agent` / `run_in_background` means Codex subagents when available; `SendUserFile` means providing a downloadable artifact or file link supported by the current environment.
-- Use the independent designer/researcher/reviewer/builder roles requested by the patient-course skill for patient work. Give each subagent the relevant rules, paths, design, and expected output. Keep one writer responsible for a patient build and verify the reports yourself.
-- If independent reviewers or necessary tools are unavailable, report the limitation; do not label a self-review as independent or claim a check ran when it did not.
-- Preserve the patient-course skill's design gate: prepare the reviewed clinical design and plain-language course summary, then obtain the instructor's OK before building a new course. This gate is for patient-course work, not routine documentation or app fixes.
-- Tool locations in old scripts (for example `/opt/pw-browsers/chromium` and `/opt/node22/lib/node_modules/playwright`) describe a previous environment. Discover installed equivalents; do not assume those paths exist in Codex.
+## Rules that apply to every simulated patient (summary; the skills have the full list)
+- **Time-gating:** nothing appears in the chart before its time (results use `availableAt`, notes `datetime`, orders `orderedAt`; orders that will be stopped early use `stoppedEarly` so no future stop time shows).
+- **In-class patients:** start at **0700 right after the ED**; **checkpoints every 4 hours**; **24 hours = 7 stops fits a 2-hour class**. **Vital signs and bedside glucoses are charted only up to the first stop**; later values come from the Bedside Monitor and the instructor says them aloud.
+- **In-class patients: a new full nursing assessment (including the IV site and unchanged rows carried forward) and a new lab set available by every checkpoint.** At most **2 planted order errors per 24 h**, and at least one order the students should **discontinue** (the app lets students discontinue orders with a reason).
+- **Every dose after the first stop is `due`** on the MAR. Continuous IV fluids get a Due box at the current hour.
+- **Potassium (owner's rule):** peripheral IV riders **max 10 mEq/h**, at most **4 in a row**, **max 20 mEq/L in a peripheral bag**, **40 mEq/L is the central-line cap**; never stack above 10 mEq/h total.
+- **VTE prophylaxis only with a documented clot-risk factor.**
+- At least one ECG record with an image (`casestudy/tools/ecg_image.py`).
+- Plain language; no real brand/company names in patient content except generic (Brand) drug names; unique staff names across patients; no meta words ("student", "scenario", "simulation", "planted") in chart text; show all math (anion gap, corrected sodium, osmolality, Henderson-Hasselbalch and Winter's for every gas).
+- Clinical numbers follow current guidelines (for DKA: the 2024 ADA/EASD/JBDS/AACE/DTS hyperglycemic crises consensus; ISPAD 2022 for children). Where the textbook differs, follow the guideline and note the difference for the instructor.
 
-## Patient and teaching rules to preserve
+## How to check your work (do all that apply before saying "done")
+Run commands from the repository root unless the case documents otherwise. There is no root `package.json` or universal `npm test`. Generators write tracked files; inspect the diff and avoid unrelated rebuilds.
+- Documentation-only changes: check referenced paths and commands and run `git diff --check`. No app version bump, patient/PDF build, or generated-site rebuild is needed.
+- Syntax: `node --check app.js` (and any JS file you changed). For `monitor.html`, extract its `<script>` and `node --check` it.
+- Patient build: `node casestudy/cases/<id>/gen/assemble.js` (it has built-in checks and exits non-zero on a rule break).
+- Packet build: `bash casestudy/cases/<id>/student/build_all.sh` (needs LibreOffice `soffice` and `pdftotext`/`pdftoppm`): must report `problems: 0` and `ALL CHECKS PASSED`.
+- Browser test: serve the repo (`python3 -m http.server 8123`, or `npx http-server -p 8123 -s -c-1 .` when available) and drive it with Playwright (Chromium). Import a patient (`#toolsMenuBtn`, `#openImportBtn`, `#jsonInput`, `#validateImportBtn`, `#applyImportBtn`), pause the clock with `simSetPaused(true)`, step with `simJump(minutes)`. Check no page errors. Test **both** the instructor page and the student page for anything that touches the Class session.
+- For patient changes, step through every checkpoint and verify Orders, MAR, Results, Flowsheets, Notes, Brain, and the monitor against the design. Check time-gating, Due boxes, and order discontinuation. For packets, inspect two or three rendered pages and verify no later-stop or Quick Check answer leaks. Some scripts print problems without a failing exit status; inspect the output as well.
+- Class session connections use PeerJS plus a relay: the relay logins come from a Cloudflare Worker (`ICE_WORKER` in `watch.js`); the student site has a strict Content-Security-Policy generated in `make-student-site.js` (any new web address the student page contacts must be allowed there).
+- After app changes: bump the `?v=` version on the script/style tags and the title in `index.html` (and `case-builder/index.html`, `monitor.html`), add a line to the `README.md` change log, run `node make-student.js` and `node make-student-site.js`, and `node tools/make-prebuilt.js` if patients changed.
 
-- Use fictional patient data only. `DESIGN.md` holds the patient's clinical numbers; keep the chart, monitor, instructor material, VR material when requested, and answer key consistent with it.
-- Time-gate results by `availableAt`, notes by `datetime`, orders by `orderedAt`, and unexpected order stops with `stoppedEarly`. No chart text, screenshots, or packet answers may reveal a later event early.
-- In-class default: arrive at 0700 after ED care; 24 hours with seven checkpoints, every four hours. Each checkpoint needs a new full nursing assessment (including the IV site, carrying unchanged rows forward) and a new lab set available by that stop.
-- In-class vital signs and bedside glucoses are charted only through the initial 0700 stop; later values come from the bedside monitor and the instructor. Do not put these numbers into later assessment text. The take-home DKA series has its own assessment, lab, and POC-glucose schedule in `DKA_SERIES.md`; do not apply in-class packet rules to it.
-- ED doses are `given`; infusions already running at the first stop show `0700 Running`; later doses remain `due` for students.
-- Instructor potassium limits: peripheral total at most **10 mEq/hour**, using separate pump riders one at a time, at most four in a row before recheck; peripheral maintenance bags at most **20 mEq/L**; **40 mEq/L** is the central-line maintenance-fluid cap. Count potassium from the carrier and all riders together and include rider volumes in I&O.
-- VTE prophylaxis requires a documented clot-risk factor. Include an appropriate ECG image. For in-class courses include an order students should discontinue and at most two planted order errors per 24 hours.
-- Use current clinical guidelines, show the calculations in the design, and explain differences from Ignatavicius, Rebar & Heimgartner, *Medical-Surgical Nursing*, 11th edition. Use plain chart language, unique staff names, and the skill's naming rules.
-- Team packets use one rotating charge nurse plus three rotating pairs: **Meds and Orders**, **Vitals & Assessment**, **Results & Labs**. Use `casestudy/cases/addison/student/` as the specified format template and apply all current skill requirements, including Quick Checks, even if an older template or packet is missing them.
-- Each in-class checkpoint has two or three Quick Check questions. Reveal answers with the reason at the end of that stop; students correct their work. Grade completion and correction. Keep answers out of the student packet and verify this in the fact checks.
+## Style for code changes
+- Keep the app static and dependency-free. Wrap/extend existing functions the way the feature files do (they replace app.js globals) rather than rewriting app.js.
+- Small, tested, reversible changes. Say plainly what changed and what you did not test.
 
-## Build and verification
+## Known issues the owner is aware of
+- The **answer keys and instructor guides are in this public repo** (security to-do in `TODO.md`).
+- The class-session relay uses a Cloudflare Worker; the old Metered relay login is kept in `watch.js` only as a last resort and its free data is used up.
+- The flowsheet's instructor-only "Suggested vitals" bar repeats the first-stop vitals all day; use the Bedside Monitor values.
 
-Run commands from the repository root unless a script documents otherwise. Choose the checks that exercise the changed files; there is no root `package.json` or universal `npm test` command. Generators write tracked files, so inspect the diff after running them and avoid unrelated rebuilds.
-
-- Serve the app locally: `python3 -m http.server 8123`, or the skill's `npx http-server -p 8123 -s -c-1 .` when available.
-- For patient changes, edit the case's generator/design/notes, then run its generator, for example `node casestudy/cases/dka_newonset/gen/assemble.js`. Run that case's ECG generator first when needed. The assembler's built-in rule checks must pass; inspect the case's `REVIEW.md` for additional commands. Do not treat one patient's checks as coverage for all patients.
-- Rebuild the pre-built menu after relevant patient/library changes: `node tools/make-prebuilt.js`.
-- For packet changes: `bash casestudy/cases/<id>/student/build_all.sh` (replace `<id>` with the actual case folder). It builds Word/PDF output and runs `render_check.py` and `check_facts.py`. Follow the case's screenshot instructions when images change. The pipeline needs Python packages used by those scripts, LibreOffice (`soffice`), and Poppler PDF tools; check availability first.
-- Packet gates: zero layout problems and matching logical/PDF page counts, all fact checks passing, no later-stop or answer-key leaks, and visual inspection of two or three rendered pages. Some scripts print problems without exiting unsuccessfully, so inspect the output as well as the exit status.
-- Rebuild the Case Studies menu after packet changes: `python3 casestudy/make_index.py`.
-- For app changes, syntax-check affected JavaScript and exercise the affected user flow in a browser. For patient changes, import with zero validation/page errors, step through every checkpoint, check Orders/MAR/Results/Flowsheets/Notes/Brain time-gating and the monitor, and verify the Due boxes and order discontinuation.
-- `student.html` is generated from `index.html`: run `node make-student.js` after changing its source. Run `node make-student-site.js` after app changes to refresh `student-site/`. Follow the skills' version/cache-tag rules for app releases and inspect the generated student output for instructor-only material.
-- Report exactly which checks ran, their results, and any checks blocked by missing dependencies. For documentation-only work, check referenced paths and commands and run `git diff --check`; a patient or PDF rebuild is unnecessary.
-
-## Public repository and student materials
-
-The answer keys in this repository are public, a known follow-up in `TODO.md`. Keep them and instructor-only tools out of generated student materials. Do not add credentials to source code, documentation, logs, or pull requests, and do not repeat existing relay login values. Preserve the existing login/relay behavior unless changing it is part of the user's request. Cloudflare secrets belong in the service configuration, not the repository.
+Do not repeat existing relay login values in documentation, logs, or pull requests. Preserve login and relay behavior unless changing it is part of the owner's request.
