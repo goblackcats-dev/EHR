@@ -1,0 +1,44 @@
+[
+ {
+  "id": "note_ed_triage_nursing_note_202702080150",
+  "type": "progressNotes",
+  "title": "ED Triage Nursing Note",
+  "author": "M. Prewitt, RN",
+  "datetime": "2027-02-08 01:50",
+  "category": "Nursing Note",
+  "summary": "22-year-old woman, no known diabetes. 6 weeks of thirst, urinating, hunger, 6 kg weight loss, tiredness and blurry vision; vomiting and belly pain since Sunday; deep, fast breathing and fruity breath. POC glucose 548.",
+  "body": "**Arrival 0140** with her roommate, Kendall Rowan (21), who drove her in.\n\n**Triage 0145**\nT 98.9 F, HR 126, BP 98/58, RR 30 deep and regular (Kussmaul), SpO2 99% on room air. Pain 6/10 (crampy belly pain). Drowsy but oriented x4, GCS 15. **Fruity (acetone) breath.** Lips dry and cracked. Weight 55.0 kg (ED bed scale). POC glucose 0146: **548**.\n\n**History (patient and roommate)**\n- No known diabetes. No diabetes medicine.\n- About 6 weeks: always thirsty (\"4 or 5 big sports drinks a day, plus water\"), urinating constantly, up 3-4 times a night, always hungry but losing weight, very tired, blurry vision when reading. Two yeast infections (treated over the counter). She blamed the gym and the new semester.\n- Saturday: queasy, ate very little. Sunday: vomiting from about noon (6-7 times), crampy belly pain; by evening \"breathing like I'd been running,\" dry mouth, headache. Ibuprofen 400 mg at 1400 Sunday, vomited.\n- Kendall came home from a late shift about 0100 and found her on the bathroom floor, drowsy, breathing deep and fast, breath \"like nail polish remover.\"\n\n**Allergy:** amoxicillin (rash as a child).\n**Home medicines:** levonorgestrel IUD (2025); ibuprofen 400 mg as needed for headaches.\n\n**Actions**\nED provider at the bedside 0148. NPO. Emesis basin. 18 g IV left forearm 0150; ED labs drawn. Fall precautions (drowsy, weak). Roommate at the bedside.",
+  "allowTimes": [
+   "0150",
+   "1400"
+  ]
+ },
+ {
+  "id": "note_ed_nursing_note_dka_treatment_an_202702080630",
+  "type": "progressNotes",
+  "title": "ED Nursing Note - DKA Treatment and Response",
+  "author": "M. Prewitt, RN",
+  "datetime": "2027-02-08 06:30",
+  "category": "Nursing Note",
+  "summary": "About 2.4 L of 0.9% saline in by 0630; urine 1,350 mL, emesis 150 mL. Insulin infusion 5.5 units/h since 0305 (double checked). Two peripheral IVs. Glucose falling about 55 an hour. Roommate at the bedside; mother called.",
+  "body": "**IV access**\n- 18 g left forearm (0150): main fluid on pump 1 channel A; insulin infusion on channel B, joined at the Y-site on the lowest port. Clear dressing dated 02/08 0150.\n- 20 g right forearm (0155): saline lock, flushes easily, blood return.\n\n**Fluids**\n0.9% sodium chloride 1,000 mL bolus 0200-0300, then 500 mL/h 0300-0500, then 250 mL/h from 0500. Total about 2,375 mL by 0630. No potassium in the fluid (K 5.8 on arrival).\n\n**Insulin**\nRegular insulin 100 units/100 mL (1 unit/mL) at **5.5 units/h (5.5 mL/h)**, fixed rate, no bolus, started 0305 after the potassium result. Independent double check M. Prewitt, RN and J. Galloway, RN. HIGH ALERT label on the bag and the line.\n\n**Glucose (POC)**\n0146 548, 0300 498, 0400 442, 0500 384, 0600 330.\n\n**Output**\nVoids 0230 450 mL (urine sample), 0420 500 mL, 0610 400 mL = 1,350 mL. Emesis 0215 150 mL; none since. Nausea better after ondansetron 4 mg IV at 0200.\n\n**Assessment**\nStill drowsy but easier to wake; oriented x4. Breathing deep and regular, a little slower. Fruity breath. Mucous membranes dry. Vital signs 0615: HR 108, BP 108/66, RR 24, SpO2 99% room air, T 98.6 F.\n\n**Labs**\n0530 set drawn by venipuncture from the right antecubital vein (new-diagnosis labs added). Results back: pH 7.24 (0545), K 4.7 (0615), BHB 5.4 (0625).\n\n**Family**\nRoommate Kendall at the bedside; leaves for class about 0730. She called Nora's mother, Julia Whitcombe (emergency contact), at 0600; Julia is driving in (about 3 hours away). Ice chips only.",
+  "allowTimes": [
+   "0730"
+  ]
+ },
+ {
+  "id": "note_ed_to_step_down_handoff_sbar__202702080645",
+  "type": "progressNotes",
+  "title": "ED to Step-Down Handoff (SBAR)",
+  "author": "M. Prewitt, RN",
+  "datetime": "2027-02-08 06:45",
+  "category": "Nursing Note",
+  "summary": "0530 labs: K 4.7, pH 7.24, CO2 10, anion gap 23, BHB 5.4. Glucose 330 at 0600. Insulin 5.5 units/h; 0.9% sodium chloride 250 mL/h. Due on the unit at 0700: 0.45% sodium chloride and a protocol potassium rider (K 4.7).",
+  "body": "**S**\nNora Whitcombe, 22, new-onset diabetes in moderate-to-severe DKA. To SD-6 (step-down, telemetry) at 0700. Full Code. Allergy: amoxicillin.\n\n**B**\nNo known diabetes. 6 weeks of thirst, urinating, hunger and weight loss (about 6 kg); vomiting since Sunday. Arrived 0140: glucose 562, pH 7.14, CO2 7, anion gap 30, BHB 6.8, K 5.8 with peaked T waves on the ECG. Creatinine 1.3 (volume loss).\n\n**A**\n- **0530 labs:** Na 133, **K 4.7**, Cl 100, **CO2 10**, **anion gap 23**, creatinine 1.1, glucose 352, Mg 2.1, phos 3.9; **pH 7.24**, pCO2 22; **BHB 5.4**; lactate 1.2.\n- POC glucose 0600 **330** (falling about 55 an hour). Next check 0700.\n- Vital signs 0615: HR 108, BP 108/66, RR 24 deep, SpO2 99% room air, T 98.6 F.\n- Insulin infusion **5.5 units/h** since 0305 (1 unit/mL). 0.9% sodium chloride **250 mL/h** since 0500 (about 2.4 L in).\n- Urine 0610 400 mL. Last emesis 0215. Drowsy but oriented; neuro checks normal.\n- IVs: 18 g left forearm (fluid and insulin), 20 g right forearm (saline lock, for potassium).\n\n**R**\n- At 0700: change to **0.45% sodium chloride 250 mL/h** per the admission orders.\n- **A protocol potassium rider is due on the unit** (K 4.7 = 10 mEq by the table), right forearm IV, after checking urine output.\n- Hourly POC glucose: expect under 250 soon; then D5W/0.45% sodium chloride 150 mL/h per the dextrose table. Insulin stays at 5.5 units/h.\n- Neuro checks every 2 hours. Labs again at 0930.\n- Mother on the way; roommate leaving at 0730.",
+  "allowTimes": [
+   "0700",
+   "0730",
+   "0930"
+  ]
+ }
+]

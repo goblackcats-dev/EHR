@@ -1,0 +1,145 @@
+[
+ {
+  "id": "note_night_hospitalist_event_note__202701120330",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Event Note - Low Glucose on the Infusion",
+  "author": "G. Varga, MD",
+  "datetime": "2027-01-12 03:30",
+  "category": "Progress Note",
+  "summary": "Called 0215 for glucose 112 (D10W raised to 150 per the table). At 0300 glucose 62: the D10W tubing had come apart at the Y-site connector when he got up at about 0100, and the dextrose ran into the bed. Dextrose 50% 12.5 g, recheck 124; insulin 3.8 units/h; new D10W tubing at 150 mL/h. Sitting at the edge of the bed, sweaty; no fall.",
+  "body": "**0215 call**\nRN called for glucose 112 at 0200 (158 at 0100). D10W had been raised to 150 mL/h at 0210 per the dextrose table. Plan then: keep insulin 7.6 units/h, recheck in 1 hour.\n\n**0300 event**\nGlucose **62**. Found sitting on the edge of the bed with the bed alarm sounding, sweaty, shaky and \"foggy,\" wanting to walk to the bathroom. **No fall.** The RN traced the lines: the **D10W secondary tubing had pulled apart at the needleless connector on the Y-site**, probably when he got up to void at about 0100. The pump kept running with no alarm, and the dextrose dripped into the bed (sheet and gown wet).\n\n**Treatment (RN, per protocol)**\n- Dextrose 50% 12.5 g (25 mL) IV push 0305. Glucose **124 at 0315**.\n- Insulin lowered to **3.8 units/h** (0.05 unit/kg/h) at 0305. **Not stopped**: BHB 1.1 and anion gap 14 on the 0130 labs, so ketones are still clearing.\n- Open tubing end clamped; **new sterile D10W tubing at 150 mL/h** at 0310 (the contaminated end was not reconnected).\n- Linen changed; back to bed; bed alarm reset.\n\n**0130 labs**\nNa 139, K 4.0, Cl 109, CO2 16, anion gap 14, glucose 140, Mg 1.9. BHB 1.1. pH 7.32, pCO2 31. Chloride 109 with CO2 16 and a gap of only 14: part of the low bicarbonate is now a non-gap acidosis from the saline.\n\n**Plan**\nInsulin 3.8 units/h, D10W 150 mL/h, glucose every hour, call if under 100. Potassium per protocol (K 4.0: 20 mEq, riders 0330 and 0430). Labs 0530.",
+  "allowTimes": [
+   "0330",
+   "0430",
+   "0530"
+  ]
+ },
+ {
+  "id": "note_night_hospitalist_note__dka_r_202701120630",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - DKA Resolved",
+  "author": "G. Varga, MD",
+  "datetime": "2027-01-12 06:30",
+  "category": "Progress Note",
+  "summary": "0530 labs: BHB 0.4, pH 7.34, HCO3 18, gap 13: DKA resolved. Transition to subcutaneous insulin this morning (the night NP will write the orders).",
+  "body": "**0530 labs**\nNa 139, **K 4.2**, Cl 108, **CO2 18**, **anion gap 13**, BUN 10, creatinine 0.8, glucose 160, Mg 1.9, phos 2.6. **BHB 0.4.** Venous gas **pH 7.34**, pCO2 34, HCO3 17.6.\n\n**Assessment**\n- **DKA resolved**: BHB 0.4 (under 0.6) AND pH 7.34 (7.3 or more); serum bicarbonate 18.\n- Glucose stable on insulin 3.8 units/h and D10W 150 mL/h since the 0300 low (see event note).\n- K 4.2: 20 mEq per protocol while the infusion runs.\n- Weight 79.3 kg (0600, I&O record) from 76.0 on arrival; drinking well.\n\n**Plan**\nTransition to subcutaneous insulin this morning with breakfast. The night NP will write the orders. Endocrinology to review."
+ },
+ {
+  "id": "note_endocrinology_note__transitio_202701120715",
+  "type": "progressNotes",
+  "title": "Endocrinology Note - Transition to Subcutaneous Insulin",
+  "author": "P. Beaumont, MD",
+  "datetime": "2027-01-12 07:15",
+  "category": "Progress Note",
+  "summary": "Corrected plan after the RN's question: glargine 24 units 0730 (now every morning), breakfast lispro 0800, drip and D10W off 0930 (2-hour overlap; D10W continues while IV insulin runs). No 2100 glargine tonight or at home.",
+  "body": "**Call from the RN at 0700**\nThe RN asked about the 0635 order: glargine 24 units at 0700 **and** stop the insulin infusion, D10W and saline at 0700. IV insulin is gone within minutes, and glargine takes hours to start working: stopping both at the same time leaves him with no working insulin and risks ketones coming back.\n\n**Data**\n0530: BHB 0.4, pH 7.34, CO2 18, anion gap 13 (resolved). K 4.2. Eating breakfast at 0800.\n\n**Plan**\n1. **Insulin glargine 24 units SubQ at 0730** (his home dose), **then every morning at 0730** from now on.\n2. **Insulin lispro with breakfast at 0800**: 1 unit per 10 g carbohydrate + correction 1 unit per 50 mg/dL above 150 (round to the nearest whole unit). Same with lunch (1200) and dinner (1730). Bedtime correction only if over 250.\n3. **Keep the insulin infusion 3.8 units/h and D10W 150 mL/h until 0930** (at least 2 hours after glargine; 2024 consensus: 2-4 hours). D10W continues as long as IV insulin runs. Then stop both and the 0.9% saline (saline lock).\n4. **No 2100 glargine tonight or at home**: the next dose is 0730 tomorrow.\n5. BMP, Mg, phos and BHB at 0945, 1330 and 1730 (rebound check).\n6. Diabetes educator today: written sick-day plan.\nOrders to follow; the 0635 order will be discontinued.",
+  "allowTimes": [
+   "0720",
+   "0730",
+   "0800",
+   "0930",
+   "0945",
+   "1200",
+   "1330",
+   "1730",
+   "2100"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_progress_not_202701121000",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 2",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-12 10:00",
+  "category": "Progress Note",
+  "summary": "Eating, walking, off the drip since 0930. Resume loratadine. Plan: one night on subcutaneous insulin, discharge tomorrow morning if stable.",
+  "body": "**Subjective**\n\"I feel almost normal.\" Ate all of his breakfast. Showered. Mild dry cough. Sneezing (his usual allergies).\n\n**Objective**\nGlargine 24 units 0730, lispro with breakfast 0800. Insulin infusion, D10W and saline off at 0930; both IVs saline-locked. DKA resolved at 0530 (BHB 0.4, pH 7.34, CO2 18).\n\n**Assessment and plan**\n1. **DKA resolved**, now on glargine every morning and lispro with meals. Watch for rebound ketosis: labs at 0945.\n2. Viral upper respiratory illness: afebrile, improving.\n3. Seasonal allergies: resume home loratadine 10 mg daily as needed.\n4. Up ad lib.\n5. **Disposition:** one night on subcutaneous insulin, then discharge tomorrow morning if the overnight and fasting glucoses are stable and teaching is done."
+ },
+ {
+  "id": "note_nutrition_note__carbohydrate__202701121030",
+  "type": "therapyNotes",
+  "title": "Nutrition Note - Carbohydrate Counting and Sick-Day Eating",
+  "author": "S. Pellegrino, RD",
+  "datetime": "2027-01-12 10:30",
+  "category": "Nutrition",
+  "summary": "Carbohydrate counting review (accurate within 10 g on 3 of 4 items). Sick-day fluids and carbohydrate: 15 g per hour if not eating.",
+  "body": "**Assessment**\nWeight 79.3 kg (usual 79.0). Height 180 cm. Ate 100% of breakfast. Counts carbohydrate for his lispro at home; eats out at lunch on office days.\n\n**Carbohydrate counting check**\nEstimated 4 items from photos: correct within 10 g on 3 of 4 (overestimated a bagel by 20 g). Reviewed reading labels and serving sizes.\n\n**Sick-day eating**\n- Keep drinking: about 250 mL every hour.\n- If he cannot eat meals: **15 g carbohydrate every hour** (for example 4 oz regular juice, 1/2 cup regular soda, 1 regular ice pop, 6 saltine crackers) and keep taking his basal insulin.\n- Sugar-free fluids when the glucose is over 250.\n\n**Plan**\nConsistent carbohydrate diet 60-75 g per meal in the hospital. Handout given."
+ },
+ {
+  "id": "note_hospital_medicine_addendum__0_202701121130",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Addendum - 0945 Labs",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-12 11:30",
+  "category": "Progress Note",
+  "summary": "0945 labs: BHB 0.3 (no rebound), K 3.6: KCl ER 20 mEq at 1100 and 1500.",
+  "body": "**0945 labs** (2 hours after glargine, 15 minutes after the drip stopped)\nNa 138, **K 3.6**, Cl 106, CO2 20, **anion gap 12**, creatinine 0.8, glucose 182, Mg 1.8, phos 2.4. **BHB 0.3.** CBC: WBC 9.6, Hgb 13.8, platelets 241.\n\n**Assessment and plan**\n- **No rebound ketosis** (BHB 0.3, gap 12).\n- **K 3.6** off the riders: potassium chloride ER 20 mEq by mouth at 1100 and 1500 (ordered 1040). Recheck at 1330.\n- WBC back to normal: the arrival 17.8 was from stress and ketosis.",
+  "allowTimes": [
+   "1500",
+   "1330"
+  ]
+ },
+ {
+  "id": "note_diabetes_education_session_1__202701121330",
+  "type": "therapyNotes",
+  "title": "Diabetes Education Session 1 - Written Sick-Day Plan",
+  "author": "W. Tamura, RN, CDCES",
+  "datetime": "2027-01-12 13:30",
+  "category": "Diabetes Education",
+  "summary": "Taught Dr. Beaumont's written sick-day plan: never stop glargine; glucose and ketones every 2-4 hours when sick; extra lispro 5 units for ketones 0.6-1.4, 9 units and call for 1.5-2.9, ED for 3.0 or more; fluids; when to call. He still believed \"no food, less long-acting.\"",
+  "body": "**Learner:** Caleb (sister Tessa will join for session 2). Learns best with numbers and written steps.\n\n**What happened**\nHe stopped glargine Saturday and Sunday because he was not eating. Explained: basal insulin covers the liver's glucose and ketone production all day, eating or not. Without it, ketones build up within hours.\n\n**Written sick-day plan (Dr. Beaumont; total daily dose 46 units)**\n- **Never stop glargine.** Take the full dose every morning.\n- Check **glucose and blood ketones every 2-4 hours** when sick.\n- Ketones **0.6-1.4**: extra lispro **5 units** (10% of 46), recheck glucose and ketones in 2 hours.\n- Ketones **1.5-2.9**: extra lispro **9 units** (20% of 46), **call the diabetes team**, recheck in 2 hours.\n- Ketones **3.0 or more**: **go to the ED.**\n- Repeat the extra dose every 2-4 hours while ketones stay positive. Take it only if glucose is over 250 (or 150-250 with carbohydrate taken with it).\n- Fluids 250 mL every hour (with 15 g carbohydrate per hour if not eating).\n- Call for vomiting more than twice or cannot keep fluids down, glucose over 300 twice, or ketones not falling after extra insulin. ED for ketones 3.0 or more, fast breathing, belly pain or confusion.\n\n**Response**\nListened and asked good questions, but at the end he said: \"So if I'm not eating, I should still cut back the long-acting a bit?\" He still believes \"no food, less long-acting.\" Needs a second session with teach-back.\n\n**Plan**\nSession 2 this afternoon with his sister: teach-back of the plan, pen practice, ketone meter practice.",
+  "allowTimes": [
+   "1645"
+  ]
+ },
+ {
+  "id": "note_pharmacy_discharge_medication__202701121400",
+  "type": "therapyNotes",
+  "title": "Pharmacy Discharge Medication Review",
+  "author": "N. Bjork, PharmD",
+  "datetime": "2027-01-12 14:00",
+  "category": "Pharmacy Note",
+  "summary": "Recommends blood ketone strips (his meter reads them) and a new glucagon (both expired), pen needles and glucose tablets. Insulin costs covered by his plan.",
+  "body": "**Discharge medicines (planned)**\n- Insulin glargine 24 units SubQ every morning at 0730 (new time).\n- Insulin lispro pen with meals: 1 unit per 10 g carbohydrate + 1 unit per 50 mg/dL above 150.\n- Loratadine 10 mg daily as needed; acetaminophen as needed.\n\n**Recommendations**\n1. **Blood ketone strips**: his meter reads blood ketones; his strips expired in 2024. He needs them for the sick-day plan.\n2. **Glucagon**: his nasal glucagon expired 06/2025. New prescription (nasal 3 mg or injection 1 mg), with teaching for his sister.\n3. Pen needles, glucose meter strips and lancets, glucose tablets.\n4. Label the pens (long-acting and rapid-acting look alike).\n\n**Coverage**\nEmployer insurance covers his insulin with a small copay. Prescriptions can go to the hospital outpatient pharmacy for bedside delivery."
+ },
+ {
+  "id": "note_case_management_discharge_plan_202701121430",
+  "type": "caseManagement",
+  "title": "Case Management Discharge Planning Note",
+  "author": "L. Ferraro, RN CM",
+  "datetime": "2027-01-12 14:30",
+  "category": "Case Management",
+  "summary": "Employer insurance; prescriptions to the hospital outpatient pharmacy for bedside delivery; follow-up with Dr. Harlow 01/15 1000; sister will pick him up tomorrow morning and stay with him the first night (roommate works nights).",
+  "body": "**Situation**\nPlanned discharge tomorrow morning after one night on subcutaneous insulin.\n\n**Assessment**\n- Insurance: employer plan, active. Works from home 3 days a week; employer note given for this week.\n- Home: apartment with a roommate who works nights.\n- Support: sister Tessa Mercer, 15 minutes away.\n\n**Plan**\n- Prescriptions to the hospital outpatient pharmacy for bedside delivery before discharge.\n- **Follow-up: J. Harlow, MD (endocrinology), Friday 01/15 at 1000.**\n- Tessa will pick him up tomorrow morning and stay with him the first night (the roommate works nights).\n- Diabetes educator phone follow-up next week."
+ },
+ {
+  "id": "note_diabetes_education_session_2__202701121645",
+  "type": "therapyNotes",
+  "title": "Diabetes Education Session 2 - Teach-Back with His Sister",
+  "author": "W. Tamura, RN, CDCES",
+  "datetime": "2027-01-12 16:45",
+  "category": "Diabetes Education",
+  "summary": "Teach-back of the sick-day plan correct, including the extra-lispro doses. Practiced picking the right pen (rapid with meals, long-acting each morning) and labeled the pen caps. Ketone meter practice with a unit demo strip.",
+  "body": "**Learners:** Caleb and his sister Tessa.\n\n**Teach-back (his words)**\n- \"Basal every morning, no matter what. Even if I can't eat.\"\n- \"Glucose and ketones every 2 to 4 hours when I'm sick.\"\n- \"Ketones 0.6 to 1.4: 5 extra units of lispro. 1.5 to 2.9: 9 units and call. 3 or more: ER.\"\n- \"Drink a cup of fluid every hour; 15 grams of carbs an hour if I can't eat.\"\n- Correct on when to call and when to go to the ED.\n\n**Pens**\nPracticed choosing the pen: rapid-acting (lispro) with meals, long-acting (glargine) each morning. Labeled the pen caps with colored tape. Correct 3 of 3 times.\n\n**Ketone meter**\nPracticed a blood ketone check with a unit demo strip. His own strips at home are expired.\n\n**Glucagon**\nShowed Tessa where glucagon is used and when (unable to swallow, not responding).\n\n**Outcome**\nGoals met for the sick-day plan and pen choice."
+ },
+ {
+  "id": "note_endocrinology_progress_note___202701121715",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - Stable on Subcutaneous Insulin",
+  "author": "P. Beaumont, MD",
+  "datetime": "2027-01-12 17:15",
+  "category": "Progress Note",
+  "summary": "Stable on subcutaneous insulin (196 before lunch, 142 before dinner, BHB 0.2). One night on SubQ, then discharge tomorrow if overnight and fasting glucoses are 100-250. Glargine 24 units every morning; sensor referral.",
+  "body": "**Data**\nGlargine 24 units 0730; lispro with meals. POC glucose 196 before lunch, 142 before dinner. 1330 labs: K 3.9, CO2 22, anion gap 11, **BHB 0.2** (no rebound).\n\n**Assessment**\nStable on his home basal dose at the new morning time.\n\n**Plan**\n1. One night on subcutaneous insulin; **discharge tomorrow** if overnight and fasting glucoses are 100-250 with no low.\n2. **Glargine 24 units every morning at 0730** (next dose 0730 tomorrow; none tonight).\n3. Lispro 1 unit per 10 g carbohydrate + 1 unit per 50 above 150.\n4. Written sick-day plan given; teach-back done with the educator.\n5. Glucose sensor referral; follow-up with Dr. Harlow 01/15."
+ },
+ {
+  "id": "note_hospital_medicine_discharge_pl_202701121800",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Discharge Planning Note",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-12 18:00",
+  "category": "Progress Note",
+  "summary": "Hospital course. Discharge planned tomorrow after breakfast with his sister. Prescription list as ordered at 1745.",
+  "body": "**Hospital course**\n28-year-old man with type 1 diabetes admitted 01/11 with moderate-to-severe DKA (pH 7.18, bicarbonate 8, anion gap 28, BHB 6.4) after stopping his basal insulin during a viral illness (respiratory viral panel negative). Treated with 0.9% saline, fixed-rate insulin 7.6 units/h and a D10W line. Course: K 3.2 with U waves and PVCs on Day 1 afternoon (insulin held 1500-1750, 4 KCl riders, magnesium 2 g); right antecubital IV infiltration during a KCl rider (grade 2, resolved); low glucose 62 at 0300 from a disconnected D10W line (treated, no fall). DKA resolved 0530 today (BHB 0.4, pH 7.34, CO2 18). Glargine 24 units 0730 with a 2-hour overlap; drip off 0930. No rebound (BHB 0.3, then 0.2).\n\n**Discharge plan (order 1745)**\n- Home tomorrow after breakfast if overnight and fasting glucoses are 100-250 with no low, BHB under 0.6, and supplies in hand.\n- Prescriptions: insulin glargine 24 units every morning (0730); insulin lispro pens (1 unit per 10 g carbohydrate + 1 unit per 50 mg/dL above 150); pen needles; glucose meter strips; lancets; glucose tablets.\n- Follow-up: J. Harlow, MD (endocrinology) 01/15 at 1000.\n- His sister Tessa will drive him home and stay the first night."
+ }
+]

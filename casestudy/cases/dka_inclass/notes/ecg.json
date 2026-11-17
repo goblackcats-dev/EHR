@@ -1,0 +1,40 @@
+[
+ {
+  "id": "note_ecg_202701110215",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "F. Lindahl, MD",
+  "datetime": "2027-01-11 02:15",
+  "category": "Cardiology",
+  "summary": "Sinus tachycardia 122, PR 146 ms, QRS 90 ms, QT/QTc 300/428 ms. Peaked, narrow T waves V2-V4 (potassium 5.6 at 0145).",
+  "body": "**Measurements**\nVentricular rate 122 bpm. PR 146 ms. QRS 90 ms. QT/QTc 300/428 ms (Bazett: RR 60/122 = 0.492 s; 0.300 / 0.701 = 0.428).\n\n**Interpretation**\nSinus tachycardia. Tall, narrow, peaked T waves in V2 to V4. P waves present; PR and QRS normal (no signs of severe hyperkalemia). No ST changes. No arrhythmia.\n\n**Context**\nDKA. Potassium 5.6 at 0145. Acidosis and no insulin move potassium out of the cells; total body potassium is low. Insulin will move it back in: watch the potassium closely once the insulin starts.",
+  "study": "ECG 12 lead, acquired 02:00",
+  "impression": "Sinus tachycardia 122 with peaked T waves V2-V4, consistent with potassium 5.6. QTc 428 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0200.png",
+    "caption": "12-lead ECG acquired 2027-01-11 02:00",
+    "alt": "12-lead ECG tracing from 2027-01-11 02:00: Sinus tachycardia 122, PR 146 ms, QRS 90 ms, QT/QTc 300/428 ms. Peaked, narrow T waves V2-V4 (potassium 5.6 at 0145)."
+   }
+  ]
+ },
+ {
+  "id": "note_ecg_202701111515",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-11 15:15",
+  "category": "Cardiology",
+  "summary": "Sinus rhythm 98, PR 150 ms, QRS 88 ms, QT/QTc 360/460 ms. Flattened T waves, U waves V2-V3, 2 PVCs (potassium 3.2 at 1400).",
+  "body": "**Measurements**\nVentricular rate 98 bpm. PR 150 ms. QRS 88 ms. QT/QTc 360/460 ms (Bazett: RR 0.612 s; 0.360 / 0.782 = 0.460).\n\n**Interpretation**\nSinus rhythm. Low, flat T waves with U waves after them, best in V2 and V3. Two premature ventricular complexes on the strip. Compared with 0200: rate slower (122 to 98), the peaked T waves are gone and a low-potassium pattern has appeared.\n\n**Context**\nPotassium 5.6 (0145), 4.6 (0500), 3.9 (0930), 3.2 (1400) on the insulin infusion; magnesium 1.6. Insulin and D10W held at 1500; KCl riders one at a time; magnesium sulfate 2 g. Avoid ondansetron and other QT-prolonging drugs until K and QTc improve.",
+  "study": "ECG 12 lead, acquired 15:05",
+  "impression": "Sinus rhythm 98 with flat T waves, U waves and 2 PVCs, consistent with potassium 3.2. QTc 460 ms.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_1505.png",
+    "caption": "12-lead ECG acquired 2027-01-11 15:05",
+    "alt": "12-lead ECG tracing from 2027-01-11 15:05: Sinus rhythm 98, PR 150 ms, QRS 88 ms, QT/QTc 360/460 ms. Flattened T waves, U waves V2-V3, 2 PVCs (potassium 3.2 at 1400)."
+   }
+  ]
+ }
+]

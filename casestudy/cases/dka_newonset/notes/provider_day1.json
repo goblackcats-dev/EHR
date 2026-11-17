@@ -1,0 +1,182 @@
+[
+ {
+  "id": "note_ed_provider_note_diabetic_ketoac_202702080430",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Diabetic Ketoacidosis, New Onset",
+  "author": "K. Aldana, MD",
+  "datetime": "2027-02-08 04:30",
+  "category": "ED Provider Note",
+  "summary": "New-onset diabetes in moderate-to-severe DKA (pH 7.14, CO2 7, anion gap 30, BHB 6.8, glucose 562). K 5.8 known before insulin. hCG negative, lipase normal, urine shows no infection. 1 L bolus, 0.9% sodium chloride 500 mL/h, insulin 5.5 units/h from 0305, no potassium yet (K over 5.0). Admit to step-down.",
+  "body": "**Chief complaint**\nVomiting, belly pain and fast, deep breathing.\n\n**HPI**\n22-year-old woman with **no known diabetes**. About 6 weeks of thirst, urinating (up 3-4 times a night), hunger, weight loss (about 6 kg), tiredness and blurry vision. Nausea Saturday; vomiting 6-7 times from Sunday noon with crampy belly pain; fast breathing and headache Sunday evening. Roommate found her drowsy on the bathroom floor at about 0100.\n\n**Exam (0145)**\nT 98.9 F, HR 126, BP 98/58, RR 30 deep and regular (Kussmaul), SpO2 99% room air. Drowsy, GCS 15, oriented x4. Fruity breath. Dry, cracked lips; dry tongue; skin tents; capillary refill 3 seconds. Lungs clear. Heart fast and regular, no murmur. Abdomen soft, diffusely tender, no guarding or rebound. No rash. No focal neuro signs. Weight 55.0 kg.\n\n**Results (drawn 0150)**\n- Glucose 562. Na 130 (corrected 130 + 1.6 x 4.62 = 137.4). **K 5.8.** Cl 93. **CO2 7. Anion gap 30.** BUN 24. **Creatinine 1.3** (no baseline on file). Ca 9.6. Mg 2.3. Phos 5.9.\n- **BHB 6.8.** Venous gas: **pH 7.14**, pCO2 19, HCO3 6.2. Winter's expected pCO2 1.5 x 6.2 + 8 = 17.3 (15.3-19.3): compensation appropriate. Lactate 2.1.\n- Effective osmolality 2 x 130 + 562/18 = 291 (under 300: no hyperosmolar overlap).\n- Delta-delta: gap up 30 - 12 = 18; bicarbonate down 24 - 7 = 17; ratio 1.06 = pure anion-gap acidosis.\n- WBC 16.4 (no bands), Hgb 15.8, Hct 47.5 (concentrated). Lipase 48 (normal). **Serum hCG negative.**\n- UA: specific gravity 1.032, glucose 4+, ketones large, leukocyte esterase and nitrite negative, no bacteria.\n- ECG 0205: sinus tachycardia 124, peaked T waves V2-V4, QTc 426.\n- POC glucose 0300 498 (after 1 L, before insulin), 0400 442.\n\n**Assessment**\n**Diabetic ketoacidosis, moderate-to-severe** (pH 7.14 moderate; bicarbonate 7 and BHB 6.8 severe), **first presentation of diabetes**, most likely type 1 (young, lean, weight loss, ketoacidosis). No infection found as a trigger (afebrile, clean urine, clear lungs). **Potassium 5.8** with peaked T waves: a shift out of the cells from acidosis and no insulin; total body potassium is low. Prerenal kidney injury (BUN/creatinine 18). Hypovolemia from osmotic diuresis and vomiting.\n\n**ED course and plan**\n- 0.9% sodium chloride 1,000 mL bolus 0200-0300 (18.2 mL/kg), then 500 mL/h x 2 hours from 0300, then 250 mL/h.\n- **Regular insulin infusion 0.1 unit/kg/h = 5.5 units/h, fixed rate, no bolus**, started 0305 after the potassium was known (5.8, 3.5 or more). Independent double check by two RNs.\n- **No potassium yet** (K over 5.0). Repeat venous gas, BMP, Mg, phos, BHB and lactate at 0530.\n- Ondansetron 4 mg IV 0200. NPO. Hourly POC glucose.\n- Admit to the Medical-Surgical Step-Down Unit with telemetry; hospitalist called.",
+  "allowTimes": [
+   "0530"
+  ]
+ },
+ {
+  "id": "note_step_down_admission_history_and__202702080540",
+  "type": "hp",
+  "title": "Step-Down Admission History and Physical",
+  "author": "D. Rasmussen, MD",
+  "datetime": "2027-02-08 05:40",
+  "category": "History and Physical",
+  "summary": "New-onset diabetes in moderate-to-severe DKA. Corrected Na 137.4, effective osmolality 291 (no HHS). WBC 16.4 from stress. Type 1 likely; new-diagnosis labs added to the 0530 draw. Plan: fixed-rate protocol, 0.45% sodium chloride at 0700, D5W/0.45% under 250, peripheral potassium riders per table, labs every 4 hours, NPO with RN diet advancement, sodium bicarbonate for bicarbonate 7, no VTE drug, consults.",
+  "body": "**Chief complaint**\nVomiting, belly pain and fast breathing; new high glucose.\n\n**HPI**\nNora Whitcombe is a 22-year-old woman with no known diabetes. Since late December (about 6 weeks): always thirsty (\"4 or 5 big sports drinks a day, plus water\"), urinating constantly and waking 3-4 times a night to void, always hungry but losing weight (her jeans got loose; she thought it was the gym), very tired (falling asleep in lectures), blurry vision when reading slides, and two vaginal yeast infections treated over the counter. Saturday 02/06 queasy, ate very little. Sunday 02/07 vomiting from about noon (6-7 times), crampy belly pain, headache, dry mouth, and by evening \"breathing like I'd been running.\" Took ibuprofen 400 mg at 1400 Sunday and vomited it. Her roommate found her drowsy on the bathroom floor at about 0100 with deep, fast breathing and breath that \"smelled like nail polish remover.\" ED arrival 0140.\n\n**Past history**\nNone. Sports physical 09/2026 at the campus health clinic (H. Szymanski, NP): normal; weight 61.0 kg. Levonorgestrel IUD placed 2025.\n\n**Home medicines**\nLevonorgestrel IUD. Ibuprofen 400 mg as needed for headaches (last Sunday 1400, vomited). No supplements.\n\n**Allergy:** amoxicillin (rash as a child).\n\n**Social**\nThird-year environmental science major at the state university, 3 hours from home. Lives off campus with her roommate, Kendall Rowan. Works part time at the campus library. Runs 3 times a week; started a gym routine in January. Alcohol 2-4 drinks on weekend nights, none for 2 weeks. No tobacco, vaping or drugs. Drives. Insurance through her mother's plan. Mother, Julia Whitcombe (49), lives 3 hours away and is the emergency contact; parents divorced, father out of state.\n\n**Family history**\nMaternal aunt: type 2 diabetes on pills. Maternal grandmother: hypothyroidism. No type 1 diabetes in the family.\n\n**Exam (0500)**\nHR 112, BP 106/64, RR 26 deep and regular, SpO2 99% room air, T 98.6 F. Height 165 cm, weight 55.0 kg (ED bed scale), BMI 20.2; usual weight 61.0 kg (09/2026): 6.0 kg lost (9.8%). Drowsy but answers, oriented x4. Fruity breath. Dry, cracked lips; dry furrowed tongue; skin tents 3 seconds; eyes slightly sunken. Lungs clear. Heart regular, fast, no murmur. Abdomen soft, diffusely tender, no guarding. Moves all limbs; no focal deficit. No rash.\n\n**Results**\n- 0150: glucose 562, Na 130 (**corrected 137.4**), K 5.8, Cl 93, CO2 7, anion gap 30, BUN 24, creatinine 1.3, Mg 2.3, phos 5.9; BHB 6.8; pH 7.14, pCO2 19, HCO3 6.2; lactate 2.1. **Effective osmolality 291** (no HHS overlap).\n- WBC 16.4 with no bands: stress and ketosis (afebrile, clean urine, clear lungs). Hgb 15.8, Hct 47.5 (concentrated). Lipase 48. Serum hCG negative.\n- UA: glucose 4+, ketones large, no infection.\n- ECG 0205: sinus tachycardia, peaked T waves V2-V4 (K 5.8).\n- POC glucose 0300 498, 0400 442, 0500 384 (falling 56-58 an hour on insulin: on target, 50-75).\n- 0530 labs drawn, pending.\n\n**Assessment**\n1. **Diabetic ketoacidosis, moderate-to-severe**, first presentation of diabetes. Improving on fluids and insulin.\n2. **New-onset diabetes, type 1 likely** (young, lean, weeks of the classic signs, weight loss, ketoacidosis). New-diagnosis labs added to the 0530 draw: C-peptide, GAD65, IA-2 and ZnT8 antibodies, TSH, tissue transglutaminase IgA with total IgA.\n3. **Potassium shift**: K 5.8 on arrival; total body potassium is low; expect it to fall on insulin.\n4. **Prerenal acute kidney injury** (creatinine 1.3; estimated baseline 0.7 for her size; BUN/creatinine 18).\n5. **Hypovolemia** from osmotic diuresis and vomiting, about 6% of body weight (3.5 L).\n6. Unintended weight loss (6 kg).\n\n**Plan**\n- Admit to step-down with telemetry, SD-6. Full Code.\n- **DKA protocol (fixed rate)**: regular insulin 5.5 units/h, no titration to glucose; hold only if K is under 3.5. Hourly POC glucose. Neuro checks every 2 hours.\n- **Fluids**: corrected sodium is normal, so change to **0.45% sodium chloride 250 mL/h at 0700**; **D5W/0.45% sodium chloride 150 mL/h when glucose is under 250** per the dextrose table.\n- **Potassium**: peripheral IVs only. KCl 10 mEq/100 mL riders per the protocol table by the newest potassium, one at a time, right forearm IV. No potassium in any bag.\n- **Acidosis**: severe metabolic acidosis with bicarbonate 7: **sodium bicarbonate 100 mEq in 400 mL sterile water IV over 2 hours, to hang on arrival to step-down.**\n- Labs: venous gas, BMP, Mg, phos, BHB at 0930, 1330 and 1730.\n- **Diet**: NPO except ice chips; RN may advance per the DKA order set.\n- Ondansetron and acetaminophen as needed. Hold ibuprofen (kidney injury, vomiting).\n- **No pharmacologic VTE prophylaxis**: age 22, will walk, no clot risk factor (the levonorgestrel IUD is progestin-only).\n- Consults: endocrinology, diabetes educator (CDCES), dietitian, pharmacy, social work.\n- Her roommate will call her mother this morning.",
+  "allowTimes": [
+   "0700",
+   "0930",
+   "1330",
+   "1730",
+   "1400"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_addendum_sodiu_202702080730",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Addendum - Sodium Bicarbonate Order",
+  "author": "A. Petrakis, MD",
+  "datetime": "2027-02-08 07:30",
+  "category": "Progress Note",
+  "summary": "RN called at 0700 about the sodium bicarbonate order: pH 7.24 at 0530 (7.14 at arrival) is above 7.0, so bicarbonate is not indicated; it would also lower the potassium. Order discontinued 0715. Continue the DKA protocol.",
+  "body": "Called by the step-down RN at 0700 (handoff time) about the sodium bicarbonate 100 mEq order entered with the admission orders.\n\n- Newest gas (0530, resulted 0545): **pH 7.24**, pCO2 22, HCO3 9.2. At arrival pH 7.14.\n- Bicarbonate is given in DKA **only when pH is under 7.0** (2024 consensus; our DKA order set). Above 7.0 it gives no benefit, it drives potassium into the cells (K 4.7 and falling on insulin) and it can slow ketone clearance.\n- The order was based on the bicarbonate number (7), not the pH.\n\n**Plan**\n- **Sodium bicarbonate order discontinued at 0715.** Thanked the RN.\n- Continue the protocol: insulin 5.5 units/h, 0.45% sodium chloride 250 mL/h from 0700, KCl rider 10 mEq per the table (K 4.7), hourly glucose, D5W/0.45% when under 250.\n- Reviewed with Dr. Rasmussen at sign-out."
+ },
+ {
+  "id": "note_pharmacy_note_medication_history_202702080900",
+  "type": "therapyNotes",
+  "title": "Pharmacy Note - Medication History and DKA Protocol Check",
+  "author": "Y. Kassab, PharmD",
+  "datetime": "2027-02-08 09:00",
+  "category": "Pharmacy Note",
+  "summary": "Medication history: no home medicines except a levonorgestrel IUD and ibuprofen as needed (held). Drinks 4-5 large sports drinks a day (about 34 g sugar each). Amoxicillin allergy. Dosing weight 55.0 kg. Insulin infusion and peripheral potassium limits reviewed. Insurance through her mother; insulin pens on formulary.",
+  "body": "**Sources:** patient, roommate (by phone), pharmacy fill history.\n\n**Home medicines**\n- Levonorgestrel intrauterine device (placed 2025). No daily medicine.\n- Ibuprofen 400 mg as needed for headaches. Last dose Sunday 1400 (vomited). **Held** (kidney injury, vomiting).\n- No supplements, no over-the-counter weight-loss or energy products.\n- Drinks: 4-5 large sports drinks a day for weeks (about 34 g sugar each = about 136-170 g sugar a day), plus water.\n\n**Allergy:** amoxicillin (rash as a child). No cross-reaction concern with the current orders.\n\n**DKA protocol check (dosing weight 55.0 kg, ED bed scale)**\n- Insulin 0.1 x 55.0 = **5.5 units/h**; bag 100 units/100 mL = 1 unit/mL = 5.5 mL/h. Correct. Lower rate 0.05 x 55.0 = 2.75 units/h only per the dextrose table.\n- D5W/0.45% sodium chloride 150 mL/h = 7.5 g dextrose per hour.\n- **Peripheral potassium:** no more than 10 mEq per hour, as KCl 10 mEq/100 mL riders over 1 hour on a pump, one at a time, at most 4 in a row. No more than 20 mEq/L in a peripheral bag; 40 mEq/L is the central-line cap. Lactated Ringer's carries 4 mEq/L and would add to the total.\n- Ondansetron: QTc 426 on the ED ECG; fine.\n- No bicarbonate unless pH is under 7.0.\n\n**Discharge planning**\nInsurance through her mother's plan. Insulin glargine and insulin lispro pens, pen needles, meter, strips, ketone strips and glucagon are on formulary. Prescriptions can go to the hospital outpatient pharmacy for bedside delivery.",
+  "allowTimes": [
+   "1400"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_progress_note__202702081030",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 1 Morning",
+  "author": "A. Petrakis, MD",
+  "datetime": "2027-02-08 10:30",
+  "category": "Progress Note",
+  "summary": "Improving. Glucose 222 at 0800, so D5W/0.45% sodium chloride was started per protocol and insulin continues at 5.5 units/h (anion gap 19, BHB 3.3: still in DKA). K 4.1: 2 riders per table. HbA1c 11.6% (eAG 286). Nausea gone.",
+  "body": "**Subjective**\nFeels better. Headache gone. Nausea gone since about 0900; no vomiting since 0215. Very thirsty and asking to drink.\n\n**Objective**\n- More alert, oriented, answers quickly. Breathing slower, still a little deep; fruity breath fainter. Mucous membranes drier than ideal; tongue moist. Abdomen soft, mildly tender, bowel sounds active.\n- POC glucose 0700 274, **0800 222** (under 250): **D5W/0.45% sodium chloride 150 mL/h started 0805 per the dextrose table**; insulin unchanged at 5.5 units/h. 0900 204, 1000 192.\n- **0930 labs:** Na 136, **K 4.1**, Cl 104, **CO2 13**, BUN 17, creatinine 0.9, glucose 198, Mg 1.9, phos 2.6, **anion gap 19**, **BHB 3.3**; **pH 7.29**, pCO2 26 (Winter's 1.5 x 12.2 + 8 = 26.3: appropriate).\n- **HbA1c 11.6%** (resulted 1000): estimated average glucose 28.7 x 11.6 - 46.7 = **286 mg/dL**. High glucose for weeks to months, likely before her symptoms began.\n- KCl rider 0715 given (K 4.7). Urine 0800 350 mL, 0945 300 mL.\n\n**Assessment and plan**\n1. **DKA, improving but not resolved**: gap 19 and BHB 3.3. BHB is falling about 0.5 an hour, as expected, so no change in the insulin rate. **Glucose is near normal but the insulin must stay on** to clear the ketones; dextrose keeps the glucose 150-249.\n2. **Potassium 4.1**: 20 mEq by the table, riders at 1030 and 1130 (right forearm IV).\n3. **AKI resolving** (creatinine 1.3 to 0.9).\n4. New-onset diabetes: endocrinology today. Next labs 1330.",
+  "allowTimes": [
+   "1130",
+   "1330"
+  ]
+ },
+ {
+  "id": "note_endocrinology_consult_new_onset__202702081230",
+  "type": "progressNotes",
+  "title": "Endocrinology Consult - New-Onset Diabetes in DKA",
+  "author": "C. Navarro, MD",
+  "datetime": "2027-02-08 12:30",
+  "category": "Consult Note",
+  "summary": "New-onset diabetes, almost certainly autoimmune type 1 (young, lean, weight loss, ketoacidosis, HbA1c 11.6%). TSH 1.8 normal. C-peptide, islet antibodies and celiac screen pending. Transition when resolved: 0.5 unit/kg/day = glargine 14 units + lispro 4 units with meals + sensitive correction; glargine at least 2 hours before the drip stops.",
+  "body": "**Reason for consult**\nNew-onset diabetes presenting in DKA.\n\n**History**\nSee the admission H&P. Six weeks of polyuria, polydipsia, polyphagia, weight loss of 6 kg (9.8%), fatigue and blurry vision, then 2 days of vomiting and Kussmaul breathing. No prior glucose testing. Aunt with type 2 diabetes; grandmother with hypothyroidism.\n\n**Data**\n- Arrival: glucose 562, pH 7.14, bicarbonate 7, anion gap 30, BHB 6.8.\n- 0930: K 4.1, CO2 13, anion gap 19, BHB 3.3, pH 7.29. Glucose 180-204 on D5W/0.45% sodium chloride with insulin 5.5 units/h.\n- **HbA1c 11.6%** (eAG 286).\n- **TSH 1.8** (normal; resulted 1130). Autoimmune thyroid disease is screened at type 1 diagnosis.\n- Pending: C-peptide, GAD65 / IA-2 / ZnT8 antibodies (send-out), tissue transglutaminase IgA with total IgA (celiac screen).\n\n**Assessment**\n**New-onset diabetes, almost certainly autoimmune type 1** (young, lean, rapid weight loss, ketoacidosis at presentation, very high A1c). The antibodies and C-peptide will confirm it. Not type 2: no insulin resistance features, and DKA at presentation.\n\n**Plan**\n- Continue the DKA protocol until resolution: **BHB under 0.6 AND (pH 7.3 or more OR bicarbonate 18 or more)**.\n- **Transition plan** (insulin-naive; 2024 consensus about 0.5-0.6 unit/kg/day):\n  - Total daily dose 0.5 x 55.0 = 27.5 units.\n  - **Basal: insulin glargine 14 units SubQ daily at 1900** (13.75 rounded; 0.25 unit/kg).\n  - **Mealtime: insulin lispro 4 units with each meal** + correction 1 unit per 50 mg/dL over 150 before meals (sensitive scale).\n  - **Glargine at least 2 hours before the infusion stops** (2024: 2-4 hours). Dextrose continues as long as IV insulin runs.\n- Diabetes educator and dietitian today; survival skills before discharge.\n- Will meet Nora and her mother this afternoon to explain the diagnosis.\n- Outpatient: endocrinology clinic within 1 week; plan a continuous glucose sensor at the first visit.",
+  "allowTimes": [
+   "1900"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_progress_note__202702081445",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - 1330 Labs",
+  "author": "A. Petrakis, MD",
+  "datetime": "2027-02-08 14:45",
+  "category": "Progress Note",
+  "summary": "1330 labs: K 3.6, Mg 1.7, phos 1.8 (not replaced), anion gap 17, pH 7.32 but BHB 1.3, so not resolved. Plan: KCl 20 mEq IV over 1 hour x 2 for faster replacement and magnesium sulfate 2 g. Insulin continues.",
+  "body": "**Subjective**\nTolerating sugar-free clear liquids. Legs feel heavy; mild calf cramps. Mother arrived at 1300.\n\n**Objective**\n- POC glucose 1200 180, 1300 174, 1400 170 on D5W/0.45% sodium chloride 150 mL/h and insulin 5.5 units/h.\n- **1330 labs:** Na 137, **K 3.6**, Cl 106, **CO2 14**, BUN 13, creatinine 0.8, glucose 172, Ca 8.7, **Mg 1.7**, **phos 1.8**, **anion gap 17**, **BHB 1.3**; **pH 7.32**, pCO2 27 (Winter's 28.1 +/- 2: appropriate).\n- Riders 1030 and 1130 given. Urine 1150 300 mL, 1330 300 mL.\n- Telemetry: sinus, T waves a little lower than this morning, no U waves, no ectopy.\n\n**Assessment**\n1. **DKA, not yet resolved.** pH 7.32 is over 7.3, but **BHB 1.3** is not under 0.6 (bicarbonate 14). A small non-gap part has appeared from the saline (chloride 93 to 106; gap up only 5 while bicarbonate is down 10). No action for that.\n2. **Potassium 3.6** on insulin (5.8, 4.7, 4.1, 3.6): insulin and correcting the acidosis move potassium into the cells, and she loses it in the urine. Still 3.5 or more, so **insulin continues**.\n3. **Magnesium 1.7**: replace (low magnesium makes potassium hard to correct).\n4. **Phosphorus 1.8**: from insulin shifting it into cells. Not replaced (only under 1.0 or with heart or breathing problems).\n\n**Plan**\n- **Potassium chloride 20 mEq IV over 1 hour x 2 doses from 1500, for faster replacement.**\n- **Magnesium sulfate 2 g IV over 2 hours** from 1500.\n- Continue insulin 5.5 units/h and D5W/0.45% sodium chloride.\n- Next labs 1730.",
+  "allowTimes": [
+   "1500",
+   "1730"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_addendum_potas_202702081520",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Addendum - Potassium Order",
+  "author": "A. Petrakis, MD",
+  "datetime": "2027-02-08 15:20",
+  "category": "Progress Note",
+  "summary": "RN called at 1500: peripheral IVs only, so the limit is 10 mEq/h. KCl 20 mEq/h order discontinued. Protocol riders 10 mEq/100 mL, one at a time, 4 in a row from 1505. Magnesium running. Insulin continues (K 3.6 is 3.5 or more). Recheck with the 1730 labs.",
+  "body": "Called by the step-down RN at 1500 before the potassium was hung.\n\n- Nora has **peripheral IVs only** (18 g left forearm, 20 g right forearm).\n- KCl 20 mEq in 100 mL over 1 hour is 20 mEq/h and 200 mEq/L: a central-line rate and strength. **Peripheral limit: 10 mEq per hour** (riders of 10 mEq/100 mL over 1 hour), and no more than 20 mEq/L in a peripheral bag.\n- Too fast or too concentrated potassium can cause dangerous arrhythmias and burns the vein.\n\n**Plan**\n- **KCl 20 mEq IV order discontinued at 1510.** Thanked the RN.\n- **Protocol riders: KCl 10 mEq/100 mL over 1 hour, one at a time, 4 in a row from 1505** (40 mEq by the table for a potassium of 3.5-3.9), right forearm IV, on their own pump. Urine is well over 28 mL/h (250 mL at 1450).\n- Magnesium sulfate 2 g over 2 hours running from 1505 through the left forearm line.\n- **Insulin continues at 5.5 units/h** (K 3.6 is 3.5 or more).\n- Recheck with the 1730 labs: draw from the right hand below the rider IV with the rider paused 2 minutes per policy.",
+  "allowTimes": [
+   "1605",
+   "1705",
+   "1730",
+   "1805"
+  ]
+ },
+ {
+  "id": "note_nutrition_note_new_diagnosis_bas_202702081530",
+  "type": "therapyNotes",
+  "title": "Nutrition Note - New Diagnosis Basics",
+  "author": "R. Lowell, RD",
+  "datetime": "2027-02-08 15:30",
+  "category": "Nutrition",
+  "summary": "Clear liquids tolerated. Basics: carbohydrate foods, plate method; sugar-sweetened drinks raise glucose fast (her sports drinks); 15 g fast carbohydrate for lows (4 oz juice, 4 glucose tablets). Carbohydrate counting at the clinic later.",
+  "body": "**Assessment**\n- Height 165 cm, weight 55.0 kg, BMI 20.2. Usual weight 61.0 kg (09/2026): **6.0 kg (9.8%) unintended loss** in about 5 months, most in the last 6 weeks (fat and muscle burned without insulin, plus water).\n- Diet history: three meals most days, often skips breakfast before class; runs 3 times a week. For about 6 weeks: **4-5 large sports drinks a day** (about 34 g sugar each) plus water, for thirst.\n- Today: sugar-free clear liquids tolerated (gelatin, broth, diet ginger ale, water), no nausea.\n\n**Education (short; patient tired, mother present)**\n- Which foods carry carbohydrate (grains, fruit, milk, starchy vegetables, sweets, regular drinks).\n- **Sugar-sweetened drinks raise glucose fast**: her sports drinks fed the high glucose for weeks. Choose water and sugar-free drinks for thirst.\n- The plate method: half vegetables, a quarter protein, a quarter starch.\n- **Treating a low: 15 g fast carbohydrate** (4 oz juice or 4 glucose tablets), recheck in 15 minutes.\n\n**Plan**\n- Consistent-carbohydrate diet (45-60 g per meal) after the transition to SubQ insulin; grams on every tray ticket.\n- Regain weight with regular meals now that insulin is on board.\n- Carbohydrate counting at the endocrinology clinic later."
+ },
+ {
+  "id": "note_case_management_discharge_planni_202702081545",
+  "type": "caseManagement",
+  "title": "Case Management Discharge Planning Note",
+  "author": "V. Pemberton, RN CM",
+  "datetime": "2027-02-08 15:45",
+  "category": "Case Management",
+  "summary": "Insurance through her mother's plan. Prescriptions to the hospital outpatient pharmacy for bedside delivery before discharge. Endocrinology clinic follow-up within 1 week. Mother staying with her for a week.",
+  "body": "**Situation:** new-onset diabetes in DKA, expected stay 1-2 days.\n\n**Coverage:** health insurance through her mother's employer plan (dependent until 26). Pharmacy benefit confirmed: insulin pens, pen needles, meter and strips, ketone strips and glucagon covered with copays.\n\n**Home:** off-campus apartment with a roommate (works evenings). Her mother, Julia Whitcombe, has taken leave from work and plans to stay with her for a week after discharge.\n\n**Plan**\n- Prescriptions to the hospital outpatient pharmacy for **bedside delivery before discharge** (supplies in hand).\n- **Endocrinology clinic within 1 week** (glucose sensor start).\n- Campus health clinic (H. Szymanski, NP) informed with Nora's consent.\n- Medical ID information given.\n- Will follow for discharge timing."
+ },
+ {
+  "id": "note_social_work_note_coping_with_a_n_202702081615",
+  "type": "caseManagement",
+  "title": "Social Work Note - Coping With a New Diagnosis",
+  "author": "T. Quinlan, LCSW",
+  "datetime": "2027-02-08 16:15",
+  "category": "Social Work",
+  "summary": "Coping with a new chronic diagnosis; mother present since 1300. With her consent, the dean's office will tell her professors she is in the hospital. Campus disability services for accommodations (glucose checks and snacks during exams); campus counseling; screen for diabetes distress at follow-up.",
+  "body": "**Reason:** new chronic diagnosis in a young adult living away from home.\n\n**Assessment**\n- Met Nora and her mother, Julia (at the bedside since 1300). Nora is overwhelmed and tearful at times; worried about her classes (a lab class Wednesday), her part-time library job and \"being the girl with diabetes.\" Strong relationship with her mother; good friend support (roommate).\n- No history of depression or anxiety treatment. Copes by running and talking with friends.\n- Alcohol on weekends: will be covered in diabetes teaching (delayed lows).\n\n**Plan**\n- With Nora's consent, contacted the **dean's office** to notify her professors of the hospital stay.\n- **Campus disability services**: accommodations for glucose checks, snacks and water during exams and labs.\n- **Campus counseling** information given.\n- Recommend **diabetes distress screening** at follow-up.\n- Will see again before discharge."
+ },
+ {
+  "id": "note_diabetes_education_session_1_fir_202702081640",
+  "type": "therapyNotes",
+  "title": "Diabetes Education Session 1 - First Visit",
+  "author": "E. Thornbury, RN, CDCES",
+  "datetime": "2027-02-08 16:40",
+  "category": "Diabetes Education",
+  "summary": "Met Nora and her mother. Nora checked her own glucose (162 at 1600) with a teaching meter. Explained type 1 diabetes (her immune system stopped her pancreas making insulin; not caused by sports drinks or anything she did). Tearful and overwhelmed; short session. Plan: watch the first glargine tonight; survival skills tomorrow morning with her mother.",
+  "body": "**Readiness:** tired, tearful and overwhelmed; asks many \"why\" questions. Mother engaged and taking notes. Kept the session short.\n\n**Done today**\n- **Glucose check:** Nora checked her own glucose with a teaching meter at 1600: **162**. Correct hand washing, lancing the side of the fingertip, first drop used. Good technique.\n- **What type 1 diabetes is:** her immune system stopped her pancreas from making insulin. It is **not caused by sports drinks, food, or anything she did**, and it is not the same as her aunt's type 2. Insulin is needed every day.\n- **Why insulin matters:** without insulin the body burns fat for fuel and makes ketones (what made her so sick).\n- Showed the two insulin pens (long-acting and rapid-acting) and their different label colors.\n\n**Response:** cried when she heard \"every day\"; asked, \"Did I do this to myself?\" Reassured. Mother asked good questions about lows at night.\n\n**Plan**\n- Tonight: watch and, if she is ready, give her first long-acting dose with RN coaching.\n- **Tomorrow morning with her mother: survival skills** (pen technique, meter, low glucose and glucagon, sick-day rules with ketone testing, medical ID), teach-back.\n- Handout \"Survival Skills: Insulin, Lows, Sick Days.\"",
+  "allowTimes": [
+   "1900"
+  ]
+ },
+ {
+  "id": "note_endocrinology_progress_note_diag_202702081745",
+  "type": "progressNotes",
+  "title": "Endocrinology Progress Note - Diagnosis Discussion",
+  "author": "C. Navarro, MD",
+  "datetime": "2027-02-08 17:45",
+  "category": "Progress Note",
+  "summary": "Diagnosis talk at 1700 with Nora and her mother: type 1 diabetes, lifelong insulin; a \"honeymoon\" may lower insulin needs for a while; she can run, study, drive and later plan a pregnancy. Antibodies pending. Transition when the 1730 labs show resolution.",
+  "body": "**Discussion (1700, with Nora and her mother, about 30 minutes)**\n- **Diagnosis: type 1 diabetes**, almost certainly autoimmune. The antibody tests are pending (send-out, several days).\n- **Insulin is lifelong**, basal once a day plus mealtime doses. It is not caused by anything she did, and it cannot be managed with diet alone.\n- **\"Honeymoon\" period**: in the first weeks to months her pancreas may make a little insulin again, so her insulin needs may fall and lows can happen. We will adjust doses often.\n- She **can run, study, drive and travel**. Later she can plan a pregnancy: aim for a good A1c first (her IUD is in place now).\n- A continuous glucose sensor will be started at the first clinic visit.\n\n**Response:** tearful, quiet; asked if she caused it and whether she could \"just fix it with diet like my aunt.\" Mother supportive.\n\n**Status**\nLatest labs (1330): BHB 1.3, pH 7.32, bicarbonate 14: not yet resolved. 1730 labs drawn.\n\n**Plan**\n- **Transition to SubQ insulin when the 1730 labs show resolution** (glargine 14 units, at least 2 hours before the infusion stops; lispro 4 units with meals + correction).\n- Educator follow-up tomorrow morning with her mother."
+ },
+ {
+  "id": "note_endocrinology_note_dka_resolved__202702081840",
+  "type": "progressNotes",
+  "title": "Endocrinology Note - DKA Resolved, Transition to Subcutaneous Insulin",
+  "author": "C. Navarro, MD",
+  "datetime": "2027-02-08 18:40",
+  "category": "Progress Note",
+  "summary": "1730 labs: BHB 0.5, pH 7.34, CO2 18, anion gap 14: DKA resolved (about 14.5 hours of insulin). Glargine 14 units at 1900; insulin infusion and D5W/0.45% off at 2100 (2-hour overlap); lispro 4 units with the late dinner; K 3.9: KCl ER 20 mEq by mouth; labs at 2200 and 0200 to check for rebound.",
+  "body": "**1730 labs (resulted 1745-1825)**\nNa 138, **K 3.9**, Cl 106, **CO2 18**, BUN 11, creatinine 0.8, glucose 170, Mg 2.1, phos 2.0, **anion gap 14**, **BHB 0.5**; **pH 7.34**, pCO2 33.\n\n**DKA resolved** by the 2024 criteria: BHB 0.5 (under 0.6) AND pH 7.34 (7.3 or more) AND bicarbonate 18 (18 or more). The older criteria are also met (glucose under 200, bicarbonate 15 or more, pH over 7.3). About 14.5 hours of insulin (0305-1730).\n\n**Transition orders**\n- **Insulin glargine 14 units SubQ at 1900**, then daily at 1900. She will give it herself with RN coaching (independent double check).\n- **Continue the insulin infusion 5.5 units/h and D5W/0.45% sodium chloride 150 mL/h until 2100** (2 hours after glargine; 2024: 2-4 hours), then stop both and saline-lock both IVs. IV insulin is gone within minutes; glargine takes hours to start.\n- **Insulin lispro 4 units SubQ with each meal**, 0-15 minutes before eating, + correction 1 unit per 50 mg/dL over 150 before meals. First dose with the late dinner tray (1915).\n- **K 3.9**: potassium chloride ER 20 mEq by mouth at 2000 (eating; the IV potassium protocol ends with the drip).\n- POC glucose before meals, at 2200 and 0300. Hypoglycemia protocol for SubQ insulin.\n- **BMP, Mg, phos and BHB at 2200 and 0200** (rebound ketosis check after the drip stops), and at 0530 with a CBC.\n- Consistent-carbohydrate diet, 45-60 g per meal. Up ad lib once the drip is off.\n- Survival-skills education with her mother.",
+  "allowTimes": [
+   "1900",
+   "1915",
+   "2000",
+   "2100",
+   "2200"
+  ]
+ }
+]

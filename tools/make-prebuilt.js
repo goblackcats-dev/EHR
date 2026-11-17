@@ -70,6 +70,7 @@ if (fs.existsSync(csDir)) fs.readdirSync(csDir).sort().forEach(id => {
   const pf = path.join(csDir, id, 'patient.json'), mf = path.join(csDir, id, 'meta.json');
   if (!fs.existsSync(pf)) return;
   const m = fs.existsSync(mf) ? JSON.parse(fs.readFileSync(mf, 'utf8')) : {};
+  if (m.draft) return;   // meta.json "draft": true keeps a patient that is not finished or checked out of the menu
   const g = groupFor(m.group); if (m.groupNote && !g.note) g.note = m.groupNote;
   g.patients.push({ id, name: m.patient || id, title: m.title || id, desc: m.desc || `${m.caseCode || ''} ${m.diagnosis || ''}`.trim(), file: `casestudy/cases/${id}/patient.json`, age: m.age, sex: m.sex });
 });

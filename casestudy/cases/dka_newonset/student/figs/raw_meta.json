@@ -1,0 +1,121 @@
+{
+ "mar_clock": "07:00",
+ "mar": {
+  "head": {
+   "x": 203,
+   "y": 458.953125,
+   "w": 1182,
+   "h": 53.390625
+  },
+  "ins": {
+   "x": 203,
+   "y": 634.84375,
+   "w": 1182,
+   "h": 145.203125
+  },
+  "half": {
+   "x": 203,
+   "y": 780.046875,
+   "w": 1182,
+   "h": 89.875
+  },
+  "cells": [
+   {
+    "t": "0700",
+    "x": 503,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "0800",
+    "x": 576.5,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "0900",
+    "x": 650,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1000",
+    "x": 723.5,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1100",
+    "x": 797,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1200",
+    "x": 870.5,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1300",
+    "x": 944,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1400",
+    "x": 1017.5,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1500",
+    "x": 1091,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1600",
+    "x": 1164.5,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1700",
+    "x": 1238,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   },
+   {
+    "t": "1800",
+    "x": 1311.5,
+    "y": 458.953125,
+    "w": 73.5,
+    "h": 52.390625
+   }
+  ],
+  "names": [
+   "sodium chloride 0.9% 1,000 mL (DKA fluid, no potassium) • Dose 500 mL/h x 2 hours, then 250 mL/h",
+   "insulin regular (HUMULIN R) 100 units in 0.9% sodium chloride 100 mL (1 unit/mL) infusion - DKA (fixed rate) • Dose 0.1 unit/kg/h = 5.5 units/h (5.5 mL/h)",
+   "sodium chloride 0.45% 1,000 mL (DKA fluid, no potassium) • Dose 250 mL/h",
+   "dextrose 5% and sodium chloride 0.45% (D5W/0.45% NaCl) 1,000 mL - DKA fluid when glucose is under 250 (no potassium) • Dose 150 mL/h when glucose is under 250 (D10W/0.45% sodium chloride 150 mL/h per the dextrose table)",
+   "potassium chloride 10 mEq in 100 mL IV rider (peripheral) • Dose 10 mEq (100 mL over 1 hour)",
+   "dextrose 50% injection (DKA protocol, on the insulin infusion) • Dose 12.5 g (25 mL) if alert; 25 g (50 mL) if not alert",
+   "ondansetron (ZOFRAN) injection • Dose 4 mg",
+   "acetaminophen (TYLENOL) tablet • Dose 650 mg",
+   "sodium bicarbonate 100 mEq in sterile water 400 mL IV infusion • Dose 100 mEq in 400 mL over 2 hours"
+  ]
+ },
+ "ecg_clock": "07:00"
+}

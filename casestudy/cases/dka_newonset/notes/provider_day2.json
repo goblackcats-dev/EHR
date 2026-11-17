@@ -1,0 +1,36 @@
+[
+ {
+  "id": "note_night_hospitalist_event_note_low_202702090345",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Event Note - Low Glucose",
+  "author": "D. Rasmussen, MD",
+  "datetime": "2027-02-09 03:45",
+  "category": "Progress Note",
+  "summary": "Called 0305: glucose 58 at the 0300 check, hard to rouse briefly, then oriented and able to swallow. 4 glucose tablets -> 66 at 0317 -> 4 oz juice -> 94 at 0333 -> crackers, peanut butter and milk. 0200 lab glucose 84, BHB 0.3 (no rebound). Cause: about 40 minutes of brisk walking after the first glargine dose, early insulin sensitivity, snack declined. Recheck at 0400.",
+  "body": "**Event**\nCalled by the RN at 0305. At the scheduled 0300 check Nora was hard to rouse for a moment, then groggy, irritable and briefly unsure where she was; sweaty and pale. **POC glucose 58.** Within a minute she was oriented x4, following commands and able to swallow.\n\n**Treatment (hypoglycemia protocol, by mouth)**\n- 0302: 4 glucose tablets (16 g), chewed.\n- 0317: **66**, still under 70: second round, apple juice 4 oz (15 g) at 0318.\n- 0333: **94**: snack with carbohydrate and protein (crackers, peanut butter, milk 120 mL) at 0335, because breakfast is more than 1 hour away.\n- No correction insulin. No IV dextrose needed (alert, able to swallow).\n\n**Data**\n- **0200 labs (resulted 0245-0255):** Na 139, K 4.1, Cl 105, CO2 22, creatinine 0.7, **glucose 84**, Mg 2.0, phos 2.6, anion gap 12, **BHB 0.3** (no rebound ketosis after the drip stopped at 2100).\n- Bedtime glucose 2200: 148.\n\n**Assessment**\nHypoglycemia on subcutaneous insulin, first night of basal insulin. Likely causes: **about 40 minutes of brisk hallway walking (2215-2255) after her first glargine dose (14 units at 1900)**, early new-onset (\"honeymoon\") insulin sensitivity, and a bedtime snack declined. The dinner lispro (4 units at 1915) is mostly gone 4-5 hours later and is not the cause.\n\n**Plan**\n- **Recheck glucose at 0400** (ordered).\n- No correction insulin overnight.\n- Bed alarm; assist to the bathroom while shaky.\n- **Endocrinology to review the glargine dose and an exercise plan in the morning.**\n- Teaching tomorrow: symptoms of a low (including confusion at night), the 15-15 rule, exercise and lows.",
+  "allowTimes": [
+   "0400",
+   "1900",
+   "1915",
+   "2100",
+   "2200",
+   "2215",
+   "2255"
+  ]
+ },
+ {
+  "id": "note_night_hospitalist_progress_note__202702090645",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Progress Note - Day 2 Morning",
+  "author": "D. Rasmussen, MD",
+  "datetime": "2027-02-09 06:45",
+  "category": "Progress Note",
+  "summary": "0530 labs: CO2 24, anion gap 12, BHB 0.2, K 4.2. C-peptide 0.3 (low) and celiac screen negative; islet antibodies pending. Glucose 118 at 0400. Weight 56.2 kg. Possible discharge this evening if no further low, eating, survival-skills teach-back with her mother, supplies in hand and follow-up booked.",
+  "body": "**Overnight**\nLow glucose at 0300 (58), treated by mouth with two rounds of 15 g (see event note); 94 at 0333 after the second round, snack eaten. **0400 recheck 118.** Slept 0345-0630. No further symptoms.\n\n**Data**\n- **0530 labs:** Na 140, **K 4.2**, Cl 104, **CO2 24**, BUN 11, creatinine 0.7, glucose 124, Mg 2.0, phos 3.0, **anion gap 12**, **BHB 0.2**. No rebound ketosis on SubQ insulin.\n- CBC: WBC 8.2 (stress leukocytosis gone), Hgb 12.6, Hct 37.8 (lower with rehydration), Plt 246.\n- **C-peptide 0.3 ng/mL** (low; normal 0.8-3.1), drawn when the glucose was 352: her pancreas is making very little insulin. Supports type 1 diabetes.\n- **Tissue transglutaminase IgA under 1.0 (negative)** with a normal total IgA (165): no celiac disease.\n- GAD65, IA-2 and ZnT8 antibodies: pending (reference lab).\n- **Weight 56.2 kg** (0600; 55.0 kg on arrival).\n\n**Assessment**\n1. DKA resolved Monday 1730; no rebound.\n2. **Type 1 diabetes, new onset**, supported by the low C-peptide; antibodies pending.\n3. Hypoglycemia overnight after exercise on the first night of basal insulin; endocrinology to adjust the dose this morning.\n4. AKI resolved (creatinine 0.7).\n\n**Discharge plan: possibly this evening (about 1930) with her mother, after her own glargine dose, if:**\n- no further glucose under 70 today;\n- she eats at least half of breakfast and lunch with correct lispro doses;\n- **survival-skills teach-back** with her mother (pen technique, meter, 15-15 rule, glucagon by her mother, sick-day rules with ketone checks, medical ID);\n- **supplies in hand** from the outpatient pharmacy;\n- follow-up booked: endocrinology clinic within 1 week; diabetes team phone check Wednesday morning.\n- **Her mother will check her glucose at 0300 the first night at home.**\nOtherwise discharge Wednesday morning.",
+  "allowTimes": [
+   "1930",
+   "1900",
+   "1730"
+  ]
+ }
+]

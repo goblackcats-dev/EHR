@@ -1,0 +1,150 @@
+[
+ {
+  "id": "note_xr_chest_single_view_portable_202701110310",
+  "type": "imaging",
+  "title": "XR Chest Single View (portable)",
+  "author": "E. Drummond, MD",
+  "datetime": "2027-01-11 03:10",
+  "category": "Radiology",
+  "summary": "No pneumonia. Clear lungs, normal heart size.",
+  "body": "**Exam**\nPortable AP chest radiograph, 0230.\n\n**Indication**\nFever, cough, body aches; diabetic ketoacidosis.\n\n**Comparison**\nNone.\n\n**Findings**\n- Lungs clear. No consolidation, edema, pleural effusion or pneumothorax.\n- Normal heart size. Mediastinum normal.",
+  "study": "Portable chest x-ray, AP",
+  "impression": "No acute cardiopulmonary disease. No pneumonia."
+ },
+ {
+  "id": "note_ed_provider_note__diabetic_ke_202701110420",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Diabetic Ketoacidosis",
+  "author": "F. Lindahl, MD",
+  "datetime": "2027-01-11 04:20",
+  "category": "ED Provider Note",
+  "summary": "Moderate-to-severe DKA (pH 7.18, bicarbonate 8, anion gap 28, BHB 6.4) from basal insulin omission during a viral illness. 1 L bolus, 0.9% saline 500 mL/h, insulin 7.6 units/h from 0305 (K 5.6, so no potassium yet). Viral panel pending; droplet precautions. Admit to step-down.",
+  "body": "**Chief complaint**\nVomiting, belly ache and fast breathing after 5 days of a flu-like illness.\n\n**HPI**\n28-year-old man with type 1 diabetes since age 16 on injections (glargine 24 units at 2100, lispro with meals). Sore throat, dry cough, fever and body aches since Wednesday. Ate little from Thursday. **Skipped glargine Saturday and Sunday night** because he was not eating and feared a low; no lispro since Friday lunch. Vomiting 6-8 times since Sunday morning. Sister found him drowsy and breathing fast at about 0100.\n\n**Exam (0135)**\nT 100.6 F, HR 124, BP 102/60, RR 28 Kussmaul, SpO2 97% room air. Drowsy, GCS 15, oriented. Fruity breath. Dry, cracked lips; skin tents. Lungs clear. Heart fast and regular. Abdomen soft, diffusely tender, no guarding or rebound. No rash.\n\n**Results (0145)**\n- Glucose 538. Na 131 (corrected 138.0). **K 5.6.** Cl 95. **CO2 8. Anion gap 28.** BUN 26. **Creatinine 1.5** (baseline 0.9). Mg 2.2. Phos 5.6.\n- **BHB 6.4.** Venous gas: **pH 7.18**, pCO2 19, HCO3 6.8. Winter's expected pCO2 1.5 x 6.8 + 8 = 18.2 (16.2-20.2): compensation appropriate. Lactate 2.4.\n- Effective osmolality 292 (no hyperosmolar overlap). Measured osmolality 304 vs calculated 301: osmolal gap 3.\n- WBC 17.8 (no bands; stress and ketosis), Hgb 16.4, Hct 49.0. Lipase 92 (under 3 times normal; common in DKA). Liver tests normal; albumin 4.7.\n- UA: glucose 4+, ketones large, no signs of infection.\n- ECG 0200: sinus tachycardia 122, peaked T waves V2-V4, QTc 428.\n- Chest x-ray: no pneumonia.\n- POC glucose 0300 468 (after 1 L, before insulin), 0400 412.\n\n**Assessment**\n**Moderate-to-severe DKA** (pH 7.18 moderate; bicarbonate 8 severe; drowsy) from **stopping basal insulin during a viral illness**. The gap rose by 16 (28 - 12) and the bicarbonate fell by 16 (24 - 8): a pure anion-gap acidosis. Prerenal AKI. Influenza-like illness; respiratory viral panel pending.\n\n**Plan (adult protocol, ADA/EASD/JBDS/AACE/DTS 2024 consensus)**\n1. 0.9% sodium chloride 1 L over 1 hour (done 0155-0255), then 500 mL/h x2 hours, then 250 mL/h.\n2. **Insulin 0.1 unit/kg/h = 7.6 units/h, fixed rate, no bolus**, started 0305 (K 5.6 is over 3.5).\n3. Potassium: none while K is over 5.0; recheck with the 0500 labs. Peripheral IVs only.\n4. Droplet precautions until the respiratory viral panel results.\n5. Acetaminophen for fever; ondansetron for nausea.\n6. Admit to step-down with telemetry (Dr. Varga).",
+  "allowTimes": [
+   "0500",
+   "2100"
+  ]
+ },
+ {
+  "id": "note_stepdown_admission_history_an_202701110600",
+  "type": "hp",
+  "title": "Step-Down Admission History and Physical",
+  "author": "G. Varga, MD",
+  "datetime": "2027-01-11 06:00",
+  "category": "History and Physical",
+  "summary": "Moderate-to-severe DKA from basal insulin omission during a viral illness. Corrected Na 138, effective osmolality 292, WBC 17.8 from stress. Plan: fixed-rate protocol, D10W line under 250, peripheral potassium riders per protocol, labs every 4 hours, no VTE drug (young, walking), consults.",
+  "body": "**Chief complaint**\nVomiting and fast breathing after a flu-like illness.\n\n**HPI**\nCaleb Mercer is a 28-year-old man with type 1 diabetes since 2014 (age 16, diagnosed in DKA). One prior DKA at age 21 (missed insulin at college). Sore throat, dry cough, fever to 101.8 F and body aches since Wednesday 01/06. Poor appetite Thursday and Friday. Took glargine Friday 2100. **Skipped glargine Saturday and Sunday** (\"no food, no insulin, or I'll go low\"). Meter 380 Saturday night; \"HI\" Sunday evening. Vomited 6-8 times from Sunday about 1000. No ketone check (strips expired). His sister found him drowsy at about 0100.\n\n**Past history**\nType 1 diabetes on injections, no pump, no sensor (declined one in 2025). HbA1c 8.1% (10/2026). Eye exam and urine albumin normal in 2026. Feels his lows (shaky, sweaty). Seasonal allergies.\n\n**Home medicines**\nInsulin glargine 24 units SubQ at 2100. Insulin lispro with meals: 1 unit per 10 g carbohydrate + 1 unit per 50 mg/dL above 150. Acetaminophen 1,000 mg every 6 hours as needed. Loratadine 10 mg daily as needed. Glucagon nasal powder 3 mg as needed.\n\n**Allergy:** codeine (hives).\n\n**Social**\nIT help-desk technician (works from home 3 days a week; employer insurance). Lives in an apartment with a roommate, Devin Szabo (works nights, training as a paramedic; away this weekend). Sister Tessa Mercer (31) lives 15 minutes away: support person and emergency contact. Parents out of state. Recreational soccer. Alcohol 2-4 drinks a week, none this week. No tobacco or drugs.\n\n**Family history**\nMaternal uncle: type 1 diabetes. Mother: hypothyroidism.\n\n**Exam (0545)**\nHR 114, BP 108/64, RR 24 deep, SpO2 98% room air, T 99.6 F (0500). Drowsy but answers. Fruity breath. Dry mucous membranes; skin tents. Lungs clear. Heart regular, fast. Abdomen soft, diffusely tender, no guarding. Moves all limbs. Height 180 cm, weight 76.0 kg (BMI 23.5); usual weight 79.0 kg.\n\n**Results**\n- 0145: glucose 538, Na 131 (corrected 138.0), K 5.6, Cl 95, CO2 8, anion gap 28, BUN 26, creatinine 1.5, BHB 6.4, pH 7.18, pCO2 19. Effective osmolality 292. WBC 17.8, no bands. Lipase 92. UA ketones large, no infection.\n- 0500: glucose 348, Na 134, **K 4.6**, Cl 101, CO2 10, anion gap 23, creatinine 1.3, Mg 2.0, phos 3.8, BHB 5.5, pH 7.23, pCO2 22. Lactate 1.5.\n- POC glucose 0500 354, 0600 302 (falling about 50-60 an hour).\n- ECG: sinus tachycardia, peaked T waves (K 5.6). Chest x-ray clear.\n\n**Assessment**\n1. **Moderate-to-severe DKA** (pH 7.18, bicarbonate 8, BHB 6.4), trigger: stopped basal insulin during a viral illness. Improving on fluids and insulin.\n2. **Potassium shift**: 5.6 -> 4.6 on insulin. Total body potassium is low; expect it to keep falling.\n3. Prerenal AKI (creatinine 1.5 -> 1.3).\n4. Influenza-like illness, respiratory viral panel pending. WBC 17.8 is from stress and ketosis (no bands, clear chest x-ray, clean urine).\n5. Lipase 92: not pancreatitis (under 3 times normal).\n6. Knowledge gap: no written sick-day plan.\n\n**Plan**\n- Step-down with telemetry, SD-3. Full Code.\n- **DKA protocol (fixed rate)**: insulin 7.6 units/h; D10W 100 mL/h and 0.9% sodium chloride 150 mL/h when glucose is under 250; POC glucose every hour; hold insulin only if K is under 3.5.\n- **Potassium**: peripheral IVs only, KCl riders per the protocol table by the newest potassium (one at a time, 10 mEq/h maximum).\n- Labs: venous gas, BMP, Mg, phos, BHB at 0930, 1400, 2130, 0130, 0530. Replace Mg if under 1.8. Phosphate monitored. No bicarbonate (pH over 7.0).\n- No pharmacologic VTE prophylaxis: age 28, walking, no clot risk factor.\n- Hold home glargine and lispro while on the infusion. Transition when DKA resolves (BHB under 0.6 and pH 7.3 or more or bicarbonate 18 or more).\n- Consults: endocrinology, pharmacy, diabetes educator, dietitian.",
+  "allowTimes": [
+   "0700",
+   "0930",
+   "1400",
+   "2130",
+   "2100",
+   "1000"
+  ]
+ },
+ {
+  "id": "note_pharmacy_note__medication_his_202701110830",
+  "type": "therapyNotes",
+  "title": "Pharmacy Note - Medication History and DKA Protocol Check",
+  "author": "N. Bjork, PharmD",
+  "datetime": "2027-01-11 08:30",
+  "category": "Pharmacy Note",
+  "summary": "Medication history: glargine 24 units at 2100 (last Fri 2100), lispro 1:10 and 1:50 above 150; codeine allergy. Peripheral potassium limits reviewed. Ondansetron fine at QTc 428; recheck if K falls. His glucagon and blood ketone strips are expired.",
+  "body": "**Sources:** patient, sister, pharmacy fill history, his pens and meter (brought by his sister).\n\n**Home medicines**\n- Insulin glargine 24 units SubQ once daily at 2100. Last dose **Fri 01/08 2100**; skipped Saturday and Sunday.\n- Insulin lispro pen with meals: 1 unit per 10 g carbohydrate + 1 unit per 50 mg/dL above 150. None since Friday lunch.\n- Total daily dose about 46 units (24 basal + about 22 bolus) = 46 / 76 = 0.6 unit/kg/day.\n- Acetaminophen 1,000 mg every 6 hours as needed (last Sunday 1000, vomited).\n- Loratadine 10 mg daily as needed.\n- **Glucagon nasal powder 3 mg: expired 06/2025.**\n- **Blood ketone strips: expired 2024.** His meter can read blood ketones but he has no in-date strips. No refills of either on his pharmacy profile.\n\n**Allergy:** codeine (hives).\n\n**DKA protocol check (weight 76.0 kg)**\n- Insulin 0.1 x 76.0 = 7.6 units/h (bag 1 unit/mL = 7.6 mL/h). Correct.\n- D10W 100 mL/h = 10 g dextrose per hour; 150 mL/h = 15 g per hour.\n- **Peripheral potassium:** no more than 10 mEq per hour, as KCl 10 mEq/100 mL riders over 1 hour, one at a time, at most 4 in a row. No more than 20 mEq/L in a peripheral bag (40 mEq/L is the central-line cap). All sources add up toward the 10 mEq/h limit. Lactated Ringer's carries 4 mEq/L.\n- Ondansetron: fine at QTc 428. Recheck the QTc before more doses if potassium falls.\n- Acetaminophen: maximum 3 g per day from all sources (1,000 mg IV given 0230).\n\n**Recommendation:** review the expired supplies before discharge.",
+  "allowTimes": [
+   "2100",
+   "1000"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_progress_not_202701110930",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Day 1 Morning",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-11 09:30",
+  "category": "Progress Note",
+  "summary": "Improving. Glucose under 250 at 0700: D10W line per protocol. 0500 K 4.6: potassium per the protocol table. Viral panel pending. Continue the protocol. (0930 labs drawn, pending.)",
+  "body": "**Subjective**\nFeels \"a little better.\" Still nauseated and very thirsty. Belly ache and body aches.\n\n**Objective**\nOn the unit since 0700 (telemetry: sinus tachycardia). Insulin 7.6 units/h since 0305. Glucose 248 at 0700: D10W line started per protocol, 0.9% sodium chloride 150 mL/h.\n0500 labs: K 4.6, CO2 10, anion gap 23, BHB 5.5, pH 7.23, creatinine 1.3. Potassium per the protocol table.\n0930 labs drawn; results pending.\n\n**Assessment and plan**\n1. **DKA, improving** (gap 28 -> 23, BHB 6.4 -> 5.5). Continue fixed-rate insulin 7.6 units/h; D10W per the dextrose table. Glucose is not the target; the gap and BHB are.\n2. **Potassium**: 5.6 -> 4.6 on insulin. Riders per the protocol table; next K with the 0930 labs.\n3. AKI improving (1.5 -> 1.3). Strict I&O.\n4. Influenza-like illness: respiratory viral panel pending; droplet precautions.\n5. NPO except ice chips; sugar-free clear liquids when the nausea settles.\n6. Endocrinology to see today.",
+  "allowTimes": [
+   "0930"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_addendum__0_202701111100",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Addendum - 0930 Labs",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-11 11:00",
+  "category": "Progress Note",
+  "summary": "0930 labs: K 3.9 with riders running; Mg 1.8 at the low limit: recheck Mg and K at 1400. Anion gap 20, BHB 4.1, pH 7.27: improving. HbA1c 8.3%.",
+  "body": "**0930 labs**\nNa 136, **K 3.9**, Cl 104, CO2 12, **anion gap 20**, BUN 19, creatinine 1.1, glucose 200, **Mg 1.8**, phos 2.4. **BHB 4.1.** Venous gas pH 7.27, pCO2 25 (Winter's 22.5-26.5: appropriate). HbA1c 8.3%.\n\n**Assessment and plan**\n- DKA improving (gap 23 -> 20, BHB 5.5 -> 4.1). Not resolved. Continue the protocol.\n- **K 3.9 and falling** on insulin: 30 mEq this cycle per the protocol table (riders one at a time). Next K at 1400.\n- **Mg 1.8**, at the low limit while K is falling. Recheck Mg and K at 1400; replace if under 1.8.\n- Phos 2.4: monitor (replace only if under 1.0).\n- Creatinine 1.1: AKI resolving.\n- Nausea better: start sugar-free clear liquids (ordered 1045).",
+  "allowTimes": [
+   "1400"
+  ]
+ },
+ {
+  "id": "note_endocrinology_consult__dka_af_202701111130",
+  "type": "progressNotes",
+  "title": "Endocrinology Consult - DKA After Stopping Basal Insulin",
+  "author": "P. Beaumont, MD",
+  "datetime": "2027-01-11 11:30",
+  "category": "Consult Note",
+  "summary": "Cause: he stopped his basal insulin while not eating. Early basal insulin on the drip is an option, but he will get his home glargine 24 units at the transition in the morning, with the drip stopped at least 2 hours later; keep morning dosing after that. Written sick-day plan and teaching before discharge; offer a sensor.",
+  "body": "**Reason for consult**\nDKA in type 1 diabetes. Requested by Dr. Varga.\n\n**History**\nType 1 diabetes for 12 years on glargine 24 units at bedtime and lispro (1 unit/10 g, correction 1 unit/50 above 150). HbA1c 8.3% today (8.1% in 10/2026). No written sick-day plan: he says he \"was told once, years ago.\" During this illness he stopped glargine because he was not eating. Followed by J. Harlow, MD.\n\n**Data**\n0930: anion gap 20, BHB 4.1, pH 7.27, K 3.9, Mg 1.8. Insulin 7.6 units/h with D10W.\n\n**Impression**\nDKA from **basal insulin omission** during a viral illness. Basal insulin covers the liver's glucose and ketone production all day, eating or not; without it, ketones rise within hours. Type 1 diabetes needs basal insulin every day, even when sick and not eating.\n\n**Recommendations**\n1. Continue the fixed-rate protocol until resolution (BHB under 0.6 and pH 7.3 or more or bicarbonate 18 or more).\n2. **Transition:** early basal insulin while on the drip is an option, but he will get his **home glargine 24 units at the transition in the morning**, with the insulin infusion stopped **at least 2 hours later** (2024 consensus: 2-4 hours). Keep morning dosing after that (new time of day).\n3. Lispro with meals at his home ratio and correction.\n4. Written sick-day plan before discharge (extra lispro by blood ketones; total daily dose 46 units) and teaching with the diabetes educator.\n5. Offer a glucose sensor referral.\n6. Follow-up with Dr. Harlow after discharge."
+ },
+ {
+  "id": "note_hospital_medicine_event_note__202701111530",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Event Note - Potassium 3.2",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-11 15:30",
+  "category": "Progress Note",
+  "summary": "Called by the RN at 1500 for K 3.2 (1445): insulin and D10W held per protocol, 4 KCl riders, magnesium sulfate 2 g (Mg 1.6), STAT labs 1720 after the second rider; avoid ondansetron until K and QTc are better.",
+  "body": "**Event**\nRN called at 1500: **K 3.2** on the 1400 labs (resulted 1445). Monitor showing flat T waves, U waves and PVCs. Calf cramps, legs heavy.\n\n**1400 labs**\nNa 137, K 3.2, Cl 106, CO2 13, anion gap 18, creatinine 1.0, glucose 198, **Mg 1.6**, phos 1.9. BHB 2.6. pH 7.29, pCO2 27.\n\n**ECG 1505**\nSinus rhythm 98, flat T waves, U waves V2-V3, 2 PVCs, QTc 460 ms.\n\n**Assessment**\nHypokalemia on insulin (K under 3.5) with low magnesium. Insulin moves potassium into the cells; low Mg makes K hard to correct.\n\n**Plan**\n- **Insulin infusion and D10W held** (RN held at 1500 per protocol). 0.9% sodium chloride 150 mL/h continues.\n- **KCl riders x4 back to back** from 1505, one at a time (10 mEq/h, the peripheral limit).\n- **Magnesium sulfate 2 g IV over 2 hours** (1515), left line.\n- **STAT venous gas, BMP, Mg, BHB at 1720**, after the second rider and the magnesium finish, from the opposite arm.\n- Restart insulin 7.6 units/h when K is 3.5 or more. Ketones will rise while insulin is held, so keep the hold short.\n- Avoid ondansetron until K and QTc are better.\n- Telemetry; hourly POC glucose.",
+  "allowTimes": [
+   "1720"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_note__insul_202701111800",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Note - Insulin Restarted",
+  "author": "H. Ashworth, MD",
+  "datetime": "2027-01-11 18:00",
+  "category": "Progress Note",
+  "summary": "STAT K 3.6 (1745): insulin restarted 1750. BHB rose 2.6 -> 3.1 and pH 7.27 during the hold (expected). D10W back when glucose is under 250.",
+  "body": "**STAT labs 1720**\nNa 137, **K 3.6**, Cl 106, CO2 13, anion gap 18, creatinine 0.9, glucose 270, **Mg 2.0**, phos 2.0. **BHB 3.1.** pH 7.27, pCO2 28.\n\n**Assessment and plan**\n- **K 3.6** after 20 mEq with the insulin off: **insulin restarted 7.6 units/h at 1750**.\n- **BHB rose 2.6 -> 3.1 and pH fell 7.29 -> 7.27** during the hold: without insulin the body makes ketones again. Expected; it should turn around now.\n- D10W back on when glucose is under 250 (dextrose table).\n- The 4th rider (1805) finishes the run of four; after that, potassium per protocol from the 2130 labs.\n- Mg 2.0 after replacement. Creatinine 0.9: AKI resolved.\n- If he keeps drinking well, lower the 0.9% sodium chloride to 100 mL/h at 1900.",
+  "allowTimes": [
+   "1805",
+   "1900",
+   "2130"
+  ]
+ },
+ {
+  "id": "note_night_hospitalist_note__sign_202701112030",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Sign-Out and IV Infiltration",
+  "author": "G. Varga, MD",
+  "datetime": "2027-01-11 20:30",
+  "category": "Progress Note",
+  "summary": "Sign-out received. RN reported the right antecubital IV infiltrated at 1900 during the 4th KCl rider (grade 2; stopped, removed, elevated, marked; new right forearm IV 1915). Site check every 2 hours. Next potassium per the 2130 labs.",
+  "body": "**Sign-out from Dr. Ashworth**\nDKA on fixed-rate insulin 7.6 units/h (restarted 1750 after a hold for K 3.2). STAT 1720: K 3.6, BHB 3.1, pH 7.27.\n\n**Event (RN call 1905)**\nAt 1900 the right antecubital IV was **swollen about 4 cm, cool, pale, taut and burning** during the 4th KCl rider (92 of 100 mL infused). **Infiltration, INS grade 2.** The RN stopped the rider, disconnected, aspirated, removed the IV, elevated the arm, marked the edges and applied a cold pack per policy. About 9 mEq of potassium went into the tissue. New 20 g IV in the right forearm at 1915.\n\n**Exam 2020**\nRight elbow: swelling about 3 cm, soft, edges marked, no blisters, radial pulse 2+, fingers warm, moves them well.\n\n**Plan**\n- Site check every 2 hours; elevate on a pillow; call for blisters, skin color change, numbness or worse pain.\n- Riders in the new right forearm IV per protocol from the 2130 labs; check the site every hour while a rider runs.\n- D10W restarted at 1900 per the dextrose table; 0.9% sodium chloride 100 mL/h.",
+  "allowTimes": [
+   "2130"
+  ]
+ },
+ {
+  "id": "note_night_hospitalist_addendum__m_202701112330",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Addendum - Maintenance Fluid Order",
+  "author": "G. Varga, MD",
+  "datetime": "2027-01-11 23:30",
+  "category": "Progress Note",
+  "summary": "RN called about the 2245 KCl 40 mEq/L bag: peripheral IVs only, limit 20 mEq/L and no stacking with riders. Order discontinued. Plain 0.9% saline 100 mL/h and riders per protocol.",
+  "body": "**Call from the RN at 2300**\nAt 2245 I ordered 0.9% sodium chloride with KCl 40 mEq/L at 100 mL/h to replace the plain saline. The RN did not hang it and called: Caleb has **peripheral IVs only**. The peripheral limit is **20 mEq/L in a bag** (40 mEq/L is a central-line strength). And 40 mEq/L at 100 mL/h = 4 mEq/h from the bag + 10 mEq/h from a rider = **14 mEq/h, over the 10 mEq/h peripheral limit**.\n\n**Action**\nOrder discontinued at 2320. Keep plain 0.9% sodium chloride 100 mL/h and KCl riders per protocol (K 3.7 at 2130: 30 mEq this cycle, riders 2230, 2330, 0030).\n\n**2130 labs**\nNa 139, K 3.7, Cl 108, CO2 15, anion gap 16, glucose 196, Mg 1.9, phos 2.1. BHB 2.0. pH 7.31, pCO2 30. **Not resolved**: pH is over 7.3 but BHB is not under 0.6. Continue insulin and D10W.",
+  "allowTimes": [
+   "0030"
+  ]
+ }
+]

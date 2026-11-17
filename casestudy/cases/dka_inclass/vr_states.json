@@ -1,0 +1,1688 @@
+{
+  "caseId": "dka_inclass",
+  "source": "casestudy/cases/dka_inclass/DESIGN.md (sections 16, 17, 19). Numbers must match DESIGN.md.",
+  "simulation": {
+    "start": "2027-01-11 07:00",
+    "end": "2027-01-12 19:00",
+    "stopsEveryHours": 4,
+    "discharge": "D3 (2027-01-13) about 10:00 after breakfast (after the course)",
+    "insulinProtocol": "Fixed-rate regular insulin 0.1 unit/kg/h = 7.6 units/h (no titration); 3.8 units/h only for low glucose",
+    "transition": "Glargine 24 units SubQ D2 0730, drip off D2 0930 (2 h overlap)",
+    "plantedWrongOrders": [
+      "D1 2300: NaCl with KCl 40 mEq/L at 100 mL/h (peripheral IV)",
+      "D2 0700: glargine and stop the drip at the same time (no overlap)",
+      "D2 1900: discharge prescriptions missing blood ketone strips and glucagon"
+    ]
+  },
+  "patient": {
+    "name": "Caleb Mercer",
+    "age": 28,
+    "sex": "M",
+    "pronouns": "he/him",
+    "dob": "1998-07-22",
+    "mrn": "SIM-40601",
+    "room": "SD-3",
+    "unit": "Medical-Surgical Step-Down with telemetry",
+    "monitorHeader": "SD-3   MERCER, CALEB   28 M",
+    "heightCm": 180,
+    "weightKg": 76.0,
+    "weightNote": "76.0 kg on the ED bed scale (dosing weight); usual 79.0 kg; 79.3 kg on D2 0600",
+    "bmi": 23.5,
+    "build": "Lean, sporty (plays recreational soccer). Looks a little drawn on Day 1: about 3 kg lost during the illness.",
+    "hair": "Short. Colour is an art choice (not set by DESIGN.md). Flattened and messy on Day 1 and D2 0700; damp after his shower at D2 1100.",
+    "skinToneNote": "Skin tone is an art choice. Show flushing and pallor where they read on any skin tone: lips, nail beds, inner eyelids, palms.",
+    "clothing": "Hospital gown with the telemetry box in the gown pocket, non-skid socks, ID band and red allergy band (codeine). Surgical mask under his chin at D1 0700 (droplet precautions). Gown changed after the wet bed at D2 0300. Own T-shirt from D2 1100; own clothes at D2 1900.",
+    "allergy": "Codeine (hives)",
+    "code": "Full Code",
+    "diagnosis": "Moderate-to-severe diabetic ketoacidosis (DKA) from stopping his long-acting insulin during a viral illness; type 1 diabetes since age 16",
+    "voice": "Mid-range, relaxed, ordinary young-adult speech (art choice). On Day 1 morning: short phrases between deep breaths, slow to answer. Later: quick, chatty, a little self-deprecating.",
+    "manner": "Friendly, a bit embarrassed about skipping insulin ('I didn't want to go low'). Impatient to eat, walk and go home once he feels better. Calls staff 'you guys'. Works IT help desk.",
+    "homeInsulin": "Glargine 24 units at bedtime 2100 (last dose Fri 01/08 2100; skipped Sat and Sun). Lispro 1 unit per 10 g carbohydrate + 1 unit per 50 mg/dL over 150. New plan from D2: glargine 24 units every morning at 0730.",
+    "supportPerson": {
+      "name": "Tessa Mercer",
+      "relation": "older sister",
+      "age": 31,
+      "notes": "Lives 15 minutes away; has a key to his apartment. Found him at about 0100 Monday breathing fast and deep, drowsy, 'smelling like nail polish remover', and drove him to the ED. Brings his home pens at D2 1400. Will pick him up on discharge (D3 morning) and stay the first night (roommate Devin Szabo works nights).",
+      "manner": "Calm, practical, protective; a little scolding with her brother."
+    },
+    "roommate": "Devin Szabo (night-shift paramedic student; never in the room)"
+  },
+  "room": {
+    "id": "SD-3",
+    "layout": [
+      "Single room. Bed in the middle, head against the wall, bed low and locked, side rails up x2 at the head.",
+      "Bedside monitor on a wall arm above and to the patient's right of the head of the bed (screen header 'SD-3   MERCER, CALEB   28 M'). 5-lead telemetry, box in the gown pocket. No oxygen in use at any stop (wall oxygen flowmeter present but not connected).",
+      "LEFT IV pole (patient's left side), for the left forearm 18 g IV: pump 1 with two channels (channel A = 0.9% NaCl primary; channel B = D10W on secondary tubing into a Y-site needleless connector) and a separate single-channel insulin pump.",
+      "RIGHT IV pole (patient's right side): pump 2 for potassium chloride riders (one bag at a time).",
+      "Overbed table, chair for the visitor (Tessa), recliner chair by the window.",
+      "Counter by the sink: glucometer, test strips, lancets, alcohol swabs, gloves. Sharps box on the wall.",
+      "Emesis basin on the bed, urinal hanging on the bed rail, ice-chip cup on the table, call light clipped to the pillow, bed alarm control on the footboard (light on when armed).",
+      "Hand-hygiene sink and foam dispenser inside the door."
+    ],
+    "bags": [
+      {
+        "label": "0.9% Sodium Chloride 1,000 mL",
+        "pump": "pump 1 channel A (left pole)",
+        "line": "left forearm 18 g"
+      },
+      {
+        "label": "Dextrose 10% in Water 1,000 mL",
+        "pump": "pump 1 channel B (left pole), secondary tubing into the Y-site",
+        "line": "left forearm 18 g"
+      },
+      {
+        "label": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+        "pump": "insulin pump (left pole)",
+        "line": "left forearm 18 g"
+      },
+      {
+        "label": "Potassium chloride 10 mEq/100 mL, infuse over 1 hour",
+        "pump": "pump 2 (right pole)",
+        "line": "right antecubital 20 g until D1 1900, then right forearm 20 g"
+      },
+      {
+        "label": "Magnesium sulfate 2 g/50 mL, infuse over 2 hours",
+        "pump": "left pole (D1 1515-1715 only)",
+        "line": "left forearm 18 g, Y-site with NaCl"
+      }
+    ],
+    "bagPatientLabel": "MERCER, CALEB  MRN SIM-40601  DOB 07/22/1998  SD-3  Allergy: codeine",
+    "dropletPrecautions": {
+      "active": "From arrival (D1 0700) until the RN discontinues them at the D1 1100 stop (respiratory viral panel negative 0950, afebrile).",
+      "whileOn": "Yellow 'Droplet Precautions' sign on the door and at the sink; PPE cart outside the door (surgical masks, gowns, gloves, eye protection); patient's mask under his chin.",
+      "afterDiscontinued": "Sign taken down, PPE cart rolled away, no mask. Standard precautions and cough etiquette (tissues and a small trash bag on the table)."
+    }
+  },
+  "stops": [
+    {
+      "id": "D1-0700",
+      "simTime": "2027-01-11 07:00",
+      "title": "Arrival from the ED",
+      "precautions": "droplet",
+      "beforeThisStop": "ED overnight: 1 L saline bolus, then saline; insulin infusion 7.6 units/h since 0305. Handoff note says 'K 5.6, no potassium' but that is the 0145 value; the 0545 K is 4.6.",
+      "monitor": {
+        "hr": 112,
+        "bp": "108/64",
+        "rr": 24,
+        "spo2": 98,
+        "temp": 99.4,
+        "tempUnit": "F",
+        "rhythm": "sinus tachycardia, T waves slightly tall",
+        "o2": "room air",
+        "pain": 4,
+        "tAmp": 0.45,
+        "uAmp": 0,
+        "pr": 146,
+        "qrs": 90,
+        "note": "Kussmaul; pain 4"
+      },
+      "glucometer": "248 (0700)",
+      "appearance": {
+        "skin": "Face and trunk flushed and warm; hands pale and cool; skin dry",
+        "sweat": "none (dry)",
+        "mucousMembranes": "Lips dry and cracked; tongue dry",
+        "breathing": "Kussmaul: deep, fast, regular, 24/min",
+        "mentalStatus": "Drowsy, eyes half closed, opens eyes to voice, oriented x4, slow to answer but makes sense",
+        "posture": "Lying with head of bed up 30 degrees, curled slightly on his side",
+        "odor": "Faint fruity (acetone, 'nail polish remover') smell near his face",
+        "clothing": "Hospital gown, surgical mask hanging under his chin"
+      },
+      "lines": [
+        "I'm so thirsty... can I have water?",
+        "I didn't take my long-acting because I wasn't eating. I didn't want to go low.",
+        "My stomach hurts and I feel sick.",
+        "Is my sister still here?"
+      ],
+      "answers": {
+        "pain": "My belly and my whole body ache. Dull. Maybe a 4.",
+        "nausea": "Yeah, I feel sick. I threw up a lot yesterday, and once more in the ER.",
+        "thirst": "So thirsty. My mouth is like sandpaper.",
+        "lastInsulin": "My long-acting Friday night at nine. Nothing since then. No mealtime insulin since Friday lunch.",
+        "lastAte": "Crackers and soup Thursday and Friday. Basically nothing since.",
+        "allergies": "Codeine. I get hives.",
+        "breathing": "I just can't slow my breathing down.",
+        "whyStoppedInsulin": "No food, no insulin, or I'll go low. That's what I thought."
+      },
+      "tessa": {
+        "present": true,
+        "where": "chair at the bedside",
+        "lines": [
+          "I found him around one. He was breathing so fast, and he smelled like nail polish remover.",
+          "He wasn't answering my texts all evening."
+        ]
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "pump 1 channel A",
+          "drug": "0.9% Sodium Chloride 1,000 mL",
+          "rate": "250 mL/h (to be lowered to 150 mL/h when D10 starts)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel B",
+          "drug": "Dextrose 10% in Water 1,000 mL",
+          "rate": "not running (bag hanging, secondary tubing primed; start 100 mL/h)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "ready"
+        },
+        {
+          "item": "pump",
+          "pump": "insulin pump",
+          "drug": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+          "rate": "7.6 mL/h = 7.6 units/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 2 (right pole)",
+          "drug": "none (empty; first KCl rider due 0715)",
+          "rate": "-",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "status": "idle"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "No redness or swelling; NaCl and insulin infusing"
+        },
+        {
+          "item": "IV site",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "condition": "Saline lock, flushes easily"
+        },
+        {
+          "item": "telemetry",
+          "condition": "5-lead on, box in gown pocket"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "Emesis basin on the bed (empty); urinal on the rail; ice-chip cup; glucometer on the counter; bed alarm armed (light on); call light by his pillow; droplet sign on the door and PPE cart outside"
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "left forearm IV",
+          "finding": "Clear dressing dated 01/11 0145, no redness or swelling, NaCl and insulin infusing"
+        },
+        {
+          "target": "right antecubital IV",
+          "finding": "Saline lock dated 0150, flushes easily, no redness"
+        },
+        {
+          "target": "skin turgor",
+          "finding": "Poor: skin tents for 3 seconds"
+        },
+        {
+          "target": "capillary refill",
+          "finding": "3 seconds; hands cool"
+        },
+        {
+          "target": "radial pulses",
+          "finding": "2+ and equal, fast"
+        },
+        {
+          "target": "mouth",
+          "finding": "Lips dry and cracked; tongue dry"
+        },
+        {
+          "target": "breath odour",
+          "finding": "Fruity (acetone) smell"
+        },
+        {
+          "target": "breathing",
+          "finding": "Deep, fast, regular (Kussmaul), 24/min; no distress"
+        },
+        {
+          "target": "lungs",
+          "finding": "Clear; dry cough"
+        },
+        {
+          "target": "abdomen",
+          "finding": "Soft, diffusely tender, no guarding; bowel sounds hypoactive"
+        },
+        {
+          "target": "grip strength",
+          "finding": "Equal both hands but generally weak"
+        },
+        {
+          "target": "pupils",
+          "finding": "Equal and reactive"
+        },
+        {
+          "target": "urinal",
+          "finding": "Pale yellow urine, large amounts (400 mL at 0630)"
+        },
+        {
+          "target": "insulin pump screen",
+          "finding": "Regular insulin 1 unit/mL, 7.6 mL/h; label HIGH ALERT; needs independent double check"
+        },
+        {
+          "target": "glucometer",
+          "finding": "248"
+        },
+        {
+          "target": "handoff sheet",
+          "finding": "'K 5.6, too high for potassium, none given' (old 0145 value; the 0545 K is 4.6)"
+        }
+      ],
+      "events": [
+        "Nurse does an independent double check of the insulin infusion",
+        "D10 starts 100 mL/h (0705) and NaCl drops to 150 mL/h (glucose under 250)",
+        "Nurse finds the newest K (4.6) and hangs a KCl 10 mEq rider at 0715 on pump 2 into the right antecubital IV (urine 400 mL at 0630)",
+        "Hourly glucose checks"
+      ],
+      "aloud": "Glucose 0700 248 (charted). Urine 400 mL at 0630.",
+      "safetyCatch": "Handoff uses the old K 5.6; newest K is 4.6, so a potassium rider is due. Glucose 248 = start the dextrose line.",
+      "nextStopTrigger": "Instructor advances to D1 1100 after D10 is running, NaCl is at 150 and the 0715 rider is hung. Between stops (narrated): emesis 120 mL at 0830; viral panel back negative 0950; rider at 1030 started."
+    },
+    {
+      "id": "D1-1100",
+      "simTime": "2027-01-11 11:00",
+      "title": "Better, and the viral panel is negative",
+      "precautions": "droplet",
+      "precautionsNote": "Droplet at the start of the stop. When the nurse discontinues them (panel negative 0950, afebrile), remove the door sign and PPE cart and take off the mask; set precautions to none.",
+      "beforeThisStop": "D10 running since 0705. Emesis 120 mL at 0830. 0930 labs: K 3.9 so 30 mEq: riders 1030 (running), 1130, 1230. Respiratory viral panel negative (0950). Clear liquids from 1100.",
+      "monitor": {
+        "hr": 102,
+        "bp": "114/68",
+        "rr": 20,
+        "spo2": 98,
+        "temp": 99.0,
+        "tempUnit": "F",
+        "rhythm": "sinus tachycardia",
+        "o2": "room air",
+        "pain": 3,
+        "tAmp": 0.3,
+        "uAmp": 0,
+        "pr": 148,
+        "qrs": 90,
+        "note": "pain 3"
+      },
+      "glucometer": "186 (1100)",
+      "appearance": {
+        "skin": "Still a little flushed in the face; hands cool",
+        "sweat": "none",
+        "mucousMembranes": "Lips still dry; tongue moist",
+        "breathing": "Still deep but slower, regular, 20/min",
+        "mentalStatus": "Awake, alert, oriented x4, answers quickly, talks in full sentences",
+        "posture": "Sitting up in bed, eyes open, looking around",
+        "odor": "Fruity smell fainter",
+        "clothing": "Hospital gown, mask under chin (until precautions are stopped)"
+      },
+      "lines": [
+        "I feel a little more human.",
+        "My arm aches where that potassium is going in.",
+        "Do I still have to wear this mask? Did my flu test come back?",
+        "Can I drink something real?",
+        "How long do I have to stay?"
+      ],
+      "answers": {
+        "pain": "Just aches now. About a 3. And my right arm where the potassium goes in.",
+        "nausea": "Better since I threw up this morning.",
+        "thirst": "Still thirsty. Can I have something besides ice?",
+        "lastInsulin": "Just the drip. My last shot was Friday night.",
+        "lastAte": "Nothing. Ice chips.",
+        "cough": "A little dry cough. I cover it.",
+        "fluTest": "Nobody's told me. Did it come back?"
+      },
+      "tessa": {
+        "present": false,
+        "where": "not in the room (optional)"
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "pump 1 channel A",
+          "drug": "0.9% Sodium Chloride 1,000 mL",
+          "rate": "150 mL/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel B",
+          "drug": "Dextrose 10% in Water 1,000 mL",
+          "rate": "100 mL/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145) via Y-site",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "insulin pump",
+          "drug": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+          "rate": "7.6 mL/h = 7.6 units/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 2 (right pole)",
+          "drug": "Potassium chloride 10 mEq/100 mL, infuse over 1 hour",
+          "rate": "100 mL/h (10 mEq/h); 1030 rider; next 1130 and 1230",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "status": "running"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "No redness or swelling"
+        },
+        {
+          "item": "IV site",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "condition": "KCl rider infusing; mild ache; no redness or swelling"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "Emesis basin used and emptied (120 mL at 0830); sugar-free gelatin and broth on the tray at 1100; droplet sign still on the door and PPE cart outside until discontinued"
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "right antecubital IV",
+          "finding": "Rider infusing; he says it aches; no redness, no swelling, cool-normal skin"
+        },
+        {
+          "target": "left forearm IV",
+          "finding": "No redness or swelling; NaCl, D10 and insulin infusing"
+        },
+        {
+          "target": "skin turgor",
+          "finding": "Tents for 2 seconds"
+        },
+        {
+          "target": "capillary refill",
+          "finding": "3 seconds; hands cool"
+        },
+        {
+          "target": "mouth",
+          "finding": "Lips dry; tongue moist"
+        },
+        {
+          "target": "breath odour",
+          "finding": "Fruity smell, fainter than at 0700"
+        },
+        {
+          "target": "breathing",
+          "finding": "Deep but slower, 20/min"
+        },
+        {
+          "target": "abdomen",
+          "finding": "Soft, mildly tender; bowel sounds active"
+        },
+        {
+          "target": "grip strength",
+          "finding": "Equal; still a bit weak"
+        },
+        {
+          "target": "door sign / PPE cart",
+          "finding": "Droplet Precautions sign; cart with masks, gowns, gloves"
+        },
+        {
+          "target": "glucometer",
+          "finding": "186"
+        },
+        {
+          "target": "pump 2 screen",
+          "finding": "Potassium chloride 10 mEq/100 mL, 100 mL/h"
+        }
+      ],
+      "events": [
+        "Nurse discontinues droplet precautions (panel negative for influenza A/B, SARS-CoV-2 and RSV; afebrile): sign down, cart removed, mask off",
+        "Second rider at 1130 after the first finishes (one at a time)",
+        "Sugar-free clear liquids start"
+      ],
+      "aloud": "Glucose 0800 228, 0900 210, 1000 196, 1100 186. Urine 0750 350, 0920 300, 1045 250.",
+      "safetyCatch": "Order to discontinue: droplet precautions (panel negative; the protocol lets the RN stop them).",
+      "nextStopTrigger": "Instructor advances to D1 1500 once precautions are addressed. Between stops (narrated): riders 1130 and 1230 given; drinking clear liquids (480 mL); 1400 labs show K 3.2 and Mg 1.6."
+    },
+    {
+      "id": "D1-1500",
+      "simTime": "2027-01-11 15:00",
+      "title": "Low potassium, hold the insulin",
+      "precautions": "none",
+      "precautionsNote": "Assumes droplet precautions were discontinued at 1100. If the class did not stop them, the instructor can keep the sign and cart in place.",
+      "beforeThisStop": "Riders 1030, 1130, 1230 given (last finished 1330). 1400 labs: K 3.2 (resulted 1445), Mg 1.6. Monitor shows flat T waves, U waves and PVCs.",
+      "monitor": {
+        "hr": 98,
+        "bp": "116/70",
+        "rr": 18,
+        "spo2": 98,
+        "temp": 98.8,
+        "tempUnit": "F",
+        "rhythm": "sinus with PVCs about 2/min, flat T waves and U waves",
+        "o2": "room air",
+        "pain": 2,
+        "tAmp": 0.15,
+        "uAmp": 0.12,
+        "pr": 150,
+        "qrs": 88,
+        "pvcPerMin": 2,
+        "note": "K 3.2; pain 2"
+      },
+      "glucometer": "202 (1500)",
+      "appearance": {
+        "skin": "Normal colour, warm, dry",
+        "sweat": "none",
+        "mucousMembranes": "Moist lips and tongue",
+        "breathing": "Nearly normal depth, regular, 18/min",
+        "mentalStatus": "Alert, oriented, tired",
+        "posture": "Sitting up, rubbing his calves",
+        "odor": "Faint fruity smell",
+        "clothing": "Hospital gown, no mask"
+      },
+      "lines": [
+        "My legs feel heavy and my calves keep cramping.",
+        "My heart feels like it skips.",
+        "Why are you stopping my insulin? Isn't that what I need?",
+        "Am I going backwards?"
+      ],
+      "answers": {
+        "pain": "My calves cramp. A 2, but it comes and goes.",
+        "nausea": "No. I've kept the liquids down. No throwing up since this morning.",
+        "thirst": "Better. I've been drinking.",
+        "lastInsulin": "Just the drip, all day.",
+        "palpitations": "Every so often it feels like a skip or a thump.",
+        "weakness": "My legs feel heavy, like after a long game."
+      },
+      "tessa": {
+        "present": false,
+        "where": "not in the room (optional)"
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "pump 1 channel A",
+          "drug": "0.9% Sodium Chloride 1,000 mL",
+          "rate": "150 mL/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running (stays on)"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel B",
+          "drug": "Dextrose 10% in Water 1,000 mL",
+          "rate": "100 mL/h at the start; STOPPED at 1500 when the nurse holds insulin",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145) via Y-site",
+          "status": "running -> stopped"
+        },
+        {
+          "item": "pump",
+          "pump": "insulin pump",
+          "drug": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+          "rate": "7.6 units/h at the start; screen 'Channel stopped / on hold' after the nurse holds it at 1500",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running -> on hold"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 2 (right pole)",
+          "drug": "Potassium chloride 10 mEq/100 mL, infuse over 1 hour",
+          "rate": "idle at the start (last rider finished 1330); new rider 100 mL/h from 1505; three more bags labelled 1605, 1705, 1805 on the pole hook, one at a time",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "status": "idle -> running"
+        },
+        {
+          "item": "pump",
+          "pump": "left pole (MgSO4)",
+          "drug": "Magnesium sulfate 2 g/50 mL, infuse over 2 hours",
+          "rate": "25 mL/h (2 g over 2 h) from 1515",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145) via Y-site with NaCl",
+          "status": "starts 1515"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Normal"
+        },
+        {
+          "item": "IV site",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "condition": "Patent; rider finished 1330; no redness or swelling"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on; PVCs visible"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "12-lead ECG cart at the bedside (1505); cup of sugar-free clear liquids on the table"
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "monitor",
+          "finding": "Flat T waves, U waves, about 2 PVCs per minute"
+        },
+        {
+          "target": "radial pulse",
+          "finding": "2+, mostly regular with an occasional skipped beat"
+        },
+        {
+          "target": "grip strength",
+          "finding": "Slightly weaker in both hands"
+        },
+        {
+          "target": "calves",
+          "finding": "Cramping, soft, no swelling or redness"
+        },
+        {
+          "target": "capillary refill",
+          "finding": "Under 3 seconds"
+        },
+        {
+          "target": "skin turgor",
+          "finding": "Normal"
+        },
+        {
+          "target": "mouth",
+          "finding": "Moist"
+        },
+        {
+          "target": "breath odour",
+          "finding": "Faint fruity"
+        },
+        {
+          "target": "abdomen",
+          "finding": "Soft, nontender"
+        },
+        {
+          "target": "right antecubital IV",
+          "finding": "Patent, flushes, no redness or swelling"
+        },
+        {
+          "target": "glucometer",
+          "finding": "202"
+        }
+      ],
+      "events": [
+        "Nurse holds insulin and D10 at 1500 (K 3.2, under 3.5); NaCl stays at 150",
+        "Nurse calls the hospitalist (Dr. Ashworth): hold insulin and D10, four riders, magnesium 2 g, STAT labs after the second rider, restart insulin when K is 3.5 or more",
+        "12-lead ECG 1505",
+        "KCl rider 1505 (then 1605, 1705, 1805), one at a time",
+        "MgSO4 2 g starts 1515 on the left line"
+      ],
+      "aloud": "Glucose 1200 182, 1300 190, 1400 196, 1500 202. Urine 1150 250, 1320 250, 1440 250. Oral 480 mL clear liquids.",
+      "safetyCatch": "K 3.2 (under 3.5) = hold insulin. Only one rider at a time; never two to catch up.",
+      "nextStopTrigger": "Instructor advances to D1 1900 after the hold, the call, the first rider and the Mg. Between stops (narrated): STAT labs 1720 K 3.6; insulin restarted 1750 at 7.6 units/h; glucose rose to 274 then fell to 244; the 1805 rider into the right elbow IV has been burning since about 1800."
+    },
+    {
+      "id": "D1-1900",
+      "simTime": "2027-01-11 19:00",
+      "title": "Insulin back on, and the potassium IV infiltrates",
+      "precautions": "none",
+      "beforeThisStop": "STAT 1720: K 3.6, so insulin restarted 1750 at 7.6 units/h. BHB rose to 3.1 during the hold. Glucose 1900 244: restart D10. The 4th rider (1805) has been running into a swollen right antecubital site. NaCl to 100 mL/h (order 1840).",
+      "monitor": {
+        "hr": 96,
+        "bp": "120/72",
+        "rr": 18,
+        "spo2": 98,
+        "temp": 99.1,
+        "tempUnit": "F",
+        "rhythm": "sinus rhythm, low T waves, small U waves, no PVCs",
+        "o2": "room air",
+        "pain": 5,
+        "tAmp": 0.25,
+        "uAmp": 0.06,
+        "pr": 150,
+        "qrs": 88,
+        "note": "pain 5 right elbow"
+      },
+      "glucometer": "244 (1900)",
+      "appearance": {
+        "skin": "Normal colour; inner right elbow puffy, pale and shiny around the dressing",
+        "sweat": "none",
+        "mucousMembranes": "Moist",
+        "breathing": "Easy, normal depth, regular, 18/min",
+        "mentalStatus": "Alert, oriented, frustrated",
+        "posture": "Sitting up, holding his right arm against his chest, wincing",
+        "odor": "Faint fruity smell",
+        "clothing": "Hospital gown"
+      },
+      "lines": [
+        "My elbow is burning, like really burning.",
+        "It's been sore since about six.",
+        "I'm starving. When can I eat real food?",
+        "So the insulin is back on now?",
+        "I was getting better and then they stopped my insulin."
+      ],
+      "answers": {
+        "pain": "My elbow. Burning. A 5. The cramps are better.",
+        "nausea": "No. I'm just hungry.",
+        "thirst": "I'm okay, I've been drinking.",
+        "lastInsulin": "They turned the drip back on before six, I think.",
+        "whenStarted": "It started hurting around six, when the new bag went up.",
+        "hunger": "Starving. Broth and jello all day."
+      },
+      "tessa": {
+        "present": false,
+        "where": "not in the room (optional)"
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "pump 1 channel A",
+          "drug": "0.9% Sodium Chloride 1,000 mL",
+          "rate": "150 mL/h, changed to 100 mL/h at 1900",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel B",
+          "drug": "Dextrose 10% in Water 1,000 mL",
+          "rate": "stopped since 1500; restart at 100 mL/h now (glucose 244)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145) via Y-site",
+          "status": "stopped -> restart"
+        },
+        {
+          "item": "pump",
+          "pump": "insulin pump",
+          "drug": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+          "rate": "7.6 mL/h = 7.6 units/h (restarted 1750)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 2 (right pole)",
+          "drug": "Potassium chloride 10 mEq/100 mL, infuse over 1 hour",
+          "rate": "100 mL/h; screen 'volume infused 92 mL' of 100; slowing",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "status": "running into an infiltrated site -> nurse stops it"
+        },
+        {
+          "item": "IV site",
+          "site": "right antecubital PIV 20 g (dressing dated 01/11 0150)",
+          "condition": "INFILTRATED (INS grade 2): swollen about 4 cm around the site, cool, pale, taut, shiny, tender, burning; rider infusing slowly"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Normal; NaCl and insulin infusing"
+        },
+        {
+          "item": "IV site",
+          "site": "right forearm PIV 20 g",
+          "condition": "Placed by the nurse at 1915 after the antecubital IV is removed"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "MgSO4 finished 1715 (bag gone). Cold pack, pillow, skin marker and IV start kit on the bedside table. Night shift arriving."
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "right antecubital IV",
+          "finding": "Swollen about 4 cm around the site, cool, pale, taut, shiny, tender; burning; pump shows 92 of 100 mL infused"
+        },
+        {
+          "target": "right arm compared with left",
+          "finding": "Right inner elbow visibly bigger and cooler than the left"
+        },
+        {
+          "target": "left forearm IV",
+          "finding": "Normal; infusing"
+        },
+        {
+          "target": "grip strength",
+          "finding": "Equal both hands; cramps better"
+        },
+        {
+          "target": "capillary refill",
+          "finding": "Under 3 seconds"
+        },
+        {
+          "target": "skin turgor",
+          "finding": "Normal"
+        },
+        {
+          "target": "breath odour",
+          "finding": "Faint fruity"
+        },
+        {
+          "target": "monitor",
+          "finding": "Sinus, low T waves, small U waves, no PVCs"
+        },
+        {
+          "target": "glucometer",
+          "finding": "244"
+        }
+      ],
+      "events": [
+        "Nurse stops the rider, disconnects, tries to aspirate, removes the IV, elevates the arm, marks the edges, cold pack 20 minutes, documents grade 2, notifies the provider",
+        "New 20 g IV in the right forearm at 1915 for the next riders",
+        "D10 restarts at 100 mL/h; NaCl to 100 mL/h",
+        "Handoff to night shift"
+      ],
+      "aloud": "Glucose 1600 238, 1700 266, 1800 274, 1900 244. Urine 1600 300, 1810 300. Oral 480. Rider pump shows 92 of 100 mL infused.",
+      "safetyCatch": "IV infiltration with potassium (an irritant): stop the infusion first, then treat the site.",
+      "nextStopTrigger": "Instructor advances to D1 2300 after the site is treated, a new IV is in and D10 is back on. Between stops (narrated): 2130 labs K 3.7 so 30 mEq: rider 2230 started in the new right forearm IV; at 2245 the night hospitalist ordered NaCl with KCl 40 mEq/L at 100 mL/h."
+    },
+    {
+      "id": "D1-2300",
+      "simTime": "2027-01-11 23:00",
+      "title": "A wrong potassium order, hungry and restless",
+      "precautions": "none",
+      "beforeThisStop": "Night. D10 100, NaCl 100, insulin 7.6. 2130 labs: K 3.7 -> riders 2230 (running), 2330, 0030 in the right forearm IV. At 2245 Dr. Varga ordered NaCl 1,000 mL with KCl 40 mEq/L at 100 mL/h. BHB 2.0, pH 7.31: not resolved.",
+      "monitor": {
+        "hr": 88,
+        "bp": "118/70",
+        "rr": 16,
+        "spo2": 97,
+        "temp": 98.6,
+        "tempUnit": "F",
+        "rhythm": "sinus rhythm, normal T waves",
+        "o2": "room air",
+        "pain": 1,
+        "tAmp": 0.3,
+        "uAmp": 0,
+        "pr": 150,
+        "qrs": 88,
+        "note": "pain 1"
+      },
+      "glucometer": "176 (2300)",
+      "appearance": {
+        "skin": "Normal colour, warm, dry",
+        "sweat": "none",
+        "mucousMembranes": "Moist",
+        "breathing": "Normal pattern, 16/min",
+        "mentalStatus": "Alert, oriented, restless, bored",
+        "posture": "Sitting up, phone in hand; right elbow on a pillow with marker lines",
+        "odor": "Barely any fruity smell",
+        "clothing": "Hospital gown"
+      },
+      "lines": [
+        "Can I just walk to the bathroom by myself? I'm fine.",
+        "I'm so hungry. Broth is not food.",
+        "Why do I keep getting these potassium bags?",
+        "When can I go home?"
+      ],
+      "answers": {
+        "pain": "The old spot on my elbow aches a little. A 1.",
+        "nausea": "None.",
+        "thirst": "No, I'm fine.",
+        "lastInsulin": "Still on the drip.",
+        "newIV": "This one just burns a tiny bit when the potassium runs. Nothing like before.",
+        "texting": "Just texting my roommate. He's at work."
+      },
+      "tessa": {
+        "present": false,
+        "where": "not in the room (home for the night)"
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "pump 1 channel A",
+          "drug": "0.9% Sodium Chloride 1,000 mL",
+          "rate": "100 mL/h (plain saline; no potassium)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel B",
+          "drug": "Dextrose 10% in Water 1,000 mL",
+          "rate": "100 mL/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145) via Y-site (secondary tubing)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "insulin pump",
+          "drug": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+          "rate": "7.6 mL/h = 7.6 units/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 2 (right pole)",
+          "drug": "Potassium chloride 10 mEq/100 mL, infuse over 1 hour",
+          "rate": "100 mL/h (2230 rider; next 2330, 0030)",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "status": "running"
+        },
+        {
+          "item": "IV site",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "condition": "Rider infusing; no redness or swelling; mild burning only"
+        },
+        {
+          "item": "IV site",
+          "site": "former right antecubital site",
+          "condition": "Swelling about 2 cm, softer, edges marked with skin marker, arm on a pillow"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Normal"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "Lights dim. Bed alarm on (light). Urinal on the rail. Call light in reach. NO 40 mEq/L potassium bag in the room: the wrong order is on the chart screen only."
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "right forearm IV",
+          "finding": "Rider infusing; no redness or swelling; mild burning"
+        },
+        {
+          "target": "former right antecubital site",
+          "finding": "About 2 cm swelling, softer, inside the marker lines (smaller than at 1900)"
+        },
+        {
+          "target": "left forearm IV",
+          "finding": "Normal"
+        },
+        {
+          "target": "breath odour",
+          "finding": "Barely detectable"
+        },
+        {
+          "target": "grip strength",
+          "finding": "Equal and strong"
+        },
+        {
+          "target": "capillary refill",
+          "finding": "Under 3 seconds"
+        },
+        {
+          "target": "skin turgor",
+          "finding": "Normal"
+        },
+        {
+          "target": "abdomen",
+          "finding": "Soft, nontender; he is hungry"
+        },
+        {
+          "target": "bed alarm",
+          "finding": "Armed, light on"
+        },
+        {
+          "target": "glucometer",
+          "finding": "176"
+        }
+      ],
+      "events": [
+        "Nurse does not hang a 40 mEq/L bag and calls Dr. Varga: peripheral IV only, limit 20 mEq/L in a peripheral bag, and 4 mEq/h from the bag + 10 mEq/h rider = 14 mEq/h, over the 10 mEq/h limit",
+        "Dr. Varga: 'You're right, he has no central line. Discontinue that order. Keep plain saline at 100 and the riders per protocol.' (order stopped 2320)",
+        "Rider 2330 after 2230 finishes",
+        "Night fall safety: bed alarm, urinal, call light; he wants to walk alone"
+      ],
+      "aloud": "Glucose 2000 222, 2100 204, 2200 190, 2300 176. Urine 2000 250, 2210 300. Oral 360.",
+      "safetyCatch": "Wrong/unsafe order: KCl 40 mEq/L in a peripheral bag, stacked with riders.",
+      "nextStopTrigger": "Instructor advances to D2 0300. Between stops (narrated): rider 0030 given; at about 0100 he got up to void (300 mL) and the D10 secondary tubing pulled apart at the Y-site connector; the pump kept running with no alarm. 0200 glucose 112: off-going nurse raised D10 to 150 mL/h at 0210 and called at 0215 (keep insulin 7.6, recheck in 1 h). No one traced the line; no 0230 recheck."
+    },
+    {
+      "id": "D2-0300",
+      "simTime": "2027-01-12 03:00",
+      "title": "Low glucose from a disconnected dextrose line",
+      "precautions": "none",
+      "beforeThisStop": "D10 tubing disconnected at the Y-site since about 0100 (pump running, dextrose dripping into the bed). Glucose 0200 112 -> D10 raised to 150 at 0210, provider called 0215. 0300 glucose 62. Bed alarm sounding. 0130 labs: K 4.0, BHB 1.1 (not resolved).",
+      "monitor": {
+        "hr": 116,
+        "bp": "134/80",
+        "rr": 20,
+        "spo2": 98,
+        "temp": 98.2,
+        "tempUnit": "F",
+        "rhythm": "sinus tachycardia",
+        "o2": "room air",
+        "pain": 1,
+        "tAmp": 0.3,
+        "uAmp": 0,
+        "pr": 146,
+        "qrs": 88,
+        "note": "glucose 62; pain 1"
+      },
+      "monitorAfter": {
+        "time": "2027-01-12 03:20",
+        "hr": 92,
+        "bp": "122/74",
+        "rr": 16,
+        "spo2": 98,
+        "temp": 98.2,
+        "tempUnit": "F",
+        "rhythm": "sinus rhythm",
+        "o2": "room air",
+        "pr": 148,
+        "qrs": 88,
+        "note": "after D50"
+      },
+      "glucometer": "62 (0300); 124 at 0315 after D50 12.5 g",
+      "appearance": {
+        "skin": "Cool, pale and sweaty (diaphoretic); forehead beaded with sweat",
+        "sweat": "Heavy (from low glucose)",
+        "mucousMembranes": "Moist",
+        "breathing": "A bit fast, not deep, 20/min",
+        "mentalStatus": "Awake, anxious, 'foggy', slow to answer, oriented x4, hands trembling; forgets his limits",
+        "posture": "Sitting on the edge of the bed, feet dangling, gripping the rail, wants to walk to the bathroom with two IV poles",
+        "odor": "No fruity smell",
+        "clothing": "Hospital gown, wet on the left side",
+        "after": "By 0320: alert, skin dry, tremor gone, lying back in bed, calmer"
+      },
+      "lines": [
+        "I feel shaky and weird... I need to pee.",
+        "Is this a low? It feels like a low.",
+        "I'm sweating like crazy... and why is my bed wet?",
+        "(after treatment) Okay... that's better. Sorry."
+      ],
+      "answers": {
+        "pain": "Just a headache. A 1.",
+        "nausea": "No. I'm actually hungry.",
+        "thirst": "Not really.",
+        "lastInsulin": "The drip's still on, isn't it?",
+        "symptoms": "Shaky, sweaty, hungry, my head hurts. That's how my lows feel.",
+        "whyUp": "I had to pee. I didn't want to bother anyone.",
+        "wetBed": "I don't know. I didn't pee the bed, I swear. It's on this side."
+      },
+      "tessa": {
+        "present": false,
+        "where": "home"
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "pump 1 channel B",
+          "drug": "Dextrose 10% in Water 1,000 mL",
+          "rate": "150 mL/h; screen 'D10W 150 mL/h, INFUSING', no alarm, volume infused climbing",
+          "site": "NOT CONNECTED: tubing end lying open on the wet sheet at his left side (came apart at the Y-site needleless connector about 0100)",
+          "status": "running into the bed -> nurse clamps, discards, hangs new sterile secondary tubing at 150 mL/h (0310)"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel A",
+          "drug": "0.9% Sodium Chloride 1,000 mL",
+          "rate": "100 mL/h",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "insulin pump",
+          "drug": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+          "rate": "7.6 units/h at the start; nurse lowers to 3.8 mL/h = 3.8 units/h at 0305 (do NOT stop)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 2 (right pole)",
+          "drug": "none running (next KCl rider due 0330; K 4.0 -> riders 0330 and 0430)",
+          "rate": "-",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "status": "idle"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Site normal; insulin and NaCl infusing; Y-site connector open (D10 line not attached)"
+        },
+        {
+          "item": "IV site",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "condition": "Saline lock between riders; no redness"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "Room dark; bed alarm beeping. Glucometer reading 62. D50 syringe (25 mL = 12.5 g). New sealed secondary tubing on the counter. Urinal within reach. Wet sheet and gown on the left side."
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "D10 line (trace from bag to patient)",
+          "finding": "Tubing end lying open on the sheet, not attached to the Y-site; drip still falling from it"
+        },
+        {
+          "target": "pump 1 channel B screen",
+          "finding": "D10W 150 mL/h, INFUSING, no alarm (a running pump does not prove the drug reaches him)"
+        },
+        {
+          "target": "bed sheet and gown",
+          "finding": "Wet, sticky on the left side (dextrose, not urine)"
+        },
+        {
+          "target": "skin",
+          "finding": "Cool, pale, sweaty"
+        },
+        {
+          "target": "hands",
+          "finding": "Tremor; grip equal"
+        },
+        {
+          "target": "capillary refill",
+          "finding": "Under 3 seconds; hands cool and clammy"
+        },
+        {
+          "target": "radial pulse",
+          "finding": "Fast, regular, strong"
+        },
+        {
+          "target": "breath odour",
+          "finding": "No fruity smell"
+        },
+        {
+          "target": "left forearm IV",
+          "finding": "Site normal; insulin and NaCl infusing"
+        },
+        {
+          "target": "right forearm IV",
+          "finding": "Saline lock, no redness"
+        },
+        {
+          "target": "bed alarm",
+          "finding": "Sounding; patient on the edge of the bed"
+        },
+        {
+          "target": "glucometer",
+          "finding": "62; recheck at 0315: 124"
+        }
+      ],
+      "events": [
+        "Nurse keeps him safe: sits him back in bed, resets the bed alarm, does not walk him",
+        "D50 12.5 g (25 mL) IV push; recheck in 15 minutes: 124",
+        "Nurse traces the D10 line, finds the open end, clamps it and hangs new sterile tubing at 150 mL/h (0310); does not reconnect the contaminated end",
+        "Insulin lowered to 3.8 units/h at 0305 (not stopped: BHB 1.1, gap 14)",
+        "Call Dr. Varga: 'Good catch. Keep insulin at 3.8, D10 at 150, glucose every hour, call if under 100.'",
+        "Change the wet linen and gown",
+        "Monitor changes to the 0320 row (HR 92, BP 122/74, RR 16) after treatment",
+        "Riders 0330 and 0430"
+      ],
+      "aloud": "Glucose 0000 166, 0100 158, 0200 112, 0300 62; after D50 0315 124. Urine 0005 250, 0100 300. Oral 120.",
+      "safetyCatch": "Line problem causing hypoglycemia, plus night fall risk (sweaty, shaky, trying to get up alone with lines). Morse 60.",
+      "nextStopTrigger": "Instructor advances to D2 0700 after D50, the new D10 tubing, insulin 3.8 and the call. Between stops (narrated): glucose 0400 140, 0500 152, 0600 156; riders 0330 and 0430; 0530 labs BHB 0.4, pH 7.34, HCO3 18 = resolved; weight 79.3 kg at 0600; night NP wrote the transition order at 0635."
+    },
+    {
+      "id": "D2-0700",
+      "simTime": "2027-01-12 07:00",
+      "title": "DKA resolved, an unsafe transition order",
+      "precautions": "none",
+      "beforeThisStop": "0530 labs: BHB 0.4, pH 7.34, HCO3 18, gap 13 = resolved. Night NP order (0635): glargine 24 units at 0700 and stop the insulin infusion, D10 and NaCl at 0700. Breakfast tray 0800. K 4.2 -> riders 0730, 0830. Weight 79.3 kg (0600).",
+      "monitor": {
+        "hr": 80,
+        "bp": "122/74",
+        "rr": 16,
+        "spo2": 98,
+        "temp": 98.4,
+        "tempUnit": "F",
+        "rhythm": "sinus rhythm, normal T waves",
+        "o2": "room air",
+        "pain": 0,
+        "tAmp": 0.3,
+        "uAmp": 0,
+        "pr": 150,
+        "qrs": 88,
+        "note": "pain 0"
+      },
+      "glucometer": "152 (0700); pre-breakfast 0745: 154",
+      "appearance": {
+        "skin": "Warm, dry, normal colour; pink moist lips",
+        "sweat": "none",
+        "mucousMembranes": "Moist",
+        "breathing": "Normal, 16/min",
+        "mentalStatus": "Alert, oriented, bright, relieved",
+        "posture": "Sitting up in the chair, smiling",
+        "odor": "None",
+        "clothing": "Clean hospital gown; hair messy"
+      },
+      "lines": [
+        "I feel almost normal.",
+        "So do I take my long-acting now? I usually take it at night.",
+        "When can I eat? Is breakfast coming?",
+        "Can I do my own shot?",
+        "I want to go home today."
+      ],
+      "answers": {
+        "pain": "Nothing. Zero.",
+        "nausea": "None. I'm hungry.",
+        "thirst": "No.",
+        "lastInsulin": "The drip, still on. My last shot was Friday night.",
+        "longActingTime": "I always do it at nine at night.",
+        "lastNight": "Sorry about last night. I should have called."
+      },
+      "tessa": {
+        "present": false,
+        "where": "not in the room (optional)"
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "insulin pump",
+          "drug": "Regular insulin 100 units/100 mL 0.9% NaCl, 1 unit/mL, HIGH ALERT",
+          "rate": "3.8 mL/h = 3.8 units/h (runs until 0930)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel B",
+          "drug": "Dextrose 10% in Water 1,000 mL",
+          "rate": "150 mL/h (runs while IV insulin runs, until 0930)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145) via Y-site (new tubing since 0310)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 1 channel A",
+          "drug": "0.9% Sodium Chloride 1,000 mL",
+          "rate": "100 mL/h (until 0930)",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "status": "running"
+        },
+        {
+          "item": "pump",
+          "pump": "pump 2 (right pole)",
+          "drug": "Potassium chloride 10 mEq/100 mL, infuse over 1 hour",
+          "rate": "100 mL/h; riders due 0730 and 0830",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "status": "bag ready, starts 0730"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Patent, no redness"
+        },
+        {
+          "item": "IV site",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "condition": "Patent, no redness"
+        },
+        {
+          "item": "IV site",
+          "site": "former right antecubital site",
+          "condition": "Swelling gone; faint bruise"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "From pharmacy: glargine pen and lispro pen (patient-labelled, two different labels), pen needles, alcohol swabs; sharps box on the wall. Breakfast tray at 0800 with a carbohydrate list. Bed alarm off for the day."
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "skin turgor",
+          "finding": "Normal"
+        },
+        {
+          "target": "mouth",
+          "finding": "Moist, pink"
+        },
+        {
+          "target": "breath odour",
+          "finding": "No fruity smell"
+        },
+        {
+          "target": "capillary refill",
+          "finding": "Under 3 seconds; hands warm"
+        },
+        {
+          "target": "grip strength",
+          "finding": "Strong and equal (5/5)"
+        },
+        {
+          "target": "abdomen",
+          "finding": "Soft, nontender; bowel sounds active"
+        },
+        {
+          "target": "left forearm IV",
+          "finding": "Patent"
+        },
+        {
+          "target": "right forearm IV",
+          "finding": "Patent"
+        },
+        {
+          "target": "former right antecubital site",
+          "finding": "Swelling gone, faint bruise"
+        },
+        {
+          "target": "insulin pump screen",
+          "finding": "3.8 units/h"
+        },
+        {
+          "target": "insulin pens",
+          "finding": "Glargine (long-acting) and lispro (rapid-acting), different labels"
+        },
+        {
+          "target": "glucometer",
+          "finding": "152 (0745: 154)"
+        }
+      ],
+      "events": [
+        "Nurse confirms resolution (BHB 0.4 under 0.6 AND pH 7.34 / HCO3 18)",
+        "Nurse questions the 0635 order (no overlap) and calls Dr. Beaumont: 'Correct, give the glargine first and keep the drip at least 2 hours. Glargine 0730, breakfast lispro 0800, drip off 0930. Glargine every morning from now on.' (order 0720)",
+        "Glargine 24 units SubQ at 0730 (he may give it himself with coaching)",
+        "Riders 0730 and 0830",
+        "Lispro 6 units at 0800 with breakfast (60 g, glucose 154)",
+        "Insulin infusion, D10 and NaCl off at 0930 (after this stop)"
+      ],
+      "aloud": "Glucose 0400 140, 0500 152, 0600 156, 0700 152; pre-breakfast 0745 154. Weight 79.3 kg (0600). Urine 0315 200, 0530 300. Oral 240.",
+      "safetyCatch": "Unsafe transition order: stopping IV insulin at the same time as the first glargine dose (needs at least 2 h overlap).",
+      "nextStopTrigger": "Instructor advances to D2 1100 after the order is questioned and the 0730/0800/0930 plan is set. Between stops (narrated): glargine 0730, lispro 0800, ate 100% of breakfast, drip, D10 and NaCl off 0930, both IVs saline-locked, showered and walked the hall; 0945 labs K 3.6."
+    },
+    {
+      "id": "D2-1100",
+      "simTime": "2027-01-12 11:00",
+      "title": "Eating, off the drip, basal timing",
+      "precautions": "none",
+      "beforeThisStop": "Glargine 0730, lispro 0800 given; ate 100% of breakfast; drip, D10 and NaCl off 0930; up ad lib. 0945 labs: BHB 0.3 (no rebound), K 3.6 -> KCl ER 20 mEq at 1100 and 1500. He plans glargine 'at nine tonight like always.'",
+      "monitor": {
+        "hr": 78,
+        "bp": "124/76",
+        "rr": 14,
+        "spo2": 99,
+        "temp": 98.6,
+        "tempUnit": "F",
+        "rhythm": "sinus rhythm",
+        "o2": "room air",
+        "pain": 0,
+        "tAmp": 0.3,
+        "uAmp": 0,
+        "pr": 150,
+        "qrs": 88,
+        "note": "pain 0"
+      },
+      "glucometer": "Last 0930 180; pre-lunch 1130 196 (give when checked)",
+      "appearance": {
+        "skin": "Normal colour, warm, dry",
+        "sweat": "none",
+        "mucousMembranes": "Moist",
+        "breathing": "Normal, 14/min",
+        "mentalStatus": "Alert, cheerful, engaged",
+        "posture": "Walking around the room",
+        "odor": "None",
+        "clothing": "His own T-shirt; damp hair (showered)"
+      },
+      "lines": [
+        "That breakfast was the best thing I've ever eaten.",
+        "Tonight I'll do my long-acting at nine like always, right?",
+        "How many units for lunch?",
+        "Do I really need potassium pills? They're huge."
+      ],
+      "answers": {
+        "pain": "None.",
+        "nausea": "None.",
+        "thirst": "No.",
+        "lastInsulin": "Long-acting at seven-thirty, and six units of lispro with breakfast.",
+        "lunch": "The menu says about 70 grams. And I'll check my sugar first.",
+        "walking": "I did two laps of the hall. Felt great."
+      },
+      "tessa": {
+        "present": false,
+        "where": "not here yet (brings his pens at 1400)"
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "all pumps",
+          "drug": "none",
+          "rate": "off since 0930; pumps parked",
+          "site": "-",
+          "status": "off"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Saline lock, flushed, no redness"
+        },
+        {
+          "item": "IV site",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "condition": "Saline lock, flushed, no redness"
+        },
+        {
+          "item": "telemetry",
+          "condition": "still on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "Lunch menu with carbohydrate grams; medicine cup with KCl ER 20 mEq tablet and a full glass of water; glucometer on the counter"
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "left forearm IV",
+          "finding": "Saline lock, flushes easily, no redness"
+        },
+        {
+          "target": "right forearm IV",
+          "finding": "Saline lock, flushes easily, no redness"
+        },
+        {
+          "target": "breath odour",
+          "finding": "None"
+        },
+        {
+          "target": "skin turgor",
+          "finding": "Normal"
+        },
+        {
+          "target": "grip strength",
+          "finding": "Strong, equal"
+        },
+        {
+          "target": "gait",
+          "finding": "Steady, independent"
+        },
+        {
+          "target": "abdomen",
+          "finding": "Soft, nontender, bowel sounds active"
+        },
+        {
+          "target": "KCl ER tablet",
+          "finding": "Large tablet; swallow whole, upright, with a full glass of water"
+        },
+        {
+          "target": "glucometer",
+          "finding": "196 when checked at 1130"
+        }
+      ],
+      "events": [
+        "Nurse teaches basal timing: today's glargine was at 0730; a 2100 dose would be 48 units in 13.5 h (night low); next dose 0730 tomorrow, then every morning",
+        "KCl ER 20 mEq PO at 1100",
+        "Pre-lunch glucose 1130: 196; lispro 8 units at 1200 (70 g = 7 + 1 correction)"
+      ],
+      "aloud": "Glucose 0830 172, 0930 180; pre-lunch 1130 196. Urine 0740 300, 1010 350. Oral 600.",
+      "safetyCatch": "Patient plans a second basal dose tonight (would double his basal insulin).",
+      "nextStopTrigger": "Instructor advances to D2 1500. Between stops (narrated): lunch 1200 with 8 units, ate 80%; educator session 1 at 1330; Tessa brought his home pens at 1400; pharmacy recommends ketone strips and glucagon (1400)."
+    },
+    {
+      "id": "D2-1500",
+      "simTime": "2027-01-12 15:00",
+      "title": "Teaching and teach-back",
+      "precautions": "none",
+      "beforeThisStop": "Ate 80% of lunch with 8 units. Educator session 1 at 1330. Sister brought his home pens at 1400. 1330 labs normal; K 3.9; second KCl ER due 1500.",
+      "monitor": {
+        "hr": 76,
+        "bp": "122/76",
+        "rr": 14,
+        "spo2": 99,
+        "temp": 98.4,
+        "tempUnit": "F",
+        "rhythm": "sinus rhythm",
+        "o2": "room air",
+        "pain": 0,
+        "tAmp": 0.3,
+        "uAmp": 0,
+        "pr": 150,
+        "qrs": 88,
+        "note": "pain 0"
+      },
+      "glucometer": "No check since 1130 (196); lab glucose 1330 214; pre-dinner 1700 will be 142",
+      "appearance": {
+        "skin": "Normal colour",
+        "sweat": "none",
+        "mucousMembranes": "Moist",
+        "breathing": "Normal, 14/min",
+        "mentalStatus": "Alert, relaxed, motivated",
+        "posture": "Sitting on the bed with two insulin pens and a ketone meter, sister next to him",
+        "odor": "None",
+        "clothing": "Own T-shirt"
+      },
+      "lines": [
+        "If I'm not eating, I'll just take half my long-acting, right?",
+        "(holding the long-acting pen) Two units for these crackers.",
+        "How many extra units do I take if my ketones are up?",
+        "When do I call you guys versus just come in?"
+      ],
+      "answers": {
+        "pain": "None.",
+        "nausea": "None.",
+        "thirst": "No.",
+        "lastInsulin": "Long-acting this morning at seven-thirty, eight units of lispro at lunch.",
+        "whichPen": "They look the same. This one's... the long one? I'd have to read it.",
+        "ketoneStrips": "My meter does ketones, but I think the strips are old."
+      },
+      "tessa": {
+        "present": true,
+        "where": "sitting on the bed next to him",
+        "lines": [
+          "I brought his pens from the apartment.",
+          "Can you show me too? I want to know what to watch for."
+        ]
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "all pumps",
+          "drug": "none",
+          "rate": "off; parked",
+          "site": "-",
+          "status": "off"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Saline lock, no redness"
+        },
+        {
+          "item": "IV site",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "condition": "Saline lock, no redness"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "Home pens (long-acting and rapid-acting, similar size, different labels), pen needles, ketone meter with expired strips (2024), educator handout 'Sick-Day Plan' with the extra-lispro table, crackers, sharps box, KCl ER 20 mEq cup for 1500"
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "pen in his hand",
+          "finding": "Glargine (long-acting): wrong pen for a carbohydrate dose (2 units is the right dose for about 20 g, but with lispro)"
+        },
+        {
+          "target": "ketone strips",
+          "finding": "Expired 2024"
+        },
+        {
+          "target": "Sick-Day Plan handout",
+          "finding": "Ketones 0.6-1.4: extra lispro 5 units; 1.5-2.9: 9 units and call; 3.0 or more: ED"
+        },
+        {
+          "target": "IV sites",
+          "finding": "Both saline locks clean, no redness"
+        },
+        {
+          "target": "breath odour",
+          "finding": "None"
+        }
+      ],
+      "events": [
+        "Nurse stops the pen mix-up (no snack dose in hospital; lispro with meals only)",
+        "Re-teach: full glargine dose every morning even when not eating",
+        "Teach-back of the written sick-day plan (5 / 9 units / ED; glucose and ketones every 2-4 h; fluids 250 mL every hour; when to call)",
+        "KCl ER 20 mEq PO at 1500",
+        "Dinner plan: 60 g, glucose 142 -> lispro 6 units at 1730"
+      ],
+      "aloud": "No glucose check since 1130 (196); lab glucose 1330 214; pre-dinner 1700 will be 142. Urine 1130 300, 1400 350. Oral 840.",
+      "safetyCatch": "Wrong insulin pen (long-acting picked for a carbohydrate dose) and an unsafe sick-day belief ('half my long-acting').",
+      "nextStopTrigger": "Instructor advances to D2 1900. Between stops (narrated): educator teach-back at 1645 correct; dinner 1730 with 6 units, ate 90%; discharge order 1745 for tomorrow (D3) after breakfast."
+    },
+    {
+      "id": "D2-1900",
+      "simTime": "2027-01-12 19:00",
+      "title": "Discharge plan for tomorrow",
+      "precautions": "none",
+      "beforeThisStop": "Dinner 1730 with 6 units, ate 90%. 1730 labs normal (K 4.1, BHB 0.2). Discharge order 1745: home tomorrow (D3) after breakfast. Prescriptions copied from his home list: no blood ketone strips and no glucagon.",
+      "monitor": {
+        "hr": 74,
+        "bp": "120/74",
+        "rr": 14,
+        "spo2": 99,
+        "temp": 98.4,
+        "tempUnit": "F",
+        "rhythm": "sinus rhythm",
+        "o2": "room air",
+        "pain": 0,
+        "tAmp": 0.3,
+        "uAmp": 0,
+        "pr": 150,
+        "qrs": 88,
+        "note": "pain 0"
+      },
+      "glucometer": "1700 142. Next checks bedtime 2100 and 0300 (after the course ends)",
+      "appearance": {
+        "skin": "Good colour",
+        "sweat": "none",
+        "mucousMembranes": "Moist",
+        "breathing": "Normal, 14/min",
+        "mentalStatus": "Alert, relaxed; disappointed not to go tonight but agrees",
+        "posture": "Sitting in the chair, phone charging",
+        "odor": "None",
+        "clothing": "His own clothes"
+      },
+      "lines": [
+        "Basal every morning, no matter what. Ketones every few hours if I'm sick.",
+        "My ketone strips at home are from 2024... do I need new ones?",
+        "Tessa, you know where the glucagon goes, right?",
+        "So I really have to stay one more night?"
+      ],
+      "answers": {
+        "pain": "None.",
+        "nausea": "None.",
+        "thirst": "No.",
+        "lastInsulin": "Six units of lispro with dinner at five-thirty. Long-acting this morning at seven-thirty. Next one tomorrow at seven-thirty, not tonight.",
+        "sickDayPlan": "Never stop my long-acting. Check sugar and ketones every 2 to 4 hours. Ketones 0.6 to 1.4, 5 extra units. 1.5 to 2.9, 9 units and call. 3 or more, ER.",
+        "whenToCall": "Throwing up more than twice, can't keep fluids down, sugar over 300 twice, ketones not coming down. ER if I'm breathing fast, belly pain or confused.",
+        "followUp": "Dr. Harlow, Friday the 15th at ten."
+      },
+      "tessa": {
+        "present": true,
+        "where": "in the chair next to him",
+        "lines": [
+          "I'll pick him up in the morning and stay the first night. Devin works nights.",
+          "His glucagon at home is expired too. Do we need a new one?"
+        ]
+      },
+      "equipment": [
+        {
+          "item": "pump",
+          "pump": "all pumps",
+          "drug": "none",
+          "rate": "off; parked",
+          "site": "-",
+          "status": "off"
+        },
+        {
+          "item": "IV site",
+          "site": "right forearm PIV 20 g (dressing dated 01/11 1915)",
+          "condition": "Saline lock; to be removed at this stop (catheter intact)"
+        },
+        {
+          "item": "IV site",
+          "site": "left forearm PIV 18 g (dressing dated 01/11 0145)",
+          "condition": "Saline lock, no redness; kept overnight"
+        },
+        {
+          "item": "telemetry",
+          "condition": "on"
+        },
+        {
+          "item": "oxygen",
+          "condition": "none (room air)"
+        },
+        {
+          "item": "other",
+          "condition": "Discharge instructions draft on the table; prescription list: glargine 24 units every morning (0730), lispro pens, pen needles, glucose meter strips, lancets, glucose tablets (NO ketone strips, NO glucagon); sharps box; phone charger"
+        }
+      ],
+      "inspectable": [
+        {
+          "target": "prescription list",
+          "finding": "Glargine, lispro pens, pen needles, glucose strips, lancets, glucose tablets; missing blood ketone strips and glucagon"
+        },
+        {
+          "target": "right forearm IV",
+          "finding": "Saline lock, no redness; remove (no longer needed)"
+        },
+        {
+          "target": "left forearm IV",
+          "finding": "Saline lock, no redness; keep overnight"
+        },
+        {
+          "target": "discharge instructions draft",
+          "finding": "Home D3 after breakfast (about 1000) with sister; follow-up Dr. Harlow 01/15 1000"
+        },
+        {
+          "target": "breath odour",
+          "finding": "None"
+        }
+      ],
+      "events": [
+        "Nurse reviews discharge readiness and calls Dr. Ashworth to add blood ketone strips and glucagon: 'Yes, add them. The outpatient pharmacy will bring them up in the morning before he leaves.'",
+        "Plan to teach Tessa to give glucagon",
+        "Confirm glargine every morning at 0730 (next D3 0730; none tonight)",
+        "Remove the right forearm IV; keep the left saline lock overnight",
+        "Final teach-back with the sister"
+      ],
+      "aloud": "Glucose 1700 142. Urine 1600 300, 1830 300. Oral 720.",
+      "safetyCatch": "Missing discharge supplies (blood ketone strips and glucagon) on a list copied from his home prescriptions.",
+      "nextStopTrigger": "End of the course. Discharge happens D3 about 1000 after breakfast if overnight and fasting glucoses are 100-250 with no low, BHB under 0.6, and supplies in hand (not simulated)."
+    }
+  ]
+}
