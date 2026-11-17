@@ -50,6 +50,13 @@ Students use the EHR on their own devices, synced with the instructor through Cl
    - **SBAR to the provider**: S, B, A and R rows. No subtitle.
 8. **Prediction for the next 4 hours** and **Charge nurse notes**: no subtitles.
 
+### Quick Checks: teach, not grade (2026-11-17)
+- Every checkpoint page has a **QUICK CHECK** box after the pair boxes: **2-3 short questions** (NCLEX-style multiple choice with 4 options, select-all, or a one-line fill-in) about **that stop's one big idea** (the teachable moment). Label each with its clinical judgment step (recognize cues, analyze cues, prioritize, generate solutions, take action, evaluate).
+- **The instructor reveals the answers at the end of each stop** with a one-line "why"; students **correct their own answers in a different color**. The key lists the answer, the "why", the common wrong answer and why it is tempting, and the textbook chapter topic.
+- **Scoring:** Quick Checks count for **completion and correction**, never for being right. Change the rubric's "Clinical thinking" row accordingly and say so on the cover ("These questions are for learning: you will not lose points for a wrong answer you corrected").
+- Each stop also names its **big idea** in one line in the key (and the instructor guide), and the debrief returns to all 7 big ideas.
+- Quick Check answers must never be printed on the student page; check_facts must also confirm no answer text appears in the student packet.
+
 ### No subtitles
 Do not put italic hint text or questions after box titles unless the instructor asked for that box. The current exceptions are:
 - the pair-name line
@@ -150,6 +157,7 @@ When the instructor asks for a format change:
 3. Offer to apply it to the older packets (for example `hypermag/student2`).
 
 Change history:
+- 2026-11-17: Quick Checks per stop (teach, not grade), reveal at the end of each stop, completion-based scoring; textbook Ignatavicius 11th ed.; 2-hour class = 7 stops.
 - 2026-11-10 (4): the Meds pair is now named **Meds and Orders** (not Meds & Treatments).
 - 2026-11-10 (3): every checkpoint has a NEW nursing assessment charted (all rows; carry forward unchanged values; no vital numbers) and a NEW lab set (q4h, even if not fully realistic), so each pair always has something new. Students can discontinue orders in the app (with a reason).
 - 2026-11-10 (2): no pair or letter table on the cover; pairs are assigned and switch jobs checkpoint by checkpoint; the rotation grid is charge nurse names only; no float; quick ADN-level pathophysiology box at the start of the cover.

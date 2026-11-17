@@ -14,7 +14,9 @@ The instructor is nursing faculty, new to coding. Talk to them in plain language
 Settle these before any subagent runs. Use one AskUserQuestion with recommended options; never ask what the repo already answers.
 - **Diagnosis and story.** Who, age and sex, the trigger, and the one or two "twists" that make it teach something. Check `casestudy/cases/*/meta.json` and any series file (for example `casestudy/cases/DKA_SERIES.md`) so the new patient is not a copy of an existing one.
 - **Use:** in class (instructor-paced) or take-home. Take-home patients follow their series rules (for example, DKA take-home patients have 0700/1900 checkpoints and no packet).
-- **Length and checkpoints.** In-class default: **start at 0700 right after the ED**, **checkpoints every 4 hours**, length as asked (for example 3 shifts = 36 h, Day 1 0700 to Day 2 1900). The **case study packet covers the first 24 h** (7 stops: 0700, 1100, 1500, 1900, 2300, 0300, 0700) unless the instructor says otherwise.
+- **Length and checkpoints.** In-class default: **start at 0700 right after the ED**, **checkpoints every 4 hours**, **24 hours = 7 stops (0700, 1100, 1500, 1900, 2300, 0300, 0700), which fits the instructor's ideal 2-hour class (about 15 minutes a stop)**. Longer courses only when asked (for example 3 shifts = 36 h); then the packet still covers the first 24 h.
+- **Textbook:** the instructor teaches from **Ignatavicius, Rebar & Heimgartner, Medical-Surgical Nursing: Concepts for Clinical Judgment and Collaborative Care, 11th ed. (Elsevier)**. Use its terms, priorities and the NCSBN clinical judgment model language (recognize cues, analyze cues, prioritize hypotheses, generate solutions, take action, evaluate outcomes). Clinical numbers follow current guidelines; note any difference from the textbook for the instructor.
+- **Quintessential first:** unless asked for a twist, a patient should be the clean textbook example of the diagnosis: every classic teaching moment once, clearly, with no rare complications.
 - **VR:** is it a VR patient? If yes, produce `VR_BRIEF.md` (Phase 3). Ask the instructor for anything the VR chat needs in a specific format; this session cannot read that chat.
 - Pick a free **MRN** (`grep -rh '"mrn"' casestudy/cases/*/patient.json`), room, unit and dates (not overlapping a series patient used the same day), and a folder name `casestudy/cases/<id>/`.
 
@@ -28,6 +30,7 @@ Write the answers into `casestudy/cases/<id>/BRIEF.md` (one page). Every subagen
 - **Vital signs and bedside glucoses are charted only up to the first stop (0700)** for in-class patients. After that they come from the bedside monitor and the instructor says the glucose and orthostatic values aloud. POC glucose for take-home DKA patients follows `DKA_SERIES.md`.
 - **A NEW full nursing assessment at every checkpoint** (all body-system rows, carry unchanged values forward, changed rows tell the story of that stop, an IV site row). No vital sign numbers inside assessment text.
 - **A NEW lab set before every checkpoint** (every 4 hours), even when not fully realistic, so the Results pair always has something new.
+- **At most 2 planted order errors in 24 h** (realistic and teachable).
 - **At least one order the students should discontinue** (for example droplet precautions after a negative viral panel). They can do it in the app (Orders > select > Discontinue this order, with a reason).
 - **MAR:** ED doses are `given`; infusions running at 0700 show "0700 Running"; **every dose after 0700 is `due`** for the students. Continuous fluids get a Due box at the current hour automatically (the app does this).
 - **Potassium rule (instructor):** peripheral potassium is given at **no more than 10 mEq per hour** as separate IV riders on a pump (at most 4 in a row), **no more than 20 mEq/L in a peripheral maintenance bag**, and **40 mEq/L is the central-line cap**. A potassium rider never runs on top of a potassium-containing carrier without the total staying at or under 10 mEq/h.
@@ -82,4 +85,5 @@ One **case-study builder** subagent with that skill's full text pasted in: copie
 - When the instructor gives a new rule, add it here (Rules) and to the series file, with the date.
 
 Change history:
+- 2026-11-17: 24 h / 7 stops default for a 2-hour class; Ignatavicius 11th ed. alignment; quintessential first; at most 2 planted order errors per 24 h; case study Quick Checks (teach, not grade).
 - 2026-11-10: first version (in-class DKA patient, 36 h, case study for the first 24 h, VR brief).
