@@ -72,7 +72,7 @@ function buildLabs() {
   pn('Glucose (serum)', 'Glu', 'mg/dL', '70-99 (fasting)', 70, 99, 0, { crit: [50, 500] }); pn('Calcium', 'Ca', 'mg/dL', '8.6-10.3', 8.6, 10.3, 1, { crit: [6.5, 13] });
   pn('Magnesium', 'Mg', 'mg/dL', '1.8-2.4', 1.8, 2.4, 1, { crit: [1.0, 5.0] }); pn('Phosphorus', 'Phos', 'mg/dL', '2.5-4.5', 2.5, 4.5, 1, { crit: [1.0] });
   add(lab('Chemistry', 'Anion gap', 'mmol/L', '8-12 (Na - Cl - CO2)', 8, 12, PANELS.map(p => [p.t, ag(p), p.r]), { dec: 0 }));
-  add(lab('Chemistry', 'eGFR (CKD-EPI 2021)', 'mL/min/1.73m2', 'Over 60 (an estimate only while creatinine is changing)', 60, null, PANELS.map(p => [p.t, egfr(p.Cr), p.r]), { dec: 0 }));
+  add(lab('Chemistry', 'eGFR (CKD-EPI 2021)', 'mL/min/1.73m2', 'Over 60 (estimate)', 60, null, PANELS.map(p => [p.t, egfr(p.Cr), p.r]), { dec: 0 }));
   add(lab('Chemistry', 'Beta-hydroxybutyrate (serum ketone)', 'mmol/L', 'Under 0.6', null, 0.5, has('BHB').map(p => [p.t, p.BHB, p.b]), { dec: 1, crit: [undefined, 3.0] }));
   const g = has('pH');
   add(lab('Blood Gas', 'pH, venous', '', '7.31-7.41', 7.31, 7.41, g.map(p => [p.t, p.pH, p.g]), { dec: 2, crit: [7.2], specimen: 'Venous blood' }));
