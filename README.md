@@ -2,6 +2,12 @@
 
 This version adds an Epic-style **MAR** page and makes the Chart Review sidebar tabs appear as a dropdown.
 
+## Working with Codex
+
+Start from the `EHR` branch and have Codex read [`AGENTS.md`](AGENTS.md). It points to the project memory and both existing Claude skill files, explains their use in Codex, and lists the build and verification commands. Work on a separate `codex/<task>` branch; merge into `EHR` only after the instructor reviews and approves the result. Create a pull request only when the owner asks.
+
+- 2026-11-17: documented Codex use and clarified tool compatibility, checks, and review-before-merge rules in `AGENTS.md`. Documentation only; no app version change.
+
 ## New in v17 - Saved patients
 
 - **EHR:** the **Saved Patients** button (top bar) saves the patient you are looking at, including the simulation time and anything charted, and loads it again later. Use it to prepare a medication pass: advance to the time you want, press Save, and load it for the class.
