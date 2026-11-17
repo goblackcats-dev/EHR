@@ -65,7 +65,7 @@ def title_page(d):
     banner(d, 'INSTRUCTOR KEY: NORA WHITCOMBE TEAM CASE STUDY', 'about 2 hours', fill=INK, size=14, h=0.45)
     md('# Instructor Key: Nora Whitcombe Team Case Study (new-onset type 1 diabetes in DKA)'); md()
     H(d, 'What this is', level=2)
-    para(d, 'A 2-hour team case study. The whole class (designed for 7 students) works as ONE team and cares for Nora Whitcombe (22, college student, new-onset type 1 diabetes presenting in moderate-to-severe DKA) across 24 hours of patient time, **Mon 0700 to Tue 0700**. The class advances **4 hours together** (0700, 1100, 1500, 1900, 2300, 0300, then a final check at 0700), **about 15 minutes per stop**. The packet is 12 pages: cover (with the quick pathophysiology), patient card with a DKA map and two EHR screenshots, the rubric with a **response tracker**, one page per checkpoint, two final pages (evaluation, then teaching and discharge) and an individual reflection.')
+    para(d, 'A 2-hour team case study. The whole class (designed for 7 students) works as ONE team and cares for Nora Whitcombe (22, college student, new-onset type 1 diabetes presenting in moderate-to-severe DKA) across 24 hours of patient time, **Mon 0700 to Tue 0700**. The class advances **4 hours together** (0700, 1100, 1500, 1900, 2300, 0300, then a final check at 0700), **about 14 minutes per stop (12 at 2300, 20 for the two-page final check)**. The packet is 12 pages: cover (with the quick pathophysiology), patient card with a DKA map and two EHR screenshots, the rubric with a **response tracker**, one page per checkpoint, two final pages (evaluation, then teaching and discharge) and an individual reflection.')
     para(d, '**Focus (Ignatavicius 11e, NCSBN clinical judgment model):** recognize the cues of DKA (Kussmaul breathing, fruity breath, dehydration), the textbook priorities in order (fluids, insulin with a known potassium, potassium and electrolytes, monitoring), "dextrose up, never insulin off", the potassium shift on insulin, the resolution criteria and the overlap transition, the emotional side of a new diagnosis, the first low glucose, and survival-skills teaching by teach-back. **Two planted order errors** (bicarbonate at 0700; KCl 20 mEq/h through a peripheral IV at 1500) and **one order to discontinue** (NPO at 1100).')
     para(d, '**NEW: Quick Checks (teach, not grade).** Every checkpoint page has 2-3 NCLEX-style questions on that stop\'s **big idea**, each labelled with its clinical judgment step. Students answer on their own during the stop. **You reveal the answers at the END of each stop** with the one-line "why" and the tempting wrong answer (below, per stop). Students correct in a different color and tick "Corrected". Scoring is for **completion and correction, never for being right**.')
     H(d, 'Roles and pairs (7 students, one team)', level=2)
@@ -89,7 +89,7 @@ def title_page(d):
 
 def run_of_show(d):
     page_top(d)
-    H(d, 'Run of show (about 2 hours; about 15 minutes per stop)', size=14, before=0, level=2)
+    H(d, 'Run of show (about 2 hours: about 14 minutes per stop, 12 at 2300, 20 for the final check)', size=14, before=0, level=2)
     para(d, 'Each checkpoint follows the same rhythm: read, pairs work (Quick Check answered on their own), SBAR, then the **Quick Check reveal at the end of the stop**.', after=1)
     table(d, ['Clock', 'Minutes', 'What the instructor does'], [0.9, 1.0, 5.4], [
         ['Start', '0:00-0:05', 'Welcome. One team; pick the 0700 charge nurse and assign the three pair jobs (they switch every stop). Read the quick pathophysiology together. Walk through the patient card and DKA map (page 2), the rubric and the response tracker (page 3). Explain the Quick Check: learning, not points.'],
@@ -97,11 +97,11 @@ def run_of_show(d):
         ['1100', '0:19-0:33', 'Press **4h**. Give glucoses 0800 222, 0900 204, 1000 192, 1100 186. Watch for "dextrose up, never insulin off" and the **NPO discontinuation** by protocol. Reveal Quick Check 2.'],
         ['1500', '0:33-0:47', 'Press **4h**. Watch for the **KCl 20 mEq/h** order (hold and call), insulin kept at K 3.6, MgSO4. Reveal Quick Check 3.'],
         ['1900', '0:47-1:01', 'Press **4h**. DKA resolved; glargine 1900 with the drip on until 2100 (the overlap). Grief and denial. Reveal Quick Check 4.'],
-        ['2300', '1:01-1:15', 'Press **4h**. Therapeutic communication, readiness to learn, the snack and the 0300 check. Reveal Quick Check 5.'],
-        ['0300', '1:15-1:29', 'Press **4h**. Glucose **58**: 15 g by mouth, 66 at 0317, repeat, 94 at 0333, snack. Show the 0335 monitor row. Reveal Quick Check 6.'],
-        ['Final 0700', '1:29-1:44', 'Press **4h**. Page 1: pairs, Quick Check, tracker, evaluation table and verdict. Page 2: handoff, insulin plan, survival skills, sick-day rules, rule of 15 and glucagon, medical ID, teach-back, readiness. Reveal Quick Check 7.'],
-        ['Reflection', '1:44-1:50', 'Each student completes their own reflection and peer check (page 12). Collect the 7 packets.'],
-        ['Debrief', '1:50-2:00', 'Return to the **7 big ideas** (debrief page). Put the trends on the board.']], size=8.5, row_h=0.24)
+        ['2300', '1:01-1:13 (12 min; lighter stop, no lab math)', 'Press **4h**. Therapeutic communication, readiness to learn, the snack and the 0300 check. Reveal Quick Check 5.'],
+        ['0300', '1:13-1:27', 'Press **4h**. Glucose **58**: 15 g by mouth, 66 at 0317, repeat, 94 at 0333, snack. Show the 0335 monitor row. Reveal Quick Check 6.'],
+        ['Final 0700', '1:27-1:47 (20 min)', 'Press **4h**. Two pages: let the pairs finish final page 2 in parallel (Meds and Orders: home insulin plan; Vitals & Assessment: survival skills and medical ID; Results & Labs: sick-day and low-glucose boxes) while the charge nurse writes the handoff. Page 1: pairs, Quick Check, tracker, evaluation table and verdict. Page 2: handoff, insulin plan, survival skills, sick-day rules, rule of 15 and glucagon, medical ID, teach-back, readiness. Reveal Quick Check 7.'],
+        ['Reflection', '1:47-1:52', 'Each student completes their own reflection and peer check (page 12). Collect the 7 packets.'],
+        ['Debrief', '1:52-2:00', '8 minutes: return to the **7 big ideas** (debrief page) and pick 4-5 questions. Put the trends on the board. If time is short, assign the DKA map as pre-class work.']], size=8.5, row_h=0.24)
     H(d, 'The same 14 minutes, one checkpoint', size=11, level=3)
     table(d, ['Minute', 'What happens'], [1.0, 6.3], [
         ['+0 to +2', 'Press 4h (not at the first 0700). Check the monitor moved. Read the situation aloud. Remind them the charge nurse changed.'],
@@ -201,7 +201,7 @@ def textbook(d):
     para(d, 'The chart follows the **2024 ADA/EASD/JBDS/AACE/DTS hyperglycemic crises consensus**. Where students may have read an older number (the textbook often reflects the 2009 ADA algorithm), Nora\'s values pass under **both**, so no Quick Check answer changes. Decide before class which number you will say aloud, and verify the textbook values against your copy.', size=9)
     table(d, ['Topic', '2024 consensus (the chart)', 'What textbooks commonly teach', "Nora's values", 'Does the class answer change?'], [1.35, 1.6, 1.6, 1.45, 1.3],
           [list(r) for r in C.TEXTBOOK], size=8.0, row_h=0.3, bold_first=True)
-    para(d, '**Quick Checks that touch a textbook difference:** stop 3 Q3 (K threshold: "continue insulin" is right under both 3.5 and 3.3); stop 4 Q1 (resolution: 1730 passes and 1330 fails under both rules); stop 4 Q2 (overlap: 2 h meets both); stop 6 (15 g vs 15-20 g).', size=9)
+    para(d, '**Quick Checks that touch a textbook difference:** stop 2 Q1 (some textbooks lower the insulin when dextrose starts; the stem names Nora\'s dextrose table, which keeps 5.5 units/h); stop 3 Q3 (K threshold: "continue insulin" is right under both 3.5 and 3.3); stop 4 Q1 (resolution: 1730 passes and 1330 fails under both rules; it also touches the gap: some texts list a normal gap as a resolution sign, so the stem now names the order\'s rule); stop 4 Q2 (overlap: 2 h meets both); stop 6 (15 g vs 15-20 g).', size=9)
 
 
 def rubric_guide(d):
@@ -247,7 +247,7 @@ def score_sheet(d):
 
 def debrief(d):
     page_top(d)
-    H(d, 'Debrief: back to the seven big ideas (about 10 minutes; pick 5 to 7 questions)', size=14, before=0, level=2)
+    H(d, 'Debrief: back to the seven big ideas (about 8 minutes; pick 4 to 5 questions)', size=14, before=0, level=2)
     para(d, 'Put the trends on the board first: K ' + ', '.join(v for _, v in C.TIMELINE_K) + '; gap ' + ', '.join(v for _, v in C.TIMELINE_GAP) + '; BHB ' + ', '.join(v for _, v in C.TIMELINE_BHB) + '; pH 7.14, 7.24, 7.29, 7.32, 7.34; RR 24, 20, 18, 18, 18, 18, 14; bedside glucose 274, 186, 166, 168, 148, 58 (66, 94), 122.', size=9)
     H(d, 'The seven big ideas (say each one again)', size=11, level=3)
     table(d, ['Stop', 'Big idea'], [0.8, 6.5], [[MON[i]['clock'], C.BIG_SHORT[i - 1]] for i in range(1, 8)], size=8.6, row_h=0.26)
@@ -257,7 +257,7 @@ def debrief(d):
     H(d, 'Ideas for good answers', size=11, level=3)
     bl(d, C.DEBRIEF_IDEAS, size=8.8)
     H(d, 'Instructor only', size=11, level=3)
-    bl(d, ['On Friday 02/12 the antibodies return **GAD65 positive (210 IU/mL, reference under 5) and IA-2 positive; ZnT8 negative**: autoimmune type 1 diabetes (stage 3). Use it with Quick Check 7.3.',
+    bl(d, ['On Friday 02/12 the antibodies return **GAD65 positive (210 IU/mL, reference under 5) and IA-2 positive; ZnT8 negative**: autoimmune type 1 diabetes (stage 3). Use it with final Quick Check 3 (the antibodies are still pending at 0700).',
            'Of the 6 kg she lost, about 3.5 kg was water and about 2.5 kg fat and muscle (no insulin = the body burns fat and protein). Weight 55.0 to 56.2 kg by Tue 0600.',
            'Answer keys live in the public repository (a known risk): do not share this file with students.'], size=8.8)
 

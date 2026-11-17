@@ -368,7 +368,7 @@ def closing2(d):
 def reflection(d):
     page_top(d); tag(d, 'CASE CLOSED', 3, 3)
     banner2(d, 'MY REFLECTION AND PEER CHECK', 'individual', sub='Hand this page in with your own name on it.')
-    P(d, 'Name: _______________________________    Team: _______________________________    My charge stop: ________', size=9.6, after=4)
+    P(d, 'Name: _______________________________    My charge stop: ________', size=9.6, after=4)
     box(d, [('1. Something I learned about DKA and new type 1 diabetes from Nora\'s case (how the body, the treatment or the evaluation works)', '')], 5)
     box(d, [('2. A Quick Check I got wrong (or nearly did): what tempted me, and what I know now', '')], 4)
     box(d, [('3. Something our team did well (and who helped)', '')], 4)

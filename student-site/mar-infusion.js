@@ -46,7 +46,7 @@
     cur = med; const rate = safe(med.dose);
     q('miTitle').textContent = safe(med.name); q('miSub').textContent = `${doseDisplay(med)} | ${safe(med.route)} | Continuous`;
     q('miDate').value = String(simulationTime).slice(0, 10); q('miTime').value = String(simulationTime).slice(11, 16);
-    q('miAct').value = 'running'; q('miRate').value = (rate.match(/[\d.,]+/) || [''])[0].replace(/,/g, ''); q('miBag').value = ''; q('miWhy').value = '';
+    q('miAct').value = 'running'; q('miRate').value = ((rate.match(/([\d.,]+)\s*mL\s*\/\s*h/i) || [])[1] || (rate.match(/[\d.,]+/) || [''])[0]).replace(/,/g, '');   // the pump rate in mL/h when the dose text has one ("0.1 unit/kg/h = 5.5 units/h (5.5 mL/h)") q('miBag').value = ''; q('miWhy').value = '';
     sync(); dlg.showModal();
   }
   function save() {
@@ -83,6 +83,9 @@
       if (safe(med.category).toLowerCase() !== 'continuous' || !med.orderId) return row;
       const idx = marNowIndex(); if (idx == null) return row;
       const cell = row.querySelectorAll('.mar-cell')[idx - offset]; if (!cell || cell.classList.contains('mar-before') || cell.classList.contains('mar-discontinued')) return row;
+      // a fluid that has not been started yet gets no Due box (its own Due box appears when the order says so)
+      const ev = Array.isArray(med.events) ? med.events : [];
+      if (!ev.some(e => Number(e.slotIndex) <= idx && !/due/i.test(String(e.state)))) return row;   // only fluids already running (something charted at or before now)
       const hasPill = !!cell.querySelector('.mar-event-pill');
       if (!hasPill) {
         const pill = document.createElement('div'); pill.className = 'mar-event-pill mar-event-due actionable'; pill.dataset.marState = 'due'; pill.title = 'Chart what is happening with this fluid';
