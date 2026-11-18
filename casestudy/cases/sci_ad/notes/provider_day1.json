@@ -1,0 +1,78 @@
+[
+ {
+  "id": "note_ed_provider_note_febrile_uti_i_202703072350",
+  "type": "erVisitSummary",
+  "title": "ED Provider Note - Febrile UTI in Spinal Cord Injury",
+  "author": "P. Tolliver, MD",
+  "datetime": "2027-03-07 23:50",
+  "category": "ED Provider Note",
+  "summary": "Febrile complicated UTI in chronic T4 SCI with neurogenic bladder. UA nitrite positive, LE 3+; WBC 14.6; lactate 1.6; procalcitonin 0.42. Cultures sent; ceftriaxone 1 g; 1 L NS. New stage 2 sacral pressure injury. Admit.",
+  "body": "**Chief complaint**\nFever and cloudy, foul-smelling urine.\n\n**HPI**\n34-year-old man with a chronic complete T4 spinal cord injury (AIS A, 02/2025) and a reflex neurogenic bladder managed with intermittent catheterization. Two days of cloudy, foul urine, leaking between caths and more spasms; chills and fever since Sunday noon (home 101.6 F). A brief episode of stuffy nose and headache at 1600 with a full bladder, resolved after cathing. He cannot feel burning or flank pain. Two UTIs in the past year treated with trimethoprim-sulfamethoxazole.\n\n**Exam**\nT 101.8 F, HR 98, BP 92/56 (baseline about 95/60 on his AD card), RR 18, SpO2 96% RA. Alert, oriented. Lungs clear. Abdomen soft. Sensory level T4; no movement of the legs. Sacrum: new stage 2 pressure injury 2.0 x 1.5 cm.\n\n**Results**\n- UA (new catheter): cloudy, nitrite positive, leukocyte esterase 3+, WBC over 50/hpf with clumps, many bacteria, squamous cells 0-2.\n- WBC 14.6 (neutrophils 84%, bands 4%). Hgb 13.4. Platelets 262.\n- Na 136, K 4.2, Cl 102, CO2 23, BUN 22, creatinine 0.7. Anion gap 136 - 102 - 23 = 11. BUN/creatinine 31 (mild volume loss).\n- Lactate 1.6. Procalcitonin 0.42. CRP 98. ESR 48.\n\n**Assessment**\nFebrile complicated UTI (likely upper tract) in a man with a neurogenic bladder. Not septic shock: lactate normal; the low BP is his baseline (an SBP of 92 scores a qSOFA point but is his normal). New stage 2 sacral pressure injury.\n\n**Plan**\nBlood cultures x2 and urine culture sent before antibiotics. Ceftriaxone 1 g IV (childhood penicillin rash only). 0.9% sodium chloride 1 L, then 100 mL/h. Acetaminophen. Indwelling catheter for now. Discussed with Dr. Haverty: admit to 4 West Medical-Surgical; no bed until morning."
+ },
+ {
+  "id": "note_admission_history_and_physical_202703080120",
+  "type": "hp",
+  "title": "Admission History and Physical",
+  "author": "N. Haverty, MD",
+  "datetime": "2027-03-08 01:20",
+  "category": "History and Physical",
+  "summary": "Complicated UTI (febrile) in neurogenic bladder, chronic T4 AIS A spinal cord injury; stage 2 sacral pressure injury (present on admission). BP 92-98 is his baseline. AD history: AD protocol and nitroglycerin PRN ordered; sildenafil held. Enoxaparin for SCI clot risk. Continue baclofen.",
+  "body": "**Chief complaint**\nFever and cloudy urine.\n\n**HPI**\nSee the ED note. Febrile UTI after 2 days of cloudy foul urine, leaking and more spasms in a man with a chronic T4 complete injury who self-catheterizes.\n\n**Past history**\n- **T4 fracture-dislocation, complete (AIS A), neurological level T4** from a motor vehicle crash 02/14/2025; posterior fusion T2-T6 02/15/2025; spinal shock resolved over about 6 weeks; 8 weeks inpatient rehab.\n- Neurogenic (reflex) bladder: intermittent catheterization every 4-6 h, 14 Fr hydrophilic catheter, volumes 350-450 mL. 2 UTIs in the last year (trimethoprim-sulfamethoxazole, last 10/2026).\n- Neurogenic bowel: program every evening at 2000 (senna at noon, bisacodyl suppository with lidocaine jelly, digital stimulation).\n- **Autonomic dysreflexia: 3 episodes at home** (09/2025 full bladder, SBP about 160; 01/2026 ingrown toenail; 06/2026 tight shoes and a folded leg strap). Carries an AD card (baseline 95/60). First sign for him: \"stuffy nose, then the headache.\"\n- Orthostatic hypotension: uses an abdominal binder and thigh-high compression stockings.\n- Stage 2 pressure injury right ischium during rehab (2025), healed.\n- Mild depression in the first year after injury; counseling finished 2026.\n\n**Medications** Baclofen 10 mg three times a day; oxybutynin 5 mg three times a day; senna 17.2 mg at noon; docusate 100 mg twice a day; bisacodyl 10 mg suppository at 2000; lidocaine 2% jelly; vitamin D3 2,000 units daily; sildenafil 50 mg PRN (last about 10 days ago); acetaminophen PRN.\n\n**Allergy** Penicillin (rash as a child; no hives or swelling).\n\n**Social** Lives alone in an accessible apartment; works from home (software quality testing). Personal care attendant 3 mornings a week. Sister Claire nearby (emergency contact). Drives with hand controls. Never smoked; 2-4 beers a week.\n\n**Exam** T 100.4 F, HR 84, BP 96/58, RR 16, SpO2 97% RA (0100). Alert, oriented x4. Arms 5/5; legs 0/5, increased tone. Light touch and pinprick normal through T4, absent T5 and below; no anal sensation or voluntary contraction. Lungs clear, weak cough. Abdomen soft. Sacrum: stage 2, 2.0 x 1.5 x 0.1 cm.\n\n**Data** WBC 14.6; UA nitrite positive, LE 3+; lactate 1.6; procalcitonin 0.42; CRP 98; creatinine 0.7 (low muscle mass: creatinine-based eGFR overestimates his kidney function).\n\n**Assessment and plan**\n1. **Complicated UTI, febrile**: ceftriaxone 1 g IV every 24 h; follow the urine and blood cultures (his usual home antibiotic may not work: 2 courses this year). Acetaminophen PRN. 0.9% sodium chloride 100 mL/h.\n2. **Neurogenic bladder**: indwelling catheter for now; RN may remove it when afebrile 8 h, IV fluids off and hourly output not needed, then intermittent catheterization every 4 h. Oxybutynin.\n3. **Autonomic dysreflexia risk**: nurse-driven AD protocol; nitroglycerin 2% ointment PRN for SBP 150 or more after the cause search; hold sildenafil. **His baseline SBP is 90-100; BP 92-98 tonight is his normal.**\n4. **Stage 2 sacral pressure injury (present on admission)**: low-air-loss mattress, turn every 2 h, foam dressing, wound nurse, dietitian.\n5. **VTE prophylaxis**: enoxaparin 40 mg SubQ daily (SCI with immobility plus acute infection).\n6. **Spasticity**: continue baclofen; do not stop suddenly.\n7. **Neurogenic bowel**: home program at 2000 with lidocaine jelly.\n8. Orthostatic hypotension: binder and stockings before sitting up. Incentive spirometer, assisted cough.\n9. AM labs; PT, OT, physiatry, pharmacy, case management. Full Code."
+ },
+ {
+  "id": "note_hospital_medicine_event_note_a_202703081005",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Event Note - Autonomic Dysreflexia",
+  "author": "M. Kincaid, MD",
+  "datetime": "2027-03-08 10:05",
+  "category": "Progress Note",
+  "summary": "AD 0912-0950 from a kinked catheter, resolved without medicine (peak 204/112, HR 46). ECG sinus bradycardia 50, no ischemia. Call parameters corrected (SBP 130 or more or any AD symptom). Stop NS at 1100. Blood cultures no growth at 12 hours.",
+  "body": "**Event**\nSeen at the bedside at 1005. Autonomic dysreflexia from 0912 to 0950: kinked catheter tubing under the left thigh after he was boosted up at 0730. BP peaked at 204/112 with HR 46 at 0920. Nursing sat him up, lowered his legs, loosened the binder and stockings, found and straightened the kink: 600 mL drained. SBP was under 150 by 0927 with the cause removed: nitroglycerin correctly not given. Now 104/62, HR 68, headache 1/10, neuro exam normal.\n\n**ECG 0923** Sinus bradycardia 50, PR 180 ms, QRS 80 ms, no ST or T-wave changes. The slow rate is the reflex (vagal) response to the high BP. No ischemia.\n\n**Results** Blood cultures: no growth at 12 hours (1000). Morning labs: WBC 13.1, creatinine 0.6, Mg 1.9, CRP 112, albumin 3.2.\n\n**Assessment** AD from bladder distension, resolved with removal of the cause. The 0115 order-set call parameters (SBP greater than 160 or less than 90) do not fit him: his baseline SBP is 90-100, so AD starts at 120-140, and an SBP under 90 fires at his normal. Corrected.\n\n**Plan**\n- New call parameters: SBP 130 or more, OR any AD symptom at any BP; SBP under 80 or a symptomatic drop on sitting up; HR under 50 or over 110; temperature over 100.4 F; SpO2 under 92%.\n- BP every 15 minutes until 1150, then every 4 hours.\n- Catheter secured to the thigh; tubing checks every 2 hours and with every turn.\n- Stop 0.9% sodium chloride at 1100 and saline-lock (drinking well).\n- CBC and CRP at 1700. Continue ceftriaxone. Enoxaparin today (delayed by the event).\n- Binder and stockings back on before he sits up for therapy.",
+  "allowTimes": [
+   "1100",
+   "1150",
+   "1700"
+  ]
+ },
+ {
+  "id": "note_hospital_medicine_progress_not_202703081730",
+  "type": "progressNotes",
+  "title": "Hospital Medicine Progress Note - Afternoon",
+  "author": "M. Kincaid, MD",
+  "datetime": "2027-03-08 17:30",
+  "category": "Progress Note",
+  "summary": "Afebrile; no acetaminophen since 0430. Urine culture preliminary: gram-negative rods over 100,000 (1400). Continue ceftriaxone. Orthostatic drop at PT without the binder. CBC/CRP from 1700 pending.",
+  "body": "**Subjective** Feels better. No headache since the morning. Lightheaded at therapy when sat up without the binder; fine with it.\n\n**Objective** Afebrile since the morning; no acetaminophen since 0430. BP back in his baseline range. PT 1345: 98/60 lying, 76/46 after 3 minutes sitting without the binder and stockings (orthostatic); 90/56 with the binder snug, stockings on and a slow raise. Urine clearer.\n\n**Results** Urine culture (1400, preliminary): greater than 100,000 CFU/mL gram-negative rods, identification to follow. Vitamin D 22 (insufficient). Prealbumin 14 (low, but CRP 112 this morning: inflammation lowers it). CBC and CRP drawn 1700, pending.\n\n**Assessment and plan**\n1. Complicated UTI: improving on ceftriaxone; next dose 2300; follow identification and susceptibilities.\n2. Autonomic dysreflexia this morning: resolved; corrected call parameters in place.\n3. Orthostatic hypotension: binder and stockings on before sitting; raise slowly.\n4. Stage 2 sacrum: per the wound nurse; own cushion now here.\n5. Indwelling catheter: physiatry recommends removal tonight and intermittent catheterization every 4 h; the removal criteria are in the catheter order.\n6. AM labs ordered for 0500.",
+  "allowTimes": [
+   "2300",
+   "0500"
+  ]
+ },
+ {
+  "id": "note_night_hospitalist_note_culture_202703082240",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Culture Update",
+  "author": "N. Haverty, MD",
+  "datetime": "2027-03-08 22:40",
+  "category": "Progress Note",
+  "summary": "Urine culture: E. coli over 100,000 (2200), susceptibilities pending. Blood cultures no growth at 24 hours. WBC 11.0, CRP 86 (improving). Continue ceftriaxone.",
+  "body": "**Update** Urine culture at 2200: Escherichia coli, greater than 100,000 CFU/mL; susceptibilities to follow. Blood cultures: no growth at 24 hours.\n\n**1700 labs** WBC 11.0 (from 13.1), CRP 86 (from 112): improving.\n\n**Plan** Continue ceftriaxone 1 g IV (due 2300). Change to an oral antibiotic by the susceptibilities. His home antibiotic (trimethoprim-sulfamethoxazole) must not be assumed to work.",
+  "allowTimes": [
+   "2300"
+  ]
+ },
+ {
+  "id": "note_night_hospitalist_note_antibio_202703090545",
+  "type": "progressNotes",
+  "title": "Night Hospitalist Note - Antibiotic Change",
+  "author": "N. Haverty, MD",
+  "datetime": "2027-03-09 05:45",
+  "category": "Progress Note",
+  "summary": "E. coli RESISTANT to trimethoprim-sulfamethoxazole and ampicillin; susceptible to ceftriaxone and ciprofloxacin. Stop ceftriaxone; ciprofloxacin 500 mg PO every 12 h from 0900 to finish 7 days total. His usual home antibiotic would not have worked.",
+  "body": "**Final susceptibilities (0230)** Escherichia coli: ampicillin R; ampicillin-sulbactam I; cefazolin S (urine breakpoint); ceftriaxone S; ciprofloxacin S; trimethoprim-sulfamethoxazole **R**; nitrofurantoin S; gentamicin S.\n\n**Assessment** Febrile complicated E. coli UTI, improving: afebrile since Monday morning, WBC down to 11.0. Nitrofurantoin does not reach kidney tissue, so it is not used for a febrile (likely upper tract) infection. Ciprofloxacin is susceptible and is well absorbed by mouth.\n\n**Plan**\n- Stop ceftriaxone (last dose Mon 2300).\n- Ciprofloxacin 500 mg PO every 12 hours, first dose 0900, to complete 7 days total (through Sun 03/14 0900).\n- Give 2 hours before or 6 hours after calcium, magnesium, iron or zinc products (multivitamin with minerals).\n- Trimethoprim-sulfamethoxazole resistance noted for future UTIs; share with his SCI clinic.\n- AM labs pending (0500 draw). Likely home today if he tolerates oral antibiotics and stays afebrile.",
+  "allowTimes": [
+   "0900",
+   "2300"
+  ]
+ }
+]

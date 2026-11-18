@@ -359,8 +359,31 @@
     { t: '2027-02-09 03:35', hr: 90, spo2: 98, sys: 118, dia: 72, rr: 16, temp: 97.9, rhythm: 'sinus', pr: 0.142, qrs: 0.084, tAmp: 0.30, uAmp: 0, o2: 'Room air', note: 'After 2 rounds of 15 g: glucose 0317 66, 0333 94; eating crackers; alert, skin dry' },
     { t: '2027-02-09 07:00', hr: 78, spo2: 99, sys: 114, dia: 70, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.142, qrs: 0.084, tAmp: 0.30, uAmp: 0, o2: 'Room air', note: 'Rested, ready to learn; mother present. Glucose 0400 118, 0700 122 (fasting). Weight 0600 56.2 kg. pain 0' }
   ];
-  const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON, 'SIM-40601': CALEB, 'SIM-40602': NORA };
-  const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F', 'SIM-40601': 'SD-3   MERCER, CALEB   28 M', 'SIM-40602': 'SD-6   WHITCOMBE, NORA   22 F' };
+  // Wesley (Wes) Harcourt, 34 M, in-class chronic T4 SCI with UTI and autonomic dysreflexia (casestudy/cases/sci_ad, DESIGN.md section 17). One row per 4-hour stop plus the AD episode rows (0904 hold, 0915-1000) and the bowel-care rows (2015 hold, 2020, 2026); the monitor moves smoothly between rows, so the hold rows keep the baseline until each episode starts. Pain in each stop note matches the chart assessment.
+  const WES = [
+    { t: '2027-03-08 07:00', hr: 70, spo2: 97, sys: 96, dia: 58, rr: 16, temp: 99.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Arrival from the ED. His baseline BP (90-100/56-62). Catheter draining cloudy urine. pain 2 (shoulders)' },
+    { t: '2027-03-08 09:04', hr: 68, spo2: 97, sys: 98, dia: 60, rr: 16, temp: 99.2, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Resting in bed after breakfast (holds the baseline until the episode starts about 0905)' },
+    { t: '2027-03-08 09:15', hr: 62, spo2: 97, sys: 164, dia: 94, rr: 18, temp: 99.0, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Pounding headache 8/10, blurred vision, stuffy nose; flushed and sweaty above the nipple line, pale with goose bumps below. Bag empty since 0730. pain 8 (headache)' },
+    { t: '2027-03-08 09:17', hr: 54, spo2: 98, sys: 182, dia: 102, rr: 18, temp: 99.0, rhythm: 'brady', pr: 0.18, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Sat up, legs down; binder, stockings and gown ties loosened' },
+    { t: '2027-03-08 09:19', hr: 48, spo2: 98, sys: 196, dia: 108, rr: 20, temp: 99.0, rhythm: 'brady', pr: 0.18, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Tracing the catheter from the meatus to the bag' },
+    { t: '2027-03-08 09:20', hr: 46, spo2: 98, sys: 204, dia: 112, rr: 20, temp: 99.0, rhythm: 'brady', pr: 0.18, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Peak. Kink found under the left thigh and straightened; urine flowing fast' },
+    { t: '2027-03-08 09:23', hr: 50, spo2: 98, sys: 172, dia: 98, rr: 18, temp: 99.0, rhythm: 'brady', pr: 0.18, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: '12-lead ECG (sinus bradycardia 50). About 400 mL drained' },
+    { t: '2027-03-08 09:25', hr: 56, spo2: 98, sys: 156, dia: 90, rr: 18, temp: 99.0, rhythm: 'brady', pr: 0.18, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Headache 6/10. 600 mL drained by 0926. 0927: 144/86 HR 58, no nitroglycerin needed' },
+    { t: '2027-03-08 09:30', hr: 62, spo2: 97, sys: 132, dia: 80, rr: 16, temp: 98.9, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Headache 4/10; flushing fading. Bladder scan 30 mL; catheter secured to the thigh' },
+    { t: '2027-03-08 09:45', hr: 66, spo2: 97, sys: 110, dia: 68, rr: 16, temp: 98.9, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Headache 2/10; neuro check normal. 0950 108/66 HR 66: resolved; BP every 15 minutes to 1150' },
+    { t: '2027-03-08 10:00', hr: 68, spo2: 97, sys: 104, dia: 62, rr: 16, temp: 98.8, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Headache 1/10; tired, embarrassed' },
+    { t: '2027-03-08 11:00', hr: 70, spo2: 97, sys: 100, dia: 60, rr: 16, temp: 98.8, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'After the AD episode. Every-15-minute checks continue: 1105 98/60, 1120 100/60, 1135 98/58, 1150 100/60 (HR 68-72, no symptoms). pain 0' },
+    { t: '2027-03-08 15:00', hr: 72, spo2: 97, sys: 98, dia: 60, rr: 16, temp: 98.6, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Back in bed after PT. Orthostatic set 1345-1400 (say aloud): supine 98/60 HR 70; sitting 3 min without binder 76/46 HR 88; with binder and stockings 90/56 HR 80. pain 0' },
+    { t: '2027-03-08 19:00', hr: 68, spo2: 98, sys: 100, dia: 62, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'In his own wheelchair on his own cushion; sister present. Urine 600 mL this block. pain 0' },
+    { t: '2027-03-08 20:15', hr: 66, spo2: 98, sys: 100, dia: 62, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Bowel program started 2000 (lidocaine jelly first, bisacodyl suppository)' },
+    { t: '2027-03-08 20:20', hr: 60, spo2: 98, sys: 128, dia: 78, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Bowel care (digital stimulation): mild headache, goose bumps. Care paused, more lidocaine jelly; 2026 104/64' },
+    { t: '2027-03-08 20:26', hr: 64, spo2: 98, sys: 104, dia: 64, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Symptoms gone after the pause; bowel care finished slowly' },
+    { t: '2027-03-08 23:00', hr: 62, spo2: 97, sys: 96, dia: 58, rr: 14, temp: 98.2, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Bowel program done. Intermittent cath 2200: 380 mL. pain 0' },
+    { t: '2027-03-09 03:00', hr: 58, spo2: 96, sys: 92, dia: 56, rr: 14, temp: 97.8, rhythm: 'brady', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Asleep, cool to touch (normal sleep rate for him; BP at baseline, not AD). Intermittent cath 0200: 420 mL. pain 0' },
+    { t: '2027-03-09 07:00', hr: 66, spo2: 98, sys: 98, dia: 60, rr: 16, temp: 98.4, rhythm: 'sinus', pr: 0.16, qrs: 0.08, tAmp: 0.3, uAmp: 0, pvc: 0, o2: 'Room air', note: 'Awake, ready to learn. Intermittent cath 0600: 460 mL. pain 0' }
+  ];
+  const BUILTIN = { 'SIM-40318': RAY, 'SIM-40422': ADDISON, 'SIM-40601': CALEB, 'SIM-40602': NORA, 'SIM-40603': WES };
+  const BUILTIN_NAME = { 'SIM-40318': '5E-14   KESSLER, RAYMOND   74 M', 'SIM-40422': '4W-22   MITCHELL, LAUREN   46 F', 'SIM-40601': 'SD-3   MERCER, CALEB   28 M', 'SIM-40602': 'SD-6   WHITCOMBE, NORA   22 F', 'SIM-40603': '4W-14   HARCOURT, WES   34 M' };
   DKA_SERIES.forEach(([m, rows, name]) => { BUILTIN[m] = rows; BUILTIN_NAME[m] = name; });
   const RHY = { sinus: 'Normal sinus rhythm', brady: 'Sinus bradycardia', tachy: 'Sinus tachycardia', avb1: 'Sinus rhythm, 1st degree AV block', widebrady: 'Sinus brady, wide QRS', mobitz1: '2nd degree AV block, Mobitz I (Wenckebach)', mobitz2: '2nd degree AV block, Mobitz II', chb: 'Complete heart block (3rd degree)', afib: 'Atrial fibrillation', vtach: 'Ventricular tachycardia', vfib: 'Ventricular fibrillation', asystole: 'Asystole' };
   const NUMERIC = ['hr', 'spo2', 'sys', 'dia', 'rr', 'temp', 'pr', 'qrs', 'tAmp', 'uAmp'];
@@ -765,6 +788,6 @@
   setClock(clock, 'init'); requestAnimationFrame(frame);
 })();
 </script>
-<script src="monitor-remote.js?v=135"></script>
+<script src="monitor-remote.js?v=136"></script>
 </body>
 </html>

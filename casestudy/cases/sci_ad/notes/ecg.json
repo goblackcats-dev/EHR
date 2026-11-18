@@ -1,0 +1,21 @@
+[
+ {
+  "id": "note_ecg_202703081015",
+  "type": "cardiology",
+  "title": "12-Lead ECG",
+  "author": "T. Langston, MD (Cardiology)",
+  "datetime": "2027-03-08 10:15",
+  "category": "Cardiology",
+  "summary": "Sinus bradycardia 50, PR 180 ms, QRS 80 ms, QT/QTc 449/410 ms, normal axis. No ST or T-wave changes. Otherwise normal ECG.",
+  "body": "**Measurements**\nVentricular rate 50 bpm. PR 180 ms. QRS 80 ms. QT/QTc 449/410 ms (Bazett: RR 60/50 = 1.20 s; square root 1.095; 0.449 / 1.095 = 0.410). Normal axis.\n\n**Interpretation**\nSinus bradycardia, rate 50. Normal PR and QRS. No ST elevation or depression. No T-wave changes. No ectopy. Otherwise normal ECG.\n\n**Context**\nRecorded at 0923 at the bedside during an episode of autonomic dysreflexia (chronic T4 spinal cord injury; BP very high, tubing kink being relieved). The slow rate fits a reflex (vagal) response to the high blood pressure. No signs of ischemia.\n\n**Over-read**\nT. Langston, MD (Cardiology), 1015. Tracing available in the chart at 0930.",
+  "study": "ECG 12 lead, acquired 09:23",
+  "impression": "Sinus bradycardia, 50. Otherwise normal ECG. No ischemic changes.",
+  "imageFiles": [
+   {
+    "file": "ecg/ecg_0923.png",
+    "caption": "12-lead ECG acquired 2027-03-08 09:23",
+    "alt": "12-lead ECG tracing from 2027-03-08 09:23: Sinus bradycardia 50, PR 180 ms, QRS 80 ms, QT/QTc 449/410 ms, normal axis. No ST or T-wave changes. Otherwise normal ECG."
+   }
+  ]
+ }
+]
