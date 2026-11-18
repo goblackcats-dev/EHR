@@ -1,0 +1,86 @@
+[
+ {
+  "id": "note_pharmacy_note_medication_recon_202703080745",
+  "type": "therapyNotes",
+  "title": "Pharmacy Note - Medication Reconciliation",
+  "author": "F. Ashby, PharmD",
+  "datetime": "2027-03-08 07:45",
+  "category": "Pharmacy Note",
+  "summary": "Home meds reconciled. Penicillin childhood rash: ceftriaxone OK (low cross-reactivity). Baclofen: do not stop. Sildenafil last about 10 days ago: no nitrate conflict now; keep held. Enoxaparin 40 mg daily fits weight and kidney function (eGFR overestimates in SCI).",
+  "body": "**Sources** Patient (very reliable; carries a med list), sister, outpatient pharmacy fill history.\n\n**Home medications** baclofen 10 mg TID; oxybutynin 5 mg TID; sennosides 17.2 mg daily at noon; docusate 100 mg BID; bisacodyl 10 mg suppository daily at 2000; lidocaine 2% jelly PRN; cholecalciferol 2,000 units daily; sildenafil 50 mg PRN (last dose 02/26, per patient); acetaminophen 650 mg PRN. All ordered except sildenafil (held).\n\n**Checks**\n- **Allergy**: penicillin, rash as a child, no hives or swelling. Cross-reactivity with a third-generation cephalosporin is very low; ceftriaxone appropriate.\n- **Baclofen**: do not hold or stop suddenly (withdrawal: seizures, high fever, rebound spasticity). If he cannot swallow, call for another route.\n- **Sildenafil and nitrates**: nitroglycerin PRN is ordered for AD. No sildenafil in the last 24 hours (last about 10 days ago), so nitroglycerin may be used if needed. Keep sildenafil held while in the hospital.\n- **Enoxaparin 40 mg SubQ daily**: weight 72.0 kg; creatinine 0.6, eGFR 130. Creatinine is low from low muscle mass after SCI, so the eGFR overestimates kidney function; still well above the dose-change cutoff (CrCl under 30).\n- **Oxybutynin**: anticholinergic; can add to constipation and poor sweating. Continue (home bladder regimen).\n- Ceftriaxone next dose Mon 2300.",
+  "allowTimes": [
+   "2000",
+   "2300"
+  ]
+ },
+ {
+  "id": "note_wound_ostomy_nursing_consult_s_202703081215",
+  "type": "therapyNotes",
+  "title": "Wound/Ostomy Nursing Consult - Sacrum",
+  "author": "L. Dunleavy, RN, CWOCN",
+  "datetime": "2027-03-08 12:15",
+  "category": "Wound Care",
+  "summary": "Stage 2 sacral pressure injury (present on admission), 2.0 x 1.5 x 0.1 cm, clean. No culture (no signs of infection). Silicone foam every 3 days; low-air-loss mattress, 30-degree turns, own cushion, limit sitting to 1 h. Prealbumin 14 is low but must be read with CRP 112.",
+  "body": "**Wound** Sacrum, stage 2 pressure injury, present on admission (found in the ED 03/07 2210). 2.0 x 1.5 x 0.1 cm. Pink, moist wound bed; partial thickness; no slough, eschar or tunneling. Scant serous drainage. No odor. Periwound skin intact, no redness spreading, no warmth. Right ischium and both heels intact (old right ischial scar intact).\n\n**Cause** About 12 hours sitting in his wheelchair in damp clothes on Sunday without pressure reliefs while feverish, then about 9 hours on an ED stretcher without an overlay.\n\n**Culture?** No. A clean stage 2 wound with no signs of infection should not be swabbed: a swab grows skin bacteria and leads to unneeded antibiotics.\n\n**Nutrition labs** Prealbumin 14 and albumin 3.2 are low, but both fall with inflammation (CRP 112 this morning), so they are not a pure nutrition marker. Dietitian consulted.\n\n**Plan**\n- Cleanse with 0.9% sodium chloride; silicone foam border dressing; change every 3 days (next Wed 03/10) and as needed if soiled or lifting.\n- Low-air-loss mattress. Turn every 2 h, 30-degree side-lying, never flat on the sacrum; heels floated.\n- In the chair: his own air-cell cushion only; pressure relief every 15 minutes; limit sitting to 1 hour at a time until the sacrum is healing.\n- Check the skin under the binder, stockings and catheter securement with each turn.\n- Braden 13 (moderate risk).",
+  "allowTimes": [
+   "2210"
+  ]
+ },
+ {
+  "id": "note_nutrition_note_pressure_injury_202703081310",
+  "type": "therapyNotes",
+  "title": "Nutrition Note - Pressure Injury",
+  "author": "E. Wexford, RD",
+  "datetime": "2027-03-08 13:10",
+  "category": "Nutrition",
+  "summary": "Protein goal 90-108 g/day (1.25-1.5 g/kg), fluids about 2.2 L. High-protein supplement twice a day; multivitamin. Vitamin D level pending.",
+  "body": "**Data** Weight 72.0 kg (usual 74 kg, 11/2026). Height 180 cm. BMI 72.0 / 3.24 = 22.2. Low muscle mass below T4. Albumin 3.2, prealbumin 14 (both lowered by inflammation; CRP 112). 25-hydroxy vitamin D: level pending.\n\n**Intake** Ate about 50% of meals Saturday and Sunday; breakfast today about 75%.\n\n**Needs**\n- Protein for a pressure injury: 1.25-1.5 g/kg = 1.25 x 72 = 90 to 1.5 x 72 = 108 g/day.\n- Fluid: 30 mL/kg = 30 x 72 = 2,160 mL/day (about 2.2 L), spread over the day, less after 2000 (fewer night caths).\n\n**Plan** High-protein diet; high-protein oral supplement 1 bottle twice a day (1000 and 1600); multivitamin with minerals daily. Protein at every meal. Continue vitamin D3 2,000 units daily (adjust when the level is back). Fiber and fluids for the bowel program.",
+  "allowTimes": [
+   "1600",
+   "2000"
+  ]
+ },
+ {
+  "id": "note_physical_therapy_evaluation_202703081415",
+  "type": "therapyNotes",
+  "title": "Physical Therapy Evaluation",
+  "author": "B. Marchand, PT, DPT",
+  "datetime": "2027-03-08 14:15",
+  "category": "Physical Therapy",
+  "summary": "Orthostatic drop 98/60 to 76/46 at 3 min sitting without the binder; 90/56 and tolerated with the binder, stockings and a slow raise. Independent slide-board transfers.",
+  "body": "**Orthostatic vital signs**\n- 1345 supine: 98/60, HR 70, no symptoms.\n- 1346 sitting edge of bed 1 minute (binder NOT back on since the morning episode): 82/50, HR 84, lightheaded.\n- 1348 sitting 3 minutes: **76/46**, HR 88, \"my vision is going dim,\" yawning. Reclined with legs up: 96/58 at 1351, resolved.\n- Drop: 98 - 76 = **22** systolic and 60 - 46 = **14** diastolic = orthostatic hypotension.\n- 1400 after abdominal binder snug, thigh-high stockings on, head of bed raised over 10 minutes: sitting 3 minutes **90/56**, HR 80, no symptoms (98 - 90 = 8: not orthostatic).\n\n**Function** Full arm strength. Independent slide-board transfer bed to tilt-in-space chair with set-up; sat 20 minutes. Independent pressure reliefs (forward lean).\n\n**Plan** Binder and stockings on before every sit. Raise the head of the bed in stages. Tilt-in-space chair until his own wheelchair and cushion arrive. Daily therapy."
+ },
+ {
+  "id": "note_occupational_therapy_evaluatio_202703081430",
+  "type": "therapyNotes",
+  "title": "Occupational Therapy Evaluation",
+  "author": "C. Pruneda, OTR/L",
+  "datetime": "2027-03-08 14:30",
+  "category": "Occupational Therapy",
+  "summary": "Independent self-catheterization and bowel care with set-up; pressure reliefs every 15 min; needs his own cushion; uses a long-handled mirror.",
+  "body": "**ADLs** Independent with self-catheterization (14 Fr hydrophilic) and bowel care with set-up; independent upper-body dressing; needs help with lower-body dressing and stockings (attendant at home).\n\n**Skin** Checks his skin morning and evening with a long-handled mirror. Right ischium was red after 45 minutes in a hospital wheelchair without his cushion; faded in 20 minutes. Needs his own air-cell cushion (sister bringing it). Pressure reliefs every 15-30 minutes at home; every 15 minutes here while the sacrum heals.\n\n**Plan** Set-up for self-caths once the indwelling catheter is out. Mirror at the bedside. Practice putting on the binder."
+ },
+ {
+  "id": "note_physiatry_consult_spinal_cord__202703081600",
+  "type": "progressNotes",
+  "title": "Physiatry Consult - Spinal Cord Injury",
+  "author": "J. Okerlund, DO",
+  "datetime": "2027-03-08 16:00",
+  "category": "Consult Note",
+  "summary": "Chronic T4 AIS A with AD this morning from a catheter kink. Remove the indwelling catheter tonight and resume intermittent catheterization every 4 h (under 500 mL). Lidocaine before bowel care. Vitamin D 22: continue 2,000 units, recheck in 3 months. AD card reviewed. SCI clinic in 2 weeks.",
+  "body": "**Reason** Chronic SCI with UTI and autonomic dysreflexia.\n\n**Findings** T4 AIS A (complete), neurological level T4, unchanged from his clinic exam. AD this morning from a kinked catheter, handled well (sit up, loosen, bladder first). Orthostatic hypotension at therapy without the binder. Stage 2 sacrum.\n\n**Recommendations**\n1. **Bladder**: remove the indwelling catheter tonight if he stays afebrile (the order's criteria); resume intermittent catheterization every 4 hours, volumes under 500 mL. Bladder scan if over 500 mL or with any AD sign. An indwelling catheter adds infection risk and, as today showed, can kink.\n2. **Bowel**: home program tonight at 2000; lidocaine 2% jelly before the suppository and digital stimulation; stop and follow the AD protocol if symptoms. He has had no BM for 2 days: bowel is the second most common AD trigger.\n3. **AD**: card reviewed with him (baseline 95/60). Prevention: catheter on time, tubing checks, loose clothing, skin checks, nail care.\n4. **Orthostatic hypotension**: binder and stockings before sitting; no medicine needed now.\n5. **Vitamin D 22** (insufficient): continue 2,000 units daily; recheck in 3 months.\n6. **Spasticity**: baclofen unchanged; increased spasms should settle as the infection clears.\n7. Follow-up: SCI clinic (Dr. H. Bergeron) in 2 weeks.",
+  "allowTimes": [
+   "2000"
+  ]
+ },
+ {
+  "id": "note_case_management_note_202703081630",
+  "type": "caseManagement",
+  "title": "Case Management Note",
+  "author": "R. Varnado, RN CM",
+  "datetime": "2027-03-08 16:30",
+  "category": "Case Management",
+  "summary": "Lives alone; personal care attendant 3 mornings/week; sister nearby. Home health nursing for wound checks twice weekly. Plan home Tuesday if afebrile on an oral antibiotic.",
+  "body": "**Home** Accessible ground-floor apartment, alone. Works full time from home. Personal care attendant (Andre Lusk) 3 mornings a week. Sister Claire 15 minutes away; she brought his air-cell cushion and supplies at 1600.\n\n**Equipment** Own manual wheelchair, air-cell cushion, padded commode chair, intermittent catheters, binder, stockings. Asks about a pressure-redistribution mattress overlay for home: request sent to the outpatient SCI clinic.\n\n**Plan** Home health nursing twice a week for the sacral wound and antibiotic teaching. Discharge likely Tuesday if afebrile on an oral antibiotic. He wants to return to work Wednesday from home."
+ }
+]

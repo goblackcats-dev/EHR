@@ -110,6 +110,15 @@
      "file": "casestudy/cases/hypermag/patient.json",
      "age": 74,
      "sex": "Male"
+    },
+    {
+     "id": "sci_ad",
+     "name": "Wesley Harcourt",
+     "title": "Spinal cord injury with autonomic dysreflexia: Wes Harcourt (draft)",
+     "desc": "DRAFT shell. Mon 03/08 0700 to Tue 03/09 0700 in seven 4-hour checkpoints (in class; bedside monitor MRN SIM-40603). A 34-year-old wheelchair user with a complete T4 spinal cord injury arrives on 4 West after a night in the ED with a febrile UTI and a new stage 2 sacral pressure injury. Reading blood pressure against his own low baseline, an autonomic dysreflexia episode in the morning (sit up, loosen, bladder first), orthostatic hypotension at therapy, skin and turning, the bowel program, bladder management and catheter removal, weak cough, temperature regulation, and a culture-guided antibiotic change. Vital signs after 0700 come from the monitor and the instructor.",
+     "file": "casestudy/cases/sci_ad/patient.json",
+     "age": 34,
+     "sex": "Male"
     }
    ]
   },

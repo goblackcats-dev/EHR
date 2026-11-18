@@ -1,0 +1,45 @@
+[
+ {
+  "id": "note_ed_triage_nursing_note_202703072150",
+  "type": "progressNotes",
+  "title": "ED Triage Nursing Note",
+  "author": "G. Sotelo, RN",
+  "datetime": "2027-03-07 21:50",
+  "category": "Nursing Note",
+  "summary": "34-year-old man with chronic T4 complete spinal cord injury: fever, chills, cloudy foul urine, more spasms and leaking between caths. T 101.8 F, HR 98, BP 92/56 (\"my normal is 95 over 60\").",
+  "body": "**Arrival 2130** with his sister, Claire Harcourt (31, emergency contact), who drove him in. Arrived in his own manual wheelchair.\n\n**Triage 2140**\nT 101.8 F (38.8 C), HR 98, BP 92/56, RR 18, SpO2 96% on room air. Pain 2/10 (shoulders, chronic). Alert, oriented x4. Weight 72.0 kg (bed scale). Shows his AD wallet card: \"My normal BP is 95 over 60.\"\n\n**History (patient)**\n- T4 complete spinal cord injury from a car crash 02/2025; self-catheterizes every 4-6 hours (14 Fr); bowel program every evening at 2000.\n- Saturday: urine cloudier with a strong smell, two leaks between caths, more leg spasms.\n- Sunday: chills by noon, \"just feeling off,\" tired. Sat in his wheelchair most of the day in damp clothes and skipped pressure reliefs. At 1600 a stuffy nose and headache when his bladder got full; gone after he cathed. Home temperature 101.6 F at 2000.\n- No burning or flank pain he can feel (no sensation below T4).\n- 2 UTIs in the past year, both treated with trimethoprim-sulfamethoxazole (last 10/2026).\n- Allergy: penicillin (rash as a child).\n\n**Plan**\nProvider notified at 2145. Placed on a stretcher with a pillow under the calves. Asked staff to \"please check my skin, I sat all day.\""
+ },
+ {
+  "id": "note_ed_nursing_note_overnight_boar_202703080630",
+  "type": "progressNotes",
+  "title": "ED Nursing Note - Overnight Boarding",
+  "author": "G. Sotelo, RN",
+  "datetime": "2027-03-08 06:30",
+  "category": "Nursing Note",
+  "summary": "Boarded in the ED overnight (no 4 West bed). Fever down from 101.8 to 99.8 after acetaminophen; ceftriaxone 2300; 0.9% NaCl 100 mL/h; turned every 2 h; no pressure-redistribution overlay available.",
+  "body": "**Course 2200-0630**\n- 2200: left forearm 20 g PIV; labs and blood cultures (2205 left arm, 2210 right arm). 16 Fr indwelling catheter placed with lidocaine jelly: 450 mL cloudy, foul-smelling urine; urinalysis and culture sent from the new catheter.\n- 2200-2300: 0.9% sodium chloride 1,000 mL bolus.\n- 2210: skin check: NEW stage 2 pressure injury on the sacrum, 2.0 x 1.5 x 0.1 cm, pink wound bed, scant clear drainage. Foam dressing applied. A pressure-redistribution overlay was ordered for the stretcher; none available. Stayed on a standard stretcher.\n- 2230: acetaminophen 1,000 mg PO. 2300: ceftriaxone 1 g IV (after cultures); 0.9% sodium chloride 100 mL/h started.\n- Vital signs: 2300 T 101.2, HR 92, BP 98/60; 0100 T 100.4, HR 84, BP 96/58; 0400 T 99.8, HR 74, BP 94/58, SpO2 97% RA.\n- 0430: acetaminophen 650 mg PO (temperature 100.0).\n- Turned every 2 hours: 0200 left, 0400 right, 0600 left. Heels on a pillow.\n- 0500: AM labs drawn.\n\n**Now**\nAlert, oriented. Catheter draining cloudy amber urine. Tired; frustrated about the stretcher: \"I need my cushion.\""
+ },
+ {
+  "id": "note_ed_to_4_west_handoff_sbar_202703080640",
+  "type": "progressNotes",
+  "title": "ED to 4 West Handoff (SBAR)",
+  "author": "G. Sotelo, RN",
+  "datetime": "2027-03-08 06:40",
+  "category": "Nursing Note",
+  "summary": "SBAR to 4 West: febrile complicated UTI, chronic T4 SCI, new stage 2 sacrum; on ceftriaxone, NS 100 mL/h; catheter draining. \"His BP runs in the 90s, that is normal for him.\"",
+  "body": "**S** Wesley (Wes) Harcourt, 34, coming to 4W-14: complicated UTI (febrile) with a neurogenic bladder, chronic T4 complete spinal cord injury; new stage 2 sacral pressure injury found in the ED. Full Code. Penicillin allergy (childhood rash).\n\n**B** Injury 02/2025, wheelchair user, lives alone, self-caths every 4-6 h, bowel program at 2000 nightly (missed Sunday). 3 episodes of autonomic dysreflexia at home; carries an AD card.\n\n**A** Last set 0400: T 99.8, HR 74, BP 94/58, RR 16, SpO2 97%. His BP runs in the 90s; that is normal for him. Left forearm 20 g with 0.9% sodium chloride 100 mL/h. 16 Fr indwelling catheter, cloudy amber urine; bag emptied 0645. Ceftriaxone 1 g given 2300. Acetaminophen 0430. Sacrum: foam dressing. Lay on an ED stretcher about 9 hours.\n\n**R** Low-air-loss mattress on 4 West. Turn every 2 h. Home meds per admission orders (baclofen: do not miss). Check his skin and the catheter tubing with every turn. Med rec by pharmacy this morning."
+ },
+ {
+  "id": "note_charge_nurse_event_note_autono_202703080950",
+  "type": "progressNotes",
+  "title": "Charge Nurse Event Note - Autonomic Dysreflexia",
+  "author": "K. Thibodeaux, RN",
+  "datetime": "2027-03-08 09:50",
+  "category": "Nursing Note",
+  "summary": "Autonomic dysreflexia 0912-0950 from kinked catheter tubing under the left thigh. BP peak 204/112, HR 46. Sat up, legs down, binder and stockings loosened, kink straightened: 600 mL drained. No antihypertensive needed. Provider notified 0918. BP every 15 min to 1150.",
+  "body": "**Called to 4W-14 at 0916** by the day RN.\n\n**Timeline**\n- 0905: goose bumps on his arms and a stuffy nose (he thought it was the room).\n- 0912: sudden pounding headache 8/10 at the back of the head, blurred vision; he called.\n- 0915: BP 164/94, HR 62. Face, neck and upper chest flushed and sweaty; skin below the nipple line pale and cool with goose bumps. Anxious. He said: \"This is dysreflexia. Check my bladder.\" Drainage bag had 0 mL since it was emptied at 0730.\n- 0916: head of bed raised to 90 degrees and legs lowered (chair position). Charge RN at the bedside; second RN called Dr. Kincaid at 0918.\n- 0917: BP 182/102, HR 54. Abdominal binder, both thigh-high compression stockings and the gown ties loosened.\n- 0919: BP 196/108, HR 48. Catheter traced from the meatus to the bag.\n- 0920: BP 204/112, HR 46. **Tubing kinked under the left thigh** (he was boosted up in bed for his breakfast tray at 0730). Kink straightened: cloudy amber urine flowed fast.\n- 0921: Dr. Kincaid by phone: continue the protocol; 12-lead ECG; nitroglycerin ointment only if SBP stays 150 or more after the bladder is empty; call back in 15 minutes.\n- 0923: BP 172/98, HR 50. 12-lead ECG done. About 400 mL drained.\n- 0925: BP 156/90, HR 56. Headache 6/10. Drainage finished 0926: **600 mL** total. Not clamped.\n- 0927: BP 144/86, HR 58: SBP under 150 and falling with the cause removed, so **nitroglycerin not given**. Sildenafil: last dose about 10 days ago.\n- 0930: BP 132/80, HR 62. Headache 4/10; flushing fading. Bladder scan 30 mL. Catheter secured to the left thigh with a securement device; bag below the bladder, off the floor; tubing straight.\n- 0935 120/74 HR 64; 0940 114/70 HR 66; 0945 110/68 HR 66 (headache 2/10; neuro check normal: arms strong, speech clear, pupils equal).\n- 0950: BP 108/66, HR 66. Symptoms gone. **Resolved.**\n\n**Plan**\nBP and HR every 15 minutes for 2 hours (to 1150), then per order. Abdominal binder and stockings stay off for now; put them back on before he sits up. Check the tubing with every turn and every 2 hours. Dr. Kincaid coming to the bedside.\n\n**Patient**\nTired and embarrassed: \"I should have felt it coming sooner.\" Reassured; he recognized it and told us exactly what to check.",
+  "allowTimes": [
+   "1150"
+  ]
+ }
+]
